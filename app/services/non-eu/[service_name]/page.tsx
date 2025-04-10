@@ -93,7 +93,7 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
 
   if (frontmatter.recommendedAlternative && recommendedAlternativeData) {
     // Get all guides from guide directories
-    const contentRoot = path.join(process.cwd(), '../content');
+    const contentRoot = path.join(process.cwd(), '/content');
     const guidesDir = path.join(contentRoot, 'guides');
 
     if (fs.existsSync(guidesDir)) {

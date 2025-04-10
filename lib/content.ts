@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { z } from 'zod';
 
 // Base content directory
-const contentRoot = path.join(process.cwd(), '../content');
+const contentRoot = path.join(process.cwd(), '/content');
 
 // Define schemas for validation
 const GuideFrontmatterSchema = z.object({
