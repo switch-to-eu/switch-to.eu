@@ -41,7 +41,7 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href="https://github.com/VincentPeters/switch-to.eu"
+            href="https://github.com/switch-to.eu/switch-to.eu"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
