@@ -1,0 +1,9 @@
+# Switch-to.eu robots.txt
+User-agent: *
+Allow: /
+
+# Disallow API routes
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://switch-to.eu/sitemap.xml

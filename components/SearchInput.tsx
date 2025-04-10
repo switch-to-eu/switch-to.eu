@@ -1,0 +1,284 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { Search } from 'lucide-react';
+import {
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandList,
+} from '@/components/ui/command';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { SearchResult, ServiceSearchResult } from '@/lib/search';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { RegionBadge } from "@/components/ui/region-badge";
+
+interface SearchInputProps {
+  className?: string;
+  buttonVariant?: 'default' | 'outline' | 'ghost';
+  showDebug?: boolean;
+  filterRegion?: 'eu' | 'non-eu';
+  size?: 'default' | 'lg';
+  autoOpen?: boolean;
+  showOnlyServices?: boolean;
+}
+
+export function SearchInput({
+  className,
+  buttonVariant = 'ghost',
+  showDebug = false,
+  filterRegion,
+  size = 'default',
+  autoOpen = false,
+  showOnlyServices = false
+}: SearchInputProps) {
+  const router = useRouter();
+  const [open, setOpen] = useState(autoOpen);
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Function to fetch search results from API
+  const fetchResults = async (searchQuery: string) => {
+    if (!searchQuery.trim()) {
+      setResults([]);
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Add region filter to the API call if provided
+      let url = `/api/search?q=${encodeURIComponent(searchQuery)}`;
+      if (filterRegion) {
+        url += `&region=${filterRegion}`;
+      }
+      if (showOnlyServices) {
+        url += `&types=service`;
+      }
+
+      const response = await fetch(url);
+      const data = await response.json();
+      setResults(data.results || []);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      setResults([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Handle search input change with proper debouncing
+  const handleSearchChange = (value: string) => {
+    setQuery(value);
+
+    // Clear any existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Set a new timer
+    debounceTimerRef.current = setTimeout(() => {
+      fetchResults(value);
+    }, 500);
+  };
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Handle keyboard shortcut to open search dialog
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+      e.preventDefault();
+      setOpen((open) => !open);
+    }
+  };
+
+  // Setup event listeners for keyboard shortcuts
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Handle selecting a search result
+  const handleSelect = (result: SearchResult) => {
+    setOpen(false);
+    router.push(result.url);
+  };
+
+  // Navigate to search page for full results
+  const handleViewAllResults = () => {
+    setOpen(false);
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+  };
+
+  // Filtered results by type
+  const serviceResults = results.filter(result => result.type === 'service');
+  const guideResults = !filterRegion ? results.filter(result => result.type === 'guide') : [];
+  const categoryResults = !filterRegion ? results.filter(result => result.type === 'category') : [];
+
+  // Debug information (only in development and when explicitly enabled)
+  const debugStateInfo = `Dialog: ${open ? 'open' : 'closed'}, Query: "${query}", Loading: ${isLoading}, Results: ${results.length}`;
+
+  return (
+    <>
+      <Button
+        variant={buttonVariant}
+        size={size === 'lg' ? 'lg' : 'sm'}
+        className={className}
+        onClick={() => setOpen(true)}
+      >
+        <Search className={`${size === 'lg' ? 'h-5 w-5' : 'h-4 w-4'} mr-2`} />
+      </Button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="p-0 overflow-hidden max-w-[calc(100%-2rem)] sm:max-w-lg">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Search</DialogTitle>
+          </DialogHeader>
+          <Command className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-input-wrapper]]:h-12 [&_[cmdk-input]]:h-12">
+            <CommandInput
+              placeholder={filterRegion === 'non-eu' ?
+                "Search for non-EU services you want to replace..." :
+                "Search guides, services, categories..."}
+              value={query}
+              onValueChange={handleSearchChange}
+              autoFocus
+            />
+            <CommandList className="max-h-[350px] overflow-y-auto">
+              {/* Debug information - only in development and when explicitly enabled */}
+              {process.env.NODE_ENV === 'development' && showDebug && (
+                <div className="px-2 py-1 text-xs text-gray-500 border-b">
+                  {debugStateInfo}
+                </div>
+              )}
+
+              {isLoading && (
+                <div className="p-4 text-center">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4 mx-auto" />
+                  </div>
+                </div>
+              )}
+
+              {!isLoading && query.length > 0 && results.length === 0 && (
+                <CommandEmpty>No results found.</CommandEmpty>
+              )}
+
+              {!isLoading && results.length > 0 && (
+                <div className="py-2">
+                  {/* Services */}
+                  {serviceResults.length > 0 && (
+                    <div className="mb-2">
+                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                        {filterRegion === 'non-eu' ? 'Non-EU Services' : 'Services'}
+                      </div>
+                      {serviceResults.slice(0, filterRegion ? 6 : 3).map(result => (
+                        <SearchResultItem
+                          key={result.id}
+                          result={result}
+                          onSelect={handleSelect}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Guides - only show if not filtering by region */}
+                  {guideResults.length > 0 && (
+                    <div className="mb-2">
+                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                        Guides
+                      </div>
+                      {guideResults.slice(0, 3).map(result => (
+                        <SearchResultItem
+                          key={result.id}
+                          result={result}
+                          onSelect={handleSelect}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Categories - only show if not filtering by region */}
+                  {categoryResults.length > 0 && (
+                    <div className="mb-2">
+                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                        Categories
+                      </div>
+                      {categoryResults.slice(0, 2).map(result => (
+                        <SearchResultItem
+                          key={result.id}
+                          result={result}
+                          onSelect={handleSelect}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* View all results - only show for non-filtered search */}
+                  {!filterRegion && results.length > 8 && (
+                    <div
+                      className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      onClick={handleViewAllResults}
+                    >
+                      <span className="text-blue-500 font-medium">View all results</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </CommandList>
+          </Command>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+// Extract the search result item into a component for better readability
+function SearchResultItem({
+  result,
+  onSelect
+}: {
+  result: SearchResult;
+  onSelect: (result: SearchResult) => void
+}) {
+  return (
+    <div
+      className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm outline-hidden select-none hover:bg-accent hover:text-accent-foreground"
+      onClick={() => onSelect(result)}
+    >
+      <div className="flex flex-col flex-grow">
+        <div className="flex justify-between items-center">
+          <span className="font-medium">{result.title}</span>
+          {result.type === 'service' && (
+            <RegionBadge
+              region={(result as ServiceSearchResult).region}
+              showTooltip={true}
+              className="text-xs py-0 h-5"
+            />
+          )}
+        </div>
+        <span className="text-sm text-muted-foreground">
+          {result.description.substring(0, 60)}
+          {result.description.length > 60 ? '...' : ''}
+        </span>
+      </div>
+    </div>
+  );
+}
