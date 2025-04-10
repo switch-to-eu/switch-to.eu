@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Switch-to.eu
 
-## Getting Started
+A community-driven platform helping users switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.
 
-First, run the development server:
+🌍 **Live Site**: [switch-to.eu](https://switch-to.eu)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 About the Project
+
+Switch-to.eu empowers users to regain digital sovereignty by providing:
+
+- **Migration Guides**: Step-by-step instructions to switch from non-EU services to EU alternatives
+- **EU Alternative Listings**: Comprehensive database of EU digital services by category
+- **Community Contributions**: GitHub-based collaboration for content improvement and expansion
+
+## 📚 Project Structure
+
+```
+/
+├── AI/             # Planning documents and AI guidance
+├── content/        # Content in MDX format
+│   ├── alternatives/   # EU service alternatives listings
+│   ├── categories/     # Category definitions and metadata
+│   ├── guides/         # Migration guide content
+│   ├── services/       # Service definitions and metadata
+│   └── templates/      # Templates for new content creation
+└── webapp/         # Next.js application
+    ├── app/            # Next.js App Router directory
+    ├── components/     # Reusable UI components
+    ├── lib/            # Utility functions and content handling
+    ├── public/         # Static assets
+    └── types/          # TypeScript type definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 15.2.3 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4 with typography plugin
+- **Content**: MDX with next-mdx-remote and gray-matter
+- **Components**: Custom components with Radix UI primitives
+- **Deployment**: Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🤝 How to Contribute
 
-## Learn More
+We welcome contributions from the community! Here's how you can help:
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Development Contributions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Bug Fixes**: Help us fix issues and improve the platform
+2. **Feature Enhancements**: Implement planned features or suggest new ones
+3. **UI Improvements**: Enhance the user interface and experience
 
-## Deploy on Vercel
+### Getting Started
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository
+2. Clone your fork and create a new branch
+3. Make your changes
+4. Submit a pull request with a clear description of your changes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See our [Contribution Guidelines](./CONTRIBUTING.md) for more details.
+
+## 🚀 Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/switch-to-eu/switch-to.eu.git
+cd switch-to.eu
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## 🙏 Acknowledgements
+
+- All contributors who have helped build this platform
+- The EU digital services that provide alternatives to non-EU services
+- The open-source community for the tools and libraries used in this project
