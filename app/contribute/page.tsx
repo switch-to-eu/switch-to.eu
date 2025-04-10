@@ -89,8 +89,8 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="/guides" className="text-blue-600 hover:underline">
-                  Find Guides to Test →
+                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue-600 hover:underline">
+                  Give guide feedback →
                 </Link>
               </CardFooter>
             </Card>
@@ -115,7 +115,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="/contribute/service" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue-600 hover:underline">
                   Add a Service →
                 </Link>
               </CardFooter>
@@ -141,7 +141,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/VincentPeters/switch-to.eu" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/switch-to.eu/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                   View GitHub Repository →
                 </Link>
               </CardFooter>
@@ -167,7 +167,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/VincentPeters/switch-to.eu/issues" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                   Submit Feedback →
                 </Link>
               </CardFooter>
@@ -184,9 +184,6 @@ export default function ContributePage() {
             <p className="text-[#334155] text-base sm:text-lg max-w-[800px] mx-auto mb-6">
               Every contribution, big or small, strengthens digital independence in Europe. By helping others make informed choices about their digital services, you&apos;re supporting privacy, data protection, and the European digital economy.
             </p>
-            <Button variant="red" asChild className="mx-auto">
-              <Link href="/contribute/guide">Get Started</Link>
-            </Button>
           </div>
         </Container>
       </section>

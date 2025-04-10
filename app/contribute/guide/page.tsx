@@ -5,8 +5,8 @@ import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: 'Contributing to Switch-to.EU | GitHub Guide',
-  description: 'Learn how to contribute to Switch-to.EU through GitHub by creating migration guides, adding service alternatives, and improving the platform.',
+  title: 'Contributing to Switch-to.EU | Content Guide',
+  description: 'Learn how to contribute content to Switch-to.EU through GitHub by creating migration guides, adding service alternatives, and improving the platform.',
   keywords: ['github contribution', 'open source', 'EU alternatives', 'migration guides', 'pull request', 'fork repository'],
 };
 
@@ -17,9 +17,9 @@ export default function ContributeGuidePage() {
         <Container>
           <div className="flex flex-col md:flex-row items-start gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-[#1a3c5a]">Contributing to Switch-to.EU through GitHub</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-[#1a3c5a]">Contributing to Switch-to.EU Content</h1>
               <p className="text-base sm:text-lg text-[#334155] mb-6">
-                This guide will walk you through the process of contributing to Switch-to.EU using our GitHub repository.
+                A community-driven platform helping users switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.
               </p>
             </div>
             <div className="w-full max-w-[250px] h-[150px] relative flex-shrink-0">
@@ -38,98 +38,108 @@ export default function ContributeGuidePage() {
       <section>
         <Container>
           <div className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
-            <h2 className="text-2xl font-bold text-[#1a3c5a]">Prerequisites</h2>
-            <ul className="space-y-1 text-[#334155]">
-              <li>A GitHub account</li>
-              <li>Basic familiarity with Git (or willingness to learn)</li>
-              <li>Knowledge about the topic you want to contribute to</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Contribution Workflow</h2>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">1. Find an Issue or Identify a Contribution</h3>
-            <ul className="space-y-1 text-[#334155]">
-              <li>Browse our <Link href="https://github.com/switch-to-eu/issues" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Issues</Link> section to find tasks that need help</li>
-              <li>Or identify something you&apos;d like to improve that isn&apos;t listed</li>
-            </ul>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">2. Fork the Repository</h3>
-            <ul className="space-y-1 text-[#334155]">
-              <li>Navigate to the <Link href="https://github.com/switch-to-eu" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Switch-to.EU repository</Link></li>
-              <li>Click the &quot;Fork&quot; button in the top-right corner</li>
-              <li>This creates your personal copy of the repository</li>
-            </ul>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">3. Clone Your Fork Locally</h3>
-            <div className="bg-slate-800 rounded-md p-4 overflow-x-auto my-4">
-              <pre className="text-sm text-white whitespace-pre"><code>git clone https://github.com/YOUR-USERNAME/switch-to-eu.git
-                cd switch-to-eu</code></pre>
-            </div>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">4. Create a Branch</h3>
-            <div className="bg-slate-800 rounded-md p-4 overflow-x-auto my-4">
-              <pre className="text-sm text-white whitespace-pre"><code>git checkout -b your-branch-name</code></pre>
-            </div>
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Repository Overview</h2>
             <p className="text-[#334155]">
-              Name your branch something descriptive related to your contribution (e.g., <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">add-nextcloud-guide</code>, <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">fix-mastodon-screenshots</code>).
+              The switch-to-eu/content repository contains all the written content for our platform, organized as Markdown files. This includes migration guides, service descriptions, and other documentation.
             </p>
 
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">5. Make Your Changes</h3>
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">What You Can Contribute</h2>
             <ul className="space-y-1 text-[#334155]">
-              <li>For guides: Add or edit files in the <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/guides</code> directory</li>
-              <li>For alternatives: Update the appropriate files in the <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/alternatives</code> directory</li>
-              <li>Follow our <Link href="https://github.com/switch-to-eu/content-guidelines" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">content guidelines</Link></li>
+              <li>Migration guides for switching from non-EU to EU services</li>
+              <li>Documentation about EU service alternatives</li>
+              <li>Updates or corrections to existing content</li>
+              <li>Translations of existing content into other European languages</li>
             </ul>
 
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">6. Commit Your Changes</h3>
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Contribution Process</h2>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">1. Fork the Content Repository</h3>
+            <ul className="space-y-1 text-[#334155]">
+              <li>Go to <Link href="https://github.com/switch-to-eu/content" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://github.com/switch-to-eu/content</Link></li>
+              <li>Click the &quot;Fork&quot; button in the top right corner</li>
+              <li>This creates your personal copy of the content repository</li>
+            </ul>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">2. Clone Your Fork (Optional)</h3>
+            <p className="text-[#334155]">If you prefer to work locally:</p>
             <div className="bg-slate-800 rounded-md p-4 overflow-x-auto my-4">
-              <pre className="text-sm text-white whitespace-pre"><code>git add .
-                git commit -m &quot;Brief description of your changes&quot;</code></pre>
+              <pre className="text-sm text-white whitespace-pre"><code>git clone https://github.com/switch-to-eu/content.git
+                cd content</code></pre>
             </div>
 
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">7. Push to Your Fork</h3>
-            <div className="bg-slate-800 rounded-md p-4 overflow-x-auto my-4">
-              <pre className="text-sm text-white whitespace-pre"><code>git push origin your-branch-name</code></pre>
-            </div>
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">3. Create or Edit Content</h3>
+            <p className="text-[#334155]"><strong>Option A: Edit Directly on GitHub</strong></p>
+            <ul className="space-y-1 text-[#334155]">
+              <li>Navigate to the file you want to edit in your fork</li>
+              <li>Click the pencil icon to edit</li>
+              <li>Make your changes in the editor</li>
+            </ul>
 
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">8. Create a Pull Request</h3>
+            <p className="text-[#334155] mt-4"><strong>Option B: Edit Locally</strong></p>
+            <ul className="space-y-1 text-[#334155]">
+              <li>Create a branch: <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">git checkout -b your-branch-name</code></li>
+              <li>Create or edit files using your preferred text editor</li>
+              <li>Commit and push your changes</li>
+            </ul>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">4. Follow Content Structure</h3>
+            <p className="text-[#334155]">Our content is organized as follows:</p>
+            <ul className="space-y-1 text-[#334155]">
+              <li><code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/guides/</code> - Migration guides organized by service category</li>
+              <li><code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/alternatives/</code> - Information about EU service alternatives</li>
+              <li><code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/templates/</code> - Templates for creating new content</li>
+            </ul>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">5. Submit a Pull Request</h3>
             <ul className="space-y-1 text-[#334155]">
               <li>Navigate to your fork on GitHub</li>
-              <li>Click &quot;Compare & pull request&quot; button for your branch</li>
+              <li>Click &quot;Contribute&quot; then &quot;Open pull request&quot;</li>
               <li>Provide a clear title and description of your changes</li>
               <li>Submit the pull request</li>
             </ul>
 
-            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">After Submitting</h2>
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Content Guidelines</h2>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">Formatting</h3>
             <ul className="space-y-1 text-[#334155]">
-              <li>A project maintainer will review your contribution</li>
+              <li>All content should be written in Markdown</li>
+              <li>Use headers (# ## ###) to organize content</li>
+              <li>Include a title and brief introduction at the top of each guide</li>
+              <li>Use screenshots where helpful (place in <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/images/</code> directory)</li>
+            </ul>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">Writing Style</h3>
+            <ul className="space-y-1 text-[#334155]">
+              <li>Use clear, straightforward language</li>
+              <li>Aim for step-by-step instructions where applicable</li>
+              <li>Be factual and neutral when comparing services</li>
+              <li>Focus on practical migration information</li>
+              <li>Use inclusive language</li>
+            </ul>
+
+            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">Migration Guides Structure</h3>
+            <p className="text-[#334155]">Each migration guide should include:</p>
+            <ul className="space-y-1 text-[#334155]">
+              <li>An overview of the migration process</li>
+              <li>Prerequisites (accounts, tools needed)</li>
+              <li>Step-by-step migration instructions</li>
+              <li>Verification steps to ensure successful migration</li>
+              <li>Troubleshooting common issues (if applicable)</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Review Process</h2>
+            <p className="text-[#334155]">After submitting your pull request:</p>
+            <ul className="space-y-1 text-[#334155]">
+              <li>A maintainer will review your contribution</li>
               <li>You may receive feedback requesting changes</li>
-              <li>Once approved, your contribution will be merged into the main project</li>
+              <li>Once approved, your content will be merged and published to the website</li>
             </ul>
 
-            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Communication Channels</h2>
+            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Questions and Support</h2>
             <ul className="space-y-1 text-[#334155]">
-              <li>Comment on the relevant issue for context</li>
-              <li>Join our <Link href="https://chat.switch-to.eu" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">community chat</Link> for real-time discussions</li>
-              <li>Ask questions in the pull request if you need clarification</li>
+              <li>Comment on related issues for context</li>
+              <li>Ask questions in your pull request if you need clarification</li>
             </ul>
-
-            <h2 className="text-2xl font-bold mt-8 text-[#1a3c5a]">Contribution Types</h2>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">For Guide Writers</h3>
-            <p className="text-[#334155]">
-              Our Markdown template for guides is available in <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/templates/guide-template.md</code>. Please use this to ensure consistency.
-            </p>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">For Developers</h3>
-            <p className="text-[#334155]">
-              Check the <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/docs/development.md</code> file for setup instructions and coding standards.
-            </p>
-
-            <h3 className="text-xl font-bold mt-6 text-[#1a3c5a]">For Researchers</h3>
-            <p className="text-[#334155]">
-              See <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">/docs/research-guidelines.md</code> for information on documenting EU service alternatives.
-            </p>
           </div>
         </Container>
       </section>
@@ -139,10 +149,10 @@ export default function ContributeGuidePage() {
           <div className="bg-[#e8fff5] p-6 sm:p-10 rounded-xl text-center mt-8">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-[#1a3c5a]">Make a Difference Today</h2>
             <p className="text-[#334155] text-base sm:text-lg max-w-[800px] mx-auto mb-6">
-              Thank you for helping Europeans take control of their digital lives! Your contribution makes a significant difference to our community.
+              Thank you for helping Europeans take control of their digital lives through quality content contributions!
             </p>
             <Button variant="red" asChild className="mx-auto">
-              <Link href="https://github.com/VincentPeters/switch-to.eu" target="_blank" rel="noopener noreferrer">Visit GitHub Repository</Link>
+              <Link href="https://github.com/switch-to-eu/content" target="_blank" rel="noopener noreferrer">Visit Content Repository</Link>
             </Button>
           </div>
         </Container>
