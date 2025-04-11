@@ -46,7 +46,7 @@ export function ServiceCard({ service, showCategory = true }: ServiceCardProps) 
       <div className="p-6 pt-4 mt-auto">
         <Link
           href={`/services/${service.region || "eu"}/${serviceSlug}`}
-          className="text-blue-600 font-medium hover:underline"
+          className=" font-medium hover:underline"
         >
           View Details
         </Link>

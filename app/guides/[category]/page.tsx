@@ -71,7 +71,7 @@ export default async function GuideCategoryPage(props: GuideCategoryPageProps) {
 
               <Link
                 href={`/guides/${category}/${guide.slug}`}
-                className="text-blue-600 hover:underline inline-block mt-2"
+                className=" hover:underline inline-block mt-2"
               >
                 View Migration Guide →
               </Link>
@@ -85,7 +85,7 @@ export default async function GuideCategoryPage(props: GuideCategoryPageProps) {
         <p className="mb-4">
           Check out our comprehensive list of EU-based {category} alternatives with feature comparisons.
         </p>
-        <Link href={`/services/${category}`} className="text-blue-600 hover:underline">
+        <Link href={`/services/${category}`} className=" hover:underline">
           View {capitalizedCategory} Alternatives →
         </Link>
       </div>

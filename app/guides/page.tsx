@@ -81,7 +81,7 @@ export default async function GuidesPage() {
                 <CardFooter>
                   <Link
                     href={`/guides/${guide.category}/${guide.slug}`}
-                    className="text-blue-600 hover:underline"
+                    className=" hover:underline"
                   >
                     View Migration Guide →
                   </Link>
@@ -100,7 +100,7 @@ export default async function GuidesPage() {
               <h2 className="font-bold text-2xl md:text-3xl capitalize">{group.category} Guides</h2>
               <Link
                 href={`/guides/${group.category}`}
-                className="text-blue-600 hover:underline"
+                className=" hover:underline"
               >
                 View All {group.category} Guides →
               </Link>
@@ -128,7 +128,7 @@ export default async function GuidesPage() {
                   <CardFooter>
                     <Link
                       href={`/guides/${guide.category}/${guide.slug}`}
-                      className="text-blue-600 hover:underline"
+                      className=" hover:underline"
                     >
                       View Migration Guide →
                     </Link>
@@ -150,7 +150,7 @@ export default async function GuidesPage() {
               consider contributing to the project or reach out to suggest new guides.
             </p>
             <div className="mt-6">
-              <Link href="/contribute" className="text-blue-600 hover:underline">
+              <Link href="/contribute" className=" hover:underline">
                 Contribute a Guide →
               </Link>
             </div>

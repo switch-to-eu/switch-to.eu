@@ -119,7 +119,7 @@ export default async function GuideServicePage(props: GuideServicePageProps) {
               prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-4
               prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg
               prose-p:mb-4 prose-p:leading-relaxed
-              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+              prose-a: prose-a:no-underline hover:prose-a:underline
               prose-ul:list-disc prose-ul:pl-5 prose-ul:my-4
               prose-ol:list-decimal prose-ol:pl-5 prose-ol:my-4
               prose-li:mb-2 prose-li:pl-1
@@ -138,7 +138,7 @@ export default async function GuideServicePage(props: GuideServicePageProps) {
             This guide is maintained by the community. If you found an error or have suggestions for improvement,
             please consider contributing.
           </p>
-          <a href="https://github.com/yourusername/switch-to.eu" className="text-blue-600 hover:underline">
+          <a href="https://github.com/yourusername/switch-to.eu" className=" hover:underline">
             Edit this guide on GitHub →
           </a>
         </div>

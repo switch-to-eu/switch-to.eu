@@ -80,7 +80,7 @@
   --feature-pink-bg: #ffeae5;
   --feature-green-bg: #e8f7ed;
   --feature-icon-color: #1b456b;
-  --cta-button: #ff9d8a;
+  --cta-button: #feb5a7;
   --cta-button-hover: #ff8a74;
 
   /* Pop colors for category cards */
@@ -172,6 +172,8 @@
     font-weight: 800;
   }
 
+
+
   /* Override font-bold class specifically for headings */
   h1, h2, h3, h4, h5, h6 {
     &.font-bold {
@@ -189,6 +191,10 @@
   h6.font-bold {
     font-family: var(--font-bricolage-grotesque);
     font-weight: 800;
+  }
+
+  .text-blue {
+    color: var(--blue);
   }
 
   p {
@@ -261,7 +267,8 @@
 }
 
 .mdx-content a {
-  @apply text-blue-600 hover:underline;
+  @apply hover:underline;
+  color: var(--blue);
 }
 
 .mdx-content blockquote {

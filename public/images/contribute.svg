@@ -8,15 +8,15 @@
       }
 
       .st1 {
-        fill:rgb(239, 228, 105);
+        fill: #fbe09a;
       }
 
       .st2 {
-       fill:rgb(239, 228, 105);
+       fill: #fbe09a;
       }
 
       .st3 {
-        fill:rgb(239, 228, 105);
+       fill: #fbe09a;
       }
     </style>
   </defs>

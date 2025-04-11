@@ -6,6 +6,7 @@ import { marked } from 'marked';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
 import { ContributeCta } from '@/components/ContributeCta';
+import { Button } from '@/components/ui/button';
 
 import Image from "next/image";
 
@@ -130,19 +131,16 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
                 <span>{frontmatter.startingPrice}</span>
               </div>
             </div>
-            <a
-              href={frontmatter.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Visit Website
-            </a>
+            <Button variant="default" asChild>
+              <Link href={frontmatter.url} target="_blank">Visit website</Link>
+            </Button>
+
+
           </div>
 
           {/* Markdown Content */}
           {htmlContent && (
-            <div className="prose prose-sm sm:prose dark:prose-invert max-w-none mb-12">
+            <div className="mdx-content prose prose-sm sm:prose dark:prose-invert max-w-none mb-12">
               <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
             </div>
           )}
@@ -171,38 +169,62 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
 
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          {/* Migration Guides - Moved from main content to sidebar */}
-          {relatedGuides.length > 0 && (
-            <div className="sticky top-24 border rounded-lg p-6 bg-[var(--pop-3)] dark:bg-gray-800">
-
-              <div className="relative h-40 mb-6">
-                <Image
-                  src="/images/migrate.svg"
-                  alt="Migration guides illustration"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <h2 className="text-xl text-center font-bold mb-4">Migration Guides</h2>
-              <p className="text-muted-foreground mb-4">Here are some guides to help you migrate to <b>{frontmatter.name}</b></p>
-              <div className="space-y-4">
-                {relatedGuides.map((guide) => (
-                  <Link
-                    key={`${guide.category}-${guide.slug}`}
-                    href={`/guides/${guide.category}/${guide.slug}`}
-                    className="block  rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <h3 className="font-medium mb-1">
-                      {guide.frontmatter.sourceService &&
-                        `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                      {!guide.frontmatter.sourceService && guide.frontmatter.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">{guide.frontmatter.description}</p>
-                  </Link>
-                ))}
-              </div>
+          {/* Migration Guides - Always show the sidebar, with CTA if no guides */}
+          <div className="sticky top-24 border rounded-lg p-6 bg-[var(--pop-3)] dark:bg-gray-800">
+            <div className="relative h-40 mb-6">
+              <Image
+                src="/images/migrate.svg"
+                alt="Migration guides illustration"
+                fill
+                className="object-contain"
+              />
             </div>
-          )}
+            <h2 className="text-xl text-center font-bold mb-4">Migration Guides</h2>
+
+            {relatedGuides.length > 0 ? (
+              <>
+                <p className="text-muted-foreground mb-4">Here are some guides to help you migrate to <b>{frontmatter.name}</b></p>
+                <div className="space-y-4">
+                  {relatedGuides.map((guide) => (
+                    <Link
+                      key={`${guide.category}-${guide.slug}`}
+                      href={`/guides/${guide.category}/${guide.slug}`}
+                      className="block mb-4 mt-4 rounded-md transition-colors"
+                    >
+                      <h3 className="text-lg mb-1">
+                        {guide.frontmatter.sourceService &&
+                          `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
+                        {!guide.frontmatter.sourceService && guide.frontmatter.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground">{guide.frontmatter.description}</p>
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-muted-foreground mb-4 text-center">Know another service to migrate from? Help write a guide!</p>
+                  <div className="flex justify-center">
+                    <Button variant="red" size="sm" asChild>
+                      <Link href="/contribute">
+                        Write Another Guide
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-muted-foreground mb-4">No migration guides exist yet for <b>{frontmatter.name}</b>.</p>
+                <p className="text-muted-foreground mb-6">Help others switch by creating the first guide!</p>
+                <div className="flex justify-center">
+                  <Button variant="red" asChild>
+                    <Link href="/contribute">
+                      Write a Migration Guide
+                    </Link>
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </main>
