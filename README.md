@@ -16,19 +16,22 @@ Switch-to.eu empowers users to regain digital sovereignty by providing:
 
 ```
 /
-├── AI/             # Planning documents and AI guidance
-├── content/        # Content in MDX format
-│   ├── alternatives/   # EU service alternatives listings
+├── app/            # Next.js App Router directory
+│   ├── about/          # About page
+│   ├── api/            # API endpoints
+│   ├── contribute/     # Contribution pages
+│   ├── guides/         # Guide pages
+│   ├── search/         # Search functionality
+│   └── services/       # Service pages
+├── components/     # Reusable UI components
+├── content/        # Content in MDX format -> sub git module
 │   ├── categories/     # Category definitions and metadata
 │   ├── guides/         # Migration guide content
 │   ├── services/       # Service definitions and metadata
 │   └── templates/      # Templates for new content creation
-└── webapp/         # Next.js application
-    ├── app/            # Next.js App Router directory
-    ├── components/     # Reusable UI components
-    ├── lib/            # Utility functions and content handling
-    ├── public/         # Static assets
-    └── types/          # TypeScript type definitions
+├── lib/            # Utility functions and content handling
+├── public/         # Static assets
+└── types/          # TypeScript type definitions
 ```
 
 ## 🛠️ Tech Stack
