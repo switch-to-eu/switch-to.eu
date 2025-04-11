@@ -62,7 +62,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="/contribute/guide" className="text-blue-600 hover:underline">
+                <Link href="/contribute/guide" className="text-blue hover:underline">
                   Create a Guide →
                 </Link>
               </CardFooter>
@@ -88,7 +88,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue hover:underline">
                   Give guide feedback →
                 </Link>
               </CardFooter>
@@ -114,7 +114,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue hover:underline">
                   Add a Service →
                 </Link>
               </CardFooter>
@@ -140,7 +140,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/switch-to.eu/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/switch-to.eu/" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">
                   View GitHub Repository →
                 </Link>
               </CardFooter>
@@ -166,7 +166,7 @@ export default function ContributePage() {
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue  hover:underline">
                   Submit Feedback →
                 </Link>
               </CardFooter>

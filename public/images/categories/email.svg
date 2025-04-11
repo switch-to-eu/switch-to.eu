@@ -3,15 +3,15 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #e0edf2;
+        fill: #c1e6ed;
       }
 
       .cls-2 {
-        fill: #222;
+        fill: #383838;
       }
 
       .cls-3 {
-        fill: #fff7d8;
+        fill: #fbe09a;
       }
     </style>
   </defs>

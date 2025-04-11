@@ -11,7 +11,7 @@ export function CategorySection() {
   return (
     <section>
       <Container>
-        <h2 className="mb-8 text-center font-bold text-3xl">Alternative Categories</h2>
+        <h2 className="mb-8 text-center font-bold text-3xl">European Alternatives by Categories</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {categories.map((category, index) => {
             // Calculate the color index (1-4) - cycle through colors

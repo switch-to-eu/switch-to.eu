@@ -208,7 +208,7 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-4">More info about {frontmatter.name}</h2>
             {htmlContent && (
-              <div className="prose prose-slate prose-sm sm:prose dark:prose-invert max-w-none">
+              <div className="mdx-content  prose prose-slate prose-sm sm:prose dark:prose-invert max-w-none">
                 <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
               </div>
             )}

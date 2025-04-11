@@ -41,9 +41,9 @@ export default function Home() {
               />
             </div>
             <p className="text-base sm:text-lg md:text-xl  mb -2 sm:mb-3 max-w-[500px]">
-              For example: <Link href="/services/non-eu/whatsapp" className="text-[var(--blue)] underline">WhatsApp</Link>,&nbsp;
-              <Link href="/services/non-eu/gmail" className="text-[var(--blue)] underline">Gmail</Link> or&nbsp;
-              <Link href="/services/non-eu/google-drive" className="text-[var(--blue)] underline">Google Drive</Link>
+              For example: <Link href="/services/non-eu/whatsapp" className="text-blue underline">WhatsApp</Link>,&nbsp;
+              <Link href="/services/non-eu/gmail" className="text-blue underline">Gmail</Link> or&nbsp;
+              <Link href="/services/non-eu/google-drive" className="text-blue underline">Google Drive</Link>
             </p>
           </div>
 

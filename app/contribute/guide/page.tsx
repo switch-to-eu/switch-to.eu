@@ -55,7 +55,7 @@ export default function ContributeGuidePage() {
 
             <h3 className="text-xl font-bold mt-6 ">1. Fork the Content Repository</h3>
             <ul className="space-y-1 ">
-              <li>Go to <Link href="https://github.com/switch-to-eu/content" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://github.com/switch-to-eu/content</Link></li>
+              <li>Go to <Link href="https://github.com/switch-to-eu/content" className=" hover:underline" target="_blank" rel="noopener noreferrer">https://github.com/switch-to-eu/content</Link></li>
               <li>Click the &quot;Fork&quot; button in the top right corner</li>
               <li>This creates your personal copy of the content repository</li>
             </ul>
