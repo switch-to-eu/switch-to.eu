@@ -51,7 +51,7 @@ export default async function GuideCategoryPage(props: GuideCategoryPageProps) {
           <div key={guide.slug} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <span className={`px-2 py-1 text-xs rounded-full ${guide.frontmatter.difficulty === 'beginner' ? 'bg-green-100 text-green-800' :
+                <span className={`px-4 py-1 text-xs rounded-full ${guide.frontmatter.difficulty === 'beginner' ? 'bg-green-100 text-green-800' :
                   guide.frontmatter.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-red-100 text-red-800'
                   }`}>

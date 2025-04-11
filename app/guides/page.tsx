@@ -63,7 +63,7 @@ export default async function GuidesPage() {
               <Card key={`${guide.category}-${guide.slug}`} className="flex flex-col h-full hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex justify-between items-center mb-2">
-                    <span className={`px-2 py-1 text-xs rounded-full ${getDifficultyColor(guide.frontmatter.difficulty)}`}>
+                    <span className={`px-4 py-1 text-xs rounded-full ${getDifficultyColor(guide.frontmatter.difficulty)}`}>
                       {guide.frontmatter.difficulty.charAt(0).toUpperCase() + guide.frontmatter.difficulty.slice(1)}
                     </span>
                     <span className="text-sm text-muted-foreground">{guide.frontmatter.timeRequired}</span>
@@ -110,7 +110,7 @@ export default async function GuidesPage() {
                 <Card key={`${guide.category}-${guide.slug}`} className="flex flex-col h-full hover:shadow-md transition-shadow">
                   <CardHeader>
                     <div className="flex justify-between items-center mb-2">
-                      <span className={`px-2 py-1 text-xs rounded-full ${getDifficultyColor(guide.frontmatter.difficulty)}`}>
+                      <span className={`px-4 py-1 text-xs rounded-full ${getDifficultyColor(guide.frontmatter.difficulty)}`}>
                         {guide.frontmatter.difficulty.charAt(0).toUpperCase() + guide.frontmatter.difficulty.slice(1)}
                       </span>
                       <span className="text-sm text-muted-foreground">{guide.frontmatter.timeRequired}</span>

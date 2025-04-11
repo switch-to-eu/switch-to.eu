@@ -25,7 +25,7 @@ const buttonVariants = cva(
         red:
           "bg-[#ff9d8a] hover:bg-[#ff8a74] text-black font-medium",
         cta:
-          "bg-[#ff9d8a] text-[#1a3c5a] font-medium shadow-xs hover:bg-[#ff8a74]",
+          "bg-[#ff9d8a]  font-medium shadow-xs hover:bg-[#ff8a74]",
       },
       size: {
         default: "h-10 px-5 py-2.5 has-[>svg]:px-4",
