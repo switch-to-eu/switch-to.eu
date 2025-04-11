@@ -168,9 +168,9 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 ">
           {/* Migration Guides - Always show the sidebar, with CTA if no guides */}
-          <div className="sticky top-24 border rounded-lg p-6">
+          <div className="sticky top-24 border rounded-lg p-6 bg-[var(--green-bg)]">
             <div className="relative h-40 mb-6">
               <Image
                 src="/images/migrate.svg"
