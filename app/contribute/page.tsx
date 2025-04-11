@@ -18,8 +18,8 @@ export default function ContributePage() {
         <Container>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-[#1a3c5a]">Join the Switch-to.EU Community</h1>
-              <p className="text-base sm:text-lg text-[#334155] mb-6">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6 ">Join the Switch-to.EU Community</h1>
+              <p className="text-base sm:text-lg  mb-6">
                 Your expertise can help Europeans reclaim their digital sovereignty! Switch-to.EU empowers users to migrate from big tech services to European alternatives, and we need your help to grow this movement.
               </p>
             </div>
@@ -39,7 +39,7 @@ export default function ContributePage() {
       {/* Contribution Cards Section */}
       <section>
         <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-[#1a3c5a]">We Need Your Help</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center ">We Need Your Help</h2>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
@@ -57,7 +57,7 @@ export default function ContributePage() {
                 <CardTitle className="text-xl text-center">Share Your Migration Knowledge</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#334155] text-center">
+                <p className=" text-center">
                   Do you have experience switching to EU-based services? Your insights could help countless others make the same journey. We need detailed, user-friendly migration guides.
                 </p>
               </CardContent>
@@ -83,7 +83,7 @@ export default function ContributePage() {
                 <CardTitle className="text-xl text-center">Be a Guide Tester</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#334155] text-center">
+                <p className=" text-center">
                   Even if you haven&apos;t made the switch yet, you can help by testing our existing guides. Your fresh perspective helps identify confusing steps or missing information.
                 </p>
               </CardContent>
@@ -109,7 +109,7 @@ export default function ContributePage() {
                 <CardTitle className="text-xl text-center">Discover EU Alternatives</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#334155] text-center">
+                <p className=" text-center">
                   Help us expand our catalog of European digital services. Research and document EU-based alternatives to popular international services.
                 </p>
               </CardContent>
@@ -135,7 +135,7 @@ export default function ContributePage() {
                 <CardTitle className="text-xl text-center">Lend Your Technical Skills</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#334155] text-center">
+                <p className=" text-center">
                   Are you a developer? Our platform needs continuous improvement to serve our growing community. From fixing bugs to implementing new features.
                 </p>
               </CardContent>
@@ -161,7 +161,7 @@ export default function ContributePage() {
                 <CardTitle className="text-xl text-center">Bring Your Ideas</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-[#334155] text-center">
+                <p className=" text-center">
                   Have suggestions for improving Switch-to.EU? Your insights can shape the future of our platform and help us better serve the European digital community.
                 </p>
               </CardContent>
@@ -179,8 +179,8 @@ export default function ContributePage() {
       <section>
         <Container>
           <div className="bg-[#e8fff5] p-6 sm:p-10 rounded-xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-[#1a3c5a]">Why Your Contribution Matters</h2>
-            <p className="text-[#334155] text-base sm:text-lg max-w-[800px] mx-auto mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 ">Why Your Contribution Matters</h2>
+            <p className=" text-base sm:text-lg max-w-[800px] mx-auto mb-6">
               Every contribution, big or small, strengthens digital independence in Europe. By helping others make informed choices about their digital services, you&apos;re supporting privacy, data protection, and the European digital economy.
             </p>
           </div>

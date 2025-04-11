@@ -162,7 +162,7 @@ export function SearchInput({
             <CommandList className="max-h-[350px] overflow-y-auto">
               {/* Debug information - only in development and when explicitly enabled */}
               {process.env.NODE_ENV === 'development' && showDebug && (
-                <div className="px-2 py-1 text-xs text-gray-500 border-b">
+                <div className="px-4 py-1 text-xs text-gray-500 border-b">
                   {debugStateInfo}
                 </div>
               )}
@@ -186,7 +186,7 @@ export function SearchInput({
                   {/* Services */}
                   {serviceResults.length > 0 && (
                     <div className="mb-2">
-                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
                         {filterRegion === 'non-eu' ? 'Non-EU Services' : 'Services'}
                       </div>
                       {serviceResults.slice(0, filterRegion ? 6 : 3).map(result => (
@@ -202,7 +202,7 @@ export function SearchInput({
                   {/* Guides - only show if not filtering by region */}
                   {guideResults.length > 0 && (
                     <div className="mb-2">
-                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
                         Guides
                       </div>
                       {guideResults.slice(0, 3).map(result => (
@@ -218,7 +218,7 @@ export function SearchInput({
                   {/* Categories - only show if not filtering by region */}
                   {categoryResults.length > 0 && (
                     <div className="mb-2">
-                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
                         Categories
                       </div>
                       {categoryResults.slice(0, 2).map(result => (
@@ -260,7 +260,7 @@ function SearchResultItem({
 }) {
   return (
     <div
-      className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm outline-hidden select-none hover:bg-accent hover:text-accent-foreground"
+      className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm outline-hidden select-none"
       onClick={() => onSelect(result)}
     >
       <div className="flex flex-col flex-grow">
@@ -270,11 +270,11 @@ function SearchResultItem({
             <RegionBadge
               region={(result as ServiceSearchResult).region}
               showTooltip={true}
-              className="text-xs py-0 h-5"
+              className="text-xs py-0 h-5 "
             />
           )}
         </div>
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm mt-1.5 text-muted-foreground">
           {result.description.substring(0, 60)}
           {result.description.length > 60 ? '...' : ''}
         </span>

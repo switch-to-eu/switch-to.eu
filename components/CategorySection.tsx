@@ -33,7 +33,7 @@ export function CategorySection() {
                     </div>
                     <div>
                       <h3 className="mb-2 font-bold text-xl">{category.metadata.title}</h3>
-                      <p className="text-[#334155] text-sm sm:text-base">{category.metadata.description}</p>
+                      <p className=" text-sm sm:text-base">{category.metadata.description}</p>
                     </div>
                   </div>
                 </div>

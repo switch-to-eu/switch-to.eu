@@ -79,3 +79,4 @@ npm run dev
 - All contributors who have helped build this platform
 - The EU digital services that provide alternatives to non-EU services
 - The open-source community for the tools and libraries used in this project
+- See [CREDITS.md](./CREDITS.md) for detailed attribution of fonts and other resources used in this project

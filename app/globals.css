@@ -6,7 +6,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-hanken-grotesk);
+  --font-heading: var(--font-bricolage-grotesque);
+  --font-bold: var(--font-hanken-grotesk-bold);
+  --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
+  --font-italic: var(--font-hanken-grotesk-italic);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -46,20 +50,25 @@
 :root {
   --radius: 0.75rem;
   --background: #fefbf9;
-  --foreground: #1a3c5a;
+  --foreground: #383838;
+
   --card: #ffffff;
   --card-foreground: #1a3c5a;
+
   --popover: #ffffff;
   --popover-foreground: #1a3c5a;
+
   --primary: #1a3c5a;
   --primary-foreground: #ffffff;
   --secondary: #ffffff;
   --secondary-foreground: #1a3c5a;
+
   --muted: #f8f9fa;
   --muted-foreground: #334155;
   --accent: #ffffff;
   --accent-foreground: #1a3c5a;
   --destructive: #ff4a4a;
+
   --border: #e5e7eb;
   --input: #ffffff;
   --ring: #1a3c5a;
@@ -150,6 +159,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-hanken-grotesk);
   }
 
   h1,
@@ -158,11 +168,37 @@
   h4,
   h5,
   h6 {
-    @apply text-[#1a3c5a] font-bold;
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
+  }
+
+  /* Override font-bold class specifically for headings */
+  h1, h2, h3, h4, h5, h6 {
+    &.font-bold {
+      font-family: var(--font-bricolage-grotesque) !important;
+      font-weight: 800 !important;
+    }
+  }
+
+  /* Ensure headings with font-bold class still use the heading font */
+  h1.font-bold,
+  h2.font-bold,
+  h3.font-bold,
+  h4.font-bold,
+  h5.font-bold,
+  h6.font-bold {
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
   }
 
   p {
-    @apply text-[#334155];
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 600;
+  }
+
+  strong, b {
+    font-family: var(--font-hanken-grotesk-bold);
+    font-weight: 700;
   }
 
   /* Button styles to match design */
@@ -181,23 +217,33 @@
 
 /* Custom styling for MDX content */
 .mdx-content h1 {
-  @apply text-3xl font-bold mt-8 mb-4;
+  @apply text-3xl mt-8 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
 }
 
 .mdx-content h2 {
-  @apply text-2xl font-bold mt-8 mb-4;
+  @apply text-2xl mt-8 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
 }
 
 .mdx-content h3 {
-  @apply text-xl font-bold mt-6 mb-4;
+  @apply text-xl mt-6 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
 }
 
 .mdx-content h4 {
-  @apply text-lg font-bold mt-6 mb-3;
+  @apply text-lg mt-6 mb-3;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
 }
 
 .mdx-content p {
   @apply mb-4 leading-relaxed;
+  font-family: var(--font-hanken-grotesk);
+  font-weight: 600;
 }
 
 .mdx-content ul {
@@ -210,6 +256,8 @@
 
 .mdx-content li {
   @apply mb-1;
+  font-family: var(--font-hanken-grotesk);
+  font-weight: 600;
 }
 
 .mdx-content a {
@@ -226,14 +274,18 @@
 
 .mdx-content code {
   @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
+  font-family: var(--font-geist-mono);
 }
 
 .mdx-content strong {
   @apply font-bold;
+  font-family: var(--font-hanken-grotesk-bold);
+  font-weight: 700;
 }
 
 .mdx-content em {
   @apply italic;
+  font-family: var(--font-hanken-grotesk-italic);
 }
 
 .mdx-content hr {
