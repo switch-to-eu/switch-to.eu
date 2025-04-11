@@ -16,6 +16,7 @@ const GuideFrontmatterSchema = z.object({
     targetService: z.string(),
     date: z.string().optional(),
     author: z.string().optional(),
+    missingFeatures: z.array(z.string()).optional(),
 });
 
 const AlternativesFrontmatterSchema = z.object({
@@ -752,6 +753,120 @@ export function extractServiceIssues(content: string): string[] {
         .filter(issue => issue.length > 0);
 
     return issues;
+}
+
+/**
+ * Extracts migration steps from the markdown content
+ * Looks for headings that start with "Step" and returns them with their IDs for anchor links
+ */
+export function extractMigrationSteps(content: string): Array<{ title: string; id: string }> {
+    if (!content) return [];
+
+    // Find all headings that start with "Step" or have the format "## 1. Title", "## 2. Title", etc.
+    // This regex looks for Markdown h2 headings (## ) that either:
+    // 1. Start with "Step" or
+    // 2. Start with a number followed by a period or colon
+    const stepHeadingRegex = /##\s+(Step\s+\d+:|Step\s+\d+|[1-9][0-9]*\.|\d+:)(.+?)(?=\n|$)/g;
+    const matches = [...content.matchAll(stepHeadingRegex)];
+
+    return matches.map(match => {
+        const fullTitle = (match[1] + match[2]).trim();
+        // Create a valid HTML ID by converting to lowercase, replacing spaces with hyphens
+        // and removing any characters that aren't alphanumeric, hyphens, or underscores
+        const id = fullTitle
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-');
+
+        return {
+            title: fullTitle,
+            id: id
+        };
+    });
+}
+
+/**
+ * Extracts missing features from the frontmatter metadata
+ * Falls back to content parsing if no metadata is available
+ */
+export function extractMissingFeatures(content: string, frontmatter?: GuideFrontmatter): string[] {
+    // If frontmatter has missing features, return those
+    if (frontmatter?.missingFeatures && frontmatter.missingFeatures.length > 0) {
+        return frontmatter.missingFeatures;
+    }
+
+    // Legacy fallback: extract from content if no frontmatter data
+    if (!content) return [];
+
+    // Look for relevant sections with different potential titles
+    const sectionRegexes = [
+        /## What's Different\s+([\s\S]*?)(?=##|$)/,
+        /## Limitations\s+([\s\S]*?)(?=##|$)/,
+        /## Missing Features\s+([\s\S]*?)(?=##|$)/,
+        /## Feature Comparison\s+([\s\S]*?)(?=##|$)/
+    ];
+
+    let allMissingFeatures: string[] = [];
+
+    for (const regex of sectionRegexes) {
+        const sectionMatch = content.match(regex);
+        if (sectionMatch && sectionMatch[1]) {
+            const sectionContent = sectionMatch[1].trim();
+
+            // First try to find list items that mention missing features
+            const listItems = sectionContent
+                .split('\n')
+                .filter(line => {
+                    const trimmedLine = line.trim();
+                    return (trimmedLine.startsWith('- ') || trimmedLine.startsWith('* '));
+                })
+                .map(line => line.replace(/^[*-]\s+/, '').trim())
+                .filter(item => item.length > 0);
+
+            // If we found list items, add them
+            if (listItems.length > 0) {
+                allMissingFeatures = [...allMissingFeatures, ...listItems];
+                continue;
+            }
+
+            // Otherwise, try to parse tables for missing features
+            // This is a simplified approach - a more comprehensive table parser might be needed
+            // for real-world varied markdown table formats
+            const tableRows = sectionContent.split('\n')
+                .filter(line => line.includes('|'))
+                .map(line => {
+                    const cells = line.split('|').map(cell => cell.trim());
+                    // Filter out empty cells (beginning and end of the line)
+                    return cells.filter(cell => cell.length > 0);
+                })
+                .filter(cells => cells.length >= 2); // Ensure it has at least 2 columns
+
+            // Skip header and separator rows
+            const dataRows = tableRows.filter(row =>
+                !row.some(cell => cell.includes('---')) &&
+                !row.some(cell => cell.toLowerCase() === 'feature')
+            );
+
+            // Extract feature comparison info
+            for (const row of dataRows) {
+                if (row.length >= 3) {
+                    const feature = row[0];
+                    const sourceInfo = row[1];
+                    const targetInfo = row[2];
+
+                    // If source has the feature but target doesn't
+                    if (
+                        (sourceInfo.toLowerCase().includes('yes') || sourceInfo.toLowerCase().includes('✓')) &&
+                        (targetInfo.toLowerCase().includes('no') || targetInfo.toLowerCase().includes('limited') || targetInfo.toLowerCase().includes('✗'))
+                    ) {
+                        allMissingFeatures.push(`${feature} is missing or limited`);
+                    }
+                }
+            }
+        }
+    }
+
+    return allMissingFeatures;
 }
 
 /**
