@@ -1,0 +1,28 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Globe -->
+  <circle cx="60" cy="60" r="45" fill="#E0EEFF" stroke="#4B84F2" stroke-width="3" />
+  
+  <!-- Grid lines -->
+  <path d="M60 15C60 15 80 35 80 60C80 85 60 105 60 105" stroke="#4B84F2" stroke-width="2" />
+  <path d="M60 15C60 15 40 35 40 60C40 85 60 105 60 105" stroke="#4B84F2" stroke-width="2" />
+  <path d="M15 60H105" stroke="#4B84F2" stroke-width="2" />
+  <path d="M22 40H98" stroke="#4B84F2" stroke-width="2" />
+  <path d="M22 80H98" stroke="#4B84F2" stroke-width="2" />
+  
+  <!-- Magnifying glass -->
+  <circle cx="85" cy="35" r="18" fill="white" stroke="#FF6B6B" stroke-width="3" />
+  <line x1="97" y1="48" x2="107" y2="58" stroke="#FF6B6B" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- EU stars -->
+  <circle cx="85" cy="35" r="12" fill="none" stroke="#FFD700" stroke-width="1" />
+  <g transform="translate(85, 35) scale(0.6)">
+    <path d="M0,-10 L2,2 L-8,-4 L8,-4 L-2,2 Z" fill="#FFD700" />
+    <path d="M0,-10 L2,2 L-8,-4 L8,-4 L-2,2 Z" fill="#FFD700" transform="rotate(72)" />
+    <path d="M0,-10 L2,2 L-8,-4 L8,-4 L-2,2 Z" fill="#FFD700" transform="rotate(144)" />
+    <path d="M0,-10 L2,2 L-8,-4 L8,-4 L-2,2 Z" fill="#FFD700" transform="rotate(216)" />
+    <path d="M0,-10 L2,2 L-8,-4 L8,-4 L-2,2 Z" fill="#FFD700" transform="rotate(288)" />
+  </g>
+  
+  <!-- Checkmark -->
+  <path d="M32 60L42 70L58 50" stroke="#4CAF50" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+</svg> 
