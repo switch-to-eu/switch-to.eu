@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getAllCategoriesMetadata } from "@/lib/content";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,68 +8,67 @@ import {
 import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
+import { getNavItems } from "./nav-items";
 
 interface MainNavProps {
   className?: string;
 }
 
 export function MainNav({ className }: MainNavProps) {
-  // Get all categories for the dropdown menu
-  const categories = getAllCategoriesMetadata();
+  const navItems = getNavItems();
 
   return (
     <div className="flex items-center justify-between w-full">
-      <nav className={cn("flex items-center space-x-4 lg:space-x-6 mr-4", className)}>
-        <Link
-          href="/"
-          className="text-sm font-medium transition-colors hover:text-primary"
-        >
-          Home
-        </Link>
+      <nav
+        className={cn(
+          "flex items-center space-x-4 lg:space-x-6 mr-4",
+          className
+        )}
+      >
+        {navItems
+          .filter((item) => !item.mobileOnly)
+          .map((item) => {
+            // Handle dropdown items (Services)
+            if (item.dropdown && item.children) {
+              return (
+                <DropdownMenu key={item.href}>
+                  <DropdownMenuTrigger className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none">
+                    {item.title} <ChevronDown className="ml-1 h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    {item.children.map((child) => (
+                      <DropdownMenuItem key={child.href} asChild>
+                        <Link
+                          href={child.href}
+                          className="w-full cursor-pointer"
+                        >
+                          {child.title}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              );
+            }
 
+            // Special styling for home link
+            const isHome = item.href === "/";
 
-
-        {/* Services Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none">
-            Services <ChevronDown className="ml-1 h-4 w-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem asChild>
+            return (
               <Link
-                href="/services"
-                className="w-full cursor-pointer"
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium ${
+                  isHome ? "" : "text-muted-foreground"
+                } transition-colors hover:text-primary`}
+                {...(item.isExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
               >
-                All Categories
+                {item.title}
               </Link>
-            </DropdownMenuItem>
-            {categories.map((category) => (
-              <DropdownMenuItem key={category.slug} asChild>
-                <Link
-                  href={`/services/${category.slug}`}
-                  className="w-full cursor-pointer"
-                >
-                  {category.metadata.title}
-                </Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Link
-          href="/about"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          About
-        </Link>
-
-        <Link
-          href="/contribute"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          Contribute
-        </Link>
-
+            );
+          })}
       </nav>
 
       {/* Add search input to navigation */}

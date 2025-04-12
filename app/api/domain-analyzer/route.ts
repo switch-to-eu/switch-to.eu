@@ -494,8 +494,6 @@ async function detectThirdPartyServices(domain: string) {
     // Combine script content and link tags for analysis
     const contentToAnalyze = scriptContent + " " + linkContent;
 
-    console.log("contentToAnalyze", contentToAnalyze);
-
     // Check for patterns in script and link content
     const detectedServices = servicePatterns
       .filter((service) =>
@@ -539,7 +537,6 @@ async function detectThirdPartyServices(domain: string) {
     ) {
       // Check if Google Analytics is already in the list
       if (!detectedServices.some((s) => s.name === "Google Analytics")) {
-        console.log("Google Analytics detected");
         detectedServices.push({ name: "Google Analytics", isEU: false });
       }
     }
