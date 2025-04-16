@@ -883,3 +883,16 @@ export async function getRecommendedAlternative(serviceName: string): Promise<Se
 
     return alternativeService ? alternativeService.frontmatter : null;
 }
+
+/**
+ * Get all service slugs for a specific region
+ */
+export async function getServiceSlugs(region: 'eu' | 'non-eu'): Promise<string[]> {
+    const services = await getAllServices();
+    return services
+        .filter(service => service.region === region)
+        .map(service => {
+            // Convert service name to slug format (lowercase, spaces to hyphens)
+            return service.name.toLowerCase().replace(/\s+/g, '-');
+        });
+}

@@ -1,4 +1,4 @@
-import { getServicesByCategory, getCategoryContent } from '@/lib/content';
+import { getServicesByCategory, getCategoryContent, getAllServices, getAllCategoriesMetadata } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
@@ -35,6 +35,15 @@ export async function generateMetadata(props: ServicesCategoryPageProps): Promis
     keywords: [capitalizedCategory, 'EU alternatives', 'privacy-focused services', 'GDPR compliant', category],
   };
 }
+
+export async function generateStaticParams() {
+  const categories = getAllCategoriesMetadata();
+
+  return categories.map((catgory) => ({
+    category: catgory.slug,
+  }))
+}
+
 
 export default async function ServicesCategoryPage(props: ServicesCategoryPageProps) {
   // Await the params Promise

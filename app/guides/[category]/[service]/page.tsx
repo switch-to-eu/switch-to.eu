@@ -1,10 +1,20 @@
-import { getGuide, extractMissingFeatures, extractMigrationSteps } from '@/lib/content';
+import { getGuide, extractMissingFeatures, extractMigrationSteps, getAllGuides } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { GuideSidebar } from '@/components/guides/GuideSidebar';
 import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
+
+// Generate static params for all guide pages
+export async function generateStaticParams() {
+  const guides = await getAllGuides();
+
+  return guides.map((guide) => ({
+    category: guide.category,
+    service: guide.slug,
+  }));
+}
 
 // Define params as a Promise type
 type Params = Promise<{

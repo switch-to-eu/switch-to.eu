@@ -1,4 +1,4 @@
-import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory } from '@/lib/content';
+import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getServiceSlugs } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { RegionBadge } from '@/components/ui/region-badge';
 import Link from 'next/link';
@@ -17,6 +17,15 @@ type Params = Promise<{
 
 interface ServiceDetailPageProps {
   params: Params;
+}
+
+// Generate static params for all EU services
+export async function generateStaticParams() {
+  const serviceNames = await getServiceSlugs('eu');
+
+  return serviceNames.map((service_name) => ({
+    service_name,
+  }));
 }
 
 // Generate metadata for SEO
