@@ -1,4 +1,6 @@
 import { getAllCategoriesMetadata } from "@/lib/content";
+import { Locale } from "@/lib/i18n/dictionaries";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export interface NavItem {
   title: string;
@@ -9,50 +11,52 @@ export interface NavItem {
   mobileOnly?: boolean;
 }
 
-export function getNavItems(): NavItem[] {
+export async function getNavItems(lang: Locale = 'en'): Promise<NavItem[]> {
   const categories = getAllCategoriesMetadata().map((category) => ({
     title: category.metadata.title,
-    href: `/services/${category.slug}`,
+    href: `/${lang}/services/${category.slug}`,
   }));
+
+  const dict = await getDictionary(lang);
 
   return [
     {
-      title: "Home",
-      href: "/",
+      title: dict.navigation.home,
+      href: `/${lang}`,
     },
     {
-      title: "Services",
-      href: "/services",
+      title: dict.navigation.services,
+      href: `/${lang}/services`,
       dropdown: true,
       children: [
         {
-          title: "All Categories",
-          href: "/services",
+          title: dict.navigation.allCategories,
+          href: `/${lang}/services`,
         },
         ...categories,
       ],
     },
     {
-      title: "Tools",
-      href: "/tools",
+      title: dict.navigation.tools,
+      href: `/${lang}/tools`,
       dropdown: true,
       children: [
         {
-          title: "Website tool",
-          href: "/tools/website",
+          title: dict.navigation.websiteTool,
+          href: `/${lang}/tools/website`,
         },
       ],
     },
     {
-      title: "About",
-      href: "/about",
+      title: dict.navigation.about,
+      href: `/${lang}/about`,
     },
     {
-      title: "Contribute",
-      href: "/contribute",
+      title: dict.navigation.contribute,
+      href: `/${lang}/contribute`,
     },
     {
-      title: "GitHub",
+      title: dict.navigation.github,
       href: "https://github.com/VincentPeters/switch-to.eu",
       isExternal: true,
       mobileOnly: true,

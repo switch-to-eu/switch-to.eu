@@ -2,13 +2,16 @@ import React from "react";
 import Link from "next/link";
 import { RegionBadge } from "@/components/ui/region-badge";
 import { ServiceFrontmatter } from "@/lib/content";
+import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 interface ServiceCardProps {
   service: ServiceFrontmatter;
   showCategory?: boolean;
+  lang: Locale;
 }
 
-export function ServiceCard({ service, showCategory = true }: ServiceCardProps) {
+export async function ServiceCard({ service, showCategory = true, lang }: ServiceCardProps) {
+  const dict = await getDictionary(lang);
   const categoryFormatted = service.category.charAt(0).toUpperCase() + service.category.slice(1);
 
   // Create slug from service name for linking
@@ -22,7 +25,7 @@ export function ServiceCard({ service, showCategory = true }: ServiceCardProps) 
           <RegionBadge region={service.region || "eu"} />
         </div>
         {showCategory && (
-          <p className="text-sm text-muted-foreground">Category: {categoryFormatted}</p>
+          <p className="text-sm text-muted-foreground">{dict.services.category}: {categoryFormatted}</p>
         )}
       </div>
       <div className="px-6 flex-grow">
@@ -38,17 +41,17 @@ export function ServiceCard({ service, showCategory = true }: ServiceCardProps) 
             ))}
           </div>
           <div className="text-sm text-muted-foreground">
-            Location: {service.location} • {service.freeOption ? 'Free option available' : 'Paid only'}
+            {dict.services.location}: {service.location} • {service.freeOption ? dict.services.freeOption : dict.services.paidOnly}
           </div>
         </div>
         <p className="text-gray-700">{service.description}</p>
       </div>
       <div className="p-6 pt-4 mt-auto">
         <Link
-          href={`/services/${service.region || "eu"}/${serviceSlug}`}
+          href={`/${lang}/services/${service.region || "eu"}/${serviceSlug}`}
           className=" font-medium hover:underline"
         >
-          View Details
+          {dict.services.viewDetails}
         </Link>
       </div>
     </div>

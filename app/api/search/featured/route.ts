@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SearchResultType, ServiceSearchResult } from '@/lib/search';
 import { getFeaturedServices } from '@/lib/content';
+import { Locale } from '@/lib/i18n/dictionaries';
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,17 +20,21 @@ export async function GET(request: NextRequest) {
     const regionParam = searchParams.get('region');
     const region = regionParam ? regionParam as 'eu' | 'non-eu' : undefined;
 
-    console.log('Featured API: Processing request with filters:', { limit, types, region });
+    // Get language parameter
+    const langParam = searchParams.get('lang');
+    const lang = langParam as Locale || 'en';
 
-    // Get all featured services from markdown files
-    const featuredServicesData = await getFeaturedServices();
+    console.log('Featured API: Processing request with filters:', { limit, types, region, lang });
+
+    // Get all featured services from markdown files, passing the language parameter
+    const featuredServicesData = await getFeaturedServices(lang, region);
 
     // Transform the data to match the ServiceSearchResult interface
     const featuredServices: ServiceSearchResult[] = featuredServicesData.map(({ service }) => ({
       id: service.name.toLowerCase().replace(/\s+/g, '-'),
       title: service.name,
       description: service.description,
-      url: `/services/non-eu/${service.name.toLowerCase().replace(/\s+/g, '-')}`,
+      url: `/${lang}/services/${service.region || 'non-eu'}/${service.name.toLowerCase().replace(/\s+/g, '-')}`,
       type: 'service',
       location: service.location,
       category: service.category,
@@ -48,10 +53,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Apply region filter if specified
-    if (region) {
-      filteredResults = filteredResults.filter(item => item.region === region);
-    }
+    // Note: We already applied region filter in getFeaturedServices to benefit from more efficient filtering
 
     // Apply limit
     const limitedResults = filteredResults.slice(0, limit);

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { SearchResult, ServiceSearchResult } from '@/lib/search';
 import { RegionBadge } from "@/components/ui/region-badge";
+import { Locale } from '@/lib/i18n/dictionaries';
 
 interface InlineSearchInputProps {
   className?: string;
@@ -12,6 +13,7 @@ interface InlineSearchInputProps {
   showOnlyServices?: boolean;
   placeholder?: string;
   animatePlaceholder?: boolean;
+  lang?: Locale;
 }
 
 export function InlineSearchInput({
@@ -19,7 +21,8 @@ export function InlineSearchInput({
   filterRegion,
   showOnlyServices = false,
   placeholder = 'Find a non-EU service to replace',
-  animatePlaceholder = true
+  animatePlaceholder = true,
+  lang = 'en'
 }: InlineSearchInputProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
@@ -143,6 +146,9 @@ export function InlineSearchInput({
       if (showOnlyServices) {
         url += `&types=service`;
       }
+      if (lang) {
+        url += `&lang=${lang}`;
+      }
 
       const response = await fetch(url);
       const data = await response.json();
@@ -151,7 +157,7 @@ export function InlineSearchInput({
       console.error('Error fetching featured services:', error);
       setFeaturedServices([]);
     }
-  }, [showOnlyServices]);
+  }, [showOnlyServices, lang]);
 
   // Load featured services on component mount
   useEffect(() => {
@@ -175,6 +181,9 @@ export function InlineSearchInput({
       }
       if (showOnlyServices) {
         url += `&types=service`;
+      }
+      if (lang) {
+        url += `&lang=${lang}`;
       }
 
       const response = await fetch(url);

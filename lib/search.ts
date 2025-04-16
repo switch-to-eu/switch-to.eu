@@ -4,6 +4,7 @@ import {
     getAllServices,
     getAllCategoriesMetadata,
 } from './content';
+import { Locale } from '@/lib/i18n/dictionaries';
 
 // Define types for search results
 export type SearchResultType = 'guide' | 'service' | 'category';
@@ -38,31 +39,32 @@ export interface CategorySearchResult extends BaseSearchResult {
 
 export type SearchResult = GuideSearchResult | ServiceSearchResult | CategorySearchResult;
 
-// In-memory cache for search index
-let searchIndex: Fuse<SearchResult> | null = null;
-let indexLastUpdated: number = 0;
+// In-memory cache for search index (keyed by language)
+const searchIndexes: Record<Locale, { index: Fuse<SearchResult>, lastUpdated: number } | undefined> = {};
 const INDEX_TTL = 1000 * 60 * 5; // 5 minutes
 
 // Function to build the search index
-export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
-    console.log('Building or retrieving search index');
+export async function buildSearchIndex(lang: Locale = 'en'): Promise<Fuse<SearchResult>> {
+    console.log(`Building or retrieving search index for language: ${lang}`);
 
-    // Check if we have a recent index in memory
+    // Check if we have a recent index in memory for this language
     const now = Date.now();
-    if (searchIndex && (now - indexLastUpdated < INDEX_TTL)) {
-        console.log('Using cached search index');
-        return searchIndex;
+    const indexData = searchIndexes[lang];
+
+    if (indexData && (now - indexData.lastUpdated < INDEX_TTL)) {
+        console.log(`Using cached search index for language: ${lang}`);
+        return indexData.index;
     }
 
-    console.log('Building new search index');
+    console.log(`Building new search index for language: ${lang}`);
 
     // Start with an empty array of search results
     const searchResults: SearchResult[] = [];
 
     try {
         // Get and index all guides
-        const guides = await getAllGuides();
-        console.log(`Indexing ${guides.length} guides`);
+        const guides = await getAllGuides({ lang });
+        console.log(`Indexing ${guides.length} guides for language: ${lang}`);
 
         for (const guide of guides) {
             searchResults.push({
@@ -70,7 +72,7 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
                 type: 'guide',
                 title: guide.frontmatter.title,
                 description: guide.frontmatter.description,
-                url: `/guides/${guide.category}/${guide.slug}`,
+                url: `/${lang}/guides/${guide.category}/${guide.slug}`,
                 sourceService: guide.frontmatter.sourceService,
                 targetService: guide.frontmatter.targetService,
                 category: guide.category
@@ -78,8 +80,8 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
         }
 
         // Get and index all services
-        const services = await getAllServices();
-        console.log(`Indexing ${services.length} services`);
+        const services = await getAllServices(lang);
+        console.log(`Indexing ${services.length} services for language: ${lang}`);
 
         for (const service of services) {
             // Ensure region is properly set
@@ -87,7 +89,7 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
             const slug = service.name.toLowerCase().replace(/\s+/g, '-');
 
             // Create the URL with the proper region path
-            const url = `/services/${region}/${slug}`;
+            const url = `/${lang}/services/${region}/${slug}`;
 
             searchResults.push({
                 id: `service-${slug}`,
@@ -104,8 +106,8 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
         }
 
         // Get and index all categories
-        const categories = getAllCategoriesMetadata();
-        console.log(`Indexing ${categories.length} categories`);
+        const categories = getAllCategoriesMetadata(lang);
+        console.log(`Indexing ${categories.length} categories for language: ${lang}`);
 
         for (const category of categories) {
             searchResults.push({
@@ -113,11 +115,11 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
                 type: 'category',
                 title: category.metadata.title,
                 description: category.metadata.description,
-                url: `/services/${category.slug}`
+                url: `/${lang}/services/${category.slug}`
             });
         }
 
-        console.log(`Total indexed items: ${searchResults.length}`);
+        console.log(`Total indexed items: ${searchResults.length} for language: ${lang}`);
 
         // Create and configure Fuse instance for fuzzy search
         const fuseOptions = {
@@ -135,12 +137,17 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
         };
 
         // Create new Fuse instance with our search results
-        searchIndex = new Fuse(searchResults, fuseOptions);
-        indexLastUpdated = now;
+        const newIndex = new Fuse(searchResults, fuseOptions);
 
-        return searchIndex;
+        // Store in cache
+        searchIndexes[lang] = {
+            index: newIndex,
+            lastUpdated: now
+        };
+
+        return newIndex;
     } catch (error) {
-        console.error('Error building search index:', error);
+        console.error(`Error building search index for language ${lang}:`, error);
         throw new Error(`Failed to build search index: ${error}`);
     }
 }
@@ -150,6 +157,7 @@ export async function performSearch(query: string, options: {
     limit?: number;
     types?: SearchResultType[];
     region?: 'eu' | 'non-eu';
+    lang?: Locale;
 } = {}): Promise<SearchResult[]> {
     console.log(`Search lib: Performing search for "${query}"`);
     console.log('Search lib: Full options:', JSON.stringify(options, null, 2));
@@ -159,10 +167,10 @@ export async function performSearch(query: string, options: {
         return [];
     }
 
-    const { limit = 20, types, region } = options;
-    console.log(`Search lib: options - limit: ${limit}, types: ${types ? types.join(',') : 'all'}, region: ${region || 'all'}`);
+    const { limit = 20, types, region, lang = 'en' } = options;
+    console.log(`Search lib: options - limit: ${limit}, types: ${types ? types.join(',') : 'all'}, region: ${region || 'all'}, lang: ${lang}`);
 
-    const index = await buildSearchIndex();
+    const index = await buildSearchIndex(lang);
 
     // Create a basic search options object
     // We're explicitly using any here as the Fuse.js types are complex
@@ -221,16 +229,16 @@ export async function performSearch(query: string, options: {
 }
 
 // Function to get featured or recommended search results
-export async function getRecommendedSearchResults(): Promise<SearchResult[]> {
-    console.log('Getting recommended search results');
+export async function getRecommendedSearchResults(lang: Locale = 'en'): Promise<SearchResult[]> {
+    console.log(`Getting recommended search results for language: ${lang}`);
 
-    const index = await buildSearchIndex();
+    const index = await buildSearchIndex(lang);
     // Since we can't directly access the index data structure in a type-safe way,
     // let's get all items by doing an empty search
     const allResults = index.search('');
     const allItems = allResults.map(result => result.item);
 
-    console.log(`Found ${allItems.length} total items for recommendations`);
+    console.log(`Found ${allItems.length} total items for recommendations in language: ${lang}`);
 
     // Get a mix of result types, with a bias toward services
     const services = allItems.filter(item => item.type === 'service').slice(0, 5);

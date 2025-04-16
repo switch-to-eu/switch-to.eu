@@ -1,0 +1,410 @@
+{
+  "common": {
+    "title": "Switch-to.eu",
+    "description": "A guide to help you switch from non-EU to EU-based digital services and products.",
+    "search": "Search...",
+    "searchPlaceholder": "Search for services...",
+    "searchResults": "Search results",
+    "noResults": "No results found",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "tools": "Tools",
+    "about": "About",
+    "contribute": "Contribute",
+    "github": "GitHub",
+    "allCategories": "All Categories",
+    "websiteTool": "Website tool"
+  },
+  "home": {
+    "heading": "Switch to EU-based digital services",
+    "subheading": "Find EU alternatives to global services and protect your data under EU law",
+    "featuredSection": "Featured Categories",
+    "categoriesSectionTitle": "European Alternatives by Categories",
+    "viewAll": "View all services",
+    "heroTitle": "TAKE CONTROL OF YOUR DIGITAL SERVICES",
+    "heroSubtitle": "Switch to <b>EU-based alternatives</b> that respect your privacy, follow GDPR, and keep your data in Europe",
+    "heroDescription": "Enter a service that you want to move away and we will help you <b>make the switch!</b>",
+    "exampleLabel": "For example:",
+    "featuresEuropeanTitle": "European Alternatives",
+    "featuresEuropeanDescription": "Discover a curated collection of EU-based digital services that respect your privacy and align with European values. Each alternative is thoroughly evaluated for functionality, reliability, and compliance with EU regulations.",
+    "featuresGuidesTitle": "Step-by-step Guides",
+    "featuresGuidesDescription": "Follow our clear, detailed migration instructions to seamlessly transition from global services to European alternatives. Our guides break down complex processes into manageable steps anyone can follow.",
+    "featuresCommunityTitle": "Community Driven",
+    "featuresCommunityDescription": "Our platform thrives on user participation. Anyone can contribute by adding new services, creating or improving migration guides, and sharing their experiences. This collaborative approach ensures our content stays relevant, accurate, and comprehensive.",
+    "whySwitchTitle": "Why switch to Europe-based services?",
+    "whySwitchDescription1": "Use EU-based digital alternatives that comply with GDPR, ensuring your data is processed with transparency and security.",
+    "whySwitchDescription2": "Support the local tech ecosystem and contribute to a fairer digital economy.",
+    "knowMoreButton": "Want to know more?"
+  },
+  "footer": {
+    "rightsReserved": "All rights reserved",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactUs": "Contact Us",
+    "poweredBy": "Powered by"
+  },
+  "contribute": {
+    "title": "Contribute",
+    "description": "Help us improve the database by adding new services or updating existing ones",
+    "cta": "Contribute on GitHub",
+    "ctaTitle": "Can't find what you're looking for?",
+    "ctaDescription": "If you have suggestions for new alternatives, consider contributing to the project!",
+    "buttonText": "Contribute to Switch-to.EU",
+    "meta": {
+      "title": "Contribute to Switch-to.EU | Help Build EU Alternatives",
+      "description": "Learn how to contribute to Switch-to.EU by adding migration guides, service alternatives, and helping grow our community-driven platform."
+    },
+    "hero": {
+      "title": "Join the Switch-to.EU Community",
+      "description": "Your expertise can help Europeans reclaim their digital sovereignty! Switch-to.EU empowers users to migrate from big tech services to European alternatives, and we need your help to grow this movement."
+    },
+    "helpSection": {
+      "title": "We Need Your Help"
+    },
+    "cards": {
+      "migration": {
+        "title": "Share Your Migration Knowledge",
+        "description": "Do you have experience switching to EU-based services? Your insights could help countless others make the same journey. We need detailed, user-friendly migration guides.",
+        "cta": "Create a Guide"
+      },
+      "tester": {
+        "title": "Be a Guide Tester",
+        "description": "Even if you haven't made the switch yet, you can help by testing our existing guides. Your fresh perspective helps identify confusing steps or missing information.",
+        "cta": "Give guide feedback"
+      },
+      "discover": {
+        "title": "Discover EU Alternatives",
+        "description": "Help us expand our catalog of European digital services. Research and document EU-based alternatives to popular international services.",
+        "cta": "Add a Service"
+      },
+      "technical": {
+        "title": "Lend Your Technical Skills",
+        "description": "Are you a developer? Our platform needs continuous improvement to serve our growing community. From fixing bugs to implementing new features.",
+        "cta": "View GitHub Repository"
+      },
+      "ideas": {
+        "title": "Bring Your Ideas",
+        "description": "Have suggestions for improving Switch-to.EU? Your insights can shape the future of our platform and help us better serve the European digital community.",
+        "cta": "Submit Feedback"
+      }
+    },
+    "whyMatters": {
+      "title": "Why Your Contribution Matters",
+      "description": "Every contribution, big or small, strengthens digital independence in Europe. By helping others make informed choices about their digital services, you're supporting privacy, data protection, and the European digital economy."
+    },
+    "guide": {
+      "meta": {
+        "title": "Contributing to Switch-to.EU | Content Guide",
+        "description": "Learn how to contribute content to Switch-to.EU through GitHub by creating migration guides, adding service alternatives, and improving the platform."
+      },
+      "hero": {
+        "title": "Contributing to Switch-to.EU Content",
+        "description": "A community-driven platform helping users switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides."
+      },
+      "repositoryOverview": {
+        "title": "Repository Overview",
+        "description": "The switch-to-eu/content repository contains all the written content for our platform, organized as Markdown files. This includes migration guides, service descriptions, and other documentation."
+      },
+      "whatYouCanContribute": {
+        "title": "What You Can Contribute",
+        "points": [
+          "Migration guides for switching from non-EU to EU services",
+          "Documentation about EU service alternatives",
+          "Updates or corrections to existing content",
+          "Translations of existing content into other European languages"
+        ]
+      },
+      "contributionProcess": {
+        "title": "Contribution Process",
+        "step1": {
+          "title": "1. Fork the Content Repository",
+          "points": [
+            "Go to https://github.com/switch-to-eu/content",
+            "Click the \"Fork\" button in the top right corner",
+            "This creates your personal copy of the content repository"
+          ]
+        },
+        "step2": {
+          "title": "2. Clone Your Fork (Optional)",
+          "description": "If you prefer to work locally:"
+        },
+        "step3": {
+          "title": "3. Create or Edit Content",
+          "optionA": "Option A: Edit Directly on GitHub",
+          "optionAPoints": [
+            "Navigate to the file you want to edit in your fork",
+            "Click the pencil icon to edit",
+            "Make your changes in the editor"
+          ],
+          "optionB": "Option B: Edit Locally",
+          "optionBPoints": [
+            "Create a branch: git checkout -b your-branch-name",
+            "Create or edit files using your preferred text editor",
+            "Commit and push your changes"
+          ]
+        },
+        "step4": {
+          "title": "4. Follow Content Structure",
+          "description": "Our content is organized as follows:",
+          "points": [
+            "/guides/ - Migration guides organized by service category",
+            "/alternatives/ - Information about EU service alternatives",
+            "/templates/ - Templates for creating new content"
+          ]
+        },
+        "step5": {
+          "title": "5. Submit a Pull Request",
+          "points": [
+            "Navigate to your fork on GitHub",
+            "Click \"Contribute\" then \"Open pull request\"",
+            "Provide a clear title and description of your changes",
+            "Submit the pull request"
+          ]
+        }
+      },
+      "contentGuidelines": {
+        "title": "Content Guidelines",
+        "formatting": {
+          "title": "Formatting",
+          "points": [
+            "All content should be written in Markdown",
+            "Use headers (# ## ###) to organize content",
+            "Include a title and brief introduction at the top of each guide",
+            "Use screenshots where helpful (place in /images/ directory)"
+          ]
+        },
+        "writingStyle": {
+          "title": "Writing Style",
+          "points": [
+            "Use clear, straightforward language",
+            "Aim for step-by-step instructions where applicable",
+            "Be factual and neutral when comparing services",
+            "Focus on practical migration information",
+            "Use inclusive language"
+          ]
+        },
+        "migrationGuidesStructure": {
+          "title": "Migration Guides Structure",
+          "description": "Each migration guide should include:",
+          "points": [
+            "An overview of the migration process",
+            "Prerequisites (accounts, tools needed)",
+            "Step-by-step migration instructions",
+            "Verification steps to ensure successful migration",
+            "Troubleshooting common issues (if applicable)"
+          ]
+        }
+      },
+      "reviewProcess": {
+        "title": "Review Process",
+        "description": "After submitting your pull request:",
+        "points": [
+          "A maintainer will review your contribution",
+          "You may receive feedback requesting changes",
+          "Once approved, your content will be merged and published to the website"
+        ]
+      },
+      "questionsAndSupport": {
+        "title": "Questions and Support",
+        "points": [
+          "Comment on related issues for context",
+          "Ask questions in your pull request if you need clarification"
+        ]
+      },
+      "callToAction": {
+        "title": "Make a Difference Today",
+        "description": "Thank you for helping Europeans take control of their digital lives through quality content contributions!",
+        "buttonText": "Visit Content Repository"
+      }
+    }
+  },
+  "about": {
+    "title": "About Switch-to.eu",
+    "description": "We help EU citizens find digital services governed by EU law",
+    "heroTitle": "About Switch-to.EU",
+    "heroDescription1": "Switch-to.EU is a community-driven platform that helps users easily switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.",
+    "heroDescription2": "Our goal is to promote digital sovereignty and data privacy by making it easier for users to find and migrate to services hosted within the European Union.",
+    "pillarsTitle": "Our Three Pillars",
+    "pillars": {
+      "pillar1": {
+        "title": "European Alternatives",
+        "description": "We curate and maintain a comprehensive directory of EU-based digital services across various categories - from email providers and cloud storage to social media and productivity tools."
+      },
+      "pillar2": {
+        "title": "Step-by-Step Guides",
+        "description": "We provide detailed, user-friendly migration guides that walk you through the process of moving your data and digital life from global services to European alternatives."
+      },
+      "pillar3": {
+        "title": "Community Driven",
+        "description": "This platform is built by the community, for the community. All our guides and service listings are maintained through open collaboration, and we welcome contributions from anyone interested in promoting EU digital services."
+      }
+    },
+    "whyChooseTitle": "Why Choose EU-Based Digital Services?",
+    "whyChooseDescription": "Choosing EU-based services offers several advantages that align with European values and regulations:",
+    "whyChoosePoints": {
+      "point1": {
+        "title": "Data Privacy & Protection",
+        "description": "EU-based digital services operate under the stringent General Data Protection Regulation (GDPR), giving you greater control over your personal data. Your information is treated as your property, not a commodity to be sold or shared without your explicit consent."
+      },
+      "point2": {
+        "title": "Ethical Business Practices",
+        "description": "European digital services often prioritize sustainable and ethical business models that don't rely heavily on surveillance capitalism. Instead of monetizing your attention and personal information, many EU alternatives focus on providing quality services through transparent subscription models."
+      },
+      "point3": {
+        "title": "Digital Sovereignty",
+        "description": "Using EU-based services helps reduce dependence on big tech monopolies and supports a more diverse digital ecosystem. This contributes to technological independence for Europe and promotes innovation through healthy competition."
+      },
+      "point4": {
+        "title": "Consumer Rights",
+        "description": "The EU has established some of the world's strongest consumer protection laws in the digital realm. When using EU-based services, you benefit from clear terms of service, transparent pricing, and robust mechanisms for dispute resolution if something goes wrong."
+      }
+    },
+    "contributionTitle": "Join Our Mission",
+    "contributionDescription": "Digital sovereignty isn't just about where your data is stored—it's about having genuine choice and control in your digital life. By switching to EU-based services, you're taking an important step toward a more balanced, user-respecting digital ecosystem.",
+    "contributionPoints": {
+      "point1": {
+        "description": "Share your migration knowledge by creating detailed, user-friendly guides."
+      },
+      "point2": {
+        "description": "Test existing guides to help identify confusing steps or missing information."
+      },
+      "point3": {
+        "description": "Research and document EU-based alternatives to popular international services."
+      },
+      "point4": {
+        "description": "Contribute code, design, or translations to improve our platform."
+      }
+    }
+  },
+  "services": {
+    "title": "Services",
+    "description": "Find EU alternatives to global services",
+    "viewServices": "View Services",
+    "alternatives": "Alternatives",
+    "featuredAlternatives": "Featured Alternatives",
+    "viewMore": "View more",
+    "category": "Category",
+    "location": "Location",
+    "freeOption": "Free option available",
+    "paidOnly": "Paid only",
+    "viewDetails": "View Details",
+    "detail": {
+      "location": "Location",
+      "privacyRating": "Privacy Rating",
+      "freeOption": "Free Option",
+      "freeOptionYes": "✅ Yes",
+      "freeOptionNo": "❌ No",
+      "startingPrice": "Starting Price",
+      "visitWebsite": "Visit website",
+      "similarServices": "Similar Services",
+      "migrationGuides": "Migration Guides",
+      "migrateHelp": "Here are some guides to help you migrate to",
+      "noGuides": "No migration guides exist yet for",
+      "helpOthers": "Help others switch by creating the first guide!",
+      "writeMigrationGuide": "Write a Migration Guide",
+      "anotherServiceHelp": "Know another service to migrate from? Help write a guide!",
+      "writeAnotherGuide": "Write Another Guide",
+      "nonEu": {
+        "moreInfo": "More info about",
+        "otherAlternatives": "Other Alternatives",
+        "otherEUAlternatives": "Here are other EU-based alternatives that provide similar functionality...",
+        "oneMoreEUAlternative": "Here is an additional EU-based alternative that provides similar functionality...",
+        "whyProblematic": "Why {{service}} is Problematic",
+        "whySwitchTitle": "Why Switch to EU Services?",
+        "dataSovereignty": {
+          "title": "Data Sovereignty",
+          "description": "Your data stays within EU jurisdiction, under stronger privacy laws."
+        },
+        "gdprCompliance": {
+          "title": "GDPR Compliance",
+          "description": "EU services must comply with strict data protection requirements."
+        },
+        "legalRecourse": {
+          "title": "Legal Recourse",
+          "description": "Easier legal remedies if something goes wrong with your data."
+        },
+        "supportEUDigital": {
+          "title": "Support EU Digital Economy",
+          "description": "Contribute to digital independence and innovation within Europe."
+        }
+      },
+      "recommendedAlternative": {
+        "title": "Recommended Alternative",
+        "startingPrice": "Starting Price",
+        "migrateFrom": "Migrate {{source}} To {{target}}",
+        "viewDetails": "View Service Details"
+      }
+    }
+  },
+  "guides": {
+    "meta": {
+      "title": "Migration Guides | switch-to.eu",
+      "description": "Step-by-step instructions to help you move from common services to privacy-focused EU alternatives."
+    },
+    "hero": {
+      "title": "Migration Guides",
+      "description": "Step-by-step instructions to help you move from common services to privacy-focused EU alternatives."
+    },
+    "featured": {
+      "title": "Popular Migration Guides"
+    },
+    "card": {
+      "from": "From:",
+      "to": "To:",
+      "view_button": "View Migration Guide"
+    },
+    "category": {
+      "title": "Guides",
+      "view_all": "View All",
+      "meta": {
+        "title": "{{category}} Migration Guides | switch-to.eu",
+        "description": "Step-by-step guides to help you migrate from common {{category}} services to EU-based alternatives."
+      },
+      "pageTitle": "{{category}} Migration Guides",
+      "pageDescription": "Step-by-step guides to help you migrate from common {{category}} services to EU-based alternatives.",
+      "difficulty": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "from": "From:",
+      "to": "To:",
+      "viewGuide": "View Migration Guide →",
+      "lookingForAlternatives": "Looking for {{category}} Alternatives?",
+      "checkAlternatives": "Check out our comprehensive list of EU-based {{category}} alternatives with feature comparisons.",
+      "viewAlternatives": "View {{category}} Alternatives →"
+    },
+    "cta": {
+      "title": "Can't Find What You Need?",
+      "description": "We're constantly adding new guides. If you don't see the migration guide you're looking for, consider contributing to the project or reach out to suggest new guides.",
+      "button": "Contribute a Guide"
+    },
+    "service": {
+      "meta": {
+        "title": "{{title}} | switch-to.eu",
+        "notFound": "Guide Not Found"
+      },
+      "difficultyLabel": "{{level}} Difficulty",
+      "editGuide": {
+        "title": "Found an issue or want to improve this guide?",
+        "description": "This guide is maintained by the community. If you found an error or have suggestions for improvement, please consider contributing.",
+        "link": "Edit this guide on GitHub →"
+      }
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "description": "Tools to help you switch to EU services",
+    "websiteTool": {
+      "title": "Website Tool",
+      "description": "Analyze a website to check if it's EU-based"
+    }
+  },
+  "language": {
+    "en": "English",
+    "nl": "Dutch"
+  }
+}

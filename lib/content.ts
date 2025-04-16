@@ -2,9 +2,23 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { z } from 'zod';
+import { Locale } from '@/lib/i18n/dictionaries';
 
 // Base content directory
 const contentRoot = path.join(process.cwd(), '/content');
+
+// Function to get content path for a specific language
+export function getLanguageContentPath(lang: Locale = 'en'): string {
+  const langPath = path.join(contentRoot, lang);
+
+  // Check if language-specific directory exists
+  if (fs.existsSync(langPath)) {
+    return langPath;
+  }
+
+  // Fallback to base content directory
+  return contentRoot;
+}
 
 // Define schemas for validation
 const GuideFrontmatterSchema = z.object({
@@ -85,9 +99,10 @@ export function isCategoryMetadata(data: unknown): data is CategoryMetadata {
 }
 
 // Function to get all guide categories
-export async function getGuideCategories(): Promise<string[]> {
+export async function getGuideCategories(lang: Locale = 'en'): Promise<string[]> {
     try {
-        const guidesDir = path.join(contentRoot, 'guides');
+        const langContentRoot = getLanguageContentPath(lang);
+        const guidesDir = path.join(langContentRoot, 'guides');
         return fs.readdirSync(guidesDir)
             .filter(file =>
                 fs.statSync(path.join(guidesDir, file)).isDirectory() &&
@@ -100,11 +115,12 @@ export async function getGuideCategories(): Promise<string[]> {
 }
 
 // Function to get all guides for a category
-export async function getGuidesByCategory(category: string): Promise<{
+export async function getGuidesByCategory(category: string, lang: Locale = 'en'): Promise<{
     slug: string;
     frontmatter: GuideFrontmatter;
 }[]> {
-    const categoryDir = path.join(contentRoot, 'guides', category);
+    const langContentRoot = getLanguageContentPath(lang);
+    const categoryDir = path.join(langContentRoot, 'guides', category);
 
     try {
         if (!fs.existsSync(categoryDir)) {
@@ -148,11 +164,12 @@ export async function getGuidesByCategory(category: string): Promise<{
 }
 
 // Function to get a specific guide
-export async function getGuide(category: string, slug: string): Promise<{
+export async function getGuide(category: string, slug: string, lang: Locale = 'en'): Promise<{
     frontmatter: GuideFrontmatter;
     content: string;
 } | null> {
-    const mdxFile = path.join(contentRoot, 'guides', category, slug, 'index.mdx');
+    const langContentRoot = getLanguageContentPath(lang);
+    const mdxFile = path.join(langContentRoot, 'guides', category, slug, 'index.mdx');
 
     try {
         if (!fs.existsSync(mdxFile)) {
@@ -178,8 +195,9 @@ export async function getGuide(category: string, slug: string): Promise<{
 }
 
 // Function to get services for a category
-export async function getAlternativesByCategory(category: string): Promise<AlternativesFrontmatter | null> {
-    const mdxFile = path.join(contentRoot, 'alternatives', category, 'index.mdx');
+export async function getAlternativesByCategory(category: string, lang: Locale = 'en'): Promise<AlternativesFrontmatter | null> {
+    const langContentRoot = getLanguageContentPath(lang);
+    const mdxFile = path.join(langContentRoot, 'alternatives', category, 'index.mdx');
 
     try {
         // First try to load from the legacy format (alternatives/category/index.mdx)
@@ -196,7 +214,7 @@ export async function getAlternativesByCategory(category: string): Promise<Alter
         }
 
         // If no legacy file exists, try to load from individual service files
-        const services = await getServicesByCategory(category);
+        const services = await getServicesByCategory(category, undefined, lang);
 
         if (services.length === 0) {
             return null;
@@ -227,8 +245,9 @@ export async function getAlternativesByCategory(category: string): Promise<Alter
 /**
  * Get a list of all alternatives categories
  */
-export function getAlternativesCategories(): string[] {
-    const alternativesPath = path.join(contentRoot, 'alternatives');
+export function getAlternativesCategories(lang: Locale = 'en'): string[] {
+    const langContentRoot = getLanguageContentPath(lang);
+    const alternativesPath = path.join(langContentRoot, 'alternatives');
     return fs.existsSync(alternativesPath)
         ? fs.readdirSync(alternativesPath).filter(dir =>
             fs.statSync(path.join(alternativesPath, dir)).isDirectory() &&
@@ -240,8 +259,9 @@ export function getAlternativesCategories(): string[] {
 /**
  * Get metadata for a category
  */
-export function getCategoryMetadata(category: string): CategoryMetadata | null {
-    const categoryFile = path.join(contentRoot, 'categories', `${category}.md`);
+export function getCategoryMetadata(category: string, lang: Locale = 'en'): CategoryMetadata | null {
+    const langContentRoot = getLanguageContentPath(lang);
+    const categoryFile = path.join(langContentRoot, 'categories', `${category}.md`);
 
     try {
         if (!fs.existsSync(categoryFile)) {
@@ -266,12 +286,13 @@ export function getCategoryMetadata(category: string): CategoryMetadata | null {
 /**
  * Get metadata for all categories
  */
-export function getAllCategoriesMetadata(): {
+export function getAllCategoriesMetadata(lang: Locale = 'en'): {
     slug: string;
     metadata: CategoryMetadata
 }[] {
     try {
-        const categoriesDir = path.join(contentRoot, 'categories');
+        const langContentRoot = getLanguageContentPath(lang);
+        const categoriesDir = path.join(langContentRoot, 'categories');
 
         if (!fs.existsSync(categoriesDir)) {
             return [];
@@ -281,7 +302,7 @@ export function getAllCategoriesMetadata(): {
             .filter(file => file.endsWith('.md') && !file.startsWith('.'))
             .map(file => {
                 const slug = file.replace('.md', '');
-                const metadata = getCategoryMetadata(slug);
+                const metadata = getCategoryMetadata(slug, lang);
 
                 if (!metadata) {
                     return null;
@@ -302,17 +323,19 @@ export function getAllCategoriesMetadata(): {
 /**
  * Get all featured services across categories
  */
-export async function getFeaturedServices(): Promise<{
+export async function getFeaturedServices(lang: Locale = 'en', regionFilter?: 'eu' | 'non-eu'): Promise<{
     service: ServiceFrontmatter;
     category: string;
 }[]> {
     try {
         // Use the getAllServices function which now scans all directories
-        const allServices = await getAllServices();
+        const allServices = await getAllServices(lang);
 
         // Filter to featured services
         const featuredServices = allServices
             .filter(service => service.featured === true)
+            // Apply region filter if specified
+            .filter(service => !regionFilter || service.region === regionFilter)
             .map(service => ({
                 service,
                 category: service.category
@@ -331,15 +354,17 @@ export async function getFeaturedServices(): Promise<{
 export async function getAllGuides({
     sourceService,
     targetService,
+    lang = 'en'
 }: {
     sourceService?: string;
     targetService?: string;
+    lang?: Locale;
 } = {}): Promise<Array<{
     category: string;
     slug: string;
     frontmatter: GuideFrontmatter;
 }>> {
-    const categories = await getGuideCategories();
+    const categories = await getGuideCategories(lang);
     const allGuides: Array<{
         category: string;
         slug: string;
@@ -348,7 +373,7 @@ export async function getAllGuides({
 
     // Process categories one by one
     for (const category of categories) {
-        const guides = await getGuidesByCategory(category);
+        const guides = await getGuidesByCategory(category, lang);
         for (const guide of guides) {
             allGuides.push({
                 category,
@@ -373,8 +398,9 @@ export async function getAllGuides({
 /**
  * Get all services
  */
-export async function getAllServices(): Promise<ServiceFrontmatter[]> {
-    const servicesDir = path.join(contentRoot, 'services');
+export async function getAllServices(lang: Locale = 'en'): Promise<ServiceFrontmatter[]> {
+    const langContentRoot = getLanguageContentPath(lang);
+    const servicesDir = path.join(langContentRoot, 'services');
     const services: ServiceFrontmatter[] = [];
 
     try {
@@ -470,16 +496,16 @@ export async function getAllServices(): Promise<ServiceFrontmatter[]> {
 /**
  * Get only EU-based services
  */
-export async function getEUServices(): Promise<ServiceFrontmatter[]> {
-    const services = await getAllServices();
+export async function getEUServices(lang: Locale = 'en'): Promise<ServiceFrontmatter[]> {
+    const services = await getAllServices(lang);
     return services.filter(service => service.region === 'eu');
 }
 
 /**
  * Get only non-EU services
  */
-export async function getNonEUServices(): Promise<ServiceFrontmatter[]> {
-    const services = await getAllServices();
+export async function getNonEUServices(lang: Locale = 'en'): Promise<ServiceFrontmatter[]> {
+    const services = await getAllServices(lang);
     return services.filter(service => service.region === 'non-eu');
 }
 
@@ -488,9 +514,10 @@ export async function getNonEUServices(): Promise<ServiceFrontmatter[]> {
  */
 export async function getServicesByCategory(
     category: string,
-    regionFilter?: 'eu' | 'non-eu'
+    regionFilter?: 'eu' | 'non-eu',
+    lang: Locale = 'en'
 ): Promise<ServiceFrontmatter[]> {
-    const services = await getAllServices();
+    const services = await getAllServices(lang);
     return services.filter(service => {
         // Always filter by category
         const categoryMatch = service.category.toLowerCase() === category.toLowerCase();
@@ -507,12 +534,13 @@ export async function getServicesByCategory(
 /**
  * Get a specific service by slug
  */
-export async function getServiceBySlug(slug: string): Promise<{
+export async function getServiceBySlug(slug: string, lang: Locale = 'en'): Promise<{
     frontmatter: ServiceFrontmatter;
     content: string;
 } | null> {
+    const langContentRoot = getLanguageContentPath(lang);
     const fileExtensions = ['.md', '.mdx'];
-    const servicesDir = path.join(contentRoot, 'services');
+    const servicesDir = path.join(langContentRoot, 'services');
     const euDir = path.join(servicesDir, 'eu');
     const nonEuDir = path.join(servicesDir, 'non-eu');
     const directories = [servicesDir, euDir, nonEuDir]; // Try root first, then eu/, then non-eu/
@@ -670,11 +698,12 @@ export async function getServiceBySlug(slug: string): Promise<{
 /**
  * Get metadata and content for a category
  */
-export function getCategoryContent(category: string): {
+export function getCategoryContent(category: string, lang: Locale = 'en'): {
     metadata: CategoryMetadata | null;
     content: string | null;
 } {
-    const categoryFile = path.join(contentRoot, 'categories', `${category}.md`);
+    const langContentRoot = getLanguageContentPath(lang);
+    const categoryFile = path.join(langContentRoot, 'categories', `${category}.md`);
 
     try {
         if (!fs.existsSync(categoryFile)) {
@@ -702,12 +731,12 @@ export function getCategoryContent(category: string): {
 /**
  * Get all guides where a specific service is the target
  */
-export async function getGuidesByTargetService(targetService: string): Promise<{
+export async function getGuidesByTargetService(targetService: string, lang: Locale = 'en'): Promise<{
     slug: string;
     frontmatter: GuideFrontmatter;
     category: string;
 }[]> {
-    const categories = await getGuideCategories();
+    const categories = await getGuideCategories(lang);
     const allGuides: {
         slug: string;
         frontmatter: GuideFrontmatter;
@@ -716,7 +745,7 @@ export async function getGuidesByTargetService(targetService: string): Promise<{
 
     // Gather guides from all categories
     for (const category of categories) {
-        const categoryGuides = await getGuidesByCategory(category);
+        const categoryGuides = await getGuidesByCategory(category, lang);
 
         // Add each guide with its category
         categoryGuides.forEach(guide => {
@@ -756,31 +785,29 @@ export function extractServiceIssues(content: string): string[] {
 }
 
 /**
- * Extracts migration steps from the markdown content
- * Looks for headings that start with "Step" and returns them with their IDs for anchor links
+ * Extracts heading sections from the markdown content
+ * Captures only h2 headings (##) and returns them with their IDs for anchor links
  */
 export function extractMigrationSteps(content: string): Array<{ title: string; id: string }> {
     if (!content) return [];
 
-    // Find all headings that start with "Step" or have the format "## 1. Title", "## 2. Title", etc.
-    // This regex looks for Markdown h2 headings (## ) that either:
-    // 1. Start with "Step" or
-    // 2. Start with a number followed by a period or colon
-    const stepHeadingRegex = /##\s+(Step\s+\d+:|Step\s+\d+|[1-9][0-9]*\.|\d+:)(.+?)(?=\n|$)/g;
-    const matches = [...content.matchAll(stepHeadingRegex)];
+    // Find only h2 headings (exactly two # characters),
+    // using word boundary \b to ensure we don't match ### or more
+    const headingRegex = /^##\s+(.+?)(?=\n|$)/gm;
+    const matches = [...content.matchAll(headingRegex)];
 
     return matches.map(match => {
-        const fullTitle = (match[1] + match[2]).trim();
+        const title = match[1].trim();
         // Create a valid HTML ID by converting to lowercase, replacing spaces with hyphens
         // and removing any characters that aren't alphanumeric, hyphens, or underscores
-        const id = fullTitle
+        const id = title
             .toLowerCase()
             .replace(/[^\w\s-]/g, '')
             .replace(/\s+/g, '-');
 
         return {
-            title: fullTitle,
-            id: id
+            title,
+            id
         };
     });
 }
@@ -872,14 +899,14 @@ export function extractMissingFeatures(content: string, frontmatter?: GuideFront
 /**
  * Gets the recommended alternative service based on a service name
  */
-export async function getRecommendedAlternative(serviceName: string): Promise<ServiceFrontmatter | null> {
+export async function getRecommendedAlternative(serviceName: string, lang: Locale = 'en'): Promise<ServiceFrontmatter | null> {
     // Get the service data first
-    const service = await getServiceBySlug(serviceName);
+    const service = await getServiceBySlug(serviceName, lang);
     if (!service || !service.frontmatter.recommendedAlternative) return null;
 
     // Get the recommended alternative service
     const alternativeSlug = service.frontmatter.recommendedAlternative;
-    const alternativeService = await getServiceBySlug(alternativeSlug);
+    const alternativeService = await getServiceBySlug(alternativeSlug, lang);
 
     return alternativeService ? alternativeService.frontmatter : null;
 }
@@ -887,8 +914,8 @@ export async function getRecommendedAlternative(serviceName: string): Promise<Se
 /**
  * Get all service slugs for a specific region
  */
-export async function getServiceSlugs(region: 'eu' | 'non-eu'): Promise<string[]> {
-    const services = await getAllServices();
+export async function getServiceSlugs(region: 'eu' | 'non-eu', lang: Locale = 'en'): Promise<string[]> {
+    const services = await getAllServices(lang);
     return services
         .filter(service => service.region === region)
         .map(service => {

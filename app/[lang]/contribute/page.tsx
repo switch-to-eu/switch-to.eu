@@ -3,14 +3,49 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { defaultLanguage } from '@/lib/i18n/config';
+import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
 
-export const metadata: Metadata = {
-  title: 'Contribute to Switch-to.EU | Help Build EU Alternatives',
-  description: 'Learn how to contribute to Switch-to.EU by adding migration guides, service alternatives, and helping grow our community-driven platform.',
-  keywords: ['contribute', 'open source', 'EU alternatives', 'migration guides', 'community collaboration'],
-};
+// Generate metadata with language alternates
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ lang: string }>
+}): Promise<Metadata> {
+  // Get the language
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
 
-export default function ContributePage() {
+  return {
+    title: String(getNestedValue(dict, 'contribute.meta.title')),
+    description: String(getNestedValue(dict, 'contribute.meta.description')),
+    keywords: ['contribute', 'open source', 'EU alternatives', 'migration guides', 'community collaboration'],
+    alternates: {
+      canonical: `https://switch-to.eu/${lang}/contribute`,
+      languages: {
+        'en': 'https://switch-to.eu/en/contribute',
+        'nl': 'https://switch-to.eu/nl/contribute',
+      },
+    },
+  };
+}
+
+export default async function ContributePage({
+  params
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  // Get the language
+  const { lang } = await params;
+  const language = lang || defaultLanguage;
+  const dict = await getDictionary(language);
+
+  // Helper function to get translated text that ensures return value is a string
+  const t = (path: string): string => {
+    const value = getNestedValue(dict, path);
+    return typeof value === 'string' ? value : path;
+  };
+
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
       {/* Hero Section */}
@@ -18,9 +53,9 @@ export default function ContributePage() {
         <Container>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6 ">Join the Switch-to.EU Community</h1>
-              <p className="text-base sm:text-lg  mb-6">
-                Your expertise can help Europeans reclaim their digital sovereignty! Switch-to.EU empowers users to migrate from big tech services to European alternatives, and we need your help to grow this movement.
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{t('contribute.hero.title')}</h1>
+              <p className="text-base sm:text-lg mb-6">
+                {t('contribute.hero.description')}
               </p>
             </div>
             <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0">
@@ -39,7 +74,7 @@ export default function ContributePage() {
       {/* Contribution Cards Section */}
       <section>
         <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center ">We Need Your Help</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">{t('contribute.helpSection.title')}</h2>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
@@ -48,22 +83,22 @@ export default function ContributePage() {
                   <div className="bg-[var(--pop-1)] rounded-full p-4">
                     <Image
                       src="/images/icon-01.svg"
-                      alt="Share Your Migration Knowledge"
+                      alt={t('contribute.cards.migration.title')}
                       width={60}
                       height={60}
                     />
                   </div>
                 </div>
-                <CardTitle className="text-xl text-center">Share Your Migration Knowledge</CardTitle>
+                <CardTitle className="text-xl text-center">{t('contribute.cards.migration.title')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className=" text-center">
-                  Do you have experience switching to EU-based services? Your insights could help countless others make the same journey. We need detailed, user-friendly migration guides.
+                <p className="text-center">
+                  {t('contribute.cards.migration.description')}
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
                 <Link href="/contribute/guide" className="text-blue hover:underline">
-                  Create a Guide →
+                  {t('contribute.cards.migration.cta')} →
                 </Link>
               </CardFooter>
             </Card>
@@ -74,22 +109,22 @@ export default function ContributePage() {
                   <div className="bg-[var(--pop-2)] rounded-full p-4">
                     <Image
                       src="/images/icon-02.svg"
-                      alt="Be a Guide Tester"
+                      alt={t('contribute.cards.tester.title')}
                       width={60}
                       height={60}
                     />
                   </div>
                 </div>
-                <CardTitle className="text-xl text-center">Be a Guide Tester</CardTitle>
+                <CardTitle className="text-xl text-center">{t('contribute.cards.tester.title')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className=" text-center">
-                  Even if you haven&apos;t made the switch yet, you can help by testing our existing guides. Your fresh perspective helps identify confusing steps or missing information.
+                <p className="text-center">
+                  {t('contribute.cards.tester.description')}
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
                 <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue hover:underline">
-                  Give guide feedback →
+                  {t('contribute.cards.tester.cta')} →
                 </Link>
               </CardFooter>
             </Card>
@@ -100,22 +135,22 @@ export default function ContributePage() {
                   <div className="bg-[var(--pop-3)] rounded-full p-4">
                     <Image
                       src="/images/icon-03.svg"
-                      alt="Discover EU Alternatives"
+                      alt={t('contribute.cards.discover.title')}
                       width={60}
                       height={60}
                     />
                   </div>
                 </div>
-                <CardTitle className="text-xl text-center">Discover EU Alternatives</CardTitle>
+                <CardTitle className="text-xl text-center">{t('contribute.cards.discover.title')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className=" text-center">
-                  Help us expand our catalog of European digital services. Research and document EU-based alternatives to popular international services.
+                <p className="text-center">
+                  {t('contribute.cards.discover.description')}
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
                 <Link href="https://github.com/switch-to-eu/content/issues/new" target="_blank" className="text-blue hover:underline">
-                  Add a Service →
+                  {t('contribute.cards.discover.cta')} →
                 </Link>
               </CardFooter>
             </Card>
@@ -126,22 +161,22 @@ export default function ContributePage() {
                   <div className="bg-[var(--pop-4)] rounded-full p-4">
                     <Image
                       src="/images/icon-01.svg"
-                      alt="Lend Your Technical Skills"
+                      alt={t('contribute.cards.technical.title')}
                       width={60}
                       height={60}
                     />
                   </div>
                 </div>
-                <CardTitle className="text-xl text-center">Lend Your Technical Skills</CardTitle>
+                <CardTitle className="text-xl text-center">{t('contribute.cards.technical.title')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className=" text-center">
-                  Are you a developer? Our platform needs continuous improvement to serve our growing community. From fixing bugs to implementing new features.
+                <p className="text-center">
+                  {t('contribute.cards.technical.description')}
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
                 <Link href="https://github.com/switch-to-eu/switch-to.eu/" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">
-                  View GitHub Repository →
+                  {t('contribute.cards.technical.cta')} →
                 </Link>
               </CardFooter>
             </Card>
@@ -152,22 +187,22 @@ export default function ContributePage() {
                   <div className="bg-[var(--pop-1)] rounded-full p-4">
                     <Image
                       src="/images/icon-02.svg"
-                      alt="Bring Your Ideas"
+                      alt={t('contribute.cards.ideas.title')}
                       width={60}
                       height={60}
                     />
                   </div>
                 </div>
-                <CardTitle className="text-xl text-center">Bring Your Ideas</CardTitle>
+                <CardTitle className="text-xl text-center">{t('contribute.cards.ideas.title')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className=" text-center">
-                  Have suggestions for improving Switch-to.EU? Your insights can shape the future of our platform and help us better serve the European digital community.
+                <p className="text-center">
+                  {t('contribute.cards.ideas.description')}
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue  hover:underline">
-                  Submit Feedback →
+                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">
+                  {t('contribute.cards.ideas.cta')} →
                 </Link>
               </CardFooter>
             </Card>
@@ -179,9 +214,9 @@ export default function ContributePage() {
       <section>
         <Container>
           <div className="bg-[#e8fff5] p-6 sm:p-10 rounded-xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 ">Why Your Contribution Matters</h2>
-            <p className=" text-base sm:text-lg max-w-[800px] mx-auto mb-6">
-              Every contribution, big or small, strengthens digital independence in Europe. By helping others make informed choices about their digital services, you&apos;re supporting privacy, data protection, and the European digital economy.
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t('contribute.whyMatters.title')}</h2>
+            <p className="text-base sm:text-lg max-w-[800px] mx-auto mb-6">
+              {t('contribute.whyMatters.description')}
             </p>
           </div>
         </Container>

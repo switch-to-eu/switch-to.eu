@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { performSearch, SearchResultType } from '@/lib/search';
+import { Locale } from '@/lib/i18n/dictionaries';
 
 export async function GET(request: NextRequest) {
     try {
@@ -21,6 +22,10 @@ export async function GET(request: NextRequest) {
         const regionParam = searchParams.get('region');
         const region = regionParam ? regionParam as 'eu' | 'non-eu' : undefined;
 
+        // Get language parameter
+        const langParam = searchParams.get('lang');
+        const lang = langParam as Locale || 'en';
+
         // Validate search query
         if (!query.trim()) {
             console.log('Search API: Empty query received');
@@ -38,8 +43,8 @@ export async function GET(request: NextRequest) {
         }
 
         // Perform search with parameters
-        console.log('Search API: Performing search for:', query, region ? `with region filter: ${region}` : '');
-        const results = await performSearch(query, { limit, types, region });
+        console.log(`Search API: Performing search for: "${query}" with lang: ${lang}${region ? ` and region filter: ${region}` : ''}`);
+        const results = await performSearch(query, { limit, types, region, lang });
         console.log(`Search API: Found ${results.length} results`);
 
         // Return search results
