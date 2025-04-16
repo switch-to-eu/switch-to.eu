@@ -1,4 +1,4 @@
-import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getRecommendedAlternative } from '@/lib/content';
+import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getRecommendedAlternative, getServiceSlugs } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import path from 'path';
@@ -15,6 +15,15 @@ type Params = Promise<{
 
 interface ServiceDetailPageProps {
   params: Params;
+}
+
+// Generate static params for all non-EU services
+export async function generateStaticParams() {
+  const serviceNames = await getServiceSlugs('non-eu');
+
+  return serviceNames.map((service_name) => ({
+    service_name,
+  }));
 }
 
 // Generate metadata for SEO

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { SearchResult, ServiceSearchResult } from '@/lib/search';
@@ -136,7 +136,7 @@ export function InlineSearchInput({
   }, [animatePlaceholder, query, placeholder]);
 
   // Fetch featured non-EU services for prefilled dropdown
-  const fetchFeaturedServices = async () => {
+  const fetchFeaturedServices = useCallback(async () => {
     try {
       // Adjust the API endpoint as needed
       let url = `/api/search/featured?region=non-eu`;
@@ -149,49 +149,14 @@ export function InlineSearchInput({
       setFeaturedServices(data.results || []);
     } catch (error) {
       console.error('Error fetching featured services:', error);
-
-      // Fallback to sample featured services if API fails
-      setFeaturedServices([
-        {
-          id: 'whatsapp',
-          title: 'WhatsApp',
-          description: 'Popular messaging app',
-          url: '/alternatives/whatsapp',
-          type: 'service',
-          region: 'non-eu'
-        } as ServiceSearchResult,
-        {
-          id: 'gmail',
-          title: 'Gmail',
-          description: 'Email service by Google',
-          url: '/alternatives/gmail',
-          type: 'service',
-          region: 'non-eu'
-        } as ServiceSearchResult,
-        {
-          id: 'instagram',
-          title: 'Instagram',
-          description: 'Social media platform',
-          url: '/alternatives/instagram',
-          type: 'service',
-          region: 'non-eu'
-        } as ServiceSearchResult,
-        {
-          id: 'google-drive',
-          title: 'Google Drive',
-          description: 'Cloud storage service',
-          url: '/alternatives/google-drive',
-          type: 'service',
-          region: 'non-eu'
-        } as ServiceSearchResult
-      ]);
+      setFeaturedServices([]);
     }
-  };
+  }, [showOnlyServices]);
 
   // Load featured services on component mount
   useEffect(() => {
     fetchFeaturedServices();
-  }, [showOnlyServices]);
+  }, [showOnlyServices, fetchFeaturedServices]);
 
   // Function to fetch search results from API
   const fetchResults = async (searchQuery: string) => {

@@ -1,7 +1,16 @@
 import Link from 'next/link';
-import { getGuidesByCategory } from '@/lib/content';
+import { getGuidesByCategory, getGuideCategories } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+
+// Generate static params for all guide category pages
+export async function generateStaticParams() {
+  const categories = await getGuideCategories();
+
+  return categories.map((category) => ({
+    category,
+  }));
+}
 
 // Define params as a Promise type
 type Params = Promise<{

@@ -141,15 +141,7 @@ export async function buildSearchIndex(): Promise<Fuse<SearchResult>> {
         return searchIndex;
     } catch (error) {
         console.error('Error building search index:', error);
-
-        // Return an empty index if there was an error
-        const fallbackIndex = new Fuse<SearchResult>([], {
-            includeScore: true,
-            threshold: 0.4,
-            keys: ['title', 'description']
-        });
-
-        return fallbackIndex;
+        throw new Error(`Failed to build search index: ${error}`);
     }
 }
 
