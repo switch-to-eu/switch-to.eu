@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavItems } from "./nav-items";
 import { Locale } from "@/lib/i18n/dictionaries";
+import { LanguageSelector } from "@/components/navigation/language-selector";
+import { SearchInput } from "@/components/SearchInput";
 
 interface MobileNavProps {
   lang: Locale;
@@ -20,7 +22,7 @@ export async function MobileNav({ lang }: MobileNavProps) {
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col gap-6 pt-10 px-5">
+      <SheetContent side="left" className="flex flex-col gap-6 pt-10 px-5 overflow-y-auto max-h-screen">
         {navItems.map((item) => {
           // Handle dropdown items (Services)
           if (item.dropdown && item.children) {
@@ -61,6 +63,20 @@ export async function MobileNav({ lang }: MobileNavProps) {
             </Link>
           );
         })}
+
+        {/* Language Selector */}
+        <div className="mt-4">
+          <LanguageSelector lang={lang} />
+        </div>
+
+        {/* Search Input */}
+        <div className="mb-2">
+          <SearchInput
+            lang={lang}
+            buttonVariant="outline"
+            className="w-full justify-start"
+          />
+        </div>
       </SheetContent>
     </Sheet>
   );
