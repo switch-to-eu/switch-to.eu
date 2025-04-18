@@ -398,9 +398,80 @@
   "tools": {
     "title": "Tools",
     "description": "Tools to help you switch to EU services",
+    "availableTools": "Available Tools",
+    "whyUseTools": "Why Use Our Tools",
+    "features": {
+      "dataSovereignty": {
+        "title": "Data Sovereignty",
+        "description": "Ensure your data stays within EU jurisdiction and follows GDPR requirements"
+      },
+      "freeSimple": {
+        "title": "Free & Simple",
+        "description": "All tools are free to use with intuitive interfaces and actionable results"
+      },
+      "euAlternatives": {
+        "title": "EU Alternatives",
+        "description": "Get recommendations for EU-based alternatives for any non-compliant services found"
+      }
+    },
     "websiteTool": {
       "title": "Website Tool",
       "description": "Analyze a website to check if it's EU-based"
+    },
+    "website": {
+      "error": {
+        "empty_url": "Please enter a URL",
+        "invalid_url": "Please enter a valid URL"
+      },
+      "hero": {
+        "title": "Website Analyzer",
+        "description": "Check if your website is using EU-based services or if it relies on non-EU providers"
+      },
+      "input": {
+        "placeholder": "Enter a website URL (e.g., example.com)",
+        "button": "Analyze",
+        "info": "We'll check the services this website is using and their EU compliance status"
+      },
+      "empty_state": {
+        "image_alt": "Website analyzer icon",
+        "title": "No Website Analyzed Yet",
+        "description": "Enter a website URL above to analyze its services and check their EU compliance status"
+      },
+      "how_it_works": {
+        "title": "How It Works",
+        "step1": {
+          "title": "Enter Website",
+          "description": "Enter any website URL you want to analyze for EU compliance"
+        },
+        "step2": {
+          "title": "Analyze Services",
+          "description": "We'll detect third-party services the website is using and analyze them"
+        },
+        "step3": {
+          "title": "Get Results",
+          "description": "See which services are EU-compliant and get recommendations for non-compliant ones"
+        }
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "question1": {
+          "title": "What does this tool check for?",
+          "answer": "This tool scans websites to identify third-party services, trackers, and tools they use, then analyzes whether these services comply with EU data sovereignty requirements."
+        },
+        "question2": {
+          "title": "How accurate are the results?",
+          "answer": "While we strive for high accuracy, some services may not be detected if they're loaded conditionally or through obscured methods. The analysis provides a good overview, but not a complete legal assessment."
+        },
+        "question3": {
+          "title": "Can I analyze my own website?",
+          "answer": "Yes! In fact, we encourage website owners to check their own sites to improve their EU compliance. You'll receive suggestions for EU alternatives for any non-compliant services."
+        }
+      },
+      "cta": {
+        "title": "Improve Your Website's EU Compliance",
+        "description": "After analyzing your website, you'll get recommendations for EU alternatives to replace any non-compliant services you're currently using.",
+        "button": "Analyze a Website"
+      }
     }
   },
   "language": {

@@ -342,9 +342,80 @@
   "tools": {
     "title": "Tools",
     "description": "Tools om je te helpen overstappen naar EU-diensten",
+    "availableTools": "Beschikbare Tools",
+    "whyUseTools": "Waarom Onze Tools Gebruiken",
+    "features": {
+      "dataSovereignty": {
+        "title": "Datasoevereiniteit",
+        "description": "Zorg ervoor dat je gegevens binnen de EU-jurisdictie blijven en voldoen aan GDPR-vereisten"
+      },
+      "freeSimple": {
+        "title": "Gratis & Eenvoudig",
+        "description": "Alle tools zijn gratis te gebruiken met intuïtieve interfaces en bruikbare resultaten"
+      },
+      "euAlternatives": {
+        "title": "EU-alternatieven",
+        "description": "Krijg aanbevelingen voor EU-gebaseerde alternatieven voor alle niet-conforme diensten die worden gevonden"
+      }
+    },
     "websiteTool": {
       "title": "Website Tool",
       "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
+    },
+    "website": {
+      "error": {
+        "empty_url": "Voer een URL in",
+        "invalid_url": "Voer een geldige URL in"
+      },
+      "hero": {
+        "title": "Website Analyzer",
+        "description": "Controleer of je website EU-gebaseerde diensten gebruikt of afhankelijk is van niet-EU-providers"
+      },
+      "input": {
+        "placeholder": "Voer een website URL in (bijv. voorbeeld.com)",
+        "button": "Analyseren",
+        "info": "We controleren welke diensten deze website gebruikt en hun EU-nalevingsstatus"
+      },
+      "empty_state": {
+        "image_alt": "Website analyzer icoon",
+        "title": "Nog Geen Website Geanalyseerd",
+        "description": "Voer hierboven een website-URL in om de diensten te analyseren en hun EU-nalevingsstatus te controleren"
+      },
+      "how_it_works": {
+        "title": "Hoe Het Werkt",
+        "step1": {
+          "title": "Website Invoeren",
+          "description": "Voer een website-URL in die je wilt analyseren op EU-naleving"
+        },
+        "step2": {
+          "title": "Diensten Analyseren",
+          "description": "We detecteren diensten van derden die de website gebruikt en analyseren deze"
+        },
+        "step3": {
+          "title": "Resultaten Bekijken",
+          "description": "Zie welke diensten EU-conform zijn en krijg aanbevelingen voor niet-conforme diensten"
+        }
+      },
+      "faq": {
+        "title": "Veelgestelde Vragen",
+        "question1": {
+          "title": "Waarop controleert deze tool?",
+          "answer": "Deze tool scant websites om diensten, trackers en tools van derden te identificeren die ze gebruiken, en analyseert vervolgens of deze diensten voldoen aan de EU-vereisten voor datasoevereiniteit."
+        },
+        "question2": {
+          "title": "Hoe nauwkeurig zijn de resultaten?",
+          "answer": "Hoewel we streven naar hoge nauwkeurigheid, worden sommige diensten mogelijk niet gedetecteerd als ze voorwaardelijk of via verborgen methoden worden geladen. De analyse biedt een goed overzicht, maar geen volledige juridische beoordeling."
+        },
+        "question3": {
+          "title": "Kan ik mijn eigen website analyseren?",
+          "answer": "Ja! We moedigen website-eigenaren zelfs aan om hun eigen sites te controleren om hun EU-naleving te verbeteren. Je ontvangt suggesties voor EU-alternatieven voor niet-conforme diensten."
+        }
+      },
+      "cta": {
+        "title": "Verbeter de EU-naleving van Je Website",
+        "description": "Na het analyseren van je website krijg je aanbevelingen voor EU-alternatieven om eventuele niet-conforme diensten die je momenteel gebruikt te vervangen.",
+        "button": "Analyseer een Website"
+      }
     }
   },
   "language": {

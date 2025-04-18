@@ -9,6 +9,7 @@ import { RecommendedAlternative } from '@/components/ui/RecommendedAlternative';
 // Define params as a Promise type
 type Params = Promise<{
   category: string;
+  lang: string;
 }>;
 
 interface ServicesCategoryPageProps {
@@ -48,7 +49,7 @@ export async function generateStaticParams() {
 export default async function ServicesCategoryPage(props: ServicesCategoryPageProps) {
   // Await the params Promise
   const params = await props.params;
-  const { category } = params;
+  const { category, lang } = params;
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   // Load EU services for this category
@@ -95,6 +96,7 @@ export default async function ServicesCategoryPage(props: ServicesCategoryPagePr
               <RecommendedAlternative
                 key={service.name}
                 service={service}
+                lang={lang}
               />
             ))}
           </div>
@@ -108,6 +110,7 @@ export default async function ServicesCategoryPage(props: ServicesCategoryPagePr
               key={service.name}
               service={service}
               showCategory={false}
+              lang={lang}
             />
           ))}
         </div>
@@ -115,7 +118,7 @@ export default async function ServicesCategoryPage(props: ServicesCategoryPagePr
       {/* CTA Section */}
       <section className="py-8 md:py-12">
         <Container>
-          <ContributeCta />
+          <ContributeCta lang={lang} />
         </Container>
       </section>
     </main>

@@ -3,19 +3,38 @@ import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Metadata } from "next";
 import { ContributeCta } from "@/components/ContributeCta";
+import { getDictionary, getNestedValue, defaultLanguage } from "@/lib/i18n/dictionaries";
 
-export const metadata: Metadata = {
-  title: "EU Compliance Tools | switch-to.eu",
-  description:
-    "Free tools to help you analyze and improve your service compliance with EU data sovereignty and GDPR requirements.",
-  keywords: [
-    "EU tools",
-    "GDPR compliance",
-    "data sovereignty",
-    "website analyzer",
-    "EU service checker",
-  ],
-};
+// Generate metadata with language alternates
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ lang: string }>
+}): Promise<Metadata> {
+  // Await the params
+  const { lang } = await params;
+  const language = lang || defaultLanguage;
+  const dict = await getDictionary(language);
+
+  return {
+    title: String(getNestedValue(dict, 'tools.title')) + " | switch-to.eu",
+    description: String(getNestedValue(dict, 'tools.description')),
+    keywords: [
+      "EU tools",
+      "GDPR compliance",
+      "data sovereignty",
+      "website analyzer",
+      "EU service checker",
+    ],
+    alternates: {
+      canonical: `https://switch-to.eu/${language}/tools`,
+      languages: {
+        'en': 'https://switch-to.eu/en/tools',
+        'nl': 'https://switch-to.eu/nl/tools',
+      },
+    },
+  };
+}
 
 interface Tool {
   name: string;
@@ -25,14 +44,28 @@ interface Tool {
   color: number;
 }
 
-export default function ToolsPage() {
+interface ToolsPageProps {
+  params: Promise<{ lang: string }>;
+}
+
+export default async function ToolsPage({ params }: ToolsPageProps) {
+  // Await the params
+  const { lang } = await params;
+  const language = lang || defaultLanguage;
+  const dict = await getDictionary(language);
+
+  // Helper function to get translated text
+  const t = (path: string): string => {
+    const value = getNestedValue(dict, path);
+    return typeof value === 'string' ? value : path;
+  };
+
   // List of available tools
   const tools: Tool[] = [
     {
-      name: "Website Analyzer",
+      name: t('tools.websiteTool.title'),
       slug: "website",
-      description:
-        "Check if your website is using EU-based services or if it relies on non-EU providers",
+      description: t('tools.websiteTool.description'),
       icon: "/images/tools/website-analyzer.svg",
       color: 1,
     },
@@ -45,11 +78,10 @@ export default function ToolsPage() {
       <section>
         <Container className="flex flex-col items-center gap-6 text-center">
           <h1 className="font-bold text-4xl md:text-5xl">
-            EU Compliance Tools
+            {t('tools.title')}
           </h1>
           <p className="max-w-[650px] text-lg text-muted-foreground md:text-xl">
-            Free tools to help you analyze and improve your service compliance
-            with EU data sovereignty and GDPR requirements.
+            {t('tools.description')}
           </p>
         </Container>
       </section>
@@ -58,13 +90,13 @@ export default function ToolsPage() {
       <section>
         <Container>
           <h2 className="mb-8 text-center font-bold text-3xl">
-            Available Tools
+            {t('tools.availableTools')}
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
             {tools.map((tool) => (
               <Link
                 key={tool.slug}
-                href={`/tools/${tool.slug}`}
+                href={`/${lang}/tools/${tool.slug}`}
                 className="no-underline h-full"
               >
                 <div
@@ -98,7 +130,7 @@ export default function ToolsPage() {
       <section>
         <Container>
           <h2 className="mb-8 text-center font-bold text-3xl">
-            Why Use Our Tools
+            {t('tools.whyUseTools')}
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="flex flex-col items-center text-center">
@@ -118,10 +150,9 @@ export default function ToolsPage() {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Data Sovereignty</h3>
+              <h3 className="mb-2 text-xl font-semibold">{t('tools.features.dataSovereignty.title')}</h3>
               <p className="text-muted-foreground">
-                Ensure your data stays within EU jurisdiction and follows GDPR
-                requirements
+                {t('tools.features.dataSovereignty.description')}
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -141,10 +172,9 @@ export default function ToolsPage() {
                   <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Free & Simple</h3>
+              <h3 className="mb-2 text-xl font-semibold">{t('tools.features.freeSimple.title')}</h3>
               <p className="text-muted-foreground">
-                All tools are free to use with intuitive interfaces and
-                actionable results
+                {t('tools.features.freeSimple.description')}
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -167,10 +197,9 @@ export default function ToolsPage() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">EU Alternatives</h3>
+              <h3 className="mb-2 text-xl font-semibold">{t('tools.features.euAlternatives.title')}</h3>
               <p className="text-muted-foreground">
-                Get recommendations for EU-based alternatives for any
-                non-compliant services found
+                {t('tools.features.euAlternatives.description')}
               </p>
             </div>
           </div>
@@ -180,7 +209,7 @@ export default function ToolsPage() {
       {/* CTA Section */}
       <section className="py-8 md:py-12">
         <Container>
-          <ContributeCta />
+          <ContributeCta lang={language} />
         </Container>
       </section>
     </main>
