@@ -112,8 +112,6 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
   const missingFeatures = extractMissingFeatures(content, frontmatter);
   const steps = extractMigrationSteps(content);
 
-  console.log(steps);
-
   // Set basic options for marked
   marked.setOptions({
     gfm: true,     // GitHub Flavored Markdown
