@@ -1,0 +1,481 @@
+{
+  "common": {
+    "title": "Switch-to.eu",
+    "description": "Een gids om je te helpen overstappen van niet-EU naar EU-gebaseerde digitale diensten en producten.",
+    "search": "Zoeken...",
+    "searchPlaceholder": "Zoek naar diensten...",
+    "searchResults": "Zoekresultaten",
+    "noResults": "Geen resultaten gevonden",
+    "loading": "Laden..."
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Diensten",
+    "tools": "Tools",
+    "about": "Over",
+    "contribute": "Bijdragen",
+    "github": "GitHub",
+    "allCategories": "Alle Categorieën",
+    "websiteTool": "Website tool"
+  },
+  "home": {
+    "heading": "Stap over naar EU-gebaseerde digitale diensten",
+    "subheading": "Vind EU-alternatieven voor wereldwijde diensten en bescherm je gegevens onder EU-wetgeving",
+    "featuredSection": "Uitgelichte Categorieën",
+    "categoriesSectionTitle": "Europese Alternatieven per Categorie",
+    "viewAll": "Bekijk alle diensten",
+    "heroTitle": "NEEM CONTROLE OVER JE DIGITALE DIENSTEN",
+    "heroSubtitle": "Stap over naar <b>EU-gebaseerde alternatieven</b> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
+    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <b>de overstap!</b>",
+    "exampleLabel": "Bijvoorbeeld:",
+    "featuresEuropeanTitle": "Europese Alternatieven",
+    "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
+    "featuresGuidesTitle": "Stapsgewijze Handleidingen",
+    "featuresGuidesDescription": "Volg onze duidelijke, gedetailleerde migratierichtlijnen om naadloos over te stappen van wereldwijde diensten naar Europese alternatieven. Onze handleidingen vereenvoudigen complexe processen tot behapbare stappen die iedereen kan volgen.",
+    "featuresCommunityTitle": "Community Gedreven",
+    "featuresCommunityDescription": "Ons platform gedijt op gebruikersparticipatie. Iedereen kan bijdragen door nieuwe diensten toe te voegen, migratiegidsen te maken of te verbeteren, en ervaringen te delen. Deze samenwerkingsaanpak zorgt ervoor dat onze inhoud relevant, nauwkeurig en volledig blijft.",
+    "whySwitchTitle": "Waarom overstappen naar Europese diensten?",
+    "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan GDPR, zodat je gegevens met transparantie en veiligheid worden verwerkt.",
+    "whySwitchDescription2": "Ondersteun het lokale tech-ecosysteem en draag bij aan een eerlijkere digitale economie.",
+    "knowMoreButton": "Meer weten?"
+  },
+  "footer": {
+    "rightsReserved": "Alle rechten voorbehouden",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Servicevoorwaarden",
+    "contactUs": "Neem contact op",
+    "poweredBy": "Mogelijk gemaakt door"
+  },
+  "contribute": {
+    "title": "Bijdragen",
+    "description": "Help ons de database te verbeteren door nieuwe diensten toe te voegen of bestaande bij te werken",
+    "cta": "Bijdragen op GitHub",
+    "ctaTitle": "Kun je niet vinden wat je zoekt?",
+    "ctaDescription": "Als je suggesties hebt voor nieuwe alternatieven, overweeg dan om bij te dragen aan het project!",
+    "buttonText": "Bijdragen aan Switch-to.EU",
+    "meta": {
+      "title": "Bijdragen aan Switch-to.EU | Help EU-alternatieven Opbouwen",
+      "description": "Leer hoe je kunt bijdragen aan Switch-to.EU door migratiegidsen en service-alternatieven toe te voegen en ons community-gedreven platform te helpen groeien."
+    },
+    "hero": {
+      "title": "Word Lid van de Switch-to.EU Community",
+      "description": "Jouw expertise kan Europeanen helpen hun digitale soevereiniteit terug te winnen! Switch-to.EU stelt gebruikers in staat om van big tech-diensten over te stappen naar Europese alternatieven, en we hebben jouw hulp nodig om deze beweging te laten groeien."
+    },
+    "helpSection": {
+      "title": "We Hebben Je Hulp Nodig"
+    },
+    "cards": {
+      "migration": {
+        "title": "Deel Je Migratiekennis",
+        "description": "Heb je ervaring met overstappen naar in de EU gebaseerde diensten? Jouw inzichten kunnen talloze anderen helpen dezelfde reis te maken. We hebben gedetailleerde, gebruiksvriendelijke migratiegidsen nodig.",
+        "cta": "Maak een Gids"
+      },
+      "tester": {
+        "title": "Word een Gidstester",
+        "description": "Zelfs als je nog niet bent overgestapt, kun je helpen door onze bestaande gidsen te testen. Jouw frisse perspectief helpt verwarrende stappen of ontbrekende informatie te identificeren.",
+        "cta": "Geef feedback op gidsen"
+      },
+      "discover": {
+        "title": "Ontdek EU-alternatieven",
+        "description": "Help ons onze catalogus van Europese digitale diensten uit te breiden. Onderzoek en documenteer EU-gebaseerde alternatieven voor populaire internationale diensten.",
+        "cta": "Voeg een Dienst Toe"
+      },
+      "technical": {
+        "title": "Leen je Technische Vaardigheden",
+        "description": "Ben je een ontwikkelaar? Ons platform heeft voortdurend verbetering nodig om onze groeiende gemeenschap te bedienen. Van het oplossen van bugs tot het implementeren van nieuwe functies.",
+        "cta": "Bekijk GitHub Repository"
+      },
+      "ideas": {
+        "title": "Breng Je Ideeën In",
+        "description": "Heb je suggesties voor het verbeteren van Switch-to.EU? Jouw inzichten kunnen de toekomst van ons platform vormgeven en ons helpen de Europese digitale gemeenschap beter te bedienen.",
+        "cta": "Dien Feedback In"
+      }
+    },
+    "whyMatters": {
+      "title": "Waarom Jouw Bijdrage Belangrijk Is",
+      "description": "Elke bijdrage, groot of klein, versterkt de digitale onafhankelijkheid in Europa. Door anderen te helpen geïnformeerde keuzes te maken over hun digitale diensten, ondersteun je privacy, gegevensbescherming en de Europese digitale economie."
+    },
+    "guide": {
+      "meta": {
+        "title": "Bijdragen aan Switch-to.EU | Contentrichtlijnen",
+        "description": "Leer hoe je kunt bijdragen aan Switch-to.EU via GitHub door migratiegidsen te maken, service-alternatieven toe te voegen en het platform te verbeteren."
+      },
+      "hero": {
+        "title": "Bijdragen aan Switch-to.EU Content",
+        "description": "Een door de gemeenschap gedreven platform dat gebruikers helpt overstappen van niet-EU digitale diensten naar EU-alternatieven via duidelijke, stapsgewijze migratiegidsen."
+      },
+      "repositoryOverview": {
+        "title": "Repository Overzicht",
+        "description": "De switch-to-eu/content repository bevat alle geschreven inhoud voor ons platform, georganiseerd als Markdown-bestanden. Dit omvat migratiegidsen, servicebeschrijvingen en andere documentatie."
+      },
+      "whatYouCanContribute": {
+        "title": "Wat Je Kunt Bijdragen",
+        "points": [
+          "Migratiegidsen voor overstappen van niet-EU naar EU-diensten",
+          "Documentatie over EU-service alternatieven",
+          "Updates of correcties op bestaande inhoud",
+          "Vertalingen van bestaande inhoud naar andere Europese talen"
+        ]
+      },
+      "contributionProcess": {
+        "title": "Bijdrageproces",
+        "step1": {
+          "title": "1. Fork de Content Repository",
+          "points": [
+            "Ga naar https://github.com/switch-to-eu/content",
+            "Klik op de \"Fork\" knop in de rechterbovenhoek",
+            "Dit maakt je persoonlijke kopie van de content repository"
+          ]
+        },
+        "step2": {
+          "title": "2. Clone Je Fork (Optioneel)",
+          "description": "Als je lokaal wilt werken:"
+        },
+        "step3": {
+          "title": "3. Maak of Bewerk Content",
+          "optionA": "Optie A: Direct Bewerken op GitHub",
+          "optionAPoints": [
+            "Navigeer naar het bestand dat je wilt bewerken in je fork",
+            "Klik op het potloodpictogram om te bewerken",
+            "Maak je wijzigingen in de editor"
+          ],
+          "optionB": "Optie B: Lokaal Bewerken",
+          "optionBPoints": [
+            "Maak een branch: git checkout -b jouw-branch-naam",
+            "Maak of bewerk bestanden met je favoriete tekstverwerker",
+            "Commit en push je wijzigingen"
+          ]
+        },
+        "step4": {
+          "title": "4. Volg de Contentstructuur",
+          "description": "Onze content is als volgt georganiseerd:",
+          "points": [
+            "/guides/ - Migratiegidsen georganiseerd per servicecategorie",
+            "/alternatives/ - Informatie over EU-service alternatieven",
+            "/templates/ - Sjablonen voor het maken van nieuwe content"
+          ]
+        },
+        "step5": {
+          "title": "5. Dien een Pull Request in",
+          "points": [
+            "Navigeer naar je fork op GitHub",
+            "Klik op \"Contribute\" en dan \"Open pull request\"",
+            "Geef een duidelijke titel en beschrijving van je wijzigingen",
+            "Dien de pull request in"
+          ]
+        }
+      },
+      "contentGuidelines": {
+        "title": "Contentrichtlijnen",
+        "formatting": {
+          "title": "Opmaak",
+          "points": [
+            "Alle content moet geschreven zijn in Markdown",
+            "Gebruik koppen (# ## ###) om content te organiseren",
+            "Neem een titel en korte inleiding op aan het begin van elke gids",
+            "Gebruik screenshots waar nuttig (plaats in de /images/ directory)"
+          ]
+        },
+        "writingStyle": {
+          "title": "Schrijfstijl",
+          "points": [
+            "Gebruik duidelijke, eenvoudige taal",
+            "Streef naar stapsgewijze instructies waar van toepassing",
+            "Wees feitelijk en neutraal bij het vergelijken van diensten",
+            "Focus op praktische migratie-informatie",
+            "Gebruik inclusieve taal"
+          ]
+        },
+        "migrationGuidesStructure": {
+          "title": "Structuur van Migratiegidsen",
+          "description": "Elke migratiegids moet het volgende bevatten:",
+          "points": [
+            "Een overzicht van het migratieproces",
+            "Vereisten (accounts, benodigde tools)",
+            "Stapsgewijze migratie-instructies",
+            "Verificatiestappen om succesvolle migratie te garanderen",
+            "Probleemoplossing voor veelvoorkomende problemen (indien van toepassing)"
+          ]
+        }
+      },
+      "reviewProcess": {
+        "title": "Reviewproces",
+        "description": "Na het indienen van je pull request:",
+        "points": [
+          "Een beheerder zal je bijdrage beoordelen",
+          "Je kunt feedback ontvangen met verzoeken om wijzigingen",
+          "Eenmaal goedgekeurd, zal je content worden samengevoegd en gepubliceerd op de website"
+        ]
+      },
+      "questionsAndSupport": {
+        "title": "Vragen en Ondersteuning",
+        "points": [
+          "Reageer op gerelateerde issues voor context",
+          "Stel vragen in je pull request als je verduidelijking nodig hebt"
+        ]
+      },
+      "callToAction": {
+        "title": "Maak Vandaag nog een Verschil",
+        "description": "Bedankt voor het helpen van Europeanen om controle te krijgen over hun digitale leven door middel van kwaliteitsvolle contentbijdragen!",
+        "buttonText": "Bezoek Content Repository"
+      }
+    }
+  },
+  "about": {
+    "title": "Over Switch-to.eu",
+    "description": "Wij helpen EU-burgers digitale diensten te vinden die onder EU-wetgeving vallen",
+    "heroTitle": "Over Switch-to.EU",
+    "heroDescription1": "Switch-to.EU is een door de gemeenschap gedreven platform dat gebruikers helpt gemakkelijk over te stappen van niet-EU digitale diensten naar EU-alternatieven door middel van duidelijke, stapsgewijze migratiegidsen.",
+    "heroDescription2": "Ons doel is het bevorderen van digitale soevereiniteit en gegevensprivacy door het voor gebruikers gemakkelijker te maken om diensten te vinden en ernaar te migreren die binnen de Europese Unie worden gehost.",
+    "pillarsTitle": "Onze Drie Pijlers",
+    "pillars": {
+      "pillar1": {
+        "title": "Europese Alternatieven",
+        "description": "We identificeren en cureren digitale diensten die worden beheerd door organisaties die in de EU zijn gevestigd en onder EU-recht opereren. Gebruikers kunnen door ons uitgebreide catalogus bladeren om het perfecte alternatief te vinden voor de diensten die ze momenteel gebruiken."
+      },
+      "pillar2": {
+        "title": "Migratiegidsen",
+        "description": "We bieden gedetailleerde, stapsgewijze instructies voor het overstappen van veel gebruikte diensten naar in EU gevestigde alternatieven. Onze gidsen maken het migratie-proces toegankelijk voor gebruikers van alle technische niveaus."
+      },
+      "pillar3": {
+        "title": "Community-gedreven",
+        "description": "Switch-to.EU is open-source en afhankelijk van bijdragen vanuit de gemeenschap. Het platform groeit en verbetert dankzij de collectieve kennis van zijn gebruikers, die gidsen, alternatieven en feedback bijdragen."
+      }
+    },
+    "whyChooseTitle": "Waarom Kiezen voor in de EU Gebaseerde Diensten?",
+    "whyChooseDescription": "Europese diensten bieden verschillende voordelen ten opzichte van niet-EU alternatieven:",
+    "whyChoosePoints": {
+      "point1": {
+        "title": "Sterke Gegevensbescherming",
+        "description": "EU-diensten moeten voldoen aan strikte wetten voor gegevensbescherming zoals de AVG (Algemene Verordening Gegevensbescherming), die gebruikers meer controle geeft over hun persoonlijke gegevens en transparantie over hoe hun gegevens worden gebruikt."
+      },
+      "point2": {
+        "title": "Digitale Soevereiniteit",
+        "description": "Door diensten te gebruiken die door Europese bedrijven worden beheerd, dragen gebruikers bij aan de technologische onafhankelijkheid van Europa en verminderen de afhankelijkheid van buitenlandse bedrijven en overheden."
+      },
+      "point3": {
+        "title": "Ethische Overwegingen",
+        "description": "EU-bedrijven moeten voldoen aan Europese normen voor digitale ethiek, die vaak strengere vereisten hebben met betrekking tot algoritmische transparantie, fairness en non-discriminatie dan in andere rechtsgebieden."
+      },
+      "point4": {
+        "title": "Lokale Economie",
+        "description": "Door Europese alternatieven te ondersteunen, dragen gebruikers bij aan de groei van de digitale economie van de EU, wat leidt tot innovatie, werkgelegenheid en een meer competitief Europees technologisch ecosysteem."
+      }
+    },
+    "contributionTitle": "Bijdragen aan Switch-to.EU",
+    "contributionDescription": "We moedigen gebruikers aan om bij te dragen aan het platform door:",
+    "contributionPoints": {
+      "point1": {
+        "description": "Nieuwe migratiegidsen toevoegen of bestaande verbeteren"
+      },
+      "point2": {
+        "description": "EU-alternatieven voor populaire diensten voorstellen"
+      },
+      "point3": {
+        "description": "Bugs rapporteren of suggesties doen voor verbeteringen"
+      },
+      "point4": {
+        "description": "Het project delen met anderen die geïnteresseerd zijn in digitale soevereiniteit"
+      }
+    }
+  },
+  "services": {
+    "title": "Diensten",
+    "description": "Vind EU-alternatieven voor wereldwijde diensten",
+    "viewServices": "Bekijk diensten",
+    "alternatives": "Alternatieven",
+    "featuredAlternatives": "Uitgelichte alternatieven",
+    "viewMore": "Bekijk meer",
+    "category": "Categorie",
+    "location": "Locatie",
+    "freeOption": "Gratis optie beschikbaar",
+    "paidOnly": "Alleen betaald",
+    "viewDetails": "Bekijk details",
+    "detail": {
+      "location": "Locatie",
+      "privacyRating": "Privacybeoordeling",
+      "freeOption": "Gratis optie",
+      "freeOptionYes": "✅ Ja",
+      "freeOptionNo": "❌ Nee",
+      "startingPrice": "Startprijs",
+      "visitWebsite": "Bezoek website",
+      "similarServices": "Vergelijkbare diensten",
+      "migrationGuides": "Migratiegidsen",
+      "migrateHelp": "Hier zijn enkele gidsen om je te helpen migreren naar",
+      "noGuides": "Er bestaan nog geen migratiegidsen voor",
+      "helpOthers": "Help anderen overstappen door de eerste gids te maken!",
+      "writeMigrationGuide": "Schrijf een migratiegids",
+      "anotherServiceHelp": "Ken je een andere dienst om van te migreren? Help een gids te schrijven!",
+      "writeAnotherGuide": "Schrijf nog een gids",
+      "nonEu": {
+        "moreInfo": "Meer informatie over",
+        "otherAlternatives": "Andere alternatieven",
+        "otherEUAlternatives": "Hier zijn andere EU-gebaseerde alternatieven die vergelijkbare functionaliteit bieden...",
+        "oneMoreEUAlternative": "Hier is een extra EU-gebaseerd alternatief dat vergelijkbare functionaliteit biedt...",
+        "whyProblematic": "Waarom {{service}} problematisch is",
+        "whySwitchTitle": "Waarom overstappen naar EU-diensten?",
+        "dataSovereignty": {
+          "title": "Gegevensoevereiniteit",
+          "description": "Je gegevens blijven binnen de EU-jurisdictie, onder strengere privacywetten."
+        },
+        "gdprCompliance": {
+          "title": "AVG-naleving",
+          "description": "EU-diensten moeten voldoen aan strikte eisen voor gegevensbescherming."
+        },
+        "legalRecourse": {
+          "title": "Juridische mogelijkheden",
+          "description": "Gemakkelijkere juridische middelen als er iets misgaat met je gegevens."
+        },
+        "supportEUDigital": {
+          "title": "Ondersteun de EU digitale economie",
+          "description": "Draag bij aan digitale onafhankelijkheid en innovatie binnen Europa."
+        }
+      },
+      "recommendedAlternative": {
+        "title": "Aanbevolen alternatief",
+        "startingPrice": "Startprijs",
+        "migrateFrom": "Migreer van {{source}} naar {{target}}",
+        "viewDetails": "Bekijk dienstdetails"
+      }
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "description": "Tools om je te helpen overstappen naar EU-diensten",
+    "availableTools": "Beschikbare Tools",
+    "whyUseTools": "Waarom Onze Tools Gebruiken",
+    "features": {
+      "dataSovereignty": {
+        "title": "Datasoevereiniteit",
+        "description": "Zorg ervoor dat je gegevens binnen de EU-jurisdictie blijven en voldoen aan GDPR-vereisten"
+      },
+      "freeSimple": {
+        "title": "Gratis & Eenvoudig",
+        "description": "Alle tools zijn gratis te gebruiken met intuïtieve interfaces en bruikbare resultaten"
+      },
+      "euAlternatives": {
+        "title": "EU-alternatieven",
+        "description": "Krijg aanbevelingen voor EU-gebaseerde alternatieven voor alle niet-conforme diensten die worden gevonden"
+      }
+    },
+    "websiteTool": {
+      "title": "Website Tool",
+      "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
+    },
+    "website": {
+      "error": {
+        "empty_url": "Voer een URL in",
+        "invalid_url": "Voer een geldige URL in"
+      },
+      "hero": {
+        "title": "Website Analyzer",
+        "description": "Controleer of je website EU-gebaseerde diensten gebruikt of afhankelijk is van niet-EU-providers"
+      },
+      "input": {
+        "placeholder": "Voer een website URL in (bijv. voorbeeld.com)",
+        "button": "Analyseren",
+        "info": "We controleren welke diensten deze website gebruikt en hun EU-nalevingsstatus"
+      },
+      "empty_state": {
+        "image_alt": "Website analyzer icoon",
+        "title": "Nog Geen Website Geanalyseerd",
+        "description": "Voer hierboven een website-URL in om de diensten te analyseren en hun EU-nalevingsstatus te controleren"
+      },
+      "how_it_works": {
+        "title": "Hoe Het Werkt",
+        "step1": {
+          "title": "Website Invoeren",
+          "description": "Voer een website-URL in die je wilt analyseren op EU-naleving"
+        },
+        "step2": {
+          "title": "Diensten Analyseren",
+          "description": "We detecteren diensten van derden die de website gebruikt en analyseren deze"
+        },
+        "step3": {
+          "title": "Resultaten Bekijken",
+          "description": "Zie welke diensten EU-conform zijn en krijg aanbevelingen voor niet-conforme diensten"
+        }
+      },
+      "faq": {
+        "title": "Veelgestelde Vragen",
+        "question1": {
+          "title": "Waarop controleert deze tool?",
+          "answer": "Deze tool scant websites om diensten, trackers en tools van derden te identificeren die ze gebruiken, en analyseert vervolgens of deze diensten voldoen aan de EU-vereisten voor datasoevereiniteit."
+        },
+        "question2": {
+          "title": "Hoe nauwkeurig zijn de resultaten?",
+          "answer": "Hoewel we streven naar hoge nauwkeurigheid, worden sommige diensten mogelijk niet gedetecteerd als ze voorwaardelijk of via verborgen methoden worden geladen. De analyse biedt een goed overzicht, maar geen volledige juridische beoordeling."
+        },
+        "question3": {
+          "title": "Kan ik mijn eigen website analyseren?",
+          "answer": "Ja! We moedigen website-eigenaren zelfs aan om hun eigen sites te controleren om hun EU-naleving te verbeteren. Je ontvangt suggesties voor EU-alternatieven voor niet-conforme diensten."
+        }
+      },
+      "cta": {
+        "title": "Verbeter de EU-naleving van Je Website",
+        "description": "Na het analyseren van je website krijg je aanbevelingen voor EU-alternatieven om eventuele niet-conforme diensten die je momenteel gebruikt te vervangen.",
+        "button": "Analyseer een Website"
+      }
+    }
+  },
+  "language": {
+    "en": "Engels",
+    "nl": "Nederlands"
+  },
+  "guides": {
+    "meta": {
+      "title": "Migratiegidsen | switch-to.eu",
+      "description": "Stap-voor-stap instructies om je te helpen overstappen van algemene diensten naar privacygerichte EU-alternatieven."
+    },
+    "hero": {
+      "title": "Migratiegidsen",
+      "description": "Stap-voor-stap instructies om je te helpen overstappen van algemene diensten naar privacygerichte EU-alternatieven."
+    },
+    "featured": {
+      "title": "Populaire Migratiegidsen"
+    },
+    "card": {
+      "from": "Van:",
+      "to": "Naar:",
+      "view_button": "Bekijk Migratiegids"
+    },
+    "category": {
+      "title": "Gidsen",
+      "view_all": "Bekijk Alle",
+      "meta": {
+        "title": "{{category}} Migratiegidsen | switch-to.eu",
+        "description": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {{category}}-diensten naar EU-alternatieven."
+      },
+      "pageTitle": "{{category}} Migratiegidsen",
+      "pageDescription": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {{category}}-diensten naar EU-alternatieven.",
+      "difficulty": {
+        "beginner": "Beginner",
+        "intermediate": "Gemiddeld",
+        "advanced": "Gevorderd"
+      },
+      "from": "Van:",
+      "to": "Naar:",
+      "viewGuide": "Bekijk Migratiegids →",
+      "lookingForAlternatives": "Op zoek naar {{category}}-alternatieven?",
+      "checkAlternatives": "Bekijk onze uitgebreide lijst van EU-gebaseerde {{category}}-alternatieven met functievergelijkingen.",
+      "viewAlternatives": "Bekijk {{category}}-alternatieven →"
+    },
+    "cta": {
+      "title": "Niet Gevonden Wat Je Zoekt?",
+      "description": "We voegen voortdurend nieuwe gidsen toe. Als je de migratiegids die je zoekt niet ziet, overweeg dan om bij te dragen aan het project of neem contact op om nieuwe gidsen voor te stellen.",
+      "button": "Draag een Gids bij"
+    },
+    "service": {
+      "meta": {
+        "title": "{{title}} | switch-to.eu",
+        "notFound": "Gids Niet Gevonden"
+      },
+      "difficultyLabel": "{{level}} Moeilijkheidsgraad",
+      "editGuide": {
+        "title": "Heb je een probleem gevonden of wil je deze gids verbeteren?",
+        "description": "Deze gids wordt onderhouden door de gemeenschap. Als je een fout hebt gevonden of suggesties voor verbetering hebt, overweeg dan om bij te dragen.",
+        "link": "Bewerk deze gids op GitHub →"
+      }
+    }
+  }
+}

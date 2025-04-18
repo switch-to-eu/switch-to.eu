@@ -4,8 +4,6 @@ import "./globals.css";
 import Script from "next/script";
 import PlausibleProvider from "next-plausible";
 
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import {
   bricolageGrotesqueExtraBold,
   hankenGroteskSemiBold,
@@ -62,9 +60,7 @@ export default function RootLayout({
         <body
           className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
-          <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
         </body>
       </PlausibleProvider>
     </html>

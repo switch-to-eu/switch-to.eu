@@ -3,9 +3,14 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavItems } from "./nav-items";
+import { Locale } from "@/lib/i18n/dictionaries";
 
-export function MobileNav() {
-  const navItems = getNavItems();
+interface MobileNavProps {
+  lang: Locale;
+}
+
+export async function MobileNav({ lang }: MobileNavProps) {
+  const navItems = await getNavItems(lang);
 
   return (
     <Sheet>
@@ -47,9 +52,7 @@ export function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-lg font-medium ${
-                item.href === "/" ? "" : "text-muted-foreground"
-              } transition-colors hover:text-primary pl-1`}
+              className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1"
               {...(item.isExternal
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

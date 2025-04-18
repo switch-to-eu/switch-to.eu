@@ -9,13 +9,15 @@ import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
+import { Locale } from "@/lib/i18n/dictionaries";
 
 interface MainNavProps {
   className?: string;
+  lang: Locale;
 }
 
-export function MainNav({ className }: MainNavProps) {
-  const navItems = getNavItems();
+export async function MainNav({ className, lang }: MainNavProps) {
+  const navItems = await getNavItems(lang);
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -58,9 +60,8 @@ export function MainNav({ className }: MainNavProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium ${
-                  isHome ? "" : "text-muted-foreground"
-                } transition-colors hover:text-primary`}
+                className={`text-sm font-medium ${isHome ? "" : "text-muted-foreground"
+                  } transition-colors hover:text-primary`}
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -72,7 +73,7 @@ export function MainNav({ className }: MainNavProps) {
       </nav>
 
       {/* Add search input to navigation */}
-      <SearchInput />
+      <SearchInput lang={lang} />
     </div>
   );
 }

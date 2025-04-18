@@ -19,6 +19,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { RegionBadge } from "@/components/ui/region-badge";
+import { Locale } from '@/lib/i18n/dictionaries';
 
 interface SearchInputProps {
   className?: string;
@@ -28,6 +29,7 @@ interface SearchInputProps {
   size?: 'default' | 'lg';
   autoOpen?: boolean;
   showOnlyServices?: boolean;
+  lang?: Locale;
 }
 
 export function SearchInput({
@@ -37,7 +39,8 @@ export function SearchInput({
   filterRegion,
   size = 'default',
   autoOpen = false,
-  showOnlyServices = false
+  showOnlyServices = false,
+  lang = 'en'
 }: SearchInputProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen);
@@ -63,6 +66,9 @@ export function SearchInput({
       }
       if (showOnlyServices) {
         url += `&types=service`;
+      }
+      if (lang) {
+        url += `&lang=${lang}`;
       }
 
       const response = await fetch(url);
@@ -117,13 +123,17 @@ export function SearchInput({
   // Handle selecting a search result
   const handleSelect = (result: SearchResult) => {
     setOpen(false);
-    router.push(result.url);
+    // Update URLs to include language
+    const url = result.url.startsWith('/') && !result.url.startsWith(`/${lang}`)
+      ? `/${lang}${result.url}`
+      : result.url;
+    router.push(url);
   };
 
   // Navigate to search page for full results
   const handleViewAllResults = () => {
     setOpen(false);
-    router.push(`/search?q=${encodeURIComponent(query)}`);
+    router.push(`/${lang}/search?q=${encodeURIComponent(query)}`);
   };
 
   // Filtered results by type
