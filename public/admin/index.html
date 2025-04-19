@@ -27,37 +27,54 @@
         border-bottom: 1px solid #ddd;
         padding-bottom: 5px;
       }
-      .login-button {
-        margin: 20px;
-        padding: 10px 15px;
+
+      /* Add manual authentication button */
+      #manual-auth {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+      }
+      .auth-button {
+        margin-top: 10px;
+        padding: 8px 16px;
         background-color: #0366d6;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 16px;
-      }
-      .container {
-        margin: 20px;
-        text-align: center;
+        font-size: 14px;
       }
     </style>
   </head>
   <body>
     <!-- Debug panel -->
     <div id="debug"></div>
-    <div id="manual-login" class="container" style="display: none">
-      <h2>Decap CMS Authentication</h2>
+
+    <!-- Manual authentication UI -->
+    <div id="manual-auth" style="display: none">
+      <h3>GitHub Authentication</h3>
       <p>
-        You have a GitHub token, but the CMS is having trouble
-        initializing.
+        If login isn't working properly, try manual authentication
       </p>
-      <button class="login-button" id="manual-auth-button">
-        Try Manual Authentication
+      <button id="github-auth-button" class="auth-button">
+        Manual GitHub Login
+      </button>
+      <button
+        id="clear-tokens-button"
+        class="auth-button"
+        style="background-color: #e0115f"
+      >
+        Clear Tokens
       </button>
     </div>
 
-    <!-- Include the CMS script -->
+    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <script>
@@ -71,31 +88,16 @@
           item.textContent =
             message + (obj ? ': ' + JSON.stringify(obj) : '');
           debugEl.appendChild(item);
-          // Scroll to bottom
           debugEl.scrollTop = debugEl.scrollHeight;
-        }
-      }
-
-      // Alternative authentication approach
-      function setupManualAuth() {
-        const container = document.getElementById('manual-login');
-        const authButton = document.getElementById(
-          'manual-auth-button'
-        );
-
-        if (localStorage.getItem('githubToken')) {
-          container.style.display = 'block';
-
-          authButton.addEventListener('click', function () {
-            // Attempt to manually initialize CMS
-            initializeCMS(true);
-          });
         }
       }
 
       // Check for token in URL hash
       function checkHash() {
-        if (window.location.hash.includes('access_token=')) {
+        if (
+          window.location.hash &&
+          window.location.hash.includes('access_token=')
+        ) {
           const token = window.location.hash.match(
             /access_token=([^&]+)/
           );
@@ -103,12 +105,22 @@
             log('Found token in URL hash', {
               token: token[1].substring(0, 10) + '...',
             });
-            localStorage.setItem('githubToken', token[1]);
-            // Remove the token from the URL
+
+            // Store token in LocalStorage
+            localStorage.setItem('netlifyCmsGithubToken', token[1]);
+            localStorage.setItem(
+              'netlifyCmsUser',
+              JSON.stringify({
+                name: 'GitHub User',
+                hash: Date.now(),
+              })
+            );
+
+            // Remove the token from the URL for security
             window.history.replaceState(
               null,
               null,
-              window.location.pathname + window.location.search + '#/'
+              window.location.pathname + window.location.search
             );
             return token[1];
           }
@@ -116,89 +128,139 @@
         return null;
       }
 
-      // Handle authentication messages from popup
+      // Handle message events from popup window
       window.addEventListener('message', function (event) {
-        log('Received message', event.data);
+        log('Received message', {
+          type: event.data?.type,
+          origin: event.origin,
+        });
 
-        // Check if it's our authentication message
         if (
           event.data &&
           event.data.type === 'github:auth' &&
           event.data.token
         ) {
-          log('Received token from popup', {
-            token: event.data.token.substring(0, 10) + '...',
-          });
+          log('Received GitHub token from popup');
 
-          // Store the token in localStorage
-          localStorage.setItem('githubToken', event.data.token);
+          // Store token and user info in LocalStorage
+          localStorage.setItem(
+            'netlifyCmsGithubToken',
+            event.data.token
+          );
+          localStorage.setItem(
+            'netlifyCmsUser',
+            JSON.stringify({ name: 'GitHub User', hash: Date.now() })
+          );
 
           // Reload the page to apply the token
           log('Reloading page to apply token');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          setTimeout(() => window.location.reload(), 1000);
         }
       });
 
+      // Manual GitHub authentication button handler
+      function setupManualAuth() {
+        document.getElementById('manual-auth').style.display =
+          'block';
+
+        document
+          .getElementById('github-auth-button')
+          .addEventListener('click', function () {
+            const width = 600;
+            const height = 600;
+            const left = (window.innerWidth - width) / 2;
+            const top = (window.innerHeight - height) / 2;
+
+            window.open(
+              '/api/auth?provider=github&scope=repo',
+              'GitHub Auth',
+              `width=${width},height=${height},left=${left},top=${top}`
+            );
+          });
+
+        document
+          .getElementById('clear-tokens-button')
+          .addEventListener('click', function () {
+            // Clear all potential auth tokens
+            localStorage.removeItem('netlifyCmsGithubToken');
+            localStorage.removeItem('netlifyCmsUser');
+            localStorage.removeItem('github-token');
+            localStorage.removeItem('netlify-cms-user');
+            localStorage.removeItem('netlify-cms.oauth-token');
+            localStorage.removeItem('netlify-cms.user');
+            localStorage.removeItem('cms.user');
+            localStorage.removeItem('cms.token');
+            localStorage.removeItem('githubToken');
+
+            log('All tokens cleared');
+            setTimeout(() => window.location.reload(), 500);
+          });
+      }
+
       // Initialize CMS
-      function initializeCMS(forceInit = false) {
-        // Manual initialization to override authentication endpoint
+      window.addEventListener('load', function () {
+        // Set manual init mode
         window.CMS_MANUAL_INIT = true;
 
+        // Always show debug & manual auth UI
+        setupManualAuth();
+
+        // Check for token in URL or localStorage
         const urlToken = checkHash();
-        const storedToken = localStorage.getItem('githubToken');
+        const storedToken = localStorage.getItem(
+          'netlifyCmsGithubToken'
+        );
         const token = urlToken || storedToken;
 
-        if (!token && !forceInit) {
-          log(
-            'No token found, proceeding with normal initialization'
-          );
-          initializeBasicCMS();
-          return;
+        if (token) {
+          log('Token found, initializing CMS with token', {
+            token_preview: token.substring(0, 10) + '...',
+          });
+        } else {
+          log('No token found, CMS will show login screen');
         }
 
-        log('Initializing CMS with token', {
-          token: token ? token.substring(0, 10) + '...' : 'None',
-        });
-
-        // Determine if we're in local development
+        // Determine if we're in development or production
         const isLocalhost =
           window.location.hostname === 'localhost' ||
           window.location.hostname === '127.0.0.1';
-
-        // Check if we're on staging
         const isStaging =
           window.location.hostname.includes('staging');
 
         try {
-          // Initialize with simplified config
+          // Initialize CMS with minimum configuration
           window.CMS.init({
             config: {
+              load_config_file: false,
               backend: {
-                name: isLocalhost ? 'test-repo' : 'github',
+                name: 'github',
                 repo: 'switch-to-eu/switch-to.eu',
                 branch: isStaging ? 'staging' : 'main',
-                auth_endpoint: '/api/auth',
-                base_url: window.location.origin,
                 auth_type: 'implicit',
-                api_root: 'https://api.github.com',
-                ...(token ? { token: token } : {}),
+                auth_endpoint: '/api/auth',
+                app_id: '', // GitHub OAuth App ID (not required with our custom auth)
+                base_url: window.location.origin,
+                ...(token ? { token: token } : {}), // Add token if available
               },
+              publish_mode: 'editorial_workflow',
               media_folder: 'public/images',
               public_folder: '/images',
               collections: [
                 {
-                  name: 'eu_services',
-                  label: 'EU Services',
-                  folder: 'content/services/eu',
+                  name: 'services',
+                  label: 'Services',
+                  folder: 'content/services',
                   create: true,
                   fields: [
-                    { label: 'Name', name: 'name', widget: 'string' },
                     {
-                      label: 'Description',
-                      name: 'description',
+                      name: 'title',
+                      label: 'Title',
                       widget: 'string',
+                    },
+                    {
+                      name: 'description',
+                      label: 'Description',
+                      widget: 'text',
                     },
                   ],
                 },
@@ -209,82 +271,28 @@
           log('CMS initialized successfully');
         } catch (error) {
           log('Error initializing CMS', error.message);
-          // Show manual login if initialization fails
-          setupManualAuth();
         }
-      }
-
-      // Initialize with basic config for login
-      function initializeBasicCMS() {
-        try {
-          // Determine if we're in local development
-          const isLocalhost =
-            window.location.hostname === 'localhost' ||
-            window.location.hostname === '127.0.0.1';
-
-          // Check if we're on staging
-          const isStaging =
-            window.location.hostname.includes('staging');
-
-          // Initialize with minimal config to show login
-          window.CMS.init({
-            config: {
-              backend: {
-                name: isLocalhost ? 'test-repo' : 'github',
-                repo: 'switch-to-eu/switch-to.eu',
-                branch: isStaging ? 'staging' : 'main',
-                auth_endpoint: '/api/auth',
-                base_url: window.location.origin,
-              },
-              media_folder: 'public/images',
-              public_folder: '/images',
-              collections: [
-                {
-                  name: 'basic_test',
-                  label: 'Test',
-                  folder: 'content',
-                  create: true,
-                  fields: [
-                    {
-                      name: 'title',
-                      label: 'Title',
-                      widget: 'string',
-                    },
-                  ],
-                },
-              ],
-            },
-          });
-          log('Basic CMS initialized for login');
-        } catch (error) {
-          log('Error initializing basic CMS', error.message);
-        }
-      }
-
-      // Initialize on page load
-      window.addEventListener('load', function () {
-        initializeCMS();
       });
 
-      // Add a convenient logout function for testing
-      window.logoutCMS = function () {
-        localStorage.removeItem('githubToken');
-        localStorage.removeItem('netlifySiteURL');
-        log('Logged out. Clearing tokens...');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      };
-
-      // Check if user is authenticated
+      // Display auth status for debugging
       window.checkAuth = function () {
-        const token = localStorage.getItem('githubToken');
-        if (token) {
-          log('Token exists in localStorage', {
-            token: token.substring(0, 10) + '...',
-          });
-        } else {
-          log('No token found in localStorage');
+        const token = localStorage.getItem('netlifyCmsGithubToken');
+
+        log('Auth status:', {
+          token_exists: !!token,
+          token_preview: token
+            ? token.substring(0, 10) + '...'
+            : 'none',
+        });
+
+        // Log all keys in localStorage for debugging
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          let value = localStorage.getItem(key);
+          if (value && value.length > 40) {
+            value = value.substring(0, 40) + '...';
+          }
+          log(`localStorage[${key}]:`, value);
         }
       };
     </script>
