@@ -15,6 +15,30 @@
       // Manual initialization to override authentication endpoint
       window.CMS_MANUAL_INIT = true;
 
+      // Add debugging for authentication messages
+      window.addEventListener('message', function (event) {
+        console.log('Received message:', event.data);
+
+        // Check if it's our authentication message
+        if (
+          event.data &&
+          event.data.type === 'github:auth' &&
+          event.data.token
+        ) {
+          console.log('Received token from popup');
+
+          // Store the token in localStorage
+          localStorage.setItem(
+            'netlifySiteURL',
+            window.location.hostname
+          ); // For CMS compatibility
+          localStorage.setItem('githubToken', event.data.token); // Store the GitHub token
+
+          // Reload the page to apply the token
+          window.location.reload();
+        }
+      });
+
       window.decapInit = () => {
         // Determine if we're in local development
         const isLocalhost =
@@ -24,6 +48,10 @@
         // Check if we're on staging
         const isStaging =
           window.location.hostname.includes('staging');
+
+        // Check if we have an existing token
+        const existingToken = localStorage.getItem('githubToken');
+        console.log('Using existing token:', !!existingToken);
 
         // Backend config - use test-repo for local dev, GitHub for production
         const backendConfig = isLocalhost
@@ -37,6 +65,7 @@
               site_id: '', // Prevent using default Netlify auth
               auth_type: 'implicit', // Use implicit OAuth flow
               api_root: 'https://api.github.com',
+              token: existingToken, // Use the stored token if available
             };
 
         // Initialize the CMS
@@ -246,6 +275,16 @@
 
       // Initialize on page load
       window.addEventListener('load', window.decapInit);
+
+      // Add a convenient logout function for testing
+      window.logoutCMS = function () {
+        localStorage.removeItem('githubToken');
+        localStorage.removeItem('netlifySiteURL');
+        alert(
+          'Logged out. Reload the page to see the login button again.'
+        );
+        window.location.reload();
+      };
     </script>
   </body>
 </html>

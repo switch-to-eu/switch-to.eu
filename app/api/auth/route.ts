@@ -69,11 +69,51 @@ export async function GET(request: NextRequest) {
         );
       }
 
-      // Redirect back to the admin with the token
-      // Use the actual origin from the request
-      return NextResponse.redirect(
-        `${origin}/admin/#access_token=${tokenData.access_token}`
-      );
+      // Instead of redirecting, return a page that sends the token back to the parent window
+      const postMessageHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authenticating...</title>
+</head>
+<body>
+  <script>
+    // Send the access token to the parent window and close this popup
+    (function() {
+      function receiveMessage(e) {
+        // Only accept messages from the same origin
+        if (e.origin !== window.location.origin) return;
+
+        // Send the token to the parent window
+        e.source.postMessage(
+          {
+            type: "github:auth",
+            token: "${tokenData.access_token}"
+          },
+          e.origin
+        );
+
+        // Close this popup window
+        window.removeEventListener("message", receiveMessage);
+        window.close();
+      }
+
+      // Listen for the ready message from the opener
+      window.addEventListener("message", receiveMessage);
+
+      // Signal to parent we're ready to receive messages
+      window.opener.postMessage("authorizing:github", window.location.origin);
+    })();
+  </script>
+  <p>Authentication successful! This window should close automatically.</p>
+</body>
+</html>`;
+
+      return new NextResponse(postMessageHTML, {
+        headers: {
+          'Content-Type': 'text/html',
+        },
+      });
     } catch (error) {
       console.error('Authentication error:', error);
       return NextResponse.json(
