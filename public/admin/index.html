@@ -187,9 +187,19 @@
               },
               media_folder: 'public/images',
               public_folder: '/images',
+              // Only define i18n if we're logged in
+              ...(token
+                ? {
+                    i18n: {
+                      structure: 'multiple_folders',
+                      locales: ['en', 'nl'], // Each locale appears exactly once
+                      default_locale: 'en',
+                    },
+                  }
+                : {}),
               collections: [
                 {
-                  name: 'eu-services',
+                  name: 'eu_services', // Ensure unique name (no hyphens)
                   label: 'EU Services',
                   folder: 'content/{{locale}}/services/eu',
                   create: true,
@@ -222,11 +232,6 @@
                   ],
                 },
               ],
-              i18n: {
-                structure: 'multiple_folders',
-                locales: ['en', 'nl'],
-                default_locale: 'en',
-              },
             },
           });
 
@@ -264,7 +269,7 @@
               public_folder: '/images',
               collections: [
                 {
-                  name: 'test',
+                  name: 'basic_test',
                   label: 'Test',
                   folder: 'content',
                   create: true,
