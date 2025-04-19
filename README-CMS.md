@@ -17,7 +17,7 @@ This document explains how to set up Decap CMS with a Next.js application deploy
 3. Fill in the following details:
    - Application name: `Switch-to.eu CMS`
    - Homepage URL: `https://switch-to.eu`
-   - Authorization callback URL: `https://switch-to.eu/api/auth`
+   - Authorization callback URL: `https://switch-to.eu/api/auth/start`
 4. Click "Register application"
 5. After creating the app, you'll see your Client ID
 6. Generate a Client Secret
@@ -40,7 +40,7 @@ backend:
   repo: switch-to-eu/switch-to.eu
   branch: main
   base_url: https://switch-to.eu
-  auth_endpoint: api/auth
+  auth_endpoint: api/auth/start
 ```
 
 ### 4. Deploy Your Site

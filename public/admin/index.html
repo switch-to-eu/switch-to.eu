@@ -172,7 +172,7 @@
             const top = (window.innerHeight - height) / 2;
 
             window.open(
-              '/api/auth?provider=github&scope=repo',
+              '/api/auth/start?provider=github&scope=repo',
               'GitHub Auth',
               `width=${width},height=${height},left=${left},top=${top}`
             );
@@ -237,7 +237,8 @@
                 repo: 'switch-to-eu/switch-to.eu',
                 branch: isStaging ? 'staging' : 'main',
                 auth_type: 'implicit',
-                auth_endpoint: '/api/auth',
+                auth_endpoint: '/api/auth/start',
+                callback_url: '/api/auth/callback',
                 app_id: '', // GitHub OAuth App ID (not required with our custom auth)
                 base_url: window.location.origin,
                 ...(token ? { token: token } : {}), // Add token if available
