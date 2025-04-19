@@ -2,7 +2,7 @@ backend:
   name: github
   repo: switch-to-eu/switch-to.eu # Replace with your GitHub username and repo name
   branch: main # Branch to update (defaults to master)
-  base_url: https://switch-to.eu # Replace with your Vercel site URL
+  base_url: https://staging.switch-to.eu # Replace with your Vercel site URL
   auth_endpoint: api/auth # Endpoint for authentication
 
 media_folder: public/images # Media files will be stored in the repo under public/images
