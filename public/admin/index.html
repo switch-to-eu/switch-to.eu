@@ -27,49 +27,96 @@
         border-bottom: 1px solid #ddd;
         padding-bottom: 5px;
       }
+      .login-button {
+        margin: 20px;
+        padding: 10px 15px;
+        background-color: #0366d6;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .container {
+        margin: 20px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <!-- Debug panel -->
     <div id="debug"></div>
+    <div id="manual-login" class="container" style="display: none">
+      <h2>Decap CMS Authentication</h2>
+      <p>
+        You have a GitHub token, but the CMS is having trouble
+        initializing.
+      </p>
+      <button class="login-button" id="manual-auth-button">
+        Try Manual Authentication
+      </button>
+    </div>
 
-    <!-- Initialize CMS manually to override authentication -->
+    <!-- Include the CMS script -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
     <script>
       // Debugging helper
       function log(message, obj) {
         console.log(message, obj);
         const debugEl = document.getElementById('debug');
-        const item = document.createElement('div');
-        item.className = 'debug-item';
-        item.textContent =
-          message + (obj ? ': ' + JSON.stringify(obj) : '');
-        debugEl.appendChild(item);
-        // Scroll to bottom
-        debugEl.scrollTop = debugEl.scrollHeight;
-      }
-
-      // Manual initialization to override authentication endpoint
-      window.CMS_MANUAL_INIT = true;
-
-      // Log any access token found in the URL hash
-      if (window.location.hash.includes('access_token=')) {
-        const token = window.location.hash.match(
-          /access_token=([^&]+)/
-        );
-        if (token && token[1]) {
-          log('Found token in URL hash', token[1]);
-          localStorage.setItem('githubToken', token[1]);
-          // Remove the token from the URL
-          window.history.replaceState(
-            null,
-            null,
-            window.location.pathname + window.location.search + '#/'
-          );
+        if (debugEl) {
+          const item = document.createElement('div');
+          item.className = 'debug-item';
+          item.textContent =
+            message + (obj ? ': ' + JSON.stringify(obj) : '');
+          debugEl.appendChild(item);
+          // Scroll to bottom
+          debugEl.scrollTop = debugEl.scrollHeight;
         }
       }
 
-      // Add debugging for authentication messages
+      // Alternative authentication approach
+      function setupManualAuth() {
+        const container = document.getElementById('manual-login');
+        const authButton = document.getElementById(
+          'manual-auth-button'
+        );
+
+        if (localStorage.getItem('githubToken')) {
+          container.style.display = 'block';
+
+          authButton.addEventListener('click', function () {
+            // Attempt to manually initialize CMS
+            initializeCMS(true);
+          });
+        }
+      }
+
+      // Check for token in URL hash
+      function checkHash() {
+        if (window.location.hash.includes('access_token=')) {
+          const token = window.location.hash.match(
+            /access_token=([^&]+)/
+          );
+          if (token && token[1]) {
+            log('Found token in URL hash', {
+              token: token[1].substring(0, 10) + '...',
+            });
+            localStorage.setItem('githubToken', token[1]);
+            // Remove the token from the URL
+            window.history.replaceState(
+              null,
+              null,
+              window.location.pathname + window.location.search + '#/'
+            );
+            return token[1];
+          }
+        }
+        return null;
+      }
+
+      // Handle authentication messages from popup
       window.addEventListener('message', function (event) {
         log('Received message', event.data);
 
@@ -84,11 +131,7 @@
           });
 
           // Store the token in localStorage
-          localStorage.setItem(
-            'netlifySiteURL',
-            window.location.hostname
-          ); // For CMS compatibility
-          localStorage.setItem('githubToken', event.data.token); // Store the GitHub token
+          localStorage.setItem('githubToken', event.data.token);
 
           // Reload the page to apply the token
           log('Reloading page to apply token');
@@ -98,7 +141,27 @@
         }
       });
 
-      window.decapInit = () => {
+      // Initialize CMS
+      function initializeCMS(forceInit = false) {
+        // Manual initialization to override authentication endpoint
+        window.CMS_MANUAL_INIT = true;
+
+        const urlToken = checkHash();
+        const storedToken = localStorage.getItem('githubToken');
+        const token = urlToken || storedToken;
+
+        if (!token && !forceInit) {
+          log(
+            'No token found, proceeding with normal initialization'
+          );
+          initializeBasicCMS();
+          return;
+        }
+
+        log('Initializing CMS with token', {
+          token: token ? token.substring(0, 10) + '...' : 'None',
+        });
+
         // Determine if we're in local development
         const isLocalhost =
           window.location.hostname === 'localhost' ||
@@ -108,48 +171,22 @@
         const isStaging =
           window.location.hostname.includes('staging');
 
-        // Check if we have an existing token
-        const existingToken = localStorage.getItem('githubToken');
-        log(
-          'Using existing token',
-          existingToken
-            ? 'Yes (first 10 chars: ' +
-                existingToken.substring(0, 10) +
-                '...)'
-            : 'No'
-        );
-
-        // Backend config - use test-repo for local dev, GitHub for production
-        const backendConfig = isLocalhost
-          ? { name: 'test-repo' }
-          : {
-              name: 'github',
-              repo: 'switch-to-eu/switch-to.eu',
-              branch: isStaging ? 'staging' : 'main',
-              auth_endpoint: '/api/auth',
-              base_url: window.location.origin,
-              site_id: '', // Prevent using default Netlify auth
-              auth_type: 'implicit', // Use implicit OAuth flow
-              api_root: 'https://api.github.com',
-              ...(existingToken ? { token: existingToken } : {}), // Use token if available
-            };
-
-        log('Backend config', backendConfig);
-
-        // Initialize the CMS
         try {
+          // Initialize with basic config first
           window.CMS.init({
             config: {
-              backend: backendConfig,
-              load_config_file: false,
-              local_backend: isLocalhost, // Enable local backend for localhost only
+              backend: {
+                name: isLocalhost ? 'test-repo' : 'github',
+                repo: 'switch-to-eu/switch-to.eu',
+                branch: isStaging ? 'staging' : 'main',
+                auth_endpoint: '/api/auth',
+                base_url: window.location.origin,
+                auth_type: 'implicit',
+                api_root: 'https://api.github.com',
+                ...(token ? { token: token } : {}),
+              },
               media_folder: 'public/images',
               public_folder: '/images',
-              i18n: {
-                structure: 'multiple_folders',
-                locales: ['en', 'nl'],
-                default_locale: 'en',
-              },
               collections: [
                 {
                   name: 'eu-services',
@@ -157,8 +194,6 @@
                   folder: 'content/{{locale}}/services/eu',
                   create: true,
                   slug: '{{slug}}',
-                  i18n: true,
-                  preview_path: '{{locale}}/services/eu/{{slug}}',
                   fields: [
                     { label: 'Name', name: 'name', widget: 'string' },
                     {
@@ -175,164 +210,9 @@
                       ],
                     },
                     {
-                      label: 'Location',
-                      name: 'location',
-                      widget: 'string',
-                    },
-                    {
-                      label: 'Region',
-                      name: 'region',
-                      widget: 'select',
-                      options: ['eu'],
-                      default: 'eu',
-                    },
-                    {
-                      label: 'Privacy Rating',
-                      name: 'privacyRating',
-                      widget: 'number',
-                      value_type: 'int',
-                      min: 1,
-                      max: 5,
-                    },
-                    {
-                      label: 'Free Option',
-                      name: 'freeOption',
-                      widget: 'boolean',
-                      default: false,
-                    },
-                    {
-                      label: 'Starting Price',
-                      name: 'startingPrice',
-                      widget: 'string',
-                    },
-                    {
                       label: 'Description',
                       name: 'description',
                       widget: 'string',
-                    },
-                    { label: 'URL', name: 'url', widget: 'string' },
-                    {
-                      label: 'Featured',
-                      name: 'featured',
-                      widget: 'boolean',
-                      default: false,
-                    },
-                    {
-                      label: 'Features',
-                      name: 'features',
-                      widget: 'list',
-                    },
-                    { label: 'Tags', name: 'tags', widget: 'list' },
-                    {
-                      label: 'Content',
-                      name: 'body',
-                      widget: 'markdown',
-                    },
-                  ],
-                },
-                {
-                  name: 'non-eu-services',
-                  label: 'Non-EU Services',
-                  folder: 'content/{{locale}}/services/non-eu',
-                  create: true,
-                  slug: '{{slug}}',
-                  i18n: true,
-                  preview_path: '{{locale}}/services/non-eu/{{slug}}',
-                  fields: [
-                    { label: 'Name', name: 'name', widget: 'string' },
-                    {
-                      label: 'Category',
-                      name: 'category',
-                      widget: 'select',
-                      options: [
-                        'email',
-                        'cloud-storage',
-                        'messaging',
-                        'productivity',
-                        'social-media',
-                        'video-conference',
-                      ],
-                    },
-                    {
-                      label: 'Location',
-                      name: 'location',
-                      widget: 'string',
-                    },
-                    {
-                      label: 'Region',
-                      name: 'region',
-                      widget: 'select',
-                      options: ['non-eu'],
-                      default: 'non-eu',
-                    },
-                    {
-                      label: 'Privacy Rating',
-                      name: 'privacyRating',
-                      widget: 'number',
-                      value_type: 'int',
-                      min: 1,
-                      max: 5,
-                    },
-                    {
-                      label: 'Free Option',
-                      name: 'freeOption',
-                      widget: 'boolean',
-                      default: false,
-                    },
-                    {
-                      label: 'Starting Price',
-                      name: 'startingPrice',
-                      widget: 'string',
-                    },
-                    {
-                      label: 'Description',
-                      name: 'description',
-                      widget: 'string',
-                    },
-                    { label: 'URL', name: 'url', widget: 'string' },
-                    {
-                      label: 'Alternatives',
-                      name: 'alternatives',
-                      widget: 'list',
-                      required: false,
-                    },
-                    { label: 'Tags', name: 'tags', widget: 'list' },
-                    {
-                      label: 'Content',
-                      name: 'body',
-                      widget: 'markdown',
-                    },
-                  ],
-                },
-                {
-                  name: 'blog',
-                  label: 'Blog',
-                  folder: 'content/{{locale}}/blog',
-                  create: true,
-                  slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-                  i18n: true,
-                  fields: [
-                    {
-                      label: 'Title',
-                      name: 'title',
-                      widget: 'string',
-                    },
-                    {
-                      label: 'Publish Date',
-                      name: 'date',
-                      widget: 'datetime',
-                    },
-                    {
-                      label: 'Featured Image',
-                      name: 'thumbnail',
-                      widget: 'image',
-                      required: false,
-                    },
-                    {
-                      label: 'Tags',
-                      name: 'tags',
-                      widget: 'list',
-                      required: false,
                     },
                     {
                       label: 'Content',
@@ -342,16 +222,73 @@
                   ],
                 },
               ],
+              i18n: {
+                structure: 'multiple_folders',
+                locales: ['en', 'nl'],
+                default_locale: 'en',
+              },
             },
           });
+
           log('CMS initialized successfully');
         } catch (error) {
           log('Error initializing CMS', error.message);
+          // Show manual login if initialization fails
+          setupManualAuth();
         }
-      };
+      }
+
+      // Initialize with basic config for login
+      function initializeBasicCMS() {
+        try {
+          // Determine if we're in local development
+          const isLocalhost =
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1';
+
+          // Check if we're on staging
+          const isStaging =
+            window.location.hostname.includes('staging');
+
+          // Initialize with minimal config to show login
+          window.CMS.init({
+            config: {
+              backend: {
+                name: isLocalhost ? 'test-repo' : 'github',
+                repo: 'switch-to-eu/switch-to.eu',
+                branch: isStaging ? 'staging' : 'main',
+                auth_endpoint: '/api/auth',
+                base_url: window.location.origin,
+              },
+              media_folder: 'public/images',
+              public_folder: '/images',
+              collections: [
+                {
+                  name: 'test',
+                  label: 'Test',
+                  folder: 'content',
+                  create: true,
+                  fields: [
+                    {
+                      name: 'title',
+                      label: 'Title',
+                      widget: 'string',
+                    },
+                  ],
+                },
+              ],
+            },
+          });
+          log('Basic CMS initialized for login');
+        } catch (error) {
+          log('Error initializing basic CMS', error.message);
+        }
+      }
 
       // Initialize on page load
-      window.addEventListener('load', window.decapInit);
+      window.addEventListener('load', function () {
+        initializeCMS();
+      });
 
       // Add a convenient logout function for testing
       window.logoutCMS = function () {
