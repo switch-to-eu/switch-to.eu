@@ -1,0 +1,169 @@
+backend:
+  name: github
+  repo: switch-to-eu/switch-to.eu # Replace with your GitHub username and repo name
+  branch: main # Branch to update (defaults to master)
+  base_url: https://switch-to.eu # Replace with your Vercel site URL
+  auth_endpoint: api/auth # Endpoint for authentication
+
+media_folder: public/images # Media files will be stored in the repo under public/images
+public_folder: /images # The src attribute for uploaded media will begin with /images
+
+i18n:
+  structure: multiple_folders
+  locales: [en, nl]
+  default_locale: en
+
+collections:
+  - name: 'eu-services'
+    label: 'EU Services'
+    folder: 'content/{{locale}}/services/eu'
+    create: true
+    slug: '{{slug}}'
+    i18n: true
+    preview_path: '{{locale}}/services/eu/{{slug}}'
+    fields:
+      - { label: 'Name', name: 'name', widget: 'string' }
+      - {
+          label: 'Category',
+          name: 'category',
+          widget: 'select',
+          options:
+            [
+              'email',
+              'cloud-storage',
+              'messaging',
+              'productivity',
+              'social-media',
+              'video-conference',
+            ],
+        }
+      - { label: 'Location', name: 'location', widget: 'string' }
+      - {
+          label: 'Region',
+          name: 'region',
+          widget: 'select',
+          options: ['eu'],
+          default: 'eu',
+        }
+      - {
+          label: 'Privacy Rating',
+          name: 'privacyRating',
+          widget: 'number',
+          value_type: 'int',
+          min: 1,
+          max: 5,
+        }
+      - {
+          label: 'Free Option',
+          name: 'freeOption',
+          widget: 'boolean',
+          default: false,
+        }
+      - {
+          label: 'Starting Price',
+          name: 'startingPrice',
+          widget: 'string',
+        }
+      - {
+          label: 'Description',
+          name: 'description',
+          widget: 'string',
+        }
+      - { label: 'URL', name: 'url', widget: 'string' }
+      - {
+          label: 'Featured',
+          name: 'featured',
+          widget: 'boolean',
+          default: false,
+        }
+      - { label: 'Features', name: 'features', widget: 'list' }
+      - { label: 'Tags', name: 'tags', widget: 'list' }
+      - { label: 'Content', name: 'body', widget: 'markdown' }
+
+  - name: 'non-eu-services'
+    label: 'Non-EU Services'
+    folder: 'content/{{locale}}/services/non-eu'
+    create: true
+    slug: '{{slug}}'
+    i18n: true
+    preview_path: '{{locale}}/services/non-eu/{{slug}}'
+    fields:
+      - { label: 'Name', name: 'name', widget: 'string' }
+      - {
+          label: 'Category',
+          name: 'category',
+          widget: 'select',
+          options:
+            [
+              'email',
+              'cloud-storage',
+              'messaging',
+              'productivity',
+              'social-media',
+              'video-conference',
+            ],
+        }
+      - { label: 'Location', name: 'location', widget: 'string' }
+      - {
+          label: 'Region',
+          name: 'region',
+          widget: 'select',
+          options: ['non-eu'],
+          default: 'non-eu',
+        }
+      - {
+          label: 'Privacy Rating',
+          name: 'privacyRating',
+          widget: 'number',
+          value_type: 'int',
+          min: 1,
+          max: 5,
+        }
+      - {
+          label: 'Free Option',
+          name: 'freeOption',
+          widget: 'boolean',
+          default: false,
+        }
+      - {
+          label: 'Starting Price',
+          name: 'startingPrice',
+          widget: 'string',
+        }
+      - {
+          label: 'Description',
+          name: 'description',
+          widget: 'string',
+        }
+      - { label: 'URL', name: 'url', widget: 'string' }
+      - {
+          label: 'Alternatives',
+          name: 'alternatives',
+          widget: 'list',
+          required: false,
+        }
+      - { label: 'Tags', name: 'tags', widget: 'list' }
+      - { label: 'Content', name: 'body', widget: 'markdown' }
+
+  - name: 'blog'
+    label: 'Blog'
+    folder: 'content/{{locale}}/blog'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    i18n: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - {
+          label: 'Featured Image',
+          name: 'thumbnail',
+          widget: 'image',
+          required: false,
+        }
+      - {
+          label: 'Tags',
+          name: 'tags',
+          widget: 'list',
+          required: false,
+        }
+      - { label: 'Content', name: 'body', widget: 'markdown' }
