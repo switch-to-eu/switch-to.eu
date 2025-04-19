@@ -9,7 +9,243 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
+    <!-- Initialize CMS manually to override authentication -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Manual initialization to override authentication endpoint
+      window.CMS_MANUAL_INIT = true;
+
+      window.decapInit = () => {
+        // Determine if we're in local development
+        const isLocalhost =
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+
+        // Check if we're on staging
+        const isStaging =
+          window.location.hostname.includes('staging');
+
+        // Backend config - use test-repo for local dev, GitHub for production
+        const backendConfig = isLocalhost
+          ? { name: 'test-repo' }
+          : {
+              name: 'github',
+              repo: 'switch-to-eu/switch-to.eu',
+              branch: isStaging ? 'staging' : 'main',
+              auth_endpoint: '/api/auth',
+              base_url: window.location.origin,
+              site_id: '', // Prevent using default Netlify auth
+              auth_type: 'implicit', // Use implicit OAuth flow
+              api_root: 'https://api.github.com',
+            };
+
+        // Initialize the CMS
+        window.CMS.init({
+          config: {
+            backend: backendConfig,
+            load_config_file: false,
+            local_backend: isLocalhost, // Enable local backend for localhost only
+            media_folder: 'public/images',
+            public_folder: '/images',
+            i18n: {
+              structure: 'multiple_folders',
+              locales: ['en', 'nl'],
+              default_locale: 'en',
+            },
+            collections: [
+              {
+                name: 'eu-services',
+                label: 'EU Services',
+                folder: 'content/{{locale}}/services/eu',
+                create: true,
+                slug: '{{slug}}',
+                i18n: true,
+                preview_path: '{{locale}}/services/eu/{{slug}}',
+                fields: [
+                  { label: 'Name', name: 'name', widget: 'string' },
+                  {
+                    label: 'Category',
+                    name: 'category',
+                    widget: 'select',
+                    options: [
+                      'email',
+                      'cloud-storage',
+                      'messaging',
+                      'productivity',
+                      'social-media',
+                      'video-conference',
+                    ],
+                  },
+                  {
+                    label: 'Location',
+                    name: 'location',
+                    widget: 'string',
+                  },
+                  {
+                    label: 'Region',
+                    name: 'region',
+                    widget: 'select',
+                    options: ['eu'],
+                    default: 'eu',
+                  },
+                  {
+                    label: 'Privacy Rating',
+                    name: 'privacyRating',
+                    widget: 'number',
+                    value_type: 'int',
+                    min: 1,
+                    max: 5,
+                  },
+                  {
+                    label: 'Free Option',
+                    name: 'freeOption',
+                    widget: 'boolean',
+                    default: false,
+                  },
+                  {
+                    label: 'Starting Price',
+                    name: 'startingPrice',
+                    widget: 'string',
+                  },
+                  {
+                    label: 'Description',
+                    name: 'description',
+                    widget: 'string',
+                  },
+                  { label: 'URL', name: 'url', widget: 'string' },
+                  {
+                    label: 'Featured',
+                    name: 'featured',
+                    widget: 'boolean',
+                    default: false,
+                  },
+                  {
+                    label: 'Features',
+                    name: 'features',
+                    widget: 'list',
+                  },
+                  { label: 'Tags', name: 'tags', widget: 'list' },
+                  {
+                    label: 'Content',
+                    name: 'body',
+                    widget: 'markdown',
+                  },
+                ],
+              },
+              {
+                name: 'non-eu-services',
+                label: 'Non-EU Services',
+                folder: 'content/{{locale}}/services/non-eu',
+                create: true,
+                slug: '{{slug}}',
+                i18n: true,
+                preview_path: '{{locale}}/services/non-eu/{{slug}}',
+                fields: [
+                  { label: 'Name', name: 'name', widget: 'string' },
+                  {
+                    label: 'Category',
+                    name: 'category',
+                    widget: 'select',
+                    options: [
+                      'email',
+                      'cloud-storage',
+                      'messaging',
+                      'productivity',
+                      'social-media',
+                      'video-conference',
+                    ],
+                  },
+                  {
+                    label: 'Location',
+                    name: 'location',
+                    widget: 'string',
+                  },
+                  {
+                    label: 'Region',
+                    name: 'region',
+                    widget: 'select',
+                    options: ['non-eu'],
+                    default: 'non-eu',
+                  },
+                  {
+                    label: 'Privacy Rating',
+                    name: 'privacyRating',
+                    widget: 'number',
+                    value_type: 'int',
+                    min: 1,
+                    max: 5,
+                  },
+                  {
+                    label: 'Free Option',
+                    name: 'freeOption',
+                    widget: 'boolean',
+                    default: false,
+                  },
+                  {
+                    label: 'Starting Price',
+                    name: 'startingPrice',
+                    widget: 'string',
+                  },
+                  {
+                    label: 'Description',
+                    name: 'description',
+                    widget: 'string',
+                  },
+                  { label: 'URL', name: 'url', widget: 'string' },
+                  {
+                    label: 'Alternatives',
+                    name: 'alternatives',
+                    widget: 'list',
+                    required: false,
+                  },
+                  { label: 'Tags', name: 'tags', widget: 'list' },
+                  {
+                    label: 'Content',
+                    name: 'body',
+                    widget: 'markdown',
+                  },
+                ],
+              },
+              {
+                name: 'blog',
+                label: 'Blog',
+                folder: 'content/{{locale}}/blog',
+                create: true,
+                slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                i18n: true,
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  {
+                    label: 'Publish Date',
+                    name: 'date',
+                    widget: 'datetime',
+                  },
+                  {
+                    label: 'Featured Image',
+                    name: 'thumbnail',
+                    widget: 'image',
+                    required: false,
+                  },
+                  {
+                    label: 'Tags',
+                    name: 'tags',
+                    widget: 'list',
+                    required: false,
+                  },
+                  {
+                    label: 'Content',
+                    name: 'body',
+                    widget: 'markdown',
+                  },
+                ],
+              },
+            ],
+          },
+        });
+      };
+
+      // Initialize on page load
+      window.addEventListener('load', window.decapInit);
+    </script>
   </body>
 </html>

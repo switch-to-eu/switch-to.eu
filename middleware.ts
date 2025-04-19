@@ -37,10 +37,11 @@ function pathnameIsMissingLocale(pathname: string): boolean {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip for static assets and API routes
+  // Skip for static assets, API routes, and the admin path
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/admin') || // Skip for the admin path
     pathname.includes('.') // Skip for files (like favicon.ico, etc.)
   ) {
     return;
@@ -67,5 +68,7 @@ export function middleware(request: NextRequest) {
   }
 }
 
-// Updated configuration format
-export const matcher = ['/((?!api|_next/static|_next/image|favicon.ico).*)'];
+// Updated configuration format to exclude admin path
+export const matcher = [
+  '/((?!api|_next/static|_next/image|favicon.ico|admin).*)'
+];
