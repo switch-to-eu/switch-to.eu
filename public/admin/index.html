@@ -172,7 +172,7 @@
           window.location.hostname.includes('staging');
 
         try {
-          // Initialize with basic config first
+          // Initialize with simplified config
           window.CMS.init({
             config: {
               backend: {
@@ -187,47 +187,18 @@
               },
               media_folder: 'public/images',
               public_folder: '/images',
-              // Only define i18n if we're logged in
-              ...(token
-                ? {
-                    i18n: {
-                      structure: 'multiple_folders',
-                      locales: ['en', 'nl'], // Each locale appears exactly once
-                      default_locale: 'en',
-                    },
-                  }
-                : {}),
               collections: [
                 {
-                  name: 'eu_services', // Ensure unique name (no hyphens)
+                  name: 'eu_services',
                   label: 'EU Services',
-                  folder: 'content/{{locale}}/services/eu',
+                  folder: 'content/services/eu',
                   create: true,
-                  slug: '{{slug}}',
                   fields: [
                     { label: 'Name', name: 'name', widget: 'string' },
-                    {
-                      label: 'Category',
-                      name: 'category',
-                      widget: 'select',
-                      options: [
-                        'email',
-                        'cloud-storage',
-                        'messaging',
-                        'productivity',
-                        'social-media',
-                        'video-conference',
-                      ],
-                    },
                     {
                       label: 'Description',
                       name: 'description',
                       widget: 'string',
-                    },
-                    {
-                      label: 'Content',
-                      name: 'body',
-                      widget: 'markdown',
                     },
                   ],
                 },
