@@ -201,7 +201,7 @@ export default async function ContributePage({
                 </p>
               </CardContent>
               <CardFooter className="justify-center">
-                <Link href="https://github.com/switch-to-eu/switch-to.eu/issues/new" target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">
+                <Link href={`/${language}/feedback`} className="text-blue hover:underline">
                   {t('contribute.cards.ideas.cta')} →
                 </Link>
               </CardFooter>
