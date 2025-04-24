@@ -29,6 +29,8 @@ export type Dictionary = {
     github: string;
     allCategories: string;
     websiteTool: string;
+    contributeGuide: string;
+    feedback: string;
   };
   home: {
     heading: string;
@@ -127,6 +129,38 @@ export type Dictionary = {
   language: {
     en: string;
     nl: string;
+  };
+  feedback: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    hero: {
+      title: string;
+      description1: string;
+      description2: string;
+      imageAlt: string;
+    };
+    form: {
+      title: string;
+      description: string;
+      titleLabel: string;
+      titlePlaceholder: string;
+      descriptionLabel: string;
+      descriptionPlaceholder: string;
+      categoryLabel: string;
+      categoryPlaceholder: string;
+      bugCategory: string;
+      featureCategory: string;
+      feedbackCategory: string;
+      otherCategory: string;
+      contactInfoLabel: string;
+      contactInfoPlaceholder: string;
+      submitButton: string;
+      successMessage: string;
+      errorMessage: string;
+      viewIssue: string;
+    };
   };
 };
 

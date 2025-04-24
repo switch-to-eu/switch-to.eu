@@ -16,7 +16,9 @@
     "contribute": "Bijdragen",
     "github": "GitHub",
     "allCategories": "Alle Categorieën",
-    "websiteTool": "Website tool"
+    "websiteTool": "Website tool",
+    "contributeGuide": "Bijdragerichtlijnen",
+    "feedback": "Feedback"
   },
   "home": {
     "heading": "Stap over naar EU-gebaseerde digitale diensten",
@@ -476,6 +478,38 @@
         "description": "Deze gids wordt onderhouden door de gemeenschap. Als je een fout hebt gevonden of suggesties voor verbetering hebt, overweeg dan om bij te dragen.",
         "link": "Bewerk deze gids op GitHub →"
       }
+    }
+  },
+  "feedback": {
+    "meta": {
+      "title": "Feedback - Switch-to.eu",
+      "description": "Deel je feedback, rapporteer bugs of stel functies voor voor Switch-to.eu"
+    },
+    "hero": {
+      "title": "Deel Je Feedback",
+      "description1": "We werken voortdurend aan de verbetering van Switch-to.eu en je feedback is van onschatbare waarde om het beter te maken.",
+      "description2": "Gebruik het onderstaande formulier om je gedachten te delen, bugs te melden of nieuwe functies voor te stellen. Alle feedback wordt bijgehouden als GitHub-issues in onze repository.",
+      "imageAlt": "Feedback illustratie"
+    },
+    "form": {
+      "title": "Deel Je Feedback",
+      "description": "Help ons Switch-to.eu te verbeteren door je gedachten te delen, bugs te melden of nieuwe functies voor te stellen.",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Korte samenvatting van je feedback",
+      "descriptionLabel": "Beschrijving",
+      "descriptionPlaceholder": "Geef details over je feedback, bugrapport of functieverzoek...",
+      "categoryLabel": "Categorie",
+      "categoryPlaceholder": "Selecteer een categorie",
+      "bugCategory": "Bugrapport",
+      "featureCategory": "Functieverzoek",
+      "feedbackCategory": "Algemene Feedback",
+      "otherCategory": "Overig",
+      "contactInfoLabel": "E-mail (optioneel)",
+      "contactInfoPlaceholder": "Je e-mail voor opvolging",
+      "submitButton": "Feedback Indienen",
+      "successMessage": "Bedankt voor je feedback! Je melding is aangemaakt.",
+      "errorMessage": "Er is een fout opgetreden bij het indienen van je feedback. Probeer het opnieuw.",
+      "viewIssue": "Bekijk Issue"
     }
   }
 }

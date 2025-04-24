@@ -16,7 +16,9 @@
     "contribute": "Contribute",
     "github": "GitHub",
     "allCategories": "All Categories",
-    "websiteTool": "Website tool"
+    "websiteTool": "Website tool",
+    "contributeGuide": "Contribution Guide",
+    "feedback": "Feedback"
   },
   "home": {
     "heading": "Switch to EU-based digital services",
@@ -477,5 +479,37 @@
   "language": {
     "en": "English",
     "nl": "Dutch"
+  },
+  "feedback": {
+    "meta": {
+      "title": "Feedback - Switch-to.eu",
+      "description": "Share your feedback, report bugs, or suggest features for Switch-to.eu"
+    },
+    "hero": {
+      "title": "Share Your Feedback",
+      "description1": "We're constantly working to improve Switch-to.eu and your feedback is invaluable in helping us make it better.",
+      "description2": "Use the form below to share your thoughts, report bugs, or suggest new features. All feedback is tracked as GitHub issues in our repository.",
+      "imageAlt": "Feedback illustration"
+    },
+    "form": {
+      "title": "Share Your Feedback",
+      "description": "Help us improve Switch-to.eu by sharing your thoughts, reporting bugs, or suggesting new features.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Brief summary of your feedback",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Please provide details about your feedback, bug report, or feature request...",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Select a category",
+      "bugCategory": "Bug Report",
+      "featureCategory": "Feature Request",
+      "feedbackCategory": "General Feedback",
+      "otherCategory": "Other",
+      "contactInfoLabel": "Email (optional)",
+      "contactInfoPlaceholder": "Your email for follow-up",
+      "submitButton": "Submit Feedback",
+      "successMessage": "Thank you for your feedback! Your issue has been created.",
+      "errorMessage": "An error occurred while submitting your feedback. Please try again.",
+      "viewIssue": "View Issue"
+    }
   }
 }

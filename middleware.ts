@@ -36,14 +36,30 @@ function pathnameIsMissingLocale(pathname: string): boolean {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const response = NextResponse.next();
 
-  // Skip for static assets and API routes
+  // Add security headers to all responses
+  const securityHeaders = {
+    'X-XSS-Protection': '1; mode=block',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Frame-Options': 'DENY',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';"
+  };
+
+  // Apply security headers
+  Object.entries(securityHeaders).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
+
+  // Skip locale handling for static assets and API routes
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.includes('.') // Skip for files (like favicon.ico, etc.)
   ) {
-    return;
+    return response;
   }
 
   // Check if the pathname is missing a locale
@@ -65,6 +81,8 @@ export function middleware(request: NextRequest) {
     // Redirect to the locale version
     return NextResponse.redirect(newUrl);
   }
+
+  return response;
 }
 
 // Updated configuration format
