@@ -59,8 +59,18 @@ export default async function FeedbackPage({
     contactInfoLabel: dict.feedback.form.contactInfoLabel,
     contactInfoPlaceholder: dict.feedback.form.contactInfoPlaceholder,
     submit: dict.feedback.form.submitButton,
+    submitting: dict.feedback.form.submitting,
     success: dict.feedback.form.successMessage,
-    error: dict.feedback.form.errorMessage
+    error: dict.feedback.form.errorMessage,
+    viewIssue: dict.feedback.form.viewIssue,
+    validation: {
+      titleMinLength: dict.feedback.form.validation.titleMinLength,
+      titleNoHtml: dict.feedback.form.validation.titleNoHtml,
+      descriptionMinLength: dict.feedback.form.validation.descriptionMinLength,
+      descriptionNoHtml: dict.feedback.form.validation.descriptionNoHtml,
+      categoryRequired: dict.feedback.form.validation.categoryRequired,
+      invalidEmail: dict.feedback.form.validation.invalidEmail
+    }
   };
 
   return (

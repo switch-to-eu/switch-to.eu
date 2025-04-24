@@ -157,9 +157,18 @@ export type Dictionary = {
       contactInfoLabel: string;
       contactInfoPlaceholder: string;
       submitButton: string;
+      submitting: string;
       successMessage: string;
       errorMessage: string;
       viewIssue: string;
+      validation: {
+        titleMinLength: string;
+        titleNoHtml: string;
+        descriptionMinLength: string;
+        descriptionNoHtml: string;
+        categoryRequired: string;
+        invalidEmail: string;
+      };
     };
   };
 };

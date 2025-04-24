@@ -25,49 +25,60 @@ import {
 } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
+// Define a type for validation messages
+type ValidationMessages = {
+  titleMinLength: string;
+  titleNoHtml: string;
+  descriptionMinLength: string;
+  descriptionNoHtml: string;
+  categoryRequired: string;
+  invalidEmail: string;
+};
+
 // Define the validation schema
-const formSchema = z.object({
+const formSchema = (validationMessages: ValidationMessages) => z.object({
   title: z.string().min(5, {
-    message: 'Title must be at least 5 characters.',
+    message: validationMessages.titleMinLength,
   }).refine(val => !/[<>]/.test(val), {
-    message: 'HTML tags are not allowed in the title.',
+    message: validationMessages.titleNoHtml,
   }),
   description: z.string().min(10, {
-    message: 'Description must be at least 10 characters.',
+    message: validationMessages.descriptionMinLength,
   }).refine(val => !/[<>]/.test(val), {
-    message: 'HTML tags are not allowed in the description.',
+    message: validationMessages.descriptionNoHtml,
   }),
   category: z.enum(['bug', 'feature', 'feedback', 'other'], {
-    required_error: 'Please select a category.',
+    required_error: validationMessages.categoryRequired,
   }),
-  contactInfo: z.string().email({ message: 'Invalid email address.' }).optional().or(z.literal('')),
+  contactInfo: z.string().email({ message: validationMessages.invalidEmail }).optional().or(z.literal('')),
   csrfToken: z.string(),
 });
 
 // Type for the form values
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<ReturnType<typeof formSchema>>;
 
 interface FeedbackFormProps {
   dictionary: {
-    title?: string;
-    description?: string;
-    category?: string;
-    contactInfo?: string;
-    bug?: string;
-    feature?: string;
-    feedback?: string;
-    other?: string;
-    submit?: string;
-    success?: string;
-    error?: string;
-    titleLabel?: string;
-    titlePlaceholder?: string;
-    descriptionLabel?: string;
-    descriptionPlaceholder?: string;
-    categoryLabel?: string;
-    categoryPlaceholder?: string;
-    contactInfoLabel?: string;
-    contactInfoPlaceholder?: string;
+    title: string;
+    description: string;
+    titleLabel: string;
+    titlePlaceholder: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
+    categoryLabel: string;
+    categoryPlaceholder: string;
+    bug: string;
+    feature: string;
+    feedback: string;
+    other: string;
+    contactInfoLabel: string;
+    contactInfoPlaceholder: string;
+    submit: string;
+    submitting: string;
+    success: string;
+    error: string;
+    validation: ValidationMessages;
+    viewIssue: string;
   };
 }
 
@@ -88,30 +99,32 @@ export default function FeedbackForm({ dictionary }: FeedbackFormProps) {
     sessionStorage.setItem('csrfToken', token);
   }, []);
 
-  // Fallback text if dictionary values are not provided
+  // Use dictionary values directly without fallbacks
   const text = {
-    title: dictionary.title || 'Give Feedback',
-    description: dictionary.description || 'Share your thoughts, report bugs, or suggest features.',
-    titleLabel: dictionary.titleLabel || 'Title',
-    titlePlaceholder: dictionary.titlePlaceholder || 'Brief summary of your feedback',
-    descriptionLabel: dictionary.descriptionLabel || 'Description',
-    descriptionPlaceholder: dictionary.descriptionPlaceholder || 'Please provide details...',
-    categoryLabel: dictionary.categoryLabel || 'Category',
-    categoryPlaceholder: dictionary.categoryPlaceholder || 'Select a category',
-    bug: dictionary.bug || 'Bug Report',
-    feature: dictionary.feature || 'Feature Request',
-    feedback: dictionary.feedback || 'General Feedback',
-    other: dictionary.other || 'Other',
-    contactInfoLabel: dictionary.contactInfoLabel || 'Email (optional)',
-    contactInfoPlaceholder: dictionary.contactInfoPlaceholder || 'Your email for follow-up',
-    submit: dictionary.submit || 'Submit Feedback',
-    success: dictionary.success || 'Thank you for your feedback! Your issue has been created.',
-    error: dictionary.error || 'An error occurred while submitting your feedback. Please try again.'
+    title: dictionary.title,
+    description: dictionary.description,
+    titleLabel: dictionary.titleLabel,
+    titlePlaceholder: dictionary.titlePlaceholder,
+    descriptionLabel: dictionary.descriptionLabel,
+    descriptionPlaceholder: dictionary.descriptionPlaceholder,
+    categoryLabel: dictionary.categoryLabel,
+    categoryPlaceholder: dictionary.categoryPlaceholder,
+    bug: dictionary.bug,
+    feature: dictionary.feature,
+    feedback: dictionary.feedback,
+    other: dictionary.other,
+    contactInfoLabel: dictionary.contactInfoLabel,
+    contactInfoPlaceholder: dictionary.contactInfoPlaceholder,
+    submit: dictionary.submit,
+    submitting: dictionary.submitting,
+    success: dictionary.success,
+    error: dictionary.error,
+    viewIssue: dictionary.viewIssue
   };
 
-  // Initialize the form
+  // Initialize the form with translated validation messages
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema(dictionary.validation)),
     defaultValues: {
       title: '',
       description: '',
@@ -266,7 +279,7 @@ export default function FeedbackForm({ dictionary }: FeedbackFormProps) {
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"
                       >
-                        View Issue
+                        {text.viewIssue}
                       </a>
                     </div>
                   )}
@@ -286,7 +299,7 @@ export default function FeedbackForm({ dictionary }: FeedbackFormProps) {
                 disabled={isSubmitting}
                 className="min-w-[120px]"
               >
-                {isSubmitting ? 'Submitting...' : text.submit}
+                {isSubmitting ? text.submitting : text.submit}
               </Button>
             </div>
           </form>

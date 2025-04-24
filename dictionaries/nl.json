@@ -507,9 +507,18 @@
       "contactInfoLabel": "E-mail (optioneel)",
       "contactInfoPlaceholder": "Je e-mail voor opvolging",
       "submitButton": "Feedback Indienen",
+      "submitting": "Bezig met versturen...",
       "successMessage": "Bedankt voor je feedback! Je melding is aangemaakt.",
       "errorMessage": "Er is een fout opgetreden bij het indienen van je feedback. Probeer het opnieuw.",
-      "viewIssue": "Bekijk Issue"
+      "viewIssue": "Bekijk Issue",
+      "validation": {
+        "titleMinLength": "Titel moet minimaal 5 tekens bevatten.",
+        "titleNoHtml": "HTML-tags zijn niet toegestaan in de titel.",
+        "descriptionMinLength": "Beschrijving moet minimaal 10 tekens bevatten.",
+        "descriptionNoHtml": "HTML-tags zijn niet toegestaan in de beschrijving.",
+        "categoryRequired": "Selecteer een categorie.",
+        "invalidEmail": "Ongeldig e-mailadres."
+      }
     }
   }
 }

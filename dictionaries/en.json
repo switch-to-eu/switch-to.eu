@@ -507,9 +507,18 @@
       "contactInfoLabel": "Email (optional)",
       "contactInfoPlaceholder": "Your email for follow-up",
       "submitButton": "Submit Feedback",
+      "submitting": "Submitting...",
       "successMessage": "Thank you for your feedback! Your issue has been created.",
       "errorMessage": "An error occurred while submitting your feedback. Please try again.",
-      "viewIssue": "View Issue"
+      "viewIssue": "View Issue",
+      "validation": {
+        "titleMinLength": "Title must be at least 5 characters.",
+        "titleNoHtml": "HTML tags are not allowed in the title.",
+        "descriptionMinLength": "Description must be at least 10 characters.",
+        "descriptionNoHtml": "HTML tags are not allowed in the description.",
+        "categoryRequired": "Please select a category.",
+        "invalidEmail": "Invalid email address."
+      }
     }
   }
 }
