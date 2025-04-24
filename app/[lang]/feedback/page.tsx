@@ -36,10 +36,11 @@ export async function generateMetadata({
 export default async function FeedbackPage({
   params
 }: {
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }) {
-  const language = params.lang || defaultLanguage;
-  const dict = await getDictionary(language as Locale);
+  const { lang } = await params;
+  const language = lang || defaultLanguage;
+  const dict = await getDictionary(language);
 
   // Prepare the dictionary for the FeedbackForm
   const formDictionary = {
