@@ -1,29 +1,34 @@
 import { StepsSummary } from './StepsSummary';
 
-
 interface Step {
   title: string;
   id: string;
 }
 
 interface GuideSidebarProps {
-  missingFeatures: string[];
   steps: Step[];
   className?: string;
+  stepsToCompleteText?: string;
 }
 
 export function GuideSidebar({
   steps,
-  className
+  className,
+  stepsToCompleteText = 'Steps to complete'
 }: GuideSidebarProps) {
+  // Helper function to create section navigation links
+
+
   return (
     <div className={className}>
-      <div className="border rounded-lg bg-[var(--pop-3)] dark:bg-gray-800 overflow-hidden p-6">
-
+      <div className="overflow-hidden p-6">
 
         {steps.length > 0 && (
-          <div>
-            <StepsSummary steps={steps} />
+          <div className="bg-[var(--pop-3)] rounded-lg p-4">
+            <StepsSummary
+              steps={steps}
+              stepsToCompleteText={stepsToCompleteText}
+            />
           </div>
         )}
       </div>

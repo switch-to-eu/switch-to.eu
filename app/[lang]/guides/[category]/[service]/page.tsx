@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { GuideSidebar } from '@/components/guides/GuideSidebar';
+import { MobileGuideSidebar } from '@/components/guides/MobileGuideSidebar';
 import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
 import { defaultLanguage } from '@/lib/i18n/config';
 import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
@@ -106,11 +107,11 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
     return notFound();
   }
 
-  const { frontmatter, content } = guideData;
+  const { frontmatter, content, segments } = guideData;
 
-  // Pass frontmatter to extractMissingFeatures
-  const missingFeatures = extractMissingFeatures(content, frontmatter);
-  const steps = extractMigrationSteps(content);
+  // Pass frontmatter and segments to extractMissingFeatures
+  const missingFeatures = extractMissingFeatures(content, frontmatter, segments);
+  const steps = extractMigrationSteps(content, segments);
 
   // Set basic options for marked
   marked.setOptions({
@@ -118,8 +119,55 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
     breaks: true,  // Translate line breaks to <br>
   });
 
-  // Parse markdown content to HTML
-  const htmlContent = marked.parse(content);
+  // Function to render a segment or fall back to complete content
+  const renderContent = () => {
+    // If no segments or using legacy unsegmented format, render the whole content
+    if (!segments || segments.unsegmented === content.trim()) {
+      return <div dangerouslySetInnerHTML={{ __html: marked.parse(content) }} />;
+    }
+
+    // Otherwise, render segmented content with section headings
+    return (
+      <>
+        {segments.intro && (
+          <section id="section-intro" className="mb-10">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.intro) }} />
+          </section>
+        )}
+
+        {segments.before && (
+          <section id="section-before" className="mb-10">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.before) }} />
+          </section>
+        )}
+
+        {segments.steps && (
+          <section id="section-steps" className="mb-10">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.steps) }} />
+          </section>
+        )}
+
+        {segments.troubleshooting && (
+          <section id="section-troubleshooting" className="mb-10">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.troubleshooting) }} />
+          </section>
+        )}
+
+        {segments.outro && (
+          <section id="section-outro" className="mb-10">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.outro) }} />
+          </section>
+        )}
+
+        {/* Render any unsegmented content that doesn't fit in known segments */}
+        {segments.unsegmented && (
+          <section id="section-unsegmented">
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.unsegmented) }} />
+          </section>
+        )}
+      </>
+    );
+  };
 
   // Create JSON-LD structured data
   const jsonLd = {
@@ -151,6 +199,13 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
         id="guide-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* Mobile sidebar drawer - Only visible on mobile */}
+      <MobileGuideSidebar
+        steps={steps}
+        lang={language}
+        stepsToCompleteText={t('guides.stepsToComplete')}
       />
 
       {/* Two-column layout for entire page content and sidebar */}
@@ -188,8 +243,7 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
 
             {/* Guide content with styling applied */}
             <article className="mdx-content">
-              <div dangerouslySetInnerHTML={{ __html: htmlContent }}
-              />
+              {renderContent()}
             </article>
 
             <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
@@ -203,12 +257,12 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
             </div>
           </div>
 
-          {/* Sidebar - narrower column */}
-          <div className="lg:col-span-4">
+          {/* Sidebar - narrower column - Only visible on desktop */}
+          <div className="hidden lg:block lg:col-span-4">
             <div className="sticky top-24">
               <GuideSidebar
-                missingFeatures={missingFeatures}
                 steps={steps}
+                stepsToCompleteText={t('guides.stepsToComplete')}
               />
             </div>
           </div>
