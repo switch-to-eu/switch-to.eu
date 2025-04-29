@@ -1,4 +1,5 @@
-import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getRecommendedAlternative, getServiceSlugs } from '@/lib/content';
+import { getServiceBySlug, getServicesByCategory, getRecommendedAlternative, getServiceSlugs } from '@/lib/content/services/services';
+import { getGuidesByTargetService } from '@/lib/content/services/guides';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import path from 'path';
@@ -268,7 +269,7 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
               </div>
 
               <div className="p-5 space-y-4">
-                {frontmatter.issues.map((issue, index) => (
+                {frontmatter.issues.map((issue: string, index: number) => (
                   <div key={index} className="flex items-start">
                     <span className="mr-3 text-red-500 mt-0.5">
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
