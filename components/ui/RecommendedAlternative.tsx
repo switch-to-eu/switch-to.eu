@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ServiceFrontmatter } from '@/lib/content';
+import { ServiceFrontmatter } from '@/lib/content/schemas';
 import { Locale, getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
 
 interface RecommendedAlternativeProps {

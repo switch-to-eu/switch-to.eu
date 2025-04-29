@@ -1,4 +1,5 @@
-import { getGuide, extractMissingFeatures, extractMigrationSteps, getAllGuides } from '@/lib/content';
+import { getGuide, getAllGuides } from '@/lib/content/guides';
+import { extractMissingFeatures, extractMigrationSteps } from '@/lib/content/utils/content-parser';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import { Metadata } from 'next';

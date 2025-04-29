@@ -1,4 +1,5 @@
-import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getRecommendedAlternative, getServiceSlugs } from '@/lib/content';
+import { getServiceBySlug, getServiceSlugs, getServicesByCategory, getRecommendedAlternative } from '@/lib/content/services';
+import { getGuidesByTargetService } from '@/lib/content/guides';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import path from 'path';

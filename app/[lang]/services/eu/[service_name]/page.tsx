@@ -1,4 +1,6 @@
-import { getServiceBySlug, getGuidesByTargetService, getServicesByCategory, getServiceSlugs } from '@/lib/content';
+import { getServiceBySlug, getServiceSlugs } from '@/lib/content/services';
+import { getGuidesByTargetService } from '@/lib/content/guides';
+import { getServicesByCategory } from '@/lib/content/services';
 import { notFound } from 'next/navigation';
 import { RegionBadge } from '@/components/ui/region-badge';
 import Link from 'next/link';

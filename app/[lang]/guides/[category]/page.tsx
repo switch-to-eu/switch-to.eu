@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getGuidesByCategory, getGuideCategories } from '@/lib/content';
+import { getGuidesByCategory, getGuideCategories } from '@/lib/content/guides';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { defaultLanguage } from '@/lib/i18n/config';

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { RegionBadge } from "@/components/ui/region-badge";
-import { ServiceFrontmatter } from "@/lib/content";
+import { ServiceFrontmatter } from "@/lib/content/schemas";
 import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 interface ServiceCardProps {
