@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllGuides, getGuideCategories } from '@/lib/content';
+import { getAllGuides, getGuideCategories } from '@/lib/content/services/guides';
 import { Container } from '@/components/layout/container';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Metadata } from 'next';

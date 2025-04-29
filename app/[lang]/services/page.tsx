@@ -1,4 +1,4 @@
-import { getEUServices } from "@/lib/content";
+import { getEUServices } from "@/lib/content/services/services";
 import { Container } from "@/components/layout/container";
 import { Metadata } from 'next';
 import { ContributeCta } from "@/components/ContributeCta";

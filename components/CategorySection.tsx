@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
-import { getAllCategoriesMetadata } from "@/lib/content";
+import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
 import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 interface CategorySectionProps {
