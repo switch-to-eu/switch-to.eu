@@ -358,6 +358,8 @@
       "to": "To:",
       "view_button": "View Migration Guide"
     },
+    "stepPlan": "Step Plan",
+    "stepsToComplete": "Steps to complete",
     "category": {
       "title": "Guides",
       "view_all": "View All",
