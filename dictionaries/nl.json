@@ -1,6 +1,7 @@
 {
   "common": {
     "title": "Switch-to.eu",
+    "subtitle": "EU-alternatieven voor wereldwijde diensten",
     "description": "Een gids om je te helpen overstappen van niet-EU naar EU-gebaseerde digitale diensten en producten.",
     "search": "Zoeken...",
     "searchPlaceholder": "Zoek naar diensten...",
@@ -51,7 +52,7 @@
   "contribute": {
     "title": "Bijdragen",
     "description": "Help ons de database te verbeteren door nieuwe diensten toe te voegen of bestaande bij te werken",
-    "cta": "Bijdragen op GitHub",
+    "cta": "Draag bij aan Switch-to.eu",
     "ctaTitle": "Kun je niet vinden wat je zoekt?",
     "ctaDescription": "Als je suggesties hebt voor nieuwe alternatieven, overweeg dan om bij te dragen aan het project!",
     "buttonText": "Bijdragen aan Switch-to.EU",
