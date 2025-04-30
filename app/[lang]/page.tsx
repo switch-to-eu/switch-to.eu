@@ -21,10 +21,12 @@ export async function generateMetadata({
   const dict = await getDictionary(language);
 
   const defaultKeywords = ['EU alternatives', 'European digital services', 'privacy', 'GDPR', 'digital migration', 'data protection', 'EU tech'];
+  const title = `${String(getNestedValue(dict, 'common.title'))} - ${String(getNestedValue(dict, 'common.subtitle'))}`;
+  const description = String(getNestedValue(dict, 'common.description'));
 
   return {
-    title: String(getNestedValue(dict, 'common.title')),
-    description: String(getNestedValue(dict, 'common.description')),
+    title,
+    description,
     keywords: defaultKeywords,
     alternates: {
       canonical: `https://switch-to.eu/${language}`,
@@ -32,6 +34,27 @@ export async function generateMetadata({
         'en': 'https://switch-to.eu/en',
         'nl': 'https://switch-to.eu/nl',
       },
+    },
+    openGraph: {
+      images: [
+        {
+          url: "/images/share.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "website",
+      siteName: String(getNestedValue(dict, 'common.title')),
+      title,
+      description,
+      locale: language,
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/images/share.png"],
+      title,
+      description,
     },
   };
 }

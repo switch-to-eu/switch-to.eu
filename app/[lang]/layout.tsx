@@ -5,7 +5,7 @@ import { locales } from "@/middleware";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getDictionary, getNestedValue } from "@/lib/i18n/dictionaries";
 import { Locale } from "@/lib/i18n/dictionaries";
 
 // Keep Geist Mono for code blocks
@@ -24,15 +24,39 @@ export async function generateMetadata({
   // Get the dictionary for the current locale
   const dict = await getDictionary(lang);
 
+  // Just use the title without subtitle for non-home pages
+  const title = String(getNestedValue(dict, 'common.title'));
+  const description = String(getNestedValue(dict, 'common.description'));
+
   return {
-    title: dict.common.title,
-    description: dict.common.description,
+    title,
+    description,
     alternates: {
       canonical: '/',
       languages: {
         'en': 'https://switch-to.eu/en',
         'nl': 'https://switch-to.eu/nl',
       },
+    },
+    openGraph: {
+      images: [
+        {
+          url: "/images/share.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "website",
+      siteName: title,
+      description,
+      locale: lang,
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/images/share.png"],
+      title,
+      description,
     },
   };
 }

@@ -1,6 +1,7 @@
 {
   "common": {
     "title": "Switch-to.eu",
+    "subtitle": "EU alternatives to global services",
     "description": "A guide to help you switch from non-EU to EU-based digital services and products.",
     "search": "Search...",
     "searchPlaceholder": "Search for services...",
@@ -51,7 +52,7 @@
   "contribute": {
     "title": "Contribute",
     "description": "Help us improve the database by adding new services or updating existing ones",
-    "cta": "Contribute on GitHub",
+    "cta": "Contribute to Switch-to.eu",
     "ctaTitle": "Can't find what you're looking for?",
     "ctaDescription": "If you have suggestions for new alternatives, consider contributing to the project!",
     "buttonText": "Contribute to Switch-to.EU",
