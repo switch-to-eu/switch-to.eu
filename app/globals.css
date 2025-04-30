@@ -200,7 +200,7 @@
 
   p {
     font-family: var(--font-hanken-grotesk);
-    font-weight: 600;
+    font-weight: 400;
   }
 
   strong, b {
@@ -250,7 +250,7 @@
 .mdx-content p {
   @apply mb-4 leading-relaxed;
   font-family: var(--font-hanken-grotesk);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .mdx-content ul {
@@ -264,7 +264,7 @@
 .mdx-content li {
   @apply mb-1;
   font-family: var(--font-hanken-grotesk);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .mdx-content a {

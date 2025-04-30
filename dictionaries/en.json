@@ -522,5 +522,22 @@
         "invalidEmail": "Invalid email address."
       }
     }
+  },
+  "guideProgress": {
+    "stepCompletionButton": {
+      "markComplete": "Mark Complete",
+      "completed": "Completed"
+    },
+    "progressIndicator": {
+      "progress": "Progress",
+      "stepsCount": "{completedSteps} of {totalSteps} steps",
+      "completed": "Completed"
+    },
+    "completionCelebration": {
+      "congratulations": "Congratulations!",
+      "successMessage": "You've successfully completed all steps in this guide.",
+      "continueButton": "Continue"
+    },
+    "unnamedStep": "Unnamed Step {number}"
   }
 }

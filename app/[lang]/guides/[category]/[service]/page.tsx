@@ -1,14 +1,17 @@
 import { getGuide, getAllGuides } from '@/lib/content/services/guides';
-import { extractMissingFeatures, extractMigrationSteps } from '@/lib/content/utils';
+import { extractMissingFeatures, extractMigrationSteps, processCompletionMarkers } from '@/lib/content/utils';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import { Metadata } from 'next';
-import Script from 'next/script';
 import { GuideSidebar } from '@/components/guides/GuideSidebar';
 import { MobileGuideSidebar } from '@/components/guides/MobileGuideSidebar';
 import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
 import { defaultLanguage } from '@/lib/i18n/config';
 import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
+import {
+  GuideProgressWithI18n as GuideProgress,
+  CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer
+} from '@/components/guides/guide-progress';
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -110,6 +113,9 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
 
   const { frontmatter, content, segments } = guideData;
 
+  // Create a unique guide ID for storage and tracking
+  const guideId = `${category}-${service}`;
+
   // Pass frontmatter and segments to extractMissingFeatures
   const missingFeatures = extractMissingFeatures(content, frontmatter, segments);
   const steps = extractMigrationSteps(content, segments);
@@ -120,11 +126,15 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
     breaks: true,  // Translate line breaks to <br>
   });
 
+  // Process content to replace [complete] markers with placeholders for client-side hydration
+  const processedContent = processCompletionMarkers(content, guideId);
+
   // Function to render a segment or fall back to complete content
   const renderContent = () => {
     // If no segments or using legacy unsegmented format, render the whole content
     if (!segments || segments.unsegmented === content.trim()) {
-      return <div dangerouslySetInnerHTML={{ __html: marked.parse(content) }} />;
+      const processedHtml = marked.parse(processedContent);
+      return <div dangerouslySetInnerHTML={{ __html: processedHtml }} />;
     }
 
     // Otherwise, render segmented content with section headings
@@ -132,81 +142,56 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
       <>
         {segments.intro && (
           <section id="section-intro" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.intro) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.intro, guideId)) }} />
           </section>
         )}
 
         {segments.before && (
           <section id="section-before" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.before) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.before, guideId)) }} />
           </section>
         )}
 
         {segments.steps && (
           <section id="section-steps" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.steps) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.steps, guideId)) }} />
           </section>
         )}
 
         {segments.troubleshooting && (
           <section id="section-troubleshooting" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.troubleshooting) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.troubleshooting, guideId)) }} />
           </section>
         )}
 
         {segments.outro && (
           <section id="section-outro" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.outro) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.outro, guideId)) }} />
           </section>
         )}
 
         {/* Render any unsegmented content that doesn't fit in known segments */}
         {segments.unsegmented && (
           <section id="section-unsegmented">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(segments.unsegmented) }} />
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.unsegmented, guideId)) }} />
           </section>
         )}
       </>
     );
   };
 
-  // Create JSON-LD structured data
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    'headline': frontmatter.title,
-    'description': frontmatter.description,
-    'author': frontmatter.author ? { '@type': 'Person', 'name': frontmatter.author } : undefined,
-    'datePublished': frontmatter.date || new Date().toISOString().split('T')[0],
-    'mainEntityOfPage': {
-      '@type': 'WebPage',
-      '@id': `https://switch-to.eu/${language}/guides/${category}/${service}`
-    },
-    'publisher': {
-      '@type': 'Organization',
-      'name': 'Switch-to.EU',
-      'url': 'https://switch-to.eu'
-    },
-    'about': {
-      '@type': 'SoftwareApplication',
-      'name': frontmatter.targetService
-    },
-    'skillLevel': frontmatter.difficulty
-  };
-
   return (
     <>
-      <Script
-        id="guide-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+
+      {/* Process completion markers client-side */}
+      <CompletionMarkerReplacer guideId={guideId} dict={dict} />
 
       {/* Mobile sidebar drawer - Only visible on mobile */}
       <MobileGuideSidebar
         steps={steps}
         lang={language}
         stepsToCompleteText={t('guides.stepsToComplete')}
+        guideId={guideId}
       />
 
       {/* Two-column layout for entire page content and sidebar */}
@@ -218,9 +203,6 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
             {/* Header - Full width */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
-                {frontmatter.description}
-              </p>
               <div className="flex mt-4 space-x-4">
                 <div className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === 'beginner' ? 'bg-green-100 text-green-800' :
                   frontmatter.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
@@ -236,16 +218,26 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
               </div>
             </div>
 
-            {missingFeatures.length > 0 && (
-              <div className="mb-0">
-                <WarningCollapsible missingFeatures={missingFeatures} />
-              </div>
-            )}
+            {/* Guide progress bar */}
+            <div className="mb-8">
+              <GuideProgress
+                guideId={guideId}
+                guideName={frontmatter.title}
+                totalSteps={steps.length}
+                dict={dict}
+              />
+            </div>
 
             {/* Guide content with styling applied */}
             <article className="mdx-content">
               {renderContent()}
             </article>
+
+            {missingFeatures.length > 0 && (
+              <div className="mb-0">
+                <WarningCollapsible missingFeatures={missingFeatures} />
+              </div>
+            )}
 
             <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">{t('guides.service.editGuide.title')}</h2>
@@ -264,6 +256,7 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
               <GuideSidebar
                 steps={steps}
                 stepsToCompleteText={t('guides.stepsToComplete')}
+                guideId={guideId}
               />
             </div>
           </div>

@@ -16,12 +16,14 @@ interface MobileGuideSidebarProps {
   steps: Step[];
   lang?: string;
   stepsToCompleteText?: string;
+  guideId?: string;
 }
 
 export function MobileGuideSidebar({
   steps,
   lang = 'en',
-  stepsToCompleteText
+  stepsToCompleteText,
+  guideId
 }: MobileGuideSidebarProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -149,6 +151,7 @@ export function MobileGuideSidebar({
               <GuideSidebar
                 steps={steps}
                 stepsToCompleteText={finalStepsToCompleteText}
+                guideId={guideId}
               />
             </div>
           </SheetContent>

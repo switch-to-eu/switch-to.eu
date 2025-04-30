@@ -522,5 +522,22 @@
         "invalidEmail": "Ongeldig e-mailadres."
       }
     }
+  },
+  "guideProgress": {
+    "stepCompletionButton": {
+      "markComplete": "Markeer als Voltooid",
+      "completed": "Voltooid"
+    },
+    "progressIndicator": {
+      "progress": "Voortgang",
+      "stepsCount": "{completedSteps} van {totalSteps} stappen",
+      "completed": "Voltooid"
+    },
+    "completionCelebration": {
+      "congratulations": "Gefeliciteerd!",
+      "successMessage": "Je hebt alle stappen in deze gids met succes voltooid.",
+      "continueButton": "Doorgaan"
+    },
+    "unnamedStep": "Naamloze Stap {number}"
   }
 }
