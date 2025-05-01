@@ -235,7 +235,10 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
 
             {missingFeatures.length > 0 && (
               <div className="mb-0">
-                <WarningCollapsible missingFeatures={missingFeatures} />
+                <WarningCollapsible
+                  missingFeatures={missingFeatures}
+                  title={t('guides.service.missingFeaturesTitle')}
+                />
               </div>
             )}
 

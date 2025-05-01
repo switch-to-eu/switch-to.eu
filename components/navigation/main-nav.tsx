@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
-import { Locale } from "@/lib/i18n/dictionaries";
+import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 interface MainNavProps {
   className?: string;
@@ -18,6 +18,7 @@ interface MainNavProps {
 
 export async function MainNav({ className, lang }: MainNavProps) {
   const navItems = await getNavItems(lang);
+  const dict = await getDictionary(lang);
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -73,7 +74,7 @@ export async function MainNav({ className, lang }: MainNavProps) {
       </nav>
 
       {/* Add search input to navigation */}
-      <SearchInput lang={lang} />
+      <SearchInput lang={lang} dict={dict} />
     </div>
   );
 }

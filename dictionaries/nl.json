@@ -7,7 +7,29 @@
     "searchPlaceholder": "Zoek naar diensten...",
     "searchResults": "Zoekresultaten",
     "noResults": "Geen resultaten gevonden",
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "dropdownSearchResults": "Zoekresultaten",
+    "dropdownPopularServices": "Populaire Niet-EU Diensten",
+    "noResultsMessage": "Geen resultaten gevonden voor \"{query}\"",
+    "noFeaturedServices": "Geen populaire diensten beschikbaar",
+    "tryDifferentSearch": "Probeer een andere zoekterm of blader door onze categorieën",
+    "searchNonEuPlaceholder": "Zoek naar niet-EU-diensten die je wilt vervangen...",
+    "searchGeneralPlaceholder": "Zoek gidsen, diensten, categorieën...",
+    "noResultsFound": "Geen resultaten gevonden.",
+    "servicesLabel": "Diensten",
+    "nonEuServicesLabel": "Niet-EU Diensten",
+    "guidesLabel": "Gidsen",
+    "categoriesLabel": "Categorieën",
+    "viewAllResults": "Bekijk alle resultaten",
+    "searchDialogTitle": "Zoeken",
+    "searchDefaultText": "Zoek een niet-EU dienst om te vervangen",
+    "searchAnimationExamples": [
+      "WhatsApp",
+      "Gmail",
+      "Instagram",
+      "Google Drive",
+      "Dropbox"
+    ]
   },
   "navigation": {
     "home": "Home",
@@ -19,7 +41,8 @@
     "allCategories": "Alle Categorieën",
     "websiteTool": "Website tool",
     "contributeGuide": "Bijdragerichtlijnen",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "mobileMenu": "Menu openen"
   },
   "home": {
     "heading": "Stap over naar EU-gebaseerde digitale diensten",
@@ -476,6 +499,7 @@
         "notFound": "Gids Niet Gevonden"
       },
       "difficultyLabel": "{{level}} Moeilijkheidsgraad",
+      "missingFeaturesTitle": "Ontbrekende Functies & Beperkingen",
       "editGuide": {
         "title": "Heb je een probleem gevonden of wil je deze gids verbeteren?",
         "description": "Deze gids wordt onderhouden door de gemeenschap. Als je een fout hebt gevonden of suggesties voor verbetering hebt, overweeg dan om bij te dragen.",

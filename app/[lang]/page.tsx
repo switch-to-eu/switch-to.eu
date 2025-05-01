@@ -98,6 +98,7 @@ export default async function Home({
                 filterRegion="non-eu"
                 showOnlyServices={true}
                 lang={language}
+                dict={dict}
               />
             </div>
             <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">

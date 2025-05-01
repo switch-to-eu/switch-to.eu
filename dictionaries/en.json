@@ -7,7 +7,29 @@
     "searchPlaceholder": "Search for services...",
     "searchResults": "Search results",
     "noResults": "No results found",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "dropdownSearchResults": "Search Results",
+    "dropdownPopularServices": "Popular Non-EU Services",
+    "noResultsMessage": "No results found for \"{query}\"",
+    "noFeaturedServices": "No featured services available",
+    "tryDifferentSearch": "Try a different search term or browse our categories",
+    "searchNonEuPlaceholder": "Search for non-EU services you want to replace...",
+    "searchGeneralPlaceholder": "Search guides, services, categories...",
+    "noResultsFound": "No results found.",
+    "servicesLabel": "Services",
+    "nonEuServicesLabel": "Non-EU Services",
+    "guidesLabel": "Guides",
+    "categoriesLabel": "Categories",
+    "viewAllResults": "View all results",
+    "searchDialogTitle": "Search",
+    "searchDefaultText": "Find a non-EU service to replace",
+    "searchAnimationExamples": [
+      "WhatsApp",
+      "Gmail",
+      "Instagram",
+      "Google Drive",
+      "Dropbox"
+    ]
   },
   "navigation": {
     "home": "Home",
@@ -19,7 +41,8 @@
     "allCategories": "All Categories",
     "websiteTool": "Website tool",
     "contributeGuide": "Contribution Guide",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "mobileMenu": "Toggle menu"
   },
   "home": {
     "heading": "Switch to EU-based digital services",
@@ -393,6 +416,7 @@
         "notFound": "Guide Not Found"
       },
       "difficultyLabel": "{{level}} Difficulty",
+      "missingFeaturesTitle": "Missing Features & Limitations",
       "editGuide": {
         "title": "Found an issue or want to improve this guide?",
         "description": "This guide is maintained by the community. If you found an error or have suggestions for improvement, please consider contributing.",

@@ -3,7 +3,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavItems } from "./nav-items";
-import { Locale } from "@/lib/i18n/dictionaries";
+import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 import { LanguageSelector } from "@/components/navigation/language-selector";
 import { SearchInput } from "@/components/SearchInput";
 
@@ -13,13 +13,14 @@ interface MobileNavProps {
 
 export async function MobileNav({ lang }: MobileNavProps) {
   const navItems = await getNavItems(lang);
+  const dict = await getDictionary(lang);
 
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
+          <span className="sr-only">{dict.navigation.mobileMenu}</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col gap-6 pt-10 px-5 overflow-y-auto max-h-screen">
@@ -72,7 +73,8 @@ export async function MobileNav({ lang }: MobileNavProps) {
         {/* Search Input */}
         <div className="mb-2">
           <SearchInput
-            lang={lang}
+            lang={lang as Locale}
+            dict={dict}
             buttonVariant="outline"
             className="w-full justify-start"
           />
