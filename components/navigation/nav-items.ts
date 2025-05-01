@@ -1,65 +1,64 @@
 import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
-import { Locale } from "@/lib/i18n/dictionaries";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getTranslations } from "next-intl/server";
 
 export interface NavItem {
-    title: string;
-    href: string;
-    isExternal?: boolean;
-    dropdown?: boolean;
-    children?: NavItem[];
-    mobileOnly?: boolean;
+  title: string;
+  href: string;
+  isExternal?: boolean;
+  dropdown?: boolean;
+  children?: NavItem[];
+  mobileOnly?: boolean;
 }
 
-export async function getNavItems(lang: Locale = 'en'): Promise<NavItem[]> {
-    const categories = getAllCategoriesMetadata().map((category) => ({
-        title: category.metadata.title,
-        href: `/${lang}/services/${category.slug}`,
-    }));
+export async function getNavItems(): Promise<NavItem[]> {
+  const categories = getAllCategoriesMetadata().map((category) => ({
+    title: category.metadata.title,
+    href: `/services/${category.slug}`,
+  }));
 
-    const dict = await getDictionary(lang);
+  const t = await getTranslations("navigation");
 
-    return [
+  return [
+    {
+      title: t("home"),
+      href: ``,
+    },
+    {
+      title: t("services"),
+      href: `/services`,
+      dropdown: true,
+      children: [
         {
-            title: dict.navigation.home,
-            href: `/${lang}`,
+          title: t("allCategories"),
+          href: `/services`,
         },
+        ...categories,
+      ],
+    },
+    {
+      title: t("tools"),
+      href: `/tools`,
+      dropdown: true,
+      children: [
         {
-            title: dict.navigation.services,
-            href: `/${lang}/services`,
-            dropdown: true,
-            children: [
-                {
-                    title: dict.navigation.allCategories,
-                    href: `/${lang}/services`,
-                },
-                ...categories,
-            ],
+          title: t("websiteTool"),
+          href: `/tools/website`,
         },
-        {
-            title: dict.navigation.tools,
-            href: `/${lang}/tools`,
-            dropdown: true,
-            children: [
-                {
-                    title: dict.navigation.websiteTool,
-                    href: `/${lang}/tools/website`,
-                },
-            ],
-        },
-        {
-            title: dict.navigation.about,
-            href: `/${lang}/about`,
-        },
-        {
-            title: dict.navigation.contribute,
-            href: `/${lang}/contribute`,
-        },
-        {
-            title: dict.navigation.github,
-            href: "https://github.com/VincentPeters/switch-to.eu",
-            isExternal: true,
-            mobileOnly: true,
-        },
-    ];
+      ],
+    },
+    {
+      title: t("about"),
+      href: `/about`,
+    },
+    {
+      title: t("contribute"),
+      href: `/contribute`,
+    },
+    {
+      title: t("github"),
+      href: "https://github.com/VincentPeters/switch-to.eu",
+      isExternal: true,
+      mobileOnly: true,
+    },
+  ];
 }

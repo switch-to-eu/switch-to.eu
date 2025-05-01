@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,23 +8,16 @@ import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
-import { getDictionary } from "@/lib/i18n/dictionaries";
-import { toClientLocale } from "@/lib/i18n/locale-adapter";
-
-// Import server-side Locale but rename to avoid conflict
-import type { Locale as ServerLocale } from "@/lib/i18n/dictionaries";
+import { getLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 interface MainNavProps {
   className?: string;
-  lang: ServerLocale;
 }
 
-export async function MainNav({ className, lang }: MainNavProps) {
-  const navItems = await getNavItems(lang);
-  const dict = await getDictionary(lang);
-
-  // Convert server locale to client locale using our utility
-  const clientLang = toClientLocale(lang);
+export async function MainNav({ className }: MainNavProps) {
+  const locale = await getLocale();
+  const navItems = await getNavItems(locale);
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -68,8 +60,9 @@ export async function MainNav({ className, lang }: MainNavProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium ${isHome ? "" : "text-muted-foreground"
-                  } transition-colors hover:text-primary`}
+                className={`text-sm font-medium ${
+                  isHome ? "" : "text-muted-foreground"
+                } transition-colors hover:text-primary`}
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -81,7 +74,7 @@ export async function MainNav({ className, lang }: MainNavProps) {
       </nav>
 
       {/* Add search input to navigation */}
-      <SearchInput lang={clientLang} dict={dict} />
+      <SearchInput />
     </div>
   );
 }

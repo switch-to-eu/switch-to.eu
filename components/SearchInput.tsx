@@ -1,73 +1,54 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Search } from "lucide-react";
 import {
   Command,
   CommandEmpty,
   CommandInput,
   CommandList,
-} from '@/components/ui/command';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { SearchResult, ServiceSearchResult } from '@/lib/search';
+} from "@/components/ui/command";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SearchResult, ServiceSearchResult } from "@/lib/search";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import { RegionBadge } from "@/components/ui/region-badge";
-import { Locale, getClientNestedValue } from '@/lib/i18n/client-utils';
-
-// Use type import to avoid server-only dependency
-import type { Dictionary } from '@/lib/i18n/dictionaries';
+import { useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 interface SearchInputProps {
   className?: string;
-  buttonVariant?: 'default' | 'outline' | 'ghost';
+  buttonVariant?: "default" | "outline" | "ghost";
   showDebug?: boolean;
-  filterRegion?: 'eu' | 'non-eu';
-  size?: 'default' | 'lg';
+  filterRegion?: "eu" | "non-eu";
+  size?: "default" | "lg";
   autoOpen?: boolean;
   showOnlyServices?: boolean;
-  lang?: Locale;
-  dict: Dictionary;
 }
 
 export function SearchInput({
   className,
-  buttonVariant = 'ghost',
+  buttonVariant = "ghost",
   showDebug = false,
   filterRegion,
-  size = 'default',
+  size = "default",
   autoOpen = false,
   showOnlyServices = false,
-  lang = 'en',
-  dict
 }: SearchInputProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Helper function to get translated text
-  const t = useCallback((path: string, replacements?: Record<string, string>): string => {
-    const value = getClientNestedValue(dict, path) as string | undefined;
-    let translatedText = typeof value === 'string' ? value : path;
-
-    // Replace placeholders with actual values if provided
-    if (replacements && typeof translatedText === 'string') {
-      Object.entries(replacements).forEach(([key, val]) => {
-        translatedText = translatedText.replace(`{{${key}}}`, val);
-      });
-    }
-
-    return translatedText;
-  }, [dict]);
+  const t = useTranslations("common");
+  const locale = useLocale();
 
   // Function to fetch search results from API
   const fetchResults = async (searchQuery: string) => {
@@ -87,15 +68,15 @@ export function SearchInput({
       if (showOnlyServices) {
         url += `&types=service`;
       }
-      if (lang) {
-        url += `&lang=${lang}`;
+      if (locale) {
+        url += `&locale=${locale}`;
       }
 
       const response = await fetch(url);
       const data = await response.json();
       setResults(data.results || []);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
       setResults([]);
     } finally {
       setIsLoading(false);
@@ -128,7 +109,7 @@ export function SearchInput({
 
   // Handle keyboard shortcut to open search dialog
   const handleKeyDown = (e: KeyboardEvent) => {
-    if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+    if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
       e.preventDefault();
       setOpen((open) => !open);
     }
@@ -136,62 +117,71 @@ export function SearchInput({
 
   // Setup event listeners for keyboard shortcuts
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Handle selecting a search result
   const handleSelect = (result: SearchResult) => {
     setOpen(false);
     // Update URLs to include language
-    const url = result.url.startsWith('/') && !result.url.startsWith(`/${lang}`)
-      ? `/${lang}${result.url}`
-      : result.url;
+    const url =
+      result.url.startsWith("/") && !result.url.startsWith(`/${locale}`)
+        ? `/${locale}${result.url}`
+        : result.url;
     router.push(url);
   };
 
   // Navigate to search page for full results
   const handleViewAllResults = () => {
     setOpen(false);
-    router.push(`/${lang}/search?q=${encodeURIComponent(query)}`);
+    router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
   };
 
   // Filtered results by type
-  const serviceResults = results.filter(result => result.type === 'service');
-  const guideResults = !filterRegion ? results.filter(result => result.type === 'guide') : [];
-  const categoryResults = !filterRegion ? results.filter(result => result.type === 'category') : [];
+  const serviceResults = results.filter((result) => result.type === "service");
+  const guideResults = !filterRegion
+    ? results.filter((result) => result.type === "guide")
+    : [];
+  const categoryResults = !filterRegion
+    ? results.filter((result) => result.type === "category")
+    : [];
 
   // Debug information (only in development and when explicitly enabled)
-  const debugStateInfo = `Dialog: ${open ? 'open' : 'closed'}, Query: "${query}", Loading: ${isLoading}, Results: ${results.length}`;
+  const debugStateInfo = `Dialog: ${
+    open ? "open" : "closed"
+  }, Query: "${query}", Loading: ${isLoading}, Results: ${results.length}`;
 
   return (
     <>
       <Button
         variant={buttonVariant}
-        size={size === 'lg' ? 'lg' : 'sm'}
+        size={size === "lg" ? "lg" : "sm"}
         className={className}
         onClick={() => setOpen(true)}
       >
-        <Search className={`${size === 'lg' ? 'h-5 w-5' : 'h-4 w-4'} mr-2`} />
+        <Search className={`${size === "lg" ? "h-5 w-5" : "h-4 w-4"} mr-2`} />
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 overflow-hidden max-w-[calc(100%-2rem)] sm:max-w-lg">
           <DialogHeader className="sr-only">
-            <DialogTitle>{t('common.searchDialogTitle')}</DialogTitle>
+            <DialogTitle>{t("searchDialogTitle")}</DialogTitle>
           </DialogHeader>
           <Command className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-input-wrapper]]:h-12 [&_[cmdk-input]]:h-12">
             <CommandInput
-              placeholder={filterRegion === 'non-eu'
-                ? t('common.searchNonEuPlaceholder')
-                : t('common.searchGeneralPlaceholder')}
+              placeholder={
+                filterRegion === "non-eu"
+                  ? t("searchNonEuPlaceholder")
+                  : t("searchGeneralPlaceholder")
+              }
               value={query}
               onValueChange={handleSearchChange}
               autoFocus
             />
             <CommandList className="max-h-[350px] overflow-y-auto">
               {/* Debug information - only in development and when explicitly enabled */}
-              {process.env.NODE_ENV === 'development' && showDebug && (
+              {process.env.NODE_ENV === "development" && showDebug && (
                 <div className="px-4 py-1 text-xs text-gray-500 border-b">
                   {debugStateInfo}
                 </div>
@@ -208,7 +198,7 @@ export function SearchInput({
               )}
 
               {!isLoading && query.length > 0 && results.length === 0 && (
-                <CommandEmpty>{t('common.noResultsFound')}</CommandEmpty>
+                <CommandEmpty>{t("noResultsFound")}</CommandEmpty>
               )}
 
               {!isLoading && results.length > 0 && (
@@ -217,17 +207,19 @@ export function SearchInput({
                   {serviceResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        {filterRegion === 'non-eu'
-                          ? t('common.nonEuServicesLabel')
-                          : t('common.servicesLabel')}
+                        {filterRegion === "non-eu"
+                          ? t("nonEuServicesLabel")
+                          : t("servicesLabel")}
                       </div>
-                      {serviceResults.slice(0, filterRegion ? 6 : 3).map(result => (
-                        <SearchResultItem
-                          key={result.id}
-                          result={result}
-                          onSelect={handleSelect}
-                        />
-                      ))}
+                      {serviceResults
+                        .slice(0, filterRegion ? 6 : 3)
+                        .map((result) => (
+                          <SearchResultItem
+                            key={result.id}
+                            result={result}
+                            onSelect={handleSelect}
+                          />
+                        ))}
                     </div>
                   )}
 
@@ -235,9 +227,9 @@ export function SearchInput({
                   {guideResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        {t('common.guidesLabel')}
+                        {t("guidesLabel")}
                       </div>
-                      {guideResults.slice(0, 3).map(result => (
+                      {guideResults.slice(0, 3).map((result) => (
                         <SearchResultItem
                           key={result.id}
                           result={result}
@@ -251,9 +243,9 @@ export function SearchInput({
                   {categoryResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        {t('common.categoriesLabel')}
+                        {t("categoriesLabel")}
                       </div>
-                      {categoryResults.slice(0, 2).map(result => (
+                      {categoryResults.slice(0, 2).map((result) => (
                         <SearchResultItem
                           key={result.id}
                           result={result}
@@ -269,7 +261,9 @@ export function SearchInput({
                       className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                       onClick={handleViewAllResults}
                     >
-                      <span className="text-blue-500 font-medium">{t('common.viewAllResults')}</span>
+                      <span className="text-blue-500 font-medium">
+                        {t("viewAllResults")}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -285,10 +279,10 @@ export function SearchInput({
 // Extract the search result item into a component for better readability
 function SearchResultItem({
   result,
-  onSelect
+  onSelect,
 }: {
   result: SearchResult;
-  onSelect: (result: SearchResult) => void
+  onSelect: (result: SearchResult) => void;
 }) {
   return (
     <div
@@ -298,7 +292,7 @@ function SearchResultItem({
       <div className="flex flex-col flex-grow">
         <div className="flex justify-between items-center">
           <span className="font-medium">{result.title}</span>
-          {result.type === 'service' && (
+          {result.type === "service" && (
             <RegionBadge
               region={(result as ServiceSearchResult).region}
               showTooltip={true}
@@ -308,7 +302,7 @@ function SearchResultItem({
         </div>
         <span className="text-sm mt-1.5 text-muted-foreground">
           {result.description.substring(0, 60)}
-          {result.description.length > 60 ? '...' : ''}
+          {result.description.length > 60 ? "..." : ""}
         </span>
       </div>
     </div>

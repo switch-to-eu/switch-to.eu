@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { locales } from '@/middleware';
-import { Locale } from '@/lib/i18n/dictionaries';
-import { getLocaleDisplayName, getLocalizedPath } from '@/lib/i18n/utils';
-import { ChevronDown } from 'lucide-react';
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
-interface LanguageSelectorProps {
-  lang: Locale;
-}
-
-export function LanguageSelector({ lang }: LanguageSelectorProps) {
+export function LanguageSelector() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const router = useRouter();
+  const t = useTranslations("language");
 
-  // Filter out the current language
-  const alternateLocales = locales.filter(locale => locale !== lang);
+  const locales = routing.locales;
+
+  const changeLocale = (locale: string) => {
+    router.replace(pathname, { locale: locale });
+  };
 
   return (
     <div className="flex items-center">
@@ -33,20 +33,26 @@ export function LanguageSelector({ lang }: LanguageSelectorProps) {
             size="sm"
             className="flex items-center text-sm font-medium text-muted-foreground"
           >
-            {getLocaleDisplayName(lang)} <ChevronDown className="ml-1 h-4 w-4" />
+            {t(locale)} <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {alternateLocales.map((locale) => (
-            <DropdownMenuItem key={locale} asChild>
-              <Link
-                href={getLocalizedPath(pathname, locale)}
-                className="w-full cursor-pointer"
+          {locales
+            .filter((otherLocale) => otherLocale !== locale)
+            .map((otherLocale) => (
+              <DropdownMenuItem
+                key={otherLocale}
+                onClick={() => changeLocale(otherLocale)}
               >
-                {getLocaleDisplayName(locale)}
-              </Link>
-            </DropdownMenuItem>
-          ))}
+                <Link
+                  locale={otherLocale}
+                  href={pathname}
+                  className="w-full cursor-pointer"
+                >
+                  {t(otherLocale)}
+                </Link>
+              </DropdownMenuItem>
+            ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

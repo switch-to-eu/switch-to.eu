@@ -1,18 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFromRedis, setInRedis } from "@/lib/redis";
-import { AnalysisStep } from "@/lib/types";
+import { AnalysisStep, Service } from "@/lib/types";
 import { getAllDnsRecords } from "@layered/dns-records";
 import { whoisDomain, whoisIp } from "whoiser";
+import { isEUCountry, getDomainEUStatus } from "@/lib/countries";
 
 // Email provider detection from real MX records
-async function detectEmailProvider(domain: string) {
+async function detectEmailProvider(domain: string): Promise<{
+  provider: string;
+  isEU: boolean | null;
+  euFriendly: boolean | null;
+}> {
   try {
     const dnsRecords = await getAllDnsRecords(domain);
     const mxRecords = dnsRecords.filter((record) => record.type === "MX");
 
     // If no MX records found, return unknown
     if (!mxRecords || mxRecords.length === 0) {
-      return { provider: "No email provider detected", isEU: null };
+      return {
+        provider: "",
+        isEU: null,
+        euFriendly: null,
+      };
     }
 
     // Sort MX records by priority (lowest first)
@@ -41,7 +50,7 @@ async function detectEmailProvider(domain: string) {
           mx.includes("googlemail")
       )
     ) {
-      return { provider: "Google Workspace", isEU: false };
+      return { provider: "Google Workspace", isEU: false, euFriendly: false };
     } else if (
       mxDomains.some(
         (mx) =>
@@ -50,27 +59,27 @@ async function detectEmailProvider(domain: string) {
           mx.includes("microsoft")
       )
     ) {
-      return { provider: "Microsoft 365", isEU: false };
+      return { provider: "Microsoft 365", isEU: false, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("zoho"))) {
-      return { provider: "Zoho Mail", isEU: false };
+      return { provider: "Zoho Mail", isEU: false, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("infomaniak"))) {
-      return { provider: "Infomaniak", isEU: true };
+      return { provider: "Infomaniak", isEU: false, euFriendly: true };
     } else if (mxDomains.some((mx) => mx.includes("mailbox.org"))) {
-      return { provider: "Mailbox.org", isEU: true };
+      return { provider: "Mailbox.org", isEU: true, euFriendly: false };
     } else if (
       mxDomains.some((mx) => mx.includes("proton") || mx.includes("protonmail"))
     ) {
-      return { provider: "Proton Mail", isEU: true };
+      return { provider: "Proton Mail", isEU: false, euFriendly: true };
     } else if (mxDomains.some((mx) => mx.includes("ovh"))) {
-      return { provider: "OVH", isEU: true };
+      return { provider: "OVH", isEU: true, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("cloudflare"))) {
-      return { provider: "Cloudflare", isEU: false };
+      return { provider: "Cloudflare", isEU: false, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("ionos"))) {
-      return { provider: "IONOS", isEU: true };
+      return { provider: "IONOS", isEU: true, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("hetzner"))) {
-      return { provider: "Hetzner", isEU: true };
+      return { provider: "Hetzner", isEU: true, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("gandi"))) {
-      return { provider: "Gandi", isEU: true };
+      return { provider: "Gandi", isEU: true, euFriendly: false };
     } else {
       // Check for common hosting patterns or return the first MX domain
       const firstMxDomain = mxDomains[0];
@@ -80,22 +89,30 @@ async function detectEmailProvider(domain: string) {
           const provider =
             domainParts[domainParts.length - 2].charAt(0).toUpperCase() +
             domainParts[domainParts.length - 2].slice(1);
-          // Determine if it's likely EU based (simplistic approach)
-          const isEU =
-            firstMxDomain.endsWith(".eu") ||
-            firstMxDomain.endsWith(".de") ||
-            firstMxDomain.endsWith(".be") ||
-            firstMxDomain.endsWith(".fr") ||
-            firstMxDomain.endsWith(".nl") ||
-            firstMxDomain.endsWith(".es");
-          return { provider: `${provider} Mail`, isEU: isEU || null };
+
+          // Use the domain EU detection utility to determine EU status
+          const domainStatus = getDomainEUStatus(firstMxDomain);
+
+          return {
+            provider: `${provider} Mail`,
+            isEU: domainStatus.isEU,
+            euFriendly: domainStatus.euFriendly,
+          };
         }
       }
-      return { provider: "Unknown email provider", isEU: null };
+      return {
+        provider: "Unknown email provider",
+        isEU: null,
+        euFriendly: null,
+      };
     }
   } catch (error) {
     console.error("Error detecting email provider:", error);
-    return { provider: "Error detecting email provider", isEU: null };
+    return {
+      provider: "Error detecting email provider",
+      isEU: null,
+      euFriendly: null,
+    };
   }
 }
 
@@ -110,13 +127,24 @@ async function detectDomainRegistrar(domain: string) {
 
     // WHOIS data structure is an object where keys are WHOIS servers
     // We'll look for registrar information in any of the servers
-    const registrars = new Set<string>();
+    const registrars = new Set<{
+      name: string;
+      url?: string;
+    }>();
+
     let registrar = null;
     let isEU = null;
+    let euFriendly = null;
 
     // Go through all WHOIS servers' responses
     for (const server in whoisData) {
       const data = whoisData[server];
+
+      let url = data["Registrar URL"] || data["Registrar URL:"];
+
+      if (url && Array.isArray(url)) {
+        url = url[0];
+      }
 
       // Check for Registrar field with different possible formats
       if (
@@ -133,18 +161,24 @@ async function detectDomainRegistrar(domain: string) {
         if (Array.isArray(registrar)) {
           registrar = registrar[0]; // Take the first one if it's an array
         }
-        registrars.add(registrar);
+
+        registrars.add({
+          name: registrar,
+          url: url,
+        });
       }
     }
 
-    // If we found more than one registrar name, prioritize the most specific one
+    console.log("registrars", registrars);
+
+    //
     const finalRegistrar = Array.from(registrars)[0] || "Unknown registrar";
 
     // Determine if registrar is EU-based
     const euRegistrars = [
       "gandi",
       "ovh",
-      "infomaniak",
+
       "inwx",
       "one.com",
       "ionos",
@@ -159,25 +193,31 @@ async function detectDomainRegistrar(domain: string) {
       "rrpproxy",
       "loopia",
       "ascio",
+      "combell",
     ];
+
+    const euFriendlyRegistrars = ["infomaniak"];
 
     // Check if any of the EU registrars are in the registrar name
     isEU = euRegistrars.some((euReg) =>
-      finalRegistrar.toLowerCase().includes(euReg.toLowerCase())
+      finalRegistrar.name.toLowerCase().includes(euReg.toLowerCase())
     );
 
-    // If registrar contains .eu, .de, .fr, etc. domains, assume it's EU-based
-    if (!isEU) {
-      isEU =
-        /\.(eu|de|fr|nl|be|es|it|at|fi|se|dk|pl|cz|pt|gr|hu)(?:[^a-z]|$)/i.test(
-          finalRegistrar
-        );
-    }
+    euFriendly = euFriendlyRegistrars.some((euFriendlyReg) =>
+      finalRegistrar.name.toLowerCase().includes(euFriendlyReg.toLowerCase())
+    );
 
-    return { provider: finalRegistrar, isEU };
+    return { provider: finalRegistrar, isEU, euFriendly };
   } catch (error) {
     console.error("Error detecting domain registrar:", error);
-    return { provider: "Error detecting domain registrar", isEU: null };
+
+    return {
+      provider: {
+        name: null,
+      },
+      isEU: null,
+      euFriendly: null,
+    };
   }
 }
 
@@ -246,6 +286,7 @@ async function detectHostingProvider(domain: string) {
 
       // Determine EU status with three options: true, false, or null (unsure)
       let euStatus: boolean | null = null;
+      let euFriendly: boolean | null = null;
 
       // EU hosting providers
       const euHosts = [
@@ -292,52 +333,39 @@ async function detectHostingProvider(domain: string) {
 
       if (euHosts.some((host) => orgData.includes(host.toLowerCase()))) {
         euStatus = true;
+        euFriendly = false;
       } else if (
         nonEuHosts.some((host) => orgData.includes(host.toLowerCase()))
       ) {
         euStatus = false;
+        euFriendly = false;
       } else if (ipWhois.Country || ipWhois.country) {
-        // Check country code if available
-        const euCountries = [
-          "AT",
-          "BE",
-          "BG",
-          "HR",
-          "CY",
-          "CZ",
-          "DK",
-          "EE",
-          "FI",
-          "FR",
-          "DE",
-          "GR",
-          "HU",
-          "IE",
-          "IT",
-          "LV",
-          "LT",
-          "LU",
-          "MT",
-          "NL",
-          "PL",
-          "PT",
-          "RO",
-          "SK",
-          "SI",
-          "ES",
-          "SE",
-        ];
-
+        // Check country code if available using our utility function
         const country = ipWhois.Country || ipWhois.country;
-
         const countryCode = Array.isArray(country) ? country[0] : country;
 
-        euStatus = euCountries.includes(countryCode || "");
+        console.log("country", countryCode);
+
+        // Use the new utility to determine EU status
+        if (typeof countryCode === "string") {
+          euStatus = isEUCountry(countryCode);
+          // For hosting we don't set euFriendly based on country code
+          euFriendly = false;
+        }
+      }
+
+      // If we couldn't determine EU status from organization or country code,
+      // check the domain extension as a fallback
+      if (euStatus === null) {
+        const domainStatus = getDomainEUStatus(domain);
+        euStatus = domainStatus.isEU;
+        euFriendly = domainStatus.euFriendly;
       }
 
       return {
         provider: cleanProviderName(provider || "Unknown hosting provider"),
         isEU: euStatus,
+        euFriendly: euFriendly,
       };
     }
     // If no A records but we have CNAME records, use those
@@ -348,46 +376,67 @@ async function detectHostingProvider(domain: string) {
 
       // Check for known cloud hosting in CNAME
       if (cname.includes("cloudfront.net")) {
-        return { provider: "Amazon CloudFront", isEU: false };
+        return {
+          provider: "Amazon CloudFront",
+          isEU: false,
+          euFriendly: false,
+        };
       } else if (cname.includes("amazonaws.com")) {
-        return { provider: "Amazon AWS", isEU: false };
+        return { provider: "Amazon AWS", isEU: false, euFriendly: false };
       } else if (
         cname.includes("azure") ||
         cname.includes("azurewebsites.net")
       ) {
-        return { provider: "Microsoft Azure", isEU: false };
+        return { provider: "Microsoft Azure", isEU: false, euFriendly: false };
       } else if (cname.includes("vercel.app")) {
-        return { provider: "Vercel", isEU: false };
+        return { provider: "Vercel", isEU: false, euFriendly: false };
       } else if (cname.includes("netlify.app")) {
-        return { provider: "Netlify", isEU: false };
+        return { provider: "Netlify", isEU: false, euFriendly: false };
       } else if (cname.includes("cloudflare")) {
-        return { provider: "Cloudflare", isEU: false };
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
       } else if (cname.includes("heroku")) {
-        return { provider: "Heroku", isEU: false };
+        return { provider: "Heroku", isEU: false, euFriendly: false };
       } else if (cname.includes("squarespace")) {
-        return { provider: "Squarespace", isEU: false };
+        return { provider: "Squarespace", isEU: false, euFriendly: false };
       } else if (cname.includes("ovh")) {
-        return { provider: "OVH", isEU: true };
+        return { provider: "OVH", isEU: true, euFriendly: false };
       } else if (cname.includes("hetzner")) {
-        return { provider: "Hetzner", isEU: true };
+        return { provider: "Hetzner", isEU: true, euFriendly: false };
       }
 
       // If we can't match against known providers, return the CNAME domain
+      // and check the domain extension for EU status
+      const domainStatus = getDomainEUStatus(cname);
       return {
         provider: cleanProviderName(`CNAME: ${cname}`),
-        isEU: null, // Unsure about EU status
+        isEU: domainStatus.isEU,
+        euFriendly: domainStatus.euFriendly,
       };
     }
 
-    return { provider: "Unknown hosting provider", isEU: null };
+    // Use domain extension as fallback for EU status when no records found
+    const domainStatus = getDomainEUStatus(domain);
+    return {
+      provider: "Unknown hosting provider",
+      isEU: domainStatus.isEU,
+      euFriendly: domainStatus.euFriendly,
+    };
   } catch (error) {
     console.error("Error detecting hosting provider:", error);
-    return { provider: "Error detecting hosting provider", isEU: null };
+    return {
+      provider: "Error detecting hosting provider",
+      isEU: null,
+      euFriendly: null,
+    };
   }
 }
 
 // Third-party service detection by analyzing website content
-async function detectThirdPartyServices(domain: string) {
+async function detectThirdPartyServices(domain: string): Promise<{
+  services: Service[];
+  isEU: boolean | null;
+  euFriendly: boolean | null;
+}> {
   try {
     // Ensure the domain has a protocol
     const url = domain.startsWith("http") ? domain : `https://${domain}`;
@@ -401,85 +450,180 @@ async function detectThirdPartyServices(domain: string) {
 
     if (!response.ok) {
       return {
-        services: [{ name: "Error fetching website content", isEU: null }],
+        services: [],
         isEU: null,
+        euFriendly: null,
       };
     }
 
     const html = await response.text();
 
     // Define patterns for common third-party services
-    const servicePatterns = [
+    const servicePatterns: Service[] = [
       // Non-EU services
       {
         pattern: "google-analytics.com|gtag",
         name: "Google Analytics",
         isEU: false,
+        euFriendly: false,
       },
       {
         pattern: "googletagmanager.com|gtm.js|GTM-",
         name: "Google Tag Manager",
         isEU: false,
+        euFriendly: false,
       },
       {
         pattern: "facebook.net|fbevents.js|fbq\\(",
         name: "Facebook Pixel",
         isEU: false,
+        euFriendly: false,
       },
       {
         pattern: "ads.linkedin.com|linkedin.com/insight",
         name: "LinkedIn Insight",
         isEU: false,
+        euFriendly: false,
       },
-      { pattern: "connect.facebook.net", name: "Facebook SDK", isEU: false },
-      { pattern: "static.hotjar.com|hotjar.com", name: "Hotjar", isEU: false },
+      {
+        pattern: "connect.facebook.net",
+        name: "Facebook SDK",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "static.hotjar.com|hotjar.com",
+        name: "Hotjar",
+        isEU: false,
+        euFriendly: false,
+      },
       {
         pattern: "js.hs-scripts.com|hs-analytics|hubspot",
         name: "HubSpot",
         isEU: false,
+        euFriendly: false,
       },
-      { pattern: "script.crazyegg.com", name: "Crazy Egg", isEU: false },
+      {
+        pattern: "script.crazyegg.com",
+        name: "Crazy Egg",
+        isEU: false,
+        euFriendly: false,
+      },
       {
         pattern: "googleadservices.com|google_conversion",
         name: "Google Ads",
         isEU: false,
+        euFriendly: false,
       },
-      { pattern: "snap.licdn.com", name: "LinkedIn Ads", isEU: false },
+      {
+        pattern: "snap.licdn.com",
+        name: "LinkedIn Ads",
+        isEU: false,
+        euFriendly: false,
+      },
       {
         pattern: "sc-static.net|snapchat|snap pixel",
         name: "Snapchat Pixel",
         isEU: false,
+        euFriendly: false,
       },
       {
         pattern: "analytics.tiktok.com|tiktok pixel",
         name: "TikTok Pixel",
         isEU: false,
+        euFriendly: false,
       },
-      { pattern: "cdn.amplitude.com", name: "Amplitude", isEU: false },
-      { pattern: "js.intercomcdn.com", name: "Intercom", isEU: false },
-      { pattern: "cdn.heapanalytics.com", name: "Heap Analytics", isEU: false },
-      { pattern: "static.klaviyo.com", name: "Klaviyo", isEU: false },
-      { pattern: "cdn.mouseflow.com", name: "Mouseflow", isEU: false },
-      { pattern: "cdn.adroll.com", name: "AdRoll", isEU: false },
-
+      {
+        pattern: "cdn.amplitude.com",
+        name: "Amplitude",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "js.intercomcdn.com",
+        name: "Intercom",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "cdn.heapanalytics.com",
+        name: "Heap Analytics",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "static.klaviyo.com",
+        name: "Klaviyo",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "cdn.mouseflow.com",
+        name: "Mouseflow",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "cdn.adroll.com",
+        name: "AdRoll",
+        isEU: false,
+        euFriendly: false,
+      },
       // EU-based services
-      { pattern: "plausible.io", name: "Plausible Analytics", isEU: true },
+      {
+        pattern: "plausible.io",
+        name: "Plausible Analytics",
+        isEU: true,
+        euFriendly: false,
+      },
       {
         pattern: "simpleanalytics.io|simpleanalytics.com",
         name: "Simple Analytics",
         isEU: true,
+        euFriendly: false,
       },
       {
         pattern: "matomo.cloud|matomo.js|matomo.php",
         name: "Matomo",
-        isEU: true,
+        isEU: false,
+        euFriendly: false,
       },
-      { pattern: "pirsch.io", name: "Pirsch Analytics", isEU: true },
-      { pattern: "counter.dev", name: "Counter", isEU: true },
-      { pattern: "getrewardful.com", name: "Rewardful", isEU: true },
-      { pattern: "cdn.statically.io", name: "Statically", isEU: true },
-      { pattern: "cookiebot.com", name: "Cookiebot", isEU: true },
-      { pattern: "usercentrics.eu", name: "Usercentrics", isEU: true },
+      {
+        pattern: "pirsch.io",
+        name: "Pirsch Analytics",
+        isEU: true,
+        euFriendly: false,
+      },
+      {
+        pattern: "counter.dev",
+        name: "Counter",
+        isEU: true,
+        euFriendly: false,
+      },
+      {
+        pattern: "getrewardful.com",
+        name: "Rewardful",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "cdn.statically.io",
+        name: "Statically",
+        isEU: false,
+        euFriendly: false,
+      },
+      {
+        pattern: "cookiebot.com",
+        name: "Cookiebot",
+        isEU: true,
+        euFriendly: false,
+      },
+      {
+        pattern: "usercentrics.eu",
+        name: "Usercentrics",
+        isEU: true,
+        euFriendly: false,
+      },
     ];
 
     // Check for patterns in HTML content
@@ -495,11 +639,9 @@ async function detectThirdPartyServices(domain: string) {
     const contentToAnalyze = scriptContent + " " + linkContent;
 
     // Check for patterns in script and link content
-    const detectedServices = servicePatterns
-      .filter((service) =>
-        new RegExp(service.pattern, "i").test(contentToAnalyze)
-      )
-      .map((service) => ({ name: service.name, isEU: service.isEU }));
+    const detectedServices = servicePatterns.filter((service) =>
+      new RegExp(service.pattern || "", "i").test(contentToAnalyze)
+    );
 
     // If no services detected, check for tracking pixel img tags
     if (detectedServices.length === 0) {
@@ -508,8 +650,12 @@ async function detectThirdPartyServices(domain: string) {
 
       // Check for tracking pixels in img tags
       servicePatterns.forEach((service) => {
-        if (new RegExp(service.pattern, "i").test(imgTagContent)) {
-          detectedServices.push({ name: service.name, isEU: service.isEU });
+        if (new RegExp(service.pattern || "", "i").test(imgTagContent)) {
+          detectedServices.push({
+            name: service.name,
+            isEU: service.isEU,
+            euFriendly: service.euFriendly,
+          });
         }
       });
     }
@@ -519,6 +665,7 @@ async function detectThirdPartyServices(domain: string) {
       return {
         services: [],
         isEU: null,
+        euFriendly: null,
       };
     }
 
@@ -537,7 +684,11 @@ async function detectThirdPartyServices(domain: string) {
     ) {
       // Check if Google Analytics is already in the list
       if (!detectedServices.some((s) => s.name === "Google Analytics")) {
-        detectedServices.push({ name: "Google Analytics", isEU: false });
+        detectedServices.push({
+          name: "Google Analytics",
+          isEU: false,
+          euFriendly: false,
+        });
       }
     }
 
@@ -545,22 +696,31 @@ async function detectThirdPartyServices(domain: string) {
     if (metaContent.includes("google-site-verification")) {
       // Check if Google Services is already in the list
       if (!detectedServices.some((s) => s.name === "Google Services")) {
-        detectedServices.push({ name: "Google Services", isEU: false });
+        detectedServices.push({
+          name: "Google Services",
+          isEU: false,
+          euFriendly: false,
+        });
       }
     }
 
     // Determine overall EU status - if ANY non-EU service is detected, the result is non-EU
     const isEU = !detectedServices.some((service) => service.isEU === false);
+    const euFriendly = detectedServices.some((service) => service.euFriendly);
+
+    console.log(detectedServices);
 
     return {
       services: detectedServices,
-      isEU: detectedServices.length > 0 ? isEU : null,
+      isEU: detectedServices.length > 1 ? isEU : null,
+      euFriendly: detectedServices.length > 1 ? euFriendly : null,
     };
   } catch (error) {
     console.error("Error detecting third-party services:", error);
     return {
-      services: [{ name: "Error detecting third-party services", isEU: null }],
+      services: [],
       isEU: null,
+      euFriendly: null,
     };
   }
 }
@@ -570,38 +730,38 @@ async function analyzeDomain(): Promise<AnalysisStep[]> {
   const analysisSteps: AnalysisStep[] = [
     {
       type: "mx_records",
-      title: "Email Provider (MX Records)",
       status: "pending",
       details: null,
       isEU: null,
+      euFriendly: null,
     },
     {
       type: "domain_registrar",
-      title: "Domain Registrar (WHOIS)",
       status: "pending",
       details: null,
       isEU: null,
+      euFriendly: null,
     },
     {
       type: "hosting",
-      title: "Hosting Provider (A/CNAME Records)",
       status: "pending",
       details: null,
       isEU: null,
+      euFriendly: null,
     },
     {
       type: "services",
-      title: "Third-party Services",
       status: "pending",
       details: null,
       isEU: null,
+      euFriendly: null,
     },
     {
       type: "cdn",
-      title: "CDN Usage",
       status: "pending",
       details: null,
       isEU: null,
+      euFriendly: null,
     },
   ];
 
@@ -621,24 +781,32 @@ async function detectCdn(domain: string) {
 
       // Common CDN CNAME patterns
       if (cname.includes("cloudfront.net")) {
-        return { provider: "Amazon CloudFront", isEU: false };
+        return {
+          provider: "Amazon CloudFront",
+          isEU: false,
+          euFriendly: false,
+        };
       } else if (
         cname.includes("cloudflare.com") ||
         cname.includes("cdn.cloudflare.net")
       ) {
-        return { provider: "Cloudflare", isEU: false };
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
       } else if (cname.includes("akamai") || cname.includes("akamaiedge.net")) {
-        return { provider: "Akamai", isEU: false };
+        return { provider: "Akamai", isEU: false, euFriendly: false };
       } else if (cname.includes("fastly.net")) {
-        return { provider: "Fastly", isEU: false };
+        return { provider: "Fastly", isEU: false, euFriendly: false };
       } else if (cname.includes("edgecast") || cname.includes("edgesuite")) {
-        return { provider: "Edgecast/Verizon", isEU: false };
+        return { provider: "Edgecast/Verizon", isEU: false, euFriendly: false };
       } else if (cname.includes("bunnycdn.com")) {
-        return { provider: "BunnyCDN", isEU: true };
+        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
       } else if (cname.includes("keycdn.com")) {
-        return { provider: "KeyCDN", isEU: true };
+        return { provider: "KeyCDN", isEU: true, euFriendly: false };
       } else if (cname.includes("workers.dev")) {
-        return { provider: "Cloudflare Workers", isEU: false };
+        return {
+          provider: "Cloudflare Workers",
+          isEU: false,
+          euFriendly: false,
+        };
       }
     }
 
@@ -646,7 +814,7 @@ async function detectCdn(domain: string) {
     try {
       const url = domain.startsWith("http") ? domain : `https://${domain}`;
       const response = await fetch(url, {
-        method: "HEAD", // Only get headers, not the full content
+        method: "GET",
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; CDNDetector/1.0)",
         },
@@ -656,23 +824,27 @@ async function detectCdn(domain: string) {
 
       // Check for CDN-specific headers
       if (headers.get("cf-ray") || headers.get("cf-cache-status")) {
-        return { provider: "Cloudflare", isEU: false };
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
       } else if (headers.get("x-amz-cf-id")) {
-        return { provider: "Amazon CloudFront", isEU: false };
+        return {
+          provider: "Amazon CloudFront",
+          isEU: false,
+          euFriendly: false,
+        };
       } else if (
         headers.get("x-akamai-transformed") ||
         headers.get("x-akamai-request-id")
       ) {
-        return { provider: "Akamai", isEU: false };
+        return { provider: "Akamai", isEU: false, euFriendly: false };
       } else if (headers.get("x-served-by")?.includes("fastly")) {
-        return { provider: "Fastly", isEU: false };
+        return { provider: "Fastly", isEU: false, euFriendly: false };
       } else if (headers.get("server")?.includes("cloudflare")) {
-        return { provider: "Cloudflare", isEU: false };
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
       } else if (
         headers.get("x-cdn")?.includes("bunny") ||
         headers.get("server")?.includes("bunnycdn")
       ) {
-        return { provider: "BunnyCDN", isEU: true };
+        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
       }
     } catch (error) {
       // If fetch fails, continue with other methods
@@ -719,27 +891,55 @@ async function detectCdn(domain: string) {
           }
         }
 
+        // Try to determine CDN by organization name
         if (orgName.includes("cloudflare")) {
-          return { provider: "Cloudflare", isEU: false };
+          return { provider: "Cloudflare", isEU: false, euFriendly: false };
         } else if (orgName.includes("amazon") || orgName.includes("aws")) {
-          return { provider: "Amazon CloudFront", isEU: false };
+          return {
+            provider: "Amazon CloudFront",
+            isEU: false,
+            euFriendly: false,
+          };
         } else if (orgName.includes("akamai")) {
-          return { provider: "Akamai", isEU: false };
+          return { provider: "Akamai", isEU: false, euFriendly: false };
         } else if (orgName.includes("fastly")) {
-          return { provider: "Fastly", isEU: false };
+          return { provider: "Fastly", isEU: false, euFriendly: false };
         } else if (orgName.includes("bunny")) {
-          return { provider: "BunnyCDN", isEU: true };
+          return { provider: "BunnyCDN", isEU: true, euFriendly: false };
+        }
+
+        // Check country code from IP WHOIS if organization-based detection fails
+        if (ipWhois.Country || ipWhois.country) {
+          const country = ipWhois.Country || ipWhois.country;
+          const countryCode = Array.isArray(country) ? country[0] : country;
+
+          // If we have a country code but couldn't identify the CDN provider by name,
+          // return a generic CDN provider with EU status based on the country
+          if (countryCode && orgName) {
+            const countryCodeStr =
+              typeof countryCode === "string"
+                ? countryCode
+                : String(countryCode);
+            return {
+              provider: orgName.charAt(0).toUpperCase() + orgName.slice(1),
+              isEU: isEUCountry(countryCodeStr),
+              euFriendly: false,
+            };
+          }
         }
       } catch (error) {
         console.error("Error in IP WHOIS lookup for CDN detection:", error);
       }
     }
 
-    // No CDN detected
-    return { provider: "No CDN detected", isEU: null };
+    return {
+      provider: "",
+      isEU: null,
+      euFriendly: null,
+    };
   } catch (error) {
     console.error("Error detecting CDN:", error);
-    return { provider: "Error detecting CDN", isEU: null };
+    return { provider: "Error detecting CDN", isEU: null, euFriendly: null };
   }
 }
 
@@ -755,6 +955,7 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   initialAnalysis[0].status = "complete";
   initialAnalysis[0].details = mxResults.provider;
   initialAnalysis[0].isEU = mxResults.isEU;
+  initialAnalysis[0].euFriendly = mxResults.euFriendly;
   yield [...initialAnalysis];
 
   // Real check for domain registrar using WHOIS
@@ -762,8 +963,9 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   yield [...initialAnalysis];
   const registrarResults = await detectDomainRegistrar(domain);
   initialAnalysis[1].status = "complete";
-  initialAnalysis[1].details = registrarResults.provider;
+  initialAnalysis[1].details = registrarResults.provider?.name;
   initialAnalysis[1].isEU = registrarResults.isEU;
+  initialAnalysis[1].euFriendly = registrarResults.euFriendly;
   yield [...initialAnalysis];
 
   // Real check for hosting provider
@@ -773,6 +975,7 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   initialAnalysis[2].status = "complete";
   initialAnalysis[2].details = hostingResults.provider;
   initialAnalysis[2].isEU = hostingResults.isEU;
+  initialAnalysis[2].euFriendly = hostingResults.euFriendly;
   yield [...initialAnalysis];
 
   // Real check for third-party services
@@ -783,6 +986,7 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   initialAnalysis[3].status = "complete";
   initialAnalysis[3].details = servicesResults.services;
   initialAnalysis[3].isEU = servicesResults.isEU;
+  initialAnalysis[3].euFriendly = servicesResults.euFriendly;
   yield [...initialAnalysis];
 
   // Real check for CDN
@@ -792,6 +996,7 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   initialAnalysis[4].status = "complete";
   initialAnalysis[4].details = cdnResults.provider;
   initialAnalysis[4].isEU = cdnResults.isEU;
+  initialAnalysis[4].euFriendly = cdnResults.euFriendly;
   yield [...initialAnalysis];
 
   // Cache final results in Redis

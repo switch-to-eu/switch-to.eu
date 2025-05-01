@@ -23,13 +23,13 @@
     "viewAllResults": "View all results",
     "searchDialogTitle": "Search",
     "searchDefaultText": "Find a non-EU service to replace",
-    "searchAnimationExamples": [
-      "WhatsApp",
-      "Gmail",
-      "Instagram",
-      "Google Drive",
-      "Dropbox"
-    ]
+    "searchAnimationExamples": {
+      "whatsapp": "WhatsApp",
+      "gmail": "Gmail",
+      "instagram": "Instagram",
+      "gdrive": "Google Drive",
+      "dropbox": "Dropbox"
+    }
   },
   "navigation": {
     "home": "Home",
@@ -447,60 +447,42 @@
       "title": "Website Tool",
       "description": "Analyze a website to check if it's EU-based"
     },
-    "website": {
-      "error": {
-        "empty_url": "Please enter a URL",
-        "invalid_url": "Please enter a valid URL"
+    "websiteAnalyzer": {
+      "pageTitle": "Is Your Website Using EU-Friendly Services? Find Out!",
+      "urlInputPlaceholder": "Enter your website URL (e.g., yourwebsite.com)",
+      "checkButton": "Check My Website",
+      "urlError": "Please enter a website URL",
+      "invalidUrlError": "Please enter a valid website URL",
+      "emptyStateTitle": "Enter your URL to get started!",
+      "emptyStateDescription": "We'll instantly show you which services your website relies on and whether they're EU-compliant.",
+      "howItWorksTitle": "How It Works",
+      "step1": {
+        "number": "1",
+        "title": "Enter Your Website URL",
+        "description": "Provide your website address to start checking the services your site currently uses."
       },
-      "hero": {
-        "title": "Website Analyzer",
-        "description": "Check if your website is using EU-based services or if it relies on non-EU providers"
+      "step2": {
+        "number": "2",
+        "title": "Instant Domain Check",
+        "description": "Our tool automatically detects your website's third-party services and identifies whether they're EU-based."
       },
-      "input": {
-        "placeholder": "Enter a website URL (e.g., example.com)",
-        "button": "Analyze",
-        "info": "We'll check the services this website is using and their EU compliance status"
+      "step3": {
+        "number": "3",
+        "title": "View Results",
+        "description": "Instantly see which services you're using, their EU compliance status, and receive recommendations for EU-friendly alternatives."
       },
-      "empty_state": {
-        "image_alt": "Website analyzer icon",
-        "title": "No Website Analyzed Yet",
-        "description": "Enter a website URL above to analyze its services and check their EU compliance status"
-      },
-      "how_it_works": {
-        "title": "How It Works",
-        "step1": {
-          "title": "Enter Website",
-          "description": "Enter any website URL you want to analyze for EU compliance"
-        },
-        "step2": {
-          "title": "Analyze Services",
-          "description": "We'll detect third-party services the website is using and analyze them"
-        },
-        "step3": {
-          "title": "Get Results",
-          "description": "See which services are EU-compliant and get recommendations for non-compliant ones"
-        }
-      },
+      "faqTitle": "Frequently Asked Questions",
       "faq": {
-        "title": "Frequently Asked Questions",
-        "question1": {
-          "title": "What does this tool check for?",
-          "answer": "This tool scans websites to identify third-party services, trackers, and tools they use, then analyzes whether these services comply with EU data sovereignty requirements."
-        },
-        "question2": {
-          "title": "How accurate are the results?",
-          "answer": "While we strive for high accuracy, some services may not be detected if they're loaded conditionally or through obscured methods. The analysis provides a good overview, but not a complete legal assessment."
-        },
-        "question3": {
-          "title": "Can I analyze my own website?",
-          "answer": "Yes! In fact, we encourage website owners to check their own sites to improve their EU compliance. You'll receive suggestions for EU alternatives for any non-compliant services."
-        }
+        "scoreQuestion": "What does the EU services score mean?",
+        "scoreAnswer": "The score indicates how much your website relies on EU-based digital services vs. non-EU services. A higher score means better alignment with EU data sovereignty principles.",
+        "servicesQuestion": "What services are detected?",
+        "servicesAnswer": "Our tool detects analytics, hosting, CDN, marketing tools, payment processors, and other third-party services integrated with your website.",
+        "improveQuestion": "How can I improve my score?",
+        "improveAnswer": "For each non-EU service detected, we'll suggest EU alternatives and provide migration guides to help you make the switch to improve your score."
       },
-      "cta": {
-        "title": "Improve Your Website's EU Compliance",
-        "description": "After analyzing your website, you'll get recommendations for EU alternatives to replace any non-compliant services you're currently using.",
-        "button": "Analyze a Website"
-      }
+      "ctaTitle": "Ready to make the switch?",
+      "ctaDescription": "Discover EU alternatives for any non-EU services detected on your website and follow our step-by-step migration guides.",
+      "ctaButton": "Explore EU Alternatives"
     }
   },
   "language": {
@@ -564,5 +546,48 @@
       "continueButton": "Continue"
     },
     "unnamedStep": "Unnamed Step {number}"
+  },
+  "domainAnalyzer": {
+    "results": {
+      "howEuFriendly": "How EU-friendly is {{domain}}?",
+      "statusExcellent": "Excellent",
+      "statusImprovement": "Room for improvement",
+      "statusAttention": "Needs attention",
+      "pending": "Waiting to process...",
+      "complete": "Complete",
+      "notFound": "Not Found",
+      "eu": "EU",
+      "euFriendly": "EU-friendly",
+      "nonEu": "Non-EU",
+      "detectedServices": "Detected services:",
+      "congratulations": "Congratulations! Your website is using 100% EU-based services."
+    },
+    "recommendations": {
+      "switchToEu": "Consider switching to an EU-based alternative.",
+      "emailProviders": "Consider these email providers:",
+      "euDomainRegistrars": "Consider these EU domain registrars:",
+      "euHostingProviders": "Consider these EU hosting providers:",
+      "euAnalyticsAlternatives": "Consider these EU analytics alternatives:",
+      "euCdnProviders": "Consider these EU CDN providers:"
+    },
+    "services": {
+      "mx_records": "mx_records",
+      "domain_registrar": "domain_registrar",
+      "hosting": "hosting",
+      "services": "services",
+      "cdn": "cdn"
+    },
+    "buttons": {
+      "shareResults": "Share Results",
+      "checkAgain": "Check again"
+    },
+    "analyze": {
+      "analyzing": "Analyzing {{domain}}...",
+      "checkingAspects": "We're checking various aspects of this domain. This might take a moment."
+    },
+    "error": {
+      "title": "Analysis Error",
+      "tryAgain": "Try Again"
+    }
   }
 }

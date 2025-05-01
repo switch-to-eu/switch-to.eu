@@ -3,9 +3,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { AnalysisResults } from "./AnalysisResults";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Share2Icon } from "lucide-react";
 import { AnalysisStep } from "@/lib/types";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface AnalysisClientProps {
   domain: string;
@@ -22,6 +23,10 @@ export function AnalysisClient({
   const [isComplete, setIsComplete] = useState(!!initialResults);
   const [isLoading, setIsLoading] = useState(!initialResults);
   const [error, setError] = useState<string | null>(null);
+
+  // Use next-intl translations
+  const t = useTranslations("domainAnalyzer");
+  const commonT = useTranslations("common");
 
   const fetchResults = useCallback(
     async (force = false) => {
@@ -100,7 +105,7 @@ export function AnalysisClient({
             onClick={copyToClipboard}
           >
             <Share2Icon className="w-4 h-4" />
-            Share Results
+            {t("buttons.shareResults")}
           </Button>
           <Button
             variant="default"
@@ -108,7 +113,7 @@ export function AnalysisClient({
             onClick={() => fetchResults(true)}
             disabled={isLoading}
           >
-            {isLoading ? "Analyzing..." : "Run Again"}
+            {isLoading ? commonT("loading") : t("buttons.checkAgain")}
           </Button>
         </div>
       )}
@@ -117,21 +122,22 @@ export function AnalysisClient({
         <div className="w-full max-w-3xl mx-auto bg-white rounded-xl shadow-sm border p-8 text-center">
           <div className="w-8 h-8 rounded-full border-2 border-blue-500 border-t-transparent animate-spin mx-auto mb-4"></div>
           <h3 className="font-semibold text-lg mb-2">
-            Analyzing {formattedDomain}...
+            {t.rich("analyze.analyzing", {
+              domain: formattedDomain,
+            })}
           </h3>
           <p className="text-sm text-gray-600">
-            We&apos;re checking various aspects of this domain. This might take
-            a moment.
+            {t("analyze.checkingAspects")}
           </p>
         </div>
       )}
 
       {error && (
         <div className="w-full max-w-3xl mx-auto bg-red-50 text-red-700 rounded-xl shadow-sm border border-red-200 p-6 text-center">
-          <h3 className="font-semibold text-lg mb-2">Analysis Error</h3>
+          <h3 className="font-semibold text-lg mb-2">{t("error.title")}</h3>
           <p>{error}</p>
           <Button variant="default" className="mt-4" asChild>
-            <Link href="/tools/website">Try Again</Link>
+            <Link href="/tools/website">{t("error.tryAgain")}</Link>
           </Button>
         </div>
       )}

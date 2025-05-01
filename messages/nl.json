@@ -23,13 +23,13 @@
     "viewAllResults": "Bekijk alle resultaten",
     "searchDialogTitle": "Zoeken",
     "searchDefaultText": "Zoek een niet-EU dienst om te vervangen",
-    "searchAnimationExamples": [
-      "WhatsApp",
-      "Gmail",
-      "Instagram",
-      "Google Drive",
-      "Dropbox"
-    ]
+    "searchAnimationExamples": {
+      "whatsapp": "WhatsApp",
+      "gmail": "Gmail",
+      "instagram": "Instagram",
+      "gdrive": "Google Drive",
+      "dropbox": "Dropbox"
+    }
   },
   "navigation": {
     "home": "Home",
@@ -51,8 +51,8 @@
     "categoriesSectionTitle": "Europese Alternatieven per Categorie",
     "viewAll": "Bekijk alle diensten",
     "heroTitle": "NEEM CONTROLE OVER JE DIGITALE DIENSTEN",
-    "heroSubtitle": "Stap over naar <b>EU-gebaseerde alternatieven</b> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
-    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <b>de overstap!</b>",
+    "heroSubtitle": "Stap over naar <important>EU-gebaseerde alternatieven</important> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
+    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <important>de overstap!</important>",
     "exampleLabel": "Bijvoorbeeld:",
     "featuresEuropeanTitle": "Europese Alternatieven",
     "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
@@ -388,64 +388,46 @@
       "title": "Website Tool",
       "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
     },
-    "website": {
-      "error": {
-        "empty_url": "Voer een URL in",
-        "invalid_url": "Voer een geldige URL in"
+    "websiteAnalyzer": {
+      "pageTitle": "Gebruikt jouw website EU-vriendelijke diensten? Ontdek het!",
+      "urlInputPlaceholder": "Voer je website-URL in (bijv. jouwwebsite.com)",
+      "checkButton": "Controleer mijn website",
+      "urlError": "Voer een website-URL in",
+      "invalidUrlError": "Voer een geldige website-URL in",
+      "emptyStateTitle": "Voer je URL in om te beginnen!",
+      "emptyStateDescription": "We laten je direct zien van welke diensten jouw website gebruikmaakt en of deze voldoen aan de EU-regels.",
+      "howItWorksTitle": "Hoe het werkt",
+      "step1": {
+        "number": "1",
+        "title": "Voer je website-URL in",
+        "description": "Geef je websiteadres op om te beginnen met het controleren van de diensten die je site momenteel gebruikt."
       },
-      "hero": {
-        "title": "Website Analyzer",
-        "description": "Controleer of je website EU-gebaseerde diensten gebruikt of afhankelijk is van niet-EU-providers"
+      "step2": {
+        "number": "2",
+        "title": "Directe domeincontrole",
+        "description": "Onze tool detecteert automatisch de externe diensten van je website en identificeert of deze in de EU zijn gevestigd."
       },
-      "input": {
-        "placeholder": "Voer een website URL in (bijv. voorbeeld.com)",
-        "button": "Analyseren",
-        "info": "We controleren welke diensten deze website gebruikt en hun EU-nalevingsstatus"
+      "step3": {
+        "number": "3",
+        "title": "Bekijk resultaten",
+        "description": "Zie direct welke diensten je gebruikt, hun EU-nalevingsstatus en ontvang aanbevelingen voor EU-vriendelijke alternatieven."
       },
-      "empty_state": {
-        "image_alt": "Website analyzer icoon",
-        "title": "Nog Geen Website Geanalyseerd",
-        "description": "Voer hierboven een website-URL in om de diensten te analyseren en hun EU-nalevingsstatus te controleren"
-      },
-      "how_it_works": {
-        "title": "Hoe Het Werkt",
-        "step1": {
-          "title": "Website Invoeren",
-          "description": "Voer een website-URL in die je wilt analyseren op EU-naleving"
-        },
-        "step2": {
-          "title": "Diensten Analyseren",
-          "description": "We detecteren diensten van derden die de website gebruikt en analyseren deze"
-        },
-        "step3": {
-          "title": "Resultaten Bekijken",
-          "description": "Zie welke diensten EU-conform zijn en krijg aanbevelingen voor niet-conforme diensten"
-        }
-      },
+      "faqTitle": "Veelgestelde vragen",
       "faq": {
-        "title": "Veelgestelde Vragen",
-        "question1": {
-          "title": "Waarop controleert deze tool?",
-          "answer": "Deze tool scant websites om diensten, trackers en tools van derden te identificeren die ze gebruiken, en analyseert vervolgens of deze diensten voldoen aan de EU-vereisten voor datasoevereiniteit."
-        },
-        "question2": {
-          "title": "Hoe nauwkeurig zijn de resultaten?",
-          "answer": "Hoewel we streven naar hoge nauwkeurigheid, worden sommige diensten mogelijk niet gedetecteerd als ze voorwaardelijk of via verborgen methoden worden geladen. De analyse biedt een goed overzicht, maar geen volledige juridische beoordeling."
-        },
-        "question3": {
-          "title": "Kan ik mijn eigen website analyseren?",
-          "answer": "Ja! We moedigen website-eigenaren zelfs aan om hun eigen sites te controleren om hun EU-naleving te verbeteren. Je ontvangt suggesties voor EU-alternatieven voor niet-conforme diensten."
-        }
+        "scoreQuestion": "Wat betekent de EU-dienstenscore?",
+        "scoreAnswer": "De score geeft aan in hoeverre je website afhankelijk is van in de EU gebaseerde digitale diensten versus niet-EU-diensten. Een hogere score betekent een betere afstemming op EU-principes voor datasoevereiniteit.",
+        "servicesQuestion": "Welke diensten worden gedetecteerd?",
+        "servicesAnswer": "Onze tool detecteert analyses, hosting, CDN, marketingtools, betalingsverwerkers en andere diensten van derden die zijn geïntegreerd met je website.",
+        "improveQuestion": "Hoe kan ik mijn score verbeteren?",
+        "improveAnswer": "Voor elke gedetecteerde niet-EU-dienst suggereren we EU-alternatieven en bieden we migratiehulpen om je te helpen de overstap te maken om je score te verbeteren."
       },
-      "cta": {
-        "title": "Verbeter de EU-naleving van Je Website",
-        "description": "Na het analyseren van je website krijg je aanbevelingen voor EU-alternatieven om eventuele niet-conforme diensten die je momenteel gebruikt te vervangen.",
-        "button": "Analyseer een Website"
-      }
+      "ctaTitle": "Klaar om de overstap te maken?",
+      "ctaDescription": "Ontdek EU-alternatieven voor alle niet-EU-diensten die op je website zijn gedetecteerd en volg onze stapsgewijze migratiehandleidingen.",
+      "ctaButton": "Verken EU-alternatieven"
     }
   },
   "language": {
-    "en": "Engels",
+    "en": "English",
     "nl": "Nederlands"
   },
   "guides": {
@@ -564,5 +546,48 @@
       "continueButton": "Doorgaan"
     },
     "unnamedStep": "Naamloze Stap {number}"
+  },
+  "domainAnalyzer": {
+    "results": {
+      "howEuFriendly": "Hoe EU-vriendelijk is {{domain}}?",
+      "statusExcellent": "Uitstekend",
+      "statusImprovement": "Ruimte voor verbetering",
+      "statusAttention": "Behoeft aandacht",
+      "pending": "Wachten op verwerking...",
+      "complete": "Voltooid",
+      "notFound": "Niet gevonden",
+      "eu": "EU",
+      "euFriendly": "EU-vriendelijk",
+      "nonEu": "Niet-EU",
+      "detectedServices": "Gedetecteerde diensten:",
+      "congratulations": "Gefeliciteerd! Uw website gebruikt 100% EU-gebaseerde diensten."
+    },
+    "recommendations": {
+      "switchToEu": "Overweeg over te stappen naar een EU-gebaseerd alternatief.",
+      "emailProviders": "Overweeg deze e-mailproviders:",
+      "euDomainRegistrars": "Overweeg deze EU-domeinregistrars:",
+      "euHostingProviders": "Overweeg deze EU-hostingproviders:",
+      "euAnalyticsAlternatives": "Overweeg deze EU-analyticaalternatieven:",
+      "euCdnProviders": "Overweeg deze EU CDN-providers:"
+    },
+    "services": {
+      "mx_records": "E-mailprovider",
+      "domain_registrar": "domein registrar",
+      "hosting": "hosting",
+      "services": "diensten",
+      "cdn": "cdn"
+    },
+    "buttons": {
+      "shareResults": "Resultaten delen",
+      "checkAgain": "Opnieuw controleren"
+    },
+    "analyze": {
+      "analyzing": "Bezig met analyseren van {{domain}}...",
+      "checkingAspects": "We controleren verschillende aspecten van dit domein. Dit kan even duren."
+    },
+    "error": {
+      "title": "Analysefout",
+      "tryAgain": "Probeer opnieuw"
+    }
   }
 }

@@ -1,33 +1,28 @@
-import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavItems } from "./nav-items";
-import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 import { LanguageSelector } from "@/components/navigation/language-selector";
 import { SearchInput } from "@/components/SearchInput";
-import { toClientLocale } from "@/lib/i18n/locale-adapter";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
-interface MobileNavProps {
-  lang: Locale;
-}
-
-export async function MobileNav({ lang }: MobileNavProps) {
-  const navItems = await getNavItems(lang);
-  const dict = await getDictionary(lang);
-
-  // Convert server locale to client locale for client components
-  const clientLang = toClientLocale(lang);
-
+export async function MobileNav() {
+  const locale = await getLocale();
+  const navItems = await getNavItems(locale);
+  const t = await getTranslations("navigation");
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">{dict.navigation.mobileMenu}</span>
+          <span className="sr-only">{t("mobileMenu")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col gap-6 pt-10 px-5 overflow-y-auto max-h-screen">
+      <SheetContent
+        side="left"
+        className="flex flex-col gap-6 pt-10 px-5 overflow-y-auto max-h-screen"
+      >
         {navItems.map((item) => {
           // Handle dropdown items (Services)
           if (item.dropdown && item.children) {
@@ -71,14 +66,12 @@ export async function MobileNav({ lang }: MobileNavProps) {
 
         {/* Language Selector */}
         <div className="mt-4">
-          <LanguageSelector lang={lang} />
+          <LanguageSelector />
         </div>
 
         {/* Search Input */}
         <div className="mb-2">
           <SearchInput
-            lang={clientLang}
-            dict={dict}
             buttonVariant="outline"
             className="w-full justify-start"
           />

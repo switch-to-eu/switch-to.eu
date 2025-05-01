@@ -1,42 +1,43 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
-import { Metadata } from 'next';
 import { ContributeCta } from "@/components/ContributeCta";
 import { CategorySection } from "@/components/CategorySection";
-import { defaultLanguage } from '@/lib/i18n/config';
-import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
-import { toClientLocale } from '@/lib/i18n/locale-adapter';
-import type { Locale as ServerLocale } from '@/lib/i18n/dictionaries';
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 // Generate metadata with language alternates
 export async function generateMetadata({
-  params
+  params,
 }: {
-  params: Promise<{ lang: string }>
-}): Promise<Metadata> {
+  params: Promise<{ locale: string }>;
+}) {
+  const t = await getTranslations("common");
   // Await the params
-  const { lang } = await params;
-  const serverLanguage = lang || defaultLanguage;
+  const { locale } = await params;
 
-  // Use the server language directly for server components
-  const dict = await getDictionary(serverLanguage as ServerLocale);
-
-  const defaultKeywords = ['EU alternatives', 'European digital services', 'privacy', 'GDPR', 'digital migration', 'data protection', 'EU tech'];
-  const title = `${String(getNestedValue(dict, 'common.title'))} - ${String(getNestedValue(dict, 'common.subtitle'))}`;
-  const description = String(getNestedValue(dict, 'common.description'));
+  const defaultKeywords = [
+    "EU alternatives",
+    "European digital services",
+    "privacy",
+    "GDPR",
+    "digital migration",
+    "data protection",
+    "EU tech",
+  ];
+  const title = `${t("title")} - ${t("subtitle")}`;
+  const description = t("description");
 
   return {
     title,
     description,
     keywords: defaultKeywords,
     alternates: {
-      canonical: `https://switch-to.eu/${serverLanguage}`,
+      canonical: `https://switch-to.eu/${locale}`,
       languages: {
-        'en': 'https://switch-to.eu/en',
-        'nl': 'https://switch-to.eu/nl',
+        en: "https://switch-to.eu/en",
+        nl: "https://switch-to.eu/nl",
       },
     },
     openGraph: {
@@ -49,10 +50,10 @@ export async function generateMetadata({
         },
       ],
       type: "website",
-      siteName: String(getNestedValue(dict, 'common.title')),
+      siteName: t("title"),
       title,
       description,
-      locale: serverLanguage,
+      locale: locale,
     },
     twitter: {
       card: "summary_large_image",
@@ -64,24 +65,14 @@ export async function generateMetadata({
 }
 
 export default async function Home({
-  params
+  params,
 }: {
-  params: Promise<{ lang: string }>
+  params: Promise<{ locale: string }>;
 }) {
-  // Await the params
-  const { lang } = await params;
-  const serverLanguage = lang || defaultLanguage;
+  const { locale } = await params;
+  const t = await getTranslations("home");
 
-  // Use the server language directly for server components
-  // Note: Server components use ServerLocale type, while client components like InlineSearchInput use ClientLocale
-  const dict = await getDictionary(serverLanguage as ServerLocale);
   const imageSize = 120;
-
-  // Helper function to get translated text that ensures return value is a string
-  const t = (path: string): string => {
-    const value = getNestedValue(dict, path);
-    return typeof value === 'string' ? value : path;
-  };
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
@@ -90,13 +81,23 @@ export default async function Home({
         <Container className="flex flex-col md:mt-6 md:mb-6 md:flex-row items-center gap-6 sm:gap-8 py-4 sm:py-6">
           <div className="flex flex-col gap-4 sm:gap-6">
             <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl ">
-              {t('home.heroTitle')}
+              {t("heroTitle")}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
-              dangerouslySetInnerHTML={{ __html: t('home.heroSubtitle') }}
+            <p
+              className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
+              dangerouslySetInnerHTML={{
+                __html: t.markup("heroSubtitle", {
+                  important: (chunks) => `<b>${chunks}</b>`,
+                }),
+              }}
             />
-            <p className="text-base sm:text-lg md:text-xl max-w-[500px]"
-              dangerouslySetInnerHTML={{ __html: t('home.heroDescription') }}
+            <p
+              className="text-base sm:text-lg md:text-xl max-w-[500px]"
+              dangerouslySetInnerHTML={{
+                __html: t.markup("heroDescription", {
+                  important: (chunks) => `<b>${chunks}</b>`,
+                }),
+              }}
             />
 
             {/* Search CTA */}
@@ -104,14 +105,31 @@ export default async function Home({
               <InlineSearchInput
                 filterRegion="non-eu"
                 showOnlyServices={true}
-                lang={toClientLocale(serverLanguage)}
-                dict={dict}
               />
             </div>
+
             <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">
-              {t('home.exampleLabel')} <Link href={`/${serverLanguage}/services/non-eu/whatsapp`} className="text-blue underline">WhatsApp</Link>,&nbsp;
-              <Link href={`/${serverLanguage}/services/non-eu/gmail`} className="text-blue underline">Gmail</Link> or&nbsp;
-              <Link href={`/${serverLanguage}/services/non-eu/google-drive`} className="text-blue underline">Google Drive</Link>
+              {t("exampleLabel")}{" "}
+              <Link
+                href={`/${locale}/services/non-eu/whatsapp`}
+                className="text-blue underline"
+              >
+                WhatsApp
+              </Link>
+              ,&nbsp;
+              <Link
+                href={`/services/non-eu/gmail`}
+                className="text-blue underline"
+              >
+                Gmail
+              </Link>{" "}
+              or&nbsp;
+              <Link
+                href={`/services/non-eu/google-drive`}
+                className="text-blue underline"
+              >
+                Google Drive
+              </Link>
             </p>
           </div>
 
@@ -142,9 +160,11 @@ export default async function Home({
                     priority
                   />
                 </div>
-                <h3 className="mb-2 font-bold text-xl">{t('home.featuresEuropeanTitle')}</h3>
+                <h3 className="mb-2 font-bold text-xl">
+                  {t("featuresEuropeanTitle")}
+                </h3>
                 <p className="text-sm sm:text-base">
-                  {t('home.featuresEuropeanDescription')}
+                  {t("featuresEuropeanDescription")}
                 </p>
               </div>
             </div>
@@ -159,9 +179,11 @@ export default async function Home({
                     priority
                   />
                 </div>
-                <h3 className="mb-2 font-bold text-xl">{t('home.featuresGuidesTitle')}</h3>
+                <h3 className="mb-2 font-bold text-xl">
+                  {t("featuresGuidesTitle")}
+                </h3>
                 <p className="text-sm sm:text-base">
-                  {t('home.featuresGuidesDescription')}
+                  {t("featuresGuidesDescription")}
                 </p>
               </div>
             </div>
@@ -176,9 +198,11 @@ export default async function Home({
                     priority
                   />
                 </div>
-                <h3 className="mb-2 font-bold text-xl">{t('home.featuresCommunityTitle')}</h3>
+                <h3 className="mb-2 font-bold text-xl">
+                  {t("featuresCommunityTitle")}
+                </h3>
                 <p className="text-sm sm:text-base">
-                  {t('home.featuresCommunityDescription')}
+                  {t("featuresCommunityDescription")}
                 </p>
               </div>
             </div>
@@ -189,33 +213,36 @@ export default async function Home({
       {/* Why Switch Section */}
       <section className="py-16">
         <Container>
-          <h2 className="mb-6 text-center font-bold text-3xl ">{t('home.whySwitchTitle')}</h2>
+          <h2 className="mb-6 text-center font-bold text-3xl ">
+            {t("whySwitchTitle")}
+          </h2>
           <p className="text-center text-lg max-w-[800px] mx-auto mb-4 ">
-            {t('home.whySwitchDescription1')}
+            {t("whySwitchDescription1")}
           </p>
           <p className="text-center text-lg max-w-[800px] mx-auto ">
-            {t('home.whySwitchDescription2')}
+            {t("whySwitchDescription2")}
           </p>
           <div className="mt-8 text-center">
             <Button variant="red" asChild className="mx-auto">
-              <Link href={`/${serverLanguage}/about`}>{t('home.knowMoreButton')}</Link>
+              <Link href={`/about`}>{t("knowMoreButton")}</Link>
             </Button>
           </div>
         </Container>
       </section>
 
       {/* Categories Section */}
-      <CategorySection lang={serverLanguage} />
+      <CategorySection />
+
       <div className="text-center mt-[-2em]">
         <Button asChild>
-          <Link href={`/${serverLanguage}/services`}>{t('home.viewAll')}</Link>
+          <Link href={`/services`}>{t("viewAll")}</Link>
         </Button>
       </div>
 
       {/* CTA Section */}
       <section className="py-8 md:py-12">
         <Container>
-          <ContributeCta lang={serverLanguage} />
+          <ContributeCta />
         </Container>
       </section>
     </div>
