@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { SearchResult, ServiceSearchResult } from '@/lib/search';
 import { RegionBadge } from "@/components/ui/region-badge";
-import { Locale } from '@/lib/i18n/dictionaries';
+import { Locale, getClientNestedValue } from '@/lib/i18n/client-utils';
+
+// Use type import to avoid server-only dependency
+import type { Dictionary } from '@/lib/i18n/dictionaries';
 
 interface InlineSearchInputProps {
   className?: string;
@@ -14,15 +17,17 @@ interface InlineSearchInputProps {
   placeholder?: string;
   animatePlaceholder?: boolean;
   lang?: Locale;
+  dict: Dictionary;
 }
 
 export function InlineSearchInput({
   className = '',
   filterRegion,
   showOnlyServices = false,
-  placeholder = 'Find a non-EU service to replace',
+  placeholder,
   animatePlaceholder = true,
-  lang = 'en'
+  lang = 'en',
+  dict
 }: InlineSearchInputProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
@@ -33,15 +38,35 @@ export function InlineSearchInput({
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const [currentPlaceholder, setCurrentPlaceholder] = useState(placeholder);
   const [featuredServices, setFeaturedServices] = useState<SearchResult[]>([]);
+
+  // Helper function to get translated text
+  const t = useCallback((path: string, replacements?: Record<string, string>): string => {
+    const value = getClientNestedValue(dict, path) as string | undefined;
+    let translatedText = typeof value === 'string' ? value : path;
+
+    // Replace placeholders with actual values if provided
+    if (replacements && typeof translatedText === 'string') {
+      Object.entries(replacements).forEach(([key, val]) => {
+        translatedText = translatedText.replace(`{{${key}}}`, val);
+      });
+    }
+
+    return translatedText;
+  }, [dict]);
+
+  const defaultPlaceholder = t('common.searchDefaultText');
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(placeholder || defaultPlaceholder);
 
   // Animation for placeholder text
   useEffect(() => {
     if (!animatePlaceholder || query) return;
 
-    const examples = ['WhatsApp', 'Gmail', 'Instagram', 'Google Drive', 'Dropbox'];
-    const defaultText = 'Find a non-EU service to replace';
+    // Get examples from dictionary and fallback to defaults if not available
+    const examplesFromDict = getClientNestedValue(dict, 'common.searchAnimationExamples') as string[] | undefined;
+    const examples = examplesFromDict || ['WhatsApp', 'Gmail', 'Instagram', 'Google Drive', 'Dropbox'];
+
+    const defaultText = t('common.searchDefaultText');
     let currentIndex = 0;
     let showingDefault = true;
     const pauseDuration = 1500;
@@ -136,7 +161,7 @@ export function InlineSearchInput({
     return () => {
       clearTimeout(initialTimeout);
     };
-  }, [animatePlaceholder, query, placeholder]);
+  }, [animatePlaceholder, query, placeholder, t, dict]);
 
   // Fetch featured non-EU services for prefilled dropdown
   const fetchFeaturedServices = useCallback(async () => {
@@ -274,10 +299,13 @@ export function InlineSearchInput({
 
   // Determine which results to show in the dropdown
   const displayResults = query.trim() ? results : featuredServices;
-  const dropdownTitle = query.trim() ? 'Search Results' : 'Popular Non-EU Services';
-  const noResultsMessage = query.trim() ?
-    `No results found for "${query}"` :
-    "No featured services available";
+  const dropdownTitle = query.trim()
+    ? t('common.dropdownSearchResults')
+    : t('common.dropdownPopularServices');
+
+  const noResultsMessage = query.trim()
+    ? t('common.noResultsMessage', { query })
+    : t('common.noFeaturedServices');
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -341,7 +369,7 @@ export function InlineSearchInput({
               <div className="px-4 py-6 text-center">
                 <p className="text-gray-500">{noResultsMessage}</p>
                 <p className="text-sm text-gray-400 mt-1">
-                  Try a different search term or browse our categories
+                  {t('common.tryDifferentSearch')}
                 </p>
               </div>
             )}

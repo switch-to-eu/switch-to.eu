@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import {
@@ -19,7 +19,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { RegionBadge } from "@/components/ui/region-badge";
-import { Locale } from '@/lib/i18n/dictionaries';
+import { Locale, getClientNestedValue } from '@/lib/i18n/client-utils';
+
+// Use type import to avoid server-only dependency
+import type { Dictionary } from '@/lib/i18n/dictionaries';
 
 interface SearchInputProps {
   className?: string;
@@ -30,6 +33,7 @@ interface SearchInputProps {
   autoOpen?: boolean;
   showOnlyServices?: boolean;
   lang?: Locale;
+  dict: Dictionary;
 }
 
 export function SearchInput({
@@ -40,7 +44,8 @@ export function SearchInput({
   size = 'default',
   autoOpen = false,
   showOnlyServices = false,
-  lang = 'en'
+  lang = 'en',
+  dict
 }: SearchInputProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen);
@@ -48,6 +53,21 @@ export function SearchInput({
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Helper function to get translated text
+  const t = useCallback((path: string, replacements?: Record<string, string>): string => {
+    const value = getClientNestedValue(dict, path) as string | undefined;
+    let translatedText = typeof value === 'string' ? value : path;
+
+    // Replace placeholders with actual values if provided
+    if (replacements && typeof translatedText === 'string') {
+      Object.entries(replacements).forEach(([key, val]) => {
+        translatedText = translatedText.replace(`{{${key}}}`, val);
+      });
+    }
+
+    return translatedText;
+  }, [dict]);
 
   // Function to fetch search results from API
   const fetchResults = async (searchQuery: string) => {
@@ -158,13 +178,13 @@ export function SearchInput({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 overflow-hidden max-w-[calc(100%-2rem)] sm:max-w-lg">
           <DialogHeader className="sr-only">
-            <DialogTitle>Search</DialogTitle>
+            <DialogTitle>{t('common.searchDialogTitle')}</DialogTitle>
           </DialogHeader>
           <Command className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-input-wrapper]]:h-12 [&_[cmdk-input]]:h-12">
             <CommandInput
-              placeholder={filterRegion === 'non-eu' ?
-                "Search for non-EU services you want to replace..." :
-                "Search guides, services, categories..."}
+              placeholder={filterRegion === 'non-eu'
+                ? t('common.searchNonEuPlaceholder')
+                : t('common.searchGeneralPlaceholder')}
               value={query}
               onValueChange={handleSearchChange}
               autoFocus
@@ -188,7 +208,7 @@ export function SearchInput({
               )}
 
               {!isLoading && query.length > 0 && results.length === 0 && (
-                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandEmpty>{t('common.noResultsFound')}</CommandEmpty>
               )}
 
               {!isLoading && results.length > 0 && (
@@ -197,7 +217,9 @@ export function SearchInput({
                   {serviceResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        {filterRegion === 'non-eu' ? 'Non-EU Services' : 'Services'}
+                        {filterRegion === 'non-eu'
+                          ? t('common.nonEuServicesLabel')
+                          : t('common.servicesLabel')}
                       </div>
                       {serviceResults.slice(0, filterRegion ? 6 : 3).map(result => (
                         <SearchResultItem
@@ -213,7 +235,7 @@ export function SearchInput({
                   {guideResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        Guides
+                        {t('common.guidesLabel')}
                       </div>
                       {guideResults.slice(0, 3).map(result => (
                         <SearchResultItem
@@ -229,7 +251,7 @@ export function SearchInput({
                   {categoryResults.length > 0 && (
                     <div className="mb-2">
                       <div className="px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                        Categories
+                        {t('common.categoriesLabel')}
                       </div>
                       {categoryResults.slice(0, 2).map(result => (
                         <SearchResultItem
@@ -247,7 +269,7 @@ export function SearchInput({
                       className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                       onClick={handleViewAllResults}
                     >
-                      <span className="text-blue-500 font-medium">View all results</span>
+                      <span className="text-blue-500 font-medium">{t('common.viewAllResults')}</span>
                     </div>
                   )}
                 </div>

@@ -13,12 +13,18 @@ export const defaultLanguage: Locale = 'en';
 export type Dictionary = {
     common: {
         title: string;
+        subtitle: string;
         description: string;
         search: string;
         searchPlaceholder: string;
         searchResults: string;
         noResults: string;
         loading: string;
+        dropdownSearchResults: string;
+        dropdownPopularServices: string;
+        noResultsMessage: string;
+        noFeaturedServices: string;
+        tryDifferentSearch: string;
     };
     navigation: {
         home: string;
@@ -31,6 +37,7 @@ export type Dictionary = {
         websiteTool: string;
         contributeGuide: string;
         feedback: string;
+        mobileMenu: string;
     };
     home: {
         heading: string;
