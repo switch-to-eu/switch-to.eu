@@ -9,16 +9,23 @@ import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
-import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { toClientLocale } from "@/lib/i18n/locale-adapter";
+
+// Import server-side Locale but rename to avoid conflict
+import type { Locale as ServerLocale } from "@/lib/i18n/dictionaries";
 
 interface MainNavProps {
   className?: string;
-  lang: Locale;
+  lang: ServerLocale;
 }
 
 export async function MainNav({ className, lang }: MainNavProps) {
   const navItems = await getNavItems(lang);
   const dict = await getDictionary(lang);
+
+  // Convert server locale to client locale using our utility
+  const clientLang = toClientLocale(lang);
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -74,7 +81,7 @@ export async function MainNav({ className, lang }: MainNavProps) {
       </nav>
 
       {/* Add search input to navigation */}
-      <SearchInput lang={lang} dict={dict} />
+      <SearchInput lang={clientLang} dict={dict} />
     </div>
   );
 }

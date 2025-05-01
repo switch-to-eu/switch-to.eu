@@ -6,6 +6,7 @@ import { getNavItems } from "./nav-items";
 import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
 import { LanguageSelector } from "@/components/navigation/language-selector";
 import { SearchInput } from "@/components/SearchInput";
+import { toClientLocale } from "@/lib/i18n/locale-adapter";
 
 interface MobileNavProps {
   lang: Locale;
@@ -14,6 +15,9 @@ interface MobileNavProps {
 export async function MobileNav({ lang }: MobileNavProps) {
   const navItems = await getNavItems(lang);
   const dict = await getDictionary(lang);
+
+  // Convert server locale to client locale for client components
+  const clientLang = toClientLocale(lang);
 
   return (
     <Sheet>
@@ -73,7 +77,7 @@ export async function MobileNav({ lang }: MobileNavProps) {
         {/* Search Input */}
         <div className="mb-2">
           <SearchInput
-            lang={lang as Locale}
+            lang={clientLang}
             dict={dict}
             buttonVariant="outline"
             className="w-full justify-start"

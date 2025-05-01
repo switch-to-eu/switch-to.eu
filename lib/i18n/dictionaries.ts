@@ -37,6 +37,7 @@ export type Dictionary = {
         websiteTool: string;
         contributeGuide: string;
         feedback: string;
+        mobileMenu: string;
     };
     home: {
         heading: string;

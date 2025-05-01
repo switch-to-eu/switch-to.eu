@@ -8,6 +8,8 @@ import { ContributeCta } from "@/components/ContributeCta";
 import { CategorySection } from "@/components/CategorySection";
 import { defaultLanguage } from '@/lib/i18n/config';
 import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
+import { toClientLocale } from '@/lib/i18n/locale-adapter';
+import type { Locale as ServerLocale } from '@/lib/i18n/dictionaries';
 
 // Generate metadata with language alternates
 export async function generateMetadata({
@@ -17,8 +19,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   // Await the params
   const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const serverLanguage = lang || defaultLanguage;
+
+  // Use the server language directly for server components
+  const dict = await getDictionary(serverLanguage as ServerLocale);
 
   const defaultKeywords = ['EU alternatives', 'European digital services', 'privacy', 'GDPR', 'digital migration', 'data protection', 'EU tech'];
   const title = `${String(getNestedValue(dict, 'common.title'))} - ${String(getNestedValue(dict, 'common.subtitle'))}`;
@@ -29,7 +33,7 @@ export async function generateMetadata({
     description,
     keywords: defaultKeywords,
     alternates: {
-      canonical: `https://switch-to.eu/${language}`,
+      canonical: `https://switch-to.eu/${serverLanguage}`,
       languages: {
         'en': 'https://switch-to.eu/en',
         'nl': 'https://switch-to.eu/nl',
@@ -48,7 +52,7 @@ export async function generateMetadata({
       siteName: String(getNestedValue(dict, 'common.title')),
       title,
       description,
-      locale: language,
+      locale: serverLanguage,
     },
     twitter: {
       card: "summary_large_image",
@@ -66,8 +70,11 @@ export default async function Home({
 }) {
   // Await the params
   const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const serverLanguage = lang || defaultLanguage;
+
+  // Use the server language directly for server components
+  // Note: Server components use ServerLocale type, while client components like InlineSearchInput use ClientLocale
+  const dict = await getDictionary(serverLanguage as ServerLocale);
   const imageSize = 120;
 
   // Helper function to get translated text that ensures return value is a string
@@ -97,14 +104,14 @@ export default async function Home({
               <InlineSearchInput
                 filterRegion="non-eu"
                 showOnlyServices={true}
-                lang={language}
+                lang={toClientLocale(serverLanguage)}
                 dict={dict}
               />
             </div>
             <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">
-              {t('home.exampleLabel')} <Link href={`/${language}/services/non-eu/whatsapp`} className="text-blue underline">WhatsApp</Link>,&nbsp;
-              <Link href={`/${language}/services/non-eu/gmail`} className="text-blue underline">Gmail</Link> or&nbsp;
-              <Link href={`/${language}/services/non-eu/google-drive`} className="text-blue underline">Google Drive</Link>
+              {t('home.exampleLabel')} <Link href={`/${serverLanguage}/services/non-eu/whatsapp`} className="text-blue underline">WhatsApp</Link>,&nbsp;
+              <Link href={`/${serverLanguage}/services/non-eu/gmail`} className="text-blue underline">Gmail</Link> or&nbsp;
+              <Link href={`/${serverLanguage}/services/non-eu/google-drive`} className="text-blue underline">Google Drive</Link>
             </p>
           </div>
 
@@ -191,24 +198,24 @@ export default async function Home({
           </p>
           <div className="mt-8 text-center">
             <Button variant="red" asChild className="mx-auto">
-              <Link href={`/${language}/about`}>{t('home.knowMoreButton')}</Link>
+              <Link href={`/${serverLanguage}/about`}>{t('home.knowMoreButton')}</Link>
             </Button>
           </div>
         </Container>
       </section>
 
       {/* Categories Section */}
-      <CategorySection lang={language} />
+      <CategorySection lang={serverLanguage} />
       <div className="text-center mt-[-2em]">
         <Button asChild>
-          <Link href={`/${language}/services`}>{t('home.viewAll')}</Link>
+          <Link href={`/${serverLanguage}/services`}>{t('home.viewAll')}</Link>
         </Button>
       </div>
 
       {/* CTA Section */}
       <section className="py-8 md:py-12">
         <Container>
-          <ContributeCta lang={language} />
+          <ContributeCta lang={serverLanguage} />
         </Container>
       </section>
     </div>
