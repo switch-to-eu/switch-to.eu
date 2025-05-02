@@ -1,14 +1,8 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
 import { Link } from "@/i18n/navigation";
+import { NavDropdown } from "./NavDropdown";
 
 interface MainNavProps {
   className?: string;
@@ -27,45 +21,36 @@ export async function MainNav({ className }: MainNavProps) {
       >
         {navItems
           .filter((item) => !item.mobileOnly)
-          .map((item) => {
+          .map((item, index) => {
             // Handle dropdown items (Services)
             if (item.dropdown && item.children) {
               return (
-                <DropdownMenu key={item.href}>
-                  <DropdownMenuTrigger className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none">
-                    {item.title} <ChevronDown className="ml-1 h-4 w-4" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
-                    {item.children.map((child) => (
-                      <DropdownMenuItem key={child.href} asChild>
-                        <Link
-                          href={child.href}
-                          className="w-full cursor-pointer"
-                        >
-                          {child.title}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <NavDropdown
+                  key={index}
+                  title={item.title}
+                  items={item.children}
+                />
               );
             }
 
             // Special styling for home link
             const isHome = item.href === "/";
 
-            return (
+            return item.href ? (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium ${isHome ? "" : "text-muted-foreground"
-                  } transition-colors hover:text-primary`}
+                className={`text-sm font-medium ${
+                  isHome ? "" : "text-muted-foreground"
+                } transition-colors hover:text-primary`}
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
               >
                 {item.title}
               </Link>
+            ) : (
+              ""
             );
           })}
       </nav>

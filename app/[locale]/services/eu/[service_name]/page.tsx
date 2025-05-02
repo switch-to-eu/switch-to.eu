@@ -1,23 +1,25 @@
-import { getServiceBySlug, getServicesByCategory, getServiceSlugs } from '@/lib/content/services/services';
-import { getGuidesByTargetService } from '@/lib/content/services/guides';
-import { notFound } from 'next/navigation';
-import { RegionBadge } from '@/components/ui/region-badge';
-import { Link } from '@/i18n/navigation';
-import { marked } from 'marked';
-import { Metadata } from 'next';
-import { ServiceCard } from '@/components/ui/ServiceCard';
-import { ContributeCta } from '@/components/ContributeCta';
-import { Button } from '@/components/ui/button';
-import { routing } from '@/i18n/routing';
+import {
+  getServiceBySlug,
+  getServicesByCategory,
+  getServiceSlugs,
+} from "@/lib/content/services/services";
+import { getGuidesByTargetService } from "@/lib/content/services/guides";
+import { notFound } from "next/navigation";
+import { RegionBadge } from "@/components/ui/region-badge";
+import { Link } from "@/i18n/navigation";
+import { marked } from "marked";
+import { Metadata } from "next";
+import { ServiceCard } from "@/components/ui/ServiceCard";
+import { ContributeCta } from "@/components/ContributeCta";
+import { Button } from "@/components/ui/button";
 
 import Image from "next/image";
-import { getTranslations } from 'next-intl/server';
-
-type Locale = typeof routing.locales[number];
+import { getTranslations } from "next-intl/server";
+import { Locale } from "next-intl";
 
 // Generate static params for all EU services
 export async function generateStaticParams() {
-  const serviceNames = await getServiceSlugs('eu');
+  const serviceNames = await getServiceSlugs("eu");
 
   return serviceNames.map((service_name) => ({
     service_name,
@@ -28,20 +30,20 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string, service_name: string }>;
+  params: Promise<{ locale: Locale; service_name: string }>;
 }): Promise<Metadata> {
   // Await the params
   const { service_name, locale } = await params;
 
   // Normalize slug (replace hyphens with spaces for lookup)
-  const slug = service_name.replace(/-/g, ' ');
+  const slug = service_name.replace(/-/g, " ");
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale as Locale);
+  const serviceData = await getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     return {
-      title: 'Service Not Found',
+      title: "Service Not Found",
     };
   }
 
@@ -50,12 +52,19 @@ export async function generateMetadata({
   return {
     title: `${frontmatter.name} | EU Service | switch-to.eu`,
     description: frontmatter.description,
-    keywords: [frontmatter.name, frontmatter.category, 'EU service', 'privacy-focused', 'GDPR compliant', ...(frontmatter.tags || [])],
+    keywords: [
+      frontmatter.name,
+      frontmatter.category,
+      "EU service",
+      "privacy-focused",
+      "GDPR compliant",
+      ...(frontmatter.tags || []),
+    ],
     alternates: {
       canonical: `https://switch-to.eu/${locale}/services/eu/${service_name}`,
       languages: {
-        'en': `https://switch-to.eu/en/services/eu/${service_name}`,
-        'nl': `https://switch-to.eu/nl/services/eu/${service_name}`,
+        en: `https://switch-to.eu/en/services/eu/${service_name}`,
+        nl: `https://switch-to.eu/nl/services/eu/${service_name}`,
       },
     },
   };
@@ -64,7 +73,7 @@ export async function generateMetadata({
 export default async function ServiceDetailPage({
   params,
 }: {
-  params: Promise<{ locale: string, service_name: string }>;
+  params: Promise<{ locale: Locale; service_name: string }>;
 }) {
   // Await the params Promise
   const { service_name, locale } = await params;
@@ -77,10 +86,10 @@ export default async function ServiceDetailPage({
 
   // Normalize slug (replace hyphens with spaces for lookup)
   // The conversion needs to be more flexible to handle special cases
-  const slug = service_name.replace(/-/g, ' ');
+  const slug = service_name.replace(/-/g, " ");
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale as Locale);
+  const serviceData = await getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     notFound();
@@ -89,7 +98,7 @@ export default async function ServiceDetailPage({
   const { frontmatter, content } = serviceData;
 
   // Verify this is an EU service
-  if (frontmatter.region !== 'eu') {
+  if (frontmatter.region !== "eu") {
     // Redirect to the non-EU version
     return {
       redirect: {
@@ -100,26 +109,29 @@ export default async function ServiceDetailPage({
   }
 
   // Load related guides
-  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale as Locale);
+  const relatedGuides = await getGuidesByTargetService(
+    frontmatter.name,
+    locale
+  );
 
   // Load similar services from the same category
-  const similarServices = (await getServicesByCategory(frontmatter.category, 'eu', locale as Locale))
-    .filter(service => service.name !== frontmatter.name)
+  const similarServices = (
+    await getServicesByCategory(frontmatter.category, "eu", locale)
+  )
+    .filter((service) => service.name !== frontmatter.name)
     .slice(0, 4); // Limit to 4 similar services
 
   // Set basic options for marked
   marked.setOptions({
-    gfm: true,     // GitHub Flavored Markdown
-    breaks: true,  // Translate line breaks to <br>
+    gfm: true, // GitHub Flavored Markdown
+    breaks: true, // Translate line breaks to <br>
   });
 
   // Parse markdown content to HTML
-  const htmlContent = content ? marked.parse(content) : '';
-
+  const htmlContent = content ? marked.parse(content) : "";
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-7xl lg:px-8">
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
@@ -133,28 +145,47 @@ export default async function ServiceDetailPage({
             </p>
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('location')}:</span>
+                <span className="font-semibold mr-2">{t("location")}:</span>
                 <span>{frontmatter.location}</span>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('privacyRating')}:</span>
+                <span className="font-semibold mr-2">
+                  {t("privacyRating")}:
+                </span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <span key={i} className={`text-lg ${i < frontmatter.privacyRating ? 'text-yellow-500' : 'text-gray-300'}`}>★</span>
+                    <span
+                      key={i}
+                      className={`text-lg ${
+                        i < frontmatter.privacyRating
+                          ? "text-yellow-500"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      ★
+                    </span>
                   ))}
                 </div>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('freeOption')}:</span>
-                <span>{frontmatter.freeOption ? t('freeOptionYes') : t('freeOptionNo')}</span>
+                <span className="font-semibold mr-2">{t("freeOption")}:</span>
+                <span>
+                  {frontmatter.freeOption
+                    ? t("freeOptionYes")
+                    : t("freeOptionNo")}
+                </span>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('startingPrice')}:</span>
+                <span className="font-semibold mr-2">
+                  {t("startingPrice")}:
+                </span>
                 <span>{frontmatter.startingPrice}</span>
               </div>
             </div>
             <Button variant="default" asChild>
-              <Link href={frontmatter.url} target="_blank">{t('visitWebsite')}</Link>
+              <Link href={frontmatter.url} target="_blank">
+                {t("visitWebsite")}
+              </Link>
             </Button>
           </div>
 
@@ -168,7 +199,9 @@ export default async function ServiceDetailPage({
           {/* Similar Services - Moved from sidebar to main content */}
           {similarServices.length > 0 && (
             <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-4">{t('similarServices')}</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                {t("similarServices")}
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {similarServices.map((service) => (
                   <ServiceCard
@@ -199,11 +232,15 @@ export default async function ServiceDetailPage({
                 className="object-contain"
               />
             </div>
-            <h2 className="text-xl text-center font-bold mb-4">{t('migrationGuides')}</h2>
+            <h2 className="text-xl text-center font-bold mb-4">
+              {t("migrationGuides")}
+            </h2>
 
             {relatedGuides.length > 0 ? (
               <>
-                <p className="text-muted-foreground mb-4">{t('migrateHelp')} <b>{frontmatter.name}</b></p>
+                <p className="text-muted-foreground mb-4">
+                  {t("migrateHelp")} <b>{frontmatter.name}</b>
+                </p>
                 <div className="space-y-4">
                   {relatedGuides.map((guide) => (
                     <Link
@@ -214,32 +251,35 @@ export default async function ServiceDetailPage({
                       <h3 className="text-lg mb-1">
                         {guide.frontmatter.sourceService &&
                           `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                        {!guide.frontmatter.sourceService && guide.frontmatter.title}
+                        {!guide.frontmatter.sourceService &&
+                          guide.frontmatter.title}
                       </h3>
-                      <p className="text-xs text-muted-foreground">{guide.frontmatter.description}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {guide.frontmatter.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
                 <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <p className="text-sm text-muted-foreground mb-4 text-center">{t('anotherServiceHelp')}</p>
+                  <p className="text-sm text-muted-foreground mb-4 text-center">
+                    {t("anotherServiceHelp")}
+                  </p>
                   <div className="flex justify-center">
                     <Button variant="red" size="sm" asChild>
-                      <Link href={`/contribute`}>
-                        {t('writeAnotherGuide')}
-                      </Link>
+                      <Link href={`/contribute`}>{t("writeAnotherGuide")}</Link>
                     </Button>
                   </div>
                 </div>
               </>
             ) : (
               <>
-                <p className="text-muted-foreground mb-4">{t('noGuides')} <b>{frontmatter.name}</b>.</p>
-                <p className="text-muted-foreground mb-6">{t('helpOthers')}</p>
+                <p className="text-muted-foreground mb-4">
+                  {t("noGuides")} <b>{frontmatter.name}</b>.
+                </p>
+                <p className="text-muted-foreground mb-6">{t("helpOthers")}</p>
                 <div className="flex justify-center">
                   <Button variant="red" asChild>
-                    <Link href={`/contribute`}>
-                      {t('writeMigrationGuide')}
-                    </Link>
+                    <Link href={`/contribute`}>{t("writeMigrationGuide")}</Link>
                   </Button>
                 </div>
               </>

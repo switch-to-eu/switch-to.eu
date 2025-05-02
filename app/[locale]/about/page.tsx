@@ -4,12 +4,13 @@ import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { Locale } from "next-intl";
 
 // Generate metadata with language alternates
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   // Await the params
   const { locale } = await params;

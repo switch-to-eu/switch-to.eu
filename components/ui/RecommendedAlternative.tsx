@@ -1,7 +1,7 @@
-import React from 'react';
-import { ServiceFrontmatter } from '@/lib/content/types';
+import React from "react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { ServiceFrontmatter } from "@/lib/content/schemas";
 
 interface MigrationGuide {
   category: string;
@@ -11,7 +11,7 @@ interface MigrationGuide {
 export async function RecommendedAlternative({
   service,
   sourceService,
-  migrationGuides = []
+  migrationGuides = [],
 }: {
   service: ServiceFrontmatter;
   sourceService: string;
@@ -20,15 +20,22 @@ export async function RecommendedAlternative({
   if (!service) return null;
   const t = await getTranslations("services");
 
-  const serviceSlug = service.name.toLowerCase().replace(/\s+/g, '-');
+  const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
-      <h2 className="text-2xl font-bold mb-6">{t('detail.recommendedAlternative.title')}</h2>
+      <h2 className="text-2xl font-bold mb-6">
+        {t("detail.recommendedAlternative.title")}
+      </h2>
 
       <div className="absolute right-20 top-1/2 -translate-y-1/2 hidden lg:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/icon-04.svg" alt="Curved arrow" width="175" height="200" />
+        <img
+          src="/images/icon-04.svg"
+          alt="Curved arrow"
+          width="175"
+          height="200"
+        />
       </div>
 
       <div className="flex items-start">
@@ -44,7 +51,11 @@ export async function RecommendedAlternative({
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
-                  className={`text-lg ${i < service.privacyRating ? 'text-yellow-500' : 'text-gray-200 dark:text-gray-600'}`}
+                  className={`text-lg ${
+                    i < service.privacyRating
+                      ? "text-yellow-500"
+                      : "text-gray-200 dark:text-gray-600"
+                  }`}
                 >
                   ★
                 </span>
@@ -57,7 +68,10 @@ export async function RecommendedAlternative({
           </p>
 
           <div className="items-center mb-2">
-            <div className="text-sm">{t('detail.recommendedAlternative.startingPrice')}: {service.startingPrice}</div>
+            <div className="text-sm">
+              {t("detail.recommendedAlternative.startingPrice")}:{" "}
+              {service.startingPrice}
+            </div>
           </div>
         </div>
       </div>
@@ -65,26 +79,26 @@ export async function RecommendedAlternative({
       {/* Buttons for recommended alternative actions */}
       <div className="mt-6">
         <div className="flex flex-wrap gap-3">
-          {sourceService && migrationGuides.length > 0 && (
+          {sourceService &&
+            migrationGuides.length > 0 &&
             migrationGuides.map((guide) => (
               <Link
                 key={`${guide.category}-${guide.slug}`}
                 href={`/guides/${guide.category}/${guide.slug}`}
                 className="inline-block py-2 px-5 bg-[#a2d4a8] text-slate-800 border border-[#a2d4a8] rounded-md hover:bg-[#92c499] transition-colors"
               >
-                {t('detail.recommendedAlternative.migrateFrom', {
+                {t("detail.recommendedAlternative.migrateFrom", {
                   source: sourceService,
-                  target: service.name
+                  target: service.name,
                 })}
               </Link>
-            ))
-          )}
+            ))}
 
           <Link
-            href={`/services/${service.region || 'eu'}/${serviceSlug}`}
+            href={`/services/${service.region || "eu"}/${serviceSlug}`}
             className="inline-block py-2 px-5 border border-slate-300 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
-            {t('detail.recommendedAlternative.viewDetails')}
+            {t("detail.recommendedAlternative.viewDetails")}
           </Link>
         </div>
       </div>

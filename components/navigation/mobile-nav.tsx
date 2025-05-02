@@ -27,12 +27,10 @@ export async function MobileNav() {
           if (item.dropdown && item.children) {
             return (
               <div key={item.href} className="flex flex-col gap-2">
-                <Link
-                  href={item.href}
-                  className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1"
-                >
+                <p className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1">
                   {item.title}
-                </Link>
+                </p>
+
                 <div className="flex flex-col gap-2 pl-6">
                   {item.children.map((child) => (
                     <Link
@@ -50,16 +48,18 @@ export async function MobileNav() {
 
           // Regular nav items
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1"
-              {...(item.isExternal
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              {item.title}
-            </Link>
+            item.href && (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1"
+                {...(item.isExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                {item.title}
+              </Link>
+            )
           );
         })}
 
