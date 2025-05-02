@@ -31,13 +31,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContributeGuidePage({
-  params
-}: {
+export default async function ContributeGuidePage({ }: {
   params: Promise<{ locale: string }>
 }) {
   const t = await getTranslations("contribute");
-  const { locale } = await params;
 
   // Modified renderPoints implementation that creates static bullet points
   // based on the keys we know exist in the translations

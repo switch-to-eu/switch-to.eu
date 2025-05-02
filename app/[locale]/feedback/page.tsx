@@ -32,13 +32,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function FeedbackPage({
-  params
-}: {
+export default async function FeedbackPage({ }: {
   params: Promise<{ locale: string }>
 }) {
   const t = await getTranslations("feedback");
-  const { locale } = await params;
 
   // Prepare the dictionary for the FeedbackForm
   const formDictionary = {

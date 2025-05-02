@@ -4,8 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useGuideProgressStore, useHydratedGuideProgressStore } from '@/lib/store/guide-progress';
 import { CompletionCelebration } from './completion-celebration';
-import { useTranslations } from 'next-intl';
-
 // Lazy load the GuideProgressIndicator component
 const GuideProgressIndicator = dynamic(
   () => import('./guide-progress-indicator').then(mod => ({ default: mod.GuideProgressIndicator })),

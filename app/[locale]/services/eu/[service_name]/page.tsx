@@ -68,7 +68,6 @@ export default async function ServiceDetailPage({
 
   // Get translations
   const t = await getTranslations("services.detail");
-  const commonT = await getTranslations("common");
 
   // Keep the original URL slug for redirects
   const originalSlug = service_name;

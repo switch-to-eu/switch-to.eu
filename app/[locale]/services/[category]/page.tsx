@@ -1,6 +1,5 @@
 import { getServicesByCategory } from '@/lib/content/services/services';
 import { getCategoryContent, getAllCategoriesMetadata } from '@/lib/content/services/categories';
-import { getGuidesByTargetService } from '@/lib/content/services/guides';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
@@ -10,16 +9,6 @@ import { RecommendedAlternative } from '@/components/ui/RecommendedAlternative';
 import { getTranslations } from "next-intl/server";
 import React from 'react';
 
-// Define params as a Promise type
-type Params = {
-  category: string;
-  locale: string;
-};
-
-interface ServicesCategoryPageProps {
-  params: Promise<Params>;
-}
-
 // Generate metadata for SEO
 export async function generateMetadata({
   params
@@ -28,9 +17,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   // Await the params
   const { category, locale } = await params;
-
-  // Get translations
-  const t = await getTranslations("services.category");
 
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 

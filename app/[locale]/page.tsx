@@ -64,12 +64,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home({
-  params,
-}: {
+export default async function Home({ }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
   const t = await getTranslations("home");
 
   const imageSize = 120;

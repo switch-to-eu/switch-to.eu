@@ -1,6 +1,6 @@
 import React from 'react';
 import { ServiceFrontmatter } from '@/lib/content/types';
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
 export async function RecommendedAlternative({
@@ -13,10 +13,7 @@ export async function RecommendedAlternative({
   migrationGuides: any[];
 }) {
   if (!service) return null;
-
-  const locale = await getLocale();
   const t = await getTranslations("services");
-
 
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, '-');
 
