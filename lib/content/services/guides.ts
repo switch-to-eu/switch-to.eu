@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { routing } from '@/i18n/routing';
 import { getLanguageContentPath, isGuideFrontmatter, extractContentSegments } from '../utils';
 import { GuideFrontmatter, ContentSegments } from '../types';
+
+type Locale = typeof routing.locales[number];
 
 /**
  * Function to get all guide categories
@@ -49,7 +51,7 @@ export async function getGuidesByCategory(
             );
 
         const guidesData = guides.map(slug => {
-            const mdxFile = path.join(categoryDir, slug, 'index.mdx');
+            const mdxFile = path.join(categoryDir, slug, 'index.md');
 
             // Skip if MDX file doesn't exist
             if (!fs.existsSync(mdxFile)) {
@@ -91,18 +93,18 @@ export async function getGuide(
     segments: ContentSegments;
 } | null> {
     const langContentRoot = getLanguageContentPath(lang);
-    const mdxFile = path.join(langContentRoot, 'guides', category, slug, 'index.mdx');
+    const mdFile = path.join(langContentRoot, 'guides', category, slug, 'index.md');
 
     try {
-        if (!fs.existsSync(mdxFile)) {
+        if (!fs.existsSync(mdFile)) {
             return null;
         }
 
-        const fileContent = fs.readFileSync(mdxFile, 'utf8');
+        const fileContent = fs.readFileSync(mdFile, 'utf8');
         const { data, content } = matter(fileContent);
 
         if (!isGuideFrontmatter(data)) {
-            console.warn(`Invalid frontmatter in ${mdxFile}`);
+            console.warn(`Invalid frontmatter in ${mdFile}`);
             return null;
         }
 

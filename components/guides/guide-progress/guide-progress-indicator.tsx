@@ -2,20 +2,12 @@
 
 import { cn } from '@/lib/utils';
 import { useMemo, useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface GuideProgressIndicatorProps {
   progress: number;
   totalSteps: number;
   className?: string;
-  dict: {
-    guideProgress: {
-      progressIndicator: {
-        progress: string;
-        stepsCount: string;
-        completed: string;
-      };
-    };
-  };
   currentStepTitle?: string;
 }
 
@@ -23,10 +15,10 @@ export function GuideProgressIndicator({
   progress,
   totalSteps,
   className,
-  dict,
   currentStepTitle,
 }: GuideProgressIndicatorProps) {
   const [showCompletedMessage, setShowCompletedMessage] = useState(false);
+  const t = useTranslations('guideProgress.progressIndicator');
 
   // Calculate progress values using useMemo to avoid unnecessary recalculations
   const { progressPercentage, completedSteps } = useMemo(() => {
@@ -40,9 +32,10 @@ export function GuideProgressIndicator({
   }, [progress, totalSteps]);
 
   // Format the steps count string with variables
-  const formattedStepsCount = dict.guideProgress.progressIndicator.stepsCount
-    .replace('{completedSteps}', completedSteps.toString())
-    .replace('{totalSteps}', totalSteps.toString());
+  const formattedStepsCount = t('stepsCount', {
+    completedSteps: completedSteps,
+    totalSteps: totalSteps
+  });
 
   // Show completion message when progress is 100%
   useEffect(() => {
@@ -87,7 +80,7 @@ export function GuideProgressIndicator({
         {/* Show completion message if enabled */}
         {showCompletedMessage && (
           <div className="absolute bottom-0 right-0 text-xs text-green-500 p-1">
-            {dict.guideProgress.progressIndicator.completed}
+            {t('completed')}
             {currentStepTitle && `: ${currentStepTitle}`}
           </div>
         )}

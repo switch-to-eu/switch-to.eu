@@ -4,7 +4,9 @@ import {
     getAllServices,
     getAllCategoriesMetadata,
 } from './content';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { routing } from '@/i18n/routing';
+
+type Locale = typeof routing.locales[number];
 
 // Define types for search results
 export type SearchResultType = 'guide' | 'service' | 'category';
@@ -40,7 +42,10 @@ export interface CategorySearchResult extends BaseSearchResult {
 export type SearchResult = GuideSearchResult | ServiceSearchResult | CategorySearchResult;
 
 // In-memory cache for search index (keyed by language)
-const searchIndexes: Record<Locale, { index: Fuse<SearchResult>, lastUpdated: number } | undefined> = {};
+const searchIndexes: Record<Locale, { index: Fuse<SearchResult>, lastUpdated: number } | undefined> = {
+    en: undefined,
+    nl: undefined,
+};
 const INDEX_TTL = 1000 * 60 * 5; // 5 minutes
 
 // Function to build the search index

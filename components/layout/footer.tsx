@@ -1,43 +1,38 @@
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
-import { Locale } from "@/lib/i18n/dictionaries";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-interface FooterProps {
-  lang: Locale;
-}
-
-export async function Footer({ lang }: FooterProps) {
+export async function Footer() {
   const currentYear = new Date().getFullYear();
-  const dict = await getDictionary(lang);
+  const t = await getTranslations("navigation");
 
   return (
     <footer className="border-t bg-background py-6 md:py-10">
       <Container className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
           <Link
-            href={`/${lang}`}
+            href={`/`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
-            {dict.navigation.home}
+            {t("home")}
           </Link>
           <Link
-            href={`/${lang}/services`}
+            href={`/services`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
-            {dict.navigation.services}
+            {t("services")}
           </Link>
           <Link
-            href={`/${lang}/about`}
+            href={`/about`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
-            {dict.navigation.about}
+            {t("about")}
           </Link>
           <Link
-            href={`/${lang}/contribute`}
+            href={`/contribute`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
-            {dict.navigation.contribute}
+            {t("contribute")}
           </Link>
         </div>
         <div className="flex items-center gap-4">

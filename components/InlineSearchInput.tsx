@@ -1,36 +1,29 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
-import { SearchResult, ServiceSearchResult } from '@/lib/search';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
+import { SearchResult, ServiceSearchResult } from "@/lib/search";
 import { RegionBadge } from "@/components/ui/region-badge";
-import { Locale, getClientNestedValue } from '@/lib/i18n/client-utils';
-
-// Use type import to avoid server-only dependency
-import type { Dictionary } from '@/lib/i18n/dictionaries';
+import { useLocale, useTranslations } from "next-intl";
 
 interface InlineSearchInputProps {
   className?: string;
-  filterRegion?: 'eu' | 'non-eu';
+  filterRegion?: "eu" | "non-eu";
   showOnlyServices?: boolean;
   placeholder?: string;
   animatePlaceholder?: boolean;
-  lang?: Locale;
-  dict: Dictionary;
 }
 
 export function InlineSearchInput({
-  className = '',
+  className = "",
   filterRegion,
   showOnlyServices = false,
   placeholder,
   animatePlaceholder = true,
-  lang = 'en',
-  dict
 }: InlineSearchInputProps) {
   const router = useRouter();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -39,38 +32,31 @@ export function InlineSearchInput({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [featuredServices, setFeaturedServices] = useState<SearchResult[]>([]);
+  const t = useTranslations("common");
+  const locale = useLocale();
 
-  // Helper function to get translated text
-  const t = useCallback((path: string, replacements?: Record<string, string>): string => {
-    const value = getClientNestedValue(dict, path) as string | undefined;
-    let translatedText = typeof value === 'string' ? value : path;
-
-    // Replace placeholders with actual values if provided
-    if (replacements && typeof translatedText === 'string') {
-      Object.entries(replacements).forEach(([key, val]) => {
-        translatedText = translatedText.replace(`{{${key}}}`, val);
-      });
-    }
-
-    return translatedText;
-  }, [dict]);
-
-  const defaultPlaceholder = t('common.searchDefaultText');
-  const [currentPlaceholder, setCurrentPlaceholder] = useState(placeholder || defaultPlaceholder);
+  const defaultPlaceholder = t("searchDefaultText");
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(
+    placeholder || defaultPlaceholder
+  );
 
   // Animation for placeholder text
   useEffect(() => {
     if (!animatePlaceholder || query) return;
 
-    // Get examples from dictionary and fallback to defaults if not available
-    const examplesFromDict = getClientNestedValue(dict, 'common.searchAnimationExamples') as string[] | undefined;
-    const examples = examplesFromDict || ['WhatsApp', 'Gmail', 'Instagram', 'Google Drive', 'Dropbox'];
+    const examples = [
+      "whatsapp",
+      "gmail",
+      "instagram",
+      "gdrive",
+      "dropbox",
+    ].map((example) => t(`searchAnimationExamples.${example}`));
 
-    const defaultText = t('common.searchDefaultText');
+    const defaultText = t("searchDefaultText");
     let currentIndex = 0;
     let showingDefault = true;
     const pauseDuration = 1500;
-    let currentText = '';
+    let currentText = "";
     let isTyping = false;
     let isDeleting = false;
     let isTypingDefault = false;
@@ -83,7 +69,7 @@ export function InlineSearchInput({
       if (showingDefault && !isTyping && !isDeleting && !isTypingDefault) {
         showingDefault = false;
         isTyping = true;
-        currentText = '';
+        currentText = "";
         setTimeout(animatePlaceholderText, typingSpeed);
         return;
       }
@@ -114,13 +100,13 @@ export function InlineSearchInput({
       // Deleting effect for service name
       if (isDeleting) {
         currentText = currentText.substring(0, currentText.length - 1);
-        setCurrentPlaceholder(currentText || ' '); // Ensure placeholder isn't empty
+        setCurrentPlaceholder(currentText || " "); // Ensure placeholder isn't empty
 
-        if (currentText === '') {
+        if (currentText === "") {
           // Finished deleting, start typing default text
           isDeleting = false;
           isTypingDefault = true;
-          currentText = '';
+          currentText = "";
           setTimeout(animatePlaceholderText, typingSpeed);
         } else {
           // Continue deleting
@@ -161,7 +147,7 @@ export function InlineSearchInput({
     return () => {
       clearTimeout(initialTimeout);
     };
-  }, [animatePlaceholder, query, placeholder, t, dict]);
+  }, [animatePlaceholder, query, placeholder, t]);
 
   // Fetch featured non-EU services for prefilled dropdown
   const fetchFeaturedServices = useCallback(async () => {
@@ -171,18 +157,18 @@ export function InlineSearchInput({
       if (showOnlyServices) {
         url += `&types=service`;
       }
-      if (lang) {
-        url += `&lang=${lang}`;
+      if (locale) {
+        url += `&locale=${locale}`;
       }
 
       const response = await fetch(url);
       const data = await response.json();
       setFeaturedServices(data.results || []);
     } catch (error) {
-      console.error('Error fetching featured services:', error);
+      console.error("Error fetching featured services:", error);
       setFeaturedServices([]);
     }
-  }, [showOnlyServices, lang]);
+  }, [showOnlyServices, locale]);
 
   // Load featured services on component mount
   useEffect(() => {
@@ -207,8 +193,8 @@ export function InlineSearchInput({
       if (showOnlyServices) {
         url += `&types=service`;
       }
-      if (lang) {
-        url += `&lang=${lang}`;
+      if (locale) {
+        url += `&locale=${locale}`;
       }
 
       const response = await fetch(url);
@@ -216,7 +202,7 @@ export function InlineSearchInput({
       setResults(data.results || []);
       setShowDropdown(true);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
       setResults([]);
     } finally {
       setIsLoading(false);
@@ -251,14 +237,17 @@ export function InlineSearchInput({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -267,17 +256,19 @@ export function InlineSearchInput({
     if (!showDropdown) return;
 
     // Arrow down
-    if (e.key === 'ArrowDown') {
+    if (e.key === "ArrowDown") {
       e.preventDefault();
-      setFocusedIndex(prev => (prev < (results.length || featuredServices.length) - 1 ? prev + 1 : prev));
+      setFocusedIndex((prev) =>
+        prev < (results.length || featuredServices.length) - 1 ? prev + 1 : prev
+      );
     }
     // Arrow up
-    else if (e.key === 'ArrowUp') {
+    else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setFocusedIndex(prev => (prev > 0 ? prev - 1 : 0));
+      setFocusedIndex((prev) => (prev > 0 ? prev - 1 : 0));
     }
     // Enter
-    else if (e.key === 'Enter') {
+    else if (e.key === "Enter") {
       e.preventDefault();
       const currentResults = query.trim() ? results : featuredServices;
       if (focusedIndex >= 0 && focusedIndex < currentResults.length) {
@@ -285,7 +276,7 @@ export function InlineSearchInput({
       }
     }
     // Escape
-    else if (e.key === 'Escape') {
+    else if (e.key === "Escape") {
       e.preventDefault();
       setShowDropdown(false);
     }
@@ -300,12 +291,12 @@ export function InlineSearchInput({
   // Determine which results to show in the dropdown
   const displayResults = query.trim() ? results : featuredServices;
   const dropdownTitle = query.trim()
-    ? t('common.dropdownSearchResults')
-    : t('common.dropdownPopularServices');
+    ? t("dropdownSearchResults")
+    : t("dropdownPopularServices");
 
   const noResultsMessage = query.trim()
-    ? t('common.noResultsMessage', { query })
-    : t('common.noFeaturedServices');
+    ? t("noResultsMessage", { query })
+    : t("noFeaturedServices");
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -343,24 +334,31 @@ export function InlineSearchInput({
           <div className="py-0">
             {/* Dropdown Header */}
             <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-              <h3 className="text-sm font-medium text-gray-700">{dropdownTitle}</h3>
+              <h3 className="text-sm font-medium text-gray-700">
+                {dropdownTitle}
+              </h3>
             </div>
 
             {displayResults.length > 0 ? (
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? 'bg-gray-100' : ''}`}
+                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
+                    }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="font-medium">{result.title}</div>
-                      <div className="text-sm text-gray-500 mr-2">{result.description}</div>
+                      <div className="text-sm text-gray-500 mr-2">
+                        {result.description}
+                      </div>
                     </div>
-                    {result.type === 'service' && (
-                      <RegionBadge region={(result as ServiceSearchResult).region} />
+                    {result.type === "service" && (
+                      <RegionBadge
+                        region={(result as ServiceSearchResult).region}
+                      />
                     )}
                   </div>
                 </div>
@@ -369,7 +367,7 @@ export function InlineSearchInput({
               <div className="px-4 py-6 text-center">
                 <p className="text-gray-500">{noResultsMessage}</p>
                 <p className="text-sm text-gray-400 mt-1">
-                  {t('common.tryDifferentSearch')}
+                  {t("tryDifferentSearch")}
                 </p>
               </div>
             )}

@@ -3,9 +3,13 @@ import {
   CheckCircle2Icon,
   XCircleIcon,
   Clock,
-  HelpCircleIcon,
+  LightbulbIcon,
+  MinusCircleIcon,
 } from "lucide-react";
 import { AnalysisStep, Service } from "@/lib/types";
+import ReactCountryFlag from "react-country-flag";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface AnalysisResultsProps {
   results: AnalysisStep[];
@@ -18,44 +22,60 @@ export function AnalysisResults({
   domain,
   isComplete,
 }: AnalysisResultsProps) {
-  const getEUScore = () => {
+  const t = useTranslations("domainAnalyzer");
+
+  const getEUStatus = () => {
     if (!isComplete) return null;
 
     const completedSteps = results.filter((step) => step.status === "complete");
-    if (completedSteps.length === 0) return null;
+
+    if (completedSteps.length !== results.length) return null;
 
     const euServices = completedSteps.filter(
       (step) => step.isEU === true
     ).length;
 
-    const score = Math.round((euServices / completedSteps.length) * 100);
+    const euFriendlyServices = completedSteps.filter(
+      (step) => step.euFriendly === true
+    ).length;
 
-    return score;
+    const nonEuServices = completedSteps.filter(
+      (step) => step.isEU === false
+    ).length;
+
+    if (nonEuServices === 0 && euFriendlyServices === 0) return "green";
+    if (euServices === 0 && euFriendlyServices === 0) return "red";
+
+    return "yellow";
   };
 
-  const score = getEUScore();
+  const status = getEUStatus();
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-white rounded-xl shadow-sm border p-6 mb-4">
+    <div>
+      <div className="mb-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-[#1a3c5a]">
-            Analysis Results for {domain}
+            {t.rich("results.howEuFriendly", { domain })}
           </h2>
-          {score !== null && (
+          {status !== null && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-[#334155]">EU Score:</span>
               <span
                 className={cn(
-                  "font-semibold text-lg px-3 py-1 rounded-full",
-                  score >= 70
-                    ? "bg-green-100 text-green-700"
-                    : score >= 40
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-red-100 text-red-700"
+                  "w-4 h-4 rounded-full",
+                  status === "green"
+                    ? "bg-green-500"
+                    : status === "yellow"
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
                 )}
-              >
-                {score}%
+              />
+              <span className="text-sm text-[#334155] font-medium">
+                {status === "green"
+                  ? t("results.statusExcellent")
+                  : status === "yellow"
+                  ? t("results.statusImprovement")
+                  : t("results.statusAttention")}
               </span>
             </div>
           )}
@@ -65,29 +85,39 @@ export function AnalysisResults({
           {results.map((step) => (
             <div
               key={step.type}
-              className="border rounded-lg p-4 transition-all"
+              className="border bg-white rounded-lg p-4 transition-all"
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   {step.status === "pending" && (
                     <Clock className="w-5 h-5 text-gray-400" />
                   )}
-                  {step.status === "complete" && step.isEU === true && (
-                    <CheckCircle2Icon className="w-5 h-5 text-green-500" />
-                  )}
-                  {step.status === "complete" && step.isEU === false && (
-                    <XCircleIcon className="w-5 h-5 text-red-500" />
-                  )}
+                  {step.status === "complete" &&
+                    (step.isEU === true || step.euFriendly === true) && (
+                      <CheckCircle2Icon className="w-5 h-5 text-green-500" />
+                    )}
+                  {step.status === "complete" &&
+                    step.isEU === false &&
+                    step.euFriendly === false && (
+                      <XCircleIcon className="w-5 h-5 text-red-500" />
+                    )}
+                  {step.status === "complete" &&
+                    step.isEU === null &&
+                    step.euFriendly === null && (
+                      <MinusCircleIcon className="w-5 h-5 text-gray-400" />
+                    )}
                   {step.status === "processing" && (
                     <div className="w-5 h-5 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
                   )}
-                  <h3 className="font-medium">{step.title}</h3>
+                  <h3 className="font-medium">
+                    {t(`services.${step.type}`) || step.type}
+                  </h3>
                 </div>
                 {step.status === "complete" && (
                   <span
                     className={cn(
                       "text-sm px-2 py-1 rounded-full",
-                      step.isEU === true
+                      step.isEU === true || step.euFriendly === true
                         ? "bg-green-100 text-green-700"
                         : step.isEU === false
                         ? "bg-red-100 text-red-700"
@@ -95,118 +125,202 @@ export function AnalysisResults({
                     )}
                   >
                     {step.isEU === true
-                      ? "EU Based"
+                      ? t("results.eu")
+                      : step.euFriendly === true
+                      ? t("results.euFriendly")
                       : step.isEU === false
-                      ? "Non-EU"
-                      : "Unknown"}
+                      ? t("results.nonEu")
+                      : t("results.notFound")}
                   </span>
                 )}
               </div>
 
               {step.status === "complete" && step.details && (
-                <div className="mt-3 pl-8">
+                <div className="pl-8">
                   {Array.isArray(step.details) ? (
                     <div className="space-y-2">
-                      <p className="text-sm text-[#334155]">
-                        Detected services:
-                      </p>
-                      <ul className="space-y-1">
-                        {(step.details as Service[]).map((service, i) => (
-                          <li
-                            key={i}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            {service.isEU ? (
-                              <CheckCircle2Icon className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <XCircleIcon className="w-4 h-4 text-red-500" />
-                            )}
-                            <span>{service.name}</span>
-                            <span
-                              className={cn(
-                                "text-xs px-1.5 py-0.5 rounded-full",
-                                service.isEU
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-red-100 text-red-700"
-                              )}
-                            >
-                              {service.isEU ? "EU" : "Non-EU"}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                      {(step.details as Service[]).length > 0 ? (
+                        <>
+                          <p className="text-sm text-[#334155]">
+                            {t("results.detectedServices")}
+                          </p>
+                          <ul className="space-y-1">
+                            {(step.details as Service[]).map((service, i) => (
+                              <li
+                                key={i}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                {service.isEU ? (
+                                  <CheckCircle2Icon className="w-4 h-4 text-green-500" />
+                                ) : (
+                                  <XCircleIcon className="w-4 h-4 text-red-500" />
+                                )}
+                                <span>{service.name}</span>
+                                <span
+                                  className={cn(
+                                    "text-xs px-1.5 py-0.5 rounded-full",
+                                    service.isEU
+                                      ? "bg-green-100 text-green-700"
+                                      : "bg-red-100 text-red-700"
+                                  )}
+                                >
+                                  {service.isEU
+                                    ? t("results.eu")
+                                    : t("results.nonEu")}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   ) : (
-                    <p className="text-sm text-[#334155]">
-                      <span className="font-medium">Provider:</span>{" "}
-                      {step.details}
-                    </p>
+                    step.details && (
+                      <p className="text-sm text-[#334155]">{step.details}</p>
+                    )
                   )}
                 </div>
               )}
 
               {step.status === "pending" && (
                 <p className="text-sm text-[#334155] mt-2 pl-8">
-                  Waiting to process...
+                  {t("results.pending")}
                 </p>
               )}
+
+              {/* Recommendation for each non-EU service */}
+              {isComplete &&
+                step.status === "complete" &&
+                step.isEU === false &&
+                step.euFriendly === false && (
+                  <div className="mt-4 bg-blue-50 rounded-b-lg p-3 m-[-16px]">
+                    <div className="flex items-start gap-3">
+                      <LightbulbIcon className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm text-[#334155]">
+                          {getRecommendationText(step.type, t)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
             </div>
           ))}
         </div>
       </div>
 
-      {isComplete && (
-        <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h3 className="text-lg font-semibold text-[#1a3c5a] mb-3">
-            Recommendations
-          </h3>
-          {score !== null && score < 100 && (
-            <div className="space-y-3">
-              {results
-                .filter((step) => step.isEU === false)
-                .map((step) => (
-                  <div
-                    key={`rec-${step.type}`}
-                    className="flex items-start gap-3"
-                  >
-                    <HelpCircleIcon className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-medium">
-                        Consider switching your {step.title.toLowerCase()}
-                      </p>
-                      <p className="text-sm text-[#334155]">
-                        {getRecommendationText(step.type)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          )}
-          {score === 100 && (
-            <p className="text-green-700 bg-green-50 p-3 rounded-lg">
-              Congratulations! Your website is already using 100% EU-based
-              services.
-            </p>
-          )}
+      {isComplete && status === "green" && (
+        <div className="bg-green-50 rounded-lg p-4 mt-4">
+          <p className="text-green-700 flex items-center gap-2">
+            <CheckCircle2Icon className="w-5 h-5" />
+            <span>{t("results.congratulations")}</span>
+          </p>
         </div>
       )}
     </div>
   );
 }
 
-function getRecommendationText(type: string): string {
+function getRecommendationText(
+  type: string,
+  t: ReturnType<typeof useTranslations>
+): React.ReactNode {
   switch (type) {
     case "mx_records":
-      return "Consider EU email providers like Proton Mail, Infomaniak, or Mailbox.org.";
-    case "domain_registrar":
-      return "Consider EU domain registrars like Gandi, OVH, or Infomaniak.";
-    case "hosting":
-      return "Consider EU hosting providers like OVH, Hetzner, or Scaleway.";
-    case "services":
-      return "Replace non-EU analytics with EU alternatives like Plausible, Simple Analytics, or Matomo.";
-    case "cdn":
-      return "Consider EU CDN providers like Bunny CDN or KeyCDN.";
+      return (
+        <div className="space-y-1.5">
+          <div>{t("recommendations.emailProviders")}</div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="https://proton.me/mail"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              <ReactCountryFlag
+                countryCode="CH"
+                style={{ width: "1em", height: "1em" }}
+                svg
+              />
+              Proton Mail (Swiss)
+            </Link>
+            <Link
+              href="https://mailbox.org/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              <ReactCountryFlag
+                countryCode="DE"
+                style={{ width: "1em", height: "1em" }}
+                svg
+              />
+              Mailbox.org (German)
+            </Link>
+          </div>
+        </div>
+      );
+    case "analytics":
+      return (
+        <div className="space-y-1.5">
+          <div>{t("recommendations.analyticsProviders")}</div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="https://matomo.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              <ReactCountryFlag
+                countryCode="DE"
+                style={{ width: "1em", height: "1em" }}
+                svg
+              />
+              Matomo (Germany)
+            </Link>
+            <Link
+              href="https://www.piwik.pro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              <ReactCountryFlag
+                countryCode="PL"
+                style={{ width: "1em", height: "1em" }}
+                svg
+              />
+              Piwik PRO (Poland)
+            </Link>
+          </div>
+        </div>
+      );
+    case "fonts":
+      return (
+        <div className="space-y-1.5">
+          <div>{t("recommendations.fontProviders")}</div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="https://bunny.net/fonts/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              <ReactCountryFlag
+                countryCode="SI"
+                style={{ width: "1em", height: "1em" }}
+                svg
+              />
+              BunnyFonts (Slovenia)
+            </Link>
+            <span className="text-sm text-gray-500">
+              {t("recommendations.selfHosting")}
+            </span>
+          </div>
+        </div>
+      );
     default:
-      return "Consider switching to an EU-based alternative.";
+      return <div>{t("recommendations.checkAlternatives")}</div>;
   }
 }

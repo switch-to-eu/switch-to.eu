@@ -1,31 +1,36 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
-import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
-interface CategorySectionProps {
-  lang: Locale;
-}
-
-export async function CategorySection({ lang }: CategorySectionProps) {
+export async function CategorySection() {
+  const locale = await getLocale();
+  const t = await getTranslations("home");
   // Get all categories and their metadata, passing the language parameter
-  const categories = getAllCategoriesMetadata(lang);
-  const dict = await getDictionary(lang);
+  const categories = getAllCategoriesMetadata(locale);
 
   return (
     <section>
       <Container>
-        <h2 className="mb-8 text-center font-bold text-3xl">{dict.home.categoriesSectionTitle}</h2>
+        <h2 className="mb-8 text-center font-bold text-3xl">
+          {t("categoriesSectionTitle")}
+        </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {categories.map((category, index) => {
             // Calculate the color index (1-4) - cycle through colors
             const colorIndex = (index % 4) + 1;
 
             return (
-              <Link key={category.slug} href={`/${lang}/services/${category.slug}`} className="no-underline h-full">
-                <div className={`bg-[var(--pop-${colorIndex})] p-5 sm:p-8 rounded-xl h-full flex flex-col`}>
+              <Link
+                key={category.slug}
+                href={`/services/${category.slug}`}
+                className="no-underline h-full"
+              >
+                <div
+                  className={`bg-[var(--pop-${colorIndex})] p-5 sm:p-8 rounded-xl h-full flex flex-col`}
+                >
                   <div className="flex flex-col items-center text-center h-full justify-between">
                     <div className="mb-3 sm:mb-4">
                       <Image
@@ -38,8 +43,12 @@ export async function CategorySection({ lang }: CategorySectionProps) {
                       />
                     </div>
                     <div>
-                      <h3 className="mb-2 font-bold text-xl">{category.metadata.title}</h3>
-                      <p className=" text-sm sm:text-base">{category.metadata.description}</p>
+                      <h3 className="mb-2 font-bold text-xl">
+                        {category.metadata.title}
+                      </h3>
+                      <p className=" text-sm sm:text-base">
+                        {category.metadata.description}
+                      </p>
                     </div>
                   </div>
                 </div>

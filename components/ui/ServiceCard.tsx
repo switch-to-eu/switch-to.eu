@@ -1,17 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { RegionBadge } from "@/components/ui/region-badge";
-import { ServiceFrontmatter } from "@/lib/content/types";
-import { Locale, getDictionary } from "@/lib/i18n/dictionaries";
+import { getLocale, getTranslations } from "next-intl/server";
+import { ServiceFrontmatter } from "@/lib/content";
 
-interface ServiceCardProps {
-  service: ServiceFrontmatter;
-  showCategory?: boolean;
-  lang: Locale;
-}
 
-export async function ServiceCard({ service, showCategory = true, lang }: ServiceCardProps) {
-  const dict = await getDictionary(lang);
+export async function ServiceCard({ service, showCategory = true }: { service: ServiceFrontmatter, showCategory?: boolean }) {
+  const locale = await getLocale();
+  const t = await getTranslations("services");
   const categoryFormatted = service.category.charAt(0).toUpperCase() + service.category.slice(1);
 
   // Create slug from service name for linking
@@ -25,7 +21,7 @@ export async function ServiceCard({ service, showCategory = true, lang }: Servic
           <RegionBadge region={service.region || "eu"} />
         </div>
         {showCategory && (
-          <p className="text-sm text-muted-foreground">{dict.services.category}: {categoryFormatted}</p>
+          <p className="text-sm text-muted-foreground">{t('category')}: {categoryFormatted}</p>
         )}
       </div>
       <div className="px-6 flex-grow">
@@ -41,17 +37,17 @@ export async function ServiceCard({ service, showCategory = true, lang }: Servic
             ))}
           </div>
           <div className="text-sm text-muted-foreground">
-            {dict.services.location}: {service.location} • {service.freeOption ? dict.services.freeOption : dict.services.paidOnly}
+            {t('location')}: {service.location} • {service.freeOption ? t('freeOption') : t('paidOnly')}
           </div>
         </div>
-        <p className="text-gray-700">{service.description}</p>
+        <p className="text-gray-700">{t('description')}</p>
       </div>
       <div className="p-6 pt-4 mt-auto">
         <Link
-          href={`/${lang}/services/${service.region || "eu"}/${serviceSlug}`}
+          href={`/${locale}/services/${service.region || "eu"}/${serviceSlug}`}
           className=" font-medium hover:underline"
         >
-          {dict.services.viewDetails}
+          {t('viewDetails')}
         </Link>
       </div>
     </div>

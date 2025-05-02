@@ -10,6 +10,7 @@ import {
   hankenGroteskBoldItalic,
   hankenGroteskSemiBoldItalic,
 } from "./fonts";
+import { NextIntlClientProvider } from "next-intl";
 
 // Keep Geist Mono for code blocks
 const geistMono = Geist_Mono({
@@ -26,13 +27,11 @@ export const metadata: Metadata = {
       { url: "/favicon/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
-    apple: [
-      { url: "/favicon/apple-touch-icon.png" },
-    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png" }],
     other: [
       {
         rel: "manifest",
-        url: "/favicon/site.webmanifest"
+        url: "/favicon/site.webmanifest",
       },
     ],
   },
@@ -54,20 +53,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-
+  const { locale } = await params;
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <PlausibleProvider domain="switch-to.eu">
         <body
           className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          </main>
         </body>
       </PlausibleProvider>
     </html>
