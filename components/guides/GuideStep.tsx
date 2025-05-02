@@ -1,8 +1,8 @@
 'use client';
 
 import { marked } from 'marked';
-import { useEffect, useState } from 'react';
-import { useGuideProgress } from '@/hooks/useGuideProgress';
+import { useEffect, useRef, useState } from 'react';
+import { StepCompletionButton } from './guide-progress/step-completion-button';
 
 interface StepProps {
   guideId: string;
@@ -18,28 +18,51 @@ interface StepProps {
   slug: string;
 }
 
-export function GuideStep({ guideId, step, stepNumber, category, slug }: StepProps) {
-  const { isStepCompleted, markStepCompleted } = useGuideProgress(guideId);
-  const [completed, setCompleted] = useState(false);
+// Custom hook to determine if an element is visible in the viewport
+const useVideoIntersection = (options = {}) => {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  useEffect(() => {
+    if (!targetRef.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsIntersecting(entry.isIntersecting);
+
+      // Play or pause video based on visibility
+      if (videoRef.current) {
+        if (entry.isIntersecting) {
+          // Use a promise to handle play() since it returns a promise
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((error: Error) => {
+              // Auto-play was prevented (e.g., browser policy)
+              console.log('Auto-play was prevented:', error);
+            });
+          }
+        } else {
+          videoRef.current.pause();
+        }
+      }
+    }, { threshold: 0.2, ...options }); // Trigger when 20% of element is visible
+
+    observer.observe(targetRef.current);
+
+    return () => {
+      if (targetRef.current) {
+        observer.unobserve(targetRef.current);
+      }
+    };
+  }, [options]);
+
+  return { isIntersecting, targetRef, videoRef };
+};
+
+export function GuideStep({ guideId, step, stepNumber, category, slug }: StepProps) {
   // Process the step content with marked to convert markdown to HTML
   const processedContent = marked.parse(step.content);
-
-  // Check if this step is completed on initial render and when completion status changes
-  useEffect(() => {
-    const checkCompletion = async () => {
-      const isCompleted = await isStepCompleted(step.id);
-      setCompleted(isCompleted);
-    };
-
-    checkCompletion();
-  }, [isStepCompleted, step.id]);
-
-  // Handle step completion
-  const handleMarkComplete = async () => {
-    await markStepCompleted(step.id, step.title);
-    setCompleted(true);
-  };
+  const { targetRef, videoRef, isIntersecting } = useVideoIntersection();
 
   // Format video URL to use the API route with full path
   const getVideoUrl = (videoPath: string) => {
@@ -78,25 +101,11 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
       {/* Completion button */}
       {step.complete && (
         <div className="mt-2 mb-4">
-          <button
-            onClick={handleMarkComplete}
-            disabled={completed}
-            className={`px-4 py-2 rounded-md transition-colors flex items-center ${completed
-              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-              : "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
-              }`}
-          >
-            {completed ? (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Completed
-              </>
-            ) : (
-              "Mark as Completed"
-            )}
-          </button>
+          <StepCompletionButton
+            guideId={guideId}
+            stepId={step.id}
+            stepTitle={step.title}
+          />
         </div>
       )}
     </>
@@ -104,8 +113,12 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
 
   // Render the video player
   const renderVideo = () => (
-    <div className="step-video h-full flex items-center">
+    <div ref={targetRef} className="step-video h-full flex items-center">
       <video
+        ref={videoRef}
+        muted
+        playsInline
+        loop
         controls
         className="w-full"
         src={getVideoUrl(step.video as string)}
@@ -116,8 +129,6 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
 
   return (
     <div className="guide-step mb-10 pb-6 border-b border-gray-200 dark:border-gray-700" id={step.id}>
-
-
       {/* Responsive layout - two columns with video if available, otherwise single column */}
       {step.video ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

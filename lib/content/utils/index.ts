@@ -240,8 +240,7 @@ export function extractStepsWithMeta(
  * Extracts heading sections from the markdown content
  * Captures only h2 headings (##) and returns them with their IDs for anchor links
  * Works with segmented content by prioritizing the 'steps' segment when available
- * Identifies completion markers [complete] to enable progress tracking
- * Now supports new HTML comment-based steps format
+ * Now supports HTML comment-based steps format with meta information
  */
 export function extractMigrationSteps(
     content: string,
@@ -276,12 +275,6 @@ export function extractMigrationSteps(
                 : text.length;
             const headingContent = text.slice(headingStart, headingEnd);
 
-            // Look for completion markers in the heading content
-            const completionMarkerRegex = /\[complete\]/gi;
-            const completionMarkers = [
-                ...headingContent.matchAll(completionMarkerRegex),
-            ].map((marker) => marker[0]);
-
             // Look for video tags in the heading content
             const videoRegex = /!video\[([^\]]+)\]/i;
             const videoMatch = headingContent.match(videoRegex);
@@ -290,8 +283,6 @@ export function extractMigrationSteps(
             return {
                 title,
                 id,
-                completionMarkers:
-                    completionMarkers.length > 0 ? completionMarkers : undefined,
                 video
             };
         });
@@ -452,9 +443,9 @@ export function extractMissingFeatures(
 }
 
 /**
- * Processes markdown content to find [complete] markers and step metadata for step completion buttons
+ * Processes markdown content to find step metadata for step completion buttons
  * Returns content with markers mapped to specified HTML classes for later processing
- * Handles both legacy [complete] markers and the new HTML comment-based format
+ * Uses the step metadata with complete=true to insert markers
  */
 export function processCompletionMarkers(
     content: string,
@@ -463,12 +454,12 @@ export function processCompletionMarkers(
     if (!content || typeof content !== "string") return "";
 
     try {
-        // First: try to find steps using the new format
+        // Process content using only the new format (metadata-based)
         let processedContent = content;
         const segments = extractContentSegments(content);
 
         if (segments.steps) {
-            // Extract steps with metadata using the new format
+            // Extract steps with metadata
             const stepsWithMeta = extractStepsWithMeta(segments.steps);
 
             if (stepsWithMeta.length > 0) {
@@ -494,54 +485,7 @@ export function processCompletionMarkers(
             }
         }
 
-        // Second: process legacy [complete] markers (backward compatibility)
-        // First pass: extract h2 and h3 headings
-        const headings: Array<{ title: string; index: number }> = [];
-        const headingRegex = /^(##|###)\s+(.+?)(?=\n|$)/gm;
-        let match;
-
-        while ((match = headingRegex.exec(processedContent)) !== null) {
-            headings.push({
-                title: match[2].trim(),
-                index: match.index,
-            });
-        }
-
-        // Second pass: replace [complete] markers with references to the closest heading
-        let lastResult = processedContent;
-        const markerRegex = /\[complete\]/gi;
-        let markerMatch;
-        let offset = 0;
-
-        while ((markerMatch = markerRegex.exec(processedContent)) !== null) {
-            // Find the closest heading that appears before this marker
-            let closestHeading = null;
-            for (const heading of headings) {
-                if (
-                    heading.index < markerMatch.index &&
-                    (!closestHeading || heading.index > closestHeading.index)
-                ) {
-                    closestHeading = heading;
-                }
-            }
-
-            const headingTitle = closestHeading ? closestHeading.title : "";
-            const replacement = `<span class="step-completion-marker" data-guide-id="${guideId}" data-heading="${encodeURIComponent(
-                headingTitle
-            )}"></span>`;
-
-            // Replace this specific marker in the result string
-            const beforeMarker = lastResult.substring(0, markerMatch.index + offset);
-            const afterMarker = lastResult.substring(
-                markerMatch.index + offset + markerMatch[0].length
-            );
-            lastResult = beforeMarker + replacement + afterMarker;
-
-            // Update offset for next replacement
-            offset += replacement.length - markerMatch[0].length;
-        }
-
-        return lastResult;
+        return processedContent;
     } catch (error) {
         console.error("Error processing completion markers:", error);
         return content; // Return original content if there's an error

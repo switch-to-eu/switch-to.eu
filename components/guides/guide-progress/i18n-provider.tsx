@@ -1,6 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { CompletionMarkerReplacer } from './completion-marker-replacer';
 import { GuideProgress } from './guide-progress';
 
