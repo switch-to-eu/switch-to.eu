@@ -10,7 +10,8 @@ import {
   hankenGroteskBoldItalic,
   hankenGroteskSemiBoldItalic,
 } from "./fonts";
-import { NextIntlClientProvider } from "next-intl";
+
+import { NextIntlClientProvider, Locale } from "next-intl";
 
 // Keep Geist Mono for code blocks
 const geistMono = Geist_Mono({
@@ -58,7 +59,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
 

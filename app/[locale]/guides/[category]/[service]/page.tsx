@@ -1,20 +1,23 @@
-import { getGuide, getAllGuides } from '@/lib/content/services/guides';
-import { extractMissingFeatures, extractMigrationSteps, processCompletionMarkers, extractStepsWithMeta } from '@/lib/content/utils';
-import { notFound } from 'next/navigation';
-import { marked } from 'marked';
-import { Metadata } from 'next';
-import { GuideSidebar } from '@/components/guides/GuideSidebar';
-import { MobileGuideSidebar } from '@/components/guides/MobileGuideSidebar';
-import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
-import { getTranslations } from 'next-intl/server';
-import { routing } from '@/i18n/routing';
+import { getGuide, getAllGuides } from "@/lib/content/services/guides";
+import {
+  extractMissingFeatures,
+  extractMigrationSteps,
+  processCompletionMarkers,
+  extractStepsWithMeta,
+} from "@/lib/content/utils";
+import { notFound } from "next/navigation";
+import { marked } from "marked";
+import { Metadata } from "next";
+import { GuideSidebar } from "@/components/guides/GuideSidebar";
+import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
+import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
+import { getTranslations } from "next-intl/server";
 import {
   GuideProgressWithI18n as GuideProgress,
-  CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer
-} from '@/components/guides/guide-progress';
-import { GuideStep } from '@/components/guides/GuideStep';
-
-type Locale = typeof routing.locales[number];
+  CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer,
+} from "@/components/guides/guide-progress";
+import { GuideStep } from "@/components/guides/GuideStep";
+import { Locale } from "next-intl";
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -30,7 +33,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string, category: string, service: string }>;
+  params: Promise<{ locale: Locale; category: string; service: string }>;
 }): Promise<Metadata> {
   // Await the params
   const { category, service, locale } = await params;
@@ -39,7 +42,7 @@ export async function generateMetadata({
   const t = await getTranslations("guides.service.meta");
 
   // Load guide data from MDX file
-  const guideData = await getGuide(category, service, locale as Locale);
+  const guideData = await getGuide(category, service, locale);
 
   if (!guideData) {
     return {
@@ -52,13 +55,19 @@ export async function generateMetadata({
   return {
     title: t("title", { title: frontmatter.title }),
     description: frontmatter.description,
-    keywords: [`${frontmatter.sourceService}`, `${frontmatter.targetService}`, 'migration guide', 'EU alternatives', category],
+    keywords: [
+      `${frontmatter.sourceService}`,
+      `${frontmatter.targetService}`,
+      "migration guide",
+      "EU alternatives",
+      category,
+    ],
     authors: frontmatter.author ? [{ name: frontmatter.author }] : undefined,
     alternates: {
       canonical: `https://switch-to.eu/${locale}/guides/${category}/${service}`,
       languages: {
-        'en': `https://switch-to.eu/en/guides/${category}/${service}`,
-        'nl': `https://switch-to.eu/nl/guides/${category}/${service}`,
+        en: `https://switch-to.eu/en/guides/${category}/${service}`,
+        nl: `https://switch-to.eu/nl/guides/${category}/${service}`,
       },
     },
   };
@@ -67,7 +76,7 @@ export async function generateMetadata({
 export default async function GuideServicePage({
   params,
 }: {
-  params: Promise<{ locale: string, category: string, service: string }>;
+  params: Promise<{ locale: Locale; category: string; service: string }>;
 }) {
   // Await the params Promise
   const { category, service, locale } = await params;
@@ -77,7 +86,7 @@ export default async function GuideServicePage({
   const serviceT = await getTranslations("guides.service");
 
   // Load guide data from MD file
-  const guideData = await getGuide(category, service, locale as Locale);
+  const guideData = await getGuide(category, service, locale);
 
   if (!guideData) {
     return notFound();
@@ -89,18 +98,21 @@ export default async function GuideServicePage({
   const guideId = `${category}-${service}`;
 
   // Pass frontmatter and segments to extractMissingFeatures
-  const missingFeatures = extractMissingFeatures(content, frontmatter, segments);
+  const missingFeatures = extractMissingFeatures(
+    content,
+    frontmatter,
+    segments
+  );
   const steps = extractMigrationSteps(content, segments);
 
   // Extract detailed step information if using new format
-  const stepsWithContent = segments && segments.steps
-    ? extractStepsWithMeta(segments.steps)
-    : [];
+  const stepsWithContent =
+    segments && segments.steps ? extractStepsWithMeta(segments.steps) : [];
 
   // Set basic options for marked
   marked.setOptions({
-    gfm: true,     // GitHub Flavored Markdown
-    breaks: true,  // Translate line breaks to <br>
+    gfm: true, // GitHub Flavored Markdown
+    breaks: true, // Translate line breaks to <br>
   });
 
   // Process content to replace [complete] markers with placeholders for client-side hydration
@@ -119,13 +131,25 @@ export default async function GuideServicePage({
       <>
         {segments.intro && (
           <section id="section-intro" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.intro, guideId)) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  processCompletionMarkers(segments.intro, guideId)
+                ),
+              }}
+            />
           </section>
         )}
 
         {segments.before && (
           <section id="section-before" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.before, guideId)) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  processCompletionMarkers(segments.before, guideId)
+                ),
+              }}
+            />
           </section>
         )}
 
@@ -146,27 +170,51 @@ export default async function GuideServicePage({
                 ))}
               </div>
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.steps, guideId)) }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(
+                    processCompletionMarkers(segments.steps, guideId)
+                  ),
+                }}
+              />
             )}
           </section>
         )}
 
         {segments.troubleshooting && (
           <section id="section-troubleshooting" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.troubleshooting, guideId)) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  processCompletionMarkers(segments.troubleshooting, guideId)
+                ),
+              }}
+            />
           </section>
         )}
 
         {segments.outro && (
           <section id="section-outro" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.outro, guideId)) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  processCompletionMarkers(segments.outro, guideId)
+                ),
+              }}
+            />
           </section>
         )}
 
         {/* Render any unsegmented content that doesn't fit in known segments */}
         {segments.unsegmented && (
           <section id="section-unsegmented">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.unsegmented, guideId)) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  processCompletionMarkers(segments.unsegmented, guideId)
+                ),
+              }}
+            />
           </section>
         )}
       </>
@@ -195,12 +243,19 @@ export default async function GuideServicePage({
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
               <div className="flex mt-4 space-x-4">
-                <div className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === 'beginner' ? 'bg-green-100 text-green-800' :
-                  frontmatter.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
-                  }`}>
+                <div
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    frontmatter.difficulty === "beginner"
+                      ? "bg-green-100 text-green-800"
+                      : frontmatter.difficulty === "intermediate"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : "bg-red-100 text-red-800"
+                  }`}
+                >
                   {serviceT("difficultyLabel", {
-                    level: frontmatter.difficulty.charAt(0).toUpperCase() + frontmatter.difficulty.slice(1)
+                    level:
+                      frontmatter.difficulty.charAt(0).toUpperCase() +
+                      frontmatter.difficulty.slice(1),
                   })}
                 </div>
                 <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
@@ -219,9 +274,7 @@ export default async function GuideServicePage({
             </div>
 
             {/* Guide content with styling applied */}
-            <article className="mdx-content">
-              {renderContent()}
-            </article>
+            <article className="mdx-content">{renderContent()}</article>
 
             {missingFeatures.length > 0 && (
               <div className="mb-0">
@@ -233,11 +286,14 @@ export default async function GuideServicePage({
             )}
 
             <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">{serviceT("editGuide.title")}</h2>
-              <p className="mb-4">
-                {serviceT("editGuide.description")}
-              </p>
-              <a href="https://github.com/switch-to.eu/switch-to.eu" className="hover:underline">
+              <h2 className="text-xl font-semibold mb-4">
+                {serviceT("editGuide.title")}
+              </h2>
+              <p className="mb-4">{serviceT("editGuide.description")}</p>
+              <a
+                href="https://github.com/switch-to.eu/switch-to.eu"
+                className="hover:underline"
+              >
                 {serviceT("editGuide.link")}
               </a>
             </div>

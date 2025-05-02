@@ -6,7 +6,7 @@ export type Service = {
 };
 
 export type AnalysisStep = {
-  type: string;
+  type: "mx_records" | "domain_registrar" | "hosting" | "cdn" | "services";
   status: "pending" | "processing" | "complete";
   details: string | Service[] | null;
   isEU: boolean | null;

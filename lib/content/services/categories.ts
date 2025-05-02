@@ -8,16 +8,18 @@ import {
   extractContentSegments,
 } from "../utils";
 
-import { CategoryMetadata, ContentSegments } from "../types";
+import { CategoryMetadata, ContentSegments } from "../schemas";
+import { Locale } from "next-intl";
 
 /**
  * Get metadata for a category
  */
 export function getCategoryMetadata(
   category: string,
-  lang: string = "en"
+  lang: Locale = "en"
 ): CategoryMetadata | null {
   const langContentRoot = getLanguageContentPath(lang);
+
   const categoryFile = path.join(
     langContentRoot,
     "categories",
@@ -47,7 +49,7 @@ export function getCategoryMetadata(
 /**
  * Get metadata for all categories
  */
-export function getAllCategoriesMetadata(lang: string = "en"): Array<{
+export function getAllCategoriesMetadata(lang: Locale = "en"): Array<{
   slug: string;
   metadata: CategoryMetadata;
 }> {
@@ -91,7 +93,7 @@ export function getAllCategoriesMetadata(lang: string = "en"): Array<{
  */
 export function getCategoryContent(
   category: string,
-  lang: string = "en"
+  lang: Locale = "en"
 ): {
   metadata: CategoryMetadata | null;
   content: string | null;

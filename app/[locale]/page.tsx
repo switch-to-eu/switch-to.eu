@@ -6,12 +6,13 @@ import { ContributeCta } from "@/components/ContributeCta";
 import { CategorySection } from "@/components/CategorySection";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { Locale } from "next-intl";
 
 // Generate metadata with language alternates
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const t = await getTranslations("common");
   // Await the params
@@ -64,8 +65,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home({ }: {
-  params: Promise<{ locale: string }>;
+export default async function Home({}: {
+  params: Promise<{ locale: Locale }>;
 }) {
   const t = await getTranslations("home");
 

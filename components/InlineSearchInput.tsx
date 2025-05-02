@@ -50,7 +50,7 @@ export function InlineSearchInput({
       "instagram",
       "gdrive",
       "dropbox",
-    ].map((example) => t(`searchAnimationExamples.${example}`));
+    ].map((example) => t(`searchAnimationExamples.${example as "whatsapp"}`));
 
     const defaultText = t("searchDefaultText");
     let currentIndex = 0;
@@ -343,8 +343,9 @@ export function InlineSearchInput({
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
-                    }`}
+                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
+                    focusedIndex === index ? "bg-gray-100" : ""
+                  }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
