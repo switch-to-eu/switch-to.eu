@@ -9,9 +9,11 @@ import { RecommendedAlternative } from '@/components/ui/RecommendedAlternative';
 import { ServiceCard } from '@/components/ui/ServiceCard';
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import { routing } from '@/i18n/routing';
 
 import React from 'react';
 
+type Locale = typeof routing.locales[number];
 
 // Generate static params for all non-EU services
 export async function generateStaticParams() {
@@ -36,7 +38,7 @@ export async function generateMetadata({
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = await getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     return {
@@ -80,7 +82,7 @@ export default async function ServiceDetailPage({
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = await getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     notFound();
@@ -101,11 +103,11 @@ export default async function ServiceDetailPage({
 
   // Load related guides
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale);
+  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale as Locale);
 
   // Get recommended alternative if specified
   const recommendedAlternativeData = frontmatter.recommendedAlternative
-    ? await getRecommendedAlternative(slug, locale)
+    ? await getRecommendedAlternative(slug, locale as Locale)
     : null;
 
   // We need to get migration guides where:
@@ -182,7 +184,7 @@ export default async function ServiceDetailPage({
 
 
   // Load EU alternatives from the same category
-  const euAlternatives = await getServicesByCategory(frontmatter.category, 'eu', locale);
+  const euAlternatives = await getServicesByCategory(frontmatter.category, 'eu', locale as Locale);
 
   // Filter out recommended alternative from alternatives list if it exists
   const otherAlternatives = recommendedAlternativeData

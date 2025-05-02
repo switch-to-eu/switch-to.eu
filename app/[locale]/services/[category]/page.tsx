@@ -7,7 +7,10 @@ import { Container } from '@/components/layout/container';
 import { ContributeCta } from '@/components/ContributeCta';
 import { RecommendedAlternative } from '@/components/ui/RecommendedAlternative';
 import { getTranslations } from "next-intl/server";
+import { routing } from '@/i18n/routing';
 import React from 'react';
+
+type Locale = typeof routing.locales[number];
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -21,7 +24,7 @@ export async function generateMetadata({
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   // Get category metadata
-  const { metadata: categoryMetadata } = getCategoryContent(category, locale);
+  const { metadata: categoryMetadata } = getCategoryContent(category, locale as Locale);
 
   // Use metadata title if available, otherwise fallback to capitalized category
   const pageTitle = categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
@@ -65,8 +68,8 @@ export default async function ServicesCategoryPage({
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   // Load EU services for this category
-  const euServices = await getServicesByCategory(category, 'eu', locale);
-  const { metadata: categoryMetadata, content: categoryContent } = getCategoryContent(category, locale);
+  const euServices = await getServicesByCategory(category, 'eu', locale as Locale);
+  const { metadata: categoryMetadata, content: categoryContent } = getCategoryContent(category, locale as Locale);
 
   if (euServices.length === 0) {
     notFound();

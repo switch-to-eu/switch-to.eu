@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { routing } from '@/i18n/routing';
 import { getLanguageContentPath, isAlternativesFrontmatter } from '../utils';
 import { AlternativesFrontmatter } from '../types';
 import { getServicesByCategory } from './services';
+
+type Locale = typeof routing.locales[number];
 
 /**
  * Function to get services for a category

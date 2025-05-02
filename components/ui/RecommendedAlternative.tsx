@@ -3,6 +3,11 @@ import { ServiceFrontmatter } from '@/lib/content/types';
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
+interface MigrationGuide {
+  category: string;
+  slug: string;
+}
+
 export async function RecommendedAlternative({
   service,
   sourceService,
@@ -10,7 +15,7 @@ export async function RecommendedAlternative({
 }: {
   service: ServiceFrontmatter;
   sourceService: string;
-  migrationGuides: any[];
+  migrationGuides: MigrationGuide[];
 }) {
   if (!service) return null;
   const t = await getTranslations("services");

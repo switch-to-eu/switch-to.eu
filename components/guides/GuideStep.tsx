@@ -27,6 +27,7 @@ const useVideoIntersection = (options = {}) => {
   useEffect(() => {
     if (!targetRef.current) return;
 
+    const currentTarget = targetRef.current;
     const observer = new IntersectionObserver(([entry]) => {
       setIsIntersecting(entry.isIntersecting);
 
@@ -47,12 +48,10 @@ const useVideoIntersection = (options = {}) => {
       }
     }, { threshold: 0.2, ...options }); // Trigger when 20% of element is visible
 
-    observer.observe(targetRef.current);
+    observer.observe(currentTarget);
 
     return () => {
-      if (targetRef.current) {
-        observer.unobserve(targetRef.current);
-      }
+      observer.unobserve(currentTarget);
     };
   }, [options]);
 
@@ -62,7 +61,7 @@ const useVideoIntersection = (options = {}) => {
 export function GuideStep({ guideId, step, stepNumber, category, slug }: StepProps) {
   // Process the step content with marked to convert markdown to HTML
   const processedContent = marked.parse(step.content);
-  const { targetRef, videoRef, isIntersecting } = useVideoIntersection();
+  const { targetRef, videoRef } = useVideoIntersection();
 
   // Format video URL to use the API route with full path
   const getVideoUrl = (videoPath: string) => {

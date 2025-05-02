@@ -8,9 +8,12 @@ import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
 import { ContributeCta } from '@/components/ContributeCta';
 import { Button } from '@/components/ui/button';
+import { routing } from '@/i18n/routing';
 
 import Image from "next/image";
 import { getTranslations } from 'next-intl/server';
+
+type Locale = typeof routing.locales[number];
 
 // Generate static params for all EU services
 export async function generateStaticParams() {
@@ -34,7 +37,7 @@ export async function generateMetadata({
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = await getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     return {
@@ -77,7 +80,7 @@ export default async function ServiceDetailPage({
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = await getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     notFound();
@@ -97,10 +100,10 @@ export default async function ServiceDetailPage({
   }
 
   // Load related guides
-  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale);
+  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale as Locale);
 
   // Load similar services from the same category
-  const similarServices = (await getServicesByCategory(frontmatter.category, 'eu', locale))
+  const similarServices = (await getServicesByCategory(frontmatter.category, 'eu', locale as Locale))
     .filter(service => service.name !== frontmatter.name)
     .slice(0, 4); // Limit to 4 similar services
 

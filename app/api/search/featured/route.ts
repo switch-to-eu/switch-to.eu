@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SearchResultType, ServiceSearchResult } from '@/lib/search';
 import { getFeaturedServices } from '@/lib/content/services/services';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { routing } from '@/i18n/routing';
+
+type Locale = typeof routing.locales[number];
 
 export async function GET(request: NextRequest) {
     try {

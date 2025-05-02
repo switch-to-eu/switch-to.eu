@@ -5,10 +5,10 @@ import { promises as fsPromises } from 'fs';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { path: Array<string> } }
+    { params }: { params: Promise<{ path: string[] }> }
 ) {
     // Ensure params is properly awaited
-    const pathSegments = params.path || [];
+    const { path: pathSegments } = await params;
 
     try {
         // Join the path segments, but remove the first "content" if it's duplicated

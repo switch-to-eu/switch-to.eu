@@ -7,11 +7,14 @@ import { GuideSidebar } from '@/components/guides/GuideSidebar';
 import { MobileGuideSidebar } from '@/components/guides/MobileGuideSidebar';
 import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
 import { getTranslations } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 import {
   GuideProgressWithI18n as GuideProgress,
   CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer
 } from '@/components/guides/guide-progress';
 import { GuideStep } from '@/components/guides/GuideStep';
+
+type Locale = typeof routing.locales[number];
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -36,7 +39,7 @@ export async function generateMetadata({
   const t = await getTranslations("guides.service.meta");
 
   // Load guide data from MDX file
-  const guideData = await getGuide(category, service, locale);
+  const guideData = await getGuide(category, service, locale as Locale);
 
   if (!guideData) {
     return {
@@ -74,7 +77,7 @@ export default async function GuideServicePage({
   const serviceT = await getTranslations("guides.service");
 
   // Load guide data from MD file
-  const guideData = await getGuide(category, service, locale);
+  const guideData = await getGuide(category, service, locale as Locale);
 
   if (!guideData) {
     return notFound();

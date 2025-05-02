@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { routing } from '@/i18n/routing';
 import { getLanguageContentPath, isGuideFrontmatter, extractContentSegments } from '../utils';
 import { GuideFrontmatter, ContentSegments } from '../types';
+
+type Locale = typeof routing.locales[number];
 
 /**
  * Function to get all guide categories
