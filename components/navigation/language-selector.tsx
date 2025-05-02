@@ -8,21 +8,49 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { useCallback, useEffect, useState } from "react";
+
+// Define native language names
+const nativeLanguageNames: Record<string, string> = {
+  en: "English",
+  nl: "Nederlands",
+};
 
 export function LanguageSelector() {
   const pathname = usePathname();
-  const locale = useLocale();
+  const currentLocale = useLocale();
   const router = useRouter();
-  const t = useTranslations("language");
-
   const locales = routing.locales;
 
-  const changeLocale = (locale: string) => {
-    router.replace(pathname, { locale: locale });
-  };
+  // Track the current displayed locale in component state to ensure UI updates immediately
+  const [displayedLocale, setDisplayedLocale] = useState(currentLocale);
+
+  // Update displayed locale when actual locale changes
+  useEffect(() => {
+    setDisplayedLocale(currentLocale);
+  }, [currentLocale]);
+
+  // Handle locale change with proper path normalization
+  const changeLocale = useCallback((newLocale: string) => {
+    // Strip any existing locale prefix to prevent stacking
+    let pathnameWithoutLocale = pathname;
+
+    // Remove any locale prefixes like /en/ or /nl/
+    locales.forEach(locale => {
+      if (pathnameWithoutLocale.startsWith(`/${locale}`)) {
+        pathnameWithoutLocale = pathnameWithoutLocale.replace(`/${locale}`, '') || '/';
+      }
+    });
+
+    // Update UI immediately (before navigation completes)
+    setDisplayedLocale(newLocale);
+
+    // Navigate to the new locale
+    router.replace(pathnameWithoutLocale === '' ? '/' : pathnameWithoutLocale, { locale: newLocale });
+  }, [pathname, router, locales]);
 
   return (
     <div className="flex items-center">
@@ -33,24 +61,18 @@ export function LanguageSelector() {
             size="sm"
             className="flex items-center text-sm font-medium text-muted-foreground"
           >
-            {t(locale)} <ChevronDown className="ml-1 h-4 w-4" />
+            {nativeLanguageNames[displayedLocale]} <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {locales
-            .filter((otherLocale) => otherLocale !== locale)
+            .filter((otherLocale) => otherLocale !== displayedLocale)
             .map((otherLocale) => (
               <DropdownMenuItem
                 key={otherLocale}
                 onClick={() => changeLocale(otherLocale)}
               >
-                <Link
-                  locale={otherLocale}
-                  href={pathname}
-                  className="w-full cursor-pointer"
-                >
-                  {t(otherLocale)}
-                </Link>
+                {nativeLanguageNames[otherLocale]}
               </DropdownMenuItem>
             ))}
         </DropdownMenuContent>
