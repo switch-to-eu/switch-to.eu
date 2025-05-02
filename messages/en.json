@@ -388,11 +388,11 @@
       "title": "Guides",
       "view_all": "View All",
       "meta": {
-        "title": "{{category}} Migration Guides | switch-to.eu",
-        "description": "Step-by-step guides to help you migrate from common {{category}} services to EU-based alternatives."
+        "title": "{category} Migration Guides | switch-to.eu",
+        "description": "Step-by-step guides to help you migrate from common {category} services to EU-based alternatives."
       },
-      "pageTitle": "{{category}} Migration Guides",
-      "pageDescription": "Step-by-step guides to help you migrate from common {{category}} services to EU-based alternatives.",
+      "pageTitle": "{category} Migration Guides",
+      "pageDescription": "Step-by-step guides to help you migrate from common {category} services to EU-based alternatives.",
       "difficulty": {
         "beginner": "Beginner",
         "intermediate": "Intermediate",
@@ -401,9 +401,9 @@
       "from": "From:",
       "to": "To:",
       "viewGuide": "View Migration Guide →",
-      "lookingForAlternatives": "Looking for {{category}} Alternatives?",
-      "checkAlternatives": "Check out our comprehensive list of EU-based {{category}} alternatives with feature comparisons.",
-      "viewAlternatives": "View {{category}} Alternatives →"
+      "lookingForAlternatives": "Looking for {category} Alternatives?",
+      "checkAlternatives": "Check out our comprehensive list of EU-based {category} alternatives with feature comparisons.",
+      "viewAlternatives": "View {category} Alternatives →"
     },
     "cta": {
       "title": "Can't Find What You Need?",
@@ -412,10 +412,10 @@
     },
     "service": {
       "meta": {
-        "title": "{{title}} | switch-to.eu",
+        "title": "{title} | switch-to.eu",
         "notFound": "Guide Not Found"
       },
-      "difficultyLabel": "{{level}} Difficulty",
+      "difficultyLabel": "{level} Difficulty",
       "missingFeaturesTitle": "Missing Features & Limitations",
       "editGuide": {
         "title": "Found an issue or want to improve this guide?",
@@ -549,7 +549,7 @@
   },
   "domainAnalyzer": {
     "results": {
-      "howEuFriendly": "How EU-friendly is {{domain}}?",
+      "howEuFriendly": "How EU-friendly is {domain}?",
       "statusExcellent": "Excellent",
       "statusImprovement": "Room for improvement",
       "statusAttention": "Needs attention",
@@ -582,7 +582,7 @@
       "checkAgain": "Check again"
     },
     "analyze": {
-      "analyzing": "Analyzing {{domain}}...",
+      "analyzing": "Analyzing {domain}...",
       "checkingAspects": "We're checking various aspects of this domain. This might take a moment."
     },
     "error": {
