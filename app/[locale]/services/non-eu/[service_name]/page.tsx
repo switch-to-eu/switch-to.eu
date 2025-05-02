@@ -142,14 +142,14 @@ export default async function ServiceDetailPage({
 
         // Process each guide
         for (const guideSlug of guides) {
-          const mdxFile = path.join(categoryDir, guideSlug, 'index.mdx');
+          const mdFile = path.join(categoryDir, guideSlug, 'index.md');
 
           // Skip if MDX file doesn't exist
-          if (!fs.existsSync(mdxFile)) {
+          if (!fs.existsSync(mdFile)) {
             continue;
           }
 
-          const fileContent = fs.readFileSync(mdxFile, 'utf8');
+          const fileContent = fs.readFileSync(mdFile, 'utf8');
           const { data } = matter(fileContent);
 
           // Check if this is a migration guide for current service → recommended alternative

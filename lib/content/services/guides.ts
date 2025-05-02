@@ -49,7 +49,7 @@ export async function getGuidesByCategory(
             );
 
         const guidesData = guides.map(slug => {
-            const mdxFile = path.join(categoryDir, slug, 'index.mdx');
+            const mdxFile = path.join(categoryDir, slug, 'index.md');
 
             // Skip if MDX file doesn't exist
             if (!fs.existsSync(mdxFile)) {
@@ -91,18 +91,18 @@ export async function getGuide(
     segments: ContentSegments;
 } | null> {
     const langContentRoot = getLanguageContentPath(lang);
-    const mdxFile = path.join(langContentRoot, 'guides', category, slug, 'index.mdx');
+    const mdFile = path.join(langContentRoot, 'guides', category, slug, 'index.md');
 
     try {
-        if (!fs.existsSync(mdxFile)) {
+        if (!fs.existsSync(mdFile)) {
             return null;
         }
 
-        const fileContent = fs.readFileSync(mdxFile, 'utf8');
+        const fileContent = fs.readFileSync(mdFile, 'utf8');
         const { data, content } = matter(fileContent);
 
         if (!isGuideFrontmatter(data)) {
-            console.warn(`Invalid frontmatter in ${mdxFile}`);
+            console.warn(`Invalid frontmatter in ${mdFile}`);
             return null;
         }
 

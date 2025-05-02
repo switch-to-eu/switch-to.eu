@@ -14,16 +14,15 @@ export async function getAlternativesByCategory(
     lang: Locale = 'en'
 ): Promise<AlternativesFrontmatter | null> {
     const langContentRoot = getLanguageContentPath(lang);
-    const mdxFile = path.join(langContentRoot, 'alternatives', category, 'index.mdx');
+    const mdFile = path.join(langContentRoot, 'alternatives', category, 'index.md');
 
     try {
-        // First try to load from the legacy format (alternatives/category/index.mdx)
-        if (fs.existsSync(mdxFile)) {
-            const fileContent = fs.readFileSync(mdxFile, 'utf8');
+        if (fs.existsSync(mdFile)) {
+            const fileContent = fs.readFileSync(mdFile, 'utf8');
             const { data } = matter(fileContent);
 
             if (!isAlternativesFrontmatter(data)) {
-                console.warn(`Invalid frontmatter in ${mdxFile}`);
+                console.warn(`Invalid frontmatter in ${mdFile}`);
                 return null;
             }
 

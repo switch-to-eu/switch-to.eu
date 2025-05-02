@@ -1,5 +1,5 @@
 import { getGuide, getAllGuides } from '@/lib/content/services/guides';
-import { extractMissingFeatures, extractMigrationSteps, processCompletionMarkers } from '@/lib/content/utils';
+import { extractMissingFeatures, extractMigrationSteps, processCompletionMarkers, extractStepsWithMeta } from '@/lib/content/utils';
 import { notFound } from 'next/navigation';
 import { marked } from 'marked';
 import { Metadata } from 'next';
@@ -11,6 +11,7 @@ import {
   GuideProgressWithI18n as GuideProgress,
   CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer
 } from '@/components/guides/guide-progress';
+import { GuideStep } from '@/components/guides/GuideStep';
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -72,7 +73,7 @@ export default async function GuideServicePage({
   const guidesT = await getTranslations("guides");
   const serviceT = await getTranslations("guides.service");
 
-  // Load guide data from MDX file
+  // Load guide data from MD file
   const guideData = await getGuide(category, service, locale);
 
   if (!guideData) {
@@ -87,6 +88,11 @@ export default async function GuideServicePage({
   // Pass frontmatter and segments to extractMissingFeatures
   const missingFeatures = extractMissingFeatures(content, frontmatter, segments);
   const steps = extractMigrationSteps(content, segments);
+
+  // Extract detailed step information if using new format
+  const stepsWithContent = segments && segments.steps
+    ? extractStepsWithMeta(segments.steps)
+    : [];
 
   // Set basic options for marked
   marked.setOptions({
@@ -122,7 +128,23 @@ export default async function GuideServicePage({
 
         {segments.steps && (
           <section id="section-steps" className="mb-10">
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.steps, guideId)) }} />
+            {/* Render steps using either the new or legacy format */}
+            {stepsWithContent.length > 0 ? (
+              <div className="steps-container">
+                {stepsWithContent.map((step, index) => (
+                  <GuideStep
+                    key={`step-${index}`}
+                    guideId={guideId}
+                    step={step}
+                    stepNumber={index + 1}
+                    category={category}
+                    slug={service}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: marked.parse(processCompletionMarkers(segments.steps, guideId)) }} />
+            )}
           </section>
         )}
 
