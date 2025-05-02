@@ -6,8 +6,7 @@ import { Metadata } from 'next';
 import { GuideSidebar } from '@/components/guides/GuideSidebar';
 import { MobileGuideSidebar } from '@/components/guides/MobileGuideSidebar';
 import { WarningCollapsible } from '@/components/guides/WarningCollapsible';
-import { defaultLanguage } from '@/lib/i18n/config';
-import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
+import { getTranslations } from 'next-intl/server';
 import {
   GuideProgressWithI18n as GuideProgress,
   CompletionMarkerReplacerWithI18n as CompletionMarkerReplacer
@@ -23,57 +22,36 @@ export async function generateStaticParams() {
   }));
 }
 
-// Define params as a Promise type
-type Params = Promise<{
-  category: string;
-  service: string;
-  lang: string;
-}>;
-
-interface GuideServicePageProps {
-  params: Params;
-}
-
 // Generate metadata for SEO
-export async function generateMetadata(props: GuideServicePageProps): Promise<Metadata> {
-  const params = await props.params;
-  const { category, service, lang } = params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string, category: string, service: string }>;
+}): Promise<Metadata> {
+  // Await the params
+  const { category, service, locale } = await params;
 
-  // Helper function to get translated text with replacements
-  const t = (path: string, replacements?: Record<string, string>): string => {
-    const value = getNestedValue(dict, path) as string | undefined;
-    let translatedText = typeof value === 'string' ? value : path;
-
-    // Replace placeholders with actual values if provided
-    if (replacements && typeof translatedText === 'string') {
-      Object.entries(replacements).forEach(([key, val]) => {
-        translatedText = translatedText.replace(`{{${key}}}`, val);
-      });
-    }
-
-    return translatedText;
-  };
+  // Get translations
+  const t = await getTranslations("guides.service.meta");
 
   // Load guide data from MDX file
-  const guideData = await getGuide(category, service, language);
+  const guideData = await getGuide(category, service, locale);
 
   if (!guideData) {
     return {
-      title: t('guides.service.meta.notFound'),
+      title: t("notFound"),
     };
   }
 
   const { frontmatter } = guideData;
 
   return {
-    title: t('guides.service.meta.title', { title: frontmatter.title }),
+    title: t("title", { title: frontmatter.title }),
     description: frontmatter.description,
     keywords: [`${frontmatter.sourceService}`, `${frontmatter.targetService}`, 'migration guide', 'EU alternatives', category],
     authors: frontmatter.author ? [{ name: frontmatter.author }] : undefined,
     alternates: {
-      canonical: `https://switch-to.eu/${language}/guides/${category}/${service}`,
+      canonical: `https://switch-to.eu/${locale}/guides/${category}/${service}`,
       languages: {
         'en': `https://switch-to.eu/en/guides/${category}/${service}`,
         'nl': `https://switch-to.eu/nl/guides/${category}/${service}`,
@@ -82,30 +60,20 @@ export async function generateMetadata(props: GuideServicePageProps): Promise<Me
   };
 }
 
-export default async function GuideServicePage({ params }: GuideServicePageProps) {
+export default async function GuideServicePage({
+  params,
+}: {
+  params: Promise<{ locale: string, category: string, service: string }>;
+}) {
   // Await the params Promise
-  const resolvedParams = await params;
-  const { category, service, lang } = resolvedParams;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const { category, service, locale } = await params;
 
-  // Helper function to get translated text with replacements
-  const t = (path: string, replacements?: Record<string, string>): string => {
-    const value = getNestedValue(dict, path) as string | undefined;
-    let translatedText = typeof value === 'string' ? value : path;
-
-    // Replace placeholders with actual values if provided
-    if (replacements && typeof translatedText === 'string') {
-      Object.entries(replacements).forEach(([key, val]) => {
-        translatedText = translatedText.replace(`{{${key}}}`, val);
-      });
-    }
-
-    return translatedText;
-  };
+  // Get translations
+  const guidesT = await getTranslations("guides");
+  const serviceT = await getTranslations("guides.service");
 
   // Load guide data from MDX file
-  const guideData = await getGuide(category, service, language);
+  const guideData = await getGuide(category, service, locale);
 
   if (!guideData) {
     return notFound();
@@ -182,15 +150,13 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
 
   return (
     <>
-
       {/* Process completion markers client-side */}
-      <CompletionMarkerReplacer guideId={guideId} dict={dict} />
+      <CompletionMarkerReplacer guideId={guideId} />
 
       {/* Mobile sidebar drawer - Only visible on mobile */}
       <MobileGuideSidebar
         steps={steps}
-        lang={language}
-        stepsToCompleteText={t('guides.stepsToComplete')}
+        stepsToCompleteText={guidesT("stepsToComplete")}
         guideId={guideId}
       />
 
@@ -208,7 +174,7 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
                   frontmatter.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-red-100 text-red-800'
                   }`}>
-                  {t('guides.service.difficultyLabel', {
+                  {serviceT("difficultyLabel", {
                     level: frontmatter.difficulty.charAt(0).toUpperCase() + frontmatter.difficulty.slice(1)
                   })}
                 </div>
@@ -224,7 +190,6 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
                 guideId={guideId}
                 guideName={frontmatter.title}
                 totalSteps={steps.length}
-                dict={dict}
               />
             </div>
 
@@ -237,18 +202,18 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
               <div className="mb-0">
                 <WarningCollapsible
                   missingFeatures={missingFeatures}
-                  title={t('guides.service.missingFeaturesTitle')}
+                  title={serviceT("missingFeaturesTitle")}
                 />
               </div>
             )}
 
             <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">{t('guides.service.editGuide.title')}</h2>
+              <h2 className="text-xl font-semibold mb-4">{serviceT("editGuide.title")}</h2>
               <p className="mb-4">
-                {t('guides.service.editGuide.description')}
+                {serviceT("editGuide.description")}
               </p>
               <a href="https://github.com/switch-to.eu/switch-to.eu" className="hover:underline">
-                {t('guides.service.editGuide.link')}
+                {serviceT("editGuide.link")}
               </a>
             </div>
           </div>
@@ -258,7 +223,7 @@ export default async function GuideServicePage({ params }: GuideServicePageProps
             <div className="sticky top-24">
               <GuideSidebar
                 steps={steps}
-                stepsToCompleteText={t('guides.stepsToComplete')}
+                stepsToCompleteText={guidesT("stepsToComplete")}
                 guideId={guideId}
               />
             </div>

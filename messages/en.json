@@ -338,7 +338,7 @@
         "otherAlternatives": "Other Alternatives",
         "otherEUAlternatives": "Here are other EU-based alternatives that provide similar functionality...",
         "oneMoreEUAlternative": "Here is an additional EU-based alternative that provides similar functionality...",
-        "whyProblematic": "Why {{service}} is Problematic",
+        "whyProblematic": "Why {service} is Problematic",
         "whySwitchTitle": "Why Switch to EU Services?",
         "dataSovereignty": {
           "title": "Data Sovereignty",
@@ -360,7 +360,7 @@
       "recommendedAlternative": {
         "title": "Recommended Alternative",
         "startingPrice": "Starting Price",
-        "migrateFrom": "Migrate {{source}} To {{target}}",
+        "migrateFrom": "Migrate {source} To {target}",
         "viewDetails": "View Service Details"
       }
     }

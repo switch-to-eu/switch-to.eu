@@ -1,28 +1,28 @@
-import { Metadata } from 'next';
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { defaultLanguage } from '@/lib/i18n/config';
-import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params
 }: {
-  params: Promise<{ lang: string }>
-}): Promise<Metadata> {
+  params: Promise<{ locale: string }>
+}) {
+  const t = await getTranslations("contribute");
   // Await the params
-  const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const { locale } = await params;
+
+  const title = `${t("title")} - ${t("description")}`;
+  const description = t("description");
 
   return {
-    title: String(getNestedValue(dict, 'contribute.guide.meta.title')),
-    description: String(getNestedValue(dict, 'contribute.guide.meta.description')),
+    title,
+    description,
     keywords: ['github contribution', 'open source', 'EU alternatives', 'migration guides', 'pull request', 'fork repository'],
     alternates: {
-      canonical: `https://switch-to.eu/${language}/contribute/guide`,
+      canonical: `https://switch-to.eu/${locale}/contribute/guide`,
       languages: {
         'en': 'https://switch-to.eu/en/contribute/guide',
         'nl': 'https://switch-to.eu/nl/contribute/guide',
@@ -34,28 +34,113 @@ export async function generateMetadata({
 export default async function ContributeGuidePage({
   params
 }: {
-  params: Promise<{ lang: string }>
+  params: Promise<{ locale: string }>
 }) {
-  // Await the params
-  const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const t = await getTranslations("contribute");
+  const { locale } = await params;
 
-  // Helper function to get translated text that ensures return value is a string
-  const t = (path: string): string => {
-    const value = getNestedValue(dict, path);
-    return typeof value === 'string' ? value : path;
-  };
-
-  // Helper function to render a list of points
-  const renderPoints = (path: string): React.ReactNode[] => {
-    const points = getNestedValue(dict, path);
-    if (Array.isArray(points)) {
-      return points.map((point, index) => (
-        <li key={index} className="space-y-1">{point}</li>
-      ));
+  // Modified renderPoints implementation that creates static bullet points
+  // based on the keys we know exist in the translations
+  const getKnownPoints = (path: string): React.ReactNode => {
+    // Let's just hardcode our lists since we know the structure
+    if (path === 'guide.whatYouCanContribute.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.whatYouCanContribute.points.0')}</li>
+          <li className="space-y-1">{t('guide.whatYouCanContribute.points.1')}</li>
+          <li className="space-y-1">{t('guide.whatYouCanContribute.points.2')}</li>
+          <li className="space-y-1">{t('guide.whatYouCanContribute.points.3')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contributionProcess.step1.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contributionProcess.step1.points.0')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step1.points.1')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step1.points.2')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contributionProcess.step3.optionAPoints') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionAPoints.0')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionAPoints.1')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionAPoints.2')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contributionProcess.step3.optionBPoints') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionBPoints.0')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionBPoints.1')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step3.optionBPoints.2')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contributionProcess.step4.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contributionProcess.step4.points.0')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step4.points.1')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step4.points.2')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contributionProcess.step5.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contributionProcess.step5.points.0')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step5.points.1')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step5.points.2')}</li>
+          <li className="space-y-1">{t('guide.contributionProcess.step5.points.3')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contentGuidelines.formatting.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contentGuidelines.formatting.points.0')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.formatting.points.1')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.formatting.points.2')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.formatting.points.3')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contentGuidelines.writingStyle.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contentGuidelines.writingStyle.points.0')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.writingStyle.points.1')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.writingStyle.points.2')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.writingStyle.points.3')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.writingStyle.points.4')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.contentGuidelines.migrationGuidesStructure.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.contentGuidelines.migrationGuidesStructure.points.0')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.migrationGuidesStructure.points.1')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.migrationGuidesStructure.points.2')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.migrationGuidesStructure.points.3')}</li>
+          <li className="space-y-1">{t('guide.contentGuidelines.migrationGuidesStructure.points.4')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.reviewProcess.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.reviewProcess.points.0')}</li>
+          <li className="space-y-1">{t('guide.reviewProcess.points.1')}</li>
+          <li className="space-y-1">{t('guide.reviewProcess.points.2')}</li>
+        </ul>
+      );
+    } else if (path === 'guide.questionsAndSupport.points') {
+      return (
+        <ul className="space-y-1">
+          <li className="space-y-1">{t('guide.questionsAndSupport.points.0')}</li>
+          <li className="space-y-1">{t('guide.questionsAndSupport.points.1')}</li>
+        </ul>
+      );
     }
-    return [];
+
+    // Return empty ul as fallback
+    return <ul></ul>;
   };
 
   return (
@@ -64,9 +149,9 @@ export default async function ContributeGuidePage({
         <Container>
           <div className="flex flex-col md:flex-row items-start gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{t('contribute.guide.hero.title')}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{t('guide.hero.title')}</h1>
               <p className="text-base sm:text-lg mb-6">
-                {t('contribute.guide.hero.description')}
+                {t('guide.hero.description')}
               </p>
             </div>
             <div className="w-full max-w-[250px] h-[150px] relative flex-shrink-0">
@@ -85,80 +170,58 @@ export default async function ContributeGuidePage({
       <section>
         <Container>
           <div className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.repositoryOverview.title')}</h2>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.repositoryOverview.title')}</h2>
             <p>
-              {t('contribute.guide.repositoryOverview.description')}
+              {t('guide.repositoryOverview.description')}
             </p>
 
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.whatYouCanContribute.title')}</h2>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.whatYouCanContribute.points')}
-            </ul>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.whatYouCanContribute.title')}</h2>
+            {getKnownPoints('guide.whatYouCanContribute.points')}
 
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.contributionProcess.title')}</h2>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.contributionProcess.title')}</h2>
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contributionProcess.step1.title')}</h3>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contributionProcess.step1.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contributionProcess.step1.title')}</h3>
+            {getKnownPoints('guide.contributionProcess.step1.points')}
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contributionProcess.step2.title')}</h3>
-            <p>{t('contribute.guide.contributionProcess.step2.description')}</p>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contributionProcess.step2.title')}</h3>
+            <p>{t('guide.contributionProcess.step2.description')}</p>
             <div className="bg-slate-800 rounded-md p-4 overflow-x-auto my-4">
               <pre className="text-sm text-white whitespace-pre"><code>git clone https://github.com/switch-to-eu/content.git
                 cd content</code></pre>
             </div>
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contributionProcess.step3.title')}</h3>
-            <p><strong>{t('contribute.guide.contributionProcess.step3.optionA')}</strong></p>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contributionProcess.step3.optionAPoints')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contributionProcess.step3.title')}</h3>
+            <p><strong>{t('guide.contributionProcess.step3.optionA')}</strong></p>
+            {getKnownPoints('guide.contributionProcess.step3.optionAPoints')}
 
-            <p className="mt-4"><strong>{t('contribute.guide.contributionProcess.step3.optionB')}</strong></p>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contributionProcess.step3.optionBPoints')}
-            </ul>
+            <p className="mt-4"><strong>{t('guide.contributionProcess.step3.optionB')}</strong></p>
+            {getKnownPoints('guide.contributionProcess.step3.optionBPoints')}
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contributionProcess.step4.title')}</h3>
-            <p>{t('contribute.guide.contributionProcess.step4.description')}</p>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contributionProcess.step4.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contributionProcess.step4.title')}</h3>
+            <p>{t('guide.contributionProcess.step4.description')}</p>
+            {getKnownPoints('guide.contributionProcess.step4.points')}
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contributionProcess.step5.title')}</h3>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contributionProcess.step5.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contributionProcess.step5.title')}</h3>
+            {getKnownPoints('guide.contributionProcess.step5.points')}
 
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.contentGuidelines.title')}</h2>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.contentGuidelines.title')}</h2>
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contentGuidelines.formatting.title')}</h3>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contentGuidelines.formatting.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contentGuidelines.formatting.title')}</h3>
+            {getKnownPoints('guide.contentGuidelines.formatting.points')}
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contentGuidelines.writingStyle.title')}</h3>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contentGuidelines.writingStyle.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contentGuidelines.writingStyle.title')}</h3>
+            {getKnownPoints('guide.contentGuidelines.writingStyle.points')}
 
-            <h3 className="text-xl font-bold mt-6">{t('contribute.guide.contentGuidelines.migrationGuidesStructure.title')}</h3>
-            <p>{t('contribute.guide.contentGuidelines.migrationGuidesStructure.description')}</p>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.contentGuidelines.migrationGuidesStructure.points')}
-            </ul>
+            <h3 className="text-xl font-bold mt-6">{t('guide.contentGuidelines.migrationGuidesStructure.title')}</h3>
+            <p>{t('guide.contentGuidelines.migrationGuidesStructure.description')}</p>
+            {getKnownPoints('guide.contentGuidelines.migrationGuidesStructure.points')}
 
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.reviewProcess.title')}</h2>
-            <p>{t('contribute.guide.reviewProcess.description')}</p>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.reviewProcess.points')}
-            </ul>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.reviewProcess.title')}</h2>
+            <p>{t('guide.reviewProcess.description')}</p>
+            {getKnownPoints('guide.reviewProcess.points')}
 
-            <h2 className="text-2xl font-bold mt-8">{t('contribute.guide.questionsAndSupport.title')}</h2>
-            <ul className="space-y-1">
-              {renderPoints('contribute.guide.questionsAndSupport.points')}
-            </ul>
+            <h2 className="text-2xl font-bold mt-8">{t('guide.questionsAndSupport.title')}</h2>
+            {getKnownPoints('guide.questionsAndSupport.points')}
           </div>
         </Container>
       </section>
@@ -166,13 +229,13 @@ export default async function ContributeGuidePage({
       <section>
         <Container>
           <div className="bg-[#e8fff5] p-6 sm:p-10 rounded-xl text-center mt-8">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t('contribute.guide.callToAction.title')}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">{t('guide.callToAction.title')}</h2>
             <p className="text-base sm:text-lg max-w-[800px] mx-auto mb-6">
-              {t('contribute.guide.callToAction.description')}
+              {t('guide.callToAction.description')}
             </p>
             <Button variant="red" asChild className="mx-auto">
               <Link href="https://github.com/switch-to-eu/content" target="_blank" rel="noopener noreferrer">
-                {t('contribute.guide.callToAction.buttonText')}
+                {t('guide.callToAction.buttonText')}
               </Link>
             </Button>
           </div>

@@ -51,8 +51,8 @@
     "categoriesSectionTitle": "Europese Alternatieven per Categorie",
     "viewAll": "Bekijk alle diensten",
     "heroTitle": "NEEM CONTROLE OVER JE DIGITALE DIENSTEN",
-    "heroSubtitle": "Stap over naar <important>EU-gebaseerde alternatieven</important> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
-    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <important>de overstap!</important>",
+    "heroSubtitle": "Stap over naar <b>EU-gebaseerde alternatieven</b> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
+    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <b>de overstap!</b>",
     "exampleLabel": "Bijvoorbeeld:",
     "featuresEuropeanTitle": "Europese Alternatieven",
     "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
@@ -338,7 +338,7 @@
         "otherAlternatives": "Andere alternatieven",
         "otherEUAlternatives": "Hier zijn andere EU-gebaseerde alternatieven die vergelijkbare functionaliteit bieden...",
         "oneMoreEUAlternative": "Hier is een extra EU-gebaseerd alternatief dat vergelijkbare functionaliteit biedt...",
-        "whyProblematic": "Waarom {{service}} problematisch is",
+        "whyProblematic": "Waarom {service} problematisch is",
         "whySwitchTitle": "Waarom overstappen naar EU-diensten?",
         "dataSovereignty": {
           "title": "Gegevensoevereiniteit",
@@ -360,7 +360,7 @@
       "recommendedAlternative": {
         "title": "Aanbevolen alternatief",
         "startingPrice": "Startprijs",
-        "migrateFrom": "Migreer van {{source}} naar {{target}}",
+        "migrateFrom": "Migreer van {source} naar {target}",
         "viewDetails": "Bekijk dienstdetails"
       }
     }
@@ -453,11 +453,11 @@
       "title": "Gidsen",
       "view_all": "Bekijk Alle",
       "meta": {
-        "title": "{{category}} Migratiegidsen | switch-to.eu",
-        "description": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {{category}}-diensten naar EU-alternatieven."
+        "title": "{category} Migratiegidsen | switch-to.eu",
+        "description": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {category}-diensten naar EU-alternatieven."
       },
-      "pageTitle": "{{category}} Migratiegidsen",
-      "pageDescription": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {{category}}-diensten naar EU-alternatieven.",
+      "pageTitle": "{category} Migratiegidsen",
+      "pageDescription": "Stapsgewijze gidsen om je te helpen migreren van veel gebruikte {category}-diensten naar EU-alternatieven.",
       "difficulty": {
         "beginner": "Beginner",
         "intermediate": "Gemiddeld",
@@ -466,9 +466,9 @@
       "from": "Van:",
       "to": "Naar:",
       "viewGuide": "Bekijk Migratiegids →",
-      "lookingForAlternatives": "Op zoek naar {{category}}-alternatieven?",
-      "checkAlternatives": "Bekijk onze uitgebreide lijst van EU-gebaseerde {{category}}-alternatieven met functievergelijkingen.",
-      "viewAlternatives": "Bekijk {{category}}-alternatieven →"
+      "lookingForAlternatives": "Op zoek naar {categor}}-alternatieven?",
+      "checkAlternatives": "Bekijk onze uitgebreide lijst van EU-gebaseerde {category}-alternatieven met functievergelijkingen.",
+      "viewAlternatives": "Bekijk {category}-alternatieven →"
     },
     "cta": {
       "title": "Niet Gevonden Wat Je Zoekt?",
@@ -477,10 +477,10 @@
     },
     "service": {
       "meta": {
-        "title": "{{title}} | switch-to.eu",
+        "title": "{title} | switch-to.eu",
         "notFound": "Gids Niet Gevonden"
       },
-      "difficultyLabel": "{{level}} Moeilijkheidsgraad",
+      "difficultyLabel": "{level} Moeilijkheidsgraad",
       "missingFeaturesTitle": "Ontbrekende Functies & Beperkingen",
       "editGuide": {
         "title": "Heb je een probleem gevonden of wil je deze gids verbeteren?",
@@ -549,7 +549,7 @@
   },
   "domainAnalyzer": {
     "results": {
-      "howEuFriendly": "Hoe EU-vriendelijk is {{domain}}?",
+      "howEuFriendly": "Hoe EU-vriendelijk is {domain}?",
       "statusExcellent": "Uitstekend",
       "statusImprovement": "Ruimte voor verbetering",
       "statusAttention": "Behoeft aandacht",
@@ -582,7 +582,7 @@
       "checkAgain": "Opnieuw controleren"
     },
     "analyze": {
-      "analyzing": "Bezig met analyseren van {{domain}}...",
+      "analyzing": "Bezig met analyseren van {domain}...",
       "checkingAspects": "We controleren verschillende aspecten van dit domein. Dit kan even duren."
     },
     "error": {

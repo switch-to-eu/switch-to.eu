@@ -1,30 +1,41 @@
 import { getServicesByCategory } from '@/lib/content/services/services';
 import { getCategoryContent, getAllCategoriesMetadata } from '@/lib/content/services/categories';
+import { getGuidesByTargetService } from '@/lib/content/services/guides';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
 import { Container } from '@/components/layout/container';
 import { ContributeCta } from '@/components/ContributeCta';
 import { RecommendedAlternative } from '@/components/ui/RecommendedAlternative';
+import { getTranslations } from "next-intl/server";
+import React from 'react';
 
 // Define params as a Promise type
-type Params = Promise<{
+type Params = {
   category: string;
-  lang: string;
-}>;
+  locale: string;
+};
 
 interface ServicesCategoryPageProps {
-  params: Params;
+  params: Promise<Params>;
 }
 
 // Generate metadata for SEO
-export async function generateMetadata(props: ServicesCategoryPageProps): Promise<Metadata> {
-  const params = await props.params;
-  const { category } = params;
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ category: string; locale: string }>;
+}): Promise<Metadata> {
+  // Await the params
+  const { category, locale } = await params;
+
+  // Get translations
+  const t = await getTranslations("services.category");
+
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   // Get category metadata
-  const { metadata: categoryMetadata } = getCategoryContent(category);
+  const { metadata: categoryMetadata } = getCategoryContent(category, locale);
 
   // Use metadata title if available, otherwise fallback to capitalized category
   const pageTitle = categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
@@ -35,27 +46,41 @@ export async function generateMetadata(props: ServicesCategoryPageProps): Promis
     title: `${pageTitle} | switch-to.eu`,
     description: pageDescription,
     keywords: [capitalizedCategory, 'EU alternatives', 'privacy-focused services', 'GDPR compliant', category],
+    alternates: {
+      canonical: `https://switch-to.eu/${locale}/services/${category}`,
+      languages: {
+        'en': `https://switch-to.eu/en/services/${category}`,
+        'nl': `https://switch-to.eu/nl/services/${category}`,
+      },
+    },
   };
 }
 
 export async function generateStaticParams() {
   const categories = getAllCategoriesMetadata();
 
-  return categories.map((catgory) => ({
-    category: catgory.slug,
+  return categories.map((category) => ({
+    category: category.slug,
   }))
 }
 
-
-export default async function ServicesCategoryPage(props: ServicesCategoryPageProps) {
+export default async function ServicesCategoryPage({
+  params
+}: {
+  params: Promise<{ category: string; locale: string }>;
+}) {
   // Await the params Promise
-  const params = await props.params;
-  const { category, lang } = params;
+  const { category, locale } = await params;
+
+  // Get translations
+  const t = await getTranslations("services.category");
+  const commonT = await getTranslations("common");
+
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   // Load EU services for this category
-  const euServices = await getServicesByCategory(category, 'eu');
-  const { metadata: categoryMetadata, content: categoryContent } = getCategoryContent(category);
+  const euServices = await getServicesByCategory(category, 'eu', locale);
+  const { metadata: categoryMetadata, content: categoryContent } = getCategoryContent(category, locale);
 
   if (euServices.length === 0) {
     notFound();
@@ -94,24 +119,29 @@ export default async function ServicesCategoryPage(props: ServicesCategoryPagePr
         {featuredServices.length > 0 && (
           <div className="mb-8">
             {featuredServices.map((service) => (
-              <RecommendedAlternative
-                key={service.name}
-                service={service}
-                lang={lang}
-              />
+              <React.Suspense key={service.name} fallback={<div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
+                <p className="text-center">{commonT("loading")}</p>
+              </div>}>
+                <RecommendedAlternative
+                  service={service}
+                  sourceService={service.name}
+                  migrationGuides={[]}
+                />
+              </React.Suspense>
             ))}
           </div>
         )}
 
         {/* Regular services grid */}
-        <h2 className="text-2xl font-bold mb-6">{featuredServices.length > 0 ? 'More' : 'All'} {capitalizedCategory} Alternatives</h2>
+        <h2 className="text-2xl font-bold mb-6">
+          {featuredServices.length > 0 ? t("moreAlternatives", { category: capitalizedCategory }) : t("allAlternatives", { category: capitalizedCategory })}
+        </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {(regularServices.length > 0 ? regularServices : euServices).map((service) => (
             <ServiceCard
               key={service.name}
               service={service}
               showCategory={false}
-              lang={lang}
             />
           ))}
         </div>
@@ -119,7 +149,7 @@ export default async function ServicesCategoryPage(props: ServicesCategoryPagePr
       {/* CTA Section */}
       <section className="py-8 md:py-12">
         <Container>
-          <ContributeCta lang={lang} />
+          <ContributeCta />
         </Container>
       </section>
     </main>

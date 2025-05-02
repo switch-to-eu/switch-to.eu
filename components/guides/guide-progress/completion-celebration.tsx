@@ -16,15 +16,6 @@ interface CompletionCelebrationProps {
   guideId?: string;
   guideName?: string;
   className?: string;
-  dict: {
-    guideProgress: {
-      completionCelebration: {
-        congratulations: string;
-        successMessage: string;
-        continueButton: string;
-      };
-    };
-  };
 }
 
 // Local storage key for tracking shown celebrations
@@ -34,7 +25,6 @@ export function CompletionCelebration({
   onDismiss,
   guideId,
   guideName,
-
 }: CompletionCelebrationProps) {
   const [isVisible, setIsVisible] = useState(false);
   const plausible = usePlausible<GuideCompletedEvent>();
@@ -129,6 +119,7 @@ export function CompletionCelebration({
       className={`transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
     >
       {/* Content */}
+
     </div>
   );
 }

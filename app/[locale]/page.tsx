@@ -87,7 +87,7 @@ export default async function Home({
               className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
               dangerouslySetInnerHTML={{
                 __html: t.markup("heroSubtitle", {
-                  important: (chunks) => `<b>${chunks}</b>`,
+                  b: (chunks) => `<b>${chunks}</b>`,
                 }),
               }}
             />
@@ -95,7 +95,7 @@ export default async function Home({
               className="text-base sm:text-lg md:text-xl max-w-[500px]"
               dangerouslySetInnerHTML={{
                 __html: t.markup("heroDescription", {
-                  important: (chunks) => `<b>${chunks}</b>`,
+                  b: (chunks) => `<b>${chunks}</b>`,
                 }),
               }}
             />
@@ -111,7 +111,7 @@ export default async function Home({
             <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">
               {t("exampleLabel")}{" "}
               <Link
-                href={`/${locale}/services/non-eu/whatsapp`}
+                href={`/services/non-eu/whatsapp`}
                 className="text-blue underline"
               >
                 WhatsApp
@@ -232,12 +232,6 @@ export default async function Home({
 
       {/* Categories Section */}
       <CategorySection />
-
-      <div className="text-center mt-[-2em]">
-        <Button asChild>
-          <Link href={`/services`}>{t("viewAll")}</Link>
-        </Button>
-      </div>
 
       {/* CTA Section */}
       <section className="py-8 md:py-12">

@@ -343,9 +343,8 @@ export function InlineSearchInput({
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
-                    focusedIndex === index ? "bg-gray-100" : ""
-                  }`}
+                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
+                    }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
@@ -368,7 +367,7 @@ export function InlineSearchInput({
               <div className="px-4 py-6 text-center">
                 <p className="text-gray-500">{noResultsMessage}</p>
                 <p className="text-sm text-gray-400 mt-1">
-                  {t("common.tryDifferentSearch")}
+                  {t("tryDifferentSearch")}
                 </p>
               </div>
             )}

@@ -148,9 +148,8 @@ export function SearchInput({
     : [];
 
   // Debug information (only in development and when explicitly enabled)
-  const debugStateInfo = `Dialog: ${
-    open ? "open" : "closed"
-  }, Query: "${query}", Loading: ${isLoading}, Results: ${results.length}`;
+  const debugStateInfo = `Dialog: ${open ? "open" : "closed"
+    }, Query: "${query}", Loading: ${isLoading}, Results: ${results.length}`;
 
   return (
     <>

@@ -2,26 +2,15 @@ import { getServiceBySlug, getServicesByCategory, getServiceSlugs } from '@/lib/
 import { getGuidesByTargetService } from '@/lib/content/services/guides';
 import { notFound } from 'next/navigation';
 import { RegionBadge } from '@/components/ui/region-badge';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { marked } from 'marked';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ui/ServiceCard';
 import { ContributeCta } from '@/components/ContributeCta';
 import { Button } from '@/components/ui/button';
-import { defaultLanguage } from '@/lib/i18n/config';
-import { getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
 
 import Image from "next/image";
-
-// Define params as a Promise type
-type Params = Promise<{
-  service_name: string;
-  lang: string;
-}>;
-
-interface ServiceDetailPageProps {
-  params: Params;
-}
+import { getTranslations } from 'next-intl/server';
 
 // Generate static params for all EU services
 export async function generateStaticParams() {
@@ -33,16 +22,19 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata(props: ServiceDetailPageProps): Promise<Metadata> {
-  const params = await props.params;
-  const { service_name, lang } = params;
-  const language = lang || defaultLanguage;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string, service_name: string }>;
+}): Promise<Metadata> {
+  // Await the params
+  const { service_name, locale } = await params;
 
   // Normalize slug (replace hyphens with spaces for lookup)
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, language);
+  const serviceData = await getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     return {
@@ -57,7 +49,7 @@ export async function generateMetadata(props: ServiceDetailPageProps): Promise<M
     description: frontmatter.description,
     keywords: [frontmatter.name, frontmatter.category, 'EU service', 'privacy-focused', 'GDPR compliant', ...(frontmatter.tags || [])],
     alternates: {
-      canonical: `https://switch-to.eu/${language}/services/eu/${service_name}`,
+      canonical: `https://switch-to.eu/${locale}/services/eu/${service_name}`,
       languages: {
         'en': `https://switch-to.eu/en/services/eu/${service_name}`,
         'nl': `https://switch-to.eu/nl/services/eu/${service_name}`,
@@ -66,18 +58,17 @@ export async function generateMetadata(props: ServiceDetailPageProps): Promise<M
   };
 }
 
-export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
+export default async function ServiceDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string, service_name: string }>;
+}) {
   // Await the params Promise
-  const params = await props.params;
-  const { service_name, lang } = params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const { service_name, locale } = await params;
 
-  // Helper function to get translated text
-  const t = (path: string): string => {
-    const value = getNestedValue(dict, path);
-    return typeof value === 'string' ? value : path;
-  };
+  // Get translations
+  const t = await getTranslations("services.detail");
+  const commonT = await getTranslations("common");
 
   // Keep the original URL slug for redirects
   const originalSlug = service_name;
@@ -87,7 +78,7 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
   const slug = service_name.replace(/-/g, ' ');
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, language);
+  const serviceData = await getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     notFound();
@@ -100,17 +91,17 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
     // Redirect to the non-EU version
     return {
       redirect: {
-        destination: `/${language}/services/non-eu/${originalSlug}`,
+        destination: `/${locale}/services/non-eu/${originalSlug}`,
         permanent: false,
       },
     };
   }
 
   // Load related guides
-  const relatedGuides = await getGuidesByTargetService(frontmatter.name, language);
+  const relatedGuides = await getGuidesByTargetService(frontmatter.name, locale);
 
   // Load similar services from the same category
-  const similarServices = (await getServicesByCategory(frontmatter.category, 'eu', language))
+  const similarServices = (await getServicesByCategory(frontmatter.category, 'eu', locale))
     .filter(service => service.name !== frontmatter.name)
     .slice(0, 4); // Limit to 4 similar services
 
@@ -140,11 +131,11 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
             </p>
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('services.detail.location')}:</span>
+                <span className="font-semibold mr-2">{t('location')}:</span>
                 <span>{frontmatter.location}</span>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('services.detail.privacyRating')}:</span>
+                <span className="font-semibold mr-2">{t('privacyRating')}:</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <span key={i} className={`text-lg ${i < frontmatter.privacyRating ? 'text-yellow-500' : 'text-gray-300'}`}>★</span>
@@ -152,16 +143,16 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
                 </div>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('services.detail.freeOption')}:</span>
-                <span>{frontmatter.freeOption ? t('services.detail.freeOptionYes') : t('services.detail.freeOptionNo')}</span>
+                <span className="font-semibold mr-2">{t('freeOption')}:</span>
+                <span>{frontmatter.freeOption ? t('freeOptionYes') : t('freeOptionNo')}</span>
               </div>
               <div className="flex items-center">
-                <span className="font-semibold mr-2">{t('services.detail.startingPrice')}:</span>
+                <span className="font-semibold mr-2">{t('startingPrice')}:</span>
                 <span>{frontmatter.startingPrice}</span>
               </div>
             </div>
             <Button variant="default" asChild>
-              <Link href={frontmatter.url} target="_blank">{t('services.detail.visitWebsite')}</Link>
+              <Link href={frontmatter.url} target="_blank">{t('visitWebsite')}</Link>
             </Button>
           </div>
 
@@ -175,14 +166,13 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
           {/* Similar Services - Moved from sidebar to main content */}
           {similarServices.length > 0 && (
             <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-4">{t('services.detail.similarServices')}</h2>
+              <h2 className="text-2xl font-bold mb-4">{t('similarServices')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {similarServices.map((service) => (
                   <ServiceCard
                     key={service.name}
                     service={service}
                     showCategory={false}
-                    lang={language}
                   />
                 ))}
               </div>
@@ -191,7 +181,7 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
 
           {/* CTA Section */}
           <section className="py-8 md:py-12">
-            <ContributeCta lang={language} />
+            <ContributeCta />
           </section>
         </div>
 
@@ -207,16 +197,16 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
                 className="object-contain"
               />
             </div>
-            <h2 className="text-xl text-center font-bold mb-4">{t('services.detail.migrationGuides')}</h2>
+            <h2 className="text-xl text-center font-bold mb-4">{t('migrationGuides')}</h2>
 
             {relatedGuides.length > 0 ? (
               <>
-                <p className="text-muted-foreground mb-4">{t('services.detail.migrateHelp')} <b>{frontmatter.name}</b></p>
+                <p className="text-muted-foreground mb-4">{t('migrateHelp')} <b>{frontmatter.name}</b></p>
                 <div className="space-y-4">
                   {relatedGuides.map((guide) => (
                     <Link
                       key={`${guide.category}-${guide.slug}`}
-                      href={`/${language}/guides/${guide.category}/${guide.slug}`}
+                      href={`/guides/${guide.category}/${guide.slug}`}
                       className="block mb-4 mt-4 rounded-md transition-colors"
                     >
                       <h3 className="text-lg mb-1">
@@ -229,11 +219,11 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
                   ))}
                 </div>
                 <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <p className="text-sm text-muted-foreground mb-4 text-center">{t('services.detail.anotherServiceHelp')}</p>
+                  <p className="text-sm text-muted-foreground mb-4 text-center">{t('anotherServiceHelp')}</p>
                   <div className="flex justify-center">
                     <Button variant="red" size="sm" asChild>
-                      <Link href={`/${language}/contribute`}>
-                        {t('services.detail.writeAnotherGuide')}
+                      <Link href={`/contribute`}>
+                        {t('writeAnotherGuide')}
                       </Link>
                     </Button>
                   </div>
@@ -241,12 +231,12 @@ export default async function ServiceDetailPage(props: ServiceDetailPageProps) {
               </>
             ) : (
               <>
-                <p className="text-muted-foreground mb-4">{t('services.detail.noGuides')} <b>{frontmatter.name}</b>.</p>
-                <p className="text-muted-foreground mb-6">{t('services.detail.helpOthers')}</p>
+                <p className="text-muted-foreground mb-4">{t('noGuides')} <b>{frontmatter.name}</b>.</p>
+                <p className="text-muted-foreground mb-6">{t('helpOthers')}</p>
                 <div className="flex justify-center">
                   <Button variant="red" asChild>
-                    <Link href={`/${language}/contribute`}>
-                      {t('services.detail.writeMigrationGuide')}
+                    <Link href={`/contribute`}>
+                      {t('writeMigrationGuide')}
                     </Link>
                   </Button>
                 </div>

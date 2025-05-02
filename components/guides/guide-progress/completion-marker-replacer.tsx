@@ -3,47 +3,27 @@
 import { useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StepCompletionButton } from './step-completion-button';
+import { useTranslations } from 'next-intl';
 
 interface CompletionMarkerReplacerProps {
   guideId: string;
-  dict: {
-    guideProgress: {
-      unnamedStep: string;
-      stepCompletionButton: {
-        markComplete: string;
-        completed: string;
-      };
-    };
-  };
 }
 
-// Function to generate a consistent ID based on guide ID and step title
-function generateStableStepId(guideId: string, stepTitle: string, fallbackIndex: number): string {
-  if (stepTitle) {
-    try {
-      // In browser environments, we can't use Node.js crypto
-      // So we create a simple hash based on the title
-      const titleForHashing = `${guideId}-${stepTitle}`.toLowerCase();
-      let hash = 0;
-      for (let i = 0; i < titleForHashing.length; i++) {
-        const char = titleForHashing.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32bit integer
-      }
-      // Ensure positive value and convert to hex string
-      const positiveHash = Math.abs(hash).toString(16).substring(0, 8);
-      return `step-${positiveHash}`;
-    } catch (error) {
-      console.error('Error generating stable step ID:', error);
-    }
-  }
+// Generate a stable ID for a step based on its title and guide ID
+function generateStableStepId(guideId: string, stepTitle: string, stepNumber: number): string {
+  // Create a simplified version of the step title (lowercase, no special chars)
+  const simplifiedTitle = stepTitle
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, '-');
 
-  // Fallback to a consistent ID based on the position in the document
-  return `step-${guideId.substring(0, 4)}-${fallbackIndex}`;
+  // Combine with the guide ID and step number for uniqueness
+  return `${guideId}-step-${stepNumber}-${simplifiedTitle}`.slice(0, 40);
 }
 
-export function CompletionMarkerReplacer({ guideId, dict }: CompletionMarkerReplacerProps) {
+export function CompletionMarkerReplacer({ guideId }: CompletionMarkerReplacerProps) {
   const processedRef = useRef<boolean>(false);
+  const t = useTranslations('guideProgress');
 
   useEffect(() => {
     // Only process once to avoid duplicate buttons
@@ -114,7 +94,7 @@ export function CompletionMarkerReplacer({ guideId, dict }: CompletionMarkerRepl
             if (!stepTitle) {
               noHeadingCounter++;
               // Use the translation with variable replacement
-              stepTitle = dict.guideProgress.unnamedStep.replace('{number}', noHeadingCounter.toString());
+              stepTitle = t('unnamedStep', { number: noHeadingCounter });
             } else {
               // Check if we've already processed this heading
               // If so, we'll skip creating a duplicate completion button for the same step
@@ -159,7 +139,6 @@ export function CompletionMarkerReplacer({ guideId, dict }: CompletionMarkerRepl
                         guideId={guideId}
                         stepId={stepId}
                         stepTitle={stepTitle}
-                        dict={dict}
                       />
                     );
                   } catch (error) {
@@ -177,7 +156,7 @@ export function CompletionMarkerReplacer({ guideId, dict }: CompletionMarkerRepl
       // Mark as processed
       processedRef.current = true;
     }
-  }, [guideId, dict]);
+  }, [guideId, t]);
 
   // This component doesn't render anything visible
   return null;

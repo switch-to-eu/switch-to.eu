@@ -1,54 +1,28 @@
 import React from 'react';
-import Link from 'next/link';
 import { ServiceFrontmatter } from '@/lib/content/types';
-import { Locale, getDictionary, getNestedValue } from '@/lib/i18n/dictionaries';
-
-interface RecommendedAlternativeProps {
-  service: ServiceFrontmatter;
-  sourceService?: string;
-  migrationGuides?: {
-    slug: string;
-    frontmatter: {
-      title: string;
-      description: string;
-      targetService: string;
-      sourceService: string;
-    };
-    category: string;
-  }[];
-  lang?: Locale;
-}
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export async function RecommendedAlternative({
   service,
   sourceService,
-  migrationGuides = [],
-  lang = 'en'
-}: RecommendedAlternativeProps) {
+  migrationGuides = []
+}: {
+  service: ServiceFrontmatter;
+  sourceService: string;
+  migrationGuides: any[];
+}) {
   if (!service) return null;
 
-  const dict = await getDictionary(lang);
+  const locale = await getLocale();
+  const t = await getTranslations("services");
 
-  // Helper function to get translated text
-  const t = (path: string, replacements?: Record<string, string>): string => {
-    const value = getNestedValue(dict, path);
-    let translatedText = typeof value === 'string' ? value : path;
-
-    // Replace placeholders with actual values if provided
-    if (replacements && typeof translatedText === 'string') {
-      Object.entries(replacements).forEach(([key, val]) => {
-        translatedText = translatedText.replace(`{{${key}}}`, val);
-      });
-    }
-
-    return translatedText;
-  };
 
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
-      <h2 className="text-2xl font-bold mb-6">{t('services.detail.recommendedAlternative.title')}</h2>
+      <h2 className="text-2xl font-bold mb-6">{t('detail.recommendedAlternative.title')}</h2>
 
       <div className="absolute right-20 top-1/2 -translate-y-1/2 hidden lg:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -81,7 +55,7 @@ export async function RecommendedAlternative({
           </p>
 
           <div className="items-center mb-2">
-            <div className="text-sm">{t('services.detail.recommendedAlternative.startingPrice')}: {service.startingPrice}</div>
+            <div className="text-sm">{t('detail.recommendedAlternative.startingPrice')}: {service.startingPrice}</div>
           </div>
         </div>
       </div>
@@ -93,10 +67,10 @@ export async function RecommendedAlternative({
             migrationGuides.map((guide) => (
               <Link
                 key={`${guide.category}-${guide.slug}`}
-                href={`/${lang}/guides/${guide.category}/${guide.slug}`}
+                href={`/guides/${guide.category}/${guide.slug}`}
                 className="inline-block py-2 px-5 bg-[#a2d4a8] text-slate-800 border border-[#a2d4a8] rounded-md hover:bg-[#92c499] transition-colors"
               >
-                {t('services.detail.recommendedAlternative.migrateFrom', {
+                {t('detail.recommendedAlternative.migrateFrom', {
                   source: sourceService,
                   target: service.name
                 })}
@@ -105,10 +79,10 @@ export async function RecommendedAlternative({
           )}
 
           <Link
-            href={`/${lang}/services/${service.region || 'eu'}/${serviceSlug}`}
+            href={`/services/${service.region || 'eu'}/${serviceSlug}`}
             className="inline-block py-2 px-5 border border-slate-300 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
-            {t('services.detail.recommendedAlternative.viewDetails')}
+            {t('detail.recommendedAlternative.viewDetails')}
           </Link>
         </div>
       </div>

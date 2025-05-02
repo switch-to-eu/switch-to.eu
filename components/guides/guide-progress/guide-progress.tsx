@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useGuideProgressStore, useHydratedGuideProgressStore } from '@/lib/store/guide-progress';
 import { CompletionCelebration } from './completion-celebration';
+import { useTranslations } from 'next-intl';
 
 // Lazy load the GuideProgressIndicator component
 const GuideProgressIndicator = dynamic(
@@ -17,20 +18,6 @@ interface GuideProgressProps {
   totalSteps: number;
   showCelebration?: boolean;
   onComplete?: () => void;
-  dict: {
-    guideProgress: {
-      progressIndicator: {
-        progress: string;
-        stepsCount: string;
-        completed: string;
-      };
-      completionCelebration: {
-        congratulations: string;
-        successMessage: string;
-        continueButton: string;
-      };
-    };
-  };
 }
 
 export function GuideProgress({
@@ -39,7 +26,6 @@ export function GuideProgress({
   totalSteps,
   showCelebration = true,
   onComplete,
-  dict,
 }: GuideProgressProps) {
   // Use regular store for methods
   const { initGuide, markGuideCompleted } = useGuideProgressStore();
@@ -103,7 +89,6 @@ export function GuideProgress({
       <GuideProgressIndicator
         progress={currentProgress}
         totalSteps={totalSteps}
-        dict={dict}
       />
 
       {showingCelebration && (
@@ -111,7 +96,6 @@ export function GuideProgress({
           guideId={guideId}
           guideName={guideName}
           onDismiss={handleDismissCelebration}
-          dict={dict}
         />
       )}
     </>

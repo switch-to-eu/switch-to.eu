@@ -1,30 +1,29 @@
-import { Metadata } from 'next';
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import FeedbackForm from "@/components/FeedbackForm";
-import { defaultLanguage } from '@/lib/i18n/config';
-import { getDictionary } from '@/lib/i18n/dictionaries';
-import { Locale } from '@/lib/i18n/dictionaries';
+import { getTranslations } from 'next-intl/server';
 
 // Generate metadata with language alternates
 export async function generateMetadata({
   params
 }: {
-  params: Promise<{ lang: string }>
-}): Promise<Metadata> {
+  params: Promise<{ locale: string }>
+}) {
+  const t = await getTranslations("feedback");
   // Await the params
-  const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language as Locale);
+  const { locale } = await params;
+
+  const title = `${t("meta.title")} - ${t("meta.description")}`;
+  const description = t("meta.description");
 
   const defaultKeywords = ['feedback', 'github issues', 'bug report', 'feature request', 'switch-to.eu'];
 
   return {
-    title: dict.feedback.meta.title,
-    description: dict.feedback.meta.description,
+    title,
+    description,
     keywords: defaultKeywords,
     alternates: {
-      canonical: `https://switch-to.eu/${language}/feedback`,
+      canonical: `https://switch-to.eu/${locale}/feedback`,
       languages: {
         'en': 'https://switch-to.eu/en/feedback',
         'nl': 'https://switch-to.eu/nl/feedback',
@@ -36,40 +35,39 @@ export async function generateMetadata({
 export default async function FeedbackPage({
   params
 }: {
-  params: Promise<{ lang: string }>
+  params: Promise<{ locale: string }>
 }) {
-  const { lang } = await params;
-  const language = lang || defaultLanguage;
-  const dict = await getDictionary(language);
+  const t = await getTranslations("feedback");
+  const { locale } = await params;
 
   // Prepare the dictionary for the FeedbackForm
   const formDictionary = {
-    title: dict.feedback.form.title,
-    description: dict.feedback.form.description,
-    titleLabel: dict.feedback.form.titleLabel,
-    titlePlaceholder: dict.feedback.form.titlePlaceholder,
-    descriptionLabel: dict.feedback.form.descriptionLabel,
-    descriptionPlaceholder: dict.feedback.form.descriptionPlaceholder,
-    categoryLabel: dict.feedback.form.categoryLabel,
-    categoryPlaceholder: dict.feedback.form.categoryPlaceholder,
-    bug: dict.feedback.form.bugCategory,
-    feature: dict.feedback.form.featureCategory,
-    feedback: dict.feedback.form.feedbackCategory,
-    other: dict.feedback.form.otherCategory,
-    contactInfoLabel: dict.feedback.form.contactInfoLabel,
-    contactInfoPlaceholder: dict.feedback.form.contactInfoPlaceholder,
-    submit: dict.feedback.form.submitButton,
-    submitting: dict.feedback.form.submitting,
-    success: dict.feedback.form.successMessage,
-    error: dict.feedback.form.errorMessage,
-    viewIssue: dict.feedback.form.viewIssue,
+    title: t('form.title'),
+    description: t('form.description'),
+    titleLabel: t('form.titleLabel'),
+    titlePlaceholder: t('form.titlePlaceholder'),
+    descriptionLabel: t('form.descriptionLabel'),
+    descriptionPlaceholder: t('form.descriptionPlaceholder'),
+    categoryLabel: t('form.categoryLabel'),
+    categoryPlaceholder: t('form.categoryPlaceholder'),
+    bug: t('form.bugCategory'),
+    feature: t('form.featureCategory'),
+    feedback: t('form.feedbackCategory'),
+    other: t('form.otherCategory'),
+    contactInfoLabel: t('form.contactInfoLabel'),
+    contactInfoPlaceholder: t('form.contactInfoPlaceholder'),
+    submit: t('form.submitButton'),
+    submitting: t('form.submitting'),
+    success: t('form.successMessage'),
+    error: t('form.errorMessage'),
+    viewIssue: t('form.viewIssue'),
     validation: {
-      titleMinLength: dict.feedback.form.validation.titleMinLength,
-      titleNoHtml: dict.feedback.form.validation.titleNoHtml,
-      descriptionMinLength: dict.feedback.form.validation.descriptionMinLength,
-      descriptionNoHtml: dict.feedback.form.validation.descriptionNoHtml,
-      categoryRequired: dict.feedback.form.validation.categoryRequired,
-      invalidEmail: dict.feedback.form.validation.invalidEmail
+      titleMinLength: t('form.validation.titleMinLength'),
+      titleNoHtml: t('form.validation.titleNoHtml'),
+      descriptionMinLength: t('form.validation.descriptionMinLength'),
+      descriptionNoHtml: t('form.validation.descriptionNoHtml'),
+      categoryRequired: t('form.validation.categoryRequired'),
+      invalidEmail: t('form.validation.invalidEmail')
     }
   };
 
@@ -80,18 +78,18 @@ export default async function FeedbackPage({
         <Container>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{dict.feedback.hero.title}</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-6">{t('hero.title')}</h1>
               <p className="text-base sm:text-lg mb-6">
-                {dict.feedback.hero.description1}
+                {t('hero.description1')}
               </p>
               <p className="text-base sm:text-lg mb-6">
-                {dict.feedback.hero.description2}
+                {t('hero.description2')}
               </p>
             </div>
             <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0">
               <Image
                 src="/images/contribute.svg"
-                alt={dict.feedback.hero.imageAlt || "Feedback illustration"}
+                alt={t('hero.imageAlt') || "Feedback illustration"}
                 fill
                 className="object-contain"
                 priority

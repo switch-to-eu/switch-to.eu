@@ -6,20 +6,13 @@ import { cn } from '@/lib/utils';
 import { useGuideProgressStore, useHydratedGuideProgressStore } from '@/lib/store/guide-progress';
 import { Button } from '@/components/ui/button';
 import { usePlausible } from 'next-plausible';
+import { useTranslations } from 'next-intl';
 
 interface StepCompletionButtonProps {
   guideId: string;
   stepId: string;
   stepTitle?: string;
   className?: string;
-  dict: {
-    guideProgress: {
-      stepCompletionButton: {
-        markComplete: string;
-        completed: string;
-      };
-    };
-  };
 }
 
 type StepEvents = {
@@ -36,10 +29,10 @@ export function StepCompletionButton({
   stepId,
   stepTitle,
   className,
-  dict,
 }: StepCompletionButtonProps) {
   // Use the regular store for methods
   const { toggleStepCompleted, initGuide } = useGuideProgressStore();
+  const t = useTranslations('guideProgress.stepCompletionButton');
 
   // Use the hydrated store for state values to ensure we have the persisted values
   const isStepCompleted = useHydratedGuideProgressStore(state =>
@@ -101,12 +94,12 @@ export function StepCompletionButton({
         {isCompleted ? (
           <>
             <CheckSquare className="mr-2 h-4 w-4" />
-            {dict.guideProgress.stepCompletionButton.completed}
+            {t('completed')}
           </>
         ) : (
           <>
             <Square className="mr-2 h-4 w-4" />
-            {dict.guideProgress.stepCompletionButton.markComplete}
+            {t('markComplete')}
           </>
         )}
       </Button>
