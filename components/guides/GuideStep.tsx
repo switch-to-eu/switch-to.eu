@@ -1,8 +1,8 @@
 'use client';
 
-import { marked } from 'marked';
 import { useEffect, useRef, useState } from 'react';
 import { StepCompletionButton } from './guide-progress/step-completion-button';
+import { parseMarkdown } from '@/lib/markdown';
 
 interface StepProps {
   guideId: string;
@@ -58,9 +58,10 @@ const useVideoIntersection = (options = {}) => {
   return { isIntersecting, targetRef, videoRef };
 };
 
+
 export function GuideStep({ guideId, step, stepNumber, category, slug }: StepProps) {
-  // Process the step content with marked to convert markdown to HTML
-  const processedContent = marked.parse(step.content);
+  // Process the step content with the centralized markdown parser
+  const processedContent = parseMarkdown(step.content);
   const { targetRef, videoRef } = useVideoIntersection();
 
   // Format video URL to use the API route with full path
