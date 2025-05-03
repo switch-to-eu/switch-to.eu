@@ -6,7 +6,6 @@ import {
   extractStepsWithMeta,
 } from "@/lib/content/utils";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
@@ -18,6 +17,7 @@ import {
 } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
+import { parseMarkdown } from "@/lib/markdown";
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -109,11 +109,7 @@ export default async function GuideServicePage({
   const stepsWithContent =
     segments && segments.steps ? extractStepsWithMeta(segments.steps) : [];
 
-  // Set basic options for marked
-  marked.setOptions({
-    gfm: true, // GitHub Flavored Markdown
-    breaks: true, // Translate line breaks to <br>
-  });
+
 
   // Process content to replace [complete] markers with placeholders for client-side hydration
   const processedContent = processCompletionMarkers(content, guideId);
@@ -122,7 +118,7 @@ export default async function GuideServicePage({
   const renderContent = () => {
     // If no segments or using legacy unsegmented format, render the whole content
     if (!segments || segments.unsegmented === content.trim()) {
-      const processedHtml = marked.parse(processedContent);
+      const processedHtml = parseMarkdown(processedContent);
       return <div dangerouslySetInnerHTML={{ __html: processedHtml }} />;
     }
 
@@ -133,7 +129,7 @@ export default async function GuideServicePage({
           <section id="section-intro" className="mb-10">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(
+                __html: parseMarkdown(
                   processCompletionMarkers(segments.intro, guideId)
                 ),
               }}
@@ -145,7 +141,7 @@ export default async function GuideServicePage({
           <section id="section-before" className="mb-10">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(
+                __html: parseMarkdown(
                   processCompletionMarkers(segments.before, guideId)
                 ),
               }}
@@ -172,7 +168,7 @@ export default async function GuideServicePage({
             ) : (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: marked.parse(
+                  __html: parseMarkdown(
                     processCompletionMarkers(segments.steps, guideId)
                   ),
                 }}
@@ -185,7 +181,7 @@ export default async function GuideServicePage({
           <section id="section-troubleshooting" className="mb-10">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(
+                __html: parseMarkdown(
                   processCompletionMarkers(segments.troubleshooting, guideId)
                 ),
               }}
@@ -197,7 +193,7 @@ export default async function GuideServicePage({
           <section id="section-outro" className="mb-10">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(
+                __html: parseMarkdown(
                   processCompletionMarkers(segments.outro, guideId)
                 ),
               }}
@@ -210,7 +206,7 @@ export default async function GuideServicePage({
           <section id="section-unsegmented">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(
+                __html: parseMarkdown(
                   processCompletionMarkers(segments.unsegmented, guideId)
                 ),
               }}
@@ -244,13 +240,12 @@ export default async function GuideServicePage({
               <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
               <div className="flex mt-4 space-x-4">
                 <div
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    frontmatter.difficulty === "beginner"
-                      ? "bg-green-100 text-green-800"
-                      : frontmatter.difficulty === "intermediate"
+                  className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === "beginner"
+                    ? "bg-green-100 text-green-800"
+                    : frontmatter.difficulty === "intermediate"
                       ? "bg-yellow-100 text-yellow-800"
                       : "bg-red-100 text-red-800"
-                  }`}
+                    }`}
                 >
                   {serviceT("difficultyLabel", {
                     level:
@@ -293,6 +288,8 @@ export default async function GuideServicePage({
               <a
                 href="https://github.com/switch-to.eu/switch-to.eu"
                 className="hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {serviceT("editGuide.link")}
               </a>
