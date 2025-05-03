@@ -7,9 +7,9 @@ import { marked } from 'marked';
 export function createCustomRenderer() {
     const renderer = new marked.Renderer();
 
-    // Use @ts-ignore to bypass TypeScript's type checking for this function
+    // Use @ts-expect-error to bypass TypeScript's type checking for this function
     // as we're handling both legacy and new Marked API formats
-    // @ts-ignore
+    // @ts-expect-error - Marked API type definitions don't match runtime behavior
     renderer.link = function (href, title, text) {
         // Handle both object-style (newer API) and string parameters (older API)
         let finalHref = '';
@@ -24,7 +24,10 @@ export function createCustomRenderer() {
             finalText = text || '';
             if (!finalText && href.tokens && href.tokens.length) {
                 // Try to extract text from tokens if available
-                finalText = href.tokens.map((t: any) => t.text || '').join('');
+                finalText = href.tokens.map((t: unknown) => {
+                    return typeof t === 'object' && t !== null && 'text' in t ?
+                        String(t.text || '') : '';
+                }).join('');
             }
         } else {
             // Old API - separate parameters
