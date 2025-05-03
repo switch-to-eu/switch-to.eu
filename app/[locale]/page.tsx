@@ -65,7 +65,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home({}: {
+export default async function Home({ }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const t = await getTranslations("home");
@@ -139,6 +139,73 @@ export default async function Home({}: {
               className="object-contain"
               priority
             />
+          </div>
+        </Container>
+      </section>
+
+      {/* Migration Guides Section */}
+      <section>
+        <Container>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
+            {t("migrationGuidesTitle")}
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
+                <div className="relative w-full h-40">
+                  <Image
+                    src="/images/guides/gmail-to-proton.jpg"
+                    alt={t("gmailToProton.alt")}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{t("gmailToProton.title")}</h3>
+                  <p className="text-sm text-gray-600">
+                    {t("gmailToProton.description")}
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
+                <div className="relative w-full h-40">
+                  <Image
+                    src="/images/guides/drive-to-nextcloud.jpg"
+                    alt={t("driveToNextcloud.alt")}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{t("driveToNextcloud.title")}</h3>
+                  <p className="text-sm text-gray-600">
+                    {t("driveToNextcloud.description")}
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
+                <div className="relative w-full h-40">
+                  <Image
+                    src="/images/guides/whatsapp-to-signal.jpg"
+                    alt={t("whatsappToSignal.alt")}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{t("whatsappToSignal.title")}</h3>
+                  <p className="text-sm text-gray-600">
+                    {t("whatsappToSignal.description")}
+                  </p>
+                </div>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

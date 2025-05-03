@@ -264,7 +264,7 @@ export default async function GuideServicePage({
               <GuideProgress
                 guideId={guideId}
                 guideName={frontmatter.title}
-                totalSteps={steps.length}
+                totalSteps={steps.filter(step => step.completionMarkers?.includes("[complete]")).length}
               />
             </div>
 

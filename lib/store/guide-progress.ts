@@ -120,7 +120,7 @@ export const useGuideProgressStore = create<GuideProgressStore>()(
             getGuideProgress: (guideId, totalSteps) => {
                 const state = get();
                 if (!state.completedSteps[guideId] || totalSteps === 0) {
-                    return 0;
+                    return totalSteps === 0 ? 100 : 0;
                 }
 
                 const completedCount = Object.values(state.completedSteps[guideId]).filter(Boolean).length;
@@ -133,6 +133,9 @@ export const useGuideProgressStore = create<GuideProgressStore>()(
             },
 
             isGuideCompleted: (guideId, totalSteps) => {
+                // If there are no required steps (totalSteps = 0), then the guide is complete
+                if (totalSteps === 0) return true;
+
                 const progress = get().getGuideProgress(guideId, totalSteps);
                 return progress === 100;
             },
