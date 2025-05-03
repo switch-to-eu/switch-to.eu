@@ -63,7 +63,24 @@
     "whySwitchTitle": "Why switch to Europe-based services?",
     "whySwitchDescription1": "Use EU-based digital alternatives that comply with GDPR, ensuring your data is processed with transparency and security.",
     "whySwitchDescription2": "Support the local tech ecosystem and contribute to a fairer digital economy.",
-    "knowMoreButton": "Want to know more?"
+    "knowMoreButton": "Want to know more?",
+    "migrationGuidesTitle": "Popular Migration Guides",
+    "gmailToProton": {
+      "title": "Gmail → ProtonMail",
+      "description": "Switch from Gmail to ProtonMail with our step-by-step migration guide.",
+      "alt": "Gmail to ProtonMail migration guide"
+    },
+    "driveToNextcloud": {
+      "title": "Google Drive → Nextcloud",
+      "description": "Migrate your files from Google Drive to Nextcloud with this complete guide.",
+      "alt": "Google Drive to Nextcloud migration guide"
+    },
+    "whatsappToSignal": {
+      "title": "WhatsApp → Signal",
+      "description": "Move your chats and contacts from WhatsApp to Signal with our comprehensive guide.",
+      "alt": "WhatsApp to Signal migration guide"
+    },
+    "viewAllGuidesButton": "View All Migration Guides"
   },
   "footer": {
     "rightsReserved": "All rights reserved",

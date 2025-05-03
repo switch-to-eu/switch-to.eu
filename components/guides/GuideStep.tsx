@@ -11,6 +11,7 @@ interface StepProps {
     id: string;
     complete?: boolean;
     video?: string;
+    videooriantation?: string;
     content: string;
   };
   stepNumber: number;
@@ -63,6 +64,7 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
   // Process the step content with the centralized markdown parser
   const processedContent = parseMarkdown(step.content);
   const { targetRef, videoRef } = useVideoIntersection();
+  const isLandscapeVideo = step.videooriantation === 'landscape';
 
   // Format video URL to use the API route with full path
   const getVideoUrl = (videoPath: string) => {
@@ -129,16 +131,25 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
 
   return (
     <div className="guide-step mb-10 pb-6 border-b border-gray-200 dark:border-gray-700" id={step.id}>
-      {/* Responsive layout - two columns with video if available, otherwise single column */}
+      {/* Responsive layout - adjust based on video orientation */}
       {step.video ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="md:order-1">
-            {renderContent()}
+        isLandscapeVideo ? (
+          // Landscape videos go below content in a single column
+          <div className="flex flex-col gap-6">
+            <div>{renderContent()}</div>
+            <div>{renderVideo()}</div>
           </div>
-          <div className="md:order-2">
-            {renderVideo()}
+        ) : (
+          // Portrait videos use the original two-column layout
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="md:order-1">
+              {renderContent()}
+            </div>
+            <div className="md:order-2">
+              {renderVideo()}
+            </div>
           </div>
-        </div>
+        )
       ) : (
         renderContent()
       )}

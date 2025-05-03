@@ -61,9 +61,26 @@
     "featuresCommunityTitle": "Community Gedreven",
     "featuresCommunityDescription": "Ons platform gedijt op gebruikersparticipatie. Iedereen kan bijdragen door nieuwe diensten toe te voegen, migratiegidsen te maken of te verbeteren, en ervaringen te delen. Deze samenwerkingsaanpak zorgt ervoor dat onze inhoud relevant, nauwkeurig en volledig blijft.",
     "whySwitchTitle": "Waarom overstappen naar Europese diensten?",
-    "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan GDPR, zodat je gegevens met transparantie en veiligheid worden verwerkt.",
+    "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan de AVG, zodat uw gegevens transparant en veilig worden verwerkt.",
     "whySwitchDescription2": "Ondersteun het lokale tech-ecosysteem en draag bij aan een eerlijkere digitale economie.",
-    "knowMoreButton": "Meer weten?"
+    "knowMoreButton": "Meer weten?",
+    "migrationGuidesTitle": "Populaire Overstapgidsen",
+    "gmailToProton": {
+      "title": "Gmail → ProtonMail",
+      "description": "Stap over van Gmail naar ProtonMail met onze stap-voor-stap migratiegids.",
+      "alt": "Gmail naar ProtonMail migratiegids"
+    },
+    "driveToNextcloud": {
+      "title": "Google Drive → Nextcloud",
+      "description": "Migreer je bestanden van Google Drive naar Nextcloud met deze complete gids.",
+      "alt": "Google Drive naar Nextcloud migratiegids"
+    },
+    "whatsappToSignal": {
+      "title": "WhatsApp → Signal",
+      "description": "Verplaats je chats en contacten van WhatsApp naar Signal met onze uitgebreide gids.",
+      "alt": "WhatsApp naar Signal migratiegids"
+    },
+    "viewAllGuidesButton": "Bekijk Alle Overstapgidsen"
   },
   "footer": {
     "rightsReserved": "Alle rechten voorbehouden",
