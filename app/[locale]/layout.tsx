@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "../globals.css";
+import PlausibleProvider from "next-plausible";
+
+import {
+  bricolageGrotesqueExtraBold,
+  hankenGroteskSemiBold,
+  hankenGroteskBold,
+  hankenGroteskBoldItalic,
+  hankenGroteskSemiBoldItalic,
+} from "../fonts";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { routing } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider, Locale } from "next-intl";
 
 // Keep Geist Mono for code blocks
 const geistMono = Geist_Mono({
@@ -22,6 +32,23 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    icons: {
+      icon: [
+        { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+        {
+          url: "/favicon/favicon-96x96.png",
+          sizes: "96x96",
+          type: "image/png",
+        },
+      ],
+      apple: [{ url: "/favicon/apple-touch-icon.png" }],
+      other: [
+        {
+          rel: "manifest",
+          url: "/favicon/site.webmanifest",
+        },
+      ],
+    },
     alternates: {
       canonical: "/",
       languages: {
@@ -57,17 +84,30 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
 }>) {
-  return (
-    <>
-      <Header />
+  const { locale } = await params;
 
-      <main className={`flex-1 ${geistMono.variable}`}>{children}</main>
-      <Footer />
-    </>
+  console.log("locale", locale);
+
+  return (
+    <html lang={locale}>
+      <PlausibleProvider domain="switch-to.eu">
+        <body
+          className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        >
+          <NextIntlClientProvider locale={locale}>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+        </body>
+      </PlausibleProvider>
+    </html>
   );
 }
