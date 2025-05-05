@@ -149,12 +149,33 @@ export default async function Home({ }: {
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
             {t("migrationGuidesTitle")}
           </h2>
+
           <div className="grid gap-6 md:grid-cols-3">
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
               <Link href="/guides/messaging/whatsapp-to-signal" className="block">
                 <div className="relative w-full h-40">
                   <Image
-                    src="/images/guides/gmail-to-proton.jpg"
+                    src="/images/guides/whatsapp-signal.png"
+                    alt={t("whatsappToSignal.alt")}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{t("whatsappToSignal.title")}</h3>
+                  <p className="text-sm text-gray-600">
+                    {t("whatsappToSignal.description")}
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <Link href="/guides/email/gmail-to-protonmail" className="block">
+                <div className="relative w-full h-40">
+                  <Image
+                    src="/images/guides/gmail-proton.png"
                     alt={t("gmailToProton.alt")}
                     fill
                     className="object-cover"
@@ -170,42 +191,25 @@ export default async function Home({ }: {
             </div>
 
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
+              <Link href="/guides/storage/google-drive-to-pcloud" className="block">
                 <div className="relative w-full h-40">
                   <Image
-                    src="/images/guides/drive-to-nextcloud.jpg"
-                    alt={t("driveToNextcloud.alt")}
+                    src="/images/guides/drive-pcloud.png"
+                    alt={t("driveToPcloud.alt")}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{t("driveToNextcloud.title")}</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("driveToPcloud.title")}</h3>
                   <p className="text-sm text-gray-600">
-                    {t("driveToNextcloud.description")}
+                    {t("driveToPcloud.description")}
                   </p>
                 </div>
               </Link>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
-                <div className="relative w-full h-40">
-                  <Image
-                    src="/images/guides/whatsapp-to-signal.jpg"
-                    alt={t("whatsappToSignal.alt")}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{t("whatsappToSignal.title")}</h3>
-                  <p className="text-sm text-gray-600">
-                    {t("whatsappToSignal.description")}
-                  </p>
-                </div>
-              </Link>
-            </div>
+
           </div>
         </Container>
       </section>
@@ -213,6 +217,9 @@ export default async function Home({ }: {
       {/* Features Section */}
       <section>
         <Container>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
+            {t("featuredTitle")}
+          </h2>
           <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
             <div className="bg-[var(--pop-1)] p-5 sm:p-8 rounded-xl sm:translate-y-[10px]">
               <div className="flex flex-col items-center text-center">
