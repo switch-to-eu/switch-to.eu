@@ -4,10 +4,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getNavItems } from "./nav-items";
 import { LanguageSelector } from "@/components/navigation/language-selector";
 import { SearchInput } from "@/components/SearchInput";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
 export async function MobileNav() {
+  const locale = await getLocale();
   const navItems = await getNavItems();
   const t = await getTranslations("navigation");
   return (
@@ -65,7 +66,7 @@ export async function MobileNav() {
 
         {/* Language Selector */}
         <div className="mt-4">
-          <LanguageSelector />
+          <LanguageSelector locale={locale} />
         </div>
 
         {/* Search Input */}
