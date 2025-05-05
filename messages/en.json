@@ -54,6 +54,7 @@
     "heroSubtitle": "Switch to <b>EU-based alternatives</b> that respect your privacy, follow GDPR, and keep your data in Europe",
     "heroDescription": "Enter a service that you want to move away and we will help you <b>make the switch!</b>",
     "exampleLabel": "For example:",
+    "featuredTitle": "What does Switch-to.eu stand for?",
     "featuresEuropeanTitle": "European Alternatives",
     "featuresEuropeanDescription": "Discover a curated collection of EU-based digital services that respect your privacy and align with European values. Each alternative is thoroughly evaluated for functionality, reliability, and compliance with EU regulations.",
     "featuresGuidesTitle": "Step-by-step Guides",
@@ -70,10 +71,10 @@
       "description": "Switch from Gmail to ProtonMail with our step-by-step migration guide.",
       "alt": "Gmail to ProtonMail migration guide"
     },
-    "driveToNextcloud": {
-      "title": "Google Drive → Nextcloud",
-      "description": "Migrate your files from Google Drive to Nextcloud with this complete guide.",
-      "alt": "Google Drive to Nextcloud migration guide"
+    "driveToPcloud": {
+      "title": "Google Drive → Pcloud",
+      "description": "Migrate your files from Google Drive to Pcloud with this complete guide.",
+      "alt": "Google Drive to Pcloud migration guide"
     },
     "whatsappToSignal": {
       "title": "WhatsApp → Signal",
