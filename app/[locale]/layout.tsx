@@ -32,6 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     icons: {
       icon: [
         { url: "/favicon/favicon.svg", type: "image/svg+xml" },
