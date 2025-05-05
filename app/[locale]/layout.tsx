@@ -30,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t("title");
   const description = t("description");
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     title,
     description,
     icons: {
@@ -50,10 +51,10 @@ export async function generateMetadata(): Promise<Metadata> {
       ],
     },
     alternates: {
-      canonical: "/",
+      canonical: process.env.NEXT_PUBLIC_URL!,
       languages: {
-        en: "https://switch-to.eu/en",
-        nl: "https://switch-to.eu/nl",
+        en: `${process.env.NEXT_PUBLIC_URL}/en`,
+        nl: `${process.env.NEXT_PUBLIC_URL}/nl`,
       },
     },
     openGraph: {
@@ -92,8 +93,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
-
-  console.log("locale", locale);
 
   return (
     <html lang={locale}>
