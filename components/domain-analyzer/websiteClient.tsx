@@ -158,41 +158,6 @@ export function WebsiteAnalyzerClient({ locale }: { locale: string }) {
         </Container>
       </section>
 
-      {/* FAQ Section */}
-      <section>
-        <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1a3c5a] mb-8 text-center">
-            {t("websiteAnalyzer.faqTitle")}
-          </h2>
-          <div className="grid gap-4 sm:gap-6 max-w-3xl mx-auto">
-            <div className="border rounded-lg p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                {t("websiteAnalyzer.faq.scoreQuestion")}
-              </h3>
-              <p className="text-[#334155]">
-                {t("websiteAnalyzer.faq.scoreAnswer")}
-              </p>
-            </div>
-            <div className="border rounded-lg p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                {t("websiteAnalyzer.faq.servicesQuestion")}
-              </h3>
-              <p className="text-[#334155]">
-                {t("websiteAnalyzer.faq.servicesAnswer")}
-              </p>
-            </div>
-            <div className="border rounded-lg p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                {t("websiteAnalyzer.faq.improveQuestion")}
-              </h3>
-              <p className="text-[#334155]">
-                {t("websiteAnalyzer.faq.improveAnswer")}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       {/* CTA Section */}
       <section className="py-12">
         <Container>
