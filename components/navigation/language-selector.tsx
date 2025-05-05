@@ -8,21 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { Locale, useLocale } from "next-intl";
+import { Locale } from "next-intl";
 import { localeNames, routing } from "@/i18n/routing";
-import { usePathname, useRouter } from "@/i18n/navigation";
-
-export function LanguageSelector() {
-  const router = useRouter();
-  const currentLocale = useLocale();
+import { Link, usePathname } from "@/i18n/navigation";
+export function LanguageSelector({
+  locale: currentLocale,
+}: {
+  locale: Locale;
+}) {
   const locales = routing.locales;
   const pathname = usePathname();
 
   const otherLocales = locales.filter((locale) => locale !== currentLocale);
-
-  const handleChange = (locale: Locale) => {
-    router.push(pathname, { locale });
-  };
 
   return (
     <div className="flex items-center">
@@ -37,13 +34,13 @@ export function LanguageSelector() {
             <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
           {otherLocales.map((otherLocale) => (
-            <DropdownMenuItem
-              key={otherLocale}
-              onClick={() => handleChange(otherLocale)}
-            >
-              {localeNames[otherLocale]}
+            <DropdownMenuItem key={otherLocale} asChild>
+              <Link href={pathname} locale={otherLocale}>
+                {localeNames[otherLocale]}
+              </Link>
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>

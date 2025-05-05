@@ -429,15 +429,6 @@
         "title": "Bekijk resultaten",
         "description": "Zie direct welke diensten je gebruikt, hun EU-nalevingsstatus en ontvang aanbevelingen voor EU-vriendelijke alternatieven."
       },
-      "faqTitle": "Veelgestelde vragen",
-      "faq": {
-        "scoreQuestion": "Wat betekent de EU-dienstenscore?",
-        "scoreAnswer": "De score geeft aan in hoeverre je website afhankelijk is van in de EU gebaseerde digitale diensten versus niet-EU-diensten. Een hogere score betekent een betere afstemming op EU-principes voor datasoevereiniteit.",
-        "servicesQuestion": "Welke diensten worden gedetecteerd?",
-        "servicesAnswer": "Onze tool detecteert analyses, hosting, CDN, marketingtools, betalingsverwerkers en andere diensten van derden die zijn geïntegreerd met je website.",
-        "improveQuestion": "Hoe kan ik mijn score verbeteren?",
-        "improveAnswer": "Voor elke gedetecteerde niet-EU-dienst suggereren we EU-alternatieven en bieden we migratiehulpen om je te helpen de overstap te maken om je score te verbeteren."
-      },
       "ctaTitle": "Klaar om de overstap te maken?",
       "ctaDescription": "Ontdek EU-alternatieven voor alle niet-EU-diensten die op je website zijn gedetecteerd en volg onze stapsgewijze migratiehandleidingen.",
       "ctaButton": "Verken EU-alternatieven"
@@ -582,13 +573,13 @@
     "recommendations": {
       "switchToEu": "Overweeg over te stappen naar een EU-gebaseerd alternatief.",
       "emailProviders": "Overweeg deze e-mailproviders:",
-      "euDomainRegistrars": "Overweeg deze EU-domeinregistrars:",
-      "euHostingProviders": "Overweeg deze EU-hostingproviders:",
-      "euAnalyticsAlternatives": "Overweeg deze EU-analyticaalternatieven:",
-      "euCdnProviders": "Overweeg deze EU CDN-providers:"
+      "domainRegistrars": "Overweeg deze domeinregistrars:",
+      "hostingProviders": "Overweeg deze hostingproviders:",
+      "services": "Overweeg deze diensten:",
+      "cdnProviders": "Overweeg deze EU CDN-providers:"
     },
     "services": {
-      "mx_records": "E-mailprovider",
+      "mx_records": "E-mail",
       "domain_registrar": "domein registrar",
       "hosting": "hosting",
       "services": "diensten",

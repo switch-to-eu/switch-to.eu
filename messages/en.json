@@ -488,15 +488,6 @@
         "title": "View Results",
         "description": "Instantly see which services you're using, their EU compliance status, and receive recommendations for EU-friendly alternatives."
       },
-      "faqTitle": "Frequently Asked Questions",
-      "faq": {
-        "scoreQuestion": "What does the EU services score mean?",
-        "scoreAnswer": "The score indicates how much your website relies on EU-based digital services vs. non-EU services. A higher score means better alignment with EU data sovereignty principles.",
-        "servicesQuestion": "What services are detected?",
-        "servicesAnswer": "Our tool detects analytics, hosting, CDN, marketing tools, payment processors, and other third-party services integrated with your website.",
-        "improveQuestion": "How can I improve my score?",
-        "improveAnswer": "For each non-EU service detected, we'll suggest EU alternatives and provide migration guides to help you make the switch to improve your score."
-      },
       "ctaTitle": "Ready to make the switch?",
       "ctaDescription": "Discover EU alternatives for any non-EU services detected on your website and follow our step-by-step migration guides.",
       "ctaButton": "Explore EU Alternatives"
@@ -582,17 +573,17 @@
     "recommendations": {
       "switchToEu": "Consider switching to an EU-based alternative.",
       "emailProviders": "Consider these email providers:",
-      "euDomainRegistrars": "Consider these EU domain registrars:",
-      "euHostingProviders": "Consider these EU hosting providers:",
-      "euAnalyticsAlternatives": "Consider these EU analytics alternatives:",
-      "euCdnProviders": "Consider these EU CDN providers:"
+      "domainRegistrars": "Consider these domain registrars:",
+      "hostingProviders": "Consider these hosting providers:",
+      "services": "Consider these services:",
+      "cdnProviders": "Consider these EU CDN providers:"
     },
     "services": {
-      "mx_records": "mx_records",
-      "domain_registrar": "domain_registrar",
-      "hosting": "hosting",
-      "services": "services",
-      "cdn": "cdn"
+      "mx_records": "Email",
+      "domain_registrar": "Domain Registrar",
+      "hosting": "Hosting",
+      "services": "Services",
+      "cdn": "CDN"
     },
     "buttons": {
       "shareResults": "Share Results",
