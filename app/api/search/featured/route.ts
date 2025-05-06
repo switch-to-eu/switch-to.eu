@@ -40,7 +40,6 @@ export async function GET(request: NextRequest) {
             type: 'service',
             location: service.location,
             category: service.category,
-            privacyRating: service.privacyRating,
             freeOption: service.freeOption,
             region: service.region || 'non-eu' // Default to non-eu if not specified
         }));

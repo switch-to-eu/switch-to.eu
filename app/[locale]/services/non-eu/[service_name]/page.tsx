@@ -16,6 +16,7 @@ import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import React from "react";
 import { Locale } from "next-intl";
+import { RegionBadge } from "@/components/ui/region-badge";
 
 // Generate static params for all non-EU services
 export async function generateStaticParams() {
@@ -176,9 +177,9 @@ export default async function ServiceDetailPage({
             data.sourceService &&
             data.targetService &&
             data.sourceService.toLowerCase() ===
-              frontmatter.name.toLowerCase() &&
+            frontmatter.name.toLowerCase() &&
             data.targetService.toLowerCase() ===
-              recommendedAlternativeData.name.toLowerCase()
+            recommendedAlternativeData.name.toLowerCase()
           ) {
             // Found a matching migration guide
             migrationGuides.push({
@@ -211,8 +212,8 @@ export default async function ServiceDetailPage({
   // Filter out recommended alternative from alternatives list if it exists
   const otherAlternatives = recommendedAlternativeData
     ? euAlternatives.filter(
-        (alt) => alt.name !== recommendedAlternativeData.name
-      )
+      (alt) => alt.name !== recommendedAlternativeData.name
+    )
     : euAlternatives;
 
   return (
@@ -221,9 +222,10 @@ export default async function ServiceDetailPage({
         {/* Main Content */}
         <div className="lg:col-span-2">
           {/* Service Header */}
-          <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
-            {frontmatter.name}
-          </h1>
+          <div className="flex justify-between items-start mb-2">
+            <h1 className="text-3xl font-bold">{frontmatter.name}</h1>
+            <RegionBadge region={(frontmatter.region as 'eu' | 'non-eu' | 'eu-friendly') || 'non-eu'} />
+          </div>
           <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
             {frontmatter.description}
           </p>
