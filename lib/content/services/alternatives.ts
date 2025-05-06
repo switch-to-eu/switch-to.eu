@@ -50,7 +50,7 @@ export async function getAlternativesByCategory(
                 name: service.name,
                 location: service.location,
                 freeOption: service.freeOption,
-                startingPrice: service.startingPrice,
+                startingPrice: service.startingPrice ? service.startingPrice.toString() : "Unknown",
                 description: service.description,
                 url: service.url,
             })),

@@ -29,7 +29,7 @@ export interface ServiceSearchResult extends BaseSearchResult {
     location: string;
     category: string;
     freeOption: boolean;
-    region: "eu" | "non-eu";
+    region: "eu" | "non-eu" | "eu-friendly";
 }
 
 export interface CategorySearchResult extends BaseSearchResult {
@@ -171,7 +171,7 @@ export async function performSearch(
     options: {
         limit?: number;
         types?: SearchResultType[];
-        region?: "eu" | "non-eu";
+        region?: "eu" | "non-eu" | "eu-friendly";
         lang?: Locale;
     } = {}
 ): Promise<SearchResult[]> {
