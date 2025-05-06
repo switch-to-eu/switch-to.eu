@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -16,7 +16,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary-foreground: var(
+    --sidebar-primary-foreground
+  );
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
@@ -75,6 +77,7 @@
   --green: #a2d4a8;
   --green-bg: #e8fff5;
   --blue: #3ea6e3;
+  --yellow: #f7df8f;
 
   /* Feature card colors */
   --feature-blue-bg: #e9f4fd;
@@ -85,10 +88,10 @@
   --cta-button-hover: #ff8a74;
 
   /* Pop colors for category cards */
-  --pop-1: #e9f4fd;  /* Light blue */
-  --pop-2: #ffeae5;  /* Light pink */
-  --pop-3: #e8f7ed;  /* Light green */
-  --pop-4: #f0ebff;  /* Light purple */
+  --pop-1: #e9f4fd; /* Light blue */
+  --pop-2: #ffeae5; /* Light pink */
+  --pop-3: #e8f7ed; /* Light green */
+  --pop-4: #f0ebff; /* Light purple */
 
   /* Chart colors */
   --chart-1: #1b456b;
@@ -126,6 +129,10 @@
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #64a5f6;
+  --green: #7aad81;
+  --green-bg: #1c3a2b;
+  --blue: #3ea6e3;
+  --yellow: #f2ca4c;
 
   /* Feature card colors - darker versions */
   --feature-blue-bg: #193548;
@@ -159,7 +166,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
     font-family: var(--font-hanken-grotesk);
   }
 
@@ -173,10 +180,13 @@
     font-weight: 800;
   }
 
-
-
   /* Override font-bold class specifically for headings */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     &.font-bold {
       font-family: var(--font-bricolage-grotesque) !important;
       font-weight: 800 !important;
@@ -203,7 +213,8 @@
     font-weight: 400;
   }
 
-  strong, b {
+  strong,
+  b {
     font-family: var(--font-hanken-grotesk-bold);
     font-weight: 700;
   }
@@ -298,4 +309,19 @@
 
 .mdx-content hr {
   @apply my-8 border-t border-gray-300 dark:border-gray-600;
+}
+
+/* Custom badges for regions */
+.badge-eu-friendly {
+  background-color: var(--yellow) !important;
+  color: #1a1c1e !important;
+  border-color: transparent !important;
+}
+
+.badge-eu-friendly:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--yellow) 90%,
+    black
+  ) !important;
 }

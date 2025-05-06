@@ -29,8 +29,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = t("title");
   const description = t("description");
+
+  // Default to localhost if NEXT_PUBLIC_URL is not defined
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3001";
+
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    metadataBase: new URL(baseUrl),
     title,
     description,
     icons: {
@@ -51,10 +55,10 @@ export async function generateMetadata(): Promise<Metadata> {
       ],
     },
     alternates: {
-      canonical: process.env.NEXT_PUBLIC_URL!,
+      canonical: baseUrl,
       languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}/en`,
-        nl: `${process.env.NEXT_PUBLIC_URL}/nl`,
+        en: `${baseUrl}/en`,
+        nl: `${baseUrl}/nl`,
       },
     },
     openGraph: {

@@ -81,8 +81,6 @@ export default async function ServiceDetailPage({
   // Get translations
   const t = await getTranslations("services.detail");
 
-  // Keep the original URL slug for redirects
-  const originalSlug = service_name;
 
   // Normalize slug (replace hyphens with spaces for lookup)
   // The conversion needs to be more flexible to handle special cases
@@ -97,17 +95,6 @@ export default async function ServiceDetailPage({
 
   const { frontmatter, content } = serviceData;
 
-  // Verify this is an EU service
-  if (frontmatter.region !== "eu") {
-    // Redirect to the non-EU version
-    return {
-      redirect: {
-        destination: `/${locale}/services/non-eu/${originalSlug}`,
-        permanent: false,
-      },
-    };
-  }
-
   // Load related guides
   const relatedGuides = await getGuidesByTargetService(
     frontmatter.name,
@@ -119,6 +106,15 @@ export default async function ServiceDetailPage({
     await getServicesByCategory(frontmatter.category, "eu", locale)
   )
     .filter((service) => service.name !== frontmatter.name)
+    // Sort featured services to the top
+    .sort((a, b) => {
+      // If a is featured and b is not, a comes first
+      if (a.featured && !b.featured) return -1;
+      // If b is featured and a is not, b comes first
+      if (!a.featured && b.featured) return 1;
+      // Otherwise, keep original order
+      return 0;
+    })
     .slice(0, 4); // Limit to 4 similar services
 
   // Set basic options for marked
@@ -138,7 +134,7 @@ export default async function ServiceDetailPage({
           <div className="mb-8">
             <div className="flex justify-between items-start mb-2">
               <h1 className="text-3xl font-bold">{frontmatter.name}</h1>
-              <RegionBadge region="eu" />
+              <RegionBadge region={(frontmatter.region as 'eu' | 'non-eu' | 'eu-friendly') || 'non-eu'} />
             </div>
             <p className="text-lg text-muted-foreground mb-4">
               {frontmatter.description}
@@ -148,25 +144,7 @@ export default async function ServiceDetailPage({
                 <span className="font-semibold mr-2">{t("location")}:</span>
                 <span>{frontmatter.location}</span>
               </div>
-              <div className="flex items-center">
-                <span className="font-semibold mr-2">
-                  {t("privacyRating")}:
-                </span>
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`text-lg ${
-                        i < frontmatter.privacyRating
-                          ? "text-yellow-500"
-                          : "text-gray-300"
-                      }`}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-              </div>
+
               <div className="flex items-center">
                 <span className="font-semibold mr-2">{t("freeOption")}:</span>
                 <span>
@@ -175,12 +153,14 @@ export default async function ServiceDetailPage({
                     : t("freeOptionNo")}
                 </span>
               </div>
-              <div className="flex items-center">
-                <span className="font-semibold mr-2">
-                  {t("startingPrice")}:
-                </span>
-                <span>{frontmatter.startingPrice}</span>
-              </div>
+              {frontmatter.startingPrice && (
+                <div className="flex items-center">
+                  <span className="font-semibold mr-2">
+                    {t("startingPrice")}:
+                  </span>
+                  <span>{frontmatter.startingPrice}</span>
+                </div>
+              )}
             </div>
             <Button variant="default" asChild>
               <Link href={frontmatter.url} target="_blank">
@@ -204,11 +184,12 @@ export default async function ServiceDetailPage({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {similarServices.map((service) => (
-                  <ServiceCard
-                    key={service.name}
-                    service={service}
-                    showCategory={false}
-                  />
+                  <div key={service.name} className="relative">
+                    <ServiceCard
+                      service={service}
+                      showCategory={false}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
