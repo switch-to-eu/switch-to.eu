@@ -21,6 +21,7 @@ export async function RecommendedAlternative({
   const t = await getTranslations("services");
 
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
+  const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
 
   return (
     <div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
@@ -87,7 +88,7 @@ export async function RecommendedAlternative({
             ))}
 
           <Link
-            href={`/services/${service.region || "eu"}/${serviceSlug}`}
+            href={`/services/${regionPath}/${serviceSlug}`}
             className="inline-block py-2 px-5 border border-slate-300 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             {t("detail.recommendedAlternative.viewDetails")}
