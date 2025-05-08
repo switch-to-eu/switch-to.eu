@@ -169,6 +169,59 @@ export default async function ServiceDetailPage({
             </Button>
           </div>
 
+          {/* Mobile Migration Guides - Only visible on mobile */}
+          {relatedGuides.length > 0 ? (
+            <div className="lg:hidden mb-8 p-6 border rounded-lg bg-[var(--green-bg)]">
+              <h2 className="text-xl font-bold mb-4">
+                {t("migrationGuides")}
+              </h2>
+              <p className="text-muted-foreground mb-4">
+                {t("migrateHelp")} <b>{frontmatter.name}</b>
+              </p>
+              <div className="space-y-4">
+                {relatedGuides.map((guide) => (
+                  <Link
+                    key={`${guide.category}-${guide.slug}`}
+                    href={`/guides/${guide.category}/${guide.slug}`}
+                    className="block mb-4 mt-4 rounded-md transition-colors"
+                  >
+                    <h3 className="text-lg mb-1">
+                      {guide.frontmatter.sourceService &&
+                        `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
+                      {!guide.frontmatter.sourceService &&
+                        guide.frontmatter.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      {guide.frontmatter.description}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex justify-center">
+                  <Button variant="red" size="sm" asChild>
+                    <Link href={`/contribute`}>{t("writeAnotherGuide")}</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="lg:hidden mb-8 p-6 border rounded-lg bg-[var(--green-bg)]">
+              <h2 className="text-xl font-bold mb-4">
+                {t("migrationGuides")}
+              </h2>
+              <p className="text-muted-foreground mb-4">
+                {t("noGuides")} <b>{frontmatter.name}</b>.
+              </p>
+              <p className="text-muted-foreground mb-6">{t("helpOthers")}</p>
+              <div className="flex justify-center">
+                <Button variant="red" asChild>
+                  <Link href={`/contribute`}>{t("writeMigrationGuide")}</Link>
+                </Button>
+              </div>
+            </div>
+          )}
+
           {/* Markdown Content */}
           {htmlContent && (
             <div className="mdx-content prose prose-sm sm:prose dark:prose-invert max-w-none mb-12">
@@ -203,8 +256,8 @@ export default async function ServiceDetailPage({
 
         {/* Sidebar */}
         <div className="lg:col-span-1 ">
-          {/* Migration Guides - Always show the sidebar, with CTA if no guides */}
-          <div className="sticky top-24 border rounded-lg p-6 bg-[var(--green-bg)]">
+          {/* Migration Guides - Desktop only */}
+          <div className="hidden lg:block sticky top-24 border rounded-lg p-6 bg-[var(--green-bg)]">
             <div className="relative h-40 mb-6">
               <Image
                 src="/images/migrate.svg"
