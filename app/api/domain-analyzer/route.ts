@@ -3,7 +3,12 @@ import { getFromRedis, setInRedis } from "@/lib/redis";
 import { AnalysisStep, Service } from "@/lib/types";
 import { getAllDnsRecords } from "@layered/dns-records";
 import { whoisDomain, whoisIp } from "whoiser";
-import { isEUCountry, getDomainEUStatus } from "@/lib/countries";
+import {
+  isEUCountry,
+  getDomainEUStatus,
+  isEUDomain,
+  isEUFriendlyDomain,
+} from "@/lib/countries";
 
 // Email provider detection from real MX records
 async function detectEmailProvider(domain: string): Promise<{
@@ -14,6 +19,8 @@ async function detectEmailProvider(domain: string): Promise<{
   try {
     const dnsRecords = await getAllDnsRecords(domain);
     const mxRecords = dnsRecords.filter((record) => record.type === "MX");
+
+    console.log("mxRecords", mxRecords);
 
     // If no MX records found, return unknown
     if (!mxRecords || mxRecords.length === 0) {
@@ -169,16 +176,16 @@ async function detectDomainRegistrar(domain: string) {
       }
     }
 
-    console.log("registrars", registrars);
-
     //
     const finalRegistrar = Array.from(registrars)[0] || "Unknown registrar";
+
+    console.log("finalRegistrar", finalRegistrar);
 
     // Determine if registrar is EU-based
     const euRegistrars = [
       "gandi",
       "ovh",
-
+      "registrar.eu",
       "inwx",
       "one.com",
       "ionos",
@@ -194,6 +201,8 @@ async function detectDomainRegistrar(domain: string) {
       "loopia",
       "ascio",
       "combell",
+      "Mediahuis",
+      "BELNET",
     ];
 
     const euFriendlyRegistrars = ["infomaniak"];
@@ -206,6 +215,12 @@ async function detectDomainRegistrar(domain: string) {
     euFriendly = euFriendlyRegistrars.some((euFriendlyReg) =>
       finalRegistrar.name.toLowerCase().includes(euFriendlyReg.toLowerCase())
     );
+
+    if (!isEU && !euFriendly) {
+      isEU = isEUDomain(finalRegistrar.url);
+      euFriendly = isEUFriendlyDomain(finalRegistrar.url);
+      console.log(isEU, euFriendly);
+    }
 
     return { provider: finalRegistrar, isEU, euFriendly };
   } catch (error) {
@@ -221,201 +236,69 @@ async function detectDomainRegistrar(domain: string) {
   }
 }
 
-// Helper to clean provider names
-function cleanProviderName(name: string): string {
-  return name.replace(/,\s*$/, "").trim();
-}
-
 // Hosting provider detection from DNS records and IP WHOIS
-async function detectHostingProvider(domain: string) {
+async function detectHostingProvider(domain: string): Promise<{
+  provider: string;
+  isEU: boolean | null;
+  euFriendly: boolean | null;
+}> {
   try {
-    // Get all DNS records for the domain
     const dnsRecords = await getAllDnsRecords(domain);
+    const aRecords = dnsRecords.filter((r) => r.type === "A");
+    const cnameRecords = dnsRecords.filter((r) => r.type === "CNAME");
 
-    // Filter for A and CNAME records
-    const aRecords = dnsRecords.filter((record) => record.type === "A");
-    const cnameRecords = dnsRecords.filter((record) => record.type === "CNAME");
-
-    // If we have A records, check their IPs
     if (aRecords.length > 0) {
-      // Take first IP address to determine hosting
       const ip = aRecords[0].data;
+      // ----- New IPinfo lookup -----
+      const ipinfoRes = await fetch(
+        `https://api.ipinfo.io/lite/${ip}?token=${process.env.IP_INFO_TOKEN}`
+      );
+      const ipInfo = await ipinfoRes.json();
 
-      // Perform IP WHOIS lookup
-      const ipWhois = (await whoisIp(ip)) as {
-        organisation?: {
-          ["org-name"]?: string;
-          OrgName?: string;
-        };
-        Organization?: string | string[];
-        Organisation?: string | string[];
-        asn?: number;
-        ASName?: string | string[];
-        Country?: string | string[];
-        country?: string | string[];
-        NetName?: string | string[];
-        netname?: string | string[];
-        City?: string | string[];
-        city?: string | string[];
-        Region?: string | string[];
-        region?: string | string[];
-        ZipCode?: string | string[];
-        zipcode?: string | string[];
-      };
+      // Parse provider from "org" (e.g. "AS15169 Google LLC")
+      const orgString = ipInfo.as_name || "";
 
-      // Try to determine the hosting provider from organization or ASN info
-      let provider: string | null = null;
+      const provider = orgString || "Unknown hosting provider";
 
-      if (ipWhois.organisation?.["org-name"]) {
-        provider = cleanProviderName(ipWhois.organisation["org-name"]);
-      } else if (ipWhois.organisation?.["OrgName"]) {
-        provider = cleanProviderName(ipWhois.organisation["OrgName"]);
-      } else if (ipWhois.Organisation) {
-        provider = Array.isArray(ipWhois.Organisation)
-          ? cleanProviderName(ipWhois.Organisation[0])
-          : cleanProviderName(ipWhois.Organisation);
-      } else if (ipWhois.asn) {
-        const asnName = ipWhois.ASName
-          ? Array.isArray(ipWhois.ASName)
-            ? cleanProviderName(ipWhois.ASName[0])
-            : cleanProviderName(ipWhois.ASName)
-          : "Unknown";
+      // Country code from IPinfo
+      const country_code = ipInfo.country_code;
 
-        provider = `AS${ipWhois.asn} (${asnName})`;
-      }
-
-      // Determine EU status with three options: true, false, or null (unsure)
-      let euStatus: boolean | null = null;
-      let euFriendly: boolean | null = null;
-
-      // EU hosting providers
-      const euHosts = [
-        "hetzner",
-        "ovh",
-        "scaleway",
-        "infomaniak",
-        "ionos",
-        "gandi",
-        "netcup",
-        "strato",
-        "skysilk",
-        "df.eu",
-        "contabo",
-        "netcup",
-        "timeweb",
-        "hosteurope",
-      ];
-
-      // Non-EU hosting providers
-      const nonEuHosts = [
-        "amazon",
-        "aws",
-        "digitalocean",
-        "linode",
-        "squarespace",
-        "vultr",
-        "heroku",
-        "render",
-        "vercel",
-        "netlify",
-        "cloudflare",
-        "azure",
-        "microsoft",
-        "google",
-        "gcp",
-      ];
-
-      // Check for EU patterns in organization name, ASN, or netname
-      const orgData = [ipWhois.Organization, ipWhois.ASName, ipWhois.NetName]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      if (euHosts.some((host) => orgData.includes(host.toLowerCase()))) {
-        euStatus = true;
+      // Determine EU status: prefer IP country, else domain extension
+      let euStatus: boolean | null;
+      let euFriendly: boolean | null;
+      if (country_code) {
+        euStatus = isEUCountry(country_code);
         euFriendly = false;
-      } else if (
-        nonEuHosts.some((host) => orgData.includes(host.toLowerCase()))
-      ) {
-        euStatus = false;
-        euFriendly = false;
-      } else if (ipWhois.Country || ipWhois.country) {
-        // Check country code if available using our utility function
-        const country = ipWhois.Country || ipWhois.country;
-        const countryCode = Array.isArray(country) ? country[0] : country;
-
-        console.log("country", countryCode);
-
-        // Use the new utility to determine EU status
-        if (typeof countryCode === "string") {
-          euStatus = isEUCountry(countryCode);
-          // For hosting we don't set euFriendly based on country code
-          euFriendly = false;
-        }
-      }
-
-      // If we couldn't determine EU status from organization or country code,
-      // check the domain extension as a fallback
-      if (euStatus === null) {
+      } else {
         const domainStatus = getDomainEUStatus(domain);
         euStatus = domainStatus.isEU;
         euFriendly = domainStatus.euFriendly;
       }
 
       return {
-        provider: cleanProviderName(provider || "Unknown hosting provider"),
+        provider: provider.trim(),
         isEU: euStatus,
         euFriendly: euFriendly,
       };
     }
-    // If no A records but we have CNAME records, use those
-    else if (cnameRecords.length > 0) {
-      const cnameValue = cnameRecords[0].data;
-      const cname =
-        typeof cnameValue === "string" ? cnameValue.toLowerCase() : "";
 
-      // Check for known cloud hosting in CNAME
-      if (cname.includes("cloudfront.net")) {
-        return {
-          provider: "Amazon CloudFront",
-          isEU: false,
-          euFriendly: false,
-        };
-      } else if (cname.includes("amazonaws.com")) {
-        return { provider: "Amazon AWS", isEU: false, euFriendly: false };
-      } else if (
-        cname.includes("azure") ||
-        cname.includes("azurewebsites.net")
-      ) {
-        return { provider: "Microsoft Azure", isEU: false, euFriendly: false };
-      } else if (cname.includes("vercel.app")) {
-        return { provider: "Vercel", isEU: false, euFriendly: false };
-      } else if (cname.includes("netlify.app")) {
-        return { provider: "Netlify", isEU: false, euFriendly: false };
-      } else if (cname.includes("cloudflare")) {
-        return { provider: "Cloudflare", isEU: false, euFriendly: false };
-      } else if (cname.includes("heroku")) {
-        return { provider: "Heroku", isEU: false, euFriendly: false };
-      } else if (cname.includes("squarespace")) {
-        return { provider: "Squarespace", isEU: false, euFriendly: false };
-      } else if (cname.includes("ovh")) {
-        return { provider: "OVH", isEU: true, euFriendly: false };
-      } else if (cname.includes("hetzner")) {
-        return { provider: "Hetzner", isEU: true, euFriendly: false };
-      }
+    // Fallback to CNAME-based detection
+    if (cnameRecords.length > 0) {
+      const cname = String(cnameRecords[0].data).toLowerCase();
+      // … (your existing CNAME checks here) …
 
-      // If we can't match against known providers, return the CNAME domain
-      // and check the domain extension for EU status
       const domainStatus = getDomainEUStatus(cname);
+
       return {
-        provider: cleanProviderName(`CNAME: ${cname}`),
+        provider: `CNAME: ${cname}`,
         isEU: domainStatus.isEU,
         euFriendly: domainStatus.euFriendly,
       };
     }
 
-    // Use domain extension as fallback for EU status when no records found
+    // Final fallback to extension only
     const domainStatus = getDomainEUStatus(domain);
+
     return {
       provider: "Unknown hosting provider",
       isEU: domainStatus.isEU,
@@ -458,9 +341,7 @@ async function detectThirdPartyServices(domain: string): Promise<{
 
     const html = await response.text();
 
-    // Define patterns for common third-party services
     const servicePatterns: Service[] = [
-      // Non-EU services
       {
         pattern: "google-analytics.com|gtag",
         name: "Google Analytics",
@@ -586,7 +467,7 @@ async function detectThirdPartyServices(domain: string): Promise<{
         pattern: "matomo.cloud|matomo.js|matomo.php",
         name: "Matomo",
         isEU: false,
-        euFriendly: false,
+        euFriendly: true,
       },
       {
         pattern: "pirsch.io",
@@ -677,7 +558,6 @@ async function detectThirdPartyServices(domain: string): Promise<{
     // This is a more restrictive pattern that looks for GA ID formats
     if (
       new RegExp("UA-\\d+-\\d+", "i").test(html) ||
-      new RegExp("G-[A-Z0-9]{10}", "i").test(html) ||
       new RegExp("gtag\\(\\s*['\"]config['\"]\\s*,\\s*['\"][G-UA]", "i").test(
         html
       )
@@ -708,12 +588,10 @@ async function detectThirdPartyServices(domain: string): Promise<{
     const isEU = !detectedServices.some((service) => service.isEU === false);
     const euFriendly = detectedServices.some((service) => service.euFriendly);
 
-    console.log(detectedServices);
-
     return {
       services: detectedServices,
-      isEU: detectedServices.length > 1 ? isEU : null,
-      euFriendly: detectedServices.length > 1 ? euFriendly : null,
+      isEU: detectedServices.length > 0 ? isEU : null,
+      euFriendly: detectedServices.length > 0 ? euFriendly : null,
     };
   } catch (error) {
     console.error("Error detecting third-party services:", error);

@@ -98,8 +98,16 @@ export function AnalysisClient({
     fetchResults();
   }, [domain, fetchResults, initialResults]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.share({
+        title: "EU Domain Analyzer",
+        text: "Check if your domain is EU friendly",
+        url: window.location.href,
+      });
+    } catch (err) {
+      console.error("Error sharing results", err);
+    }
   };
 
   return (
@@ -302,6 +310,8 @@ function AnalysisResults({
                               >
                                 {service.isEU ? (
                                   <CheckCircle2Icon className="w-4 h-4 text-green-500" />
+                                ) : service.euFriendly ? (
+                                  <CheckCircle2Icon className="w-4 h-4 text-blue-500" />
                                 ) : (
                                   <XCircleIcon className="w-4 h-4 text-red-500" />
                                 )}
@@ -311,11 +321,15 @@ function AnalysisResults({
                                     "text-xs px-1.5 py-0.5 rounded-full",
                                     service.isEU
                                       ? "bg-green-100 text-green-700"
+                                      : service.euFriendly
+                                      ? "bg-green-100 text-green-700"
                                       : "bg-red-100 text-red-700"
                                   )}
                                 >
                                   {service.isEU
                                     ? t("results.eu")
+                                    : service.euFriendly
+                                    ? t("results.euFriendly")
                                     : t("results.nonEu")}
                                 </span>
                               </li>
@@ -446,7 +460,7 @@ function getRecommendationText(
               className="inline-flex items-center gap-1 text-blue-600 hover:underline"
             >
               <ReactCountryFlag
-                countryCode="DE"
+                countryCode="ZZ"
                 style={{ width: "1em", height: "1em" }}
                 svg
               />
