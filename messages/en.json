@@ -45,14 +45,14 @@
     "mobileMenu": "Toggle menu"
   },
   "home": {
-    "heading": "Switch to EU-based digital services",
+    "heading": "Moving away from big tech? Make the switch.",
     "subheading": "Find EU alternatives to global services and protect your data under EU law",
     "featuredSection": "Featured Categories",
     "categoriesSectionTitle": "European Alternatives by Categories",
     "viewAll": "View all services",
-    "heroTitle": "TAKE CONTROL OF YOUR DIGITAL SERVICES",
-    "heroSubtitle": "Switch to <b>EU-based alternatives</b> that respect your privacy, follow GDPR, and keep your data in Europe",
-    "heroDescription": "Enter a service that you want to move away and we will help you <b>make the switch!</b>",
+    "heroTitle": "Moving away from big tech? Make the switch!",
+    "heroSubtitle": "Are you concerned about your privacy and the power abuse by <b>American tech companies</b>? This website helps you switch to <b>European and open-source alternatives</b>.",
+    "heroDescription": "Tell us which <b>digital service</b> you want to change and we'll help you with <b>the transition!</b>",
     "exampleLabel": "For example:",
     "featuredTitle": "What does Switch-to.eu stand for?",
     "featuresEuropeanTitle": "European Alternatives",
@@ -271,6 +271,34 @@
     "heroTitle": "About Switch-to.EU",
     "heroDescription1": "Switch-to.EU is a community-driven platform that helps users easily switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.",
     "heroDescription2": "Our goal is to promote digital sovereignty and data privacy by making it easier for users to find and migrate to services hosted within the European Union.",
+    "initiative": {
+      "heading": "Moving away from big tech? We help you make the switch.",
+      "intro": "Switch-to.eu is an initiative by Vincent and Simon Peters, digital designers from Antwerp who want to guide people in transitioning from American tech giants to European and open-source alternatives.",
+      "mission": {
+        "title": "Our mission",
+        "description1": "In a world where American tech giants are amassing increasing control over our data and digital lives, Switch-to.eu offers an escape route. We believe everyone should have access to user-friendly, privacy-respecting digital tools developed in Europe.",
+        "description2": "Growing concerns about data privacy and the increasing monopolistic power of American tech companies led us to create this platform. Especially after big tech's shameless capitulation to Donald Trump, interest in European alternatives has only grown."
+      },
+      "whatWeDo": {
+        "title": "What we do",
+        "description": "Switch-to.eu offers step-by-step guides for replacing everyday digital tools like WhatsApp, Gmail, Chrome, and social media platforms with privacy-focused European alternatives. Our guides are specifically designed to be accessible to everyone - even your grandmother can make the switch with our simplified instructions."
+      },
+      "uniqueness": {
+        "title": "What makes us unique",
+        "description1": "Switch-to.eu fills an important gap in the digital world. There was no website that both clearly presents curated choices and consistently opts for European solutions that are actually practical to use.",
+        "description2": "At Switch-to.eu we offer:",
+        "points": [
+          "Carefully selected European alternatives to popular American apps and services",
+          "Practical solutions that work in everyday life, not just complicated privacy tools for tech nerds",
+          "Simple, step-by-step guides that anyone can follow",
+          "A focus on both privacy and usability"
+        ]
+      },
+      "callToAction": {
+        "title": "Start today",
+        "description": "Ready to take back control of your digital life? Explore our guides and discover how easy it can be to transition to a more privacy-respecting digital existence with European technology that simply works."
+      }
+    },
     "pillarsTitle": "Our Three Pillars",
     "pillars": {
       "pillar1": {

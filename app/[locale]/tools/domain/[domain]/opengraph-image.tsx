@@ -4,10 +4,12 @@ import { AnalysisStep } from "@/lib/types";
 
 // Image metadata
 export const alt = "Domain EU Compliance Analysis";
+
 export const size = {
   width: 1200,
   height: 630,
 };
+
 export const contentType = "image/png";
 
 // Helper to format domain name

@@ -45,14 +45,14 @@
     "mobileMenu": "Menu openen"
   },
   "home": {
-    "heading": "Stap over naar EU-gebaseerde digitale diensten",
+    "heading": "Weg van big tech? Maak de switch.",
     "subheading": "Vind EU-alternatieven voor wereldwijde diensten en bescherm je gegevens onder EU-wetgeving",
     "featuredSection": "Uitgelichte Categorieën",
     "categoriesSectionTitle": "Europese Alternatieven per Categorie",
     "viewAll": "Bekijk alle diensten",
-    "heroTitle": "NEEM CONTROLE OVER JE DIGITALE DIENSTEN",
-    "heroSubtitle": "Stap over naar <b>EU-gebaseerde alternatieven</b> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
-    "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <b>de overstap!</b>",
+    "heroTitle": "Weg van big tech? Maak de switch!",
+    "heroSubtitle": "Maak jij je ook zorgen over je privacy en machtsmisbruik door <b>Amerikaanse techbedrijven</b>? Deze website helpt je om de switch te maken naar <b>Europese en open-source alternatieven</b>.",
+    "heroDescription": "Vertel ons welke <b>digitale dienst</b> je wil veranderen en wij helpen je bij <b>de overstap!</b>",
     "exampleLabel": "Bijvoorbeeld:",
     "featuredTitle": "Waar staat Switch-to.eu voor?",
     "featuresEuropeanTitle": "Europese Alternatieven",
@@ -271,6 +271,34 @@
     "heroTitle": "Over Switch-to.EU",
     "heroDescription1": "Switch-to.EU is een door de gemeenschap gedreven platform dat gebruikers helpt gemakkelijk over te stappen van niet-EU digitale diensten naar EU-alternatieven door middel van duidelijke, stapsgewijze migratiegidsen.",
     "heroDescription2": "Ons doel is het bevorderen van digitale soevereiniteit en gegevensprivacy door het voor gebruikers gemakkelijker te maken om diensten te vinden en ernaar te migreren die binnen de Europese Unie worden gehost.",
+    "initiative": {
+      "heading": "Weg van big tech? Wij helpen je de switch te maken.",
+      "intro": "Switch-to.eu is een initiatief van Vincent en Simon Peters, een digitaal ontwerpers uit Antwerpen die mensen wil begeleiden bij de overstap van Amerikaanse techgiganten naar Europese en open-source alternatieven.",
+      "mission": {
+        "title": "Onze missie",
+        "description1": "In een wereld waar Amerikaanse tech-giganten steeds meer macht verzamelen over onze gegevens en digitale levens, biedt Switch-to.eu een uitweg. Wij geloven dat iedereen toegang moet hebben tot gebruiksvriendelijke, privacy-respecterende digitale tools die in Europa ontwikkeld zijn.",
+        "description2": "De toenemende zorgen over gegevensprivacy en de groeiende monopolistische macht van Amerikaanse techbedrijven hebben ons ertoe gebracht dit platform te creëren. Zeker na de schaamteloze knieval van big tech voor Donald Trump is de interesse naar Europese alternatieven alleen maar gegroeid."
+      },
+      "whatWeDo": {
+        "title": "Wat we doen",
+        "description": "Switch-to.eu biedt stapsgewijze handleidingen voor het vervangen van dagelijkse digitale tools zoals WhatsApp, Gmail, Chrome en sociale mediaplatforms door privacy-gerichte Europese alternatieven. Onze gidsen zijn specifiek ontworpen om toegankelijk te zijn voor iedereen - zelfs je oma kan de switch maken met onze vereenvoudigde instructies."
+      },
+      "uniqueness": {
+        "title": "Wat ons uniek maakt",
+        "description1": "Switch-to.eu vult een belangrijk hiaat in de digitale wereld. Er bestond nog geen website die zowel duidelijk gecureerde keuzes naar voren schuift, alsook consequent kiest voor Europese oplossingen die ook echt praktisch bruikbaar zijn.",
+        "description2": "Bij Switch-to.eu bieden we:",
+        "points": [
+          "Zorgvuldig geselecteerde Europese alternatieven voor populaire Amerikaanse apps en diensten",
+          "Praktische oplossingen die werken in het dagelijks leven, niet alleen ingewikkelde privacy-tools voor tech-nerds",
+          "Eenvoudige, stap-voor-stap handleidingen die iedereen kan volgen",
+          "Een focus op privacy én gebruiksgemak"
+        ]
+      },
+      "callToAction": {
+        "title": "Begin vandaag nog",
+        "description": "Klaar om de controle over je digitale leven terug te nemen? Verken onze gidsen en ontdek hoe eenvoudig het kan zijn om de overstap te maken naar een meer privacy-respecterend digitaal bestaan met Europese technologie die gewoon werkt."
+      }
+    },
     "pillarsTitle": "Onze Drie Pijlers",
     "pillars": {
       "pillar1": {

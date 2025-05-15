@@ -4,10 +4,50 @@ import { getFromRedis } from "@/lib/redis";
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
 import { AnalysisStep } from "@/lib/types";
 import { Link } from "@/i18n/navigation";
+import { Metadata } from "next";
+import { Locale } from "next-intl";
 
 // Helper to format domain name
 function formatDomain(domain: string) {
   return domain.replace(/^(https?:\/\/)?(www\.)?/, "").replace(/\/$/, "");
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ domain: string; locale: Locale }>;
+}): Promise<Metadata> {
+  // Await the params
+  const { domain, locale } = await params;
+  const domainFromUrl = decodeURIComponent(domain);
+
+  const formattedDomain = formatDomain(domainFromUrl);
+
+  return {
+    title: `${formattedDomain} | switch-to.eu`,
+    description: `Check if ${formattedDomain} uses EU-based services and is EU GDPR compliant.`,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_URL}/${locale}/tools/domain/${domain}`,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_URL}/en/tools/domain/${domain}`,
+        nl: `${process.env.NEXT_PUBLIC_URL}/nl/tools/domain/${domain}`,
+      },
+    },
+    openGraph: {
+      title: `${formattedDomain} - switch-to.eu`,
+      description: `Check if ${formattedDomain} uses EU-based services and is EU GDPR compliant.`,
+      siteName: "switch-to.eu",
+      locale: locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${formattedDomain} - EU Compliance Analysis`,
+      description: `Check if ${formattedDomain} uses EU-based services and is EU GDPR compliant.`,
+    },
+  };
 }
 
 export default async function DomainAnalyzerPage({
