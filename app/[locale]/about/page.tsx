@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
-import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { Locale } from "next-intl";
 
 // Generate metadata with language alternates
@@ -40,32 +38,60 @@ export async function generateMetadata({
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
-  const contributeT = await getTranslations("contribute");
   const imageSize = 120;
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+
       {/* Hero Section */}
       <section>
         <Container>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-                {t("heroTitle")}
-              </h1>
-              <p className="text-base sm:text-lg mb-6">
-                {t("heroDescription1")}
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+                {t("initiative.heading")}
+              </h2>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.intro")}
               </p>
-              <p className="text-base sm:text-lg mb-6">
-                {t("heroDescription2")}
+
+              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.mission.title")}</h3>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.mission.description1")}
+              </p>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.mission.description2")}
+              </p>
+
+              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.whatWeDo.title")}</h3>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.whatWeDo.description")}
+              </p>
+
+              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.uniqueness.title")}</h3>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.uniqueness.description1")}
+              </p>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.uniqueness.description2")}
+              </p>
+              <ul className="list-disc pl-6 space-y-2 mb-8 text-base sm:text-lg">
+                {(t.raw("initiative.uniqueness.points") as Array<string>).map((point: string, index: number) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.callToAction.title")}</h3>
+              <p className="mb-4 text-base sm:text-lg">
+                {t("initiative.callToAction.description")}
               </p>
             </div>
-            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0">
+            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0 self-start mt-6 md:mt-0">
               <Image
                 src="/images/europe.svg"
                 alt="Europe map illustration"
                 fill
-                className="object-contain"
+                className="object-contain object-top"
                 priority
               />
             </div>
@@ -185,45 +211,6 @@ export default async function AboutPage() {
                 {t("whyChoosePoints.point4.description")}
               </p>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Join Our Mission Section */}
-      <section className="py-8">
-        <Container>
-          <div className="text-center max-w-[800px] mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6">
-              {t("contributionTitle")}
-            </h2>
-            <p className="text-base sm:text-lg mb-4">
-              {t("contributionDescription")}
-            </p>
-            <ul className="list-disc text-left pl-8 mb-6">
-              <li className="mb-2">
-                {t("contributionPoints.point1.description")}
-              </li>
-              <li className="mb-2">
-                {t("contributionPoints.point2.description")}
-              </li>
-              <li className="mb-2">
-                {t("contributionPoints.point3.description")}
-              </li>
-              <li className="mb-2">
-                {t("contributionPoints.point4.description")}
-              </li>
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-      {/* How You Can Contribute Section - Removing this section as it's redundant with the improved Join Mission section */}
-      <section className="">
-        <Container>
-          <div className="flex justify-center mt-6">
-            <Button variant="red" className="font-medium" asChild>
-              <Link href="/contribute">{contributeT("buttonText")}</Link>
-            </Button>
           </div>
         </Container>
       </section>
