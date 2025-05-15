@@ -118,7 +118,7 @@ export function AnalysisClient({
             variant="outline"
             size="sm"
             className="flex items-center gap-1"
-            onClick={copyToClipboard}
+            onClick={() => copyToClipboard()}
           >
             <Share2Icon className="w-4 h-4" />
             {t("buttons.shareResults")}

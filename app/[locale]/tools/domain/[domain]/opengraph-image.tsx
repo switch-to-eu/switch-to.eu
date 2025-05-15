@@ -198,8 +198,6 @@ export default async function Image({
     ]
   );
 
-  console.log(bricolageFont, hankenSemiBoldFont, hankenBoldFont);
-
   if (!bricolageFont || !hankenSemiBoldFont || !hankenBoldFont) {
     return new Response("Font files not found", { status: 404 });
   }
