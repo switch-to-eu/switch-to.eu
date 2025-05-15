@@ -29,7 +29,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = t("title");
   const description = t("description");
+
+  // Default to localhost if NEXT_PUBLIC_URL is not defined
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3001";
+
   return {
+    metadataBase: new URL(baseUrl),
     title,
     description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
@@ -51,10 +56,10 @@ export async function generateMetadata(): Promise<Metadata> {
       ],
     },
     alternates: {
-      canonical: "/",
+      canonical: baseUrl,
       languages: {
-        en: "https://switch-to.eu/en",
-        nl: "https://switch-to.eu/nl",
+        en: `${baseUrl}/en`,
+        nl: `${baseUrl}/nl`,
       },
     },
     openGraph: {
@@ -93,8 +98,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
-
-  console.log("locale", locale);
 
   return (
     <html lang={locale}>

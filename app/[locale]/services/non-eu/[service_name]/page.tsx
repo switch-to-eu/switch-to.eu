@@ -16,6 +16,8 @@ import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import React from "react";
 import { Locale } from "next-intl";
+import { RegionBadge } from "@/components/ui/region-badge";
+import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
 
 // Generate static params for all non-EU services
 export async function generateStaticParams() {
@@ -176,9 +178,9 @@ export default async function ServiceDetailPage({
             data.sourceService &&
             data.targetService &&
             data.sourceService.toLowerCase() ===
-              frontmatter.name.toLowerCase() &&
+            frontmatter.name.toLowerCase() &&
             data.targetService.toLowerCase() ===
-              recommendedAlternativeData.name.toLowerCase()
+            recommendedAlternativeData.name.toLowerCase()
           ) {
             // Found a matching migration guide
             migrationGuides.push({
@@ -211,8 +213,8 @@ export default async function ServiceDetailPage({
   // Filter out recommended alternative from alternatives list if it exists
   const otherAlternatives = recommendedAlternativeData
     ? euAlternatives.filter(
-        (alt) => alt.name !== recommendedAlternativeData.name
-      )
+      (alt) => alt.name !== recommendedAlternativeData.name
+    )
     : euAlternatives;
 
   return (
@@ -221,9 +223,10 @@ export default async function ServiceDetailPage({
         {/* Main Content */}
         <div className="lg:col-span-2">
           {/* Service Header */}
-          <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
-            {frontmatter.name}
-          </h1>
+          <div className="flex justify-between items-start mb-2">
+            <h1 className="text-3xl font-bold">{frontmatter.name}</h1>
+            <RegionBadge region={(frontmatter.region as 'eu' | 'non-eu' | 'eu-friendly') || 'non-eu'} />
+          </div>
           <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
             {frontmatter.description}
           </p>
@@ -243,6 +246,19 @@ export default async function ServiceDetailPage({
                 migrationGuides={migrationGuides}
               />
             </React.Suspense>
+          )}
+
+          {/* Mobile Service Issues Section */}
+          {frontmatter.issues && frontmatter.issues.length > 0 && (
+            <div className="mb-8 lg:hidden">
+              <WarningCollapsible
+                items={frontmatter.issues}
+                title={t("whyProblematic", { service: frontmatter.name })}
+                variant="error"
+                iconType="alert-triangle"
+                className="rounded-lg border"
+              />
+            </div>
           )}
 
           {/* Service Details */}
@@ -280,9 +296,9 @@ export default async function ServiceDetailPage({
 
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          {/* Service Issues Section */}
+          {/* Service Issues Section - Desktop Only */}
           {frontmatter.issues && frontmatter.issues.length > 0 ? (
-            <div className="sticky top-24 bg-red-50 dark:bg-red-900/10 rounded-lg overflow-hidden border border-red-100 dark:border-red-900/30">
+            <div className="hidden lg:block sticky top-24 bg-red-50 dark:bg-red-900/10 rounded-lg overflow-hidden border border-red-100 dark:border-red-900/30">
               <div className="p-5 bg-red-100 dark:bg-red-900/20 border-b border-red-200 dark:border-red-900/30">
                 <h2 className="text-xl font-bold text-red-800 dark:text-red-300">
                   {t("whyProblematic", { service: frontmatter.name })}
@@ -317,7 +333,7 @@ export default async function ServiceDetailPage({
               </div>
             </div>
           ) : (
-            <div className="sticky top-24 rounded-lg p-6 bg-gray-50 dark:bg-gray-800 mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="hidden lg:block sticky top-24 rounded-lg p-6 bg-gray-50 dark:bg-gray-800 mb-6 border border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold mb-4">{t("whySwitchTitle")}</h2>
               <div className="space-y-4">
                 <div className="p-3 rounded-md bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600">

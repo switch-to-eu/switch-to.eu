@@ -274,7 +274,7 @@ export default async function GuideServicePage({
             {missingFeatures.length > 0 && (
               <div className="mb-0">
                 <WarningCollapsible
-                  missingFeatures={missingFeatures}
+                  items={missingFeatures}
                   title={serviceT("missingFeaturesTitle")}
                 />
               </div>

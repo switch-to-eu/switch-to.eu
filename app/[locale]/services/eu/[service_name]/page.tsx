@@ -81,8 +81,6 @@ export default async function ServiceDetailPage({
   // Get translations
   const t = await getTranslations("services.detail");
 
-  // Keep the original URL slug for redirects
-  const originalSlug = service_name;
 
   // Normalize slug (replace hyphens with spaces for lookup)
   // The conversion needs to be more flexible to handle special cases
@@ -97,17 +95,6 @@ export default async function ServiceDetailPage({
 
   const { frontmatter, content } = serviceData;
 
-  // Verify this is an EU service
-  if (frontmatter.region !== "eu") {
-    // Redirect to the non-EU version
-    return {
-      redirect: {
-        destination: `/${locale}/services/non-eu/${originalSlug}`,
-        permanent: false,
-      },
-    };
-  }
-
   // Load related guides
   const relatedGuides = await getGuidesByTargetService(
     frontmatter.name,
@@ -119,6 +106,15 @@ export default async function ServiceDetailPage({
     await getServicesByCategory(frontmatter.category, "eu", locale)
   )
     .filter((service) => service.name !== frontmatter.name)
+    // Sort featured services to the top
+    .sort((a, b) => {
+      // If a is featured and b is not, a comes first
+      if (a.featured && !b.featured) return -1;
+      // If b is featured and a is not, b comes first
+      if (!a.featured && b.featured) return 1;
+      // Otherwise, keep original order
+      return 0;
+    })
     .slice(0, 4); // Limit to 4 similar services
 
   // Set basic options for marked
@@ -138,7 +134,7 @@ export default async function ServiceDetailPage({
           <div className="mb-8">
             <div className="flex justify-between items-start mb-2">
               <h1 className="text-3xl font-bold">{frontmatter.name}</h1>
-              <RegionBadge region="eu" />
+              <RegionBadge region={(frontmatter.region as 'eu' | 'non-eu' | 'eu-friendly') || 'non-eu'} />
             </div>
             <p className="text-lg text-muted-foreground mb-4">
               {frontmatter.description}
@@ -148,25 +144,7 @@ export default async function ServiceDetailPage({
                 <span className="font-semibold mr-2">{t("location")}:</span>
                 <span>{frontmatter.location}</span>
               </div>
-              <div className="flex items-center">
-                <span className="font-semibold mr-2">
-                  {t("privacyRating")}:
-                </span>
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`text-lg ${
-                        i < frontmatter.privacyRating
-                          ? "text-yellow-500"
-                          : "text-gray-300"
-                      }`}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-              </div>
+
               <div className="flex items-center">
                 <span className="font-semibold mr-2">{t("freeOption")}:</span>
                 <span>
@@ -175,12 +153,14 @@ export default async function ServiceDetailPage({
                     : t("freeOptionNo")}
                 </span>
               </div>
-              <div className="flex items-center">
-                <span className="font-semibold mr-2">
-                  {t("startingPrice")}:
-                </span>
-                <span>{frontmatter.startingPrice}</span>
-              </div>
+              {frontmatter.startingPrice && (
+                <div className="flex items-center">
+                  <span className="font-semibold mr-2">
+                    {t("startingPrice")}:
+                  </span>
+                  <span>{frontmatter.startingPrice}</span>
+                </div>
+              )}
             </div>
             <Button variant="default" asChild>
               <Link href={frontmatter.url} target="_blank">
@@ -188,6 +168,59 @@ export default async function ServiceDetailPage({
               </Link>
             </Button>
           </div>
+
+          {/* Mobile Migration Guides - Only visible on mobile */}
+          {relatedGuides.length > 0 ? (
+            <div className="lg:hidden mb-8 p-6 border rounded-lg bg-[var(--green-bg)]">
+              <h2 className="text-xl font-bold mb-4">
+                {t("migrationGuides")}
+              </h2>
+              <p className="text-muted-foreground mb-4">
+                {t("migrateHelp")} <b>{frontmatter.name}</b>
+              </p>
+              <div className="space-y-4">
+                {relatedGuides.map((guide) => (
+                  <Link
+                    key={`${guide.category}-${guide.slug}`}
+                    href={`/guides/${guide.category}/${guide.slug}`}
+                    className="block mb-4 mt-4 rounded-md transition-colors"
+                  >
+                    <h3 className="text-lg mb-1">
+                      {guide.frontmatter.sourceService &&
+                        `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
+                      {!guide.frontmatter.sourceService &&
+                        guide.frontmatter.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      {guide.frontmatter.description}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex justify-center">
+                  <Button variant="red" size="sm" asChild>
+                    <Link href={`/contribute`}>{t("writeAnotherGuide")}</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="lg:hidden mb-8 p-6 border rounded-lg bg-[var(--green-bg)]">
+              <h2 className="text-xl font-bold mb-4">
+                {t("migrationGuides")}
+              </h2>
+              <p className="text-muted-foreground mb-4">
+                {t("noGuides")} <b>{frontmatter.name}</b>.
+              </p>
+              <p className="text-muted-foreground mb-6">{t("helpOthers")}</p>
+              <div className="flex justify-center">
+                <Button variant="red" asChild>
+                  <Link href={`/contribute`}>{t("writeMigrationGuide")}</Link>
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Markdown Content */}
           {htmlContent && (
@@ -204,11 +237,12 @@ export default async function ServiceDetailPage({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {similarServices.map((service) => (
-                  <ServiceCard
-                    key={service.name}
-                    service={service}
-                    showCategory={false}
-                  />
+                  <div key={service.name} className="relative">
+                    <ServiceCard
+                      service={service}
+                      showCategory={false}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -222,8 +256,8 @@ export default async function ServiceDetailPage({
 
         {/* Sidebar */}
         <div className="lg:col-span-1 ">
-          {/* Migration Guides - Always show the sidebar, with CTA if no guides */}
-          <div className="sticky top-24 border rounded-lg p-6 bg-[var(--green-bg)]">
+          {/* Migration Guides - Desktop only */}
+          <div className="hidden lg:block sticky top-24 border rounded-lg p-6 bg-[var(--green-bg)]">
             <div className="relative h-40 mb-6">
               <Image
                 src="/images/migrate.svg"

@@ -54,6 +54,7 @@
     "heroSubtitle": "Stap over naar <b>EU-gebaseerde alternatieven</b> die je privacy respecteren, GDPR volgen en je gegevens in Europa houden",
     "heroDescription": "Voer een dienst in waar je vanaf wilt stappen en wij helpen je bij <b>de overstap!</b>",
     "exampleLabel": "Bijvoorbeeld:",
+    "featuredTitle": "Waar staat Switch-to.eu voor?",
     "featuresEuropeanTitle": "Europese Alternatieven",
     "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
     "featuresGuidesTitle": "Stapsgewijze Handleidingen",
@@ -70,10 +71,10 @@
       "description": "Stap over van Gmail naar ProtonMail met onze stap-voor-stap migratiegids.",
       "alt": "Gmail naar ProtonMail migratiegids"
     },
-    "driveToNextcloud": {
-      "title": "Google Drive → Nextcloud",
-      "description": "Migreer je bestanden van Google Drive naar Nextcloud met deze complete gids.",
-      "alt": "Google Drive naar Nextcloud migratiegids"
+    "driveToPcloud": {
+      "title": "Google Drive → Pcloud",
+      "description": "Migreer je bestanden van Google Drive naar Pcloud met deze complete gids.",
+      "alt": "Google Drive naar Pcloud migratiegids"
     },
     "whatsappToSignal": {
       "title": "WhatsApp → Signal",
@@ -331,16 +332,15 @@
     "viewMore": "Bekijk meer",
     "category": "Categorie",
     "location": "Locatie",
-    "freeOption": "Gratis optie beschikbaar",
+    "freeOption": "Gratis",
     "paidOnly": "Alleen betaald",
     "viewDetails": "Bekijk details",
     "detail": {
       "location": "Locatie",
-      "privacyRating": "Privacybeoordeling",
-      "freeOption": "Gratis optie",
-      "freeOptionYes": "✅ Ja",
-      "freeOptionNo": "❌ Nee",
-      "startingPrice": "Startprijs",
+      "freeOption": "Gratis",
+      "freeOptionYes": "✅",
+      "freeOptionNo": "❌",
+      "startingPrice": "Premium",
       "visitWebsite": "Bezoek website",
       "similarServices": "Vergelijkbare diensten",
       "migrationGuides": "Migratiegidsen",

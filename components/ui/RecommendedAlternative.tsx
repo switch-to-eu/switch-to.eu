@@ -21,6 +21,7 @@ export async function RecommendedAlternative({
   const t = await getTranslations("services");
 
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
+  const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
 
   return (
     <div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
@@ -45,33 +46,25 @@ export async function RecommendedAlternative({
           </div>
         </div>
         <div className="flex-grow">
-          <div className="flex">
-            <h3 className="text-xl font-semibold mr-6">{service.name}</h3>
-            <div className="flex mb-2">
-              {[...Array(5)].map((_, i) => (
-                <span
-                  key={i}
-                  className={`text-lg ${
-                    i < service.privacyRating
-                      ? "text-yellow-500"
-                      : "text-gray-200 dark:text-gray-600"
-                  }`}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-          </div>
+          <h3 className="text-xl font-bold mb-2">{service.name}</h3>
 
           <p className="text-slate-600 dark:text-slate-300 mb-3 max-w-md">
             {service.description}
           </p>
 
-          <div className="items-center mb-2">
-            <div className="text-sm">
-              {t("detail.recommendedAlternative.startingPrice")}:{" "}
-              {service.startingPrice}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mb-2">
+            <div className="text-sm flex items-center">
+              <span className="font-medium mr-1">{t("detail.freeOption")}:</span>
+              <span>{service.freeOption ? "✅" : "❌"}</span>
             </div>
+
+            {/* Only show starting price if it exists and is not falsy */}
+            {service.startingPrice && typeof service.startingPrice === 'string' && (
+              <div className="text-sm flex items-center">
+                <span className="font-medium mr-1">{t("detail.startingPrice")}:</span>
+                <span>{service.startingPrice}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -95,7 +88,7 @@ export async function RecommendedAlternative({
             ))}
 
           <Link
-            href={`/services/${service.region || "eu"}/${serviceSlug}`}
+            href={`/services/${regionPath}/${serviceSlug}`}
             className="inline-block py-2 px-5 border border-slate-300 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             {t("detail.recommendedAlternative.viewDetails")}
