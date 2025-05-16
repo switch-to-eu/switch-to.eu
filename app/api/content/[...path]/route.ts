@@ -31,7 +31,6 @@ export async function GET(
 
   const ext = path.extname(normalizedFilePath).toLowerCase();
   let contentType = "application/octet-stream";
-  ``;
   if (ext === ".mp4") contentType = "video/mp4";
   else if (ext === ".webm") contentType = "video/webm";
   else if (ext === ".jpg" || ext === ".jpeg") contentType = "image/jpeg";
