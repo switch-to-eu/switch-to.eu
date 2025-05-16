@@ -1,67 +1,78 @@
-import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs';
-import { promises as fsPromises } from 'fs';
+import path from "path";
+import fs from "fs";
+import { ReadableStream } from "stream/web";
 
 export async function GET(
-    request: NextRequest,
-    { params }: { params: Promise<{ path: string[] }> }
+  request: Request,
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-    // Ensure params is properly awaited
-    const { path: pathSegments } = await params;
+  const { path: pathSegments } = await params;
+  const segments =
+    pathSegments[0] === "content" ? pathSegments.slice(1) : pathSegments;
 
-    try {
-        // Join the path segments, but remove the first "content" if it's duplicated
-        // This fixes the issue with URLs like /api/content/content/...
-        const segments = pathSegments[0] === 'content'
-            ? pathSegments.slice(1)
-            : pathSegments;
+  const filePath = path.join(process.cwd(), "content", ...segments);
+  const normalizedFilePath = path.normalize(filePath);
+  const contentDir = path.normalize(path.join(process.cwd(), "content"));
 
-        const filePath = path.join(process.cwd(), 'content', ...segments);
+  if (!normalizedFilePath.startsWith(contentDir)) {
+    return Response.json({ error: "Invalid path" }, { status: 403 });
+  }
 
-        // Security check to prevent path traversal attacks
-        const normalizedFilePath = path.normalize(filePath);
-        const contentDir = path.normalize(path.join(process.cwd(), 'content'));
+  if (!fs.existsSync(normalizedFilePath)) {
+    return Response.json(
+      { error: "File not found", path: normalizedFilePath },
+      { status: 404 }
+    );
+  }
 
-        if (!normalizedFilePath.startsWith(contentDir)) {
-            return NextResponse.json({ error: 'Invalid path' }, { status: 403 });
-        }
+  const stat = fs.statSync(normalizedFilePath);
+  const fileSize = stat.size;
+  const range = request.headers.get("range");
 
-        // Check if the file exists
-        if (!fs.existsSync(normalizedFilePath)) {
-            return NextResponse.json(
-                { error: 'File not found', path: normalizedFilePath },
-                { status: 404 }
-            );
-        }
+  const ext = path.extname(normalizedFilePath).toLowerCase();
+  let contentType = "application/octet-stream";
+  if (ext === ".mp4") contentType = "video/mp4";
+  else if (ext === ".webm") contentType = "video/webm";
+  else if (ext === ".jpg" || ext === ".jpeg") contentType = "image/jpeg";
+  else if (ext === ".png") contentType = "image/png";
+  else if (ext === ".gif") contentType = "image/gif";
+  else if (ext === ".svg") contentType = "image/svg+xml";
 
-        // Read the file
-        const fileBuffer = await fsPromises.readFile(normalizedFilePath);
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const chunkSize = end - start + 1;
 
-        // Determine content type based on file extension
-        const ext = path.extname(normalizedFilePath).toLowerCase();
-        let contentType = 'application/octet-stream';
+    const fileStream = fs.createReadStream(normalizedFilePath, { start, end });
+    const webStream = ReadableStream.from(fileStream);
 
-        // Set appropriate content type for common media files
-        if (ext === '.mp4') contentType = 'video/mp4';
-        if (ext === '.webm') contentType = 'video/webm';
-        if (ext === '.jpg' || ext === '.jpeg') contentType = 'image/jpeg';
-        if (ext === '.png') contentType = 'image/png';
-        if (ext === '.gif') contentType = 'image/gif';
-        if (ext === '.svg') contentType = 'image/svg+xml';
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": chunkSize.toString(),
+      "Content-Type": contentType,
+    };
 
-        // Return the file with appropriate headers
-        return new NextResponse(fileBuffer, {
-            headers: {
-                'Content-Type': contentType,
-                'Cache-Control': 'public, max-age=86400',
-            },
-        });
-    } catch (error) {
-        console.error('Error serving content file:', error);
-        return NextResponse.json(
-            { error: 'Internal server error', message: (error as Error).message },
-            { status: 500 }
-        );
-    }
+    // @ts-expect-error - ReadableStream is not supported in Node.js
+    return new Response(webStream, {
+      status: 206,
+      headers,
+    });
+  } else {
+    const headers = {
+      "Content-Length": fileSize.toString(),
+      "Content-Type": contentType,
+      "Accept-Ranges": "bytes",
+    };
+
+    const fileStream = fs.createReadStream(normalizedFilePath);
+    const webStream = ReadableStream.from(fileStream);
+
+    // @ts-expect-error - ReadableStream is not supported in Node.js
+    return new Response(webStream, {
+      status: 200,
+      headers,
+    });
+  }
 }
