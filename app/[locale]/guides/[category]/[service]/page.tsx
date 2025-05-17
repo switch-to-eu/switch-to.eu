@@ -286,7 +286,7 @@ export default async function GuideServicePage({
               </h2>
               <p className="mb-4">{serviceT("editGuide.description")}</p>
               <a
-                href="https://github.com/switch-to.eu/switch-to.eu"
+                href="https://github.com/switch-to-eu/switch-to.eu"
                 className="hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
