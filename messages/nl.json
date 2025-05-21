@@ -625,5 +625,13 @@
       "title": "Analysefout",
       "tryAgain": "Probeer opnieuw"
     }
+  },
+  "newsletter": {
+    "title": "Schrijf je in op onze nieuwsbrief",
+    "description": "Blijf op de hoogte hoe je zelf de switch kan maken en andere kan inspireren.",
+    "firstNameLabel": "Voornaam",
+    "emailLabel": "E-mailadres",
+    "submitLabel": "Schrijf je in",
+    "successMessage": "Bedankt voor je aanmelding! Je ontvangt onze volgende update in je inbox."
   }
 }
