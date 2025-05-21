@@ -2,23 +2,27 @@ import type { MetadataRoute } from "next";
 import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
 import { getAllGuides } from "@/lib/content/services/guides";
 import { getAllServices } from "@/lib/content/services/services";
-import { Locale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { ServiceFrontmatter } from "@/lib/content";
-
+import { unstable_noStore as noStore } from "next/cache";
 const baseUrl = process.env.NEXT_PUBLIC_URL!;
 
-// Define your supported locales
-const locales: Locale[] = ["en", "nl"];
+export const dynamic = "force-dynamic";
 
 // Define your static routes
 const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Get default locale synchronously
+  noStore();
   const defaultLocale = routing.defaultLocale;
+  const locales = routing.locales;
 
   const otherLocales = locales.filter((l) => l !== defaultLocale);
+
+  const countryPrefix = {
+    en: "en-US",
+    nl: "nl-BE",
+  };
 
   const localeEntries = [
     {
@@ -28,9 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: {
         languages: {
-          en: baseUrl,
           ...otherLocales.reduce((acc, l) => {
-            acc[l] = `${baseUrl}/${l}`;
+            acc[countryPrefix[l]] = `${baseUrl}/${countryPrefix[l]}`;
             return acc;
           }, {} as Record<string, string>),
         },
@@ -48,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       // Add locale alternates
       alternates: {
         languages: otherLocales.reduce((acc, l) => {
-          acc[l] = `${baseUrl}/${l}${route}`;
+          acc[countryPrefix[l]] = `${baseUrl}/${l}${route}`;
           return acc;
         }, {} as Record<string, string>),
       },
@@ -67,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
       alternates: {
         languages: otherLocales.reduce((acc, l) => {
-          acc[l] = `${baseUrl}/${l}${url}`;
+          acc[countryPrefix[l]] = `${baseUrl}/${l}${url}`;
           return acc;
         }, {} as Record<string, string>),
       },
@@ -99,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
       alternates: {
         languages: otherLocales.reduce((acc, l) => {
-          acc[l] = `${baseUrl}/${l}${url(
+          acc[countryPrefix[l]] = `${baseUrl}/${l}${url(
             otherServices[l][index].name,
             otherServices[l][index].region
           )}`;
@@ -121,7 +124,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
       alternates: {
         languages: otherLocales.reduce((acc, l) => {
-          acc[l] = `${baseUrl}/${l}${url}`;
+          acc[countryPrefix[l]] = `${baseUrl}/${l}${url}`;
           return acc;
         }, {} as Record<string, string>),
       },
