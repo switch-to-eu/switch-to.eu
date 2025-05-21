@@ -625,5 +625,13 @@
       "title": "Analysis Error",
       "tryAgain": "Try Again"
     }
+  },
+  "newsletter": {
+    "title": "Subscribe to our newsletter",
+    "description": "Stay up to date with our latest guides and service alternatives",
+    "firstNameLabel": "First name",
+    "emailLabel": "Email address",
+    "submitLabel": "Subscribe",
+    "successMessage": "Thank you for subscribing! You will receive our next update in your inbox."
   }
 }

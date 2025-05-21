@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { ContributeCta } from "@/components/ContributeCta";
+import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -65,7 +66,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home({ }: {
+export default async function Home({}: {
   params: Promise<{ locale: Locale }>;
 }) {
   const t = await getTranslations("home");
@@ -152,7 +153,10 @@ export default async function Home({ }: {
 
           <div className="grid gap-6 md:grid-cols-3">
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href="/guides/messaging/whatsapp-to-signal" className="block">
+              <Link
+                href="/guides/messaging/whatsapp-to-signal"
+                className="block"
+              >
                 <div className="relative w-full h-40">
                   <Image
                     src="/images/guides/whatsapp-signal.png"
@@ -162,14 +166,15 @@ export default async function Home({ }: {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{t("whatsappToSignal.title")}</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {t("whatsappToSignal.title")}
+                  </h3>
                   <p className="text-sm text-gray-600">
                     {t("whatsappToSignal.description")}
                   </p>
                 </div>
               </Link>
             </div>
-
 
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
               <Link href="/guides/email/gmail-to-protonmail" className="block">
@@ -182,7 +187,9 @@ export default async function Home({ }: {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{t("gmailToProton.title")}</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {t("gmailToProton.title")}
+                  </h3>
                   <p className="text-sm text-gray-600">
                     {t("gmailToProton.description")}
                   </p>
@@ -191,7 +198,10 @@ export default async function Home({ }: {
             </div>
 
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href="/guides/storage/google-drive-to-pcloud" className="block">
+              <Link
+                href="/guides/storage/google-drive-to-pcloud"
+                className="block"
+              >
                 <div className="relative w-full h-40">
                   <Image
                     src="/images/guides/drive-pcloud.png"
@@ -201,15 +211,15 @@ export default async function Home({ }: {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">{t("driveToPcloud.title")}</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {t("driveToPcloud.title")}
+                  </h3>
                   <p className="text-sm text-gray-600">
                     {t("driveToPcloud.description")}
                   </p>
                 </div>
               </Link>
             </div>
-
-
           </div>
         </Container>
       </section>
@@ -279,6 +289,13 @@ export default async function Home({ }: {
               </div>
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-8 md:py-12">
+        <Container>
+          <NewsletterCta />
         </Container>
       </section>
 
