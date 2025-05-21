@@ -16,6 +16,7 @@ import { Footer } from "@/components/layout/footer";
 import { routing } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider, Locale } from "next-intl";
+import { generateLanguageAlternates } from "@/lib/utils";
 
 // Keep Geist Mono for code blocks
 const geistMono = Geist_Mono({
@@ -31,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t("description");
 
   // Default to localhost if NEXT_PUBLIC_URL is not defined
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_URL!;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -54,13 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
-    alternates: {
-      canonical: baseUrl,
-      languages: {
-        en: `${baseUrl}/en`,
-        nl: `${baseUrl}/nl`,
-      },
-    },
+    alternates: generateLanguageAlternates("", baseUrl),
     openGraph: {
       images: [
         {
@@ -104,7 +99,7 @@ export default async function LocaleLayout({
         <body
           className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
-          <NextIntlClientProvider locale={locale}>
+          <NextIntlClientProvider>
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

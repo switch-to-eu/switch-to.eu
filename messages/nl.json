@@ -596,7 +596,12 @@
       "euFriendly": "EU-vriendelijk",
       "nonEu": "Niet-EU",
       "detectedServices": "Gedetecteerde diensten:",
-      "congratulations": "Gefeliciteerd! Uw website gebruikt 100% EU-gebaseerde diensten."
+      "congratulations": "Gefeliciteerd! Uw website gebruikt 100% EU-vriendelijke diensten."
+    },
+    "domainNotFound": {
+      "title": "Domein Niet Gevonden",
+      "message": "We konden het domein {domain} niet vinden. Controleer of het domein bestaat of probeer een ander.",
+      "tryAgain": "Probeer een ander domein"
     },
     "recommendations": {
       "switchToEu": "Overweeg over te stappen naar een EU-gebaseerd alternatief.",

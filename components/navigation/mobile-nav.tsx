@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 export async function MobileNav() {
   const locale = await getLocale();
   const navItems = await getNavItems();
+
   const t = await getTranslations("navigation");
   return (
     <Sheet>

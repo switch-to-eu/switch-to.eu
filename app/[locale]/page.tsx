@@ -7,68 +7,26 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Locale } from "next-intl";
+import { generateLanguageAlternates } from "@/lib/utils";
 
 // Generate metadata with language alternates
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export async function generateMetadata() {
   const t = await getTranslations("common");
-  // Await the params
-  const { locale } = await params;
-
-  const defaultKeywords = [
-    "EU alternatives",
-    "European digital services",
-    "privacy",
-    "GDPR",
-    "digital migration",
-    "data protection",
-    "EU tech",
-  ];
   const title = `${t("title")} - ${t("subtitle")}`;
   const description = t("description");
 
   return {
     title,
     description,
-    keywords: defaultKeywords,
-    alternates: {
-      canonical: `https://switch-to.eu/${locale}`,
-      languages: {
-        en: "https://switch-to.eu/en",
-        nl: "https://switch-to.eu/nl",
-      },
-    },
+    alternates: generateLanguageAlternates(""),
     openGraph: {
-      images: [
-        {
-          url: "/images/share.png",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      type: "website",
-      siteName: t("title"),
-      title,
-      description,
-      locale: locale,
-    },
-    twitter: {
-      card: "summary_large_image",
-      images: ["/images/share.png"],
       title,
       description,
     },
   };
 }
 
-export default async function Home({}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export default async function Home() {
   const t = await getTranslations("home");
 
   const imageSize = 120;

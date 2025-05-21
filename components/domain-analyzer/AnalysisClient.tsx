@@ -13,6 +13,7 @@ import {
 import { AnalysisStep, Service } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+
 import ReactCountryFlag from "react-country-flag";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,7 @@ export function AnalysisClient({
   const [isComplete, setIsComplete] = useState(!!initialResults);
   const [isLoading, setIsLoading] = useState(!initialResults);
   const [error, setError] = useState<string | null>(null);
+  const [domainExists, setDomainExists] = useState<boolean | null>(null);
 
   // Use next-intl translations
   const t = useTranslations("domainAnalyzer");
@@ -41,15 +43,27 @@ export function AnalysisClient({
       try {
         setIsLoading(true);
         setError(null);
+        setDomainExists(null);
 
         // Set up streaming response
         const response = await fetch(
           `/api/domain-analyzer?domain=${domain}${force ? "&force=true" : ""}`
         );
 
+        // Handle 404 response (domain not found)
+        if (response.status === 404) {
+          setDomainExists(false);
+          setIsLoading(false);
+          setIsComplete(true);
+          return;
+        }
+
         if (!response.ok) {
           throw new Error("Failed to analyze domain");
         }
+
+        // Domain exists if we got this far
+        setDomainExists(true);
 
         const reader = response.body?.getReader();
         if (!reader) throw new Error("Stream not available");
@@ -73,6 +87,10 @@ export function AnalysisClient({
 
               if (data.complete) {
                 setIsComplete(true);
+              }
+
+              if (data.domainExists === false) {
+                setDomainExists(false);
               }
             } catch (e) {
               console.error("Error parsing stream data", e);
@@ -158,7 +176,16 @@ export function AnalysisClient({
         </div>
       )}
 
-      {results.length > 0 && !error && (
+      {domainExists === false && (
+        <div className="w-full max-w-3xl mx-auto bg-yellow-50 text-yellow-700 rounded-xl shadow-sm border border-yellow-200 p-6 text-center">
+          <h3 className="font-semibold text-lg mb-2">
+            {t("domainNotFound.title")}
+          </h3>
+          <p>{t.rich("domainNotFound.message", { domain: formattedDomain })}</p>
+        </div>
+      )}
+
+      {results.length > 0 && !error && domainExists !== false && (
         <AnalysisResults
           results={results}
           domain={formattedDomain}
@@ -238,6 +265,15 @@ function AnalysisResults({
             </div>
           )}
         </div>
+
+        {isComplete && status === "green" && (
+          <div className="bg-green-50 rounded-lg p-4 my-4">
+            <p className="text-green-700 flex items-center gap-2">
+              <CheckCircle2Icon className="w-5 h-5" />
+              <span>{t("results.congratulations")}</span>
+            </p>
+          </div>
+        )}
 
         <div className="space-y-4">
           {results.map((step) => (
@@ -374,15 +410,6 @@ function AnalysisResults({
           ))}
         </div>
       </div>
-
-      {isComplete && status === "green" && (
-        <div className="bg-green-50 rounded-lg p-4 mt-4">
-          <p className="text-green-700 flex items-center gap-2">
-            <CheckCircle2Icon className="w-5 h-5" />
-            <span>{t("results.congratulations")}</span>
-          </p>
-        </div>
-      )}
     </div>
   );
 }

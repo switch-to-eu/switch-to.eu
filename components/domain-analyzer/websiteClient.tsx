@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -8,8 +7,9 @@ import { useTranslations } from "next-intl";
 
 import Image from "next/image";
 import { Container } from "../layout/container";
+import { useRouter } from "@/i18n/navigation";
 
-export function WebsiteAnalyzerClient({ locale }: { locale: string }) {
+export function WebsiteAnalyzerClient() {
   const router = useRouter();
   const t = useTranslations("tools");
 
@@ -39,8 +39,7 @@ export function WebsiteAnalyzerClient({ locale }: { locale: string }) {
       return;
     }
 
-    // Redirect to domain analysis page with language parameter
-    router.push(`/${locale}/tools/domain/${encodeURIComponent(domain)}`);
+    router.push(`/tools/domain/${encodeURIComponent(domain)}`);
   };
 
   return (

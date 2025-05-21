@@ -42,7 +42,7 @@ export async function generateMetadata({
   const t = await getTranslations("guides.service.meta");
 
   // Load guide data from MDX file
-  const guideData = await getGuide(category, service, locale);
+  const guideData = getGuide(category, service, locale);
 
   if (!guideData) {
     return {
@@ -86,7 +86,7 @@ export default async function GuideServicePage({
   const serviceT = await getTranslations("guides.service");
 
   // Load guide data from MD file
-  const guideData = await getGuide(category, service, locale);
+  const guideData = getGuide(category, service, locale);
 
   if (!guideData) {
     return notFound();
@@ -108,8 +108,6 @@ export default async function GuideServicePage({
   // Extract detailed step information if using new format
   const stepsWithContent =
     segments && segments.steps ? extractStepsWithMeta(segments.steps) : [];
-
-
 
   // Process content to replace [complete] markers with placeholders for client-side hydration
   const processedContent = processCompletionMarkers(content, guideId);
@@ -240,12 +238,13 @@ export default async function GuideServicePage({
               <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
               <div className="flex mt-4 space-x-4">
                 <div
-                  className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === "beginner"
-                    ? "bg-green-100 text-green-800"
-                    : frontmatter.difficulty === "intermediate"
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    frontmatter.difficulty === "beginner"
+                      ? "bg-green-100 text-green-800"
+                      : frontmatter.difficulty === "intermediate"
                       ? "bg-yellow-100 text-yellow-800"
                       : "bg-red-100 text-red-800"
-                    }`}
+                  }`}
                 >
                   {serviceT("difficultyLabel", {
                     level:
@@ -264,7 +263,11 @@ export default async function GuideServicePage({
               <GuideProgress
                 guideId={guideId}
                 guideName={frontmatter.title}
-                totalSteps={steps.filter(step => step.completionMarkers?.includes("[complete]")).length}
+                totalSteps={
+                  steps.filter((step) =>
+                    step.completionMarkers?.includes("[complete]")
+                  ).length
+                }
               />
             </div>
 

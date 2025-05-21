@@ -1,47 +1,22 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { generateLanguageAlternates } from "@/lib/utils";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export async function generateMetadata() {
   const t = await getTranslations("contribute");
-  // Await the params
-  const { locale } = await params;
-
-  const title = `${t("title")} - ${t("description")}`;
-  const description = t("description");
 
   return {
-    title,
-    description,
-    keywords: [
-      "github contribution",
-      "open source",
-      "EU alternatives",
-      "migration guides",
-      "pull request",
-      "fork repository",
-    ],
-    alternates: {
-      canonical: `https://switch-to.eu/${locale}/contribute/guide`,
-      languages: {
-        en: "https://switch-to.eu/en/contribute/guide",
-        nl: "https://switch-to.eu/nl/contribute/guide",
-      },
-    },
+    title: t("title"),
+    description: t("description"),
+    alternates: generateLanguageAlternates("contribute/guide"),
   };
 }
 
-export default async function ContributeGuidePage({}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ContributeGuidePage() {
   const t = await getTranslations("contribute");
 
   // Modified renderPoints implementation that creates static bullet points
