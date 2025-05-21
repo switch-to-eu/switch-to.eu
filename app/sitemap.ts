@@ -4,13 +4,16 @@ import { getAllGuides } from "@/lib/content/services/guides";
 import { getAllServices } from "@/lib/content/services/services";
 import { routing } from "@/i18n/routing";
 import { ServiceFrontmatter } from "@/lib/content";
-
+import { unstable_noStore as noStore } from "next/cache";
 const baseUrl = process.env.NEXT_PUBLIC_URL!;
+
+export const dynamic = "force-dynamic";
 
 // Define your static routes
 const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  noStore();
   const defaultLocale = routing.defaultLocale;
   const locales = routing.locales;
 

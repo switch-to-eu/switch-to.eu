@@ -12,6 +12,10 @@
                     "value": "identity"
                 },
                 {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
                     "key": "Cache-Control",
                     "value": "no-cache"
                 }
