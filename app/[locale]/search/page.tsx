@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { Search } from 'lucide-react';
-import { SearchResult } from '@/lib/search';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { Search } from "lucide-react";
+import { SearchResult } from "@/lib/search";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 // Extract the inner component to use search params
 function SearchPageContent() {
   const searchParams = useSearchParams();
-  const initialQuery = searchParams.get('q') || '';
+  const initialQuery = searchParams.get("q") || "";
   const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -26,21 +26,23 @@ function SearchPageContent() {
 
     setLoading(true);
     setError(null);
-    console.log('Search page: searching for:', searchQuery);
+    console.log("Search page: searching for:", searchQuery);
 
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+      const response = await fetch(
+        `/api/search?q=${encodeURIComponent(searchQuery)}`
+      );
 
       if (!response.ok) {
         throw new Error(`Search failed with status: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log('Search page: received results:', data);
+      console.log("Search page: received results:", data);
       setResults(data.results || []);
     } catch (err) {
-      console.error('Error searching:', err);
-      setError('Failed to fetch search results. Please try again.');
+      console.error("Error searching:", err);
+      setError("Failed to fetch search results. Please try again.");
       setResults([]);
     } finally {
       setLoading(false);
@@ -54,27 +56,29 @@ function SearchPageContent() {
 
     // Update URL with search query
     const url = new URL(window.location.href);
-    url.searchParams.set('q', query);
-    window.history.pushState({}, '', url);
+    url.searchParams.set("q", query);
+    window.history.pushState({}, "", url);
   };
 
   // Load results on initial page load
   useEffect(() => {
     if (initialQuery) {
-      console.log('Search page: initial query detected:', initialQuery);
+      console.log("Search page: initial query detected:", initialQuery);
       handleSearch(initialQuery);
     }
   }, [initialQuery]);
 
   // Debug results after they change
   useEffect(() => {
-    console.log('Search page: results updated, count:', results.length);
+    console.log("Search page: results updated, count:", results.length);
   }, [results]);
 
   // Group results by type
-  const serviceResults = results.filter(result => result.type === 'service');
-  const guideResults = results.filter(result => result.type === 'guide');
-  const categoryResults = results.filter(result => result.type === 'category');
+  const serviceResults = results.filter((result) => result.type === "service");
+  const guideResults = results.filter((result) => result.type === "guide");
+  const categoryResults = results.filter(
+    (result) => result.type === "category"
+  );
 
   return (
     <div className="container py-8">
@@ -99,12 +103,12 @@ function SearchPageContent() {
       </form>
 
       {/* Debug info */}
-      {process.env.NODE_ENV === 'development' && (
+      {process.env.NODE_ENV === "development" && (
         <div className="bg-slate-100 p-4 my-4 rounded text-xs font-mono">
           <p>Query: {initialQuery}</p>
           <p>Results: {results.length}</p>
-          <p>Loading: {loading ? 'true' : 'false'}</p>
-          <p>Error: {error || 'none'}</p>
+          <p>Loading: {loading ? "true" : "false"}</p>
+          <p>Error: {error || "none"}</p>
         </div>
       )}
 
@@ -130,7 +134,9 @@ function SearchPageContent() {
       {/* No results state */}
       {!loading && !error && results.length === 0 && initialQuery && (
         <div className="text-center py-8">
-          <p className="text-xl mb-2">No results found for &quot;{initialQuery}&quot;</p>
+          <p className="text-xl mb-2">
+            No results found for &quot;{initialQuery}&quot;
+          </p>
           <p className="text-muted-foreground">
             Try different keywords or check the spelling of your search.
           </p>
@@ -159,7 +165,7 @@ function SearchPageContent() {
                     <h3 className="font-medium text-lg">{result.title}</h3>
                     <p className="text-muted-foreground text-sm mt-2">
                       {result.description.substring(0, 100)}
-                      {result.description.length > 100 ? '...' : ''}
+                      {result.description.length > 100 ? "..." : ""}
                     </p>
                   </Link>
                 ))}
@@ -181,7 +187,7 @@ function SearchPageContent() {
                     <h3 className="font-medium text-lg">{result.title}</h3>
                     <p className="text-muted-foreground text-sm mt-2">
                       {result.description.substring(0, 100)}
-                      {result.description.length > 100 ? '...' : ''}
+                      {result.description.length > 100 ? "..." : ""}
                     </p>
                   </Link>
                 ))}
@@ -203,7 +209,7 @@ function SearchPageContent() {
                     <h3 className="font-medium text-lg">{result.title}</h3>
                     <p className="text-muted-foreground text-sm mt-2">
                       {result.description.substring(0, 100)}
-                      {result.description.length > 100 ? '...' : ''}
+                      {result.description.length > 100 ? "..." : ""}
                     </p>
                   </Link>
                 ))}

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import {
   Card,
@@ -9,48 +8,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { generateLanguageAlternates } from "@/lib/utils";
 
 // Generate metadata with language alternates
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export async function generateMetadata() {
   const t = await getTranslations("contribute");
-  // Await the params
-  const { locale } = await params;
-
-  const title = `${t("title")} - ${t("description")}`;
-  const description = t("description");
 
   return {
-    title,
-    description,
-    keywords: [
-      "contribute",
-      "open source",
-      "EU alternatives",
-      "migration guides",
-      "community collaboration",
-    ],
-    alternates: {
-      canonical: `https://switch-to.eu/${locale}/contribute`,
-      languages: {
-        en: "https://switch-to.eu/en/contribute",
-        nl: "https://switch-to.eu/nl/contribute",
-      },
-    },
+    title: t("title"),
+    description: t("description"),
+    alternates: generateLanguageAlternates("contribute"),
   };
 }
 
-export default async function ContributePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ContributePage() {
   const t = await getTranslations("contribute");
-  const { locale } = await params;
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
@@ -230,11 +203,9 @@ export default async function ContributePage({
               <CardContent>
                 <p className="text-center">{t("cards.ideas.description")}</p>
               </CardContent>
+
               <CardFooter className="justify-center">
-                <Link
-                  href={`/${locale}/feedback`}
-                  className="text-blue hover:underline"
-                >
+                <Link href={`/feedback`} className="text-blue hover:underline">
                   {t("cards.ideas.cta")} →
                 </Link>
               </CardFooter>

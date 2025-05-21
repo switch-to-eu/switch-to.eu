@@ -2,46 +2,19 @@ import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import FeedbackForm from "@/components/FeedbackForm";
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import { generateLanguageAlternates } from "@/lib/utils";
 
-// Generate metadata with language alternates
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export async function generateMetadata() {
   const t = await getTranslations("feedback");
-  // Await the params
-  const { locale } = await params;
-
-  const title = `${t("meta.title")} - ${t("meta.description")}`;
-  const description = t("meta.description");
-
-  const defaultKeywords = [
-    "feedback",
-    "github issues",
-    "bug report",
-    "feature request",
-    "switch-to.eu",
-  ];
 
   return {
-    title,
-    description,
-    keywords: defaultKeywords,
-    alternates: {
-      canonical: `https://switch-to.eu/${locale}/feedback`,
-      languages: {
-        en: "https://switch-to.eu/en/feedback",
-        nl: "https://switch-to.eu/nl/feedback",
-      },
-    },
+    title: `${t("meta.title")} - ${t("meta.description")}`,
+    description: t("meta.description"),
+    alternates: generateLanguageAlternates("feedback"),
   };
 }
 
-export default async function FeedbackPage({}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function FeedbackPage() {
   const t = await getTranslations("feedback");
 
   // Prepare the dictionary for the FeedbackForm

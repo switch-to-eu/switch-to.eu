@@ -1,8 +1,11 @@
 {
   "common": {
     "title": "Switch-to.eu",
-    "subtitle": "EU alternatives to global services",
     "description": "A guide to help you switch from non-EU to EU-based digital services and products.",
+    "keywords": {
+      "euAlternatives": "EU alternatives"
+    },
+    "subtitle": "EU alternatives to global services",
     "search": "Search...",
     "searchPlaceholder": "Search for services...",
     "searchResults": "Search results",
@@ -93,6 +96,9 @@
   "contribute": {
     "title": "Contribute",
     "description": "Help us improve the database by adding new services or updating existing ones",
+    "keywords": {
+      "feedback": "Feedback"
+    },
     "cta": "Contribute to Switch-to.eu",
     "ctaTitle": "Can't find what you're looking for?",
     "ctaDescription": "If you have suggestions for new alternatives, consider contributing to the project!",
@@ -597,6 +603,11 @@
       "nonEu": "Non-EU",
       "detectedServices": "Detected services:",
       "congratulations": "Congratulations! Your website is using 100% EU-based services."
+    },
+    "domainNotFound": {
+      "title": "Domain Not Found",
+      "message": "We couldn't find the domain {domain}. Please check if the domain exists or try another one.",
+      "tryAgain": "Try another domain"
     },
     "recommendations": {
       "switchToEu": "Consider switching to an EU-based alternative.",

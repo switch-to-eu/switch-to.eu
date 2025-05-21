@@ -883,6 +883,19 @@ async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
   return initialAnalysis;
 }
 
+// Function to check if a domain exists by attempting a DNS lookup
+async function checkDomainExists(domain: string): Promise<boolean> {
+  try {
+    // Try to get DNS records as a simple existence check
+    const dnsRecords = await getAllDnsRecords(domain);
+    // If we get any records at all, the domain exists
+    return dnsRecords.length > 0;
+  } catch (error) {
+    console.error("Error checking domain existence:", error);
+    return false;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const domain = request.nextUrl.searchParams.get("domain");
   const force = request.nextUrl.searchParams.get("force") === "true";
@@ -891,6 +904,20 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { error: "Domain parameter is required" },
       { status: 400 }
+    );
+  }
+
+  // Check if domain exists before proceeding
+  const domainExists = await checkDomainExists(domain);
+
+  if (!domainExists) {
+    return NextResponse.json(
+      {
+        error: "Domain not found",
+        domainExists: false,
+        complete: true,
+      },
+      { status: 404 }
     );
   }
 
@@ -908,6 +935,7 @@ export async function GET(request: NextRequest) {
       results: parsedResults,
       cached: true,
       complete: true,
+      domainExists: true,
     });
   }
 
@@ -927,6 +955,7 @@ export async function GET(request: NextRequest) {
             JSON.stringify({
               results: result.value,
               complete: false,
+              domainExists: true,
             }) + "\n";
           controller.enqueue(encoder.encode(data));
         } else {
@@ -934,6 +963,7 @@ export async function GET(request: NextRequest) {
             JSON.stringify({
               results: result.value,
               complete: true,
+              domainExists: true,
             }) + "\n";
           controller.enqueue(encoder.encode(data));
         }

@@ -3,127 +3,137 @@ import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
 import { getAllGuides } from "@/lib/content/services/guides";
 import { getAllServices } from "@/lib/content/services/services";
 import { Locale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { ServiceFrontmatter } from "@/lib/content";
 
-const baseUrl = "https://switch-to.eu";
+const baseUrl = process.env.NEXT_PUBLIC_URL!;
 
 // Define your supported locales
 const locales: Locale[] = ["en", "nl"];
 
 // Define your static routes
-const staticRoutes = ["/", "/about", "/services", "/contact"];
+const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Get default locale synchronously
+  const defaultLocale = routing.defaultLocale;
+
+  const otherLocales = locales.filter((l) => l !== defaultLocale);
+
+  const localeEntries = [
+    {
+      url: `${baseUrl}/${defaultLocale}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+      alternates: {
+        languages: {
+          en: baseUrl,
+          ...otherLocales.reduce((acc, l) => {
+            acc[l] = `${baseUrl}/${l}`;
+            return acc;
+          }, {} as Record<string, string>),
+        },
+      },
+    },
+  ];
+
   // Create entries for each static route in each locale
   const staticRouteEntries = staticRoutes.flatMap((route) => {
-    return locales.map((locale) => ({
-      url: `${baseUrl}/${locale}${route}`,
+    return {
+      url: `${baseUrl}/${defaultLocale}${route}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.8,
       // Add locale alternates
       alternates: {
-        languages: locales.reduce((acc, l) => {
+        languages: otherLocales.reduce((acc, l) => {
           acc[l] = `${baseUrl}/${l}${route}`;
           return acc;
         }, {} as Record<string, string>),
       },
-    }));
+    };
   });
 
-  // Create entries for each locale root
-  const localeEntries = locales
-    .filter((locale) => locale !== "en")
-    .map((locale) => {
-      return {
-        url: `${baseUrl}/${locale}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.9,
-        alternates: {
-          languages: {
-            en: baseUrl,
-            ...locales
-              .filter((l) => l !== locale && l !== "en")
-              .reduce((acc, l) => {
-                acc[l] = `${baseUrl}/${l}`;
-                return acc;
-              }, {} as Record<string, string>),
-          },
-        },
-      };
-    });
+  const categories = getAllCategoriesMetadata(defaultLocale);
 
-  // Create entries for service category pages
-  const categoriesEntries = await Promise.all(
-    locales.map(async (locale) => {
-      const categories = getAllCategoriesMetadata(locale);
+  const categoriesEntries = categories.map((category) => {
+    const url = `/services/${category.slug}`;
 
-      return categories.map((category) => ({
-        url: `${baseUrl}/${locale}/services/${category.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.7,
-        alternates: {
-          languages: locales.reduce((acc, l) => {
-            acc[l] = `${baseUrl}/${l}/services/${category.slug}`;
-            return acc;
-          }, {} as Record<string, string>),
-        },
-      }));
-    })
-  );
+    return {
+      url: `${baseUrl}/${defaultLocale}${url}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: otherLocales.reduce((acc, l) => {
+          acc[l] = `${baseUrl}/${l}${url}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    };
+  });
 
-  // Create entries for service pages
-  const servicesEntries = await Promise.all(
-    locales.map(async (locale) => {
-      const services = await getAllServices(locale);
+  const services = getAllServices(defaultLocale);
 
-      return services.map((service) => {
-        const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
-        const region = service.region || "eu"; // Default to EU for backward compatibility
+  const otherServices = otherLocales.reduce((acc, l) => {
+    acc[l] = getAllServices(l);
+    return acc;
+  }, {} as Record<string, ServiceFrontmatter[]>);
 
-        return {
-          url: `${baseUrl}/${locale}/services/${region}/${serviceSlug}`,
-          lastModified: new Date(),
-          changeFrequency: "monthly" as const,
-          priority: 0.6,
-          alternates: {
-            languages: locales.reduce((acc, l) => {
-              acc[l] = `${baseUrl}/${l}/services/${region}/${serviceSlug}`;
-              return acc;
-            }, {} as Record<string, string>),
-          },
-        };
-      });
-    })
-  );
+  const servicesEntries = services.map((service, index) => {
+    const url = (name: string, region?: string) => {
+      const serviceSlug = name.toLowerCase().replace(/\s+/g, "-");
 
-  // Create entries for guide pages
-  const guidesEntries = await Promise.all(
-    locales.map(async (locale) => {
-      const guides = await getAllGuides({ lang: locale });
+      if (region === "eu") {
+        return `/services/${serviceSlug}`;
+      }
 
-      return guides.map((guide) => ({
-        url: `${baseUrl}/${locale}/guides/${guide.category}/${guide.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-        alternates: {
-          languages: locales.reduce((acc, l) => {
-            acc[l] = `${baseUrl}/${l}/guides/${guide.category}/${guide.slug}`;
-            return acc;
-          }, {} as Record<string, string>),
-        },
-      }));
-    })
-  );
+      return `/services/${region}/${serviceSlug}`;
+    };
+
+    return {
+      url: `${baseUrl}/${defaultLocale}${url(service.name, service.region)}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: otherLocales.reduce((acc, l) => {
+          acc[l] = `${baseUrl}/${l}${url(
+            otherServices[l][index].name,
+            otherServices[l][index].region
+          )}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    };
+  });
+
+  const guides = getAllGuides({ lang: defaultLocale });
+
+  const guidesEntries = guides.map((guide) => {
+    const url = `/guides/${guide.category}/${guide.slug}`;
+
+    return {
+      url: `${baseUrl}/${defaultLocale}${url}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: otherLocales.reduce((acc, l) => {
+          acc[l] = `${baseUrl}/${l}${url}`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    };
+  });
 
   // Flatten all entries
   return [
     ...staticRouteEntries,
     ...localeEntries,
-    ...categoriesEntries.flat(),
-    ...servicesEntries.flat(),
-    ...guidesEntries.flat(),
+    ...categoriesEntries,
+    ...servicesEntries,
+    ...guidesEntries,
   ];
 }

@@ -2,37 +2,15 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import { generateLanguageAlternates } from "@/lib/utils";
 
-// Generate metadata with language alternates
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
-  // Await the params
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("about");
-
-  const defaultKeywords = [
-    "about switch-to.eu",
-    "digital sovereignty",
-    "EU alternatives",
-    "community platform",
-    "data privacy",
-  ];
 
   return {
     title: t("title"),
     description: t("description"),
-    keywords: defaultKeywords,
-    alternates: {
-      canonical: `https://switch-to.eu/${locale}/about`,
-      languages: {
-        en: "https://switch-to.eu/en/about",
-        nl: "https://switch-to.eu/nl/about",
-      },
-    },
+    alternates: generateLanguageAlternates("about"),
   };
 }
 
@@ -42,7 +20,6 @@ export default async function AboutPage() {
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
-
       {/* Hero Section */}
       <section>
         <Container>
@@ -55,7 +32,9 @@ export default async function AboutPage() {
                 {t("initiative.intro")}
               </p>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.mission.title")}</h3>
+              <h3 className="text-2xl font-bold mt-8 mb-4">
+                {t("initiative.mission.title")}
+              </h3>
               <p className="mb-4 text-base sm:text-lg">
                 {t("initiative.mission.description1")}
               </p>
@@ -63,12 +42,16 @@ export default async function AboutPage() {
                 {t("initiative.mission.description2")}
               </p>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.whatWeDo.title")}</h3>
+              <h3 className="text-2xl font-bold mt-8 mb-4">
+                {t("initiative.whatWeDo.title")}
+              </h3>
               <p className="mb-4 text-base sm:text-lg">
                 {t("initiative.whatWeDo.description")}
               </p>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.uniqueness.title")}</h3>
+              <h3 className="text-2xl font-bold mt-8 mb-4">
+                {t("initiative.uniqueness.title")}
+              </h3>
               <p className="mb-4 text-base sm:text-lg">
                 {t("initiative.uniqueness.description1")}
               </p>
@@ -76,12 +59,16 @@ export default async function AboutPage() {
                 {t("initiative.uniqueness.description2")}
               </p>
               <ul className="list-disc pl-6 space-y-2 mb-8 text-base sm:text-lg">
-                {(t.raw("initiative.uniqueness.points") as Array<string>).map((point: string, index: number) => (
-                  <li key={index}>{point}</li>
-                ))}
+                {(t.raw("initiative.uniqueness.points") as Array<string>).map(
+                  (point: string, index: number) => (
+                    <li key={index}>{point}</li>
+                  )
+                )}
               </ul>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">{t("initiative.callToAction.title")}</h3>
+              <h3 className="text-2xl font-bold mt-8 mb-4">
+                {t("initiative.callToAction.title")}
+              </h3>
               <p className="mb-4 text-base sm:text-lg">
                 {t("initiative.callToAction.description")}
               </p>

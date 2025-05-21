@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { StepCompletionButton } from './guide-progress/step-completion-button';
-import { parseMarkdown } from '@/lib/markdown';
+import { useEffect, useRef, useState } from "react";
+import { StepCompletionButton } from "./guide-progress/step-completion-button";
+import { parseMarkdown } from "@/lib/markdown";
 
 interface StepProps {
   guideId: string;
@@ -29,25 +29,28 @@ const useVideoIntersection = (options = {}) => {
     if (!targetRef.current) return;
 
     const currentTarget = targetRef.current;
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
 
-      // Play or pause video based on visibility
-      if (videoRef.current) {
-        if (entry.isIntersecting) {
-          // Use a promise to handle play() since it returns a promise
-          const playPromise = videoRef.current.play();
-          if (playPromise !== undefined) {
-            playPromise.catch((error: Error) => {
-              // Auto-play was prevented (e.g., browser policy)
-              console.log('Auto-play was prevented:', error);
-            });
+        // Play or pause video based on visibility
+        if (videoRef.current) {
+          if (entry.isIntersecting) {
+            // Use a promise to handle play() since it returns a promise
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((error: Error) => {
+                // Auto-play was prevented (e.g., browser policy)
+                console.log("Auto-play was prevented:", error);
+              });
+            }
+          } else {
+            videoRef.current.pause();
           }
-        } else {
-          videoRef.current.pause();
         }
-      }
-    }, { threshold: 0.2, ...options }); // Trigger when 20% of element is visible
+      },
+      { threshold: 0.2, ...options }
+    ); // Trigger when 20% of element is visible
 
     observer.observe(currentTarget);
 
@@ -59,29 +62,36 @@ const useVideoIntersection = (options = {}) => {
   return { isIntersecting, targetRef, videoRef };
 };
 
-
-export function GuideStep({ guideId, step, stepNumber, category, slug }: StepProps) {
+export function GuideStep({
+  guideId,
+  step,
+  stepNumber,
+  category,
+  slug,
+}: StepProps) {
   // Process the step content with the centralized markdown parser
   const processedContent = parseMarkdown(step.content);
   const { targetRef, videoRef } = useVideoIntersection();
-  const isLandscapeVideo = step.videooriantation === 'landscape';
+  const isLandscapeVideo = step.videooriantation === "landscape";
+
+  // github url: https://github.com/switch-to-eu/content/raw/refs/heads/main/nl/guides/email/gmail-to-protonmail/media/
 
   // Format video URL to use the API route with full path
   const getVideoUrl = (videoPath: string) => {
-    if (!videoPath) return '';
+    if (!videoPath) return "";
 
     // If it's already an absolute URL, return as is
-    if (videoPath.startsWith('http')) {
+    if (videoPath.startsWith("http")) {
       return videoPath;
     }
 
     // If the video path already includes the guide path, use it as is
     if (videoPath.includes(`guides/${category}/${slug}`)) {
-      return `/api/content/${videoPath}`;
+      return `https://github.com/switch-to-eu/content/raw/refs/heads/main/${videoPath}`;
     }
 
     // Otherwise, construct the full path including the guide location
-    return `/api/content/nl/guides/${category}/${slug}/${videoPath}`;
+    return `https://github.com/switch-to-eu/content/raw/refs/heads/main/nl/guides/${category}/${slug}/${videoPath}`;
   };
 
   // Render the step content
@@ -130,7 +140,10 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
   );
 
   return (
-    <div className="guide-step mb-10 pb-6 border-b border-gray-200 dark:border-gray-700" id={step.id}>
+    <div
+      className="guide-step mb-10 pb-6 border-b border-gray-200 dark:border-gray-700"
+      id={step.id}
+    >
       {/* Responsive layout - adjust based on video orientation */}
       {step.video ? (
         isLandscapeVideo ? (
@@ -142,12 +155,8 @@ export function GuideStep({ guideId, step, stepNumber, category, slug }: StepPro
         ) : (
           // Portrait videos use the original two-column layout
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="md:order-1">
-              {renderContent()}
-            </div>
-            <div className="md:order-2">
-              {renderVideo()}
-            </div>
+            <div className="md:order-1">{renderContent()}</div>
+            <div className="md:order-2">{renderVideo()}</div>
           </div>
         )
       ) : (

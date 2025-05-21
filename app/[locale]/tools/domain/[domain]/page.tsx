@@ -3,8 +3,8 @@ import { ArrowLeftIcon } from "lucide-react";
 import { getFromRedis } from "@/lib/redis";
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
 import { AnalysisStep } from "@/lib/types";
-import { Link } from "@/i18n/navigation";
 import { Metadata } from "next";
+import { Link } from "@/i18n/navigation";
 import { Locale } from "next-intl";
 
 // Helper to format domain name
@@ -20,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   // Await the params
   const { domain, locale } = await params;
-  const domainFromUrl = decodeURIComponent(domain);
 
+  const domainFromUrl = decodeURIComponent(domain);
   const formattedDomain = formatDomain(domainFromUrl);
 
   return {
@@ -53,9 +53,10 @@ export async function generateMetadata({
 export default async function DomainAnalyzerPage({
   params,
 }: {
-  params: Promise<{ domain: string; locale: string }>;
+  params: Promise<{ domain: string }>;
 }) {
   const { domain } = await params;
+
   const domainFromUrl = decodeURIComponent(domain);
   const formattedDomain = formatDomain(domainFromUrl);
 
