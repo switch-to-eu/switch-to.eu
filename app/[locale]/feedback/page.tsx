@@ -17,37 +17,6 @@ export async function generateMetadata() {
 export default async function FeedbackPage() {
   const t = await getTranslations("feedback");
 
-  // Prepare the dictionary for the FeedbackForm
-  const formDictionary = {
-    title: t("form.title"),
-    description: t("form.description"),
-    titleLabel: t("form.titleLabel"),
-    titlePlaceholder: t("form.titlePlaceholder"),
-    descriptionLabel: t("form.descriptionLabel"),
-    descriptionPlaceholder: t("form.descriptionPlaceholder"),
-    categoryLabel: t("form.categoryLabel"),
-    categoryPlaceholder: t("form.categoryPlaceholder"),
-    bug: t("form.bugCategory"),
-    feature: t("form.featureCategory"),
-    feedback: t("form.feedbackCategory"),
-    other: t("form.otherCategory"),
-    contactInfoLabel: t("form.contactInfoLabel"),
-    contactInfoPlaceholder: t("form.contactInfoPlaceholder"),
-    submit: t("form.submitButton"),
-    submitting: t("form.submitting"),
-    success: t("form.successMessage"),
-    error: t("form.errorMessage"),
-    viewIssue: t("form.viewIssue"),
-    validation: {
-      titleMinLength: t("form.validation.titleMinLength"),
-      titleNoHtml: t("form.validation.titleNoHtml"),
-      descriptionMinLength: t("form.validation.descriptionMinLength"),
-      descriptionNoHtml: t("form.validation.descriptionNoHtml"),
-      categoryRequired: t("form.validation.categoryRequired"),
-      invalidEmail: t("form.validation.invalidEmail"),
-    },
-  };
-
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
       {/* Hero Section */}
@@ -81,7 +50,7 @@ export default async function FeedbackPage() {
       {/* Feedback Form Section */}
       <section>
         <Container>
-          <FeedbackForm dictionary={formDictionary} />
+          <FeedbackForm />
         </Container>
       </section>
     </div>
