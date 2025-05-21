@@ -292,13 +292,6 @@ export default async function Home({}: {
         </Container>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-8 md:py-12">
-        <Container>
-          <NewsletterCta />
-        </Container>
-      </section>
-
       {/* Why Switch Section */}
       <section className="py-16">
         <Container>
@@ -316,6 +309,13 @@ export default async function Home({}: {
               <Link href={`/about`}>{t("knowMoreButton")}</Link>
             </Button>
           </div>
+        </Container>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-8 md:py-12">
+        <Container>
+          <NewsletterCta />
         </Container>
       </section>
 
