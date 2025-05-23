@@ -429,3 +429,350 @@ export async function getRecommendedAlternative(
 
   return alternativeService ? alternativeService.frontmatter : null;
 }
+
+/**
+ * Get all business services
+ */
+export async function getAllBusinessServices(lang: Locale = "en"): Promise<Array<ServiceFrontmatter>> {
+  const langContentRoot = getLanguageContentPath(lang);
+  const servicesDir = path.join(langContentRoot, "business-services");
+  const services: Array<ServiceFrontmatter> = [];
+
+  try {
+    if (!fs.existsSync(servicesDir)) {
+      return [];
+    }
+
+    // First, check for services in the root business-services directory
+    const rootServiceFiles = fs
+      .readdirSync(servicesDir)
+      .filter(
+        (file) =>
+          (file.endsWith(".md") || file.endsWith(".mdx")) &&
+          !file.startsWith(".") &&
+          file !== "README.md"
+      );
+
+    for (const file of rootServiceFiles) {
+      const fullPath = path.join(servicesDir, file);
+      if (fs.statSync(fullPath).isDirectory()) continue;
+
+      const fileContent = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContent);
+
+      if (!isServiceFrontmatter(data)) {
+        console.warn(`Invalid service frontmatter in ${fullPath}`);
+        continue;
+      }
+
+      if (!data.region) {
+        data.region = "eu"; // Default to EU
+      }
+
+      services.push(data);
+    }
+
+    // Check for EU services in business-services/eu
+    const euDir = path.join(servicesDir, "eu");
+    if (fs.existsSync(euDir)) {
+      const euServiceFiles = fs
+        .readdirSync(euDir)
+        .filter(
+          (file) =>
+            (file.endsWith(".md") || file.endsWith(".mdx")) &&
+            !file.startsWith(".")
+        );
+
+      for (const file of euServiceFiles) {
+        const fullPath = path.join(euDir, file);
+        const fileContent = fs.readFileSync(fullPath, "utf8");
+        const { data } = matter(fileContent);
+
+        if (!isServiceFrontmatter(data)) {
+          console.warn(`Invalid service frontmatter in ${fullPath}`);
+          continue;
+        }
+
+        if (!data.region) {
+          data.region = "eu";
+        }
+
+        services.push(data);
+      }
+    }
+
+    // Check for non-EU services in business-services/non-eu
+    const nonEuDir = path.join(servicesDir, "non-eu");
+    if (fs.existsSync(nonEuDir)) {
+      const nonEuServiceFiles = fs
+        .readdirSync(nonEuDir)
+        .filter(
+          (file) =>
+            (file.endsWith(".md") || file.endsWith(".mdx")) &&
+            !file.startsWith(".")
+        );
+
+      for (const file of nonEuServiceFiles) {
+        const fullPath = path.join(nonEuDir, file);
+        const fileContent = fs.readFileSync(fullPath, "utf8");
+        const { data } = matter(fileContent);
+
+        if (!isServiceFrontmatter(data)) {
+          console.warn(`Invalid service frontmatter in ${fullPath}`);
+          continue;
+        }
+
+        if (!data.region) {
+          data.region = "non-eu";
+        }
+
+        services.push(data);
+      }
+    }
+
+    return services;
+  } catch (error) {
+    console.error("Error reading business services:", error);
+    return [];
+  }
+}
+
+/**
+ * Get business services filtered by category with optional region filter
+ */
+export async function getBusinessServicesByCategory(
+  category: string,
+  regionFilter?: "eu" | "non-eu",
+  lang: Locale = "en"
+): Promise<Array<ServiceFrontmatter>> {
+  const services = await getAllBusinessServices(lang);
+  return services.filter((service) => {
+    const categoryMatch =
+      service.category.toLowerCase() === category.toLowerCase();
+
+    if (regionFilter) {
+      if (regionFilter === "eu") {
+        return (
+          categoryMatch &&
+          (service.region === "eu" || service.region === "eu-friendly")
+        );
+      }
+      return categoryMatch && service.region === regionFilter;
+    }
+
+    return categoryMatch;
+  });
+}
+
+/**
+ * Get a specific business service by slug
+ */
+export async function getBusinessServiceBySlug(
+  slug: string,
+  lang: Locale = "en"
+): Promise<{
+  frontmatter: ServiceFrontmatter;
+  content: string;
+  segments: ContentSegments;
+} | null> {
+  const langContentRoot = getLanguageContentPath(lang);
+  const fileExtensions = [".md", ".mdx"];
+  const servicesDir = path.join(langContentRoot, "business-services");
+  const euDir = path.join(servicesDir, "eu");
+  const nonEuDir = path.join(servicesDir, "non-eu");
+  const directories = [servicesDir, euDir, nonEuDir];
+
+  const slugVariations = [
+    slug,
+    slug.replace(/-/g, "."),
+    slug.replace(/-/g, " "),
+    slug.replace(/\./g, "-"),
+  ];
+
+  let filePath: string | null = null;
+
+  for (const dir of directories) {
+    if (!fs.existsSync(dir)) {
+      continue;
+    }
+
+    for (const slugVar of slugVariations) {
+      for (const ext of fileExtensions) {
+        const testPath = path.join(dir, `${slugVar}${ext}`);
+        if (fs.existsSync(testPath)) {
+          filePath = testPath;
+          break;
+        }
+      }
+      if (filePath) break;
+    }
+    if (filePath) break;
+  }
+
+  if (!filePath) {
+    for (const dir of directories) {
+      if (!fs.existsSync(dir)) continue;
+      const files = fs.readdirSync(dir);
+      for (const file of files) {
+        const ext = path.extname(file);
+        if (!fileExtensions.includes(ext)) continue;
+        const baseName = path.basename(file, ext);
+        const normalizedBaseName = baseName
+          .replace(/[\s.-]/g, "")
+          .toLowerCase();
+        for (const slugVar of slugVariations) {
+          const normalizedSlugVar = slugVar
+            .replace(/[\s.-]/g, "")
+            .toLowerCase();
+          if (normalizedBaseName === normalizedSlugVar) {
+            filePath = path.join(dir, file);
+            break;
+          }
+        }
+        if (filePath) break;
+      }
+      if (filePath) break;
+    }
+  }
+
+  if (!filePath) {
+    for (const dir of directories) {
+      if (!fs.existsSync(dir)) continue;
+      const files = fs.readdirSync(dir);
+      for (const file of files) {
+        const ext = path.extname(file);
+        if (!fileExtensions.includes(ext)) continue;
+        const fullPath = path.join(dir, file);
+        try {
+          const fileContent = fs.readFileSync(fullPath, "utf8");
+          const { data } = matter(fileContent);
+          if (!isServiceFrontmatter(data)) continue;
+          const serviceName = data.name.toLowerCase();
+          for (const slugVar of slugVariations) {
+            const normalizedServiceName = serviceName
+              .replace(/[\s.-]/g, "")
+              .toLowerCase();
+            const normalizedSlugVar = slugVar
+              .replace(/[\s.-]/g, "")
+              .toLowerCase();
+            if (normalizedServiceName === normalizedSlugVar) {
+              filePath = fullPath;
+              break;
+            }
+          }
+          if (filePath) break;
+        } catch (error) {
+          console.error(`Error reading file ${fullPath}:`, error);
+        }
+      }
+      if (filePath) break;
+    }
+  }
+
+  if (!filePath) {
+    return null;
+  }
+
+  try {
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const { data, content } = matter(fileContent);
+
+    if (!isServiceFrontmatter(data)) {
+      console.warn(`Invalid service frontmatter in ${filePath}`);
+      return null;
+    }
+
+    if (!data.region) {
+      if (filePath.includes("/eu/")) {
+        data.region = "eu";
+      } else if (filePath.includes("/non-eu/")) {
+        data.region = "non-eu";
+      } else {
+        data.region = "eu";
+      }
+    }
+
+    const segments = extractContentSegments(content);
+
+    return {
+      frontmatter: data,
+      content,
+      segments,
+    };
+  } catch (error) {
+    console.error(`Error reading business service ${slug}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Get all featured business services across categories
+ */
+export async function getFeaturedBusinessServices(
+  lang: Locale = "en",
+  regionFilter?: "eu" | "non-eu"
+): Promise<
+  Array<{
+    service: ServiceFrontmatter;
+    category: string;
+  }>
+> {
+  try {
+    const allServices = await getAllBusinessServices(lang);
+
+    const featuredServices = allServices
+      .filter((service) => service.featured === true)
+      .filter((service) => {
+        if (!regionFilter) return true;
+        if (regionFilter === "eu") {
+          return service.region === "eu" || service.region === "eu-friendly";
+        }
+        return service.region === regionFilter;
+      })
+      .map((service) => ({
+        service,
+        category: service.category,
+      }));
+
+    return featuredServices;
+  } catch (error) {
+    console.error("Error reading featured business services:", error);
+    return [];
+  }
+}
+
+/**
+ * Get all business service slugs for a specific region
+ */
+export async function getBusinessServiceSlugs(
+  region: "eu" | "non-eu",
+  lang: Locale = "en"
+): Promise<Array<string>> {
+  const services = await getAllBusinessServices(lang);
+  return services
+    .filter((service) => {
+      if (region === "eu") {
+        return service.region === "eu" || service.region === "eu-friendly";
+      }
+      return service.region === region;
+    })
+    .map((service) => {
+      return service.name.toLowerCase().replace(/\s+/g, "-");
+    });
+}
+
+/**
+ * Gets the recommended business alternative service based on a service name
+ */
+export async function getRecommendedBusinessAlternative(
+  serviceName: string,
+  lang: Locale = "en"
+): Promise<ServiceFrontmatter | null> {
+  const service = await getBusinessServiceBySlug(serviceName, lang);
+  if (!service || !service.frontmatter.recommendedAlternative) return null;
+
+  const alternativeSlug = service.frontmatter.recommendedAlternative;
+  const alternativeService = await getBusinessServiceBySlug(alternativeSlug, lang);
+
+  return alternativeService ? alternativeService.frontmatter : null;
+}

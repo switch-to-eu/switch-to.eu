@@ -45,7 +45,10 @@
     "websiteTool": "Website tool",
     "contributeGuide": "Contribution Guide",
     "feedback": "Feedback",
-    "mobileMenu": "Toggle menu"
+    "mobileMenu": "Toggle menu",
+    "consumer": "Consumer",
+    "business": "Business",
+    "logoBusinessSuffix": "Business"
   },
   "home": {
     "heading": "Moving away from big tech? Make the switch.",
@@ -413,7 +416,9 @@
         "startingPrice": "Starting Price",
         "migrateFrom": "Migrate {source} To {target}",
         "viewDetails": "View Service Details"
-      }
+      },
+      "featureComparisonTitle": "Feature Comparison",
+      "testimonialsTitle": "What Our Customers Say"
     }
   },
   "guides": {
@@ -644,5 +649,16 @@
     "emailLabel": "Email address",
     "submitLabel": "Subscribe",
     "successMessage": "Thank you for subscribing! You will receive our next update in your inbox."
+  },
+  "businessLanding": {
+    "metaTitle": "Business Software & Service Alternatives | switch-to.eu",
+    "metaDescription": "Find EU-based business software, tools, and service alternatives. Secure your data and support the European tech ecosystem.",
+    "pageTitle": "Business Services & Software",
+    "noCategoriesFound": "No business categories found at the moment. Please check back later."
+  },
+  "FeatureComparisonTable": {
+    "noData": "No comparison data available.",
+    "feature": "Feature",
+    "notes": "Notes"
   }
 }

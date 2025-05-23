@@ -3,13 +3,17 @@ import { cn } from "@/lib/utils";
 import { getNavItems } from "./nav-items";
 import { Link } from "@/i18n/navigation";
 import { NavDropdown } from "./NavDropdown";
+import { headers } from "next/headers";
 
 interface MainNavProps {
   className?: string;
 }
 
 export async function MainNav({ className }: MainNavProps) {
-  const navItems = await getNavItems();
+  const heads = headers();
+  const pathname = heads.get("x-next-pathname") || "";
+  const currentMode = pathname.startsWith("/business") ? "business" : "consumer";
+  const navItems = await getNavItems(currentMode);
 
   return (
     <div className="flex items-center justify-between w-full">

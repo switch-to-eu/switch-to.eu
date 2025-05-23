@@ -17,6 +17,7 @@ import { routing } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider, Locale } from "next-intl";
 import { generateLanguageAlternates } from "@/lib/utils";
+import { headers } from "next/headers";
 
 // Keep Geist Mono for code blocks
 const geistMono = Geist_Mono({
@@ -92,9 +93,13 @@ export default async function LocaleLayout({
   params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
+  const heads = headers();
+  const pathname = heads.get("x-next-pathname") || "";
+  const currentMode = pathname.startsWith("/business") ? "business" : "consumer";
+  const htmlClassName = currentMode === "business" ? "theme-business" : "";
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={htmlClassName}>
       <PlausibleProvider domain="switch-to.eu">
         <body
           className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}

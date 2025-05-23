@@ -1,4 +1,7 @@
-import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
+import {
+  getAllCategoriesMetadata,
+  getAllBusinessCategoriesMetadata,
+} from "@/lib/content/services/categories";
 import { getTranslations } from "next-intl/server";
 
 export type MainNavItem = {
@@ -16,18 +19,31 @@ export interface SubNavItem {
   isExternal?: boolean;
 }
 
-export async function getNavItems(): Promise<MainNavItem[]> {
-  const categories = getAllCategoriesMetadata().map((category) => ({
-    title: category.metadata.title,
-    href: `/services/${category.slug}`,
-  }));
+export async function getNavItems(
+  mode: "consumer" | "business"
+): Promise<MainNavItem[]> {
+  let categories: SubNavItem[];
+
+  if (mode === "business") {
+    categories = getAllBusinessCategoriesMetadata().map((category) => ({
+      title: category.metadata.title,
+      href: `/business/services/${category.slug}`,
+    }));
+  } else {
+    categories = getAllCategoriesMetadata().map((category) => ({
+      title: category.metadata.title,
+      href: `/services/${category.slug}`,
+    }));
+  }
 
   const t = await getTranslations("navigation");
+
+  const homeLink = mode === "business" ? "/business" : "/";
 
   return [
     {
       title: t("home"),
-      href: `/`,
+      href: homeLink,
     },
     {
       title: t("services"),

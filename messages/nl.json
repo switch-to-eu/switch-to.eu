@@ -42,7 +42,10 @@
     "websiteTool": "Website tool",
     "contributeGuide": "Bijdragerichtlijnen",
     "feedback": "Feedback",
-    "mobileMenu": "Menu openen"
+    "mobileMenu": "Menu openen",
+    "consumer": "Particulier",
+    "business": "Zakelijk",
+    "logoBusinessSuffix": "Zakelijk"
   },
   "home": {
     "heading": "Weg van big tech? Maak de switch.",
@@ -407,7 +410,9 @@
         "startingPrice": "Startprijs",
         "migrateFrom": "Migreer van {source} naar {target}",
         "viewDetails": "Bekijk dienstdetails"
-      }
+      },
+      "featureComparisonTitle": "Functievergelijking",
+      "testimonialsTitle": "Wat Onze Klanten Zeggen"
     }
   },
   "tools": {
@@ -638,5 +643,16 @@
     "emailLabel": "E-mailadres",
     "submitLabel": "Schrijf je in",
     "successMessage": "Bedankt voor je aanmelding! Je ontvangt onze volgende update in je inbox."
+  },
+  "businessLanding": {
+    "metaTitle": "Zakelijke Software & Service Alternatieven | switch-to.eu",
+    "metaDescription": "Vind EU-gebaseerde zakelijke software, tools en service-alternatieven. Beveilig uw gegevens en ondersteun het Europese tech-ecosysteem.",
+    "pageTitle": "Zakelijke Diensten & Software",
+    "noCategoriesFound": "Er zijn momenteel geen zakelijke categorieën gevonden. Probeer het later opnieuw."
+  },
+  "FeatureComparisonTable": {
+    "noData": "Geen vergelijkingsgegevens beschikbaar.",
+    "feature": "Functie",
+    "notes": "Opmerkingen"
   }
 }

@@ -58,6 +58,28 @@ export const ServiceFrontmatterSchema = z.object({
     featured: z.boolean().optional(),
     recommendedAlternative: z.string().optional(),
     issues: z.array(z.string()).optional(),
+    featureComparison: z
+        .object({
+            usToolName: z.string(),
+            items: z.array(
+                z.object({
+                    feature: z.string(),
+                    euValue: z.string(),
+                    usValue: z.string(),
+                    notes: z.string().optional(),
+                })
+            ),
+        })
+        .optional(),
+    testimonials: z
+        .array(
+            z.object({
+                quote: z.string(),
+                authorName: z.string(),
+                authorCompany: z.string().optional(),
+            })
+        )
+        .optional(),
 });
 
 // Schema for category metadata
