@@ -24,6 +24,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Initialize git submodules if they exist
+RUN if [ -f .gitmodules ]; then \
+      git submodule update --init --recursive; \
+    fi
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
