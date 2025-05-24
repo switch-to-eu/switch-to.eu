@@ -47,7 +47,6 @@ Switch-to.eu empowers users to regain digital sovereignty by providing:
 
 We welcome contributions from the community! Here's how you can help:
 
-
 ### Development Contributions
 
 1. **Bug Fixes**: Help us fix issues and improve the platform
@@ -75,6 +74,22 @@ npm install
 
 # Start the development server
 npm run dev
+```
+
+## 🐳 Using Docker
+
+```bash
+# Install Docker on your machine
+# Visit https://docs.docker.com/get-docker/ for installation instructions
+
+# Build your container
+docker build -t nextjs-docker .
+
+# Run your container
+docker run -p 3000:3000 nextjs-docker
+
+# You can view your images created with
+docker images
 ```
 
 ## 🙏 Acknowledgements
