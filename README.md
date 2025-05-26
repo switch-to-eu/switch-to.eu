@@ -98,3 +98,5 @@ docker images
 - The EU digital services that provide alternatives to non-EU services
 - The open-source community for the tools and libraries used in this project
 - See [CREDITS.md](./CREDITS.md) for detailed attribution of fonts and other resources used in this project
+
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/switch-to-eu/switch-to.eu?utm_source=oss&utm_medium=github&utm_campaign=switch-to-eu%2Fswitch-to.eu&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
