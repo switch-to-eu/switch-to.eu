@@ -42,7 +42,6 @@ const serviceRequestSchema = z.object({
     .email("Invalid email address")
     .optional()
     .or(z.literal("")),
-  csrfToken: z.string(),
 });
 
 type ServiceRequestValues = z.infer<typeof serviceRequestSchema>;
@@ -71,16 +70,6 @@ export function ServiceRequestModal({
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
-  const [csrfToken, setCsrfToken] = useState<string>("");
-
-  // Generate a CSRF token
-  useEffect(() => {
-    const token =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
-    setCsrfToken(token);
-    sessionStorage.setItem("csrfToken", token);
-  }, []);
 
   const form = useForm<ServiceRequestValues>({
     resolver: zodResolver(serviceRequestSchema),
@@ -88,27 +77,14 @@ export function ServiceRequestModal({
       title: "",
       description: "",
       contactInfo: "",
-      csrfToken: csrfToken,
     },
   });
-
-  // Update the CSRF token in form values when it changes
-  useEffect(() => {
-    form.setValue("csrfToken", csrfToken);
-  }, [csrfToken, form]);
-
   // Submit handler
   const onSubmit = async (data: ServiceRequestValues) => {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
     try {
-      // Verify the CSRF token matches what's in session storage
-      const storedToken = sessionStorage.getItem("csrfToken");
-      if (data.csrfToken !== storedToken) {
-        throw new Error("CSRF token validation failed");
-      }
-
       const response = await fetch("/api/github/issues", {
         method: "POST",
         headers: {
@@ -128,13 +104,6 @@ export function ServiceRequestModal({
 
       setSubmitStatus("success");
       form.reset();
-
-      // Generate a new CSRF token after successful submission
-      const newToken =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-      setCsrfToken(newToken);
-      sessionStorage.setItem("csrfToken", newToken);
     } catch (error) {
       console.error("Error submitting service request:", error);
       setSubmitStatus("error");
@@ -209,9 +178,6 @@ export function ServiceRequestModal({
                 </FormItem>
               )}
             />
-
-            {/* Hidden CSRF token field */}
-            <input type="hidden" {...form.register("csrfToken")} />
 
             {submitStatus === "success" && (
               <Alert className="bg-green-50 text-green-800 border-green-200">

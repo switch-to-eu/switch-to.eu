@@ -66,7 +66,6 @@ const issueSchema = z.object({
     .email("Invalid email address")
     .optional()
     .or(z.literal("")),
-  csrfToken: z.string().min(1, "CSRF token is required"),
 });
 
 // Background processing function
@@ -163,12 +162,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check CSRF token
     const host = request.headers.get("host") || "";
     const origin = request.headers.get("origin") || "";
     const referer = request.headers.get("referer") || "";
 
-    // Basic CSRF validation by checking origins
     if (!origin.includes(host) && !referer.includes(host)) {
       return NextResponse.json(
         { error: "Invalid request origin" },
