@@ -22,7 +22,7 @@ export const ContributeCta = () => {
           {t("ctaTitle")}
         </h2>
         <p className="text-slate-700 mb-4 sm:mb-6">{t("ctaDescription")}</p>
-        <ServiceRequestModal triggerText={t("cta")} variant="red" />
+        <ServiceRequestModal triggerText={t("ctaButton")} variant="red" />
       </div>
     </div>
   );

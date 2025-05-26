@@ -71,7 +71,6 @@ export function ServiceRequestModal({
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
-  const [issueUrl, setIssueUrl] = useState<string | null>(null);
   const [csrfToken, setCsrfToken] = useState<string>("");
 
   // Generate a CSRF token
@@ -128,7 +127,6 @@ export function ServiceRequestModal({
       }
 
       setSubmitStatus("success");
-      setIssueUrl(result.issueUrl);
       form.reset();
 
       // Generate a new CSRF token after successful submission
@@ -219,18 +217,6 @@ export function ServiceRequestModal({
               <Alert className="bg-green-50 text-green-800 border-green-200">
                 <AlertDescription>
                   {t("serviceRequestSuccessMessage")}
-                  {issueUrl && (
-                    <div className="mt-2">
-                      <a
-                        href={issueUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        {t("serviceRequestViewIssue")}
-                      </a>
-                    </div>
-                  )}
                 </AlertDescription>
               </Alert>
             )}

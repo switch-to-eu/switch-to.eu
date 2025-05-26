@@ -93,7 +93,7 @@
   "contribute": {
     "title": "Bijdragen",
     "description": "Help ons de database te verbeteren door nieuwe diensten toe te voegen of bestaande bij te werken",
-    "cta": "Draag bij aan Switch-to.eu",
+    "ctaButton": "Vraag een Dienst Aan",
     "ctaTitle": "Mis je een dienst? Laat het ons weten!",
     "ctaDescription": "Kun je de dienst die je zoekt niet vinden? Vertel ons welke dienst je graag zou willen zien en we voegen deze mogelijk toe aan ons platform.",
     "feedbackModalTitle": "Vraag een Dienst Aan",

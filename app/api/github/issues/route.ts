@@ -87,20 +87,6 @@ async function processFormInBackground(formData: {
     const repoOwner = process.env.GITHUB_REPO_OWNER;
     const repoName = process.env.GITHUB_REPO_NAME;
 
-    const submissionKey = `github_submission:${formData.submissionId}`;
-
-    const submissionData = {
-      id: formData.submissionId,
-      title: formData.title,
-      description: formData.description,
-      category: formData.category,
-      contactInfo: formData.contactInfo || null,
-      clientId: formData.clientId,
-      submittedAt: new Date().toISOString(),
-    };
-
-    await setInRedis(submissionKey, submissionData, 60 * 60 * 24 * 7); // 7 days
-
     if (!appId || !privateKey || !installationId || !repoOwner || !repoName) {
       console.error("Missing required environment variables for GitHub App");
       return;
@@ -220,6 +206,7 @@ export async function POST(request: NextRequest) {
     };
 
     const submissionKey = `github_submission:${submissionId}`;
+
     const savedToRedis = await setInRedis(
       submissionKey,
       submissionData,
@@ -262,53 +249,6 @@ export async function POST(request: NextRequest) {
         error:
           "An error occurred while processing your request. Please try again later.",
       },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET(request: NextRequest) {
-  try {
-    const url = new URL(request.url);
-    const submissionId = url.searchParams.get("submissionId");
-
-    if (!submissionId) {
-      return NextResponse.json(
-        { error: "submissionId parameter is required" },
-        { status: 400 }
-      );
-    }
-
-    const submissionKey = `github_submission:${submissionId}`;
-    const submissionDataRaw = await getFromRedis(submissionKey);
-
-    if (!submissionDataRaw) {
-      return NextResponse.json(
-        { error: "Submission not found" },
-        { status: 404 }
-      );
-    }
-
-    const submissionData = JSON.parse(submissionDataRaw);
-
-    // Return only safe data (no sensitive info like clientId)
-    return NextResponse.json({
-      id: submissionData.id,
-      status: submissionData.status,
-      submittedAt: submissionData.submittedAt,
-      completedAt: submissionData.completedAt,
-      issueUrl: submissionData.issueUrl,
-      issueNumber: submissionData.issueNumber,
-      retryCount: submissionData.retryCount,
-      errorMessage:
-        submissionData.status === "failed"
-          ? submissionData.errorMessage
-          : undefined,
-    });
-  } catch (error) {
-    console.error("Error checking submission status:", error);
-    return NextResponse.json(
-      { error: "Failed to check submission status" },
       { status: 500 }
     );
   }

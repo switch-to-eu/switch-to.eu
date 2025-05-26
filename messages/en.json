@@ -99,7 +99,7 @@
     "keywords": {
       "feedback": "Feedback"
     },
-    "cta": "Contribute to Switch-to.eu",
+    "ctaButton": "Request a Service",
     "ctaTitle": "Missing a service? Let us know!",
     "ctaDescription": "Can't find the service you're looking for? Tell us which service you'd like to see and we might add it to our platform.",
     "feedbackModalTitle": "Request a Service",
