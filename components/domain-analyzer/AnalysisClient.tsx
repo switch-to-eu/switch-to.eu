@@ -225,10 +225,12 @@ function AnalysisResults({
     ).length;
 
     const nonEuServices = completedSteps.filter(
-      (step) => step.isEU === false
+      (step) => step.isEU === false && step.euFriendly === false
     ).length;
 
-    if (nonEuServices === 0 && euFriendlyServices === 0) return "green";
+    console.log("nonEuServices", nonEuServices);
+
+    if (nonEuServices === 0) return "green";
     if (euServices === 0 && euFriendlyServices === 0) return "red";
 
     return "yellow";
