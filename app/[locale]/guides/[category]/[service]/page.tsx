@@ -5,7 +5,6 @@ import {
   processCompletionMarkers,
   extractStepsWithMeta,
 } from "@/lib/content/utils";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
@@ -18,6 +17,7 @@ import {
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
 import { parseMarkdown } from "@/lib/markdown";
+import { notFound } from "next/navigation";
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {

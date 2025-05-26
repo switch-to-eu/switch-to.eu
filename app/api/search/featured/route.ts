@@ -28,13 +28,6 @@ export async function GET(request: NextRequest) {
     const langParam = searchParams.get("lang");
     const lang = (langParam as Locale) || "en";
 
-    console.log("Featured API: Processing request with filters:", {
-      limit,
-      types,
-      region,
-      lang,
-    });
-
     // Get all featured services from markdown files, passing the language parameter
     const featuredServicesData = await getFeaturedServices(lang, region);
 
@@ -53,10 +46,6 @@ export async function GET(request: NextRequest) {
         freeOption: service.freeOption,
         region: service.region || "non-eu", // Default to non-eu if not specified
       })
-    );
-
-    console.log(
-      `Featured API: Loaded ${featuredServices.length} featured services from content files`
     );
 
     // Apply type filter if specified
