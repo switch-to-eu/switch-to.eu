@@ -20,8 +20,6 @@ async function detectEmailProvider(domain: string): Promise<{
     const dnsRecords = await getAllDnsRecords(domain);
     const mxRecords = dnsRecords.filter((record) => record.type === "MX");
 
-    console.log("mxRecords", mxRecords);
-
     // If no MX records found, return unknown
     if (!mxRecords || mxRecords.length === 0) {
       return {
@@ -87,6 +85,8 @@ async function detectEmailProvider(domain: string): Promise<{
       return { provider: "Hetzner", isEU: true, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("gandi"))) {
       return { provider: "Gandi", isEU: true, euFriendly: false };
+    } else if (mxDomains.some((mx) => mx.includes("nameweb"))) {
+      return { provider: "Nameweb", isEU: true, euFriendly: false };
     } else {
       // Check for common hosting patterns or return the first MX domain
       const firstMxDomain = mxDomains[0];
@@ -191,6 +191,7 @@ async function detectDomainRegistrar(domain: string) {
       "ionos",
       "pcextreme",
       "transip",
+      "nameweb",
       "openprovider",
       "netim",
       "eurodns",

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { SearchResult, ServiceSearchResult } from "@/lib/search";
 import { RegionBadge } from "@/components/ui/region-badge";
 import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 interface InlineSearchInputProps {
   className?: string;
