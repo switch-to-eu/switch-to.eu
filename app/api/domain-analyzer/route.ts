@@ -85,7 +85,7 @@ async function detectEmailProvider(domain: string): Promise<{
       return { provider: "Hetzner", isEU: true, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("gandi"))) {
       return { provider: "Gandi", isEU: true, euFriendly: false };
-    } else if (mxDomains.some((mx) => mx.includes("Nameweb"))) {
+    } else if (mxDomains.some((mx) => mx.includes("nameweb"))) {
       return { provider: "Nameweb", isEU: true, euFriendly: false };
     } else {
       // Check for common hosting patterns or return the first MX domain
