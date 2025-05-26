@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -69,7 +69,6 @@ const formSchema = (validationMessages: ValidationMessages) =>
       .email({ message: validationMessages.invalidEmail })
       .optional()
       .or(z.literal("")),
-    csrfToken: z.string(),
   });
 
 // Type for the form values
@@ -82,20 +81,6 @@ export default function FeedbackForm() {
     "idle" | "success" | "error"
   >("idle");
   const [issueUrl, setIssueUrl] = useState<string | null>(null);
-  const [csrfToken, setCsrfToken] = useState<string>("");
-
-  // Generate a CSRF token
-  useEffect(() => {
-    // Create a random CSRF token
-    const token =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
-
-    setCsrfToken(token);
-
-    // Store in session storage (more secure than localStorage)
-    sessionStorage.setItem("csrfToken", token);
-  }, []);
 
   const {
     feedback: {
@@ -110,14 +95,8 @@ export default function FeedbackForm() {
       description: "",
       category: undefined,
       contactInfo: "",
-      csrfToken: csrfToken,
     },
   });
-
-  // Update the CSRF token in form values when it changes
-  useEffect(() => {
-    form.setValue("csrfToken", csrfToken);
-  }, [csrfToken, form]);
 
   // Submit handler
   const onSubmit = async (data: FormValues) => {
@@ -125,12 +104,6 @@ export default function FeedbackForm() {
     setSubmitStatus("idle");
 
     try {
-      // Verify the CSRF token matches what's in session storage
-      const storedToken = sessionStorage.getItem("csrfToken");
-      if (data.csrfToken !== storedToken) {
-        throw new Error("CSRF token validation failed");
-      }
-
       const response = await fetch("/api/github/issues", {
         method: "POST",
         headers: {
@@ -148,13 +121,6 @@ export default function FeedbackForm() {
       setSubmitStatus("success");
       setIssueUrl(result.issueUrl);
       form.reset();
-
-      // Generate a new CSRF token after successful submission
-      const newToken =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-      setCsrfToken(newToken);
-      sessionStorage.setItem("csrfToken", newToken);
     } catch (error) {
       console.error("Error submitting feedback:", error);
       setSubmitStatus("error");
@@ -260,10 +226,6 @@ export default function FeedbackForm() {
                 </FormItem>
               )}
             />
-
-            {/* Hidden CSRF token field */}
-            <input type="hidden" {...form.register("csrfToken")} />
-
             {submitStatus === "success" && (
               <Alert
                 variant="default"

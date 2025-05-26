@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+"use client";
 
-export const ContributeCta = async () => {
-  const t = await getTranslations("contribute");
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { ServiceRequestModal } from "@/components/ServiceRequestModal";
+
+export const ContributeCta = () => {
+  const t = useTranslations("contribute");
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4 bg-[var(--green-bg)] p-4 sm:p-6 rounded-lg">
@@ -21,9 +22,7 @@ export const ContributeCta = async () => {
           {t("ctaTitle")}
         </h2>
         <p className="text-slate-700 mb-4 sm:mb-6">{t("ctaDescription")}</p>
-        <Button variant="red" asChild>
-          <Link href={`/contribute`}>{t("cta")}</Link>
-        </Button>
+        <ServiceRequestModal triggerText={t("ctaButton")} variant="red" />
       </div>
     </div>
   );

@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:dev": "docker compose --profile dev up",
+    "docker:dev:build": "docker compose --profile dev up --build",
+    "docker:prod": "docker compose --profile prod up --build",
+    "docker:redis": "docker compose up redis -d",
+    "docker:stop": "docker compose down",
+    "docker:clean": "docker compose down -v --remove-orphans"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
