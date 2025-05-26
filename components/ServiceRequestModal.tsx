@@ -146,7 +146,7 @@ export function ServiceRequestModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant}>{triggerText || t("cta")}</Button>
+        <Button variant={variant}>{triggerText || t("ctaButton")}</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
