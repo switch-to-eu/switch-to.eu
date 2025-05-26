@@ -3,7 +3,7 @@ import { App } from "octokit";
 import { z } from "zod";
 import { createHash } from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import { setInRedis, getFromRedis } from "@/lib/redis";
+import { setInRedis } from "@/lib/redis";
 
 // Simple in-memory rate limiting implementation
 const RATE_LIMITS = new Map<string, { count: number; resetTime: number }>();
