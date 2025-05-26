@@ -17,12 +17,6 @@ export async function Footer() {
             {t("home")}
           </Link>
           <Link
-            href={`/services`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            {t("services")}
-          </Link>
-          <Link
             href={`/about`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
