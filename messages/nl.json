@@ -110,6 +110,13 @@
     "serviceRequestSuccessMessage": "Bedankt voor je suggestie! We bekijken het en overwegen deze dienst toe te voegen.",
     "serviceRequestErrorMessage": "Er ging iets mis. Probeer het opnieuw.",
     "serviceRequestViewIssue": "Bekijk Aanvraag",
+    "validation": {
+      "titleMinLength": "Dienstnaam moet minimaal 5 tekens bevatten.",
+      "titleNoHtml": "HTML-tags zijn niet toegestaan in de dienstnaam.",
+      "descriptionMinLength": "Beschrijving moet minimaal 10 tekens bevatten.",
+      "descriptionNoHtml": "HTML-tags zijn niet toegestaan in de beschrijving.",
+      "invalidEmail": "Ongeldig e-mailadres."
+    },
     "buttonText": "Bijdragen aan Switch-to.EU",
     "meta": {
       "title": "Bijdragen aan Switch-to.EU | Help EU-alternatieven Opbouwen",

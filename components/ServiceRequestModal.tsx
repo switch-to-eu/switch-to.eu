@@ -27,24 +27,36 @@ import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslations } from "next-intl";
 
-// Define the validation schema for service requests
-const serviceRequestSchema = z.object({
-  title: z
-    .string()
-    .min(5, "Service name must be at least 5 characters")
-    .refine((val) => !/[<>]/.test(val), "HTML tags are not allowed"),
-  description: z
-    .string()
-    .min(10, "Description must be at least 10 characters")
-    .refine((val) => !/[<>]/.test(val), "HTML tags are not allowed"),
-  contactInfo: z
-    .string()
-    .email("Invalid email address")
-    .optional()
-    .or(z.literal("")),
-});
+// Define a type for validation messages
+type ValidationMessages = {
+  titleMinLength: string;
+  titleNoHtml: string;
+  descriptionMinLength: string;
+  descriptionNoHtml: string;
+  invalidEmail: string;
+};
 
-type ServiceRequestValues = z.infer<typeof serviceRequestSchema>;
+// Define the validation schema factory function
+const createServiceRequestSchema = (validationMessages: ValidationMessages) =>
+  z.object({
+    title: z
+      .string()
+      .min(5, validationMessages.titleMinLength)
+      .refine((val) => !/[<>]/.test(val), validationMessages.titleNoHtml),
+    description: z
+      .string()
+      .min(10, validationMessages.descriptionMinLength)
+      .refine((val) => !/[<>]/.test(val), validationMessages.descriptionNoHtml),
+    contactInfo: z
+      .string()
+      .email(validationMessages.invalidEmail)
+      .optional()
+      .or(z.literal("")),
+  });
+
+type ServiceRequestValues = z.infer<
+  ReturnType<typeof createServiceRequestSchema>
+>;
 
 interface ServiceRequestModalProps {
   triggerText?: string;
@@ -72,7 +84,15 @@ export function ServiceRequestModal({
   >("idle");
 
   const form = useForm<ServiceRequestValues>({
-    resolver: zodResolver(serviceRequestSchema),
+    resolver: zodResolver(
+      createServiceRequestSchema({
+        titleMinLength: t("validation.titleMinLength"),
+        titleNoHtml: t("validation.titleNoHtml"),
+        descriptionMinLength: t("validation.descriptionMinLength"),
+        descriptionNoHtml: t("validation.descriptionNoHtml"),
+        invalidEmail: t("validation.invalidEmail"),
+      })
+    ),
     defaultValues: {
       title: "",
       description: "",

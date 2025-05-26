@@ -116,6 +116,13 @@
     "serviceRequestSuccessMessage": "Thank you for your suggestion! We'll review it and consider adding this service.",
     "serviceRequestErrorMessage": "Something went wrong. Please try again.",
     "serviceRequestViewIssue": "View Request",
+    "validation": {
+      "titleMinLength": "Service name must be at least 5 characters.",
+      "titleNoHtml": "HTML tags are not allowed in the service name.",
+      "descriptionMinLength": "Description must be at least 10 characters.",
+      "descriptionNoHtml": "HTML tags are not allowed in the description.",
+      "invalidEmail": "Invalid email address."
+    },
     "buttonText": "Contribute to Switch-to.EU",
     "meta": {
       "title": "Contribute to Switch-to.EU | Help Build EU Alternatives",
