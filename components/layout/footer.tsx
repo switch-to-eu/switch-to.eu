@@ -30,16 +30,25 @@ export async function Footer() {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <Link
-            href="https://github.com/switch-to-eu/switch-to.eu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            GitHub
-          </Link>
           <p className="text-sm text-muted-foreground">
-            © {currentYear} switch-to.eu
+            © {currentYear} switch-to.eu a project by{" "}
+            <Link
+              href="https://www.vinnie.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+            >
+              Studio Vinnie
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="https://www.mvpeters.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-500 transition-colors underline font-semibold"
+            >
+              MVPeters
+            </Link>
           </p>
         </div>
       </Container>

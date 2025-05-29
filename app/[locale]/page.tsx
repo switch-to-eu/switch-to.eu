@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { ContributeCta } from "@/components/ContributeCta";
@@ -246,26 +245,6 @@ export default async function Home() {
                 </p>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Why Switch Section */}
-      <section className="py-16">
-        <Container>
-          <h2 className="mb-6 text-center font-bold text-3xl ">
-            {t("whySwitchTitle")}
-          </h2>
-          <p className="text-center text-lg max-w-[800px] mx-auto mb-4 ">
-            {t("whySwitchDescription1")}
-          </p>
-          <p className="text-center text-lg max-w-[800px] mx-auto ">
-            {t("whySwitchDescription2")}
-          </p>
-          <div className="mt-8 text-center">
-            <Button variant="red" asChild className="mx-auto">
-              <Link href={`/about`}>{t("knowMoreButton")}</Link>
-            </Button>
           </div>
         </Container>
       </section>
