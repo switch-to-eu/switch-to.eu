@@ -83,7 +83,7 @@ export const NewsletterCta = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-4 bg-[var(--green-bg)] p-4 sm:p-6 rounded-lg">
+    <div className="flex flex-col sm:flex-row items-center gap-4 bg-[var(--blue-bg)] p-4 sm:p-6 rounded-lg">
       <div className="w-40 h-40 sm:w-56 sm:h-56 relative flex-shrink-0 mr-6">
         <Image
           src="/images/categories/email.svg"

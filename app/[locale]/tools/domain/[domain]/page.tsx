@@ -6,6 +6,7 @@ import { AnalysisStep } from "@/lib/types";
 import { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { Locale } from "next-intl";
+import { NewsletterCta } from "@/components/NewsletterCta";
 
 // Helper to format domain name
 function formatDomain(domain: string) {
@@ -94,6 +95,13 @@ export default async function DomainAnalyzerPage({
           />
         </div>
       </Container>
+
+      {/* Newsletter Section */}
+      <section className="py-8">
+        <Container>
+          <NewsletterCta />
+        </Container>
+      </section>
     </div>
   );
 }

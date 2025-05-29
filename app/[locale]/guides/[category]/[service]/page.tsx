@@ -18,6 +18,7 @@ import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
 import { parseMarkdown } from "@/lib/markdown";
 import { notFound } from "next/navigation";
+import { NewsletterCta } from "@/components/NewsletterCta";
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -238,13 +239,12 @@ export default async function GuideServicePage({
               <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
               <div className="flex mt-4 space-x-4">
                 <div
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    frontmatter.difficulty === "beginner"
-                      ? "bg-green-100 text-green-800"
-                      : frontmatter.difficulty === "intermediate"
+                  className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === "beginner"
+                    ? "bg-green-100 text-green-800"
+                    : frontmatter.difficulty === "intermediate"
                       ? "bg-yellow-100 text-yellow-800"
                       : "bg-red-100 text-red-800"
-                  }`}
+                    }`}
                 >
                   {serviceT("difficultyLabel", {
                     level:
@@ -282,6 +282,11 @@ export default async function GuideServicePage({
                 />
               </div>
             )}
+
+            {/* Newsletter Section */}
+            <div className="mb-0 mt-12">
+              <NewsletterCta />
+            </div>
 
             <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">

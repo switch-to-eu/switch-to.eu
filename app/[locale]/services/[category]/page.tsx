@@ -12,6 +12,7 @@ import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 import { Locale } from "next-intl";
+import { NewsletterCta } from "@/components/NewsletterCta";
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -159,9 +160,15 @@ export default async function ServicesCategoryPage({
             )
           )}
         </div>
+
+        {/* Newsletter Section */}
+        <section className="py-8">
+          <NewsletterCta />
+        </section>
+
       </Container>
       {/* CTA Section */}
-      <section className="py-8 md:py-12">
+      <section className="">
         <Container>
           <ContributeCta />
         </Container>

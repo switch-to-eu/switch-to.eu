@@ -250,26 +250,6 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Why Switch Section */}
-      <section className="py-16">
-        <Container>
-          <h2 className="mb-6 text-center font-bold text-3xl ">
-            {t("whySwitchTitle")}
-          </h2>
-          <p className="text-center text-lg max-w-[800px] mx-auto mb-4 ">
-            {t("whySwitchDescription1")}
-          </p>
-          <p className="text-center text-lg max-w-[800px] mx-auto ">
-            {t("whySwitchDescription2")}
-          </p>
-          <div className="mt-8 text-center">
-            <Button variant="red" asChild className="mx-auto">
-              <Link href={`/about`}>{t("knowMoreButton")}</Link>
-            </Button>
-          </div>
-        </Container>
-      </section>
-
       {/* Newsletter Section */}
       <section className="py-8 md:py-12">
         <Container>
