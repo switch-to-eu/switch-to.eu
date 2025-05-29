@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { ContributeCta } from "@/components/ContributeCta";
