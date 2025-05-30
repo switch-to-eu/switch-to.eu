@@ -7,7 +7,7 @@ import { getGuidesByTargetService } from "@/lib/content/services/guides";
 import { notFound } from "next/navigation";
 import { RegionBadge } from "@/components/ui/region-badge";
 import { Link } from "@/i18n/navigation";
-import { marked } from "marked";
+import { parseMarkdown } from "@/lib/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { ContributeCta } from "@/components/ContributeCta";
@@ -117,14 +117,8 @@ export default async function ServiceDetailPage({
     })
     .slice(0, 4); // Limit to 4 similar services
 
-  // Set basic options for marked
-  marked.setOptions({
-    gfm: true, // GitHub Flavored Markdown
-    breaks: true, // Translate line breaks to <br>
-  });
-
-  // Parse markdown content to HTML
-  const htmlContent = content ? marked.parse(content) : "";
+  // Parse markdown content to HTML using our secure parseMarkdown function
+  const htmlContent = content ? parseMarkdown(content) : "";
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-7xl lg:px-8">
