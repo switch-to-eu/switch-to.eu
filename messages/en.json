@@ -93,6 +93,10 @@
     "contactUs": "Contact Us",
     "poweredBy": "Powered by"
   },
+  "privacy": {
+    "title": "Privacy Policy | Switch-to.EU",
+    "description": "Learn how Switch-to.EU collects, uses, and protects your personal data in accordance with GDPR and European privacy laws."
+  },
   "contribute": {
     "title": "Contribute",
     "description": "Help us improve the database by adding new services or updating existing ones",

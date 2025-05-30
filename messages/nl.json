@@ -90,6 +90,10 @@
     "contactUs": "Neem contact op",
     "poweredBy": "Mogelijk gemaakt door"
   },
+  "privacy": {
+    "title": "Privacybeleid | Switch-to.EU",
+    "description": "Leer hoe Switch-to.EU uw persoonlijke gegevens verzamelt, gebruikt en beschermt in overeenstemming met de AVG en Europese privacywetten."
+  },
   "contribute": {
     "title": "Bijdragen",
     "description": "Help ons de database te verbeteren door nieuwe diensten toe te voegen of bestaande bij te werken",

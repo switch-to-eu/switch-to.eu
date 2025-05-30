@@ -5,17 +5,12 @@ import { getTranslations } from "next-intl/server";
 export async function Footer() {
   const currentYear = new Date().getFullYear();
   const t = await getTranslations("navigation");
+  const footerT = await getTranslations("footer");
 
   return (
     <footer className="border-t bg-background py-6 md:py-10">
       <Container className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
-          <Link
-            href={`/`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            {t("home")}
-          </Link>
           <Link
             href={`/about`}
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -27,6 +22,12 @@ export async function Footer() {
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             {t("contribute")}
+          </Link>
+          <Link
+            href={`/privacy`}
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            {footerT("privacyPolicy")}
           </Link>
         </div>
         <div className="flex items-center gap-4">
