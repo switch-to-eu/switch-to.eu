@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 // Define a type for validation messages
 type ValidationMessages = {
@@ -61,15 +62,15 @@ type ServiceRequestValues = z.infer<
 interface ServiceRequestModalProps {
   triggerText?: string;
   variant?:
-    | "default"
-    | "red"
-    | "outline"
-    | "ghost"
-    | "link"
-    | "destructive"
-    | "secondary"
-    | "search"
-    | "cta";
+  | "default"
+  | "red"
+  | "outline"
+  | "ghost"
+  | "link"
+  | "destructive"
+  | "secondary"
+  | "search"
+  | "cta";
 }
 
 export function ServiceRequestModal({
@@ -77,6 +78,7 @@ export function ServiceRequestModal({
   variant = "red",
 }: ServiceRequestModalProps) {
   const t = useTranslations("contribute");
+  const commonT = useTranslations("common");
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -214,6 +216,16 @@ export function ServiceRequestModal({
                 </AlertDescription>
               </Alert>
             )}
+
+            <div className="text-xs text-gray-400">
+              <p>
+                {commonT("privacyNotice")}{" "}
+                <Link href="/privacy" className="text-blue-600 hover:underline">
+                  {commonT("privacyPolicyLink")}
+                </Link>
+                .
+              </p>
+            </div>
           </form>
         </Form>
 

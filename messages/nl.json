@@ -29,7 +29,9 @@
       "instagram": "Instagram",
       "gdrive": "Google Drive",
       "dropbox": "Dropbox"
-    }
+    },
+    "privacyNotice": "Door dit formulier in te dienen, worden je gegevens gebruikt om een openbare GitHub issue aan te maken voor gemeenschapsbeoordeling. Voor meer informatie over hoe wij je gegevens behandelen, zie ons",
+    "privacyPolicyLink": "Privacybeleid"
   },
   "navigation": {
     "home": "Home",
@@ -573,6 +575,7 @@
       "bugCategory": "Bugrapport",
       "featureCategory": "Functieverzoek",
       "feedbackCategory": "Algemene Feedback",
+      "newServiceCategory": "Nieuwe Dienst Voorstellen",
       "otherCategory": "Overig",
       "contactInfoLabel": "E-mail (optioneel)",
       "contactInfoPlaceholder": "Je e-mail voor opvolging",
