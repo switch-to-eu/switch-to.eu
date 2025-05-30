@@ -1,4 +1,5 @@
 import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
 
 /**
  * Creates a custom markdown renderer with support for external links
@@ -59,11 +60,11 @@ export function createCustomRenderer() {
 }
 
 /**
- * Parses markdown with custom renderer options
+ * Parses markdown with custom renderer options and sanitizes the output
  *
  * @param markdown The markdown string to parse
  * @param options Additional marked options to merge
- * @returns HTML string
+ * @returns Sanitized HTML string
  */
 export function parseMarkdown(markdown: string, options = {}) {
     // Set up marked with common options
@@ -75,9 +76,35 @@ export function parseMarkdown(markdown: string, options = {}) {
     // Create the custom renderer
     const renderer = createCustomRenderer();
 
-    // Parse with our custom renderer and any additional options
-    return marked.parse(markdown, {
+    // Parse with our custom renderer and any additional options (synchronously)
+    const htmlContent = marked(markdown, {
         renderer,
         ...options
+    }) as string;
+
+    // Sanitize the HTML to prevent XSS attacks
+    return DOMPurify.sanitize(htmlContent, {
+        // Allow common HTML tags that are safe for content
+        ALLOWED_TAGS: [
+            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+            'p', 'br', 'div', 'span',
+            'strong', 'b', 'em', 'i', 'u', 'mark',
+            'ul', 'ol', 'li',
+            'a', 'img',
+            'blockquote', 'pre', 'code',
+            'table', 'thead', 'tbody', 'tr', 'th', 'td',
+            'hr', 'del', 'ins'
+        ],
+        // Allow safe attributes
+        ALLOWED_ATTR: [
+            'href', 'title', 'target', 'rel',
+            'src', 'alt', 'width', 'height',
+            'class', 'id'
+        ],
+        // Keep relative URLs and allow external links
+        ALLOW_DATA_ATTR: false,
+        // Remove any script-related content
+        FORBID_TAGS: ['script', 'object', 'embed', 'form', 'input'],
+        FORBID_ATTR: ['onclick', 'onload', 'onerror', 'onmouseover']
     });
 }

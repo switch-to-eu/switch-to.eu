@@ -6,7 +6,7 @@ import {
 } from "@/lib/content/services/services";
 import { getGuidesByTargetService } from "@/lib/content/services/guides";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
+import { parseMarkdown } from "@/lib/markdown";
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
@@ -194,14 +194,8 @@ export default async function ServiceDetailPage({
     }
   }
 
-  // Set basic options for marked
-  marked.setOptions({
-    gfm: true, // GitHub Flavored Markdown
-    breaks: true, // Translate line breaks to <br>
-  });
-
-  // Parse markdown content to HTML
-  const htmlContent = content ? marked.parse(content) : "";
+  // Parse markdown content to HTML using our secure parseMarkdown function
+  const htmlContent = content ? parseMarkdown(content) : "";
 
   // Load EU alternatives from the same category
   const euAlternatives = await getServicesByCategory(

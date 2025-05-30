@@ -29,7 +29,9 @@
       "instagram": "Instagram",
       "gdrive": "Google Drive",
       "dropbox": "Dropbox"
-    }
+    },
+    "privacyNotice": "Door dit formulier in te dienen, worden je gegevens gebruikt om een openbare GitHub issue aan te maken voor gemeenschapsbeoordeling. Voor meer informatie over hoe wij je gegevens behandelen, zie ons",
+    "privacyPolicyLink": "Privacybeleid"
   },
   "navigation": {
     "home": "Home",
@@ -89,6 +91,10 @@
     "termsOfService": "Servicevoorwaarden",
     "contactUs": "Neem contact op",
     "poweredBy": "Mogelijk gemaakt door"
+  },
+  "privacy": {
+    "title": "Privacybeleid | Switch-to.EU",
+    "description": "Leer hoe Switch-to.EU uw persoonlijke gegevens verzamelt, gebruikt en beschermt in overeenstemming met de AVG en Europese privacywetten."
   },
   "contribute": {
     "title": "Bijdragen",
@@ -569,6 +575,7 @@
       "bugCategory": "Bugrapport",
       "featureCategory": "Functieverzoek",
       "feedbackCategory": "Algemene Feedback",
+      "newServiceCategory": "Nieuwe Dienst Voorstellen",
       "otherCategory": "Overig",
       "contactInfoLabel": "E-mail (optioneel)",
       "contactInfoPlaceholder": "Je e-mail voor opvolging",

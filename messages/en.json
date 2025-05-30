@@ -32,7 +32,9 @@
       "instagram": "Instagram",
       "gdrive": "Google Drive",
       "dropbox": "Dropbox"
-    }
+    },
+    "privacyNotice": "By submitting this form, your data will be used to create a public GitHub issue for community review. For more information about how we handle your data, please see our",
+    "privacyPolicyLink": "Privacy Policy"
   },
   "navigation": {
     "home": "Home",
@@ -92,6 +94,10 @@
     "termsOfService": "Terms of Service",
     "contactUs": "Contact Us",
     "poweredBy": "Powered by"
+  },
+  "privacy": {
+    "title": "Privacy Policy | Switch-to.EU",
+    "description": "Learn how Switch-to.EU collects, uses, and protects your personal data in accordance with GDPR and European privacy laws."
   },
   "contribute": {
     "title": "Contribute",
@@ -574,6 +580,7 @@
       "categoryPlaceholder": "Select a category",
       "bugCategory": "Bug Report",
       "featureCategory": "Feature Request",
+      "newServiceCategory": "Suggest New Service",
       "feedbackCategory": "General Feedback",
       "otherCategory": "Other",
       "contactInfoLabel": "Email (optional)",
