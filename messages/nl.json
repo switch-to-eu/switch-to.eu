@@ -160,6 +160,11 @@
         "title": "Breng Je Ideeën In",
         "description": "Heb je suggesties voor het verbeteren van Switch-to.EU? Jouw inzichten kunnen de toekomst van ons platform vormgeven en ons helpen de Europese digitale gemeenschap beter te bedienen.",
         "cta": "Dien Feedback In"
+      },
+      "translate": {
+        "title": "Help Ons Vertalen",
+        "description": "We zijn altijd op zoek naar moedertaalsprekers om ons te helpen de website naar andere talen te vertalen.",
+        "cta": "Mail Ons"
       }
     },
     "whyMatters": {
