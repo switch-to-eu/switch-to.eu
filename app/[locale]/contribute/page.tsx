@@ -112,8 +112,7 @@ export default async function ContributePage() {
               </CardContent>
               <CardFooter className="justify-center">
                 <Link
-                  href="https://github.com/switch-to-eu/content/issues/new"
-                  target="_blank"
+                  href="/feedback"
                   className="text-blue hover:underline"
                 >
                   {t("cards.tester.cta")} →
@@ -142,8 +141,7 @@ export default async function ContributePage() {
               </CardContent>
               <CardFooter className="justify-center">
                 <Link
-                  href="https://github.com/switch-to-eu/content/issues/new"
-                  target="_blank"
+                  href="/feedback"
                   className="text-blue hover:underline"
                 >
                   {t("cards.discover.cta")} →
@@ -208,6 +206,37 @@ export default async function ContributePage() {
                 <Link href={`/feedback`} className="text-blue hover:underline">
                   {t("cards.ideas.cta")} →
                 </Link>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-4 flex justify-center">
+                  <div className="bg-[var(--pop-2)] rounded-full p-4">
+                    <Image
+                      src="/images/icon-03.svg"
+                      alt={t("cards.translate.title")}
+                      width={60}
+                      height={60}
+                    />
+                  </div>
+                </div>
+                <CardTitle className="text-xl text-center">
+                  {t("cards.translate.title")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center">
+                  {t("cards.translate.description")}
+                </p>
+              </CardContent>
+              <CardFooter className="justify-center">
+                <a
+                  href="mailto:hi@switch-to.eu"
+                  className="text-blue hover:underline"
+                >
+                  {t("cards.translate.cta")} →
+                </a>
               </CardFooter>
             </Card>
           </div>

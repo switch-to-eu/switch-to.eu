@@ -166,6 +166,11 @@
         "title": "Bring Your Ideas",
         "description": "Have suggestions for improving Switch-to.EU? Your insights can shape the future of our platform and help us better serve the European digital community.",
         "cta": "Submit Feedback"
+      },
+      "translate": {
+        "title": "Help Us Translate",
+        "description": "We're always looking for native speakers to help us translate the website into other languages.",
+        "cta": "Email Us"
       }
     },
     "whyMatters": {
