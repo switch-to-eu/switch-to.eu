@@ -4,20 +4,21 @@ import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { ContributeCta } from "@/components/ContributeCta";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { generateLanguageAlternates } from "@/lib/utils";
 
 // Generate metadata with language alternates
 export async function generateMetadata() {
   const t = await getTranslations("common");
+  const locale = await getLocale();
   const title = `${t("title")} - ${t("subtitle")}`;
   const description = t("description");
 
   return {
     title,
     description,
-    alternates: generateLanguageAlternates(""),
+    alternates: generateLanguageAlternates("", locale),
     openGraph: {
       title,
       description,

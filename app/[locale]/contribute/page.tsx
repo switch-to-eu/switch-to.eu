@@ -7,18 +7,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { generateLanguageAlternates } from "@/lib/utils";
 
 // Generate metadata with language alternates
 export async function generateMetadata() {
   const t = await getTranslations("contribute");
+  const locale = await getLocale();
 
   return {
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("contribute"),
+    alternates: generateLanguageAlternates("contribute", locale),
   };
 }
 

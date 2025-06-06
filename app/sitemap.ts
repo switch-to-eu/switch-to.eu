@@ -3,7 +3,6 @@ import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
 import { getAllGuides } from "@/lib/content/services/guides";
 import { getAllServices } from "@/lib/content/services/services";
 import { routing } from "@/i18n/routing";
-import { ServiceFrontmatter } from "@/lib/content";
 import { unstable_noStore as noStore } from "next/cache";
 const baseUrl = process.env.NEXT_PUBLIC_URL!;
 
@@ -15,14 +14,6 @@ const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
 export default function sitemap(): MetadataRoute.Sitemap {
   noStore();
   const defaultLocale = routing.defaultLocale;
-  const locales = routing.locales;
-
-  const otherLocales = locales.filter((l) => l !== defaultLocale);
-
-  const countryPrefix = {
-    en: "en-US",
-    nl: "nl-BE",
-  };
 
   const localeEntries = [
     {
@@ -30,14 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.9,
-      alternates: {
-        languages: {
-          ...otherLocales.reduce((acc, l) => {
-            acc[countryPrefix[l]] = `${baseUrl}/${countryPrefix[l]}`;
-            return acc;
-          }, {} as Record<string, string>),
-        },
-      },
     },
   ];
 
@@ -48,13 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.8,
-      // Add locale alternates
-      alternates: {
-        languages: otherLocales.reduce((acc, l) => {
-          acc[countryPrefix[l]] = `${baseUrl}/${l}${route}`;
-          return acc;
-        }, {} as Record<string, string>),
-      },
     };
   });
 
@@ -68,23 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.7,
-      alternates: {
-        languages: otherLocales.reduce((acc, l) => {
-          acc[countryPrefix[l]] = `${baseUrl}/${l}${url}`;
-          return acc;
-        }, {} as Record<string, string>),
-      },
     };
   });
 
   const services = getAllServices(defaultLocale);
 
-  const otherServices = otherLocales.reduce((acc, l) => {
-    acc[l] = getAllServices(l);
-    return acc;
-  }, {} as Record<string, ServiceFrontmatter[]>);
-
-  const servicesEntries = services.map((service, index) => {
+  const servicesEntries = services.map((service) => {
     const url = (name: string, region?: string) => {
       const serviceSlug = name.toLowerCase().replace(/\s+/g, "-");
 
@@ -100,15 +65,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
-      alternates: {
-        languages: otherLocales.reduce((acc, l) => {
-          acc[countryPrefix[l]] = `${baseUrl}/${l}${url(
-            otherServices[l][index].name,
-            otherServices[l][index].region
-          )}`;
-          return acc;
-        }, {} as Record<string, string>),
-      },
     };
   });
 
@@ -122,12 +78,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
-      alternates: {
-        languages: otherLocales.reduce((acc, l) => {
-          acc[countryPrefix[l]] = `${baseUrl}/${l}${url}`;
-          return acc;
-        }, {} as Record<string, string>),
-      },
     };
   });
 

@@ -3,17 +3,18 @@ import { getPageContent } from "@/lib/content/pages/pages";
 import { parseMarkdown } from "@/lib/markdown";
 import { generateLanguageAlternates } from "@/lib/utils";
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Locale } from "next-intl";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("privacy");
+  const locale = await getLocale();
 
   return {
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("privacy"),
+    alternates: generateLanguageAlternates("privacy", locale),
   };
 }
 

@@ -2,17 +2,19 @@ import React from "react";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { generateLanguageAlternates } from "@/lib/utils";
+import { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contribute");
+  const locale = await getLocale();
 
   return {
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("contribute/guide"),
+    alternates: generateLanguageAlternates("contribute/guide", locale),
   };
 }
 
