@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
-    alternates: generateLanguageAlternates("", baseUrl),
+    alternates: generateLanguageAlternates("", locale),
     openGraph: {
       images: [
         {

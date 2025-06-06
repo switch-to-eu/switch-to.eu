@@ -1,16 +1,17 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("about");
+  const locale = await getLocale();
 
   return {
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("about"),
+    alternates: generateLanguageAlternates("about", locale),
   };
 }
 
