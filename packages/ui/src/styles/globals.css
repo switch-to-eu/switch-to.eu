@@ -1,0 +1,328 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-hanken-grotesk);
+  --font-heading: var(--font-bricolage-grotesque);
+  --font-bold: var(--font-hanken-grotesk-bold);
+  --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
+  --font-italic: var(--font-hanken-grotesk-italic);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(
+    --sidebar-primary-foreground
+  );
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #fefbf9;
+  --foreground: #383838;
+
+  --card: #ffffff;
+  --card-foreground: #1a3c5a;
+
+  --popover: #ffffff;
+  --popover-foreground: #1a3c5a;
+
+  --primary: #1a3c5a;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #1a3c5a;
+
+  --muted: #f8f9fa;
+  --muted-foreground: #334155;
+  --accent: #ffffff;
+  --accent-foreground: #1a3c5a;
+  --destructive: #ff4a4a;
+
+  --border: #e5e7eb;
+  --input: #ffffff;
+  --ring: #1a3c5a;
+  --green: #a2d4a8;
+  --green-bg: #e8fff5;
+  --blue: #3ea6e3;
+  --blue-bg: #cce6f4;
+  --yellow: #f7df8f;
+
+  /* Feature card colors */
+  --feature-blue-bg: #e9f4fd;
+  --feature-pink-bg: #ffeae5;
+  --feature-green-bg: #e8f7ed;
+  --feature-icon-color: #1b456b;
+  --cta-button: #feb5a7;
+  --cta-button-hover: #ff8a74;
+
+  /* Pop colors for category cards */
+  --pop-1: #e9f4fd; /* Light blue */
+  --pop-2: #ffeae5; /* Light pink */
+  --pop-3: #e8f7ed; /* Light green */
+  --pop-4: #f0ebff; /* Light purple */
+
+  /* Chart colors */
+  --chart-1: #1b456b;
+  --chart-2: #76c5f6;
+  --chart-3: #c1e1b8;
+  --chart-4: #ff9d8a;
+  --chart-5: #5694b8;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a3c5a;
+  --sidebar-primary: #1a3c5a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f8f9fa;
+  --sidebar-accent-foreground: #1a3c5a;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #1a3c5a;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #64a5f6;
+  --primary-foreground: #0f172a;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #ff4a4a;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #64a5f6;
+  --green: #7aad81;
+  --green-bg: #1c3a2b;
+  --blue: #3ea6e3;
+  --yellow: #f2ca4c;
+
+  /* Feature card colors - darker versions */
+  --feature-blue-bg: #193548;
+  --feature-pink-bg: #482b29;
+  --feature-green-bg: #183828;
+  --feature-icon-color: #64a5f6;
+  --cta-button: #ff9d8a;
+  --cta-button-hover: #ff8a74;
+
+  /* Chart colors */
+  --chart-1: #64a5f6;
+  --chart-2: #76c5f6;
+  --chart-3: #c1e1b8;
+  --chart-4: #ff9d8a;
+  --chart-5: #5694b8;
+
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #64a5f6;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #0f172a;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #64a5f6;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-family: var(--font-hanken-grotesk);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
+  }
+
+  /* Override font-bold class specifically for headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &.font-bold {
+      font-family: var(--font-bricolage-grotesque) !important;
+      font-weight: 800 !important;
+    }
+  }
+
+  /* Ensure headings with font-bold class still use the heading font */
+  h1.font-bold,
+  h2.font-bold,
+  h3.font-bold,
+  h4.font-bold,
+  h5.font-bold,
+  h6.font-bold {
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
+  }
+
+  .text-blue {
+    color: var(--blue);
+  }
+
+  p {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 400;
+  }
+
+  strong,
+  b {
+    font-family: var(--font-hanken-grotesk-bold);
+    font-weight: 700;
+  }
+
+  /* Button styles to match design */
+  button,
+  .btn {
+    @apply rounded-xl font-medium transition-colors;
+  }
+
+  /* Input styles */
+  input,
+  select,
+  textarea {
+    @apply rounded-xl border-[#e5e7eb];
+  }
+}
+
+/* Custom styling for MDX content */
+.mdx-content h1 {
+  @apply text-3xl mt-8 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
+}
+
+.mdx-content h2 {
+  @apply text-2xl mt-8 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
+}
+
+.mdx-content h3 {
+  @apply text-xl mt-6 mb-4;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
+}
+
+.mdx-content h4 {
+  @apply text-lg mt-6 mb-3;
+  font-family: var(--font-bricolage-grotesque);
+  font-weight: 800;
+}
+
+.mdx-content p {
+  @apply mb-4 leading-relaxed;
+  font-family: var(--font-hanken-grotesk);
+  font-weight: 400;
+}
+
+.mdx-content ul {
+  @apply list-disc pl-6 mb-4 space-y-2;
+}
+
+.mdx-content ol {
+  @apply list-decimal pl-6 mb-4 space-y-2;
+}
+
+.mdx-content li {
+  @apply mb-1;
+  font-family: var(--font-hanken-grotesk);
+  font-weight: 400;
+}
+
+.mdx-content a {
+  @apply hover:underline;
+  color: var(--blue);
+}
+
+.mdx-content blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-1 my-4 italic;
+}
+
+.mdx-content pre {
+  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 overflow-x-auto;
+}
+
+.mdx-content code {
+  @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
+  font-family: var(--font-geist-mono);
+}
+
+.mdx-content strong {
+  @apply font-bold;
+  font-family: var(--font-hanken-grotesk-bold);
+  font-weight: 700;
+}
+
+.mdx-content em {
+  @apply italic;
+  font-family: var(--font-hanken-grotesk-italic);
+}
+
+.mdx-content hr {
+  @apply my-8 border-t border-gray-300 dark:border-gray-600;
+}
+
+/* Custom badges for regions */
+.badge-eu-friendly {
+  background-color: var(--yellow) !important;
+  color: #1a1c1e !important;
+  border-color: transparent !important;
+}
+
+.badge-eu-friendly:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--yellow) 90%,
+    black
+  ) !important;
+}
