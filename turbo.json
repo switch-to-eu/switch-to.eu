@@ -4,7 +4,15 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "IP_INFO_TOKEN",
+        "MAIL_COACH_API_KEY",
+        "MAIL_COACH_DOMAIN",
+        "MAIL_COACH_LIST_ID",
+        "NOTIFICATION_EMAIL",
+        "REDIS_URL"
+      ]
     },
     "dev": {
       "cache": false,
