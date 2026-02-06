@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; category: string; service: string }>;
+  params: Promise<{ locale: string; category: string; service: string }>;
 }): Promise<Metadata> {
   // Await the params
   const { category, service, locale } = await params;
@@ -43,7 +43,7 @@ export async function generateMetadata({
   const t = await getTranslations("guides.service.meta");
 
   // Load guide data from MDX file
-  const guideData = getGuide(category, service, locale);
+  const guideData = getGuide(category, service, locale as Locale);
 
   if (!guideData) {
     return {

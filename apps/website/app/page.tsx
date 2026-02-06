@@ -1,4 +1,4 @@
-import defaultLocale from "@/middleware";
+import defaultLocale from "@/proxy";
 import { redirect } from "next/navigation";
 
 export default function Home() {

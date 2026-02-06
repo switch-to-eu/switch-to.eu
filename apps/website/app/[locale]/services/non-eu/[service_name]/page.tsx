@@ -28,20 +28,14 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; service_name: string }>;
+  params: Promise<{ locale: string; service_name: string }>;
 }): Promise<Metadata> {
-  // Await the params
   const { service_name, locale } = await params;
-
-  // Normalize slug (replace hyphens with spaces for lookup)
   const slug = service_name.replace(/-/g, " ");
-
-  // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = await getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     return {

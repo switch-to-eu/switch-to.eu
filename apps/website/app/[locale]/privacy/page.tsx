@@ -21,12 +21,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PrivacyPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
   // Load privacy policy content from markdown
-  const pageData = getPageContent("privacy", locale);
+  const pageData = getPageContent("privacy", locale as Locale);
 
   if (!pageData) {
     notFound();

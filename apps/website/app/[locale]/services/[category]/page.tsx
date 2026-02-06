@@ -18,7 +18,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string; locale: Locale }>;
+  params: Promise<{ category: string; locale: string }>;
 }): Promise<Metadata> {
   // Await the params
   const { category, locale } = await params;
@@ -27,7 +27,7 @@ export async function generateMetadata({
     category.charAt(0).toUpperCase() + category.slice(1);
 
   // Get category metadata
-  const { metadata: categoryMetadata } = getCategoryContent(category, locale);
+  const { metadata: categoryMetadata } = getCategoryContent(category, locale as Locale);
 
   // Use metadata title if available, otherwise fallback to capitalized category
   const pageTitle =
