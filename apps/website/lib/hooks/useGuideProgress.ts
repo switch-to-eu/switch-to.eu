@@ -26,7 +26,7 @@ export function useGuideProgress(guideId: string) {
             try {
                 const savedProgress = localStorage.getItem(storageKey);
                 if (savedProgress) {
-                    setProgress(JSON.parse(savedProgress));
+                    setProgress(JSON.parse(savedProgress) as GuideProgress);
                 }
             } catch (error) {
                 console.error('Error loading guide progress:', error);

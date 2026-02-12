@@ -14,6 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function WebsiteAnalyzerPage() {
+export default function WebsiteAnalyzerPage() {
   return <WebsiteAnalyzerClient />;
 }

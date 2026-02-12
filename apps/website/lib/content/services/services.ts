@@ -122,10 +122,10 @@ export function getAllServices(lang: Locale = "en"): Array<ServiceFrontmatter> {
 /**
  * Get only EU-based services
  */
-export async function getEUServices(
+export function getEUServices(
   lang: Locale = "en"
-): Promise<Array<ServiceFrontmatter>> {
-  const services = await getAllServices(lang);
+): Array<ServiceFrontmatter> {
+  const services = getAllServices(lang);
   return services.filter(
     (service) => service.region === "eu" || service.region === "eu-friendly"
   );
@@ -134,22 +134,22 @@ export async function getEUServices(
 /**
  * Get only non-EU services
  */
-export async function getNonEUServices(
+export function getNonEUServices(
   lang: Locale = "en"
-): Promise<Array<ServiceFrontmatter>> {
-  const services = await getAllServices(lang);
+): Array<ServiceFrontmatter> {
+  const services = getAllServices(lang);
   return services.filter((service) => service.region === "non-eu");
 }
 
 /**
  * Get services filtered by category with optional region filter
  */
-export async function getServicesByCategory(
+export function getServicesByCategory(
   category: string,
   regionFilter?: "eu" | "non-eu",
   lang: Locale = "en"
-): Promise<Array<ServiceFrontmatter>> {
-  const services = await getAllServices(lang);
+): Array<ServiceFrontmatter> {
+  const services = getAllServices(lang);
   return services.filter((service) => {
     // Always filter by category
     const categoryMatch =
@@ -173,18 +173,16 @@ export async function getServicesByCategory(
 /**
  * Get all featured services across categories
  */
-export async function getFeaturedServices(
+export function getFeaturedServices(
   lang: Locale = "en",
   regionFilter?: "eu" | "non-eu"
-): Promise<
-  Array<{
-    service: ServiceFrontmatter;
-    category: string;
-  }>
-> {
+): Array<{
+  service: ServiceFrontmatter;
+  category: string;
+}> {
   try {
     // Use the getAllServices function which now scans all directories
-    const allServices = await getAllServices(lang);
+    const allServices = getAllServices(lang);
 
     // Filter to featured services
     const featuredServices = allServices
@@ -212,14 +210,14 @@ export async function getFeaturedServices(
 /**
  * Get a specific service by slug
  */
-export async function getServiceBySlug(
+export function getServiceBySlug(
   slug: string,
   lang: Locale = "en"
-): Promise<{
+): {
   frontmatter: ServiceFrontmatter;
   content: string;
   segments: ContentSegments;
-} | null> {
+} | null {
   const langContentRoot = getLanguageContentPath(lang);
   const fileExtensions = [".md", ".mdx"];
   const servicesDir = path.join(langContentRoot, "services");
@@ -392,11 +390,11 @@ export async function getServiceBySlug(
 /**
  * Get all service slugs for a specific region
  */
-export async function getServiceSlugs(
+export function getServiceSlugs(
   region: "eu" | "non-eu",
   lang: Locale = "en"
-): Promise<Array<string>> {
-  const services = await getAllServices(lang);
+): Array<string> {
+  const services = getAllServices(lang);
   return services
     .filter((service) => {
       // For EU region, include both 'eu' and 'eu-friendly' services
@@ -415,17 +413,17 @@ export async function getServiceSlugs(
 /**
  * Gets the recommended alternative service based on a service name
  */
-export async function getRecommendedAlternative(
+export function getRecommendedAlternative(
   serviceName: string,
   lang: Locale = "en"
-): Promise<ServiceFrontmatter | null> {
+): ServiceFrontmatter | null {
   // Get the service data first
-  const service = await getServiceBySlug(serviceName, lang);
+  const service = getServiceBySlug(serviceName, lang);
   if (!service || !service.frontmatter.recommendedAlternative) return null;
 
   // Get the recommended alternative service
   const alternativeSlug = service.frontmatter.recommendedAlternative;
-  const alternativeService = await getServiceBySlug(alternativeSlug, lang);
+  const alternativeService = getServiceBySlug(alternativeSlug, lang);
 
   return alternativeService ? alternativeService.frontmatter : null;
 }

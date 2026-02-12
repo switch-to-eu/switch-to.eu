@@ -9,10 +9,10 @@ import { Locale } from "next-intl";
 /**
  * Function to get services for a category
  */
-export async function getAlternativesByCategory(
+export function getAlternativesByCategory(
     category: string,
     lang: Locale = "en"
-): Promise<AlternativesFrontmatter | null> {
+): AlternativesFrontmatter | null {
     const langContentRoot = getLanguageContentPath(lang);
     const mdFile = path.join(
         langContentRoot,
@@ -35,7 +35,7 @@ export async function getAlternativesByCategory(
         }
 
         // If no legacy file exists, try to load from individual service files
-        const services = await getServicesByCategory(category, undefined, lang);
+        const services = getServicesByCategory(category, undefined, lang);
 
         if (services.length === 0) {
             return null;

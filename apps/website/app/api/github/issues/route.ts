@@ -14,7 +14,7 @@ const MAX_REQUESTS = 5; // 5 requests per window
 function getClientIp(req: NextRequest): string {
   const forwardedFor = req.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    return forwardedFor.split(",")[0].trim();
+    return forwardedFor.split(",")[0]?.trim() ?? "unknown-ip";
   }
   return "unknown-ip";
 }
@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse and validate the request body
-    const body = await request.json();
+    const body = await request.json() as Record<string, unknown>;
     const validationResult = issueSchema.safeParse(body);
 
     if (!validationResult.success) {
@@ -217,7 +217,7 @@ export async function POST(request: NextRequest) {
 
     // Process the form in the background using setImmediate
     setImmediate(() => {
-      processFormInBackground({
+      void processFormInBackground({
         title,
         description,
         category,

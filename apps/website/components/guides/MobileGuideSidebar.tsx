@@ -60,7 +60,7 @@ export function MobileGuideSidebar({
       const sectionHeadings = section.querySelectorAll('h2, h3');
       for (const heading of sectionHeadings) {
         if (heading.textContent?.trim() === step.title) {
-          return section as HTMLElement;
+          return section;
         }
       }
     }

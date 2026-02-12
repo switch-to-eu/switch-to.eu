@@ -31,6 +31,8 @@ const useVideoIntersection = (options = {}) => {
     const currentTarget = targetRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
+        
         setIsIntersecting(entry.isIntersecting);
 
         // Play or pause video based on visibility

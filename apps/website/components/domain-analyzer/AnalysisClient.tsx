@@ -10,7 +10,7 @@ import {
   LightbulbIcon,
   MinusCircleIcon,
 } from "lucide-react";
-import { AnalysisStep, Service } from "@/lib/types";
+import { AnalysisStep } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
@@ -82,7 +82,7 @@ export function AnalysisClient({
 
           for (const line of lines) {
             try {
-              const data = JSON.parse(line);
+              const data = JSON.parse(line) as { results: AnalysisStep[]; complete?: boolean; domainExists?: boolean };
               setResults(data.results);
 
               if (data.complete) {
@@ -113,7 +113,7 @@ export function AnalysisClient({
       return;
     }
 
-    fetchResults();
+    void fetchResults();
   }, [domain, fetchResults, initialResults]);
 
   const copyToClipboard = async () => {
@@ -335,13 +335,13 @@ function AnalysisResults({
                 <div className="pl-8">
                   {Array.isArray(step.details) ? (
                     <div className="space-y-2">
-                      {(step.details as Service[]).length > 0 ? (
+                      {(step.details).length > 0 ? (
                         <>
                           <p className="text-sm text-[#334155]">
                             {t("results.detectedServices")}
                           </p>
                           <ul className="space-y-1">
-                            {(step.details as Service[]).map((service, i) => (
+                            {(step.details).map((service, i) => (
                               <li
                                 key={i}
                                 className="flex items-center gap-2 text-sm"

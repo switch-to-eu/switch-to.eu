@@ -21,8 +21,8 @@ import { notFound } from "next/navigation";
 import { NewsletterCta } from "@/components/NewsletterCta";
 
 // Generate static params for all guide pages
-export async function generateStaticParams() {
-  const guides = await getAllGuides();
+export function generateStaticParams() {
+  const guides = getAllGuides();
 
   return guides.map((guide) => ({
     category: guide.category,

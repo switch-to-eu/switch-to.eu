@@ -1,8 +1,6 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@workspace/typescript-config/react-library.json",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

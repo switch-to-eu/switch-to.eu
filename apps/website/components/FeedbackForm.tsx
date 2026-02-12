@@ -91,7 +91,7 @@ export default function FeedbackForm() {
   } = useMessages();
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema(validation)),
+    resolver: zodResolver(formSchema(validation as ValidationMessages)),
     defaultValues: {
       title: "",
       description: "",
@@ -114,14 +114,14 @@ export default function FeedbackForm() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      const result = await response.json() as { error?: string; issueUrl?: string };
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to submit feedback");
+        throw new Error(result.error ?? "Failed to submit feedback");
       }
 
       setSubmitStatus("success");
-      setIssueUrl(result.issueUrl);
+      setIssueUrl(result.issueUrl ?? null);
       form.reset();
     } catch (error) {
       console.error("Error submitting feedback:", error);

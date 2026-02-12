@@ -105,7 +105,7 @@ export function StepsSummary({
               typeof headingText === "string" &&
               headingText.trim() === step.title
             ) {
-              return section as HTMLElement;
+              return section;
             }
           }
         }

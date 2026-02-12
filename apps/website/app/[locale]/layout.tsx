@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
 import "@switch-to-eu/ui/styles/globals.css";
 import PlausibleProvider from "next-plausible";
 
@@ -18,11 +17,6 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { generateLanguageAlternates } from "@/lib/utils";
 
-// Keep Geist Mono for code blocks
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -80,7 +74,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Generate the static params for all supported locales
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
@@ -97,7 +91,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <PlausibleProvider domain="switch-to.eu">
         <body
-          className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+          className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} antialiased min-h-screen flex flex-col`}
         >
           <NextIntlClientProvider>
             <Header />

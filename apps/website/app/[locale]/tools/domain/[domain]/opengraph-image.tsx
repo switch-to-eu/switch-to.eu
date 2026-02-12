@@ -162,7 +162,7 @@ export default async function Image({
 
   // Parse the cached results if they exist
   const results = cachedResults
-    ? (JSON.parse(cachedResults as string) as AnalysisStep[])
+    ? (JSON.parse(cachedResults) as AnalysisStep[])
     : [];
 
   // Load font files directly from Google Fonts

@@ -57,7 +57,7 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const categories = getAllCategoriesMetadata();
 
   return categories.map((category) => ({
@@ -81,7 +81,7 @@ export default async function ServicesCategoryPage({
     category.charAt(0).toUpperCase() + category.slice(1);
 
   // Load EU services for this category
-  const euServices = await getServicesByCategory(category, "eu", locale);
+  const euServices = getServicesByCategory(category, "eu", locale);
   const { metadata: categoryMetadata, content: categoryContent } =
     getCategoryContent(category, locale);
 

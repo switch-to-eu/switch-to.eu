@@ -52,9 +52,9 @@ const searchIndexes: Record<
 const INDEX_TTL = 1000 * 60 * 5; // 5 minutes
 
 // Function to build the search index
-export async function buildSearchIndex(
+export function buildSearchIndex(
   lang: Locale = "en"
-): Promise<Fuse<SearchResult>> {
+): Fuse<SearchResult> {
   console.log(`Building or retrieving search index for language: ${lang}`);
 
   // Check if we have a recent index in memory for this language
@@ -73,7 +73,7 @@ export async function buildSearchIndex(
 
   try {
     // Get and index all guides
-    const guides = await getAllGuides({ lang });
+    const guides = getAllGuides({ lang });
     console.log(`Indexing ${guides.length} guides for language: ${lang}`);
 
     for (const guide of guides) {
@@ -90,7 +90,7 @@ export async function buildSearchIndex(
     }
 
     // Get and index all services
-    const services = await getAllServices(lang);
+    const services = getAllServices(lang);
     console.log(`Indexing ${services.length} services for language: ${lang}`);
 
     for (const service of services) {
@@ -160,13 +160,13 @@ export async function buildSearchIndex(
 
     return newIndex;
   } catch (error) {
-    console.error(`Error building search index for language ${lang}:`, error);
-    throw new Error(`Failed to build search index: ${error}`);
+    console.error(`Error building search index for language ${lang}:`, String(error));
+    throw new Error(`Failed to build search index: ${String(error)}`);
   }
 }
 
 // Function to perform a search
-export async function performSearch(
+export function performSearch(
   query: string,
   options: {
     limit?: number;
@@ -174,7 +174,7 @@ export async function performSearch(
     region?: "eu" | "non-eu" | "eu-friendly";
     lang?: Locale;
   } = {}
-): Promise<SearchResult[]> {
+): SearchResult[] {
   console.log(`Search lib: Performing search for "${query}"`);
   console.log("Search lib: Full options:", JSON.stringify(options, null, 2));
 
@@ -190,7 +190,7 @@ export async function performSearch(
     }, region: ${region || "all"}, lang: ${lang}`
   );
 
-  const index = await buildSearchIndex(lang);
+  const index = buildSearchIndex(lang);
 
   // Create a basic search options object
   // We're explicitly using any here as the Fuse.js types are complex
@@ -201,12 +201,14 @@ export async function performSearch(
   // Only filter by type for the Fuse.js search
   // We'll handle region filtering separately
   if (types && types.length > 0) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     searchOptions.filter = (item: SearchResult) => {
       return types.includes(item.type);
     };
   }
 
   console.log(`Search lib: Starting search with type filter applied`);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const fuseResults = index.search(query, searchOptions);
   console.log(`Search lib: Initial Fuse results: ${fuseResults.length}`);
 
@@ -224,7 +226,7 @@ export async function performSearch(
       }
 
       // Check if the service has the correct region
-      const serviceItem = item as ServiceSearchResult;
+      const serviceItem = item;
       const regionMatch = serviceItem.region === region;
 
       if (item.title.toLowerCase().includes(query.toLowerCase())) {
@@ -250,7 +252,7 @@ export async function performSearch(
         type: r.item.type,
         region:
           r.item.type === "service"
-            ? (r.item as ServiceSearchResult).region
+            ? (r.item).region
             : "N/A",
       })),
       null,
@@ -263,12 +265,12 @@ export async function performSearch(
 }
 
 // Function to get featured or recommended search results
-export async function getRecommendedSearchResults(
+export function getRecommendedSearchResults(
   lang: Locale = "en"
-): Promise<SearchResult[]> {
+): SearchResult[] {
   console.log(`Getting recommended search results for language: ${lang}`);
 
-  const index = await buildSearchIndex(lang);
+  const index = buildSearchIndex(lang);
   // Since we can't directly access the index data structure in a type-safe way,
   // let's get all items by doing an empty search
   const allResults = index.search("");

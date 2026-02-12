@@ -37,9 +37,9 @@ function SearchPageContent() {
         throw new Error(`Search failed with status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as { results?: SearchResult[] };
       console.log("Search page: received results:", data);
-      setResults(data.results || []);
+      setResults(data.results ?? []);
     } catch (err) {
       console.error("Error searching:", err);
       setError("Failed to fetch search results. Please try again.");
@@ -52,7 +52,7 @@ function SearchPageContent() {
   // Handle search form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleSearch(query);
+    void handleSearch(query);
 
     // Update URL with search query
     const url = new URL(window.location.href);
@@ -64,7 +64,7 @@ function SearchPageContent() {
   useEffect(() => {
     if (initialQuery) {
       console.log("Search page: initial query detected:", initialQuery);
-      handleSearch(initialQuery);
+      void handleSearch(initialQuery);
     }
   }, [initialQuery]);
 

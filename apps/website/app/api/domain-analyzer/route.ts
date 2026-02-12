@@ -32,15 +32,15 @@ async function detectEmailProvider(domain: string): Promise<{
     // Sort MX records by priority (lowest first)
     const sortedMX = mxRecords.sort((a, b) => {
       // Extract priority from MX record value (e.g., "10 example.com")
-      const priorityA = parseInt(a.data.split(" ")[0], 10);
-      const priorityB = parseInt(b.data.split(" ")[0], 10);
+      const priorityA = parseInt(a.data.split(" ")[0] || "0", 10);
+      const priorityB = parseInt(b.data.split(" ")[0] || "0", 10);
       return priorityA - priorityB;
     });
 
     // Extract domain part from MX records for easier matching
     const mxDomains = sortedMX.map((record) => {
       const parts = record.data.split(" ");
-      if (parts.length > 1) {
+      if (parts.length > 1 && parts[1]) {
         return parts[1].toLowerCase();
       }
       return record.data.toLowerCase();
@@ -93,18 +93,19 @@ async function detectEmailProvider(domain: string): Promise<{
       if (firstMxDomain) {
         const domainParts = firstMxDomain.split(".");
         if (domainParts.length >= 2) {
-          const provider =
-            domainParts[domainParts.length - 2].charAt(0).toUpperCase() +
-            domainParts[domainParts.length - 2].slice(1);
+          const domainPart = domainParts[domainParts.length - 2];
+          if (domainPart) {
+            const provider = domainPart.charAt(0).toUpperCase() + domainPart.slice(1);
 
-          // Use the domain EU detection utility to determine EU status
-          const domainStatus = getDomainEUStatus(firstMxDomain);
+            // Use the domain EU detection utility to determine EU status
+            const domainStatus = getDomainEUStatus(firstMxDomain);
 
-          return {
-            provider: `${provider} Mail`,
-            isEU: domainStatus.isEU,
-            euFriendly: domainStatus.euFriendly,
-          };
+            return {
+              provider: `${provider} Mail`,
+              isEU: domainStatus.isEU,
+              euFriendly: domainStatus.euFriendly,
+            };
+          }
         }
       }
       return {
@@ -146,11 +147,14 @@ async function detectDomainRegistrar(domain: string) {
     // Go through all WHOIS servers' responses
     for (const server in whoisData) {
       const data = whoisData[server];
+      
+      if (!data) continue;
 
-      let url = data["Registrar URL"] || data["Registrar URL:"];
-
-      if (url && Array.isArray(url)) {
-        url = url[0];
+      let url: string | undefined = undefined;
+      const rawUrl = data["Registrar URL"] || data["Registrar URL:"];
+      
+      if (rawUrl) {
+        url = Array.isArray(rawUrl) ? rawUrl[0] : rawUrl;
       }
 
       // Check for Registrar field with different possible formats
@@ -169,15 +173,20 @@ async function detectDomainRegistrar(domain: string) {
           registrar = registrar[0]; // Take the first one if it's an array
         }
 
-        registrars.add({
-          name: registrar,
-          url: url,
-        });
+        if (typeof registrar === 'string') {
+          registrars.add({
+            name: registrar,
+            url: url,
+          });
+        }
       }
     }
 
     //
-    const finalRegistrar = Array.from(registrars)[0] || "Unknown registrar";
+    const finalRegistrar = Array.from(registrars)[0] || {
+      name: "Unknown registrar",
+      url: undefined,
+    };
 
     console.log("finalRegistrar", finalRegistrar);
 
@@ -217,7 +226,7 @@ async function detectDomainRegistrar(domain: string) {
       finalRegistrar.name.toLowerCase().includes(euFriendlyReg.toLowerCase())
     );
 
-    if (!isEU && !euFriendly) {
+    if (!isEU && !euFriendly && finalRegistrar.url) {
       isEU = isEUDomain(finalRegistrar.url);
       euFriendly = isEUFriendlyDomain(finalRegistrar.url);
       console.log(isEU, euFriendly);
@@ -248,26 +257,26 @@ async function detectHostingProvider(domain: string): Promise<{
     const aRecords = dnsRecords.filter((r) => r.type === "A");
     const cnameRecords = dnsRecords.filter((r) => r.type === "CNAME");
 
-    if (aRecords.length > 0) {
+    if (aRecords.length > 0 && aRecords[0]) {
       const ip = aRecords[0].data;
       // ----- New IPinfo lookup -----
       const ipinfoRes = await fetch(
         `https://api.ipinfo.io/lite/${ip}?token=${process.env.IP_INFO_TOKEN}`
       );
-      const ipInfo = await ipinfoRes.json();
+      const ipInfo = await ipinfoRes.json() as { as_name?: string; country_code?: string };
 
       // Parse provider from "org" (e.g. "AS15169 Google LLC")
-      const orgString = ipInfo.as_name || "";
+      const orgString: string = ipInfo.as_name ?? "";
 
-      const provider = orgString || "Unknown hosting provider";
+      const provider: string = orgString || "Unknown hosting provider";
 
       // Country code from IPinfo
-      const country_code = ipInfo.country_code;
+      const country_code: string | undefined = ipInfo.country_code;
 
       // Determine EU status: prefer IP country, else domain extension
       let euStatus: boolean | null;
       let euFriendly: boolean | null;
-      if (country_code) {
+      if (country_code && typeof country_code === 'string') {
         euStatus = isEUCountry(country_code);
         euFriendly = false;
       } else {
@@ -284,7 +293,7 @@ async function detectHostingProvider(domain: string): Promise<{
     }
 
     // Fallback to CNAME-based detection
-    if (cnameRecords.length > 0) {
+    if (cnameRecords.length > 0 && cnameRecords[0]) {
       const cname = String(cnameRecords[0].data).toLowerCase();
       // … (your existing CNAME checks here) …
 
@@ -604,8 +613,8 @@ async function detectThirdPartyServices(domain: string): Promise<{
   }
 }
 
-// Simulated analysis service
-async function analyzeDomain(): Promise<AnalysisStep[]> {
+// Simulated analysis service - this function only returns a template
+function analyzeDomain(): AnalysisStep[] {
   const analysisSteps: AnalysisStep[] = [
     {
       type: "mx_records",
@@ -732,7 +741,7 @@ async function detectCdn(domain: string) {
 
     // 3. Check A records if no CDN found yet
     const aRecords = dnsRecords.filter((record) => record.type === "A");
-    if (aRecords.length > 0) {
+    if (aRecords.length > 0 && aRecords[0]) {
       // Get the IP
       const ip = aRecords[0].data;
 
@@ -745,17 +754,15 @@ async function detectCdn(domain: string) {
 
         if (typeof ipWhois === "object" && ipWhois !== null) {
           if (ipWhois.Organisation) {
-            orgName = String(
-              Array.isArray(ipWhois.Organisation)
-                ? ipWhois.Organisation[0]
-                : ipWhois.Organisation
-            ).toLowerCase();
+            const org = Array.isArray(ipWhois.Organisation)
+              ? ipWhois.Organisation[0]
+              : ipWhois.Organisation;
+            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
           } else if (ipWhois.Organization) {
-            orgName = String(
-              Array.isArray(ipWhois.Organization)
-                ? ipWhois.Organization[0]
-                : ipWhois.Organization
-            ).toLowerCase();
+            const org = Array.isArray(ipWhois.Organization)
+              ? ipWhois.Organization[0]
+              : ipWhois.Organization;
+            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
           } else if (
             ipWhois.organisation &&
             typeof ipWhois.organisation === "object"
@@ -794,14 +801,10 @@ async function detectCdn(domain: string) {
 
           // If we have a country code but couldn't identify the CDN provider by name,
           // return a generic CDN provider with EU status based on the country
-          if (countryCode && orgName) {
-            const countryCodeStr =
-              typeof countryCode === "string"
-                ? countryCode
-                : String(countryCode);
+          if (countryCode && orgName && typeof countryCode === 'string') {
             return {
               provider: orgName.charAt(0).toUpperCase() + orgName.slice(1),
-              isEU: isEUCountry(countryCodeStr),
+              isEU: isEUCountry(countryCode),
               euFriendly: false,
             };
           }
@@ -824,59 +827,74 @@ async function detectCdn(domain: string) {
 
 // Function to simulate checking domain with streaming updates
 async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
-  const initialAnalysis = await analyzeDomain();
+  const initialAnalysis = analyzeDomain();
   yield initialAnalysis;
 
   // Real check for MX records
-  initialAnalysis[0].status = "processing";
-  yield [...initialAnalysis];
-  const mxResults = await detectEmailProvider(domain);
-  initialAnalysis[0].status = "complete";
-  initialAnalysis[0].details = mxResults.provider;
-  initialAnalysis[0].isEU = mxResults.isEU;
-  initialAnalysis[0].euFriendly = mxResults.euFriendly;
-  yield [...initialAnalysis];
+  const mxStep = initialAnalysis[0];
+  if (mxStep) {
+    mxStep.status = "processing";
+    yield [...initialAnalysis];
+    const mxResults = await detectEmailProvider(domain);
+    mxStep.status = "complete";
+    mxStep.details = mxResults.provider;
+    mxStep.isEU = mxResults.isEU;
+    mxStep.euFriendly = mxResults.euFriendly;
+    yield [...initialAnalysis];
+  }
 
   // Real check for domain registrar using WHOIS
-  initialAnalysis[1].status = "processing";
-  yield [...initialAnalysis];
-  const registrarResults = await detectDomainRegistrar(domain);
-  initialAnalysis[1].status = "complete";
-  initialAnalysis[1].details = registrarResults.provider?.name;
-  initialAnalysis[1].isEU = registrarResults.isEU;
-  initialAnalysis[1].euFriendly = registrarResults.euFriendly;
-  yield [...initialAnalysis];
+  const registrarStep = initialAnalysis[1];
+  if (registrarStep) {
+    registrarStep.status = "processing";
+    yield [...initialAnalysis];
+    const registrarResults = await detectDomainRegistrar(domain);
+    registrarStep.status = "complete";
+    registrarStep.details = registrarResults.provider?.name;
+    registrarStep.isEU = registrarResults.isEU;
+    registrarStep.euFriendly = registrarResults.euFriendly;
+    yield [...initialAnalysis];
+  }
 
   // Real check for hosting provider
-  initialAnalysis[2].status = "processing";
-  yield [...initialAnalysis];
-  const hostingResults = await detectHostingProvider(domain);
-  initialAnalysis[2].status = "complete";
-  initialAnalysis[2].details = hostingResults.provider;
-  initialAnalysis[2].isEU = hostingResults.isEU;
-  initialAnalysis[2].euFriendly = hostingResults.euFriendly;
-  yield [...initialAnalysis];
+  const hostingStep = initialAnalysis[2];
+  if (hostingStep) {
+    hostingStep.status = "processing";
+    yield [...initialAnalysis];
+    const hostingResults = await detectHostingProvider(domain);
+    hostingStep.status = "complete";
+    hostingStep.details = hostingResults.provider;
+    hostingStep.isEU = hostingResults.isEU;
+    hostingStep.euFriendly = hostingResults.euFriendly;
+    yield [...initialAnalysis];
+  }
 
   // Real check for third-party services
-  initialAnalysis[3].status = "processing";
-  yield [...initialAnalysis];
+  const servicesStep = initialAnalysis[3];
+  if (servicesStep) {
+    servicesStep.status = "processing";
+    yield [...initialAnalysis];
 
-  const servicesResults = await detectThirdPartyServices(domain);
-  initialAnalysis[3].status = "complete";
-  initialAnalysis[3].details = servicesResults.services;
-  initialAnalysis[3].isEU = servicesResults.isEU;
-  initialAnalysis[3].euFriendly = servicesResults.euFriendly;
-  yield [...initialAnalysis];
+    const servicesResults = await detectThirdPartyServices(domain);
+    servicesStep.status = "complete";
+    servicesStep.details = servicesResults.services;
+    servicesStep.isEU = servicesResults.isEU;
+    servicesStep.euFriendly = servicesResults.euFriendly;
+    yield [...initialAnalysis];
+  }
 
   // Real check for CDN
-  initialAnalysis[4].status = "processing";
-  yield [...initialAnalysis];
-  const cdnResults = await detectCdn(domain);
-  initialAnalysis[4].status = "complete";
-  initialAnalysis[4].details = cdnResults.provider;
-  initialAnalysis[4].isEU = cdnResults.isEU;
-  initialAnalysis[4].euFriendly = cdnResults.euFriendly;
-  yield [...initialAnalysis];
+  const cdnStep = initialAnalysis[4];
+  if (cdnStep) {
+    cdnStep.status = "processing";
+    yield [...initialAnalysis];
+    const cdnResults = await detectCdn(domain);
+    cdnStep.status = "complete";
+    cdnStep.details = cdnResults.provider;
+    cdnStep.isEU = cdnResults.isEU;
+    cdnStep.euFriendly = cdnResults.euFriendly;
+    yield [...initialAnalysis];
+  }
 
   // Cache final results in Redis
   await setInRedis(`domain:${domain}`, initialAnalysis);
@@ -927,10 +945,10 @@ export async function GET(request: NextRequest) {
 
   if (cachedResults) {
     // Parse the cached results from Redis
-    const parsedResults =
+    const parsedResults: AnalysisStep[] =
       typeof cachedResults === "string"
-        ? JSON.parse(cachedResults)
-        : cachedResults;
+        ? JSON.parse(cachedResults) as AnalysisStep[]
+        : cachedResults as AnalysisStep[];
 
     return NextResponse.json({
       results: parsedResults,
@@ -947,7 +965,7 @@ export async function GET(request: NextRequest) {
     async start(controller) {
       const domainChecker = checkDomain(domain);
 
-      let result;
+      let result: IteratorResult<AnalysisStep[]>;
       do {
         result = await domainChecker.next();
 
@@ -960,9 +978,10 @@ export async function GET(request: NextRequest) {
             }) + "\n";
           controller.enqueue(encoder.encode(data));
         } else {
+          // When done, send empty array as we've already sent all results
           const data =
             JSON.stringify({
-              results: result.value,
+              results: [],
               complete: true,
               domainExists: true,
             }) + "\n";

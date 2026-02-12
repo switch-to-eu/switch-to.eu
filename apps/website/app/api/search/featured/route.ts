@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
 
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
   try {
     // Get filter parameters from URL
     const { searchParams } = new URL(request.url);
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     const lang = (langParam as Locale) || "en";
 
     // Get all featured services from markdown files, passing the language parameter
-    const featuredServicesData = await getFeaturedServices(lang, region);
+    const featuredServicesData = getFeaturedServices(lang, region);
 
     // Transform the data to match the ServiceSearchResult interface
     const featuredServices: ServiceSearchResult[] = featuredServicesData.map(
@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Handle OPTIONS requests for CORS preflight
-export async function OPTIONS() {
+export function OPTIONS() {
   return NextResponse.json(
     {},
     {

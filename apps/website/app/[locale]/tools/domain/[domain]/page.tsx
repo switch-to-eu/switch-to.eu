@@ -66,7 +66,7 @@ export default async function DomainAnalyzerPage({
 
   // Parse the cached results if they exist
   const initialResults = cachedResults
-    ? (JSON.parse(cachedResults as string) as AnalysisStep[])
+    ? (JSON.parse(cachedResults) as AnalysisStep[])
     : null;
 
   return (

@@ -10,7 +10,7 @@ import {
 } from "@switch-to-eu/ui/components/command";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
-import { SearchResult, ServiceSearchResult } from "@/lib/search";
+import { SearchResult } from "@/lib/search";
 import {
   Dialog,
   DialogContent,
@@ -45,7 +45,7 @@ export function SearchInput({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const t = useTranslations("common");
   const locale = useLocale();
@@ -73,8 +73,8 @@ export function SearchInput({
       }
 
       const response = await fetch(url);
-      const data = await response.json();
-      setResults(data.results || []);
+      const data = await response.json() as { results?: SearchResult[] };
+      setResults(data.results ?? []);
     } catch (error) {
       console.error("Error fetching search results:", error);
       setResults([]);
@@ -94,7 +94,7 @@ export function SearchInput({
 
     // Set a new timer
     debounceTimerRef.current = setTimeout(() => {
-      fetchResults(value);
+      void fetchResults(value);
     }, 500);
   };
 
@@ -281,7 +281,7 @@ function SearchResultItem({
   onSelect,
 }: {
   result: SearchResult;
-  onSelect: (result: SearchResult) => void;
+  onSelect: (item: SearchResult) => void; // eslint-disable-line no-unused-vars
 }) {
   return (
     <div
@@ -291,9 +291,9 @@ function SearchResultItem({
       <div className="flex flex-col flex-grow">
         <div className="flex justify-between items-center">
           <span className="font-medium">{result.title}</span>
-          {result.type === "service" && (
+          {result.type === "service" && "region" in result && (
             <RegionBadge
-              region={(result as ServiceSearchResult).region}
+              region={result.region}
               showTooltip={true}
               className="text-xs py-0 h-5 "
             />

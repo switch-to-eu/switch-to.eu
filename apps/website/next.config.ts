@@ -15,10 +15,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  // Enable turbopack (replacing experimental.turbo)
 
   // Configure static file serving from the content submodule
-  async rewrites() {
+  rewrites() {
     return [
       {
         source: "/content/:path*",
@@ -28,7 +27,7 @@ const nextConfig: NextConfig = {
   },
 
   // Add CORS headers for content files
-  async headers() {
+  headers() {
     return [
       {
         source: "/api/content/:path*",
@@ -39,10 +38,6 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
-  },
-
-  turbopack: {
-    // Add any turbopack configuration here if needed
   },
 };
 

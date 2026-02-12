@@ -196,7 +196,7 @@ function extractTLD(domain: string): string {
   let cleanDomain = domain.replace(/^https?:\/\//i, "");
 
   // Remove path, query parameters, and hash if present
-  cleanDomain = cleanDomain.split("/")[0].split("?")[0].split("#")[0];
+  cleanDomain = (cleanDomain.split("/")[0] ?? "").split("?")[0]?.split("#")[0] ?? "";
 
   // Extract the TLD (everything after the last dot)
   const lastDotIndex = cleanDomain.lastIndexOf(".");

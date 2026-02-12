@@ -63,7 +63,7 @@ export function CompletionMarkerReplacer({ guideId }: CompletionMarkerReplacerPr
 
         // Extract step number from title if present or use index
         const stepNumberMatch = stepTitle.match(/Stap\s+(\d+):/i);
-        const stepNumber = stepNumberMatch ? parseInt(stepNumberMatch[1]) : index + 1;
+        const stepNumber = stepNumberMatch?.[1] ? parseInt(stepNumberMatch[1]) : index + 1;
 
         // Generate stable step ID
         const stepId = generateStableStepId(guideId, stepTitle, stepNumber);

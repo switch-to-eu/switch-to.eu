@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+/* eslint-disable no-unused-vars */
+// Type definitions with unused parameters are intentional - they define the API surface
 // Define types for our store
 type GuideStepState = {
     [guideId: string]: {
@@ -24,8 +26,9 @@ type GuideProgressActions = {
     isGuideCompleted: (guideId: string, totalSteps: number) => boolean;
     markGuideCompleted: (guideId: string) => void;
     resetGuideProgress: (guideId: string) => void;
-    setHydrated: (hydrated: boolean) => void; // Action to mark store as hydrated
+    setHydrated: (hydrated: boolean) => void;
 };
+/* eslint-enable no-unused-vars */
 
 type GuideProgressStore = GuideProgressState & GuideProgressActions;
 
@@ -189,6 +192,7 @@ export const useGuideProgressStore = create<GuideProgressStore>()(
 );
 
 // Create a hook to ensure hydration has occurred before using stored values
+// eslint-disable-next-line no-unused-vars
 export function useHydratedGuideProgressStore<T>(selector: (state: GuideProgressStore) => T): T {
     const hydrated = useGuideProgressStore(state => state.hydrated);
     const value = useGuideProgressStore(selector);

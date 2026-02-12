@@ -32,7 +32,7 @@ export function WebsiteAnalyzerClient() {
     domain = domain.replace(/^(https?:\/\/)?(www\.)?/, "");
 
     // Remove trailing slashes and everything after
-    domain = domain.split("/")[0];
+    domain = domain.split("/")[0] ?? "";
 
     if (!domain) {
       setError(t("websiteAnalyzer.invalidUrlError"));

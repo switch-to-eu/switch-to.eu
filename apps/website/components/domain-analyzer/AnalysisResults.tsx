@@ -6,7 +6,7 @@ import {
   LightbulbIcon,
   MinusCircleIcon,
 } from "lucide-react";
-import { AnalysisStep, Service } from "@/lib/types";
+import { AnalysisStep } from "@/lib/types";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -139,13 +139,13 @@ export function AnalysisResults({
                 <div className="pl-8">
                   {Array.isArray(step.details) ? (
                     <div className="space-y-2">
-                      {(step.details as Service[]).length > 0 ? (
+                      {(step.details).length > 0 ? (
                         <>
                           <p className="text-sm text-[#334155]">
                             {t("results.detectedServices")}
                           </p>
                           <ul className="space-y-1">
-                            {(step.details as Service[]).map((service, i) => (
+                            {(step.details).map((service, i) => (
                               <li
                                 key={i}
                                 className="flex items-center gap-2 text-sm"

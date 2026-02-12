@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     // Extract the subscriber data from the request
-    const { email, first_name, language } = await request.json();
+    const data = await request.json() as { email?: string; first_name?: string; language?: string };
+    const { email, first_name, language } = data;
 
     // Validate the input
     if (!email) {
@@ -46,12 +47,12 @@ export async function POST(request: Request) {
 
     // Handle the response from Mailcoach
     if (!mailcoachResponse.ok) {
-      const errorData = await mailcoachResponse.json();
+      const errorData = await mailcoachResponse.json() as { errors?: { email?: string[] } };
 
       // Check if it's a duplicate subscription
       if (
         mailcoachResponse.status === 422 &&
-        errorData.errors?.email?.includes("has already been taken")
+        errorData.errors?.email?.some(msg => typeof msg === 'string' && msg.includes("has already been taken"))
       ) {
         return NextResponse.json(
           { message: "You are already subscribed to our newsletter." },

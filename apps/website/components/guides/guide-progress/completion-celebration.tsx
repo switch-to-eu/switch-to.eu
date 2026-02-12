@@ -33,7 +33,7 @@ export function CompletionCelebration({
     // Check if celebration was already shown for this guide
     if (guideId && typeof window !== 'undefined') {
       try {
-        const celebrationsShown = JSON.parse(localStorage.getItem(CELEBRATION_STORAGE_KEY) || '{}');
+        const celebrationsShown = JSON.parse(localStorage.getItem(CELEBRATION_STORAGE_KEY) || '{}') as Record<string, boolean>;
         if (celebrationsShown[guideId]) {
           // If already shown, dismiss immediately
           onDismiss?.();
@@ -53,7 +53,7 @@ export function CompletionCelebration({
 
       // Track completion event if analytics is available and guide info provided
       if (guideId && guideName) {
-        plausible('GuideCompleted', {
+        void plausible('GuideCompleted', {
           props: {
             guideId,
             guideName
@@ -62,7 +62,7 @@ export function CompletionCelebration({
 
         // Mark this celebration as shown in localStorage
         try {
-          const celebrationsShown = JSON.parse(localStorage.getItem(CELEBRATION_STORAGE_KEY) || '{}');
+          const celebrationsShown = JSON.parse(localStorage.getItem(CELEBRATION_STORAGE_KEY) || '{}') as Record<string, boolean>;
           celebrationsShown[guideId] = true;
           localStorage.setItem(CELEBRATION_STORAGE_KEY, JSON.stringify(celebrationsShown));
         } catch (e) {
@@ -83,7 +83,7 @@ export function CompletionCelebration({
 
     // Launch multiple bursts of confetti
     (function frame() {
-      confetti({
+      void confetti({
         particleCount: 3,
         angle: 60,
         spread: 55,
@@ -91,7 +91,7 @@ export function CompletionCelebration({
         colors: colors
       });
 
-      confetti({
+      void confetti({
         particleCount: 3,
         angle: 120,
         spread: 55,

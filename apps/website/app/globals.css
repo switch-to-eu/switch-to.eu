@@ -11,7 +11,7 @@
   --font-bold: var(--font-hanken-grotesk-bold);
   --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
   --font-italic: var(--font-hanken-grotesk-italic);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -294,7 +294,7 @@
 
 .mdx-content code {
   @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-mono);
 }
 
 .mdx-content strong {

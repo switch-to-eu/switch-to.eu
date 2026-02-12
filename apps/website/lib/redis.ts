@@ -3,7 +3,7 @@ import { createClient } from "redis";
 // Create a Redis client factory function to avoid reconnecting on every request
 let client: ReturnType<typeof createClient> | null = null;
 
-export async function getRedisClient() {
+export async function getRedisClient(): Promise<ReturnType<typeof createClient>> {
   if (!client) {
     client = createClient({ url: process.env.REDIS_URL });
     await client.connect();

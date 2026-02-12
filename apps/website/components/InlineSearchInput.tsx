@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Search } from "lucide-react";
-import { SearchResult, ServiceSearchResult } from "@/lib/search";
+import { SearchResult } from "@/lib/search";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
@@ -30,7 +30,7 @@ export function InlineSearchInput({
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [featuredServices, setFeaturedServices] = useState<SearchResult[]>([]);
   const t = useTranslations("common");
   const locale = useLocale();
@@ -64,6 +64,8 @@ export function InlineSearchInput({
 
     const animatePlaceholderText = () => {
       const currentExample = examples[currentIndex];
+      
+      if (!currentExample) return;
 
       // Initial state - start typing a service
       if (showingDefault && !isTyping && !isDeleting && !isTypingDefault) {
@@ -162,8 +164,8 @@ export function InlineSearchInput({
       }
 
       const response = await fetch(url);
-      const data = await response.json();
-      setFeaturedServices(data.results || []);
+      const data = await response.json() as { results?: SearchResult[] };
+      setFeaturedServices(data.results ?? []);
     } catch (error) {
       console.error("Error fetching featured services:", error);
       setFeaturedServices([]);
@@ -172,7 +174,7 @@ export function InlineSearchInput({
 
   // Load featured services on component mount
   useEffect(() => {
-    fetchFeaturedServices();
+    void fetchFeaturedServices();
   }, [showOnlyServices, fetchFeaturedServices]);
 
   // Function to fetch search results from API
@@ -198,8 +200,8 @@ export function InlineSearchInput({
       }
 
       const response = await fetch(url);
-      const data = await response.json();
-      setResults(data.results || []);
+      const data = (await response.json()) as { results?: SearchResult[] };
+      setResults(data.results ?? []);
       setShowDropdown(true);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -221,7 +223,7 @@ export function InlineSearchInput({
 
     // Set a new timer
     debounceTimerRef.current = setTimeout(() => {
-      fetchResults(value);
+      void fetchResults(value);
     }, 300);
   };
 
@@ -271,8 +273,9 @@ export function InlineSearchInput({
     else if (e.key === "Enter") {
       e.preventDefault();
       const currentResults = query.trim() ? results : featuredServices;
-      if (focusedIndex >= 0 && focusedIndex < currentResults.length) {
-        handleSelect(currentResults[focusedIndex]);
+      const selectedResult = currentResults[focusedIndex];
+      if (focusedIndex >= 0 && focusedIndex < currentResults.length && selectedResult) {
+        handleSelect(selectedResult);
       }
     }
     // Escape
@@ -318,7 +321,7 @@ export function InlineSearchInput({
           className="hidden sm:block px-6 sm:px-8  py-3 sm:py-4 bg-[#ff9d8a] hover:bg-[#ff8a74] text-black font-medium rounded-xl sm:rounded-none"
           onClick={() => {
             if (query.trim()) {
-              fetchResults(query);
+              void fetchResults(query);
             } else {
               setShowDropdown(true);
             }
@@ -356,9 +359,9 @@ export function InlineSearchInput({
                         {result.description}
                       </div>
                     </div>
-                    {result.type === "service" && (
+                    {result.type === "service" && "region" in result && (
                       <RegionBadge
-                        region={(result as ServiceSearchResult).region}
+                        region={result.region}
                       />
                     )}
                   </div>

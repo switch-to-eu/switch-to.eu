@@ -118,10 +118,10 @@ export function ServiceRequestModal({
         }),
       });
 
-      const result = await response.json();
+      const result = await response.json() as { error?: string };
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to submit service request");
+        throw new Error(result.error ?? "Failed to submit service request");
       }
 
       setSubmitStatus("success");

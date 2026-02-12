@@ -4,7 +4,7 @@ import { routing } from '@/i18n/routing';
 
 type Locale = typeof routing.locales[number];
 
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
     try {
         // Get search parameters from URL
         const { searchParams } = new URL(request.url);
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
         // Perform search with parameters
         console.log(`Search API: Performing search for: "${query}" with lang: ${lang}${region ? ` and region filter: ${region}` : ''}`);
-        const results = await performSearch(query, { limit, types, region, lang });
+        const results = performSearch(query, { limit, types, region, lang });
         console.log(`Search API: Found ${results.length} results`);
 
         // Return search results
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Handle OPTIONS requests for CORS preflight
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json(
         {},
         {

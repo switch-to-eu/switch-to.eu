@@ -1,6 +1,16 @@
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 
+interface TokenWithText {
+  text?: string;
+}
+
+interface LinkToken {
+  href?: string;
+  title?: string;
+  tokens?: TokenWithText[];
+}
+
 /**
  * Creates a custom markdown renderer with support for external links
  * opening in new tabs and other custom rendering features
@@ -11,7 +21,7 @@ export function createCustomRenderer() {
   // Use @ts-expect-error to bypass TypeScript's type checking for this function
   // as we're handling both legacy and new Marked API formats
   // @ts-expect-error - Marked API type definitions don't match runtime behavior
-  renderer.link = function (href, title, text) {
+  renderer.link = function (href: string | LinkToken, title?: string, text?: string) {
     // Handle both object-style (newer API) and string parameters (older API)
     let finalHref = "";
     let finalTitle = "";
@@ -19,17 +29,16 @@ export function createCustomRenderer() {
 
     if (typeof href === "object" && href !== null) {
       // New API - first parameter is an object with href, title, and tokens
-      finalHref = href.href || "";
-      finalTitle = href.title || "";
+      finalHref = (href as LinkToken).href || "";
+      finalTitle = (href as LinkToken).title || "";
       // For text, we'll use either the provided text parameter or get it from tokens
       finalText = text || "";
-      if (!finalText && href.tokens && href.tokens.length) {
+      const hrefToken = href as LinkToken;
+      if (!finalText && hrefToken.tokens && hrefToken.tokens.length) {
         // Try to extract text from tokens if available
-        finalText = href.tokens
-          .map((t: unknown) => {
-            return typeof t === "object" && t !== null && "text" in t
-              ? String(t.text || "")
-              : "";
+        finalText = hrefToken.tokens
+          .map((t: TokenWithText) => {
+            return String(t.text || "");
           })
           .join("");
       }

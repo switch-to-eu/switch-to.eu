@@ -12,8 +12,8 @@
     "clean": "rm -rf .turbo node_modules"
   },
   "peerDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.11",
@@ -34,14 +34,14 @@
     "tw-animate-css": "^1.2.8"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.1.4",
-    "@tailwindcss/typography": "^0.5.16",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "eslint": "^9.25.1",
-    "eslint-config-next": "15.2.3",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5.8.3"
+    "@tailwindcss/postcss": "catalog:",
+    "@tailwindcss/typography": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -4,7 +4,6 @@ import {
   getRecommendedAlternative,
   getServiceSlugs,
 } from "@/lib/content/services/services";
-import { getGuidesByTargetService } from "@/lib/content/services/guides";
 import { notFound, redirect } from "next/navigation";
 import { parseMarkdown } from "@/lib/markdown";
 import path from "path";
@@ -20,8 +19,8 @@ import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
 
 // Generate static params for all non-EU services
-export async function generateStaticParams() {
-  const serviceNames = await getServiceSlugs("non-eu");
+export  function generateStaticParams() {
+  const serviceNames =  getServiceSlugs("non-eu");
 
   return serviceNames.map((service_name) => ({
     service_name,
@@ -35,7 +34,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { service_name, locale } = await params;
   const slug = service_name.replace(/-/g, " ");
-  const serviceData = await getServiceBySlug(slug, locale as Locale);
+  const serviceData = getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     return {
@@ -86,7 +85,7 @@ export default async function ServiceDetailPage({
   const slug = service_name.replace(/-/g, " ");
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     notFound();
@@ -100,16 +99,15 @@ export default async function ServiceDetailPage({
     redirect(`/${locale}/services/eu/${originalSlug}`);
   }
 
-  // Load related guides
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const relatedGuides = await getGuidesByTargetService(
-    frontmatter.name,
-    locale
-  );
+  // Load related guides (currently unused but kept for future feature)
+  // const relatedGuides = getGuidesByTargetService(
+  //   frontmatter.name,
+  //   locale
+  // );
 
   // Get recommended alternative if specified
   const recommendedAlternativeData = frontmatter.recommendedAlternative
-    ? await getRecommendedAlternative(slug, locale)
+    ? getRecommendedAlternative(slug, locale)
     : null;
 
   // We need to get migration guides where:
@@ -166,6 +164,8 @@ export default async function ServiceDetailPage({
           if (
             data.sourceService &&
             data.targetService &&
+            typeof data.sourceService === "string" &&
+            typeof data.targetService === "string" &&
             data.sourceService.toLowerCase() ===
             frontmatter.name.toLowerCase() &&
             data.targetService.toLowerCase() ===
@@ -187,7 +187,7 @@ export default async function ServiceDetailPage({
   const htmlContent = content ? parseMarkdown(content) : "";
 
   // Load EU alternatives from the same category
-  const euAlternatives = await getServicesByCategory(
+  const euAlternatives = getServicesByCategory(
     frontmatter.category,
     "eu",
     locale

@@ -19,8 +19,8 @@ import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
 
 // Generate static params for all EU services
-export async function generateStaticParams() {
-  const serviceNames = await getServiceSlugs("eu");
+export function generateStaticParams() {
+  const serviceNames = getServiceSlugs("eu");
 
   return serviceNames.map((service_name) => ({
     service_name,
@@ -40,7 +40,7 @@ export async function generateMetadata({
   const slug = service_name.replace(/-/g, " ");
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale as Locale);
+  const serviceData = getServiceBySlug(slug, locale as Locale);
 
   if (!serviceData) {
     return {
@@ -88,7 +88,7 @@ export default async function ServiceDetailPage({
   const slug = service_name.replace(/-/g, " ");
 
   // Load service data
-  const serviceData = await getServiceBySlug(slug, locale);
+  const serviceData = getServiceBySlug(slug, locale);
 
   if (!serviceData) {
     notFound();
@@ -97,15 +97,13 @@ export default async function ServiceDetailPage({
   const { frontmatter, content } = serviceData;
 
   // Load related guides
-  const relatedGuides = await getGuidesByTargetService(
+  const relatedGuides = getGuidesByTargetService(
     frontmatter.name,
     locale
   );
 
   // Load similar services from the same category
-  const similarServices = (
-    await getServicesByCategory(frontmatter.category, "eu", locale)
-  )
+  const similarServices = getServicesByCategory(frontmatter.category, "eu", locale)
     .filter((service) => service.name !== frontmatter.name)
     // Sort featured services to the top
     .sort((a, b) => {
