@@ -1,0 +1,12 @@
+{
+  "name": "@switch-to-eu/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.1.0"
+  }
+}

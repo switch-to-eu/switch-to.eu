@@ -1,0 +1,35 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "GITHUB_APP_ID",
+        "GITHUB_APP_PRIVATE_KEY",
+        "GITHUB_APP_INSTALLATION_ID",
+        "GITHUB_REPO_OWNER",
+        "GITHUB_REPO_NAME",
+        "IP_INFO_TOKEN",
+        "MAIL_COACH_API_KEY",
+        "MAIL_COACH_DOMAIN",
+        "MAIL_COACH_LIST_ID",
+        "NEXT_PUBLIC_URL",
+        "NODE_ENV",
+        "NOTIFICATION_EMAIL",
+        "REDIS_URL"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}
