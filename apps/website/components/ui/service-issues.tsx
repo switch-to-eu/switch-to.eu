@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertTitle, AlertDescription } from "@switch-to-eu/ui";
+import { Alert, AlertTitle, AlertDescription } from "@switch-to-eu/ui/components/alert";
 
 interface ServiceIssuesProps {
   issues: string[];

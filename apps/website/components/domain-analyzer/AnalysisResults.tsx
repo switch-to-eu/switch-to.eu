@@ -1,4 +1,4 @@
-import { cn } from "@switch-to-eu/ui";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import {
   CheckCircle2Icon,
   XCircleIcon,

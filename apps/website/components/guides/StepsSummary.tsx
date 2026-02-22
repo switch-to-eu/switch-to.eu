@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { cn } from "@switch-to-eu/ui";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useGuideProgressStore } from "@/lib/store/guide-progress";

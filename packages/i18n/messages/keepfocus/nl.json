@@ -156,6 +156,26 @@
       "permissionDenied": "Bureaubladmeldingen zijn uitgeschakeld. Schakel ze in via je browserinstellingen voor betere productiviteitstracking."
     }
   },
+  "tools": {
+    "plotty": {
+      "tagline": "Plan je week visueel",
+      "description": "Een eenvoudige, privacy-first weekplanner die je helpt je tijd te organiseren en op koers te blijven.",
+      "cta": "Probeer Plotty"
+    },
+    "nully": {
+      "tagline": "Deel bestanden veilig",
+      "description": "End-to-end versleuteld bestanden delen, gebouwd in Europa. Geen accounts nodig, geen tracking, alleen veilige overdrachten.",
+      "cta": "Probeer Nully"
+    },
+    "keepfocus": {
+      "tagline": "Focus met Pomodoro",
+      "description": "Een privacy-first Pomodoro timer en taakbeheer die volledig in je browser draait.",
+      "cta": "Probeer KeepFocus"
+    },
+    "more": {
+      "cta": "Binnenkort beschikbaar"
+    }
+  },
   "AboutPage": {
     "hero": {
       "title": "Over KeepFocus",

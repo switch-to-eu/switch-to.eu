@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { performSearch, SearchResultType } from '@/lib/search';
-import { routing } from '@/i18n/routing';
+import { routing } from '@switch-to-eu/i18n/routing';
 
 type Locale = typeof routing.locales[number];
 

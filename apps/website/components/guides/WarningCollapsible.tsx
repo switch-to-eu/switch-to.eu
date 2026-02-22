@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, AlertTriangle, AlertCircle, Info } from 'lucide-react';
-import { cn } from '@switch-to-eu/ui';
+import { cn } from '@switch-to-eu/ui/lib/utils';
 
 type IconType = 'alert-triangle' | 'alert-circle' | 'info';
 

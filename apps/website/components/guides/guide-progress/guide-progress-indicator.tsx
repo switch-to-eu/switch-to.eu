@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@switch-to-eu/ui';
+import { cn } from '@switch-to-eu/ui/lib/utils';
 import { useMemo, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 

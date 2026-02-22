@@ -167,6 +167,26 @@
       "copyright": "© 2025 Switch-to.eu - A project by"
     }
   },
+  "tools": {
+    "plotty": {
+      "tagline": "Plan your week visually",
+      "description": "A simple, privacy-first weekly planner that helps you organize your time and stay on track.",
+      "cta": "Try Plotty"
+    },
+    "nully": {
+      "tagline": "Share files securely",
+      "description": "End-to-end encrypted file sharing built in Europe. No accounts needed, no tracking, just secure transfers.",
+      "cta": "Try Nully"
+    },
+    "keepfocus": {
+      "tagline": "Focus with Pomodoro",
+      "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+      "cta": "Try KeepFocus"
+    },
+    "more": {
+      "cta": "Coming soon"
+    }
+  },
   "AboutPage": {
     "hero": {
       "title": "About KeepFocus",

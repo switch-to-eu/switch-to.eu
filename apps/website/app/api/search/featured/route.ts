@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SearchResultType, ServiceSearchResult } from "@/lib/search";
 import { getFeaturedServices } from "@/lib/content/services/services";
-import { routing } from "@/i18n/routing";
+import { routing } from "@switch-to-eu/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
 

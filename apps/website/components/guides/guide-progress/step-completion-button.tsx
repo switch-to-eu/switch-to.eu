@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Square, CheckSquare } from 'lucide-react';
-import { cn } from '@switch-to-eu/ui';
+import { cn } from '@switch-to-eu/ui/lib/utils';
 import { useGuideProgressStore, useHydratedGuideProgressStore } from '@/lib/store/guide-progress';
 import { Button } from '@switch-to-eu/ui/components/button';
 import { usePlausible } from 'next-plausible';
