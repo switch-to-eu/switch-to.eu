@@ -5,8 +5,8 @@ import { ContributeCta } from "@/components/ContributeCta";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 // Generate metadata with language alternates
 export async function generateMetadata() {

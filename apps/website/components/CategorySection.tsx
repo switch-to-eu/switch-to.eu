@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 export async function CategorySection() {
   const locale = await getLocale();

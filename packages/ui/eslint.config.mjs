@@ -1,4 +1,4 @@
-import { config } from "@workspace/eslint-config/react-internal";
+import { config } from "@switch-to-eu/eslint-config/react-internal";
 
 export default [
   ...config,

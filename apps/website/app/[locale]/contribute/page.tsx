@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@switch-to-eu/ui/components/card";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 // Generate metadata with language alternates
 export async function generateMetadata() {

@@ -26,7 +26,7 @@ import { Input } from "@switch-to-eu/ui/components/input";
 import { Textarea } from "@switch-to-eu/ui/components/textarea";
 import { Alert, AlertDescription } from "@switch-to-eu/ui/components/alert";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 // Define a type for validation messages
 type ValidationMessages = {

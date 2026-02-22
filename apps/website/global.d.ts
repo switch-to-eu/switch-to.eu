@@ -1,4 +1,4 @@
-import { routing } from "@/i18n/routing";
+import { routing } from "@switch-to-eu/i18n/routing";
 
 declare module "next-intl" {
   interface AppConfig {

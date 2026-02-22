@@ -31,7 +31,7 @@ import {
 } from "@switch-to-eu/ui/components/select";
 import { Alert, AlertDescription } from "@switch-to-eu/ui/components/alert";
 import { useMessages, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 // Define a type for validation messages
 type ValidationMessages = {

@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { SearchResult } from "@/lib/search";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@switch-to-eu/i18n/navigation";
 
 interface InlineSearchInputProps {
   className?: string;
@@ -64,7 +64,7 @@ export function InlineSearchInput({
 
     const animatePlaceholderText = () => {
       const currentExample = examples[currentIndex];
-      
+
       if (!currentExample) return;
 
       // Initial state - start typing a service
@@ -346,9 +346,8 @@ export function InlineSearchInput({
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
-                    focusedIndex === index ? "bg-gray-100" : ""
-                  }`}
+                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
+                    }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >

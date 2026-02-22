@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 import Image from "next/image";
 import { Container } from "../layout/container";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@switch-to-eu/i18n/navigation";
 
 export function WebsiteAnalyzerClient() {
   const router = useRouter();

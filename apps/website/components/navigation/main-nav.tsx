@@ -1,7 +1,7 @@
 import { SearchInput } from "@/components/SearchInput";
-import { cn } from "@switch-to-eu/ui";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import { getNavItems } from "./nav-items";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavDropdown } from "./NavDropdown";
 
 interface MainNavProps {
@@ -40,9 +40,8 @@ export async function MainNav({ className }: MainNavProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium ${
-                  isHome ? "" : "text-muted-foreground"
-                } transition-colors hover:text-primary`}
+                className={`text-sm font-medium ${isHome ? "" : "text-muted-foreground"
+                  } transition-colors hover:text-primary`}
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}

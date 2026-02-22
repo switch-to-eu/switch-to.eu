@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@switch-to-eu/ui/components/dialog";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 
 interface SearchInputProps {

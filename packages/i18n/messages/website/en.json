@@ -99,6 +99,10 @@
     "title": "Privacy Policy | Switch-to.EU",
     "description": "Learn how Switch-to.EU collects, uses, and protects your personal data in accordance with GDPR and European privacy laws."
   },
+  "terms": {
+    "title": "Terms of Service | Switch-to.EU",
+    "description": "Read the terms of service for Switch-to.EU and our tools, including KeepFocus, Plotty, and Nully."
+  },
   "contribute": {
     "title": "Contribute",
     "description": "Help us improve the database by adding new services or updating existing ones",

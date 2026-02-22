@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@source '../node_modules/@switch-to-eu/ui/src';
+@source '../node_modules/@switch-to-eu/blocks/src';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

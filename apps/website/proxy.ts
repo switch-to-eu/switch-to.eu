@@ -1,7 +1,6 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { createI18nMiddleware } from "@switch-to-eu/i18n/proxy";
 
-export default createMiddleware(routing);
+export default createI18nMiddleware();
 
 export const config = {
   // Match all pathnames except for

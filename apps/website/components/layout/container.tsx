@@ -1,4 +1,4 @@
-import { cn } from "@switch-to-eu/ui";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 
 export function Container({
   className,

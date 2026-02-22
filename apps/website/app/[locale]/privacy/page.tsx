@@ -1,7 +1,7 @@
 import { Container } from "@/components/layout/container";
 import { getPageContent } from "@/lib/content/pages/pages";
 import { parseMarkdown } from "@/lib/markdown";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Locale } from "next-intl";

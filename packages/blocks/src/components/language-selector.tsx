@@ -8,9 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@switch-to-eu/ui/components/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { Locale } from "next-intl";
-import { localeNames, routing } from "@/i18n/routing";
-import { Link, usePathname } from "@/i18n/navigation";
+import { type Locale, localeNames, routing } from "@switch-to-eu/i18n/routing";
+import { Link, usePathname } from "@switch-to-eu/i18n/navigation";
+
 export function LanguageSelector({
   locale: currentLocale,
 }: {

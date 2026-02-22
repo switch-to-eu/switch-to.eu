@@ -2,10 +2,10 @@ import { Menu } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Sheet, SheetContent, SheetTrigger } from "@switch-to-eu/ui/components/sheet";
 import { getNavItems } from "./nav-items";
-import { LanguageSelector } from "@/components/navigation/language-selector";
+import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
 import { SearchInput } from "@/components/SearchInput";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 export async function MobileNav() {
   const locale = await getLocale();

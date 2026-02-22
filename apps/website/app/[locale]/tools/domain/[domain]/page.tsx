@@ -4,7 +4,7 @@ import { getFromRedis } from "@/lib/redis";
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
 import { AnalysisStep } from "@/lib/types";
 import { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { Locale } from "next-intl";
 import { NewsletterCta } from "@/components/NewsletterCta";
 

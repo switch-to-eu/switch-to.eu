@@ -9,7 +9,7 @@ import {
 import { AnalysisStep } from "@/lib/types";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 interface AnalysisResultsProps {
   results: AnalysisStep[];
@@ -66,16 +66,16 @@ export function AnalysisResults({
                   status === "green"
                     ? "bg-green-500"
                     : status === "yellow"
-                    ? "bg-yellow-500"
-                    : "bg-red-500"
+                      ? "bg-yellow-500"
+                      : "bg-red-500"
                 )}
               />
               <span className="text-sm text-[#334155] font-medium">
                 {status === "green"
                   ? t("results.statusExcellent")
                   : status === "yellow"
-                  ? t("results.statusImprovement")
-                  : t("results.statusAttention")}
+                    ? t("results.statusImprovement")
+                    : t("results.statusAttention")}
               </span>
             </div>
           )}
@@ -120,17 +120,17 @@ export function AnalysisResults({
                       step.isEU === true || step.euFriendly === true
                         ? "bg-green-100 text-green-700"
                         : step.isEU === false
-                        ? "bg-red-100 text-red-700"
-                        : "bg-gray-100 text-gray-700"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-gray-100 text-gray-700"
                     )}
                   >
                     {step.isEU === true
                       ? t("results.eu")
                       : step.euFriendly === true
-                      ? t("results.euFriendly")
-                      : step.isEU === false
-                      ? t("results.nonEu")
-                      : t("results.notFound")}
+                        ? t("results.euFriendly")
+                        : step.isEU === false
+                          ? t("results.nonEu")
+                          : t("results.notFound")}
                   </span>
                 )}
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { RegionBadge } from "@switch-to-eu/ui";
 import { getTranslations } from "next-intl/server";
 import { ServiceFrontmatter } from "@/lib/content";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 export async function ServiceCard({
   service,
@@ -27,9 +27,8 @@ export async function ServiceCard({
       className="block h-full transition-transform hover:scale-[1.02] hover:shadow-md"
     >
       <div
-        className={`flex flex-col h-full rounded-lg border border-gray-100 ${
-          service.featured ? "bg-[var(--green-bg)]" : "bg-white"
-        } overflow-hidden transition-colors hover:border-slate-200`}
+        className={`flex flex-col h-full rounded-lg border border-gray-100 ${service.featured ? "bg-[var(--green-bg)]" : "bg-white"
+          } overflow-hidden transition-colors hover:border-slate-200`}
       >
         <div className="p-6 pb-3">
           <div className="flex justify-between items-start mb-1">

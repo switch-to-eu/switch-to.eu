@@ -1,5 +1,5 @@
 {
-    "name": "@workspace/trpc",
+    "name": "@switch-to-eu/trpc",
     "version": "0.0.0",
     "type": "module",
     "private": true,
@@ -8,20 +8,20 @@
     },
     "dependencies": {
         "next": "catalog:",
-        "@tanstack/react-query": "^5.62.6",
-        "@trpc/client": "^11.0.11",
-        "@trpc/react-query": "^11.0.11",
-        "@trpc/server": "^11.0.11",
+        "@tanstack/react-query": "catalog:",
+        "@trpc/client": "catalog:",
+        "@trpc/react-query": "catalog:",
+        "@trpc/server": "catalog:",
         "react": "catalog:",
         "server-only": "^0.0.1",
-        "superjson": "^2.2.1",
-        "zod": "^3.22.4"
+        "superjson": "catalog:",
+        "zod": "catalog:"
     },
     "devDependencies": {
         "@types/node": "catalog:",
         "@types/react": "catalog:",
-        "@workspace/eslint-config": "workspace:*",
-        "@workspace/typescript-config": "workspace:*",
+        "@switch-to-eu/eslint-config": "workspace:*",
+        "@switch-to-eu/typescript-config": "workspace:*",
         "eslint": "catalog:",
         "typescript": "catalog:"
     },

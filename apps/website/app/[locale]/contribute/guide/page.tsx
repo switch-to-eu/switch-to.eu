@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

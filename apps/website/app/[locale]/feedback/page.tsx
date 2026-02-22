@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/container";
 import FeedbackForm from "@/components/FeedbackForm";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("feedback");

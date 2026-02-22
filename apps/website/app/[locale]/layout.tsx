@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@switch-to-eu/ui/styles/globals.css";
+import "../globals.css";
 import PlausibleProvider from "next-plausible";
 
 import {
@@ -12,10 +12,10 @@ import {
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { routing } from "@/i18n/routing";
+import { routing } from "@switch-to-eu/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { generateLanguageAlternates } from "@/lib/utils";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t("description");
 
   // Default to localhost if NEXT_PUBLIC_URL is not defined
-  const baseUrl = process.env.NEXT_PUBLIC_URL!;
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
   return {
     metadataBase: new URL(baseUrl),

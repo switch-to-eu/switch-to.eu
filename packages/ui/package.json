@@ -3,9 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    ".": "./src/index.ts",
     "./styles/*": "./src/styles/*",
-    "./tailwind-config": "./tailwind.config.ts"
+    "./tailwind-config": {
+      "types": "./tailwind.config.ts",
+      "default": "./tailwind.config.ts"
+    },
+    "./postcss.config": "./postcss.config.mjs",
+    "./lib/*": {
+      "types": "./src/lib/*.ts",
+      "default": "./src/lib/*.ts"
+    },
+    "./components/*": {
+      "types": "./src/components/*.tsx",
+      "default": "./src/components/*.tsx"
+    },
+    "./hooks/*": {
+      "types": "./src/hooks/*.ts",
+      "default": "./src/hooks/*.ts"
+    }
   },
   "scripts": {
     "lint": "eslint .",
@@ -24,13 +39,14 @@
     "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tooltip": "^1.2.4",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
     "cmdk": "^1.1.1",
-    "lucide-react": "^0.487.0",
+    "lucide-react": "catalog:",
+    "radix-ui": "^1.4.3",
     "react-country-flag": "^3.1.0",
-    "react-hook-form": "^7.56.1",
-    "tailwind-merge": "^3.2.0",
+    "react-hook-form": "catalog:",
+    "tailwind-merge": "catalog:",
     "tw-animate-css": "^1.2.8"
   },
   "devDependencies": {
@@ -38,8 +54,8 @@
     "@tailwindcss/typography": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@switch-to-eu/eslint-config": "workspace:*",
+    "@switch-to-eu/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"

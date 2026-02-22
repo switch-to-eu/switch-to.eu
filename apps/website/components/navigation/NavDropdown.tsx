@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@switch-to-eu/ui/components/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-import { cn } from "@switch-to-eu/ui";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 
 export type DropdownItem = {
   title: string;

@@ -1,5 +1,5 @@
-import { Container } from "@/components/layout/container";
-import { Link } from "@/i18n/navigation";
+import { Footer as BlocksFooter } from "@switch-to-eu/blocks/components/footer";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 export async function Footer() {
@@ -8,51 +8,47 @@ export async function Footer() {
   const footerT = await getTranslations("footer");
 
   return (
-    <footer className="border-t bg-background py-6 md:py-10">
-      <Container className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
-        <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+    <BlocksFooter
+      links={[
+        {
+          label: t("about"),
+          href: `/about`,
+        },
+        {
+          label: t("contribute"),
+          href: `/contribute`,
+        },
+        {
+          label: footerT("privacyPolicy"),
+          href: `/privacy`,
+        },
+        {
+          label: footerT("termsOfService"),
+          href: `/terms`,
+        },
+      ]}
+      copyright={
+        <>
+          © {currentYear} switch-to.eu a project by{" "}
           <Link
-            href={`/about`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            href="https://www.vinnie.studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
           >
-            {t("about")}
-          </Link>
+            Studio Vinnie
+          </Link>{" "}
+          and{" "}
           <Link
-            href={`/contribute`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            href="https://www.mvpeters.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-500 transition-colors underline font-semibold"
           >
-            {t("contribute")}
+            MVPeters
           </Link>
-          <Link
-            href={`/privacy`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            {footerT("privacyPolicy")}
-          </Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} switch-to.eu a project by{" "}
-            <Link
-              href="https://www.vinnie.studio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-            >
-              Studio Vinnie
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="https://www.mvpeters.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-500 transition-colors underline font-semibold"
-            >
-              MVPeters
-            </Link>
-          </p>
-        </div>
-      </Container>
-    </footer>
+        </>
+      }
+    />
   );
 }

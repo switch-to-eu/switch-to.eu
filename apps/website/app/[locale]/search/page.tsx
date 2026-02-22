@@ -7,7 +7,7 @@ import { SearchResult } from "@/lib/search";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
 import { Input } from "@switch-to-eu/ui/components/input";
 import { Button } from "@switch-to-eu/ui/components/button";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 // Extract the inner component to use search params
 function SearchPageContent() {
