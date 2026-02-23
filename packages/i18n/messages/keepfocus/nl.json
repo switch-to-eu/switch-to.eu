@@ -1,0 +1,316 @@
+{
+  "layout": {
+    "metadata": {
+      "title": "KeepFocus - Pomodoro Timer & Taakbeheer",
+      "description": "Focus met de Pomodoro Techniek. 25-minuten werksessies, 5-minuten pauzes, en taakbeheer om productiviteit te verhogen."
+    },
+    "header": {
+      "createItem": "Item Aanmaken",
+      "about": "Over"
+    },
+    "footer": {
+      "about": "Over",
+      "privacy": "Privacybeleid",
+      "terms": "Gebruiksvoorwaarden",
+      "copyright": "{year} switch-to.eu — een project van"
+    }
+  },
+  "homepage": {
+    "title": "KeepFocus",
+    "subtitle": "Pomodoro Timer & Taakbeheer",
+    "heroTitle": "Keep Focus",
+    "technique": "🍅 Pomodoro Techniek",
+    "heroDescription": "Verdeel je werk in gefocuste 25-minuten sessies. Blijf productief, voorkom burn-out, en bereik meer met bewezen tijdmanagement.",
+    "createButton": "Nieuw Item Aanmaken",
+    "features": {
+      "title": "Functies",
+      "nextjs": "Next.js App Router",
+      "trpc": "tRPC voor type-safe API's",
+      "drizzle": "Drizzle ORM voor database",
+      "i18n": "Meertalige ondersteuning",
+      "ui": "Radix UI componenten"
+    },
+    "instructions": {
+      "title": "Hoe KeepFocus te gebruiken:",
+      "timer": {
+        "title": "Timer:",
+        "focusSessions": "25-minuten focussessies",
+        "shortBreaks": "5-minuten korte pauzes",
+        "longBreaks": "15-minuten lange pauzes",
+        "customizeSettings": "Klik op Instellingen om timer voorkeuren aan te passen"
+      },
+      "tasks": {
+        "title": "Taken:",
+        "addTasks": "Voeg taken toe om je werk bij te houden",
+        "setActive": "Klik op een taak om deze als actief in te stellen",
+        "autoCount": "Pomodoro's worden automatisch geteld",
+        "localData": "Gegevens worden lokaal in je browser opgeslagen"
+      }
+    },
+    "footer": "Focus met de Pomodoro Techniek",
+    "subtitle2": "25-minuten werksessies • 5-minuten pauzes • Blijf productief"
+  },
+  "create": {
+    "title": "Nieuw Item Aanmaken",
+    "form": {
+      "name": "Naam",
+      "description": "Beschrijving",
+      "submit": "Item Aanmaken",
+      "cancel": "Annuleren"
+    },
+    "success": "Item succesvol aangemaakt!",
+    "error": "Item aanmaken mislukt"
+  },
+  "items": {
+    "title": "Items",
+    "empty": "Geen items gevonden",
+    "loading": "Items laden...",
+    "error": "Items laden mislukt"
+  },
+  "pomodoro": {
+    "timer": {
+      "title": "Pomodoro Timer",
+      "start": "Start",
+      "pause": "Pauzeer",
+      "reset": "Reset",
+      "skip": "Overslaan",
+      "complete": "voltooid",
+      "pomodorosToday": "pomodoro's vandaag",
+      "currentPhase": "huidige fase",
+      "phases": {
+        "work": "Focustijd",
+        "shortBreak": "Korte Pauze",
+        "longBreak": "Lange Pauze"
+      },
+      "phaseLabels": {
+        "work": "werk",
+        "shortBreak": "korte pauze",
+        "longBreak": "lange pauze"
+      }
+    },
+    "tasks": {
+      "title": "Taken",
+      "placeholder": "Voeg een nieuwe taak toe...",
+      "empty": "Nog geen taken. Voeg er een toe om te beginnen!",
+      "loading": "Taken laden...",
+      "completed": "Voltooid",
+      "clearCompleted": "Alle Voltooide Wissen",
+      "charactersRemaining": "karakters resterend",
+      "pomodorosCompleted": "pomodoro's voltooid",
+      "activeTask": "Actieve Taak",
+      "setActive": "Instellen als actieve taak",
+      "deactivate": "Taak deactiveren",
+      "noActiveTask": "Geen actieve taak - algemene focussessie",
+      "dragToReorder": "Sleep om taken te herordenen",
+      "emptyState": {
+        "readyToFocus": "Klaar om te focussen?",
+        "addFirstTask": "Voeg je eerste taak hierboven toe om te beginnen",
+        "allTasksCompleted": "Gefeliciteerd! Alle taken voltooid",
+        "tasksFinished": "Goed gedaan met het afmaken van je taken!"
+      },
+      "actions": {
+        "moveUp": "Omhoog verplaatsen",
+        "moveDown": "Omlaag verplaatsen",
+        "deleteTask": "Taak verwijderen"
+      },
+      "pomodoro": "pomodoro",
+      "pomodoros": "pomodoro's"
+    },
+    "settings": {
+      "title": "Pomodoro Instellingen",
+      "description": "Pas je pomodoro timer voorkeuren aan.",
+      "openSettings": "Instellingen Openen",
+      "timerDurations": "Timer Duur",
+      "workSession": "Werksessie",
+      "workSessionHint": "Duur van focussessies (1-60 minuten)",
+      "shortBreak": "Korte Pauze",
+      "shortBreakHint": "Duur van korte pauzes (1-30 minuten)",
+      "longBreak": "Lange Pauze",
+      "longBreakHint": "Duur van lange pauzes (1-60 minuten)",
+      "longBreakInterval": "Lange Pauze Interval",
+      "longBreakIntervalHint": "Na hoeveel werksessies (2-10 sessies)",
+      "autoStart": "Auto-start Opties",
+      "autoStartBreaks": "Auto-start pauzes",
+      "autoStartBreaksHint": "Start automatisch pauzetimers na werksessies",
+      "autoStartWork": "Auto-start werksessies",
+      "autoStartWorkHint": "Start automatisch werksessies na pauzes",
+      "notifications": "Meldingsinstellingen",
+      "soundNotifications": "Geluidsmeldingen",
+      "soundNotificationsHint": "Speel geluid af wanneer timerfases voltooien",
+      "desktopNotifications": "Bureaubladmeldingen",
+      "desktopNotificationsHint": "Toon browsermeldingen voor timer gebeurtenissen",
+      "actions": {
+        "save": "Wijzigingen Opslaan",
+        "cancel": "Annuleren",
+        "reset": "Reset naar Standaard"
+      },
+      "units": {
+        "minutes": "minuten",
+        "sessions": "sessies"
+      }
+    },
+    "notifications": {
+      "workComplete": "Werksessie voltooid! Tijd voor een pauze.",
+      "breakComplete": "Pauzetijd is voorbij! Klaar om te focussen?",
+      "longBreakComplete": "Lange pauze voltooid! Tijd om weer aan het werk te gaan.",
+      "permissionDenied": "Bureaubladmeldingen zijn uitgeschakeld. Schakel ze in via je browserinstellingen voor betere productiviteitstracking."
+    }
+  },
+  "tools": {
+    "plotty": {
+      "tagline": "Plan je week visueel",
+      "description": "Een eenvoudige, privacy-first weekplanner die je helpt je tijd te organiseren en op koers te blijven.",
+      "cta": "Probeer Plotty"
+    },
+    "nully": {
+      "tagline": "Deel bestanden veilig",
+      "description": "End-to-end versleuteld bestanden delen, gebouwd in Europa. Geen accounts nodig, geen tracking, alleen veilige overdrachten.",
+      "cta": "Probeer Nully"
+    },
+    "keepfocus": {
+      "tagline": "Focus met Pomodoro",
+      "description": "Een privacy-first Pomodoro timer en taakbeheer die volledig in je browser draait.",
+      "cta": "Probeer KeepFocus"
+    },
+    "more": {
+      "cta": "Binnenkort beschikbaar"
+    }
+  },
+  "AboutPage": {
+    "hero": {
+      "title": "Over KeepFocus",
+      "subtitle": "De privacy-first Pomodoro timer die je helpt beter te focussen, slimmer te werken, en meer te bereiken zonder je gegevens te compromitteren.",
+      "badges": {
+        "european": "Europees gebouwd",
+        "localData": "Alleen lokale gegevens",
+        "noTracking": "Geen tracking"
+      }
+    },
+    "keepfocus": {
+      "title": "Wat is KeepFocus?",
+      "subtitle": "KeepFocus is een moderne Pomodoro timer en taakbeheer app die volledig in je browser draait. Gebouwd met privacy in gedachten, helpt het je focussen met de bewezen Pomodoro techniek.",
+      "features": {
+        "pomodoro": {
+          "title": "Pomodoro Techniek",
+          "description": "25-minuten focussessies gevolgd door 5-minuten pauzes. Bewezen methode om concentratie en productiviteit te verbeteren."
+        },
+        "tasks": {
+          "title": "Taakbeheer",
+          "description": "Organiseer je werk met een eenvoudige takenlijst. Houd pomodoro's bij per taak en blijf georganiseerd."
+        },
+        "focus": {
+          "title": "Afleidingsvrij",
+          "description": "Schone, minimalistische interface ontworpen om afleidingen te verminderen en je te helpen focussen op wat er echt toe doet."
+        }
+      },
+      "perfectFor": {
+        "title": "Perfect voor",
+        "professionals": {
+          "title": "Professionals",
+          "description": "Beheer werktaken, vergaderingen en projecten met gefocuste tijdblokken"
+        },
+        "students": {
+          "title": "Studenten",
+          "description": "Studiesessies, huiswerk en onderzoek met beter tijdmanagement"
+        },
+        "anyone": {
+          "title": "Iedereen",
+          "description": "Iedereen die focus wil verbeteren en betere werkgewoonten wil opbouwen"
+        }
+      }
+    },
+    "technical": {
+      "title": "Gebouwd voor Privacy & Prestaties",
+      "subtitle": "KeepFocus is ontworpen met jouw privacy en productiviteit in gedachten. Alle gegevens blijven op je apparaat, zonder accounts of tracking vereist.",
+      "architecture": {
+        "title": "Hoe KeepFocus Werkt",
+        "localStorage": {
+          "title": "Lokale Opslag",
+          "description": "Al je taken en instellingen worden lokaal in je browser opgeslagen. Geen cloud synchronisatie, geen gegevensverzameling."
+        },
+        "webWorkers": {
+          "title": "Achtergrond Timers",
+          "description": "Gebruikt Web Workers om ervoor te zorgen dat timers blijven lopen zelfs wanneer het tabblad op de achtergrond is."
+        },
+        "privacy": {
+          "title": "Privacy Eerst",
+          "description": "Geen analytics, geen tracking, geen accounts. Je productiviteitsgegevens behoren alleen jou toe."
+        }
+      },
+      "details": {
+        "privacy": {
+          "title": "Privacy & Beveiliging",
+          "localData": "Alle gegevens lokaal opgeslagen in je browser",
+          "noAnalytics": "Geen analytics of tracking scripts",
+          "noAccounts": "Geen gebruikersaccounts of registratie vereist",
+          "offline": "Werkt volledig offline na eerste laadbeurt"
+        },
+        "performance": {
+          "title": "Prestaties & Betrouwbaarheid",
+          "webWorkers": "Achtergrond Web Workers voor nauwkeurige timing",
+          "notifications": "Native browsermeldingen",
+          "responsive": "Responsief ontwerp voor alle apparaten",
+          "instant": "Instant laden en vloeiende interacties"
+        },
+        "pomodoro": {
+          "title": "Pomodoro Functies",
+          "customizable": "Volledig aanpasbare timer duur",
+          "autoStart": "Auto-start opties voor naadloze workflow",
+          "notifications": "Geluid en bureaubladmeldingen",
+          "statistics": "Houd dagelijkse pomodoro voltooiingsstatistieken bij"
+        },
+        "modern": {
+          "title": "Moderne Technologie",
+          "nextjs": "Gebouwd met Next.js 14 en App Router",
+          "typescript": "Volledige TypeScript voor betrouwbaarheid",
+          "tailwind": "Tailwind CSS voor mooie styling",
+          "pwa": "Progressive Web App mogelijkheden"
+        }
+      }
+    },
+    "openSource": {
+      "title": "Open Source & Transparant",
+      "description": "KeepFocus is volledig open source. Je kunt de code inspecteren, verbeteringen bijdragen, of je eigen instantie draaien.",
+      "cta": "Bekijk Broncode",
+      "benefits": {
+        "transparency": {
+          "title": "Volledige Transparantie",
+          "description": "Elke regel code is open voor inspectie. Geen verborgen tracking of gegevensverzameling."
+        },
+        "community": {
+          "title": "Community Gedreven",
+          "description": "Gebouwd door en voor de community. Bijdragen en feedback zijn altijd welkom."
+        },
+        "security": {
+          "title": "Beveiliging Eerst",
+          "description": "Open source betekent dat beveiligingsexperts de code kunnen controleren op kwetsbaarheden."
+        }
+      }
+    },
+    "platform": {
+      "title": "Onderdeel van Switch-to.eu",
+      "description": "KeepFocus is onderdeel van het Switch-to.eu platform - het promoten van Europese digitale soevereiniteit en privacy-first alternatieven voor Big Tech.",
+      "benefits": {
+        "sovereignty": {
+          "title": "Digitale Soevereiniteit",
+          "description": "Europees gebouwde tools die EU privacy wetten en digitale rechten respecteren"
+        },
+        "privacy": {
+          "title": "Privacy by Design",
+          "description": "Geen gegevenswinning, geen surveillance kapitalisme, alleen tools die voor jou werken"
+        },
+        "innovation": {
+          "title": "Innovatie",
+          "description": "Bewijzen dat Europese software mooi, functioneel en privacy-first kan zijn"
+        }
+      },
+      "cta": "Verken Switch-to.eu"
+    },
+    "cta": {
+      "title": "Klaar om Beter te Focussen?",
+      "description": "Begin vandaag nog met de Pomodoro techniek met een privacy-first timer die jouw productiviteit voorop stelt.",
+      "startFocusing": "Begin met Focussen",
+      "learnMore": "Meer Informatie"
+    }
+  }
+}
