@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 interface TokenWithText {
   text?: string;
@@ -96,9 +96,8 @@ export function parseMarkdown(markdown: string, options = {}) {
   }) as string;
 
   // Sanitize the HTML to prevent XSS attacks
-  return DOMPurify.sanitize(htmlContent, {
-    // Allow common HTML tags that are safe for content
-    ALLOWED_TAGS: [
+  return sanitizeHtml(htmlContent, {
+    allowedTags: [
       "h1",
       "h2",
       "h3",
@@ -133,23 +132,10 @@ export function parseMarkdown(markdown: string, options = {}) {
       "del",
       "ins",
     ],
-    // Allow safe attributes
-    ALLOWED_ATTR: [
-      "href",
-      "title",
-      "target",
-      "rel",
-      "src",
-      "alt",
-      "width",
-      "height",
-      "class",
-      "id",
-    ],
-    // Keep relative URLs and allow external links
-    ALLOW_DATA_ATTR: false,
-    // Remove any script-related content
-    FORBID_TAGS: ["script", "object", "embed", "form", "input"],
-    FORBID_ATTR: ["onclick", "onload", "onerror", "onmouseover"],
+    allowedAttributes: {
+      "*": ["class", "id"],
+      a: ["href", "title", "target", "rel"],
+      img: ["src", "alt", "width", "height"],
+    },
   });
 }
