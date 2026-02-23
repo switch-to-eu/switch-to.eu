@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter @switch-to-eu/keepfocus test:*)",
+      "Bash(pnpm --filter @switch-to-eu/keepfocus vitest run:*)",
+      "Bash(npx vitest:*)",
+      "Bash(pnpm --filter @switch-to-eu/keepfocus build:*)"
+    ]
+  }
+}

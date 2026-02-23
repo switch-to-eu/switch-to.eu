@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { TimerPhase, PomodoroSettings, PHASE_LABELS } from '../lib/types';
+import { TimerPhase, PomodoroSettings, PHASE_EMOJIS } from '../lib/types';
+import { formatTime as formatTimeUtil, getPhaseEmoji as getPhaseEmojiUtil } from '../lib/timer-utils';
 import { useNotifications } from './use-notifications';
 import type { TimerMessage, TickMessage } from './timer-worker';
 
@@ -39,12 +40,6 @@ interface UsePomodoroTimerReturn {
 
 // Phase labels are now handled by translations in components
 
-const PHASE_EMOJIS: Record<TimerPhase, string> = {
-  work: '🍅',
-  shortBreak: '☕',
-  longBreak: '🌿',
-};
-
 export const usePomodoroTimer = ({
   settings,
   onPomodoroComplete,
@@ -76,11 +71,9 @@ export const usePomodoroTimer = ({
     };
   }, []);
 
-  // Utility function for formatting time (moved up for use in title effect)
+  // Wrap imported utility in useCallback for stable reference
   const formatTime = useCallback((seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return formatTimeUtil(seconds);
   }, []);
 
   // Update page title when timer is running
@@ -295,7 +288,7 @@ export const usePomodoroTimer = ({
   // getPhaseLabel removed - now handled by translations in components
 
   const getPhaseEmoji = useCallback((currentPhase: TimerPhase): string => {
-    return PHASE_EMOJIS[currentPhase];
+    return getPhaseEmojiUtil(currentPhase);
   }, []);
 
   // Calculate progress percentage

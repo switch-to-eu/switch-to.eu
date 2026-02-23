@@ -28,6 +28,10 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "test": {
+      "dependsOn": ["^build"],
+      "cache": true
+    },
     "clean": {
       "cache": false
     }
