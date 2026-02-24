@@ -5,13 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Users, Calendar, FileText, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@switch-to-eu/ui/components/button";
+import { Input } from "@switch-to-eu/ui/components/input";
+import { Textarea } from "@switch-to-eu/ui/components/textarea";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@switch-to-eu/ui/components/form";
+import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
 import { Calendar as CalendarComponent } from "@switch-to-eu/blocks/components/calendar";
 import { SectionCard, SectionHeader, SectionContent } from "@switch-to-eu/blocks/components/section-card";
-import { LoadingButton } from "@components/ui/loading-button";
-import { FormInput } from "@components/ui/form-input";
-import { FormTextArea } from "@components/ui/form-textarea";
 import { TimeSelectionToggle } from "@components/ui/time-selection-toggle";
-import { DurationSelector } from "@components/ui/duration-selector";
 import { TimeSlotsManager } from "@components/ui/time-slots-manager";
 import { pollSchema, type PollFormData } from "@/lib/schemas";
 
@@ -41,14 +41,7 @@ export function PollForm({
 }: PollFormProps) {
   const t = useTranslations('PollForm');
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useForm<PollFormData>({
+  const form = useForm<PollFormData>({
     resolver: zodResolver(pollSchema) as any,
     defaultValues: {
       title: initialData?.title ?? "",
@@ -62,10 +55,10 @@ export function PollForm({
     },
   });
 
+  const { control, watch, setValue, formState: { errors } } = form;
+
   const selectedDates = watch("selectedDates");
   const enableTimeSelection = watch("enableTimeSelection");
-  const fixedDuration = watch("fixedDuration");
-  const selectedStartTimes = watch("selectedStartTimes");
 
   const handleFormSubmit = async (data: PollFormData) => {
     // Convert start times from {hour, minutes} objects to "HH:MM" strings for backend
@@ -86,7 +79,8 @@ export function PollForm({
   const loadingText = onCancel ? t('buttons.savingText') : t('buttons.creatingText');
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)} className="">
+    <Form {...form}>
+    <form ref={formRef} onSubmit={form.handleSubmit(handleFormSubmit)} className="">
       {/* Event Section - Separate Box */}
       <SectionCard className="mb-6">
         <SectionHeader
@@ -96,34 +90,47 @@ export function PollForm({
         />
         <SectionContent>
           <div className="space-y-5">
-            <FormInput<PollFormData>
-              label={t('fields.title.label')}
+            <FormField
+              control={control}
               name="title"
-              placeholder={t('fields.title.placeholder')}
-              register={register}
-              error={errors.title}
-              schema={pollSchema}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('fields.title.label')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('fields.title.placeholder')} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
-            <FormInput<PollFormData>
-              label={t('fields.location.label')}
+            <FormField
+              control={control}
               name="location"
-              placeholder={t('fields.location.placeholder')}
-              register={register}
-              error={errors.location}
-              schema={pollSchema}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('fields.location.label')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('fields.location.placeholder')} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
-            <FormTextArea<PollFormData>
-              label={t('fields.description.label')}
+            <FormField
+              control={control}
               name="description"
-              placeholder={t('fields.description.placeholder')}
-              register={register}
-              error={errors.description}
-              rows={4}
-              schema={pollSchema}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('fields.description.label')}</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder={t('fields.description.placeholder')} rows={4} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-
           </div>
         </SectionContent>
       </SectionCard>
@@ -323,5 +330,6 @@ export function PollForm({
         )}
       </div>
     </form>
+    </Form>
   );
 }

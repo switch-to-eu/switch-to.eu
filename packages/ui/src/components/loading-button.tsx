@@ -1,8 +1,8 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { Button } from "@switch-to-eu/ui/components/button";
-import { cn } from "@switch-to-eu/ui/lib/utils";
+import { Button } from "./button";
+import { cn } from "../lib/utils";
 
 interface LoadingButtonProps extends React.ComponentProps<typeof Button> {
   loading?: boolean;

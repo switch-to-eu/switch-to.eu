@@ -7,7 +7,7 @@ import { generateEncryptionKey, encryptData } from "@/lib/crypto";
 import { toast } from "sonner";
 import { calculateExpirationDate } from "@/lib/expiration";
 import { api } from "@/lib/trpc-client";
-import { LoadingButton } from "@components/ui/loading-button";
+import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
 import { Users } from "lucide-react";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
 

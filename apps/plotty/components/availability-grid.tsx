@@ -17,7 +17,7 @@ import {
 } from "@switch-to-eu/ui/components/dialog";
 
 import type { DecryptedPoll } from "@/lib/interfaces";
-import { LoadingButton } from "@components/ui/loading-button";
+import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
 import { generateTimeSlotsFromStartTimes, formatTimeSlotRange } from "@/lib/time-utils";
 
 type AvailabilityStatus = 'available' | 'unavailable' | 'unknown';
