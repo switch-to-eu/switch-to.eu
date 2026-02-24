@@ -130,7 +130,7 @@ importers:
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl:
         specifier: 'catalog:'
-        version: 4.8.2(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 4.8.2(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       react:
         specifier: 'catalog:'
         version: 19.2.4
@@ -252,6 +252,9 @@ importers:
       '@switch-to-eu/blocks':
         specifier: workspace:*
         version: link:../../packages/blocks
+      '@switch-to-eu/content':
+        specifier: workspace:*
+        version: link:../../packages/content
       '@switch-to-eu/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
@@ -273,18 +276,9 @@ importers:
       framer-motion:
         specifier: ^12.9.2
         version: 12.33.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      fuse.js:
-        specifier: ^7.1.0
-        version: 7.1.0
-      gray-matter:
-        specifier: ^4.0.3
-        version: 4.0.3
       lucide-react:
         specifier: 'catalog:'
         version: 0.511.0(react@19.2.4)
-      marked:
-        specifier: ^15.0.11
-        version: 15.0.12
       negotiator:
         specifier: ^1.0.0
         version: 1.0.0
@@ -293,7 +287,7 @@ importers:
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl:
         specifier: 'catalog:'
-        version: 4.8.2(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 4.8.2(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       next-plausible:
         specifier: ^3.12.4
         version: 3.12.5(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -318,9 +312,6 @@ importers:
       redis:
         specifier: ^4.7.0
         version: 4.7.1
-      sanitize-html:
-        specifier: ^2.17.1
-        version: 2.17.1
       tw-animate-css:
         specifier: ^1.2.8
         version: 1.4.0
@@ -364,9 +355,6 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.13)
-      '@types/sanitize-html':
-        specifier: ^2.16.0
-        version: 2.16.0
       eslint:
         specifier: 'catalog:'
         version: 9.39.2(jiti@2.6.1)
@@ -393,7 +381,7 @@ importers:
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl:
         specifier: 'catalog:'
-        version: 4.8.2(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 4.8.2(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       react:
         specifier: 'catalog:'
         version: 19.2.4
@@ -416,6 +404,43 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.13)
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.2(jiti@2.6.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/content:
+    dependencies:
+      fuse.js:
+        specifier: ^7.1.0
+        version: 7.1.0
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
+      marked:
+        specifier: ^15.0.11
+        version: 15.0.12
+      sanitize-html:
+        specifier: ^2.17.1
+        version: 2.17.1
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
+    devDependencies:
+      '@switch-to-eu/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@switch-to-eu/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.19.32
+      '@types/sanitize-html':
+        specifier: ^2.16.0
+        version: 2.16.0
       eslint:
         specifier: 'catalog:'
         version: 9.39.2(jiti@2.6.1)
@@ -473,7 +498,7 @@ importers:
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl:
         specifier: 'catalog:'
-        version: 4.8.2(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 4.8.2(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       react:
         specifier: 'catalog:'
         version: 19.2.4
@@ -9874,7 +9899,7 @@ snapshots:
 
   next-intl-swc-plugin-extractor@4.8.2: {}
 
-  next-intl@4.8.2(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
+  next-intl@4.8.2(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       '@parcel/watcher': 2.5.6

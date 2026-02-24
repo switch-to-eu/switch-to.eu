@@ -2,13 +2,13 @@ import {
   getServiceBySlug,
   getServicesByCategory,
   getServiceSlugs,
-} from "@/lib/content/services/services";
+} from "@switch-to-eu/content/services/services";
 
-import { getGuidesByTargetService } from "@/lib/content/services/guides";
+import { getGuidesByTargetService } from "@switch-to-eu/content/services/guides";
 import { notFound } from "next/navigation";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { parseMarkdown } from "@/lib/markdown";
+import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { ContributeCta } from "@/components/ContributeCta";

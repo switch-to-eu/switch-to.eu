@@ -7,7 +7,7 @@ import {
   extractContentSegments,
 } from "../utils";
 import { ContentSegments, GuideFrontmatter } from "../schemas";
-import { Locale } from "next-intl";
+import { Locale } from "../types";
 
 /**
  * Function to get all guide categories

@@ -1,10 +1,10 @@
-import { getGuide, getAllGuides } from "@/lib/content/services/guides";
+import { getGuide, getAllGuides } from "@switch-to-eu/content/services/guides";
 import {
   extractMissingFeatures,
   extractMigrationSteps,
   processCompletionMarkers,
   extractStepsWithMeta,
-} from "@/lib/content/utils";
+} from "@switch-to-eu/content/utils";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
@@ -16,7 +16,7 @@ import {
 } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
-import { parseMarkdown } from "@/lib/markdown";
+import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { notFound } from "next/navigation";
 import { NewsletterCta } from "@/components/NewsletterCta";
 

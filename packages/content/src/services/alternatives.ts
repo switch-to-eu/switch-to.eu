@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { getLanguageContentPath, isAlternativesFrontmatter } from "../utils";
 import { getServicesByCategory } from "./services";
 import { AlternativesFrontmatter } from "../schemas";
-import { Locale } from "next-intl";
+import { Locale } from "../types";
 
 /**
  * Function to get services for a category

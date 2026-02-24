@@ -1,4 +1,10 @@
-// Export types and schemas
+// Config
+export { setContentRoot, getContentRoot } from "./config";
+
+// Types
+export type { Locale, PageData } from "./types";
+
+// Schemas
 export type {
   GuideFrontmatter,
   AlternativesFrontmatter,
@@ -7,7 +13,6 @@ export type {
   ContentSegments,
 } from "./schemas";
 
-// Export schemas
 export {
   GuideFrontmatterSchema,
   AlternativesFrontmatterSchema,
@@ -15,7 +20,7 @@ export {
   CategoryMetadataSchema,
 } from "./schemas";
 
-// Export utility functions
+// Utilities
 export {
   getLanguageContentPath,
   isGuideFrontmatter,
@@ -26,7 +31,27 @@ export {
   extractServiceIssues,
   extractMigrationSteps,
   extractMissingFeatures,
+  extractStepsWithMeta,
+  processCompletionMarkers,
 } from "./utils";
 
-// Export service modules
+// Services
 export * from "./services";
+
+// Markdown
+export { createCustomRenderer, parseMarkdown } from "./markdown";
+
+// Search
+export {
+  buildSearchIndex,
+  performSearch,
+  getRecommendedSearchResults,
+} from "./search";
+export type {
+  SearchResultType,
+  SearchResult,
+  BaseSearchResult,
+  GuideSearchResult,
+  ServiceSearchResult,
+  CategorySearchResult,
+} from "./search";

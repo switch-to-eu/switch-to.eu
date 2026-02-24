@@ -10,7 +10,7 @@ import {
 } from "@switch-to-eu/ui/components/command";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
-import { SearchResult } from "@/lib/search";
+import { SearchResult } from "@switch-to-eu/content/search";
 import {
   Dialog,
   DialogContent,

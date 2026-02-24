@@ -1,8 +1,8 @@
-import { getServicesByCategory } from "@/lib/content/services/services";
+import { getServicesByCategory } from "@switch-to-eu/content/services/services";
 import {
   getCategoryContent,
   getAllCategoriesMetadata,
-} from "@/lib/content/services/categories";
+} from "@switch-to-eu/content/services/categories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";

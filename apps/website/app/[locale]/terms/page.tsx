@@ -1,6 +1,6 @@
 import { Container } from "@/components/layout/container";
-import { getPageContent } from "@/lib/content/pages/pages";
-import { parseMarkdown } from "@/lib/markdown";
+import { getPageContent } from "@switch-to-eu/content/services/pages";
+import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";

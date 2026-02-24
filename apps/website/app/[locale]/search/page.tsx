@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
-import { SearchResult } from "@/lib/search";
+import { SearchResult } from "@switch-to-eu/content/search";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
 import { Input } from "@switch-to-eu/ui/components/input";
 import { Button } from "@switch-to-eu/ui/components/button";

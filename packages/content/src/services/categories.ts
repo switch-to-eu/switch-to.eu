@@ -9,7 +9,7 @@ import {
 } from "../utils";
 
 import { CategoryMetadata, ContentSegments } from "../schemas";
-import { Locale } from "next-intl";
+import { Locale } from "../types";
 
 /**
  * Get metadata for a category

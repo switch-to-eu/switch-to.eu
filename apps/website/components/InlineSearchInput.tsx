@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Search } from "lucide-react";
-import { SearchResult } from "@/lib/search";
+import { SearchResult } from "@switch-to-eu/content/search";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@switch-to-eu/i18n/navigation";

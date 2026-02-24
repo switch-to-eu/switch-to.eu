@@ -3,12 +3,10 @@ import {
   getServicesByCategory,
   getRecommendedAlternative,
   getServiceSlugs,
-} from "@/lib/content/services/services";
+} from "@switch-to-eu/content/services/services";
 import { notFound, redirect } from "next/navigation";
-import { parseMarkdown } from "@/lib/markdown";
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
+import { parseMarkdown } from "@switch-to-eu/content/markdown";
+import { getAllGuides } from "@switch-to-eu/content/services/guides";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { getTranslations } from "next-intl/server";
@@ -110,78 +108,16 @@ export default async function ServiceDetailPage({
     ? getRecommendedAlternative(slug, locale)
     : null;
 
-  // We need to get migration guides where:
-  // - sourceService is the current service (Gmail)
-  // - targetService is the recommended alternative (ProtonMail)
-  // This is different than just getting guides targeting the current service
-  // eslint-disable-next-line prefer-const, @typescript-eslint/no-explicit-any
-  let migrationGuides: any[] = [];
-
-  if (frontmatter.recommendedAlternative && recommendedAlternativeData) {
-    // Get all guides from guide directories
-    const contentRoot = path.join(process.cwd(), "/content");
-    const guidesDir = path.join(contentRoot, locale, "guides");
-
-    // If language directory doesn't exist, fallback to default 'en'
-    const contentDir = fs.existsSync(guidesDir)
-      ? guidesDir
-      : path.join(contentRoot, "guides");
-
-    if (fs.existsSync(contentDir)) {
-      // Get all category directories
-      const categories = fs
-        .readdirSync(contentDir)
-        .filter(
-          (file) =>
-            fs.statSync(path.join(contentDir, file)).isDirectory() &&
-            !file.startsWith(".")
-        );
-
-      // Look through categories and guides
-      for (const category of categories) {
-        const categoryDir = path.join(contentDir, category);
-        const guides = fs
-          .readdirSync(categoryDir)
-          .filter(
-            (dir) =>
-              fs.statSync(path.join(categoryDir, dir)).isDirectory() &&
-              !dir.startsWith(".")
-          );
-
-        // Process each guide
-        for (const guideSlug of guides) {
-          const mdFile = path.join(categoryDir, guideSlug, "index.md");
-
-          // Skip if MDX file doesn't exist
-          if (!fs.existsSync(mdFile)) {
-            continue;
-          }
-
-          const fileContent = fs.readFileSync(mdFile, "utf8");
-          const { data } = matter(fileContent);
-
-          // Check if this is a migration guide for current service → recommended alternative
-          if (
-            data.sourceService &&
-            data.targetService &&
-            typeof data.sourceService === "string" &&
-            typeof data.targetService === "string" &&
-            data.sourceService.toLowerCase() ===
-            frontmatter.name.toLowerCase() &&
-            data.targetService.toLowerCase() ===
-            recommendedAlternativeData.name.toLowerCase()
-          ) {
-            // Found a matching migration guide
-            migrationGuides.push({
-              slug: guideSlug,
-              frontmatter: data,
-              category,
-            });
-          }
-        }
-      }
-    }
-  }
+  // Get migration guides where sourceService is the current service
+  // and targetService is the recommended alternative
+  const migrationGuides =
+    frontmatter.recommendedAlternative && recommendedAlternativeData
+      ? getAllGuides({
+          sourceService: frontmatter.name,
+          targetService: recommendedAlternativeData.name,
+          lang: locale,
+        })
+      : [];
 
   // Parse markdown content to HTML using our secure parseMarkdown function
   const htmlContent = content ? parseMarkdown(content) : "";

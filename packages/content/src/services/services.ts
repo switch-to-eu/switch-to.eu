@@ -6,7 +6,7 @@ import {
   isServiceFrontmatter,
   extractContentSegments,
 } from "../utils";
-import { Locale } from "next-intl";
+import { Locale } from "../types";
 import { ContentSegments, ServiceFrontmatter } from "../schemas";
 
 /**

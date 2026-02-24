@@ -12,16 +12,14 @@ import {
   AlternativesFrontmatter,
   CategoryMetadata,
 } from "../schemas";
-import { Locale } from "next-intl";
-
-// Base content directory
-const contentRoot = path.join(process.cwd(), "/content");
+import { Locale } from "../types";
+import { getContentRoot } from "../config";
 
 /**
  * Function to get content path for a specific language
  */
 export function getLanguageContentPath(locale: Locale = "en"): string {
-  const localePath = path.join(contentRoot, locale);
+  const localePath = path.join(getContentRoot(), locale);
 
   // Check if localeuage-specific directory exists
   if (fs.existsSync(localePath)) {
@@ -29,7 +27,7 @@ export function getLanguageContentPath(locale: Locale = "en"): string {
   }
 
   // Fallback to base content directory
-  return contentRoot;
+  return getContentRoot();
 }
 
 /**

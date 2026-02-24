@@ -3,8 +3,8 @@ import {
   getAllGuides,
   getAllServices,
   getAllCategoriesMetadata,
-} from "./content";
-import { Locale } from "next-intl";
+} from "./services";
+import { Locale } from "./types";
 
 // Define types for search results
 export type SearchResultType = "guide" | "service" | "category";
@@ -43,12 +43,9 @@ export type SearchResult =
 
 // In-memory cache for search index (keyed by language)
 const searchIndexes: Record<
-  Locale,
+  string,
   { index: Fuse<SearchResult>; lastUpdated: number } | undefined
-> = {
-  en: undefined,
-  nl: undefined,
-};
+> = {};
 const INDEX_TTL = 1000 * 60 * 5; // 5 minutes
 
 // Function to build the search index

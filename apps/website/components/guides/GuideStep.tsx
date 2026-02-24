@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { StepCompletionButton } from "./guide-progress/step-completion-button";
-import { parseMarkdown } from "@/lib/markdown";
+import { parseMarkdown } from "@switch-to-eu/content/markdown";
 
 interface StepProps {
   guideId: string;

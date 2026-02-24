@@ -1,7 +1,7 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { ServiceFrontmatter } from "@/lib/content/schemas";
+import { ServiceFrontmatter } from "@switch-to-eu/content/schemas";
 
 interface MigrationGuide {
   category: string;

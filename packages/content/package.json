@@ -1,0 +1,58 @@
+{
+  "name": "@switch-to-eu/content",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./config": {
+      "types": "./src/config.ts",
+      "default": "./src/config.ts"
+    },
+    "./schemas": {
+      "types": "./src/schemas/index.ts",
+      "default": "./src/schemas/index.ts"
+    },
+    "./utils": {
+      "types": "./src/utils/index.ts",
+      "default": "./src/utils/index.ts"
+    },
+    "./services": {
+      "types": "./src/services/index.ts",
+      "default": "./src/services/index.ts"
+    },
+    "./services/*": {
+      "types": "./src/services/*.ts",
+      "default": "./src/services/*.ts"
+    },
+    "./markdown": {
+      "types": "./src/markdown.ts",
+      "default": "./src/markdown.ts"
+    },
+    "./search": {
+      "types": "./src/search.ts",
+      "default": "./src/search.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo node_modules"
+  },
+  "dependencies": {
+    "fuse.js": "^7.1.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.11",
+    "sanitize-html": "^2.17.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@switch-to-eu/eslint-config": "workspace:*",
+    "@switch-to-eu/typescript-config": "workspace:*",
+    "@types/sanitize-html": "^2.16.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

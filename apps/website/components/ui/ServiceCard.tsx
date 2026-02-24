@@ -1,7 +1,7 @@
 import React from "react";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
-import { ServiceFrontmatter } from "@/lib/content";
+import { ServiceFrontmatter } from "@switch-to-eu/content";
 import { Link } from "@switch-to-eu/i18n/navigation";
 
 export async function ServiceCard({

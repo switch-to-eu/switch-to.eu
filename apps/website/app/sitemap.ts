@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
-import { getAllGuides } from "@/lib/content/services/guides";
-import { getAllServices } from "@/lib/content/services/services";
+import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
+import { getAllGuides } from "@switch-to-eu/content/services/guides";
+import { getAllServices } from "@switch-to-eu/content/services/services";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
 const baseUrl = process.env.NEXT_PUBLIC_URL!;

@@ -2,14 +2,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { getLanguageContentPath, extractContentSegments } from "../utils";
-import { Locale } from "next-intl";
+import { Locale, PageData } from "../types";
 import { ContentSegments } from "../schemas";
-
-export interface PageData {
-    title?: string;
-    description?: string;
-    [key: string]: unknown;
-}
 
 /**
  * Get a specific page content from the pages directory

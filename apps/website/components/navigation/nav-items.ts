@@ -1,4 +1,4 @@
-import { getAllCategoriesMetadata } from "@/lib/content/services/categories";
+import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
 import { getTranslations } from "next-intl/server";
 
 export type MainNavItem = {

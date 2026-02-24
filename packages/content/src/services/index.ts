@@ -3,3 +3,4 @@ export * from "./guides";
 export * from "./alternatives";
 export * from "./categories";
 export * from "./services";
+export * from "./pages";

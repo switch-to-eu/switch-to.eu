@@ -12,7 +12,7 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  transpilePackages: ["@switch-to-eu/ui", "@switch-to-eu/i18n", "@switch-to-eu/blocks"],
+  transpilePackages: ["@switch-to-eu/ui", "@switch-to-eu/i18n", "@switch-to-eu/blocks", "@switch-to-eu/content"],
   /* config options here */
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
