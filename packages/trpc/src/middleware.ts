@@ -1,17 +1,3 @@
-interface TRPCInstance {
-  middleware: (fn: MiddlewareFunction) => unknown;
-  _config?: {
-    isDev?: boolean;
-  };
-}
-
-interface MiddlewareContext {
-  next: () => Promise<unknown>;
-  path: string;
-}
-
-type MiddlewareFunction = (context: MiddlewareContext) => Promise<unknown>;
-
 /**
  * Reusable timing middleware for tRPC procedures.
  * Adds artificial delay in development and logs execution time.
@@ -19,8 +5,9 @@ type MiddlewareFunction = (context: MiddlewareContext) => Promise<unknown>;
  * @param t - tRPC instance created with initTRPC
  * @returns Timing middleware that can be used with procedures
  */
-export function createTimingMiddleware(t: TRPCInstance) {
-  return t.middleware(async ({ next }: MiddlewareContext) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function createTimingMiddleware(t: any) {
+  return t.middleware(async ({ next }: { next: () => Promise<unknown>; path: string }) => {
     if (t._config?.isDev) {
       // artificial delay in dev
       const waitMs = Math.floor(Math.random() * 400) + 100;

@@ -34,7 +34,7 @@ packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
-  trpc/           # Shared tRPC v11 infrastructure (used by keepfocus, NOT by website)
+  trpc/           # Shared tRPC v11 infrastructure (used by plotty, NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
   typescript-config/ # Shared tsconfig bases
 ```
