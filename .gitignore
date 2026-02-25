@@ -12,9 +12,9 @@ node_modules
 
 # testing
 /coverage
-/test-results/
-/playwright-report/
-/blob-report/
+test-results/
+playwright-report/
+blob-report/
 
 # next.js
 /.next/
