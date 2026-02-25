@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@switch-to-eu/ui/styles/globals.css";
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+/* Plotty-specific color overrides */
+.gradient-primary {
+  @apply bg-gradient-to-r from-purple-600 to-blue-600;
+}
+
+.header-bg {
+  @apply bg-gradient-to-br from-purple-600/10 via-blue-500/5 to-transparent;
+}
+
+.text-primary-color {
+  @apply text-purple-600;
+}
+
+.focus-ring-accent {
+  @apply focus-visible:ring-purple-600/30 focus-visible:ring-[2px];
+}
+
+.focus-ring-accent-strong {
+  @apply focus-visible:ring-purple-600/50 focus-visible:ring-[3px];
+}

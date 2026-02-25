@@ -1,0 +1,508 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Plotty",
+            "description": "Plan Afspraken zonder gedoe"
+        },
+        "header": {
+            "createPoll": "Maak Poll",
+            "about": "Over"
+        },
+        "footer": {
+            "about": "Over",
+            "privacy": "Privacybeleid",
+            "copyright": "{year} <link>switch-to.eu</link> — een project van"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Ontbrekende Encryptiesleutel",
+            "message": "Deze poll vereist een encryptiesleutel om te bekijken. De sleutel moet in de URL staan na het # symbool.",
+            "urlFormat": "Verwacht URL formaat:",
+            "urlExample": "/poll/[id]#[encryptiesleutel]"
+        },
+        "pollNotFound": {
+            "title": "Poll Niet Gevonden",
+            "titleAdmin": "Poll Niet Gevonden of Toegang Geweigerd",
+            "message": "Deze poll bestaat niet of is mogelijk verwijderd.",
+            "messageAdmin": "Deze poll bestaat niet, is verlopen, of je hebt geen beheerderstoegang.",
+            "returnHome": "Terug naar Home"
+        },
+        "decryption": {
+            "title": "Ontsleuteling Mislukt",
+            "message": "Kan de poll data niet ontsleutelen. Dit kan komen door een ongeldige encryptiesleutel of beschadigde data.",
+            "technicalDetails": "Technische details:",
+            "returnHome": "Terug naar Home"
+        }
+    },
+    "PollHeader": {
+        "eventDetails": "Gebeurtenis details en informatie",
+        "responses": "reacties",
+        "dates": "datums",
+        "timeSlots": "tijdsloten",
+        "duration": "duur",
+        "bestTime": {
+            "title": "Beste Beschikbare Tijd",
+            "description": "{count} van {total} deelnemers beschikbaar ({percentage}%)"
+        }
+    },
+    "AvailabilityGrid": {
+        "participants": "Deelnemers",
+        "options": "opties",
+        "you": "Jij",
+        "you_label": "jij",
+        "allDay": "Hele dag",
+        "clearAll": "Alles Wissen",
+        "unsavedChanges": "Niet opgeslagen wijzigingen",
+        "save": "Opslaan",
+        "nameDialog": {
+            "titleNew": "Voer Je Naam In",
+            "titleEdit": "Bewerk Je Naam",
+            "descriptionNew": "Voer je naam in om je beschikbaarheid op te slaan.",
+            "descriptionEdit": "Werk je naam bij voor deze poll.",
+            "nameLabel": "Naam",
+            "placeholder": "Voer je naam in",
+            "cancel": "Annuleren",
+            "update": "Bijwerken",
+            "save": "Opslaan"
+        }
+    },
+    "PollLoading": {
+        "eventDetails": "Gebeurtenis details laden",
+        "yourAvailability": "Je Beschikbaarheid",
+        "loadingAvailabilityForm": "Beschikbaarheidsformulier laden",
+        "currentResponses": "Huidige Reacties",
+        "loadingResponses": "Deelnemersreacties laden"
+    },
+    "CreatePage": {
+        "submitText": "Maak Poll",
+        "loadingText": "Je poll wordt aangemaakt...",
+        "successMessage": "Poll succesvol aangemaakt!",
+        "errorMessage": "Poll aanmaken mislukt. Probeer het opnieuw.",
+        "termsLabel": "Ik ga akkoord met het <link>privacybeleid</link>"
+    },
+    "PollForm": {
+        "sections": {
+            "event": {
+                "title": "Gebeurtenis",
+                "description": "Beschrijf wat je van plan bent"
+            },
+            "calendar": {
+                "title": "Kalender",
+                "description": "Selecteer mogelijke datums of tijden voor je gebeurtenis"
+            },
+            "timing": {
+                "title": "Tijdselectie",
+                "description": "Optioneel: Specificeer tijdsbereiken voor alle geselecteerde datums",
+                "toggleDescription": "Kies specifieke uren in plaats van hele dag evenementen",
+                "durationDescription": "Hoe lang moet elke tijdsslot duren?",
+                "startTimesDescription": "Selecteer de starttijden voor je tijdsslots"
+            },
+            "timeSlots": {
+                "title": "Tijdslots",
+                "description": "Selecteer specifieke starttijden voor je {duration}u slots",
+                "startTimesDescription": "Voeg de tijden toe waarop je evenement zou kunnen starten"
+            }
+        },
+        "fields": {
+            "title": {
+                "label": "Titel",
+                "placeholder": "Maandelijkse teamvergadering"
+            },
+            "location": {
+                "label": "Locatie",
+                "placeholder": "Koffieshop Joe's"
+            },
+            "description": {
+                "label": "Beschrijving",
+                "placeholder": "Hallo allemaal! Kies hier de datums die het beste uitkomen."
+            }
+        },
+        "calendar": {
+            "todayButton": "Vandaag",
+            "selectedDates": "Geselecteerde Datums",
+            "noDatesSelected": "Geen datums geselecteerd",
+            "chooseDates": "Kies datums in de kalender om te beginnen"
+        },
+        "buttons": {
+            "cancel": "Annuleren",
+            "saveChanges": "Wijzigingen Opslaan",
+            "savingText": "Opslaan...",
+            "createPoll": "Maak Poll",
+            "creatingText": "Je poll wordt aangemaakt..."
+        },
+        "timeFields": {
+            "hour": "Uur",
+            "minutes": "Minuten"
+        }
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Jouw afspraken",
+            "subtitle": "jouw privacy",
+            "description": "Maak direct polls - geen registratie, geen email, geen gedoe. Gewoon eenvoudige planning die jouw privacy respecteert.",
+            "cta": "Maak Privé Poll",
+            "ctaMobile": "Maak Poll",
+            "disclaimer": "Geen registratie vereist",
+            "floatingBadge": "30 seconden om aan te maken"
+        },
+        "benefits": {
+            "title": "Waarom duizenden Plotty kiezen",
+            "description": "Eenvoudige planning die jouw privacy respecteert",
+            "privacy": {
+                "title": "Privacy Eerst",
+                "description": "Geen tracking, geen advertenties, geen datamining. Jouw gegevens blijven privé en worden automatisch na 30 dagen verwijderd."
+            },
+            "european": {
+                "title": "End-to-End Versleuteld",
+                "description": "Je data wordt versleuteld in je browser voordat het onze servers bereikt. Wij kunnen je poll-inhoud nooit zien."
+            }
+        },
+        "howItWorks": {
+            "title": "Zo simpel als 1-2",
+            "description": "Geen ingewikkelde setup, geen account nodig",
+            "step1": {
+                "title": "Aanmaken",
+                "description": "Voeg je afspraakopties toe in 30 seconden",
+                "caption": "Optioneel: Voeg specifieke tijdsloten toe"
+            },
+            "step2": {
+                "title": "Delen",
+                "description": "Stuur de link - deelnemers stemmen direct",
+                "caption": "Zie resultaten in real-time"
+            }
+        },
+        "trust": {
+            "badges": {
+                "noEmail": "Geen e-mail vereist",
+                "autoDelete": "Automatisch verwijderd na event",
+                "encrypted": "Privé & veilig",
+                "european": "Open source"
+            }
+        },
+        "cta": {
+            "title": "Probeer het nu",
+            "description": "Geen registratie, geen spam, geen tracking - gewoon planning die werkt.",
+            "button": "Maak Privé Poll",
+            "buttonMobile": "Begin"
+        },
+        "footer": {
+            "brand": "Plotty",
+            "tagline": "Privacy-first planning. Gebouwd met ❤️ voor betere afspraken."
+        }
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Plan afspraken privé",
+            "description": "Een privacy-first planningstool met end-to-end versleuteling. Geen accounts, geen tracking, gewoon eenvoudig plannen.",
+            "cta": "Probeer Plotty"
+        },
+        "nully": {
+            "tagline": "Deel bestanden veilig",
+            "description": "End-to-end versleuteld bestanden delen, gebouwd in Europa. Geen accounts nodig, geen tracking, alleen veilige overdrachten.",
+            "cta": "Probeer Nully"
+        },
+        "keepfocus": {
+            "tagline": "Focus met Pomodoro",
+            "description": "Een privacy-first Pomodoro timer en taakbeheerder die volledig in je browser draait.",
+            "cta": "Probeer KeepFocus"
+        },
+        "more": {
+            "cta": "Binnenkort beschikbaar"
+        }
+    },
+    "AboutPage": {
+        "hero": {
+            "title": "Over Plotty",
+            "subtitle": "Het privacy-first alternatief voor big tech planning. Gebouwd voor privacy, ontworpen voor eenvoud, volledig open source.",
+            "badges": {
+                "european": "Open Source",
+                "encrypted": "End-to-End Versleuteld",
+                "noTracking": "Geen Tracking"
+            }
+        },
+        "platform": {
+            "title": "Onderdeel van Switch-to.eu",
+            "description": "Plotty is trots onderdeel van het Switch-to.eu initiatief - een groeiend platform van Europese digitale tools die jouw privacy voorop stellen. We bouwen alternatieven voor big tech surveillance kapitalisme, één tool tegelijk.",
+            "benefits": {
+                "sovereignty": {
+                    "title": "Digitale Soevereiniteit",
+                    "description": "Je data wordt versleuteld voordat het je apparaat verlaat. Niemand — ook wij niet — kan je poll-inhoud lezen."
+                },
+                "privacy": {
+                    "title": "Privacy by Design",
+                    "description": "Elke tool is vanaf de grond opgebouwd met privacy als fundament, niet als bijgedachte."
+                },
+                "innovation": {
+                    "title": "Europese Innovatie",
+                    "description": "Bewezen dat Europese tech zowel privacy-respecterend als geavanceerd kan zijn."
+                }
+            },
+            "cta": "Verken Switch-to.eu"
+        },
+        "plotty": {
+            "title": "Wat is Plotty?",
+            "subtitle": "Plotty maakt afspraken plannen zo eenvoudig als het zou moeten zijn - zonder je privacy op te offeren of weer een account aan te maken.",
+            "features": {
+                "instant": {
+                    "title": "Directe Setup",
+                    "description": "Maak polls in 30 seconden. Geen registratie, geen email verificatie, geen gedoe."
+                },
+                "realtime": {
+                    "title": "Real-time Samenwerking",
+                    "description": "Zie reacties live binnenkomen. Iedereen ziet updates direct."
+                },
+                "private": {
+                    "title": "Echt Privé",
+                    "description": "End-to-end versleutelde data die automatisch verwijdert na je evenement."
+                }
+            },
+            "perfectFor": {
+                "title": "Perfect voor",
+                "teams": {
+                    "title": "Remote Teams",
+                    "description": "Snelle standup planning over tijdzones heen"
+                },
+                "events": {
+                    "title": "Evenement Planning",
+                    "description": "Familie bijeenkomsten, meetups, conferenties"
+                },
+                "privacy": {
+                    "title": "Privacy-Bewust",
+                    "description": "Iedereen die waarde hecht aan databescherming"
+                }
+            }
+        },
+        "technical": {
+            "title": "Hoe Plotty Werkt",
+            "subtitle": "Moderne technologie stack ontworpen voor privacy, prestaties en gebruikerservaring.",
+            "architecture": {
+                "title": "Privacy-First Architectuur",
+                "encryption": {
+                    "title": "Client-Side Versleuteling",
+                    "description": "Je data wordt versleuteld in je browser voordat het je apparaat verlaat"
+                },
+                "realtime": {
+                    "title": "Real-Time Updates",
+                    "description": "Server-sent events houden iedereen gesynchroniseerd zonder polling"
+                },
+                "storage": {
+                    "title": "Minimale Opslag",
+                    "description": "Alleen versleutelde data opgeslagen, automatisch verwijderd na vervaldatum"
+                }
+            },
+            "details": {
+                "security": {
+                    "title": "Beveiliging & Privacy",
+                    "encryption": "AES-GCM 256-bit versleuteling met WebCrypto API",
+                    "zeroKnowledge": "Zero-knowledge architectuur - wij kunnen je data niet zien",
+                    "autoDelete": "Automatische verwijdering na 30 dagen post-evenement",
+                    "noTracking": "Geen analytics, cookies of tracking scripts"
+                },
+                "performance": {
+                    "title": "Real-Time Prestaties",
+                    "sse": "Server-Sent Events voor directe live updates",
+                    "trpc": "tRPC voor type-safe, efficiënte API communicatie",
+                    "optimistic": "Optimistische updates voor directe UI feedback",
+                    "responsive": "Mobile-first responsive ontwerp"
+                },
+                "scheduling": {
+                    "title": "Geavanceerde Planning",
+                    "flexible": "Hele dag of specifieke tijdsopties",
+                    "multiple": "Meerdere starttijden met vaste duur",
+                    "granular": "30-minuten nauwkeurigheid voor precisie planning",
+                    "optimal": "Automatische beste tijd detectie en highlighting"
+                },
+                "modern": {
+                    "title": "Moderne Tech Stack",
+                    "nextjs": "Next.js 15 met app router en internationalisatie",
+                    "database": "Redis voor snelle, versleutelde dataopslag",
+                    "typescript": "Volledige TypeScript voor betrouwbaarheid en onderhoudbaarheid",
+                    "hosting": "Vercel hosting met globaal edge netwerk"
+                }
+            }
+        },
+        "openSource": {
+            "title": "Open Source & Transparant",
+            "description": "Plotty is volledig open source. Elke regel code is beschikbaar voor inspectie, bijdragen en verificatie. Omdat privacy tools transparant moeten zijn.",
+            "cta": "Bekijk Broncode",
+            "benefits": {
+                "transparency": {
+                    "title": "Volledige Transparantie",
+                    "description": "Controleer elke functie, verifieer onze privacy claims, zie precies hoe je data wordt behandeld"
+                },
+                "community": {
+                    "title": "Community Gedreven",
+                    "description": "Gebouwd door de community, voor de community. Draag functies bij, meld problemen, vorm de toekomst"
+                },
+                "security": {
+                    "title": "Beveiliging Door Openheid",
+                    "description": "Open source betekent dat kwetsbaarheden sneller worden gevonden en opgelost, wat Plotty veiliger maakt"
+                }
+            }
+        },
+        "europe": {
+            "title": "Waarom Europa Ertoe Doet",
+            "subtitle": "Je data verdient beter dan surveillance kapitalisme. Privacy-first tools bieden echte alternatieven.",
+            "gdpr": {
+                "title": "GDPR Compliance",
+                "description": "Gebouwd met 's werelds sterkste privacy regelgeving in gedachten. Je rechten zijn beschermd by design, niet per ongeluk."
+            },
+            "sovereignty": {
+                "title": "Data Soevereiniteit",
+                "description": "Je data is end-to-end versleuteld. Niemand kan je inhoud lezen — wij niet, geen enkele derde partij."
+            },
+            "infrastructure": {
+                "title": "Open Source",
+                "description": "Volledig open source en controleerbaar. Verifieer onze privacy claims door zelf de code te lezen."
+            }
+        },
+        "cta": {
+            "title": "Klaar om Plotty te proberen?",
+            "description": "Sluit je aan bij duizenden die zijn overgestapt naar privacy-respecterende planning. Geen registratie vereist, directe setup.",
+            "createPoll": "Maak Je Eerste Poll",
+            "learnMore": "Terug naar Home"
+        }
+    },
+    "PrivacyPage": {
+        "hero": {
+            "title": "Privacybeleid",
+            "subtitle": "Jouw privacy is onze prioriteit. Dit beleid legt uit hoe Plotty jouw gegevens behandelt met volledige transparantie.",
+            "lastUpdated": "Laatst bijgewerkt: 31 januari 2025"
+        },
+        "sections": {
+            "whoWeAre": {
+                "title": "Wie Wij Zijn",
+                "content": "Plotty is onderdeel van Switch-to.eu, een Europees initiatief dat privacy-first digitale tools bouwt. Wij zetten ons in voor het creëren van planningssoftware die jouw privacy respecteert en werkt onder Europese gegevensbeschermingsnormen."
+            },
+            "dataCollection": {
+                "title": "Welke Gegevens Wij Verzamelen",
+                "subtitle": "We verzamelen alleen de minimale gegevens die nodig zijn om onze planningsservice te leveren:",
+                "pollData": {
+                    "title": "Poll Informatie",
+                    "description": "Evenementtitel, beschrijving, locatie, geselecteerde datums en tijden die je opgeeft bij het maken van polls"
+                },
+                "participantData": {
+                    "title": "Deelnemer Reacties",
+                    "description": "Namen en beschikbaarheidsselecties van poll deelnemers"
+                },
+                "technicalData": {
+                    "title": "Technische Informatie",
+                    "description": "Basis server logs voor beveiliging en prestatiemonitoring (geen persoonlijke identificatie)"
+                },
+                "noData": {
+                    "title": "Wat We Niet Verzamelen",
+                    "description": "Geen e-mailadressen, geen IP tracking, geen gedragsanalytics, geen advertentieprofielen, geen tracking cookies"
+                }
+            },
+            "dataProtection": {
+                "title": "Hoe We Jouw Gegevens Beschermen",
+                "encryption": {
+                    "title": "Client-Side Versleuteling",
+                    "description": "Alle poll gegevens worden versleuteld in jouw browser met AES-256-GCM voordat ze worden verzonden. We gebruiken de WebCrypto API voor veilige, client-side versleuteling."
+                },
+                "zeroKnowledge": {
+                    "title": "Zero-Knowledge Architectuur",
+                    "description": "De versleutelingssleutel bereikt nooit onze servers. Wij kunnen jouw poll inhoud niet ontsleutelen of bekijken - alleen jij en mensen met de poll link kunnen de gegevens zien."
+                },
+                "europeanServers": {
+                    "title": "Versleutelde Opslag",
+                    "description": "Alle data wordt opgeslagen als versleutelde blobs die wij niet kunnen lezen. Zelfs als onze servers gecompromitteerd zouden worden, blijft je poll-inhoud privé."
+                },
+                "security": {
+                    "title": "Technische Beveiliging",
+                    "description": "HTTPS versleuteling, veilige database verbindingen, regelmatige beveiligingsupdates en minimale gegevensbewaarbeleid."
+                }
+            },
+            "dataRetention": {
+                "title": "Gegevensbewaring",
+                "automatic": {
+                    "title": "Automatische Verwijdering",
+                    "description": "Alle poll gegevens worden automatisch verwijderd 30 dagen na de evenementdatum. Dit omvat alle deelnemersreacties en poll details."
+                },
+                "immediate": {
+                    "title": "Directe Verwijdering",
+                    "description": "Poll makers kunnen hun polls op elk moment direct verwijderen via de beheerder link."
+                },
+                "logs": {
+                    "title": "Technische Logs",
+                    "description": "Anonieme server logs worden 7 dagen bewaard voor beveiligingsmonitoring, daarna automatisch verwijderd."
+                }
+            },
+            "thirdParty": {
+                "title": "Externe Services",
+                "hosting": {
+                    "title": "Veilige Hosting",
+                    "description": "Gehost op Vercel met GDPR-conforme infrastructuur. Alle poll data is end-to-end versleuteld."
+                },
+                "noTracking": {
+                    "title": "Geen Externe Tracking",
+                    "description": "We gebruiken geen Google Analytics, Facebook pixels, advertentienetwerken of tracking services."
+                },
+                "openSource": {
+                    "title": "Open Source Dependencies",
+                    "description": "Gebouwd met open-source bibliotheken die geen persoonlijke gegevens verzamelen."
+                }
+            },
+            "userRights": {
+                "title": "Jouw Rechten",
+                "access": {
+                    "title": "Recht op Toegang",
+                    "description": "Je kunt al jouw poll gegevens bekijken via de poll en beheerder links."
+                },
+                "deletion": {
+                    "title": "Recht op Verwijdering",
+                    "description": "Verwijder je polls direct via de beheerder link, of wacht op automatische verwijdering na 30 dagen."
+                },
+                "portability": {
+                    "title": "Gegevensportabiliteit",
+                    "description": "Exporteer je poll gegevens als JSON via de beheerder interface."
+                },
+                "noConsent": {
+                    "title": "Geen Toestemming Vereist",
+                    "description": "Omdat we client-side versleuteling gebruiken en geen gebruikers tracken, is geen toestemming vereist voor onze minimale gegevensverwerking."
+                }
+            },
+            "international": {
+                "title": "Internationale Gegevensoverdrachten",
+                "noTransfers": {
+                    "title": "Je Data Blijft Versleuteld",
+                    "description": "Alle poll data is end-to-end versleuteld voordat het je browser verlaat. Onze servers slaan alleen versleutelde blobs op die niet gelezen kunnen worden zonder de encryptiesleutel."
+                }
+            },
+            "contact": {
+                "title": "Contact & Vragen",
+                "privacy": {
+                    "title": "Privacy Vragen",
+                    "description": "Voor privacy-gerelateerde vragen, neem contact met ons op via het Switch-to.eu platform."
+                },
+                "authority": {
+                    "title": "Toezichthoudende Autoriteit",
+                    "description": "Je hebt het recht om een klacht in te dienen bij je lokale gegevensbeschermingsautoriteit als je zorgen hebt over onze gegevensbehandeling."
+                }
+            },
+            "changes": {
+                "title": "Beleidswijzigingen",
+                "notification": {
+                    "title": "Hoe We Wijzigingen Melden",
+                    "description": "Beleidswijzigingen worden geplaatst op deze pagina met de revisiedatum. Omdat we geen e-mailadressen verzamelen, kunnen we gebruikers niet direct informeren."
+                },
+                "consent": {
+                    "title": "Voortgezet Gebruik",
+                    "description": "Voortgezet gebruik van Plotty na beleidswijzigingen betekent acceptatie van de nieuwe voorwaarden."
+                }
+            }
+        },
+        "summary": {
+            "title": "Privacy Samenvatting",
+            "points": [
+                "Zero-knowledge, client-side versleuteling",
+                "Geen tracking, analytics of advertenties",
+                "Automatische gegevensverwijdering na 30 dagen",
+                "End-to-end versleutelde opslag",
+                "Open source en volledig transparant",
+                "Geen accounts of e-mailadressen vereist"
+            ]
+        }
+    }
+}

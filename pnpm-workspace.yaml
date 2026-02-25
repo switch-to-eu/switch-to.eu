@@ -1,0 +1,30 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+catalog:
+  react: 19.2.4
+  react-dom: 19.2.4
+  react-hook-form: ^7.56.4
+  sonner: ^2.0.3
+  zod: ^3.25.36
+  next: 16.1.6
+  '@types/react': 19.2.13
+  '@types/react-dom': 19.2.3
+  '@types/node': ^20.17.32
+  typescript: ^5.8.3
+  eslint: ^9.25.1
+  tailwindcss: ^4.1.4
+  '@tailwindcss/postcss': ^4.1.4
+  '@tailwindcss/typography': ^0.5.16
+  '@hookform/resolvers': ^5.0.1
+  'lucide-react': ^0.511.0
+  'clsx': ^2.1.1
+  'class-variance-authority': ^0.7.1
+  'tailwind-merge': ^3.3.0
+  '@trpc/client': ^11.10.0
+  '@trpc/react-query': ^11.10.0
+  '@trpc/server': ^11.10.0
+  '@tanstack/react-query': ^5.69.0
+  'superjson': ^2.2.1
+  'next-intl': ^4.1.0

@@ -1,0 +1,71 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "clean": "rm -rf .next .turbo node_modules",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.1",
+    "@hookform/resolvers": "catalog:",
+    "@layered/dns-records": "^2.3.0",
+    "@mdx-js/mdx": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "16.1.6",
+    "@switch-to-eu/blocks": "workspace:*",
+    "@switch-to-eu/content": "workspace:*",
+    "@switch-to-eu/i18n": "workspace:*",
+    "@switch-to-eu/ui": "workspace:*",
+    "@tailwindcss/typography": "catalog:",
+    "@types/uuid": "^10.0.0",
+    "@upstash/redis": "^1.34.8",
+    "canvas-confetti": "^1.9.3",
+    "framer-motion": "^12.9.2",
+    "lucide-react": "catalog:",
+    "negotiator": "^1.0.0",
+    "next": "catalog:",
+    "next-intl": "catalog:",
+    "next-plausible": "^3.12.4",
+    "octokit": "^4.1.3",
+    "react": "catalog:",
+    "react-confetti": "^6.4.0",
+    "react-country-flag": "^3.1.0",
+    "react-dom": "catalog:",
+    "react-hook-form": "catalog:",
+    "redis": "^4.7.0",
+    "tw-animate-css": "^1.2.8",
+    "uuid": "^11.1.0",
+    "whois": "^2.14.2",
+    "whoiser": "^2.0.0-beta.5",
+    "zod": "catalog:",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@switch-to-eu/eslint-config": "workspace:*",
+    "@switch-to-eu/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/negotiator": "^0.6.3",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "gray-matter": "^4.0.3",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "24"
+  },
+  "overrides": {
+    "@types/react": "19.2.13",
+    "@types/react-dom": "19.2.3"
+  }
+}

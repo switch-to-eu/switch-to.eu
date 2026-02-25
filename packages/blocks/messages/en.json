@@ -1,0 +1,70 @@
+{
+    "form": {
+        "optional": "(Optional)",
+        "enableSpecificTimes": "Enable specific times",
+        "fixedDuration": "Duration for each time slot",
+        "selectStartTimes": "Select start times",
+        "hour": "Hour",
+        "minutes": "Minutes",
+        "startTime": "Start time",
+        "duration": "Duration",
+        "selectStartTime": "Select start time",
+        "selectDuration": "Select duration",
+        "timeRange": "Time range",
+        "timeRangeExceeds": "Time range exceeds 24:00. Please select an earlier start time or shorter duration.",
+        "timeSelectionDescription": "Choose specific time ranges instead of all-day events",
+        "timeSelectionEnabledMessage": "Time selection enabled! You can now pick specific hours when your event can happen.",
+        "errors": {
+            "required": "This field is required",
+            "invalid": "Invalid value",
+            "invalidStartTime": "Invalid start time",
+            "invalidDuration": "Invalid duration",
+            "email": "Please enter a valid email address",
+            "minLength": "Minimum {{min}} characters required",
+            "maxLength": "Maximum {{max}} characters allowed",
+            "min": "Value must be at least {{min}}",
+            "max": "Value must be at most {{max}}",
+            "pattern": "Invalid format",
+            "arrayMinLength": "At least {{min}} item is required",
+            "futureDate": "All selected dates must be today or in the future"
+        }
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Schedule without the hassle",
+            "description": "Privacy-first polling for teams. Create polls in 30 seconds, no signup required.",
+            "cta": "Try Plotty"
+        },
+        "nully": {
+            "tagline": "Secure file sharing",
+            "description": "Share files securely with automatic deletion. No accounts, no tracking.",
+            "cta": "Try Nully"
+        },
+        "keepfocus": {
+            "tagline": "Privacy-respecting productivity",
+            "description": "Boost productivity with focus tracking that respects your privacy.",
+            "cta": "Try KeepFocus"
+        },
+        "more": {
+            "tagline": "Coming Soon",
+            "description": "Additional privacy-first European tools in development.",
+            "cta": "Coming Soon"
+        }
+    },
+    "footer": {
+        "description": "Your guide to European digital alternatives. We help you discover, evaluate, and switch to EU-based tools that respect your privacy and data sovereignty.",
+        "confidence": "We don't just recommend EU alternatives—we build them. Our own apps prove that European software can be both privacy-first and beautifully designed.",
+        "toolsTitle": "Tools we've built in house",
+        "browseMore": "Browse more EU alternatives",
+        "links": "Links",
+        "about": "About",
+        "privacy": "Privacy Policy",
+        "contact": "Contact",
+        "copyright": "© 2025 Switch-to.eu - A project by",
+        "tools": {
+            "plotty": "Privacy-first meeting scheduler",
+            "nully": "Secure file sharing",
+            "keepfocus": "Distraction-free productivity"
+        }
+    }
+}

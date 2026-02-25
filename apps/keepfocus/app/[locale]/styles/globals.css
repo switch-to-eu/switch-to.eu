@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@switch-to-eu/ui/styles/globals.css";
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+/* KeepFocus-specific color overrides */
+.gradient-primary {
+  @apply bg-gradient-to-r from-blue-500 to-blue-700;
+}
+
+.text-primary-color {
+  @apply text-blue-600;
+}

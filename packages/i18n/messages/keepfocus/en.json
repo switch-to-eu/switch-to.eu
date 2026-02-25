@@ -1,0 +1,327 @@
+{
+  "layout": {
+    "metadata": {
+      "title": "KeepFocus - Pomodoro Timer & Task Manager",
+      "description": "Focus with the Pomodoro Technique. 25-minute work sessions, 5-minute breaks, and task management to boost productivity."
+    },
+    "header": {
+      "createItem": "Create Item",
+      "about": "About"
+    },
+    "footer": {
+      "about": "About",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "copyright": "{year} switch-to.eu — a project by"
+    }
+  },
+  "homepage": {
+    "title": "KeepFocus",
+    "subtitle": "Pomodoro Timer & Task Manager",
+    "heroTitle": "Focus. Work. Achieve",
+    "technique": "🍅 Pomodoro Technique",
+    "heroDescription": "Break your work into focused 25-minute sessions. Stay productive, avoid burnout, and accomplish more with proven time management.",
+    "createButton": "Create New Item",
+    "features": {
+      "title": "Features",
+      "nextjs": "Next.js App Router",
+      "trpc": "tRPC for type-safe APIs",
+      "drizzle": "Drizzle ORM for database",
+      "i18n": "Multi-language support",
+      "ui": "Radix UI components"
+    },
+    "instructions": {
+      "title": "How to use KeepFocus:",
+      "timer": {
+        "title": "Timer:",
+        "focusSessions": "25-minute focus sessions",
+        "shortBreaks": "5-minute short breaks",
+        "longBreaks": "15-minute long breaks",
+        "customizeSettings": "Click Settings to customize timer preferences"
+      },
+      "tasks": {
+        "title": "Tasks:",
+        "addTasks": "Add tasks to track your work",
+        "setActive": "Click a task to set it as active",
+        "autoCount": "Pomodoros count automatically",
+        "localData": "Data saved locally in your browser"
+      }
+    },
+    "footer": "Focus with the Pomodoro Technique",
+    "subtitle2": "25-minute work sessions • 5-minute breaks • Stay productive"
+  },
+  "create": {
+    "title": "Create New Item",
+    "form": {
+      "name": "Name",
+      "description": "Description",
+      "submit": "Create Item",
+      "cancel": "Cancel"
+    },
+    "success": "Item created successfully!",
+    "error": "Failed to create item"
+  },
+  "items": {
+    "title": "Items",
+    "empty": "No items found",
+    "loading": "Loading items...",
+    "error": "Failed to load items"
+  },
+  "pomodoro": {
+    "timer": {
+      "title": "Pomodoro Timer",
+      "start": "Start",
+      "pause": "Pause",
+      "reset": "Reset",
+      "skip": "Skip",
+      "complete": "complete",
+      "pomodorosToday": "pomodoros today",
+      "currentPhase": "current phase",
+      "phases": {
+        "work": "Focus Time",
+        "shortBreak": "Short Break",
+        "longBreak": "Long Break"
+      },
+      "phaseLabels": {
+        "work": "work",
+        "shortBreak": "short break",
+        "longBreak": "long break"
+      }
+    },
+    "tasks": {
+      "title": "Tasks",
+      "placeholder": "Add a new task...",
+      "empty": "No tasks yet. Add one above to get started!",
+      "loading": "Loading tasks...",
+      "completed": "Completed",
+      "clearCompleted": "Clear All Completed",
+      "charactersRemaining": "characters remaining",
+      "pomodorosCompleted": "pomodoros completed",
+      "activeTask": "Active Task",
+      "setActive": "Set as active task",
+      "deactivate": "Deactivate task",
+      "noActiveTask": "No active task - general focus session",
+      "dragToReorder": "Drag to reorder tasks",
+      "emptyState": {
+        "readyToFocus": "Ready to focus?",
+        "addFirstTask": "Add your first task above to get started",
+        "allTasksCompleted": "Congratulations! All tasks completed",
+        "tasksFinished": "Great job finishing your tasks!"
+      },
+      "actions": {
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "deleteTask": "Delete task"
+      },
+      "pomodoro": "pomodoro",
+      "pomodoros": "pomodoros"
+    },
+    "settings": {
+      "title": "Pomodoro Settings",
+      "description": "Customize your pomodoro timer preferences.",
+      "openSettings": "Open Settings",
+      "timerDurations": "Timer Durations",
+      "workSession": "Work Session",
+      "workSessionHint": "Duration of focus sessions (1-60 minutes)",
+      "shortBreak": "Short Break",
+      "shortBreakHint": "Duration of short breaks (1-30 minutes)",
+      "longBreak": "Long Break",
+      "longBreakHint": "Duration of long breaks (1-60 minutes)",
+      "longBreakInterval": "Long Break Interval",
+      "longBreakIntervalHint": "After how many work sessions (2-10 sessions)",
+      "autoStart": "Auto-start Options",
+      "autoStartBreaks": "Auto-start breaks",
+      "autoStartBreaksHint": "Automatically start break timers after work sessions",
+      "autoStartWork": "Auto-start work sessions",
+      "autoStartWorkHint": "Automatically start work sessions after breaks",
+      "notifications": "Notification Settings",
+      "soundNotifications": "Sound notifications",
+      "soundNotificationsHint": "Play sound when timer phases complete",
+      "desktopNotifications": "Desktop notifications",
+      "desktopNotificationsHint": "Show browser notifications for timer events",
+      "actions": {
+        "save": "Save Changes",
+        "cancel": "Cancel",
+        "reset": "Reset to Defaults"
+      },
+      "units": {
+        "minutes": "minutes",
+        "sessions": "sessions"
+      }
+    },
+    "notifications": {
+      "workComplete": "Work session complete! Time for a break.",
+      "breakComplete": "Break time is over! Ready to focus?",
+      "longBreakComplete": "Long break finished! Time to get back to work.",
+      "permissionDenied": "Desktop notifications are disabled. Enable them in your browser settings for better productivity tracking."
+    },
+    "footer": {
+      "description": "Your guide to European digital alternatives. We help you discover, evaluate, and switch to EU-based tools that respect your privacy and data sovereignty.",
+      "confidence": "We don't just recommend EU alternatives—we build them. Our own apps prove that European software can be both privacy-first and beautifully designed.",
+      "toolsTitle": "Tools we've built in house",
+      "browseMore": "Browse more EU alternatives",
+      "links": "Links",
+      "about": "About",
+      "privacy": "Privacy Policy",
+      "contact": "Contact",
+      "copyright": "© 2025 Switch-to.eu - A project by"
+    }
+  },
+  "tools": {
+    "plotty": {
+      "tagline": "Plan your week visually",
+      "description": "A simple, privacy-first weekly planner that helps you organize your time and stay on track.",
+      "cta": "Try Plotty"
+    },
+    "nully": {
+      "tagline": "Share files securely",
+      "description": "End-to-end encrypted file sharing built in Europe. No accounts needed, no tracking, just secure transfers.",
+      "cta": "Try Nully"
+    },
+    "keepfocus": {
+      "tagline": "Focus with Pomodoro",
+      "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+      "cta": "Try KeepFocus"
+    },
+    "more": {
+      "cta": "Coming soon"
+    }
+  },
+  "AboutPage": {
+    "hero": {
+      "title": "About KeepFocus",
+      "subtitle": "The privacy-first Pomodoro timer that helps you focus better, work smarter, and achieve more without compromising your data.",
+      "badges": {
+        "european": "European-built",
+        "localData": "Local data only",
+        "noTracking": "No tracking"
+      }
+    },
+    "keepfocus": {
+      "title": "What is KeepFocus?",
+      "subtitle": "KeepFocus is a modern Pomodoro timer and task management app that runs entirely in your browser. Built with privacy in mind, it helps you focus using the proven Pomodoro technique.",
+      "features": {
+        "pomodoro": {
+          "title": "Pomodoro Technique",
+          "description": "25-minute focus sessions followed by 5-minute breaks. Proven method to improve concentration and productivity."
+        },
+        "tasks": {
+          "title": "Task Management",
+          "description": "Organize your work with a simple task list. Track pomodoros completed per task and stay organized."
+        },
+        "focus": {
+          "title": "Distraction-Free",
+          "description": "Clean, minimal interface designed to reduce distractions and help you maintain focus on what matters most."
+        }
+      },
+      "perfectFor": {
+        "title": "Perfect for",
+        "professionals": {
+          "title": "Professionals",
+          "description": "Manage work tasks, meetings, and projects with focused time blocks"
+        },
+        "students": {
+          "title": "Students",
+          "description": "Study sessions, homework, and research with better time management"
+        },
+        "anyone": {
+          "title": "Anyone",
+          "description": "Anyone wanting to improve focus and build better work habits"
+        }
+      }
+    },
+    "technical": {
+      "title": "Built for Privacy & Performance",
+      "subtitle": "KeepFocus is designed with your privacy and productivity in mind. All data stays on your device, with no accounts or tracking required.",
+      "architecture": {
+        "title": "How KeepFocus Works",
+        "localStorage": {
+          "title": "Local Storage",
+          "description": "All your tasks and settings are stored locally in your browser. No cloud sync, no data collection."
+        },
+        "webWorkers": {
+          "title": "Background Timers",
+          "description": "Uses Web Workers to ensure timers continue running even when the tab is in the background."
+        },
+        "privacy": {
+          "title": "Privacy First",
+          "description": "No analytics, no tracking, no accounts. Your productivity data belongs to you alone."
+        }
+      },
+      "details": {
+        "privacy": {
+          "title": "Privacy & Security",
+          "localData": "All data stored locally in your browser",
+          "noAnalytics": "No analytics or tracking scripts",
+          "noAccounts": "No user accounts or registration required",
+          "offline": "Works completely offline after first load"
+        },
+        "performance": {
+          "title": "Performance & Reliability",
+          "webWorkers": "Background Web Workers for accurate timing",
+          "notifications": "Native browser notifications",
+          "responsive": "Responsive design for all devices",
+          "instant": "Instant loading and smooth interactions"
+        },
+        "pomodoro": {
+          "title": "Pomodoro Features",
+          "customizable": "Fully customizable timer durations",
+          "autoStart": "Auto-start options for seamless workflow",
+          "notifications": "Sound and desktop notifications",
+          "statistics": "Track daily pomodoro completion stats"
+        },
+        "modern": {
+          "title": "Modern Technology",
+          "nextjs": "Built with Next.js 14 and App Router",
+          "typescript": "Full TypeScript for reliability",
+          "tailwind": "Tailwind CSS for beautiful styling",
+          "pwa": "Progressive Web App capabilities"
+        }
+      }
+    },
+    "openSource": {
+      "title": "Open Source & Transparent",
+      "description": "KeepFocus is completely open source. You can inspect the code, contribute improvements, or run your own instance.",
+      "cta": "View Source Code",
+      "benefits": {
+        "transparency": {
+          "title": "Full Transparency",
+          "description": "Every line of code is open for inspection. No hidden tracking or data collection."
+        },
+        "community": {
+          "title": "Community Driven",
+          "description": "Built by and for the community. Contributions and feedback are always welcome."
+        },
+        "security": {
+          "title": "Security First",
+          "description": "Open source means security experts can audit the code for vulnerabilities."
+        }
+      }
+    },
+    "platform": {
+      "title": "Part of Switch-to.eu",
+      "description": "KeepFocus is part of the Switch-to.eu platform - promoting European digital sovereignty and privacy-first alternatives to Big Tech.",
+      "benefits": {
+        "sovereignty": {
+          "title": "Digital Sovereignty",
+          "description": "European-built tools that respect EU privacy laws and digital rights"
+        },
+        "privacy": {
+          "title": "Privacy by Design",
+          "description": "No data harvesting, no surveillance capitalism, just tools that work for you"
+        },
+        "innovation": {
+          "title": "Innovation",
+          "description": "Proving that European software can be beautiful, functional, and privacy-first"
+        }
+      },
+      "cta": "Explore Switch-to.eu"
+    },
+    "cta": {
+      "title": "Ready to Focus Better?",
+      "description": "Start using the Pomodoro technique today with a privacy-first timer that puts your productivity first.",
+      "startFocusing": "Start Focusing",
+      "learnMore": "Learn More"
+    }
+  }
+}

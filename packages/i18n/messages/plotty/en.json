@@ -1,0 +1,504 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Plotty",
+            "description": "Schedule Meetings without hassle"
+        },
+        "header": {
+            "createPoll": "Create Poll",
+            "about": "About"
+        },
+        "footer": {
+            "about": "About",
+            "privacy": "Privacy Policy",
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Missing Encryption Key",
+            "message": "This poll requires an encryption key to view. The key should be included in the URL after the # symbol.",
+            "urlFormat": "Expected URL format:",
+            "urlExample": "/poll/[id]#[encryption-key]"
+        },
+        "pollNotFound": {
+            "title": "Poll Not Found",
+            "titleAdmin": "Poll Not Found or Access Denied",
+            "message": "This poll doesn't exist or may have been removed.",
+            "messageAdmin": "This poll doesn't exist, has expired, or you don't have admin access.",
+            "returnHome": "Return to Home"
+        },
+        "decryption": {
+            "title": "Decryption Failed",
+            "message": "Unable to decrypt the poll data. This could be due to an invalid encryption key or corrupted data.",
+            "technicalDetails": "Technical details:",
+            "returnHome": "Return to Home"
+        }
+    },
+    "PollHeader": {
+        "eventDetails": "Event details and information",
+        "responses": "responses",
+        "dates": "dates",
+        "timeSlots": "time slots",
+        "duration": "duration",
+        "bestTime": {
+            "title": "Best Available Time",
+            "description": "{count} out of {total} people available ({percentage}%)"
+        }
+    },
+    "AvailabilityGrid": {
+        "participants": "Participants",
+        "options": "options",
+        "you": "You",
+        "you_label": "you",
+        "allDay": "All day",
+        "clearAll": "Clear All",
+        "unsavedChanges": "Unsaved changes",
+        "save": "Save",
+        "nameDialog": {
+            "titleNew": "Enter Your Name",
+            "titleEdit": "Edit Your Name",
+            "descriptionNew": "Please enter your name to save your availability.",
+            "descriptionEdit": "Update your name for this poll.",
+            "nameLabel": "Name",
+            "placeholder": "Enter your name",
+            "cancel": "Cancel",
+            "update": "Update",
+            "save": "Save"
+        }
+    },
+    "PollLoading": {
+        "eventDetails": "Loading event details",
+        "yourAvailability": "Your Availability",
+        "loadingAvailabilityForm": "Loading availability form",
+        "currentResponses": "Current Responses",
+        "loadingResponses": "Loading participant responses"
+    },
+    "CreatePage": {
+        "submitText": "Create Poll",
+        "loadingText": "Creating your poll...",
+        "successMessage": "Poll created successfully!",
+        "errorMessage": "Failed to create poll. Please try again.",
+        "termsLabel": "I agree to the <link>privacy policy</link>"
+    },
+    "PollForm": {
+        "sections": {
+            "event": {
+                "title": "Event",
+                "description": "Describe what you're planning"
+            },
+            "calendar": {
+                "title": "Calendar",
+                "description": "Select potential dates or times for your event"
+            },
+            "timing": {
+                "title": "Time Selection",
+                "description": "Optional: Specify time ranges for all selected dates",
+                "toggleDescription": "Choose specific hours instead of all-day events",
+                "durationDescription": "How long should each time slot be?",
+                "startTimesDescription": "Select the start times for your time slots"
+            },
+            "timeSlots": {
+                "title": "Time Slots",
+                "description": "Select specific start times for your {duration}h slots",
+                "startTimesDescription": "Add the times when your event could start"
+            }
+        },
+        "fields": {
+            "title": {
+                "label": "Title",
+                "placeholder": "Monthly team meeting"
+            },
+            "location": {
+                "label": "Location",
+                "placeholder": "Coffee shop Joe's"
+            },
+            "description": {
+                "label": "Description",
+                "placeholder": "Hello everyone! Choose here the dates that work best for you."
+            }
+        },
+        "calendar": {
+            "todayButton": "Today",
+            "selectedDates": "Selected Dates",
+            "noDatesSelected": "No dates selected",
+            "chooseDates": "Choose dates in the calendar to get started"
+        },
+        "buttons": {
+            "cancel": "Cancel",
+            "saveChanges": "Save Changes",
+            "savingText": "Saving...",
+            "createPoll": "Create Poll",
+            "creatingText": "Creating your poll..."
+        },
+        "timeFields": {
+            "hour": "Hour",
+            "minutes": "Minutes"
+        }
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Your meetings",
+            "subtitle": "your privacy",
+            "description": "Create polls instantly - no registration, no email, no hassle. Just simple scheduling that respects your privacy.",
+            "cta": "Create Private Poll",
+            "ctaMobile": "Create Poll",
+            "disclaimer": "No signup required",
+            "floatingBadge": "30 seconds to create"
+        },
+        "benefits": {
+            "title": "Why you should choose Plotty",
+            "description": "Simple scheduling that respects your privacy",
+            "privacy": {
+                "title": "Privacy First",
+                "description": "No tracking, no ads, no data mining. Your data stays private and is automatically deleted after 30 days after the event is ended."
+            },
+            "european": {
+                "title": "End-to-End Encrypted",
+                "description": "Your data is encrypted in your browser before it ever reaches our servers. We can never see your poll content."
+            }
+        },
+        "howItWorks": {
+            "title": "Simple as 1-2",
+            "description": "No complicated setup, no account needed",
+            "step1": {
+                "title": "Create",
+                "description": "Add your meeting options in 30 seconds",
+                "caption": "Optional: Add specific time slots"
+            },
+            "step2": {
+                "title": "Share",
+                "description": "Send the link - participants vote instantly",
+                "caption": "See results in real-time"
+            }
+        },
+        "trust": {
+            "badges": {
+                "noEmail": "No email required",
+                "autoDelete": "Auto-deleted after event",
+                "encrypted": "Private & secure",
+                "european": "Open source"
+            }
+        },
+        "cta": {
+            "title": "Try it now",
+            "description": "No signup, no spam, no tracking - just scheduling that works.",
+            "button": "Create Private Poll",
+            "buttonMobile": "Get Started"
+        }
+    },
+    "PrivacyPage": {
+        "hero": {
+            "title": "Privacy Policy",
+            "subtitle": "Your privacy is our priority. This policy explains how Plotty handles your data with complete transparency.",
+            "lastUpdated": "Last updated: January 31, 2025"
+        },
+        "sections": {
+            "whoWeAre": {
+                "title": "Who We Are",
+                "content": "Plotty is part of Switch-to.eu, a European initiative building privacy-first digital tools. We're committed to creating scheduling software that respects your privacy through end-to-end encryption and zero-knowledge architecture."
+            },
+            "dataCollection": {
+                "title": "What Data We Collect",
+                "subtitle": "We collect only the minimum data necessary to provide our scheduling service:",
+                "pollData": {
+                    "title": "Poll Information",
+                    "description": "Event title, description, location, selected dates and times you provide when creating polls"
+                },
+                "participantData": {
+                    "title": "Participant Responses",
+                    "description": "Names and availability selections provided by poll participants"
+                },
+                "technicalData": {
+                    "title": "Technical Information",
+                    "description": "Basic server logs for security and performance monitoring (no personal identification)"
+                },
+                "noData": {
+                    "title": "What We Don't Collect",
+                    "description": "No email addresses, no IP tracking, no behavioral analytics, no advertising profiles, no cookies for tracking"
+                }
+            },
+            "dataProtection": {
+                "title": "How We Protect Your Data",
+                "encryption": {
+                    "title": "Client-Side Encryption",
+                    "description": "All poll data is encrypted in your browser using AES-256-GCM before transmission. We use the WebCrypto API for secure, client-side encryption."
+                },
+                "zeroKnowledge": {
+                    "title": "Zero-Knowledge Architecture",
+                    "description": "The encryption key never reaches our servers. We cannot decrypt or access your poll content - only you and people with the poll link can view the data."
+                },
+                "europeanServers": {
+                    "title": "Encrypted Storage",
+                    "description": "All data is stored as encrypted blobs that we cannot read. Even if our servers were compromised, your poll content remains private."
+                },
+                "security": {
+                    "title": "Technical Security",
+                    "description": "HTTPS encryption, secure database connections, regular security updates, and minimal data retention policies."
+                }
+            },
+            "dataRetention": {
+                "title": "Data Retention",
+                "automatic": {
+                    "title": "Automatic Deletion",
+                    "description": "All poll data is automatically deleted 30 days after the event date. This includes all participant responses and poll details."
+                },
+                "immediate": {
+                    "title": "Immediate Deletion",
+                    "description": "Poll creators can delete their polls instantly at any time using the admin link."
+                },
+                "logs": {
+                    "title": "Technical Logs",
+                    "description": "Anonymous server logs are retained for 7 days for security monitoring, then automatically deleted."
+                }
+            },
+            "thirdParty": {
+                "title": "Third-Party Services",
+                "hosting": {
+                    "title": "Secure Hosting",
+                    "description": "Hosted on Vercel with GDPR-compliant infrastructure. All poll data is end-to-end encrypted."
+                },
+                "noTracking": {
+                    "title": "No Third-Party Tracking",
+                    "description": "We don't use Google Analytics, Facebook pixels, advertising networks, or any tracking services."
+                },
+                "openSource": {
+                    "title": "Open Source Dependencies",
+                    "description": "Built using open-source libraries that don't collect personal data."
+                }
+            },
+            "userRights": {
+                "title": "Your Rights",
+                "access": {
+                    "title": "Right to Access",
+                    "description": "You can view all your poll data through the poll and admin links."
+                },
+                "deletion": {
+                    "title": "Right to Deletion",
+                    "description": "Delete your polls instantly using the admin link, or wait for automatic deletion after 30 days."
+                },
+                "portability": {
+                    "title": "Data Portability",
+                    "description": "Export your poll data as JSON through the admin interface."
+                },
+                "noConsent": {
+                    "title": "No Consent Required",
+                    "description": "Since we use client-side encryption and don't track users, no consent is required for our minimal data processing."
+                }
+            },
+            "international": {
+                "title": "International Data Transfers",
+                "noTransfers": {
+                    "title": "Your Data Stays Encrypted",
+                    "description": "All poll data is end-to-end encrypted before leaving your browser. Our servers only store encrypted blobs that cannot be read by anyone without the encryption key."
+                }
+            },
+            "contact": {
+                "title": "Contact & Questions",
+                "privacy": {
+                    "title": "Privacy Questions",
+                    "description": "For privacy-related questions, contact us through the Switch-to.eu platform."
+                },
+                "authority": {
+                    "title": "Supervisory Authority",
+                    "description": "You have the right to lodge a complaint with your local data protection authority if you have concerns about our data handling."
+                }
+            },
+            "changes": {
+                "title": "Policy Updates",
+                "notification": {
+                    "title": "How We Notify Changes",
+                    "description": "Policy updates will be posted on this page with the revision date. Since we don't collect email addresses, we cannot notify users directly."
+                },
+                "consent": {
+                    "title": "Continued Use",
+                    "description": "Continued use of Plotty after policy updates constitutes acceptance of the new terms."
+                }
+            }
+        },
+        "summary": {
+            "title": "Privacy Summary",
+            "points": [
+                "Zero-knowledge, client-side encryption",
+                "No tracking, analytics, or advertising",
+                "Automatic data deletion after 30 days",
+                "End-to-end encrypted storage",
+                "Open source and fully transparent",
+                "No accounts or email addresses required"
+            ]
+        }
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Schedule meetings privately",
+            "description": "A privacy-first scheduling tool with end-to-end encryption. No accounts, no tracking, just simple scheduling.",
+            "cta": "Try Plotty"
+        },
+        "nully": {
+            "tagline": "Share files securely",
+            "description": "End-to-end encrypted file sharing built in Europe. No accounts needed, no tracking, just secure transfers.",
+            "cta": "Try Nully"
+        },
+        "keepfocus": {
+            "tagline": "Focus with Pomodoro",
+            "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+            "cta": "Try KeepFocus"
+        },
+        "more": {
+            "cta": "Coming soon"
+        }
+    },
+    "AboutPage": {
+        "hero": {
+            "title": "About Plotty",
+            "subtitle": "The privacy-first alternative to big tech scheduling. Built for privacy, designed for simplicity, fully open source.",
+            "badges": {
+                "european": "Open Source",
+                "encrypted": "End-to-End Encrypted",
+                "noTracking": "No Tracking"
+            }
+        },
+        "platform": {
+            "title": "Part of Switch-to.eu",
+            "description": "Plotty is proudly part of the Switch-to.eu initiative - a growing platform of European digital tools that put your privacy first. We're building alternatives to big tech surveillance capitalism, one tool at a time.",
+            "benefits": {
+                "sovereignty": {
+                    "title": "Digital Sovereignty",
+                    "description": "Your data is encrypted before it leaves your device. No one — not even us — can read your poll content."
+                },
+                "privacy": {
+                    "title": "Privacy by Design",
+                    "description": "Every tool is built from the ground up with privacy as the foundation, not an afterthought."
+                },
+                "innovation": {
+                    "title": "European Innovation",
+                    "description": "Proving that European tech can be both privacy-respecting and cutting-edge."
+                }
+            },
+            "cta": "Explore Switch-to.eu"
+        },
+        "plotty": {
+            "title": "What is Plotty?",
+            "subtitle": "Plotty makes scheduling meetings as simple as it should be - without sacrificing your privacy or requiring yet another account.",
+            "features": {
+                "instant": {
+                    "title": "Instant Setup",
+                    "description": "Create polls in 30 seconds. No signup, no email verification, no hassle."
+                },
+                "realtime": {
+                    "title": "Real-time Collaboration",
+                    "description": "Watch responses come in live. Everyone sees updates instantly."
+                },
+                "private": {
+                    "title": "Truly Private",
+                    "description": "End-to-end encrypted data that automatically deletes after your event."
+                }
+            },
+            "perfectFor": {
+                "title": "Perfect for",
+                "teams": {
+                    "title": "Remote Teams",
+                    "description": "Quick standup scheduling across time zones"
+                },
+                "events": {
+                    "title": "Event Planning",
+                    "description": "Family gatherings, meetups, conferences"
+                },
+                "privacy": {
+                    "title": "Privacy-Conscious",
+                    "description": "Anyone who values data protection"
+                }
+            }
+        },
+        "technical": {
+            "title": "How Plotty Works",
+            "subtitle": "Modern technology stack designed for privacy, performance, and user experience.",
+            "architecture": {
+                "title": "Privacy-First Architecture",
+                "encryption": {
+                    "title": "Client-Side Encryption",
+                    "description": "Your data is encrypted in your browser before it ever leaves your device"
+                },
+                "realtime": {
+                    "title": "Real-Time Updates",
+                    "description": "Server-sent events keep everyone synchronized without polling"
+                },
+                "storage": {
+                    "title": "Minimal Storage",
+                    "description": "Only encrypted data stored, automatically deleted after expiration"
+                }
+            },
+            "details": {
+                "security": {
+                    "title": "Security & Privacy",
+                    "encryption": "AES-GCM 256-bit encryption with WebCrypto API",
+                    "zeroKnowledge": "Zero-knowledge architecture - we can't see your data",
+                    "autoDelete": "Automatic deletion after 30 days post-event",
+                    "noTracking": "No analytics, cookies, or tracking scripts"
+                },
+                "performance": {
+                    "title": "Real-Time Performance",
+                    "sse": "Server-Sent Events for instant live updates",
+                    "trpc": "tRPC for type-safe, efficient API communication",
+                    "optimistic": "Optimistic updates for instant UI feedback",
+                    "responsive": "Mobile-first responsive design"
+                },
+                "scheduling": {
+                    "title": "Advanced Scheduling",
+                    "flexible": "All-day or specific time range options",
+                    "multiple": "Multiple start times with fixed durations",
+                    "granular": "30-minute granularity for precise scheduling",
+                    "optimal": "Automatic best time detection and highlighting"
+                },
+                "modern": {
+                    "title": "Modern Tech Stack",
+                    "nextjs": "Next.js 15 with app router and internationalization",
+                    "database": "Redis for fast, encrypted data storage",
+                    "typescript": "Full TypeScript for reliability and maintainability",
+                    "hosting": "Vercel hosting with global edge network"
+                }
+            }
+        },
+        "openSource": {
+            "title": "Open Source & Transparent",
+            "description": "Plotty is completely open source. Every line of code is available for inspection, contribution, and verification. Because privacy tools should be transparent.",
+            "cta": "View Source Code",
+            "benefits": {
+                "transparency": {
+                    "title": "Full Transparency",
+                    "description": "Audit every feature, verify our privacy claims, see exactly how your data is handled"
+                },
+                "community": {
+                    "title": "Community Driven",
+                    "description": "Built by the community, for the community. Contribute features, report issues, shape the future"
+                },
+                "security": {
+                    "title": "Security Through Openness",
+                    "description": "Open source means vulnerabilities are found and fixed faster, making Plotty more secure"
+                }
+            }
+        },
+        "europe": {
+            "title": "Why Europe Matters",
+            "subtitle": "Your data deserves better than surveillance capitalism. Privacy-first tools offer real alternatives.",
+            "gdpr": {
+                "title": "GDPR Compliance",
+                "description": "Built with the world's strongest privacy regulations in mind. Your rights are protected by design, not by accident."
+            },
+            "sovereignty": {
+                "title": "Data Sovereignty",
+                "description": "Your data is encrypted end-to-end. No one can read your content — not us, not any third party."
+            },
+            "infrastructure": {
+                "title": "Open Source",
+                "description": "Fully open source and auditable. Verify our privacy claims by reading the code yourself."
+            }
+        },
+        "cta": {
+            "title": "Ready to try Plotty?",
+            "description": "Join thousands who've switched to privacy-respecting scheduling. No signup required, instant setup.",
+            "createPoll": "Create Your First Poll",
+            "learnMore": "Back to Home"
+        }
+    }
+}
