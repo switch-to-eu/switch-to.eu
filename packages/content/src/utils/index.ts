@@ -74,12 +74,12 @@ export function extractContentSegments(content: string): ContentSegments {
   // Define regex to match the new HTML comment-based sections
   // <!-- section:name --> ... <!-- end-section -->
   const newSectionRegex =
-    /<!-- section:(\w+) -->\s+([\s\S]*?)<!-- end-section -->/g;
+    /<!-- section:(\w+) -->\s+((?:(?!<!-- end-section -->)[\s\S])*?)<!-- end-section -->/g;
 
   // Define regex for the legacy section format
   // ---section:name ... ---
   const legacySectionRegex =
-    /---section:(\w+)\s+([\s\S]*?)---(?=\s*(?:---section:|\s*$))/g;
+    /---section:(\w+)\s+((?:(?!---)[\s\S])*?)---(?=\s*(?:---section:|\s*$))/g;
 
   const segments: ContentSegments = {};
   let hasSegments = false;
@@ -138,7 +138,7 @@ export function extractServiceIssues(
   const extractIssuesFromContent = (text: string): string[] => {
     // Find the Service Issues section
     const issuesSectionMatch = text.match(
-      /## Service Issues\s+([\s\S]*?)(?=##|$)/,
+      /## Service Issues\s+((?:(?!##)[\s\S])*)/,
     );
     if (!issuesSectionMatch || !issuesSectionMatch[1]) return [];
 
@@ -204,7 +204,7 @@ export function extractStepsWithMeta(content: string): Array<{
 
   // Define regex to match step markers and content
   const stepRegex =
-    /<!-- step-start -->\s+<!-- step-meta\s+([\s\S]*?)-->\s+([\s\S]*?)<!-- step-end -->/g;
+    /<!-- step-start -->\s+<!-- step-meta\s+((?:(?!-->)[\s\S])*?)-->\s+((?:(?!<!-- step-end -->)[\s\S])*?)<!-- step-end -->/g;
   const steps = [];
   let match;
 
@@ -355,10 +355,10 @@ export function extractMissingFeatures(
   const extractFeaturesFromContent = (text: string): string[] => {
     // Look for relevant sections with different potential titles
     const sectionRegexes = [
-      /## What's Different\s+([\s\S]*?)(?=##|$)/,
-      /## Limitations\s+([\s\S]*?)(?=##|$)/,
-      /## Missing Features\s+([\s\S]*?)(?=##|$)/,
-      /## Feature Comparison\s+([\s\S]*?)(?=##|$)/,
+      /## What's Different\s+((?:(?!##)[\s\S])*)/,
+      /## Limitations\s+((?:(?!##)[\s\S])*)/,
+      /## Missing Features\s+((?:(?!##)[\s\S])*)/,
+      /## Feature Comparison\s+((?:(?!##)[\s\S])*)/,
     ];
 
     let extractedFeatures: string[] = [];

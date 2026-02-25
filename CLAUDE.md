@@ -21,7 +21,17 @@ pnpm --filter keepfocus dev
 pnpm --filter @switch-to-eu/plotty dev
 ```
 
-There is no test framework configured. No test scripts or test files exist.
+```bash
+# E2E smoke tests (website app)
+pnpm --filter website test:e2e      # Run all Playwright smoke tests
+pnpm --filter website test:e2e:ui   # Open Playwright UI for debugging
+```
+
+## Testing
+
+**E2E smoke tests** (`apps/website/e2e/smoke.spec.ts`): Playwright tests that verify all website pages render without errors. Config in `apps/website/playwright.config.ts` (auto-builds and serves a production build). Run `pnpm --filter website test:e2e` after changes to website routes, layouts, content rendering, or shared packages (`ui`, `blocks`, `i18n`, `content`).
+
+**Unit tests** (keepfocus only): Vitest + @testing-library/react. Run with `pnpm --filter @switch-to-eu/keepfocus test`.
 
 ## Monorepo Architecture
 

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "clean": "rm -rf .next .turbo node_modules"
+    "clean": "rm -rf .next .turbo node_modules",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -45,6 +47,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
@@ -54,6 +57,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
+    "gray-matter": "^4.0.3",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },

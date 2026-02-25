@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { randomBytes, timingSafeEqual, createHash } from "crypto";
+import { randomBytes, randomInt, timingSafeEqual, createHash } from "crypto";
 import type { RedisClientType } from "redis";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
@@ -17,10 +17,7 @@ import type {
 
 function generatePollId(): string {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-  const bytes = randomBytes(10);
-  return Array.from(bytes)
-    .map((b) => chars[b % chars.length])
-    .join("");
+  return Array.from({ length: 10 }, () => chars[randomInt(chars.length)]!).join("");
 }
 
 function generateAdminToken(): string {

@@ -157,8 +157,8 @@ export function buildSearchIndex(
 
     return newIndex;
   } catch (error) {
-    console.error(`Error building search index for language ${lang}:`, String(error));
-    throw new Error(`Failed to build search index: ${String(error)}`);
+    console.error("Error building search index for language %s: %s", lang, String(error));
+    throw new Error("Failed to build search index for language: " + String(lang));
   }
 }
 
