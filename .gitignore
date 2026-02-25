@@ -41,7 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# cursor
+# cursor / ai
 AI/
 .cursorrules
 .cursor/
+.omc
