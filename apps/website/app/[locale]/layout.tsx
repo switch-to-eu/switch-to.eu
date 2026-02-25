@@ -2,13 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import PlausibleProvider from "next-plausible";
 
-import {
-  bricolageGrotesqueExtraBold,
-  hankenGroteskSemiBold,
-  hankenGroteskBold,
-  hankenGroteskBoldItalic,
-  hankenGroteskSemiBoldItalic,
-} from "../fonts";
+import { fontVariables } from "@switch-to-eu/ui/fonts";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -91,7 +85,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <PlausibleProvider domain="switch-to.eu">
         <body
-          className={`${bricolageGrotesqueExtraBold.variable} ${hankenGroteskSemiBold.variable} ${hankenGroteskBold.variable} ${hankenGroteskBoldItalic.variable} ${hankenGroteskSemiBoldItalic.variable} antialiased min-h-screen flex flex-col`}
+          className={`${fontVariables} antialiased min-h-screen flex flex-col`}
         >
           <NextIntlClientProvider>
             <Header />

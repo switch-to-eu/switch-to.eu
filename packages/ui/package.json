@@ -20,6 +20,10 @@
     "./hooks/*": {
       "types": "./src/hooks/*.ts",
       "default": "./src/hooks/*.ts"
+    },
+    "./fonts": {
+      "types": "./src/fonts.ts",
+      "default": "./src/fonts.ts"
     }
   },
   "scripts": {
@@ -27,6 +31,7 @@
     "clean": "rm -rf .turbo node_modules"
   },
   "peerDependencies": {
+    "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

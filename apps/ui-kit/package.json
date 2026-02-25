@@ -1,0 +1,41 @@
+{
+    "name": "@switch-to-eu/ui-kit",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "next build",
+        "dev": "next dev --turbo --port 3003",
+        "start": "next start",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@switch-to-eu/blocks": "workspace:*",
+        "@switch-to-eu/i18n": "workspace:*",
+        "@switch-to-eu/ui": "workspace:*",
+        "class-variance-authority": "catalog:",
+        "clsx": "catalog:",
+        "lucide-react": "catalog:",
+        "next": "catalog:",
+        "next-intl": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "tailwind-merge": "catalog:"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3.3.1",
+        "@switch-to-eu/eslint-config": "workspace:*",
+        "@switch-to-eu/typescript-config": "workspace:*",
+        "@tailwindcss/postcss": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "eslint": "catalog:",
+        "postcss": "^8.5.3",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "typescript-eslint": "^8.27.0"
+    }
+}

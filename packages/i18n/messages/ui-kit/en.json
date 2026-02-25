@@ -1,0 +1,15 @@
+{
+  "layout": {
+    "metadata": {
+      "title": "UI Kit — Switch-to.eu Design System",
+      "description": "Internal design system viewer for Switch-to.eu"
+    },
+    "nav": {
+      "overview": "Overview",
+      "colors": "Colors",
+      "typography": "Typography",
+      "components": "Components",
+      "blocks": "Blocks"
+    }
+  }
+}
