@@ -1,0 +1,313 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Split",
+            "description": "Split bills fairly with friends — no signup required"
+        },
+        "header": {
+            "createGroup": "New Group",
+            "about": "About"
+        },
+        "footer": {
+            "about": "About",
+            "privacy": "Privacy Policy",
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Missing Encryption Key",
+            "message": "This group requires an encryption key to view. The key should be included in the URL after the # symbol.",
+            "urlFormat": "Expected URL format:",
+            "urlExample": "/group/[id]#[encryption-key]"
+        },
+        "groupNotFound": {
+            "title": "Group Not Found",
+            "titleAdmin": "Group Not Found or Access Denied",
+            "message": "This group doesn't exist or may have been removed.",
+            "messageAdmin": "This group doesn't exist, has expired, or you don't have admin access.",
+            "returnHome": "Return to Home"
+        },
+        "decryption": {
+            "title": "Decryption Failed",
+            "message": "Unable to decrypt the group data. This could be due to an invalid encryption key or corrupted data.",
+            "returnHome": "Return to Home"
+        }
+    },
+    "GroupView": {
+        "title": "Expenses",
+        "addExpense": "Add Expense",
+        "noExpenses": "No expenses yet",
+        "noExpensesDescription": "Add your first expense to get started.",
+        "totalSpent": "Total spent",
+        "members": "members",
+        "paidBy": "paid by",
+        "splitEqually": "split equally",
+        "splitExact": "exact amounts",
+        "splitPercentage": "by percentage"
+    },
+    "Balances": {
+        "title": "Balances",
+        "owes": "owes",
+        "isOwed": "is owed",
+        "settledUp": "settled up",
+        "netZero": "All settled up!"
+    },
+    "Settlements": {
+        "title": "Settle Up",
+        "description": "Simplified payments to settle all debts",
+        "pays": "pays",
+        "noSettlements": "No settlements needed — everyone is even!",
+        "totalTransactions": "transaction(s) needed"
+    },
+    "AddExpense": {
+        "title": "Add Expense",
+        "editTitle": "Edit Expense",
+        "description": "Description",
+        "descriptionPlaceholder": "Dinner, groceries, taxi...",
+        "amount": "Amount",
+        "amountPlaceholder": "0.00",
+        "paidBy": "Paid by",
+        "selectPayer": "Who paid?",
+        "splitType": "Split type",
+        "equal": "Equal",
+        "exact": "Exact amounts",
+        "percentage": "Percentage",
+        "splitAmong": "Split among",
+        "date": "Date",
+        "save": "Add Expense",
+        "saving": "Adding...",
+        "cancel": "Cancel",
+        "remaining": "Remaining",
+        "total": "Total",
+        "errorNoDescription": "Please enter a description",
+        "errorNoAmount": "Please enter an amount",
+        "errorNoPayer": "Please select who paid",
+        "errorNoSplit": "Please select at least one person",
+        "errorSplitMismatch": "Split amounts don't add up to the total",
+        "errorPercentageMismatch": "Percentages must add up to 100%",
+        "success": "Expense added!",
+        "error": "Failed to add expense"
+    },
+    "CreatePage": {
+        "title": "Create Group",
+        "groupName": "Group name",
+        "groupNamePlaceholder": "Trip to Paris, Shared apartment...",
+        "currency": "Currency",
+        "members": "Members",
+        "membersDescription": "Add all people in this group",
+        "memberPlaceholder": "Name",
+        "addMember": "Add member",
+        "minMembers": "Add at least 2 members",
+        "submitText": "Create Group",
+        "loadingText": "Creating group...",
+        "successMessage": "Group created!",
+        "errorMessage": "Failed to create group. Please try again.",
+        "termsLabel": "I agree to the <link>privacy policy</link>",
+        "removeMember": "Remove"
+    },
+    "AdminPage": {
+        "title": "Group Admin",
+        "shareLink": "Share Link",
+        "shareLinkDescription": "Share this link with your group members so they can view expenses and add their own.",
+        "adminLink": "Admin Link",
+        "adminLinkDescription": "Keep this link safe! It allows you to manage and delete the group.",
+        "copyLink": "Copy Link",
+        "copied": "Copied!",
+        "dangerZone": "Danger Zone",
+        "deleteGroup": "Delete Group",
+        "deleteConfirm": "Are you sure? This will permanently delete the group and all expenses.",
+        "deleteButton": "Delete Forever",
+        "deleting": "Deleting...",
+        "deleteSuccess": "Group deleted",
+        "addMembers": "Add Members",
+        "addMembersDescription": "Add new members to the group.",
+        "newMemberPlaceholder": "New member name",
+        "addMemberButton": "Add",
+        "updateSuccess": "Group updated!"
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Split bills",
+            "subtitle": "not friendships",
+            "description": "Create a group, add expenses, and see who owes what — with simplified payback. No signup, no tracking, just fair splitting.",
+            "cta": "Create a Group",
+            "ctaMobile": "New Group",
+            "disclaimer": "No signup required",
+            "floatingBadge": "Free forever"
+        },
+        "benefits": {
+            "title": "Why choose Split",
+            "description": "Fair bill splitting that respects your privacy",
+            "privacy": {
+                "title": "Privacy First",
+                "description": "No tracking, no ads, no data mining. Your financial data is encrypted end-to-end and automatically deleted."
+            },
+            "simplify": {
+                "title": "Unified Payback",
+                "description": "Our smart algorithm minimizes the number of payments needed. Instead of everyone paying everyone, get simplified who-pays-whom."
+            }
+        },
+        "howItWorks": {
+            "title": "Simple as 1-2-3",
+            "description": "No complicated setup, no account needed",
+            "step1": {
+                "title": "Create",
+                "description": "Name your group and add members"
+            },
+            "step2": {
+                "title": "Track",
+                "description": "Anyone with the link can add expenses"
+            },
+            "step3": {
+                "title": "Settle",
+                "description": "See simplified payments to settle up"
+            }
+        },
+        "trust": {
+            "badges": {
+                "noEmail": "No email required",
+                "autoDelete": "Auto-deleted after 90 days",
+                "encrypted": "End-to-end encrypted",
+                "openSource": "Open source"
+            }
+        },
+        "cta": {
+            "title": "Try it now",
+            "description": "No signup, no spam, no tracking — just fair bill splitting.",
+            "button": "Create a Group",
+            "buttonMobile": "Get Started"
+        }
+    },
+    "PrivacyPage": {
+        "hero": {
+            "title": "Privacy Policy",
+            "subtitle": "Your privacy is our priority. This policy explains how Split handles your data with complete transparency.",
+            "lastUpdated": "Last updated: February 25, 2026"
+        },
+        "sections": {
+            "whoWeAre": {
+                "title": "Who We Are",
+                "content": "Split is part of Switch-to.eu, a European initiative building privacy-first digital tools. We're committed to creating bill-splitting software that respects your privacy through end-to-end encryption and zero-knowledge architecture."
+            },
+            "dataCollection": {
+                "title": "What Data We Collect",
+                "subtitle": "We collect only the minimum data necessary:",
+                "groupData": {
+                    "title": "Group Information",
+                    "description": "Group names, member names, and expense details you provide when using Split"
+                },
+                "technicalData": {
+                    "title": "Technical Information",
+                    "description": "Basic server logs for security and performance monitoring (no personal identification)"
+                },
+                "noData": {
+                    "title": "What We Don't Collect",
+                    "description": "No email addresses, no IP tracking, no behavioral analytics, no advertising profiles, no cookies for tracking"
+                }
+            },
+            "dataProtection": {
+                "title": "How We Protect Your Data",
+                "encryption": {
+                    "title": "Client-Side Encryption",
+                    "description": "All data is encrypted in your browser using AES-256-GCM before transmission."
+                },
+                "zeroKnowledge": {
+                    "title": "Zero-Knowledge Architecture",
+                    "description": "The encryption key never reaches our servers. We cannot decrypt or access your data."
+                }
+            },
+            "dataRetention": {
+                "title": "Data Retention",
+                "automatic": {
+                    "title": "Automatic Deletion",
+                    "description": "All group data is automatically deleted 90 days after creation."
+                },
+                "immediate": {
+                    "title": "Immediate Deletion",
+                    "description": "Group creators can delete their groups instantly using the admin link."
+                }
+            },
+            "contact": {
+                "title": "Contact",
+                "privacy": {
+                    "title": "Privacy Questions",
+                    "description": "For privacy-related questions, contact us through the Switch-to.eu platform."
+                }
+            }
+        },
+        "summary": {
+            "title": "Privacy Summary",
+            "points": [
+                "Zero-knowledge, client-side encryption",
+                "No tracking, analytics, or advertising",
+                "Automatic data deletion after 90 days",
+                "End-to-end encrypted storage",
+                "Open source and fully transparent",
+                "No accounts or email addresses required"
+            ]
+        }
+    },
+    "AboutPage": {
+        "hero": {
+            "title": "About Split",
+            "subtitle": "The privacy-first alternative to Splitwise. Split bills fairly without sacrificing your privacy.",
+            "badges": {
+                "openSource": "Open Source",
+                "encrypted": "End-to-End Encrypted",
+                "noTracking": "No Tracking"
+            }
+        },
+        "features": {
+            "title": "Why Split?",
+            "subtitle": "All the features you need, none of the tracking you don't.",
+            "unified": {
+                "title": "Unified Payback",
+                "description": "Our debt simplification algorithm minimizes the number of transactions. Instead of complex webs of IOUs, get simple who-pays-whom instructions."
+            },
+            "instant": {
+                "title": "Instant Setup",
+                "description": "Create a group in seconds. Share a link. Done. No accounts, no email verification."
+            },
+            "realtime": {
+                "title": "Real-time Updates",
+                "description": "Everyone sees new expenses instantly. No refreshing needed."
+            },
+            "private": {
+                "title": "Truly Private",
+                "description": "End-to-end encrypted. We literally cannot see your expenses."
+            }
+        },
+        "platform": {
+            "title": "Part of Switch-to.eu",
+            "description": "Split is proudly part of the Switch-to.eu initiative — building European digital tools that put your privacy first.",
+            "cta": "Explore Switch-to.eu"
+        },
+        "cta": {
+            "title": "Ready to split some bills?",
+            "description": "No signup required. Create a group and start splitting in seconds.",
+            "createGroup": "Create Your First Group",
+            "learnMore": "Back to Home"
+        }
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Schedule meetings privately",
+            "description": "A privacy-first scheduling tool with end-to-end encryption.",
+            "cta": "Try Plotty"
+        },
+        "split": {
+            "tagline": "Split bills fairly",
+            "description": "End-to-end encrypted bill splitting with unified payback. No accounts needed.",
+            "cta": "Try Split"
+        },
+        "keepfocus": {
+            "tagline": "Focus with Pomodoro",
+            "description": "A privacy-first Pomodoro timer and task manager.",
+            "cta": "Try KeepFocus"
+        },
+        "more": {
+            "cta": "Coming soon"
+        }
+    }
+}

@@ -1,0 +1,313 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Split",
+            "description": "Deel rekeningen eerlijk met vrienden — geen registratie nodig"
+        },
+        "header": {
+            "createGroup": "Nieuwe Groep",
+            "about": "Over"
+        },
+        "footer": {
+            "about": "Over",
+            "privacy": "Privacybeleid",
+            "copyright": "{year} <link>switch-to.eu</link> — een project van"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Ontbrekende Encryptiesleutel",
+            "message": "Deze groep vereist een encryptiesleutel. De sleutel moet in de URL staan na het # symbool.",
+            "urlFormat": "Verwacht URL-formaat:",
+            "urlExample": "/group/[id]#[encryptiesleutel]"
+        },
+        "groupNotFound": {
+            "title": "Groep Niet Gevonden",
+            "titleAdmin": "Groep Niet Gevonden of Geen Toegang",
+            "message": "Deze groep bestaat niet of is verwijderd.",
+            "messageAdmin": "Deze groep bestaat niet, is verlopen, of je hebt geen beheerderstoegang.",
+            "returnHome": "Terug naar Home"
+        },
+        "decryption": {
+            "title": "Ontsleuteling Mislukt",
+            "message": "Kan de groepsgegevens niet ontsleutelen. Dit kan komen door een ongeldige sleutel of beschadigde gegevens.",
+            "returnHome": "Terug naar Home"
+        }
+    },
+    "GroupView": {
+        "title": "Uitgaven",
+        "addExpense": "Uitgave Toevoegen",
+        "noExpenses": "Nog geen uitgaven",
+        "noExpensesDescription": "Voeg je eerste uitgave toe om te beginnen.",
+        "totalSpent": "Totaal uitgegeven",
+        "members": "leden",
+        "paidBy": "betaald door",
+        "splitEqually": "gelijk verdeeld",
+        "splitExact": "exacte bedragen",
+        "splitPercentage": "per percentage"
+    },
+    "Balances": {
+        "title": "Balansen",
+        "owes": "is verschuldigd",
+        "isOwed": "krijgt terug",
+        "settledUp": "verrekend",
+        "netZero": "Alles verrekend!"
+    },
+    "Settlements": {
+        "title": "Verrekenen",
+        "description": "Vereenvoudigde betalingen om alle schulden te vereffenen",
+        "pays": "betaalt",
+        "noSettlements": "Geen verrekeningen nodig — iedereen staat gelijk!",
+        "totalTransactions": "transactie(s) nodig"
+    },
+    "AddExpense": {
+        "title": "Uitgave Toevoegen",
+        "editTitle": "Uitgave Bewerken",
+        "description": "Beschrijving",
+        "descriptionPlaceholder": "Diner, boodschappen, taxi...",
+        "amount": "Bedrag",
+        "amountPlaceholder": "0,00",
+        "paidBy": "Betaald door",
+        "selectPayer": "Wie heeft betaald?",
+        "splitType": "Verdeling",
+        "equal": "Gelijk",
+        "exact": "Exacte bedragen",
+        "percentage": "Percentage",
+        "splitAmong": "Verdeel onder",
+        "date": "Datum",
+        "save": "Uitgave Toevoegen",
+        "saving": "Toevoegen...",
+        "cancel": "Annuleren",
+        "remaining": "Resterend",
+        "total": "Totaal",
+        "errorNoDescription": "Voer een beschrijving in",
+        "errorNoAmount": "Voer een bedrag in",
+        "errorNoPayer": "Selecteer wie heeft betaald",
+        "errorNoSplit": "Selecteer minstens één persoon",
+        "errorSplitMismatch": "Bedragen komen niet overeen met het totaal",
+        "errorPercentageMismatch": "Percentages moeten optellen tot 100%",
+        "success": "Uitgave toegevoegd!",
+        "error": "Uitgave toevoegen mislukt"
+    },
+    "CreatePage": {
+        "title": "Groep Aanmaken",
+        "groupName": "Groepsnaam",
+        "groupNamePlaceholder": "Trip naar Parijs, Gedeeld appartement...",
+        "currency": "Valuta",
+        "members": "Leden",
+        "membersDescription": "Voeg alle mensen in deze groep toe",
+        "memberPlaceholder": "Naam",
+        "addMember": "Lid toevoegen",
+        "minMembers": "Voeg minstens 2 leden toe",
+        "submitText": "Groep Aanmaken",
+        "loadingText": "Groep aanmaken...",
+        "successMessage": "Groep aangemaakt!",
+        "errorMessage": "Groep aanmaken mislukt. Probeer het opnieuw.",
+        "termsLabel": "Ik ga akkoord met het <link>privacybeleid</link>",
+        "removeMember": "Verwijderen"
+    },
+    "AdminPage": {
+        "title": "Groep Beheer",
+        "shareLink": "Deellink",
+        "shareLinkDescription": "Deel deze link met je groepsleden zodat zij uitgaven kunnen bekijken en toevoegen.",
+        "adminLink": "Beheerlink",
+        "adminLinkDescription": "Bewaar deze link goed! Hiermee kun je de groep beheren en verwijderen.",
+        "copyLink": "Link Kopiëren",
+        "copied": "Gekopieerd!",
+        "dangerZone": "Gevarenzone",
+        "deleteGroup": "Groep Verwijderen",
+        "deleteConfirm": "Weet je het zeker? Dit verwijdert de groep en alle uitgaven permanent.",
+        "deleteButton": "Definitief Verwijderen",
+        "deleting": "Verwijderen...",
+        "deleteSuccess": "Groep verwijderd",
+        "addMembers": "Leden Toevoegen",
+        "addMembersDescription": "Voeg nieuwe leden toe aan de groep.",
+        "newMemberPlaceholder": "Naam nieuw lid",
+        "addMemberButton": "Toevoegen",
+        "updateSuccess": "Groep bijgewerkt!"
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Deel rekeningen",
+            "subtitle": "niet vriendschappen",
+            "description": "Maak een groep, voeg uitgaven toe en zie wie wat verschuldigd is — met vereenvoudigde terugbetaling. Geen registratie, geen tracking.",
+            "cta": "Groep Aanmaken",
+            "ctaMobile": "Nieuwe Groep",
+            "disclaimer": "Geen registratie nodig",
+            "floatingBadge": "Altijd gratis"
+        },
+        "benefits": {
+            "title": "Waarom Split",
+            "description": "Eerlijk rekeningen delen met respect voor je privacy",
+            "privacy": {
+                "title": "Privacy Eerst",
+                "description": "Geen tracking, geen advertenties, geen datamining. Je financiële gegevens zijn end-to-end versleuteld en worden automatisch verwijderd."
+            },
+            "simplify": {
+                "title": "Vereenvoudigde Terugbetaling",
+                "description": "Ons slimme algoritme minimaliseert het aantal betalingen. In plaats van dat iedereen iedereen betaalt, krijg je vereenvoudigde wie-betaalt-wie instructies."
+            }
+        },
+        "howItWorks": {
+            "title": "Simpel als 1-2-3",
+            "description": "Geen ingewikkelde setup, geen account nodig",
+            "step1": {
+                "title": "Aanmaken",
+                "description": "Geef je groep een naam en voeg leden toe"
+            },
+            "step2": {
+                "title": "Bijhouden",
+                "description": "Iedereen met de link kan uitgaven toevoegen"
+            },
+            "step3": {
+                "title": "Verrekenen",
+                "description": "Zie vereenvoudigde betalingen om te verrekenen"
+            }
+        },
+        "trust": {
+            "badges": {
+                "noEmail": "Geen e-mail nodig",
+                "autoDelete": "Automatisch verwijderd na 90 dagen",
+                "encrypted": "End-to-end versleuteld",
+                "openSource": "Open source"
+            }
+        },
+        "cta": {
+            "title": "Probeer het nu",
+            "description": "Geen registratie, geen spam, geen tracking — gewoon eerlijk rekeningen delen.",
+            "button": "Groep Aanmaken",
+            "buttonMobile": "Aan de slag"
+        }
+    },
+    "PrivacyPage": {
+        "hero": {
+            "title": "Privacybeleid",
+            "subtitle": "Je privacy is onze prioriteit. Dit beleid legt uit hoe Split met je gegevens omgaat.",
+            "lastUpdated": "Laatst bijgewerkt: 25 februari 2026"
+        },
+        "sections": {
+            "whoWeAre": {
+                "title": "Wie We Zijn",
+                "content": "Split maakt deel uit van Switch-to.eu, een Europees initiatief dat privacyvriendelijke digitale tools bouwt."
+            },
+            "dataCollection": {
+                "title": "Welke Gegevens We Verzamelen",
+                "subtitle": "We verzamelen alleen het minimum:",
+                "groupData": {
+                    "title": "Groepsinformatie",
+                    "description": "Groepsnamen, ledennamen en uitgavedetails die je invoert"
+                },
+                "technicalData": {
+                    "title": "Technische Informatie",
+                    "description": "Basis serverlogboeken voor beveiliging (geen persoonlijke identificatie)"
+                },
+                "noData": {
+                    "title": "Wat We Niet Verzamelen",
+                    "description": "Geen e-mailadressen, geen IP-tracking, geen gedragsanalyse, geen advertentieprofielen"
+                }
+            },
+            "dataProtection": {
+                "title": "Hoe We Je Gegevens Beschermen",
+                "encryption": {
+                    "title": "Client-Side Encryptie",
+                    "description": "Alle gegevens worden in je browser versleuteld met AES-256-GCM."
+                },
+                "zeroKnowledge": {
+                    "title": "Zero-Knowledge Architectuur",
+                    "description": "De encryptiesleutel bereikt nooit onze servers. We kunnen je gegevens niet ontsleutelen."
+                }
+            },
+            "dataRetention": {
+                "title": "Gegevensretentie",
+                "automatic": {
+                    "title": "Automatische Verwijdering",
+                    "description": "Alle groepsgegevens worden automatisch na 90 dagen verwijderd."
+                },
+                "immediate": {
+                    "title": "Directe Verwijdering",
+                    "description": "Groepsmakers kunnen hun groepen direct verwijderen via de beheerlink."
+                }
+            },
+            "contact": {
+                "title": "Contact",
+                "privacy": {
+                    "title": "Privacyvragen",
+                    "description": "Voor privacygerelateerde vragen, neem contact op via het Switch-to.eu platform."
+                }
+            }
+        },
+        "summary": {
+            "title": "Privacy Samenvatting",
+            "points": [
+                "Zero-knowledge, client-side encryptie",
+                "Geen tracking, analytics of advertenties",
+                "Automatische verwijdering na 90 dagen",
+                "End-to-end versleutelde opslag",
+                "Open source en volledig transparant",
+                "Geen accounts of e-mailadressen nodig"
+            ]
+        }
+    },
+    "AboutPage": {
+        "hero": {
+            "title": "Over Split",
+            "subtitle": "Het privacyvriendelijke alternatief voor Splitwise. Deel rekeningen eerlijk zonder je privacy op te offeren.",
+            "badges": {
+                "openSource": "Open Source",
+                "encrypted": "End-to-End Versleuteld",
+                "noTracking": "Geen Tracking"
+            }
+        },
+        "features": {
+            "title": "Waarom Split?",
+            "subtitle": "Alle functies die je nodig hebt, zonder tracking.",
+            "unified": {
+                "title": "Vereenvoudigde Terugbetaling",
+                "description": "Ons schuld-vereenvoudigingsalgoritme minimaliseert het aantal transacties."
+            },
+            "instant": {
+                "title": "Direct Beginnen",
+                "description": "Maak een groep in seconden. Deel een link. Klaar."
+            },
+            "realtime": {
+                "title": "Realtime Updates",
+                "description": "Iedereen ziet nieuwe uitgaven direct. Geen verversing nodig."
+            },
+            "private": {
+                "title": "Echt Privé",
+                "description": "End-to-end versleuteld. Wij kunnen je uitgaven letterlijk niet zien."
+            }
+        },
+        "platform": {
+            "title": "Onderdeel van Switch-to.eu",
+            "description": "Split maakt deel uit van het Switch-to.eu initiatief — Europese digitale tools die je privacy voorop stellen.",
+            "cta": "Ontdek Switch-to.eu"
+        },
+        "cta": {
+            "title": "Klaar om rekeningen te delen?",
+            "description": "Geen registratie nodig. Maak een groep en begin direct.",
+            "createGroup": "Maak Je Eerste Groep",
+            "learnMore": "Terug naar Home"
+        }
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Plan vergaderingen privé",
+            "description": "Een privacyvriendelijk planningshulpmiddel met end-to-end encryptie.",
+            "cta": "Probeer Plotty"
+        },
+        "split": {
+            "tagline": "Deel rekeningen eerlijk",
+            "description": "End-to-end versleuteld rekeningen delen met vereenvoudigde terugbetaling.",
+            "cta": "Probeer Split"
+        },
+        "keepfocus": {
+            "tagline": "Focus met Pomodoro",
+            "description": "Een privacyvriendelijke Pomodoro-timer en taakbeheerder.",
+            "cta": "Probeer KeepFocus"
+        },
+        "more": {
+            "cta": "Binnenkort beschikbaar"
+        }
+    }
+}
