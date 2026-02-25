@@ -4,16 +4,20 @@ import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { PollForm, type ProcessedPollFormData } from "@components/poll-form";
 import { generateEncryptionKey, encryptData } from "@/lib/crypto";
+import type { EncryptedPollStructure } from "@/lib/interfaces";
 import { toast } from "sonner";
 import { calculateExpirationDate } from "@/lib/expiration";
 import { api } from "@/lib/trpc-client";
 import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
+import { Checkbox } from "@switch-to-eu/ui/components/checkbox";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { Users } from "lucide-react";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
 
 export default function CreatePoll() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const t = useTranslations('CreatePage');
 
@@ -27,14 +31,12 @@ export default function CreatePoll() {
       // Generate encryption key for E2EE
       const encryptionKey = await generateEncryptionKey();
 
-      // Prepare poll data for encryption (excluding expiresAt which stays unencrypted)
-      const pollDataToEncrypt = {
+      // Prepare poll structure for encryption (no participants — votes are stored separately)
+      const pollDataToEncrypt: EncryptedPollStructure = {
         title: formData.title,
         description: formData.description,
         location: formData.location,
         dates: formData.selectedDates.map(date => date.toISOString().split("T")[0]!),
-        participants: [], // Initialize empty participants array
-        // Include new time selection fields
         fixedDuration: formData.fixedDuration,
         selectedStartTimes: formData.selectedStartTimes,
         allowHourSelection: formData.enableTimeSelection,
@@ -54,12 +56,11 @@ export default function CreatePoll() {
 
       const { poll, adminToken } = response;
 
-      const adminUrl = `/poll/${poll.id}/admin/${adminToken}#${encryptionKey}`;
+      const adminUrl = `/poll/${poll.id}/admin#token=${adminToken}&key=${encryptionKey}`;
 
       toast.success(t('successMessage'));
       router.push(adminUrl);
-    } catch (error) {
-      console.error("Error creating poll:", error);
+    } catch {
       toast.error(t('errorMessage'));
       setIsLoading(false);
     }
@@ -79,10 +80,28 @@ export default function CreatePoll() {
           <PollForm
             onSubmit={handlePollSubmit}
             isLoading={isLoading}
+            disabled={!termsAccepted}
             submitText={t('submitText')}
             hideMobileSubmit={true}
             formRef={formRef}
           />
+
+          <div className="flex items-start gap-3 pt-2">
+            <Checkbox
+              id="terms"
+              checked={termsAccepted}
+              onCheckedChange={(checked) => setTermsAccepted(checked === true)}
+            />
+            <label htmlFor="terms" className="text-sm text-neutral-600 leading-tight cursor-pointer">
+              {t.rich('termsLabel', {
+                link: (chunks) => (
+                  <Link href="/privacy" className="text-blue-600 hover:text-blue-500 underline" target="_blank">
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </label>
+          </div>
         </div>
       </div>
 
@@ -92,6 +111,7 @@ export default function CreatePoll() {
           type="button"
           onClick={handleMobileSubmit}
           loading={isLoading}
+          disabled={!termsAccepted}
           loadingText={t('loadingText')}
           className="w-full"
         >

@@ -11,7 +11,7 @@
         "footer": {
             "about": "About",
             "privacy": "Privacy Policy",
-            "copyright": "{year} switch-to.eu — a project by"
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
         }
     },
     "ErrorStates": {
@@ -78,7 +78,8 @@
         "submitText": "Create Poll",
         "loadingText": "Creating your poll...",
         "successMessage": "Poll created successfully!",
-        "errorMessage": "Failed to create poll. Please try again."
+        "errorMessage": "Failed to create poll. Please try again.",
+        "termsLabel": "I agree to the <link>privacy policy</link>"
     },
     "PollForm": {
         "sections": {
@@ -153,8 +154,8 @@
                 "description": "No tracking, no ads, no data mining. Your data stays private and is automatically deleted after 30 days after the event is ended."
             },
             "european": {
-                "title": "European Servers",
-                "description": "Built and hosted in Europe. Your encrypted data never leaves European servers."
+                "title": "End-to-End Encrypted",
+                "description": "Your data is encrypted in your browser before it ever reaches our servers. We can never see your poll content."
             }
         },
         "howItWorks": {
@@ -176,7 +177,7 @@
                 "noEmail": "No email required",
                 "autoDelete": "Auto-deleted after event",
                 "encrypted": "Private & secure",
-                "european": "European servers"
+                "european": "Open source"
             }
         },
         "cta": {
@@ -195,7 +196,7 @@
         "sections": {
             "whoWeAre": {
                 "title": "Who We Are",
-                "content": "Plotty is part of Switch-to.eu, a European initiative building privacy-first digital tools. We're committed to creating scheduling software that respects your privacy and operates under European data protection standards."
+                "content": "Plotty is part of Switch-to.eu, a European initiative building privacy-first digital tools. We're committed to creating scheduling software that respects your privacy through end-to-end encryption and zero-knowledge architecture."
             },
             "dataCollection": {
                 "title": "What Data We Collect",
@@ -228,8 +229,8 @@
                     "description": "The encryption key never reaches our servers. We cannot decrypt or access your poll content - only you and people with the poll link can view the data."
                 },
                 "europeanServers": {
-                    "title": "European Infrastructure",
-                    "description": "All data is stored on European servers under strict European data protection laws. Your data never leaves European jurisdiction."
+                    "title": "Encrypted Storage",
+                    "description": "All data is stored as encrypted blobs that we cannot read. Even if our servers were compromised, your poll content remains private."
                 },
                 "security": {
                     "title": "Technical Security",
@@ -254,8 +255,8 @@
             "thirdParty": {
                 "title": "Third-Party Services",
                 "hosting": {
-                    "title": "European Hosting",
-                    "description": "Hosted on European servers with GDPR-compliant infrastructure providers."
+                    "title": "Secure Hosting",
+                    "description": "Hosted on Vercel with GDPR-compliant infrastructure. All poll data is end-to-end encrypted."
                 },
                 "noTracking": {
                     "title": "No Third-Party Tracking",
@@ -288,8 +289,8 @@
             "international": {
                 "title": "International Data Transfers",
                 "noTransfers": {
-                    "title": "Data Stays in Europe",
-                    "description": "Your encrypted data never leaves European servers. All processing occurs within the European Union under GDPR protection."
+                    "title": "Your Data Stays Encrypted",
+                    "description": "All poll data is end-to-end encrypted before leaving your browser. Our servers only store encrypted blobs that cannot be read by anyone without the encryption key."
                 }
             },
             "contact": {
@@ -321,7 +322,7 @@
                 "Zero-knowledge, client-side encryption",
                 "No tracking, analytics, or advertising",
                 "Automatic data deletion after 30 days",
-                "European servers and GDPR compliance",
+                "End-to-end encrypted storage",
                 "Open source and fully transparent",
                 "No accounts or email addresses required"
             ]
@@ -350,9 +351,9 @@
     "AboutPage": {
         "hero": {
             "title": "About Plotty",
-            "subtitle": "The European alternative to big tech scheduling. Built for privacy, designed for simplicity, hosted in Europe.",
+            "subtitle": "The privacy-first alternative to big tech scheduling. Built for privacy, designed for simplicity, fully open source.",
             "badges": {
-                "european": "European Servers",
+                "european": "Open Source",
                 "encrypted": "End-to-End Encrypted",
                 "noTracking": "No Tracking"
             }
@@ -363,7 +364,7 @@
             "benefits": {
                 "sovereignty": {
                     "title": "Digital Sovereignty",
-                    "description": "Keep your data in European hands, under European law. No foreign governments, no surveillance capitalism."
+                    "description": "Your data is encrypted before it leaves your device. No one — not even us — can read your poll content."
                 },
                 "privacy": {
                     "title": "Privacy by Design",
@@ -452,9 +453,9 @@
                 "modern": {
                     "title": "Modern Tech Stack",
                     "nextjs": "Next.js 15 with app router and internationalization",
-                    "database": "PostgreSQL with Drizzle ORM on European servers",
+                    "database": "Redis for fast, encrypted data storage",
                     "typescript": "Full TypeScript for reliability and maintainability",
-                    "hosting": "European hosting with 99.9% uptime guarantee"
+                    "hosting": "Vercel hosting with global edge network"
                 }
             }
         },
@@ -479,18 +480,18 @@
         },
         "europe": {
             "title": "Why Europe Matters",
-            "subtitle": "Your data deserves better than surveillance capitalism. European digital infrastructure offers real alternatives.",
+            "subtitle": "Your data deserves better than surveillance capitalism. Privacy-first tools offer real alternatives.",
             "gdpr": {
                 "title": "GDPR Compliance",
                 "description": "Built with the world's strongest privacy regulations in mind. Your rights are protected by design, not by accident."
             },
             "sovereignty": {
                 "title": "Data Sovereignty",
-                "description": "Your data stays in Europe, under European law. No foreign surveillance, no government backdoors."
+                "description": "Your data is encrypted end-to-end. No one can read your content — not us, not any third party."
             },
             "infrastructure": {
-                "title": "European Infrastructure",
-                "description": "Fast, reliable servers in European data centers. Low latency, high privacy, full compliance."
+                "title": "Open Source",
+                "description": "Fully open source and auditable. Verify our privacy claims by reading the code yourself."
             }
         },
         "cta": {

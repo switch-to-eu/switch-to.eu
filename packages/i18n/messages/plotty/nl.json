@@ -11,7 +11,7 @@
         "footer": {
             "about": "Over",
             "privacy": "Privacybeleid",
-            "copyright": "{year} switch-to.eu — een project van"
+            "copyright": "{year} <link>switch-to.eu</link> — een project van"
         }
     },
     "ErrorStates": {
@@ -78,7 +78,8 @@
         "submitText": "Maak Poll",
         "loadingText": "Je poll wordt aangemaakt...",
         "successMessage": "Poll succesvol aangemaakt!",
-        "errorMessage": "Poll aanmaken mislukt. Probeer het opnieuw."
+        "errorMessage": "Poll aanmaken mislukt. Probeer het opnieuw.",
+        "termsLabel": "Ik ga akkoord met het <link>privacybeleid</link>"
     },
     "PollForm": {
         "sections": {
@@ -153,8 +154,8 @@
                 "description": "Geen tracking, geen advertenties, geen datamining. Jouw gegevens blijven privé en worden automatisch na 30 dagen verwijderd."
             },
             "european": {
-                "title": "Europese Servers",
-                "description": "Gebouwd en gehost in Europa. Jouw versleutelde gegevens verlaten nooit Europese servers."
+                "title": "End-to-End Versleuteld",
+                "description": "Je data wordt versleuteld in je browser voordat het onze servers bereikt. Wij kunnen je poll-inhoud nooit zien."
             }
         },
         "howItWorks": {
@@ -176,7 +177,7 @@
                 "noEmail": "Geen e-mail vereist",
                 "autoDelete": "Automatisch verwijderd na event",
                 "encrypted": "Privé & veilig",
-                "european": "Europese servers"
+                "european": "Open source"
             }
         },
         "cta": {
@@ -187,7 +188,7 @@
         },
         "footer": {
             "brand": "Plotty",
-            "tagline": "Europese privacy-first planning. Gebouwd met ❤️ voor betere afspraken."
+            "tagline": "Privacy-first planning. Gebouwd met ❤️ voor betere afspraken."
         }
     },
     "tools": {
@@ -213,9 +214,9 @@
     "AboutPage": {
         "hero": {
             "title": "Over Plotty",
-            "subtitle": "Het Europese alternatief voor big tech planning. Gebouwd voor privacy, ontworpen voor eenvoud, gehost in Europa.",
+            "subtitle": "Het privacy-first alternatief voor big tech planning. Gebouwd voor privacy, ontworpen voor eenvoud, volledig open source.",
             "badges": {
-                "european": "Europese Servers",
+                "european": "Open Source",
                 "encrypted": "End-to-End Versleuteld",
                 "noTracking": "Geen Tracking"
             }
@@ -226,7 +227,7 @@
             "benefits": {
                 "sovereignty": {
                     "title": "Digitale Soevereiniteit",
-                    "description": "Houd je data in Europese handen, onder Europese wet. Geen buitenlandse regeringen, geen surveillance kapitalisme."
+                    "description": "Je data wordt versleuteld voordat het je apparaat verlaat. Niemand — ook wij niet — kan je poll-inhoud lezen."
                 },
                 "privacy": {
                     "title": "Privacy by Design",
@@ -315,9 +316,9 @@
                 "modern": {
                     "title": "Moderne Tech Stack",
                     "nextjs": "Next.js 15 met app router en internationalisatie",
-                    "database": "PostgreSQL met Drizzle ORM op Europese servers",
+                    "database": "Redis voor snelle, versleutelde dataopslag",
                     "typescript": "Volledige TypeScript voor betrouwbaarheid en onderhoudbaarheid",
-                    "hosting": "Europese hosting met 99.9% uptime garantie"
+                    "hosting": "Vercel hosting met globaal edge netwerk"
                 }
             }
         },
@@ -342,18 +343,18 @@
         },
         "europe": {
             "title": "Waarom Europa Ertoe Doet",
-            "subtitle": "Je data verdient beter dan surveillance kapitalisme. Europese digitale infrastructuur biedt echte alternatieven.",
+            "subtitle": "Je data verdient beter dan surveillance kapitalisme. Privacy-first tools bieden echte alternatieven.",
             "gdpr": {
                 "title": "GDPR Compliance",
                 "description": "Gebouwd met 's werelds sterkste privacy regelgeving in gedachten. Je rechten zijn beschermd by design, niet per ongeluk."
             },
             "sovereignty": {
                 "title": "Data Soevereiniteit",
-                "description": "Je data blijft in Europa, onder Europese wet. Geen buitenlandse surveillance, geen regering backdoors."
+                "description": "Je data is end-to-end versleuteld. Niemand kan je inhoud lezen — wij niet, geen enkele derde partij."
             },
             "infrastructure": {
-                "title": "Europese Infrastructuur",
-                "description": "Snelle, betrouwbare servers in Europese datacenters. Lage latency, hoge privacy, volledige compliance."
+                "title": "Open Source",
+                "description": "Volledig open source en controleerbaar. Verifieer onze privacy claims door zelf de code te lezen."
             }
         },
         "cta": {
@@ -405,8 +406,8 @@
                     "description": "De versleutelingssleutel bereikt nooit onze servers. Wij kunnen jouw poll inhoud niet ontsleutelen of bekijken - alleen jij en mensen met de poll link kunnen de gegevens zien."
                 },
                 "europeanServers": {
-                    "title": "Europese Infrastructuur",
-                    "description": "Alle gegevens worden opgeslagen op Europese servers onder strikte Europese gegevensbeschermingswetten. Jouw gegevens verlaten nooit Europese jurisdictie."
+                    "title": "Versleutelde Opslag",
+                    "description": "Alle data wordt opgeslagen als versleutelde blobs die wij niet kunnen lezen. Zelfs als onze servers gecompromitteerd zouden worden, blijft je poll-inhoud privé."
                 },
                 "security": {
                     "title": "Technische Beveiliging",
@@ -431,8 +432,8 @@
             "thirdParty": {
                 "title": "Externe Services",
                 "hosting": {
-                    "title": "Europese Hosting",
-                    "description": "Gehost op Europese servers met GDPR-conforme infrastructuurproviders."
+                    "title": "Veilige Hosting",
+                    "description": "Gehost op Vercel met GDPR-conforme infrastructuur. Alle poll data is end-to-end versleuteld."
                 },
                 "noTracking": {
                     "title": "Geen Externe Tracking",
@@ -465,8 +466,8 @@
             "international": {
                 "title": "Internationale Gegevensoverdrachten",
                 "noTransfers": {
-                    "title": "Gegevens Blijven in Europa",
-                    "description": "Jouw versleutelde gegevens verlaten nooit Europese servers. Alle verwerking vindt plaats binnen de Europese Unie onder GDPR bescherming."
+                    "title": "Je Data Blijft Versleuteld",
+                    "description": "Alle poll data is end-to-end versleuteld voordat het je browser verlaat. Onze servers slaan alleen versleutelde blobs op die niet gelezen kunnen worden zonder de encryptiesleutel."
                 }
             },
             "contact": {
@@ -498,7 +499,7 @@
                 "Zero-knowledge, client-side versleuteling",
                 "Geen tracking, analytics of advertenties",
                 "Automatische gegevensverwijdering na 30 dagen",
-                "Europese servers en GDPR compliance",
+                "End-to-end versleutelde opslag",
                 "Open source en volledig transparant",
                 "Geen accounts of e-mailadressen vereist"
             ]

@@ -1,7 +1,7 @@
 import { Link } from "@switch-to-eu/i18n/navigation";
 import Image from "next/image";
 
-import { Calendar, Shield, CheckCircle, MapPin } from "lucide-react";
+import { Shield, CheckCircle, Lock } from "lucide-react";
 
 import {
   Card,
@@ -20,14 +20,14 @@ export default function Home() {
     <>
       {/* Hero Section - With Screenshot */}
       <div className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
-        <div className="absolute inset-0 gradient-bg-purple-blue"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-white"></div>
 
         <div className="relative z-10 container mx-auto">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             {/* Hero Content */}
             <div className="text-center lg:text-left">
               <h1 className="mb-6 text-5xl font-bold sm:mb-8 sm:text-6xl lg:text-7xl">
-                <span className="gradient-purple-blue bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   {t('hero.title')}
                 </span>
                 <br />
@@ -97,7 +97,7 @@ export default function Home() {
               {t('trust.badges.encrypted')}
             </div>
             <div className="flex items-center gap-2 text-sm text-neutral-600">
-              <MapPin className="h-5 w-5 text-primary-color" />
+              <CheckCircle className="h-5 w-5 text-green-600" />
               {t('trust.badges.european')}
             </div>
           </div>
@@ -117,9 +117,9 @@ export default function Home() {
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-            <Card className="border-0 gradient-bg-white-green shadow-lg transition-all hover:scale-105 hover:shadow-xl p-8">
+            <Card className="border-0 bg-gradient-to-br from-white to-green-50 shadow-lg transition-all hover:scale-105 hover:shadow-xl p-8">
               <CardHeader className="text-center p-0">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full gradient-green-blue">
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-blue-600">
                   <Shield className="h-8 w-8 text-white" />
                 </div>
                 <CardTitle className="text-2xl text-neutral-900 mb-4">
@@ -131,10 +131,10 @@ export default function Home() {
               </CardHeader>
             </Card>
 
-            <Card className="border-0 gradient-bg-white-yellow shadow-lg transition-all hover:scale-105 hover:shadow-xl p-8 relative overflow-hidden">
+            <Card className="border-0 bg-gradient-to-br from-white to-yellow-50 shadow-lg transition-all hover:scale-105 hover:shadow-xl p-8 relative overflow-hidden">
               <CardHeader className="text-center p-0 relative z-10">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full gradient-purple-blue">
-                  <MapPin className="h-8 w-8 text-white" />
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600">
+                  <Lock className="h-8 w-8 text-white" />
                 </div>
                 <CardTitle className="text-2xl text-neutral-900 mb-4">
                   {t('benefits.european.title')}
@@ -162,7 +162,7 @@ export default function Home() {
 
           <div className="grid gap-12 md:grid-cols-2 max-w-5xl mx-auto">
             <div className="group text-center">
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full gradient-purple-blue shadow-lg transition-transform group-hover:scale-110">
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg transition-transform group-hover:scale-110">
                 <span className="text-2xl font-bold text-white">1</span>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-neutral-900">
@@ -186,7 +186,7 @@ export default function Home() {
             </div>
 
             <div className="group text-center">
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full gradient-green-blue shadow-lg transition-transform group-hover:scale-110">
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-blue-600 shadow-lg transition-transform group-hover:scale-110">
                 <span className="text-2xl font-bold text-white">2</span>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-neutral-900">
@@ -213,7 +213,7 @@ export default function Home() {
       </div>
 
       {/* CTA Section - Strengthened */}
-      <div className="relative overflow-hidden gradient-purple-blue-green py-16 sm:py-20">
+      <div className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-blue-600 to-green-500 py-16 sm:py-20">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 container mx-auto text-center">
           <h2 className="mb-4 text-4xl font-bold text-white sm:text-5xl">

@@ -121,7 +121,19 @@ export default async function LocaleLayout({
                 ]}
                 copyright={
                   <>
-                    &copy; {footerT('copyright', { year: String(currentYear) })}{' '}
+                    &copy; {footerT.rich('copyright', {
+                      year: String(currentYear),
+                      link: (chunks) => (
+                        <a
+                          href="https://switch-to.eu"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+                        >
+                          {chunks}
+                        </a>
+                      ),
+                    })}{' '}
                     <a
                       href="https://www.vinnie.studio"
                       target="_blank"

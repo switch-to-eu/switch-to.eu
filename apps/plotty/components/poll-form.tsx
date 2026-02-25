@@ -24,6 +24,7 @@ interface PollFormProps {
   onSubmit: (data: ProcessedPollFormData) => Promise<void>;
   onCancel?: () => void;
   isLoading?: boolean;
+  disabled?: boolean;
   submitText?: string;
   initialData?: Partial<PollFormData>;
   hideMobileSubmit?: boolean;
@@ -34,6 +35,7 @@ export function PollForm({
   onSubmit,
   onCancel,
   isLoading = false,
+  disabled = false,
   submitText,
   initialData,
   hideMobileSubmit = false,
@@ -310,6 +312,7 @@ export function PollForm({
             <LoadingButton
               type="submit"
               loading={isLoading}
+              disabled={disabled}
               loadingText={loadingText}
               className="flex-1"
             >
@@ -321,6 +324,7 @@ export function PollForm({
           <LoadingButton
             type="submit"
             loading={isLoading}
+            disabled={disabled}
             loadingText={loadingText}
             className="w-full"
           >
