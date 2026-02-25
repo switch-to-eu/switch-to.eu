@@ -37,9 +37,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
     api.createClient({
       links: [
         loggerLink({
-          enabled: (op) =>
-            process.env.NODE_ENV === "development" ||
-            (op.direction === "down" && op.result instanceof Error),
+          enabled: () => process.env.NODE_ENV === "development",
         }),
         splitLink({
           condition: (op) => op.type === 'subscription',

@@ -6,9 +6,10 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
+import { TRPCError } from "@trpc/server";
 import { createTRPCInit } from "@switch-to-eu/trpc/init";
 import { createTimingMiddleware } from "@switch-to-eu/trpc/middleware";
-import { db } from "@/server/db";
+import { getRedis } from "@/server/db/redis";
 
 /**
  * 1. CONTEXT
@@ -23,8 +24,9 @@ import { db } from "@/server/db";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const redis = await getRedis();
   return {
-    db,
+    redis,
     ...opts,
   };
 };
@@ -68,10 +70,47 @@ export const createTRPCRouter = t.router;
 const timingMiddleware = createTimingMiddleware(t);
 
 /**
+ * Rate limiting middleware using Redis sliding window.
+ * Limits requests per IP address within a time window.
+ */
+function createRateLimitMiddleware(
+  opts: { windowMs: number; maxRequests: number },
+) {
+  return t.middleware(async ({ ctx, next }) => {
+    const ip =
+      ctx.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      ctx.headers.get("x-real-ip") ??
+      "unknown";
+    const key = `ratelimit:${ip}:${opts.windowMs}`;
+
+    const current = await ctx.redis.incr(key);
+    if (current === 1) {
+      await ctx.redis.pExpire(key, opts.windowMs);
+    }
+
+    if (current > opts.maxRequests) {
+      throw new TRPCError({
+        code: "TOO_MANY_REQUESTS",
+        message: "Too many requests. Please try again later.",
+      });
+    }
+
+    return next();
+  });
+}
+
+const rateLimitMiddleware = createRateLimitMiddleware({
+  windowMs: 60_000,
+  maxRequests: 30,
+});
+
+/**
  * Public (unauthenticated) procedure
  *
  * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware);
+export const publicProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(rateLimitMiddleware);

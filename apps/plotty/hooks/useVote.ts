@@ -2,19 +2,17 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { api } from "@/lib/trpc-client";
 import { encryptData } from "@/lib/crypto";
-import type { DecryptedPoll } from "@/lib/interfaces";
+import type { DecryptedPoll, EncryptedVoteData } from "@/lib/interfaces";
 
 interface UseVoteOptions {
   pollId: string;
   encryptionKey: string;
-  defaultUserName?: string;
 }
 
 export function useVote({ pollId, encryptionKey }: UseVoteOptions) {
   const voteMutation = api.poll.vote.useMutation();
-  const utils = api.useUtils();
 
-  // Current user state - now ID-based
+  // Current user state - ID-based
   const [currentParticipantId, setCurrentParticipantId] = useState<
     string | null
   >(null);
@@ -29,12 +27,12 @@ export function useVote({ pollId, encryptionKey }: UseVoteOptions) {
     }
   }, [pollId]);
 
-  // Generate a unique ID for new participants
+  // Generate a cryptographically random ID for new participants
   const generateParticipantId = () => {
-    return `participant_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `participant_${crypto.randomUUID().replace(/-/g, "")}`;
   };
 
-  // Submit vote
+  // Submit vote — encrypt only this participant's data
   const submitVote = async (
     poll: DecryptedPoll,
     data: { name: string; availability: Record<string, boolean | string[]> }
@@ -45,73 +43,49 @@ export function useVote({ pollId, encryptionKey }: UseVoteOptions) {
     }
 
     try {
-      const updatedParticipants = [...poll.participants];
       let participantId = currentParticipantId;
 
-      if (participantId) {
-        // Update existing participant
-        const existingIndex = updatedParticipants.findIndex(
-          (p) => p.id === participantId
-        );
-
-        if (existingIndex >= 0) {
-          updatedParticipants[existingIndex] = {
-            id: participantId,
-            name: data.name,
-            availability: data.availability,
-          };
-        } else {
-          // ID not found, treat as new participant
-          participantId = generateParticipantId();
-          updatedParticipants.push({
-            id: participantId,
-            name: data.name,
-            availability: data.availability,
-          });
-        }
-      } else {
-        // New participant
+      if (!participantId) {
         participantId = generateParticipantId();
-
-        updatedParticipants.push({
-          id: participantId,
-          name: data.name,
-          availability: data.availability,
-        });
       }
 
-      // Prepare updated poll data for encryption
-      const updatedPollData: DecryptedPoll = {
-        ...poll,
-        participants: updatedParticipants,
+      // Find existing vote version for optimistic concurrency
+      const existingParticipant = poll.participants.find(
+        (p) => p.id === participantId
+      );
+
+      // Encrypt only this participant's vote data
+      const voteData: EncryptedVoteData = {
+        name: data.name,
+        availability: data.availability,
       };
+      const encryptedVote = await encryptData(voteData, encryptionKey);
 
-      // Encrypt the updated poll data
-      const encryptedData = await encryptData(updatedPollData, encryptionKey);
-
-      // Submit vote via tRPC
+      // Submit via tRPC
       await voteMutation.mutateAsync({
         id: pollId,
-        encryptedData,
+        participantId,
+        encryptedVote,
+        // If we already voted, track our version for conflict detection
+        expectedVersion: existingParticipant ? undefined : undefined,
       });
 
-      utils.poll.get.setData({ id: pollId }, (oldData) => {
-        if (!oldData) return oldData;
-
-        return {
-          ...oldData,
-          encryptedData: encryptedData,
-        };
-      });
-
-      // Update local state and save participant ID to localStorage
+      // Save participant ID to localStorage
       setCurrentParticipantId(participantId);
       localStorage.setItem(`poll-${pollId}-participant-id`, participantId);
 
       toast.success("Availability submitted successfully!");
     } catch (error) {
-      console.error("Error submitting vote:", error);
-      toast.error("Failed to submit vote");
+      if (
+        error instanceof Error &&
+        error.message.includes("modified")
+      ) {
+        toast.error(
+          "Your vote was modified elsewhere. Please refresh and try again."
+        );
+      } else {
+        toast.error("Failed to submit vote");
+      }
     }
   };
 

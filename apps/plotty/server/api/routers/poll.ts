@@ -1,475 +1,487 @@
 import { z } from "zod";
-import { eq, and, lt } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import EventEmitter, { on } from "events";
+import { randomBytes, timingSafeEqual, createHash } from "crypto";
+import type { RedisClientType } from "redis";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { polls } from "@/server/db/schema";
+import { getRedisSubscriber } from "@/server/db/redis";
+import type {
+  RedisPollHash,
+  RedisVoteHash,
+  PollResponse,
+  VoteResponse,
+  PollWithVotesResponse,
+} from "@/server/db/types";
 
-// Utility function to generate poll ID (10 characters, user-friendly)
+// --- Utility functions ---
+
 function generatePollId(): string {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-  let result = "";
-  for (let i = 0; i < 10; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  const bytes = randomBytes(10);
+  return Array.from(bytes)
+    .map((b) => chars[b % chars.length])
+    .join("");
 }
 
-// Utility function to generate admin token (64 characters)
 function generateAdminToken(): string {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  for (let i = 0; i < 64; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  return randomBytes(48).toString("base64url");
 }
 
-// Input validation schemas
+/** Hash an admin token for storage (never store plain text) */
+function hashAdminToken(token: string): string {
+  return createHash("sha256").update(token).digest("hex");
+}
+
+/** Constant-time comparison of admin tokens */
+function verifyAdminToken(inputToken: string, storedHash: string): boolean {
+  const inputHash = hashAdminToken(inputToken);
+  if (inputHash.length !== storedHash.length) return false;
+  return timingSafeEqual(Buffer.from(inputHash), Buffer.from(storedHash));
+}
+
+/** Calculate TTL in seconds from expiresAt + 7-day grace period */
+function calculateTTLSeconds(expiresAt: string): number {
+  const gracePeriodMs = 7 * 24 * 60 * 60 * 1000;
+  const expiryMs = new Date(expiresAt).getTime() + gracePeriodMs;
+  return Math.max(0, Math.floor((expiryMs - Date.now()) / 1000));
+}
+
+/** Fetch and validate a poll is not deleted/expired */
+async function getValidPoll(
+  redis: RedisClientType,
+  id: string
+): Promise<RedisPollHash> {
+  const poll = (await redis.hGetAll(`poll:${id}`)) as unknown as RedisPollHash;
+
+  if (!poll || !poll.encryptedData) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
+  }
+
+  if (poll.isDeleted === "true") {
+    throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
+  }
+
+  if (new Date(poll.expiresAt) < new Date()) {
+    throw new TRPCError({ code: "BAD_REQUEST", message: "Poll has expired" });
+  }
+
+  return poll;
+}
+
+/** Fetch all vote entries for a poll */
+async function getPollVotes(
+  redis: RedisClientType,
+  pollId: string
+): Promise<VoteResponse[]> {
+  const participantIds = await redis.sMembers(`poll:${pollId}:votes`);
+  if (!participantIds.length) return [];
+
+  const votes: VoteResponse[] = [];
+  for (const pid of participantIds) {
+    const vote = (await redis.hGetAll(
+      `poll:${pollId}:vote:${pid}`
+    )) as unknown as RedisVoteHash;
+    if (vote && vote.encryptedVote) {
+      votes.push({
+        participantId: pid,
+        encryptedVote: vote.encryptedVote,
+        version: parseInt(vote.version, 10) || 1,
+        updatedAt: vote.updatedAt,
+      });
+    }
+  }
+  return votes;
+}
+
+/** Publish an update notification to the poll's Pub/Sub channel */
+async function publishPollUpdate(
+  redis: RedisClientType,
+  pollId: string
+): Promise<void> {
+  await redis.publish(`poll:channel:${pollId}`, "updated");
+}
+
+// --- Constants ---
+
+const MAX_ENCRYPTED_DATA_SIZE = 65_536; // 64 KB
+const MAX_ENCRYPTED_VOTE_SIZE = 16_384; // 16 KB
+const MAX_PARTICIPANTS_PER_POLL = 500;
+
+// --- Input validation schemas ---
+
+const pollIdSchema = z
+  .string()
+  .length(10, "Poll ID must be 10 characters")
+  .regex(/^[A-Za-z0-9]+$/, "Invalid poll ID format");
+
 const createPollInput = z.object({
-  encryptedData: z.string().min(1, "Encrypted data is required"),
+  encryptedData: z.string().min(1, "Encrypted data is required").max(MAX_ENCRYPTED_DATA_SIZE),
   expiresAt: z.date().optional(),
 });
 
 const getPollInput = z.object({
-  id: z.string().length(10, "Poll ID must be 10 characters"),
+  id: pollIdSchema,
 });
 
 const updatePollInput = z.object({
-  id: z.string().length(10, "Poll ID must be 10 characters"),
-  adminToken: z.string().length(64, "Admin token is required"),
-  encryptedData: z.string().min(1, "Encrypted data is required"),
+  id: pollIdSchema,
+  adminToken: z.string().min(1, "Admin token is required"),
+  encryptedData: z.string().min(1, "Encrypted data is required").max(MAX_ENCRYPTED_DATA_SIZE),
+  expectedVersion: z.number().int().optional(),
 });
 
 const deletePollInput = z.object({
-  id: z.string().length(10, "Poll ID must be 10 characters"),
-  adminToken: z.string().length(64, "Admin token is required"),
+  id: pollIdSchema,
+  adminToken: z.string().min(1, "Admin token is required"),
 });
 
 const extendPollInput = z.object({
-  id: z.string().length(10, "Poll ID must be 10 characters"),
-  adminToken: z.string().length(64, "Admin token is required"),
+  id: pollIdSchema,
+  adminToken: z.string().min(1, "Admin token is required"),
   days: z.number().min(1).max(365, "Cannot extend more than 365 days"),
 });
 
-const updateVoteInput = z.object({
-  id: z.string().length(10, "Poll ID must be 10 characters"),
-  encryptedData: z.string().min(1, "Encrypted data is required"),
+const voteInput = z.object({
+  id: pollIdSchema,
+  participantId: z
+    .string()
+    .min(1, "Participant ID is required")
+    .max(128)
+    .regex(/^[a-zA-Z0-9_-]+$/, "Invalid participant ID format"),
+  encryptedVote: z.string().min(1, "Encrypted vote is required").max(MAX_ENCRYPTED_VOTE_SIZE),
+  expectedVersion: z.number().int().optional(),
 });
 
-// Create event emitter for poll updates
-interface PollUpdateData {
-  id: string;
-  encryptedData: string;
-  createdAt: Date;
-  expiresAt: Date;
-  isEncrypted: boolean;
-}
-
-const pollEvents = new EventEmitter();
+// --- Router ---
 
 export const pollRouter = createTRPCRouter({
-  // Create a new encrypted poll
   create: publicProcedure
     .input(createPollInput)
     .mutation(async ({ ctx, input }) => {
       const pollId = generatePollId();
       const adminToken = generateAdminToken();
-
-      const expiresAt =
-        input.expiresAt ?? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days default
+      const now = new Date().toISOString();
+      const expiresAt = (
+        input.expiresAt ?? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      ).toISOString();
 
       try {
-        const [poll] = await ctx.db
-          .insert(polls)
-          .values({
-            id: pollId,
-            adminToken,
-            encryptedData: input.encryptedData,
-            expiresAt,
-          })
-          .returning();
+        await ctx.redis.hSet(`poll:${pollId}`, {
+          encryptedData: input.encryptedData,
+          adminToken: hashAdminToken(adminToken),
+          createdAt: now,
+          expiresAt,
+          version: "1",
+          isDeleted: "false",
+        } satisfies RedisPollHash);
+        await ctx.redis.expireAt(
+          `poll:${pollId}`,
+          Math.floor(
+            (new Date(expiresAt).getTime() + 7 * 24 * 60 * 60 * 1000) / 1000
+          )
+        );
 
         return {
           poll: {
-            id: poll!.id,
-            encryptedData: poll!.encryptedData,
-            createdAt: poll!.createdAt,
-            expiresAt: poll!.expiresAt,
-          },
+            id: pollId,
+            encryptedData: input.encryptedData,
+            createdAt: now,
+            expiresAt,
+            version: 1,
+          } satisfies PollResponse,
           adminToken,
         };
       } catch (error) {
+        console.error("Failed to create poll:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: `Failed to create poll: ${error instanceof Error ? error.message : "Unknown error"}`,
+          message: "Failed to create poll",
         });
       }
     }),
 
   get: publicProcedure.input(getPollInput).query(async ({ ctx, input }) => {
-    try {
-      const poll = await ctx.db.query.polls.findFirst({
-        where: and(eq(polls.id, input.id), eq(polls.isDeleted, false)),
-      });
+    const poll = await getValidPoll(ctx.redis, input.id);
+    const votes = await getPollVotes(ctx.redis, input.id);
 
-      if (!poll) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Poll not found",
-        });
-      }
-
-      // Check if poll is expired
-      if (poll.expiresAt < new Date()) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Poll has expired",
-        });
-      }
-
-      const response = {
-        id: poll.id,
+    return {
+      poll: {
+        id: input.id,
         encryptedData: poll.encryptedData,
         createdAt: poll.createdAt,
         expiresAt: poll.expiresAt,
-        isEncrypted: true,
-      };
-
-      return response;
-    } catch (error) {
-      if (error instanceof TRPCError) {
-        throw error;
-      }
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to get poll",
-      });
-    }
+        version: parseInt(poll.version, 10) || 1,
+      } satisfies PollResponse,
+      votes,
+    } satisfies PollWithVotesResponse;
   }),
 
-  // Update encrypted poll data (admin only)
   update: publicProcedure
     .input(updatePollInput)
     .mutation(async ({ ctx, input }) => {
-      try {
-        const [updatedPoll] = await ctx.db
-          .update(polls)
-          .set({
-            encryptedData: input.encryptedData,
-          })
-          .where(
-            and(
-              eq(polls.id, input.id),
-              eq(polls.adminToken, input.adminToken),
-              eq(polls.isDeleted, false)
-            )
-          )
-          .returning();
+      const poll = await getValidPoll(ctx.redis, input.id);
 
-        if (!updatedPoll) {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Poll not found or invalid admin token",
-          });
-        }
-
-        const result = {
-          id: updatedPoll.id,
-          encryptedData: updatedPoll.encryptedData,
-          createdAt: updatedPoll.createdAt,
-          expiresAt: updatedPoll.expiresAt,
-        };
-
-        // Emit update event for SSE subscribers
-        if (updatedPoll.encryptedData) {
-          pollEvents.emit(`poll:${input.id}`, {
-            id: updatedPoll.id,
-            encryptedData: updatedPoll.encryptedData,
-            createdAt: updatedPoll.createdAt,
-            expiresAt: updatedPoll.expiresAt,
-            isEncrypted: true,
-          });
-        }
-
-        return result;
-      } catch (error) {
-        if (error instanceof TRPCError) {
-          throw error;
-        }
+      if (!verifyAdminToken(input.adminToken, poll.adminToken)) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to update poll",
+          code: "NOT_FOUND",
+          message: "Poll not found or invalid admin token",
         });
       }
-    }),
 
-  // Update poll data for voting (no admin token required)
-  vote: publicProcedure
-    .input(updateVoteInput)
-    .mutation(async ({ ctx, input }) => {
-      try {
-        const [updatedPoll] = await ctx.db
-          .update(polls)
-          .set({
-            encryptedData: input.encryptedData,
-          })
-          .where(and(eq(polls.id, input.id), eq(polls.isDeleted, false)))
-          .returning();
-
-        if (!updatedPoll) {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Poll not found",
-          });
-        }
-
-        // Check if poll is expired
-        if (updatedPoll.expiresAt < new Date()) {
-          throw new TRPCError({
-            code: "BAD_REQUEST",
-            message: "Cannot vote on expired poll",
-          });
-        }
-
-        const result = {
-          id: updatedPoll.id,
-          encryptedData: updatedPoll.encryptedData,
-          createdAt: updatedPoll.createdAt,
-          expiresAt: updatedPoll.expiresAt,
-        };
-
-        // Emit update event for SSE subscribers
-        if (updatedPoll.encryptedData) {
-          pollEvents.emit(`poll:${input.id}`, {
-            id: updatedPoll.id,
-            encryptedData: updatedPoll.encryptedData,
-            createdAt: updatedPoll.createdAt,
-            expiresAt: updatedPoll.expiresAt,
-            isEncrypted: true,
-          });
-        }
-
-        return result;
-      } catch (error) {
-        if (error instanceof TRPCError) {
-          throw error;
-        }
+      // Optimistic concurrency check
+      const currentVersion = parseInt(poll.version, 10) || 1;
+      if (
+        input.expectedVersion !== undefined &&
+        input.expectedVersion !== currentVersion
+      ) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to update vote",
+          code: "CONFLICT",
+          message:
+            "Poll has been modified by someone else. Please refresh and try again.",
         });
       }
+
+      const newVersion = currentVersion + 1;
+
+      await ctx.redis.hSet(`poll:${input.id}`, {
+        encryptedData: input.encryptedData,
+        version: String(newVersion),
+      });
+
+      await publishPollUpdate(ctx.redis, input.id);
+
+      return {
+        id: input.id,
+        encryptedData: input.encryptedData,
+        createdAt: poll.createdAt,
+        expiresAt: poll.expiresAt,
+        version: newVersion,
+      } satisfies PollResponse;
     }),
 
-  // Delete poll (soft delete, admin only)
+  vote: publicProcedure.input(voteInput).mutation(async ({ ctx, input }) => {
+    const poll = await getValidPoll(ctx.redis, input.id);
+
+    const voteKey = `poll:${input.id}:vote:${input.participantId}`;
+    const existingVote = (await ctx.redis.hGetAll(
+      voteKey
+    )) as unknown as RedisVoteHash;
+
+    // Check participant cap for new voters
+    if (!existingVote?.encryptedVote) {
+      const participantCount = await ctx.redis.sCard(`poll:${input.id}:votes`);
+      if (participantCount >= MAX_PARTICIPANTS_PER_POLL) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This poll has reached the maximum number of participants.",
+        });
+      }
+    }
+
+    // Version check for existing votes
+    if (existingVote && existingVote.encryptedVote) {
+      const currentVoteVersion = parseInt(existingVote.version, 10) || 1;
+      if (
+        input.expectedVersion !== undefined &&
+        input.expectedVersion !== currentVoteVersion
+      ) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message:
+            "Vote has been modified. Please refresh and try again.",
+        });
+      }
+    }
+
+    const newVoteVersion = existingVote?.encryptedVote
+      ? (parseInt(existingVote.version, 10) || 0) + 1
+      : 1;
+    const now = new Date().toISOString();
+
+    const ttl = calculateTTLSeconds(poll.expiresAt);
+    const votesSetKey = `poll:${input.id}:votes`;
+
+    // Atomic write: bundle all vote mutations in a single MULTI/EXEC transaction
+    const multi = ctx.redis.multi();
+    multi.hSet(voteKey, {
+      encryptedVote: input.encryptedVote,
+      version: String(newVoteVersion),
+      updatedAt: now,
+    } satisfies RedisVoteHash);
+    multi.expire(voteKey, ttl);
+    multi.sAdd(votesSetKey, input.participantId);
+    multi.expire(votesSetKey, ttl);
+    await multi.exec();
+
+    await publishPollUpdate(ctx.redis, input.id);
+
+    return {
+      participantId: input.participantId,
+      encryptedVote: input.encryptedVote,
+      version: newVoteVersion,
+      updatedAt: now,
+    } satisfies VoteResponse;
+  }),
+
   delete: publicProcedure
     .input(deletePollInput)
     .mutation(async ({ ctx, input }) => {
-      try {
-        const [deletedPoll] = await ctx.db
-          .update(polls)
-          .set({
-            isDeleted: true,
-            deletedAt: new Date(),
-          })
-          .where(
-            and(
-              eq(polls.id, input.id),
-              eq(polls.adminToken, input.adminToken),
-              eq(polls.isDeleted, false)
-            )
-          )
-          .returning();
+      const poll = await getValidPoll(ctx.redis, input.id);
 
-        if (!deletedPoll) {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Poll not found or invalid admin token",
-          });
-        }
-
-        return { message: "Poll deleted successfully" };
-      } catch (error) {
-        if (error instanceof TRPCError) {
-          throw error;
-        }
+      if (!verifyAdminToken(input.adminToken, poll.adminToken)) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to delete poll",
+          code: "NOT_FOUND",
+          message: "Poll not found or invalid admin token",
         });
       }
+
+      // Hard delete: remove poll + all vote keys
+      const participantIds = await ctx.redis.sMembers(
+        `poll:${input.id}:votes`
+      );
+      const keysToDelete = [
+        `poll:${input.id}`,
+        `poll:${input.id}:votes`,
+        ...participantIds.map(
+          (pid) => `poll:${input.id}:vote:${pid}`
+        ),
+      ];
+
+      await ctx.redis.del(keysToDelete);
+
+      return { message: "Poll deleted successfully" };
     }),
 
-  // Extend poll expiration (admin only)
   extend: publicProcedure
     .input(extendPollInput)
     .mutation(async ({ ctx, input }) => {
-      try {
-        // Calculate new expiration date
-        const newExpiresAt = new Date();
-        newExpiresAt.setDate(newExpiresAt.getDate() + input.days);
+      const poll = await getValidPoll(ctx.redis, input.id);
 
-        const [extendedPoll] = await ctx.db
-          .update(polls)
-          .set({
-            expiresAt: newExpiresAt,
-          })
-          .where(
-            and(
-              eq(polls.id, input.id),
-              eq(polls.adminToken, input.adminToken),
-              eq(polls.isDeleted, false)
-            )
-          )
-          .returning();
-
-        if (!extendedPoll) {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Poll not found or invalid admin token",
-          });
-        }
-
-        return {
-          id: extendedPoll.id,
-          expiresAt: extendedPoll.expiresAt,
-          message: `Poll extended by ${input.days} days`,
-        };
-      } catch (error) {
-        if (error instanceof TRPCError) {
-          throw error;
-        }
+      if (!verifyAdminToken(input.adminToken, poll.adminToken)) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to extend poll",
+          code: "NOT_FOUND",
+          message: "Poll not found or invalid admin token",
         });
       }
+
+      const newExpiresAt = new Date();
+      newExpiresAt.setDate(newExpiresAt.getDate() + input.days);
+      const expiresAtStr = newExpiresAt.toISOString();
+      const ttl = calculateTTLSeconds(expiresAtStr);
+
+      // Update poll expiry
+      await ctx.redis.hSet(`poll:${input.id}`, { expiresAt: expiresAtStr });
+      await ctx.redis.expire(`poll:${input.id}`, ttl);
+
+      // Update TTL on all vote keys
+      const participantIds = await ctx.redis.sMembers(
+        `poll:${input.id}:votes`
+      );
+      await ctx.redis.expire(`poll:${input.id}:votes`, ttl);
+      for (const pid of participantIds) {
+        await ctx.redis.expire(`poll:${input.id}:vote:${pid}`, ttl);
+      }
+
+      return {
+        id: input.id,
+        expiresAt: expiresAtStr,
+        message: `Poll extended by ${input.days} days`,
+      };
     }),
 
-  // Clean up expired polls (utility function)
-  cleanupExpired: publicProcedure.mutation(async ({ ctx }) => {
-    try {
-      // Soft delete expired polls
-      await ctx.db
-        .update(polls)
-        .set({
-          isDeleted: true,
-          deletedAt: new Date(),
-        })
-        .where(
-          and(lt(polls.expiresAt, new Date()), eq(polls.isDeleted, false))
-        );
-
-      // Hard delete polls that have been soft deleted for more than 7 days
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-      await ctx.db
-        .delete(polls)
-        .where(
-          and(eq(polls.isDeleted, true), lt(polls.deletedAt, sevenDaysAgo))
-        );
-
-      return { message: "Cleanup completed successfully" };
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `Failed to cleanup expired polls: ${error instanceof Error ? error.message : "Unknown error"}`,
-      });
-    }
-  }),
-
-  // Health check for development
   health: publicProcedure.query(async ({ ctx }) => {
     try {
-      // Simple query to test database connection
-      const pollCount = await ctx.db.query.polls.findMany({
-        where: eq(polls.isDeleted, false),
-      });
-
+      await ctx.redis.ping();
       return {
         status: "healthy",
         timestamp: new Date().toISOString(),
-        activePolls: pollCount.length,
       };
     } catch (error) {
+      console.error("Health check failed:", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Database connection failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+        message: "Service unavailable",
       });
     }
   }),
 
-  // SSE Subscription for real-time poll updates
   subscribe: publicProcedure
     .input(getPollInput)
     .subscription(async function* (opts) {
       const { ctx, input } = opts;
 
-      // Function to fetch current poll data
-      const fetchPollData = async () => {
-        const poll = await ctx.db.query.polls.findFirst({
-          where: and(eq(polls.id, input.id), eq(polls.isDeleted, false)),
-        });
-
-        if (!poll) {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Poll not found",
-          });
-        }
-
-        // Check if poll is expired
-        if (poll.expiresAt < new Date()) {
-          throw new TRPCError({
-            code: "BAD_REQUEST",
-            message: "Poll has expired",
-          });
-        }
-
-        // Ensure encryptedData is not null
-        if (!poll.encryptedData) {
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Poll data is corrupted",
-          });
-        }
-
+      const fetchFullState = async (): Promise<PollWithVotesResponse> => {
+        const poll = await getValidPoll(ctx.redis, input.id);
+        const votes = await getPollVotes(ctx.redis, input.id);
         return {
-          id: poll.id,
-          encryptedData: poll.encryptedData,
-          createdAt: poll.createdAt,
-          expiresAt: poll.expiresAt,
-          isEncrypted: true,
+          poll: {
+            id: input.id,
+            encryptedData: poll.encryptedData,
+            createdAt: poll.createdAt,
+            expiresAt: poll.expiresAt,
+            version: parseInt(poll.version, 10) || 1,
+          },
+          votes,
         };
       };
 
-      let refreshInterval: NodeJS.Timeout | undefined;
+      // Yield initial state
+      yield await fetchFullState();
+
+      // Listen for updates via Redis Pub/Sub
+      const subscriber = await getRedisSubscriber();
+      const channel = `poll:channel:${input.id}`;
+
+      // Create a promise-based message queue
+      // eslint-disable-next-line no-unused-vars
+      let resolveNext: ((value: string) => void) | null = null;
+      const messageQueue: string[] = [];
+
+      const listener = (message: string) => {
+        if (resolveNext) {
+          const resolve = resolveNext;
+          resolveNext = null;
+          resolve(message);
+        } else {
+          messageQueue.push(message);
+        }
+      };
+
+      await subscriber.subscribe(channel, listener);
+
+      const signal = opts.signal;
+
+      // Handle abort signal
+      const abortHandler = () => {
+        void subscriber.unsubscribe(channel, listener);
+      };
+      signal?.addEventListener("abort", abortHandler);
 
       try {
-        // Yield initial data
-        yield await fetchPollData();
+        while (!signal?.aborted) {
+          // Wait for next message
+          await new Promise<string>((resolve) => {
+            const queued = messageQueue.shift();
+            if (queued) {
+              resolve(queued);
+            } else {
+              resolveNext = resolve;
+            }
+          });
 
-        // Listen for poll update events
-        for await (const [data] of on(pollEvents, `poll:${input.id}`, {
-          signal: opts.signal,
-        })) {
-          const pollData = data as PollUpdateData;
-          yield {
-            id: pollData.id,
-            encryptedData: pollData.encryptedData,
-            createdAt: pollData.createdAt,
-            expiresAt: pollData.expiresAt,
-            isEncrypted: pollData.isEncrypted,
-          };
+          if (signal?.aborted) break;
+
+          // Re-fetch full state on notification
+          try {
+            yield await fetchFullState();
+          } catch {
+            // Poll may have been deleted/expired, stop subscription
+            break;
+          }
         }
       } finally {
-        if (refreshInterval) {
-          clearInterval(refreshInterval);
-        }
+        signal?.removeEventListener("abort", abortHandler);
+        await subscriber.unsubscribe(channel, listener);
       }
     }),
 });

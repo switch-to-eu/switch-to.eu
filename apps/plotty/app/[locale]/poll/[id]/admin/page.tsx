@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 
 import { PollNotFoundError, DecryptionError } from "@components/error-states";
@@ -13,12 +14,18 @@ import { PollLoading } from "@components/poll-loading";
 
 import { AvailabilityGrid } from "@components/availability-grid";
 import type { ProcessedPollFormData } from "@components/poll-form";
+import { parseAdminFragment } from "@/lib/admin";
 
 export default function AdminPage() {
   const params = useParams();
-
   const pollId = params.id as string;
-  const token = params.token as string;
+
+  // Parse admin token + encryption key from URL fragment
+  const [adminToken, setAdminToken] = useState<string>("");
+  useEffect(() => {
+    const { token } = parseAdminFragment(window.location.hash);
+    setAdminToken(token);
+  }, []);
 
   // Use the new hook
   const {
@@ -41,18 +48,17 @@ export default function AdminPage() {
   } = useVote({
     pollId,
     encryptionKey,
-    defaultUserName: "Admin",
   });
 
   const { updatePoll, isLoading: isUpdating } = useUpdatePoll({
     pollId,
-    adminToken: token,
+    adminToken,
     encryptionKey,
   });
 
   const { deletePoll, isLoading: isDeleting } = useDeletePoll({
     pollId,
-    adminToken: token,
+    adminToken,
   });
 
   const onSave = async (name: string, availability: Record<string, boolean | string[]>) => {
@@ -95,7 +101,7 @@ export default function AdminPage() {
           <AdminSection
             poll={poll}
             pollId={pollId}
-            adminToken={token}
+            adminToken={adminToken}
             encryptionKey={encryptionKey}
             onUpdatePoll={handleUpdatePoll}
             onDeletePoll={deletePoll}

@@ -21,7 +21,10 @@ export function createTRPCInit<
         data: {
           ...shape.data,
           zodError:
-            error.cause instanceof ZodError ? error.cause.flatten() : null,
+            process.env.NODE_ENV === "development" &&
+            error.cause instanceof ZodError
+              ? error.cause.flatten()
+              : null,
         },
       };
     },

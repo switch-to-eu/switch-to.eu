@@ -1,1 +1,0 @@
-DROP INDEX "idx_polls_encrypted_data";

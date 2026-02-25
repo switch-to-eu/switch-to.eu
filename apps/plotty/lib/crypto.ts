@@ -51,8 +51,7 @@ export async function encryptData(
     combined.set(encryptedBytes, iv.length);
 
     return btoa(String.fromCharCode(...combined));
-  } catch (error) {
-    console.error("Encryption failed:", error);
+  } catch {
     throw new Error("Failed to encrypt data");
   }
 }
@@ -102,8 +101,7 @@ export async function decryptData<T>(
     // Convert bytes back to JSON string then parse
     const jsonString = new TextDecoder().decode(decryptedBuffer);
     return JSON.parse(jsonString) as T;
-  } catch (error) {
-    console.error("Decryption failed:", error);
+  } catch {
     throw new Error("Failed to decrypt data");
   }
 }

@@ -20,8 +20,7 @@ export function useDeletePoll({ pollId, adminToken }: UseDeletePollOptions) {
 
       toast.success("Poll deleted successfully");
       router.push("/");
-    } catch (error) {
-      console.error("Failed to delete poll:", error);
+    } catch {
       toast.error("Failed to delete poll");
     }
   };

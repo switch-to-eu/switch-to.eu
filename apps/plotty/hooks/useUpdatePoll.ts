@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { api } from "@/lib/trpc-client";
 import { encryptData } from "@/lib/crypto";
-import type { DecryptedPoll } from "@/lib/interfaces";
+import type { DecryptedPoll, EncryptedPollStructure } from "@/lib/interfaces";
 import type { ProcessedPollFormData } from "@components/poll-form";
 
 interface UseUpdatePollOptions {
@@ -21,32 +21,40 @@ export function useUpdatePoll({
     if (!poll) return;
 
     try {
-      const updatedPollData: DecryptedPoll = {
-        ...poll,
+      // Encrypt only the poll structure (no participants)
+      const structure: EncryptedPollStructure = {
         title: formData.title,
         description: formData.description,
         location: formData.location,
         dates: formData.selectedDates.map(
           (date: Date) => date.toISOString().split("T")[0]!
         ),
-        // Include new time selection fields
         fixedDuration: formData.fixedDuration,
         selectedStartTimes: formData.selectedStartTimes,
         allowHourSelection: formData.enableTimeSelection,
       };
 
-      const encryptedData = await encryptData(updatedPollData, encryptionKey);
+      const encryptedData = await encryptData(structure, encryptionKey);
 
       await updatePollMutation.mutateAsync({
         id: pollId,
         adminToken,
         encryptedData,
+        expectedVersion: poll.version,
       });
 
       toast.success("Poll updated successfully!");
     } catch (error) {
-      console.error("Failed to update poll:", error);
-      toast.error("Failed to update poll");
+      if (
+        error instanceof Error &&
+        error.message.includes("modified")
+      ) {
+        toast.error(
+          "Poll was modified by someone else. Please refresh and try again."
+        );
+      } else {
+        toast.error("Failed to update poll");
+      }
     }
   };
 

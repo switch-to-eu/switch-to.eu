@@ -2,7 +2,12 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/trpc-client";
 import { decryptData } from "@/lib/crypto";
-import type { DecryptedPoll } from "@/lib/interfaces";
+import type {
+  DecryptedPoll,
+  EncryptedPollStructure,
+  EncryptedVoteData,
+  Participant,
+} from "@/lib/interfaces";
 
 interface BestTime {
   key: string;
@@ -43,25 +48,32 @@ export function useLoadPoll({
   const [pollQueryError, setPollQueryError] = useState(false);
 
   // Use SSE subscription for real-time updates
-  const { data: pollData, error: subscriptionError } =
+  const { data: subscriptionData, error: subscriptionError } =
     api.poll.subscribe.useSubscription(
       { id: pollId },
       {
         enabled: !!pollId,
-        onError: (error) => {
-          console.error("Subscription error:", error);
+        onError: () => {
           setPollQueryError(true);
         },
       }
     );
 
   // Extract encryption key from URL fragment
+  // Supports both formats: #rawKey (poll page) and #token=xxx&key=yyy (admin page)
   useEffect(() => {
     const fragment = window.location.hash.substring(1);
 
     if (fragment) {
-      setEncryptionKey(fragment);
-      setMissingKey(false);
+      if (fragment.includes("key=")) {
+        const params = new URLSearchParams(fragment);
+        const key = params.get("key") ?? "";
+        setEncryptionKey(key);
+        setMissingKey(!key);
+      } else {
+        setEncryptionKey(fragment);
+        setMissingKey(false);
+      }
     } else {
       setMissingKey(true);
     }
@@ -69,7 +81,7 @@ export function useLoadPoll({
 
   // Load and decrypt poll data when subscription data changes
   useEffect(() => {
-    if (!pollData || !encryptionKey) return;
+    if (!subscriptionData || !encryptionKey) return;
 
     const loadPoll = async () => {
       setIsDecrypting(true);
@@ -77,19 +89,49 @@ export function useLoadPoll({
       setPollQueryError(false);
 
       try {
-        const decryptedPoll = await decryptData<DecryptedPoll>(
-          pollData.encryptedData,
+        const { poll: pollResponse, votes } = subscriptionData;
+
+        // Phase 1: Decrypt poll structure
+        const structure = await decryptData<EncryptedPollStructure>(
+          pollResponse.encryptedData,
           encryptionKey
         );
 
-        // Add metadata from the subscription response
-        decryptedPoll.id = pollData.id;
-        decryptedPoll.createdAt = pollData.createdAt.toISOString();
-        decryptedPoll.expiresAt = pollData.expiresAt.toISOString();
+        // Phase 2: Decrypt each vote individually
+        const participants: Participant[] = [];
+        for (const vote of votes) {
+          try {
+            const voteData = await decryptData<EncryptedVoteData>(
+              vote.encryptedVote,
+              encryptionKey
+            );
+            participants.push({
+              id: vote.participantId,
+              name: voteData.name,
+              availability: voteData.availability,
+            });
+          } catch {
+            // Graceful degradation: skip votes that fail to decrypt
+          }
+        }
+
+        const decryptedPoll: DecryptedPoll = {
+          id: pollResponse.id,
+          title: structure.title,
+          description: structure.description,
+          location: structure.location,
+          dates: structure.dates,
+          fixedDuration: structure.fixedDuration,
+          selectedStartTimes: structure.selectedStartTimes,
+          allowHourSelection: structure.allowHourSelection,
+          participants,
+          createdAt: pollResponse.createdAt,
+          expiresAt: pollResponse.expiresAt,
+          version: pollResponse.version,
+        };
 
         setPoll(decryptedPoll);
-      } catch (error) {
-        console.error("Failed to decrypt poll data:", error);
+      } catch {
         setDecryptionError(
           "Failed to decrypt poll data. The encryption key may be invalid."
         );
@@ -100,7 +142,7 @@ export function useLoadPoll({
     };
 
     void loadPoll();
-  }, [pollData, encryptionKey]);
+  }, [subscriptionData, encryptionKey]);
 
   // Handle subscription errors
   useEffect(() => {
@@ -129,7 +171,7 @@ export function useLoadPoll({
 
           timeSlots.push({
             key: slotKey,
-            date: slotKey, // For backward compatibility with existing code
+            date: slotKey,
             count,
             percentage,
           });
