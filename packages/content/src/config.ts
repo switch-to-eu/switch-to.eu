@@ -7,5 +7,5 @@ export function setContentRoot(dir: string): void {
 }
 
 export function getContentRoot(): string {
-  return contentRoot ?? path.join(process.cwd(), "content");
+  return contentRoot ?? path.resolve(__dirname, "..", "content");
 }
