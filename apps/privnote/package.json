@@ -1,0 +1,50 @@
+{
+  "name": "@switch-to-eu/privnote",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --turbo --port 3003",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@switch-to-eu/blocks": "workspace:*",
+    "@switch-to-eu/i18n": "workspace:*",
+    "@switch-to-eu/trpc": "workspace:*",
+    "@switch-to-eu/ui": "workspace:*",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:",
+    "@trpc/react-query": "catalog:",
+    "@trpc/server": "catalog:",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "lucide-react": "catalog:",
+    "nanoid": "^5.1.5",
+    "next": "catalog:",
+    "next-intl": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "redis": "^4.7.0",
+    "server-only": "^0.0.1",
+    "sonner": "catalog:",
+    "superjson": "catalog:",
+    "tailwind-merge": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@switch-to-eu/eslint-config": "workspace:*",
+    "@switch-to-eu/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "postcss": "^8.5.3",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}
