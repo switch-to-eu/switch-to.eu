@@ -1,0 +1,91 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Listy",
+            "description": "Private shared lists — no account needed"
+        },
+        "header": {
+            "createList": "Create List",
+            "about": "About"
+        },
+        "footer": {
+            "about": "About",
+            "privacy": "Privacy Policy",
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
+        }
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Your lists",
+            "subtitle": "your privacy",
+            "description": "Create shared lists instantly — groceries, potluck, tasks. No account, no tracking, end-to-end encrypted.",
+            "cta": "Create Private List",
+            "disclaimer": "No signup required"
+        },
+        "trust": {
+            "badges": {
+                "noAccount": "No account needed",
+                "encrypted": "End-to-end encrypted",
+                "autoDelete": "Auto-deleted after 30 days",
+                "openSource": "Open source"
+            }
+        },
+        "benefits": {
+            "title": "Why choose Listy",
+            "description": "Simple shared lists that respect your privacy",
+            "privacy": {
+                "title": "Privacy First",
+                "description": "No tracking, no ads, no data mining. Your lists are encrypted in your browser before reaching our servers."
+            },
+            "encrypted": {
+                "title": "End-to-End Encrypted",
+                "description": "Only people with the link can see your list. We can never read your data — not even if we wanted to."
+            }
+        },
+        "cta": {
+            "title": "Try it now",
+            "description": "No signup, no spam, no tracking — just lists that work.",
+            "button": "Create Private List"
+        }
+    },
+    "CreatePage": {
+        "title": "Create a New List",
+        "placeholder": "List creation form coming soon..."
+    },
+    "ListPage": {
+        "title": "Shared List",
+        "placeholder": "List view coming soon..."
+    },
+    "AdminPage": {
+        "title": "List Admin",
+        "placeholder": "Admin panel coming soon..."
+    },
+    "PrivacyPage": {
+        "title": "Privacy Policy",
+        "placeholder": "Privacy policy coming soon..."
+    },
+    "AboutPage": {
+        "title": "About Listy",
+        "placeholder": "About page coming soon..."
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Schedule meetings privately",
+            "description": "A privacy-first scheduling tool with end-to-end encryption. No accounts, no tracking, just simple scheduling.",
+            "cta": "Try Plotty"
+        },
+        "listy": {
+            "tagline": "Share lists privately",
+            "description": "End-to-end encrypted shared lists. Groceries, potluck, tasks — no accounts needed, no tracking.",
+            "cta": "Try Listy"
+        },
+        "keepfocus": {
+            "tagline": "Focus with Pomodoro",
+            "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+            "cta": "Try KeepFocus"
+        },
+        "more": {
+            "cta": "Coming soon"
+        }
+    }
+}
