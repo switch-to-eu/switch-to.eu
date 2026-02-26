@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./[locale]/styles/globals.css";
 
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { getLocale } from "next-intl/server";

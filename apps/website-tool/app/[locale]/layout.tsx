@@ -1,12 +1,9 @@
-import "./styles/globals.css";
-
 import type { Metadata } from "next";
 import { Globe } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
-import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { Header } from "@switch-to-eu/blocks/components/header";
 import { Footer } from "@switch-to-eu/blocks/components/footer";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
@@ -52,89 +49,83 @@ export default async function LocaleLayout({
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang={locale}>
-      <body
-        className={`${fontVariables} antialiased min-h-screen flex flex-col`}
-      >
-        <NextIntlClientProvider>
-          <Header
-            useContainer={false}
-            containerClassName="container mx-auto px-4"
-            logo={
-              <Link href="/">
-                <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
-                  <div className="flex items-center justify-center mt-1">
-                    <Globe className="h-4 w-4 text-primary" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-black text-primary tracking-wide uppercase sm:text-xl leading-none">
-                      Website Tool
-                    </span>
-                    <BrandIndicator
-                      locale={locale}
-                      variant="compact"
-                      className="-mt-0.5"
-                      asSpan
-                    />
-                  </div>
-                </div>
-              </Link>
-            }
-            navigation={
-              <div className="flex items-center gap-2">
-                <LanguageSelector locale={locale} />
+    <NextIntlClientProvider>
+      <Header
+        useContainer={false}
+        containerClassName="container mx-auto px-4"
+        logo={
+          <Link href="/">
+            <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
+              <div className="flex items-center justify-center mt-1">
+                <Globe className="h-4 w-4 text-primary" />
               </div>
-            }
-            mobileNavigation={
-              <div className="flex items-center gap-2">
-                <LanguageSelector locale={locale} />
+              <div className="flex flex-col">
+                <span className="text-lg font-black text-primary tracking-wide uppercase sm:text-xl leading-none">
+                  Website Tool
+                </span>
+                <BrandIndicator
+                  locale={locale}
+                  variant="compact"
+                  className="-mt-0.5"
+                  asSpan
+                />
               </div>
-            }
-          />
-          <main className="flex-1">{children}</main>
-          <Footer
-            useContainer={false}
-            containerClassName="container mx-auto px-4"
-            links={[
-              {
-                label: footerT("privacy"),
-                href: "https://switch-to.eu/privacy",
-                external: true,
-              },
-              {
-                label: footerT("terms"),
-                href: "https://switch-to.eu/terms",
-                external: true,
-              },
-            ]}
-            copyright={
-              <>
-                &copy; {footerT("copyright", { year: String(currentYear) })}{" "}
-                <a
-                  href="https://www.vinnie.studio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-                >
-                  Studio Vinnie
-                </a>
-                {" & "}
-                <a
-                  href="https://www.mvpeters.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-                >
-                  MVPeters
-                </a>
-              </>
-            }
-            branding={
-              <BrandIndicator locale={locale} variant="compact" asSpan />
-            }
-          />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+            </div>
+          </Link>
+        }
+        navigation={
+          <div className="flex items-center gap-2">
+            <LanguageSelector locale={locale} />
+          </div>
+        }
+        mobileNavigation={
+          <div className="flex items-center gap-2">
+            <LanguageSelector locale={locale} />
+          </div>
+        }
+      />
+      <main className="flex-1">{children}</main>
+      <Footer
+        useContainer={false}
+        containerClassName="container mx-auto px-4"
+        links={[
+          {
+            label: footerT("privacy"),
+            href: "https://switch-to.eu/privacy",
+            external: true,
+          },
+          {
+            label: footerT("terms"),
+            href: "https://switch-to.eu/terms",
+            external: true,
+          },
+        ]}
+        copyright={
+          <>
+            &copy; {footerT("copyright", { year: String(currentYear) })}{" "}
+            <a
+              href="https://www.vinnie.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+            >
+              Studio Vinnie
+            </a>
+            {" & "}
+            <a
+              href="https://www.mvpeters.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+            >
+              MVPeters
+            </a>
+          </>
+        }
+        branding={
+          <BrandIndicator locale={locale} variant="compact" asSpan />
+        }
+      />
+    </NextIntlClientProvider>
   );
 }
