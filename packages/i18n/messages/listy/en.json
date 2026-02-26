@@ -50,11 +50,63 @@
     },
     "CreatePage": {
         "title": "Create a New List",
-        "placeholder": "List creation form coming soon..."
+        "subtitle": "Pick a type, give it a name, and share the link.",
+        "presetLabel": "What kind of list?",
+        "presets": {
+            "plain": {
+                "title": "Checklist",
+                "description": "A simple list with checkboxes"
+            },
+            "shopping": {
+                "title": "Shopping List",
+                "description": "Groceries and items to buy"
+            },
+            "potluck": {
+                "title": "Who Brings What",
+                "description": "Claim items for a gathering"
+            }
+        },
+        "titleLabel": "List Title",
+        "titlePlaceholder": "e.g. Weekend BBQ, Groceries, Camping trip",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Optional details about this list",
+        "optional": "optional",
+        "expirationLabel": "Auto-delete after",
+        "terms": "I understand that list data is encrypted and the link is the only way to access it. If I lose the link, the list cannot be recovered.",
+        "submit": "Create Private List",
+        "creating": "Creating...",
+        "success": "List created! Share the link with others.",
+        "error": "Failed to create list. Please try again."
     },
     "ListPage": {
-        "title": "Shared List",
-        "placeholder": "List view coming soon..."
+        "presets": {
+            "plain": "Checklist",
+            "shopping": "Shopping",
+            "potluck": "Potluck"
+        },
+        "progress": "{completed}/{total} done",
+        "addItemPlaceholder": "Add an item...",
+        "emptyList": "No items yet. Add your first item above!",
+        "claim": "Claim",
+        "claimPlaceholder": "Your name",
+        "claimedBy": "Claimed by {name}",
+        "copyShareLink": "Copy Share Link",
+        "deleteList": "Delete List",
+        "deleteConfirmTitle": "Delete this list?",
+        "deleteConfirmDescription": "This will permanently delete the list and all its items. This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirmDelete": "Delete",
+        "linkCopied": "Share link copied to clipboard!",
+        "deleteSuccess": "List deleted successfully.",
+        "missingKey": "Invalid Link",
+        "missingKeyDescription": "This link is missing the encryption key. Please ask the list creator for the correct link.",
+        "errorTitle": "Something went wrong",
+        "addItemError": "Failed to add item.",
+        "toggleError": "Failed to update item.",
+        "removeError": "Failed to remove item.",
+        "claimError": "Failed to claim item.",
+        "unclaimError": "Failed to unclaim item.",
+        "deleteError": "Failed to delete list."
     },
     "AdminPage": {
         "title": "List Admin",

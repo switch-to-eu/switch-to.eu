@@ -50,11 +50,63 @@
     },
     "CreatePage": {
         "title": "Maak een Nieuwe Lijst",
-        "placeholder": "Lijstformulier komt binnenkort..."
+        "subtitle": "Kies een type, geef het een naam en deel de link.",
+        "presetLabel": "Wat voor soort lijst?",
+        "presets": {
+            "plain": {
+                "title": "Checklist",
+                "description": "Een eenvoudige lijst met vakjes"
+            },
+            "shopping": {
+                "title": "Boodschappenlijst",
+                "description": "Boodschappen en items om te kopen"
+            },
+            "potluck": {
+                "title": "Wie Brengt Wat",
+                "description": "Claim items voor een bijeenkomst"
+            }
+        },
+        "titleLabel": "Lijsttitel",
+        "titlePlaceholder": "bijv. Weekend BBQ, Boodschappen, Kampeertrip",
+        "descriptionLabel": "Beschrijving",
+        "descriptionPlaceholder": "Optionele details over deze lijst",
+        "optional": "optioneel",
+        "expirationLabel": "Automatisch verwijderen na",
+        "terms": "Ik begrijp dat de lijstgegevens versleuteld zijn en de link de enige manier is om toegang te krijgen. Als ik de link kwijtraak, kan de lijst niet worden hersteld.",
+        "submit": "Maak Privé Lijst",
+        "creating": "Aanmaken...",
+        "success": "Lijst aangemaakt! Deel de link met anderen.",
+        "error": "Lijst aanmaken mislukt. Probeer het opnieuw."
     },
     "ListPage": {
-        "title": "Gedeelde Lijst",
-        "placeholder": "Lijstweergave komt binnenkort..."
+        "presets": {
+            "plain": "Checklist",
+            "shopping": "Boodschappen",
+            "potluck": "Wie-brengt-wat"
+        },
+        "progress": "{completed}/{total} klaar",
+        "addItemPlaceholder": "Voeg een item toe...",
+        "emptyList": "Nog geen items. Voeg hierboven je eerste item toe!",
+        "claim": "Claimen",
+        "claimPlaceholder": "Jouw naam",
+        "claimedBy": "Geclaimd door {name}",
+        "copyShareLink": "Kopieer Deellink",
+        "deleteList": "Lijst Verwijderen",
+        "deleteConfirmTitle": "Deze lijst verwijderen?",
+        "deleteConfirmDescription": "Dit verwijdert de lijst en alle items permanent. Deze actie kan niet ongedaan worden gemaakt.",
+        "cancel": "Annuleren",
+        "confirmDelete": "Verwijderen",
+        "linkCopied": "Deellink gekopieerd naar klembord!",
+        "deleteSuccess": "Lijst succesvol verwijderd.",
+        "missingKey": "Ongeldige Link",
+        "missingKeyDescription": "Deze link mist de versleutelingssleutel. Vraag de lijstmaker om de juiste link.",
+        "errorTitle": "Er ging iets mis",
+        "addItemError": "Item toevoegen mislukt.",
+        "toggleError": "Item bijwerken mislukt.",
+        "removeError": "Item verwijderen mislukt.",
+        "claimError": "Item claimen mislukt.",
+        "unclaimError": "Claim ongedaan maken mislukt.",
+        "deleteError": "Lijst verwijderen mislukt."
     },
     "AdminPage": {
         "title": "Lijst Beheer",
