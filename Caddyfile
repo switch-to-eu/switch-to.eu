@@ -1,0 +1,24 @@
+# Local development reverse proxy with HTTPS
+# Usage: pnpm dev:proxy (requires sudo for port 443)
+# One-time setup: sudo caddy trust (installs local CA)
+# Prereq: Add domains to /etc/hosts (see CLAUDE.md)
+
+{
+	local_certs
+}
+
+switch-to.test {
+	reverse_proxy localhost:5010
+}
+
+focus.switch-to.test {
+	reverse_proxy localhost:5011
+}
+
+poll.switch-to.test {
+	reverse_proxy localhost:5012
+}
+
+list.switch-to.test {
+	reverse_proxy localhost:5014
+}
