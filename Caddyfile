@@ -22,3 +22,7 @@ poll.switch-to.test {
 list.switch-to.test {
 	reverse_proxy localhost:5014
 }
+
+website.switch-to.test {
+	reverse_proxy localhost:5015
+}
