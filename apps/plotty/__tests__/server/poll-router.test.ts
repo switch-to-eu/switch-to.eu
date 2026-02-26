@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { MockRedis } from "../helpers/mock-redis";
+import { MockRedis } from "@switch-to-eu/db/mock-redis";
 import { hashAdminToken } from "@switch-to-eu/db/admin";
 
 // Shared mock instance — reset between tests

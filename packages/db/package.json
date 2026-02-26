@@ -20,6 +20,7 @@
         "./redis": "./src/redis.ts",
         "./crypto": "./src/crypto.ts",
         "./admin": "./src/admin.ts",
-        "./expiration": "./src/expiration.ts"
+        "./expiration": "./src/expiration.ts",
+        "./mock-redis": "./src/mock-redis.ts"
     }
 }

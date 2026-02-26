@@ -1,6 +1,7 @@
 /**
  * Lightweight in-memory mock for the `redis` v4 package.
- * Only implements the methods used by the poll router.
+ * Implements the subset of RedisClientType methods used by our tRPC routers.
+ * Use in vitest tests with vi.mock("@switch-to-eu/db/redis", ...).
  */
 export class MockRedis {
   private hashes = new Map<string, Record<string, string>>();
@@ -30,6 +31,18 @@ export class MockRedis {
     const members = Array.isArray(member) ? member : [member];
     for (const m of members) this.sets.get(key)!.add(m);
     return members.length;
+  }
+
+  async sRem(key: string, member: string | string[]) {
+    const set = this.sets.get(key);
+    if (!set) return 0;
+    const members = Array.isArray(member) ? member : [member];
+    let removed = 0;
+    for (const m of members) {
+      if (set.delete(m)) removed++;
+    }
+    if (set.size === 0) this.sets.delete(key);
+    return removed;
   }
 
   async expireAt(_key: string, _timestamp: number) {
