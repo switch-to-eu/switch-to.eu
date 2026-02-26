@@ -2,101 +2,100 @@
 
 A community-driven platform helping users switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.
 
-🌍 **Live Site**: [switch-to.eu](https://switch-to.eu)
+**Live Site**: [switch-to.eu](https://switch-to.eu)
 
-## 🚀 About the Project
+## About
 
 Switch-to.eu empowers users to regain digital sovereignty by providing:
 
-- **Migration Guides**: Step-by-step instructions to switch from non-EU services to EU alternatives
-- **EU Alternative Listings**: Comprehensive database of EU digital services by category
-- **Community Contributions**: GitHub-based collaboration for content improvement and expansion
+- **Migration Guides** — step-by-step instructions to switch from non-EU services to EU alternatives
+- **EU Alternative Listings** — comprehensive database of EU digital services by category
+- **Community Contributions** — GitHub-based collaboration for content improvement and expansion
 
-## 📚 Project Structure
+## Monorepo Structure
+
+This is a **pnpm workspace** monorepo orchestrated by **Turborepo**.
 
 ```
-/
-├── app/            # Next.js App Router directory
-│   ├── about/          # About page
-│   ├── api/            # API endpoints
-│   ├── contribute/     # Contribution pages
-│   ├── guides/         # Guide pages
-│   ├── search/         # Search functionality
-│   └── services/       # Service pages
-├── components/     # Reusable UI components
-├── content/        # Content in MDX format -> sub git module
-│   ├── categories/     # Category definitions and metadata
-│   ├── guides/         # Migration guide content
-│   ├── services/       # Service definitions and metadata
-│   └── templates/      # Templates for new content creation
-├── lib/            # Utility functions and content handling
-├── public/         # Static assets
-└── types/          # TypeScript type definitions
+apps/
+  website/          # Main switch-to.eu site
+  keepfocus/        # Pomodoro timer app
+  plotty/           # Privacy-focused poll/voting app (tRPC + Redis)
+  listy/            # Collaborative list/ranking tool (tRPC + Redis)
+  website-tool/     # Website analyzer tool
+
+packages/
+  ui/               # Shared UI components (shadcn/ui, Radix primitives)
+  i18n/             # Shared i18n (next-intl v4, locales: en, nl)
+  blocks/           # Page-level shared components (Header, Footer)
+  content/          # Content system (Markdown, Zod schemas, Fuse.js search)
+  trpc/             # Shared tRPC v11 infrastructure
+  db/               # Shared database utilities (Redis)
+  eslint-config/    # Shared ESLint 9 flat configs
+  typescript-config/ # Shared tsconfig bases
 ```
 
-## 🛠️ Tech Stack
+All internal packages use the `@switch-to-eu/` scope.
 
-- **Frontend**: Next.js 15.2.3 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4 with typography plugin
-- **Content**: MDX with next-mdx-remote and gray-matter
-- **Components**: Custom components with Radix UI primitives
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS
+- **Components**: shadcn/ui + Radix UI primitives
+- **API**: tRPC v11 (plotty, listy)
+- **Data**: Redis (via Upstash)
+- **i18n**: next-intl v4 (en, nl)
+- **Content**: Markdown with frontmatter (git submodule)
 - **Deployment**: Vercel
 
-## 🤝 How to Contribute
+## Local Development
 
-We welcome contributions from the community! Here's how you can help:
+```bash
+# Clone the repository (with content submodule)
+git clone https://github.com/switch-to-eu/switch-to.eu.git
+cd switch-to.eu
+git submodule update --init
 
-### Development Contributions
+# Install dependencies
+pnpm install
 
-1. **Bug Fixes**: Help us fix issues and improve the platform
-2. **Feature Enhancements**: Implement planned features or suggest new ones
-3. **UI Improvements**: Enhance the user interface and experience
+# Start all dev servers
+pnpm dev
 
-### Getting Started
+# Or run a specific app
+pnpm --filter website dev
+pnpm --filter @switch-to-eu/keepfocus dev
+pnpm --filter @switch-to-eu/plotty dev
+```
+
+## Build & Test
+
+```bash
+pnpm build             # Build all apps/packages
+pnpm lint              # Lint all apps/packages
+
+# E2E smoke tests
+pnpm --filter website test:e2e
+
+# Unit tests (keepfocus)
+pnpm --filter @switch-to-eu/keepfocus test
+```
+
+## Contributing
+
+We welcome contributions! See our [Contribution Guidelines](./CONTRIBUTING.md) for details.
 
 1. Fork the repository
 2. Clone your fork and create a new branch
 3. Make your changes
-4. Submit a pull request with a clear description of your changes
+4. Submit a pull request with a clear description
 
-See our [Contribution Guidelines](./CONTRIBUTING.md) for more details.
-
-## 🚀 Local Development
-
-```bash
-# Clone the repository
-git clone https://github.com/switch-to-eu/switch-to.eu.git
-cd switch-to.eu
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
-
-## 🐳 Using Docker
-
-```bash
-# Install Docker on your machine
-# Visit https://docs.docker.com/get-docker/ for installation instructions
-
-# Build your container
-docker build -t nextjs-docker .
-
-# Run your container
-docker run -p 3000:3000 nextjs-docker
-
-# You can view your images created with
-docker images
-```
-
-## 🙏 Acknowledgements
+## Acknowledgements
 
 - All contributors who have helped build this platform
 - The EU digital services that provide alternatives to non-EU services
 - The open-source community for the tools and libraries used in this project
-- See [CREDITS.md](./CREDITS.md) for detailed attribution of fonts and other resources used in this project
+- See [CREDITS.md](./CREDITS.md) for detailed attribution of fonts and other resources
 
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/switch-to-eu/switch-to.eu?utm_source=oss&utm_medium=github&utm_campaign=switch-to-eu%2Fswitch-to.eu&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)

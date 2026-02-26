@@ -1,81 +1,97 @@
-# @workspace/trpc
+# @switch-to-eu/trpc
 
-Shared tRPC utilities for consistent configuration across all apps in the monorepo.
+Shared tRPC v11 infrastructure for consistent configuration across all apps in the monorepo.
 
 ## Exports
 
-### `@workspace/trpc/query-client`
+### `@switch-to-eu/trpc/init`
 
-Shared React Query client configuration with SuperJSON serialization.
+Initializes tRPC with SuperJSON transformer, Zod error formatting (dev only), and SSE support.
 
 ```typescript
-import { createQueryClient } from "@workspace/trpc/query-client";
+import { createTRPCInit } from "@switch-to-eu/trpc/init";
+
+const t = createTRPCInit(createTRPCContext);
 ```
 
-### `@workspace/trpc/init`
+### `@switch-to-eu/trpc/middleware`
 
-Utility for initializing tRPC with consistent settings (SuperJSON, Zod error handling, SSE).
+Reusable middleware exposed as tRPC procedures. Apps compose them via `.concat()` for full type safety — no `any` types needed.
 
 ```typescript
-import { createTRPCInit } from "@workspace/trpc/init";
+import { timingProcedure, createRateLimitProcedure } from "@switch-to-eu/trpc/middleware";
 
-const t = createTRPCInit(createTRPCContext, {
-  enableSSE: true, // optional, defaults to true
-});
+export const publicProcedure = t.procedure
+  .concat(timingProcedure)
+  .concat(
+    createRateLimitProcedure({
+      prefix: "myapp",
+      windowMs: 60_000,
+      maxRequests: 30,
+    }),
+  );
 ```
 
-### `@workspace/trpc/middleware`
+- **`timingProcedure`** — adds 100-400ms artificial delay in development to surface waterfalls.
+- **`createRateLimitProcedure`** — Redis sliding window rate limiter per IP. Requires `headers` and `redis` in the app's tRPC context.
 
-Reusable timing middleware that adds development delays and logs execution time.
+### `@switch-to-eu/trpc/query-client`
+
+Shared React Query client with SuperJSON serialization and 30s SSR stale time.
 
 ```typescript
-import { createTimingMiddleware } from "@workspace/trpc/middleware";
-
-const timingMiddleware = createTimingMiddleware(t);
-const publicProcedure = t.procedure.use(timingMiddleware);
+import { createQueryClient } from "@switch-to-eu/trpc/query-client";
 ```
 
-### `@workspace/trpc/server`
+### `@switch-to-eu/trpc/react`
 
-Server context utility for React Server Components with standardized headers.
+Client-side utilities: `getQueryClient` (singleton), `getBaseUrl` (auto-detects localhost/Vercel), and re-exports `createTRPCReact`.
 
 ```typescript
-import { createServerContext } from "@workspace/trpc/server";
+import { createTRPCReact, getBaseUrl, getQueryClient } from "@switch-to-eu/trpc/react";
+```
+
+### `@switch-to-eu/trpc/server`
+
+Server context factory for React Server Components. Wraps your app's `createTRPCContext` with `cache()` and sets the `x-trpc-source: rsc` header.
+
+```typescript
+import { createServerContext } from "@switch-to-eu/trpc/server";
 
 const createContext = createServerContext(createTRPCContext);
 ```
 
-## Usage Example
+## Usage
 
-Here's how to use these utilities in your app's `server/api/trpc.ts`:
+### `server/api/trpc.ts`
 
 ```typescript
-import { createTRPCInit } from "@workspace/trpc/init";
-import { createTimingMiddleware } from "@workspace/trpc/middleware";
-import { db } from "@/server/db";
+import { createTRPCInit } from "@switch-to-eu/trpc/init";
+import { timingProcedure, createRateLimitProcedure } from "@switch-to-eu/trpc/middleware";
+import { getRedis } from "@switch-to-eu/db/redis";
 
-// 1. Create your context
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  return {
-    db,
-    ...opts,
-  };
+  const redis = await getRedis();
+  return { redis, ...opts };
 };
 
-// 2. Initialize tRPC with shared configuration
-const t = createTRPCInit(createTRPCContext, {
-  enableSSE: true,
-});
+const t = createTRPCInit(createTRPCContext);
 
-// 3. Create router and middleware
-export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
+export const createTRPCRouter = t.router;
 
-const timingMiddleware = createTimingMiddleware(t);
-export const publicProcedure = t.procedure.use(timingMiddleware);
+export const publicProcedure = t.procedure
+  .concat(timingProcedure)
+  .concat(
+    createRateLimitProcedure({
+      prefix: "myapp",
+      windowMs: 60_000,
+      maxRequests: 30,
+    }),
+  );
 ```
 
-And in your `server/api/trpc-server.ts`:
+### `server/api/trpc-server.ts`
 
 ```typescript
 import "server-only";
@@ -84,32 +100,13 @@ import { cache } from "react";
 
 import { createCaller, type AppRouter } from "@/server/api/root";
 import { createTRPCContext } from "@/server/api/trpc";
-import { createQueryClient } from "@workspace/trpc/query-client";
-import { createServerContext } from "@workspace/trpc/server";
+import { createQueryClient } from "@switch-to-eu/trpc/query-client";
+import { createServerContext } from "@switch-to-eu/trpc/server";
 
 const createContext = createServerContext(createTRPCContext);
 const getQueryClient = cache(createQueryClient);
 const caller = createCaller(createContext);
 
-export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
-  caller,
-  getQueryClient
-);
+export const { trpc: api, HydrateClient } =
+  createHydrationHelpers<AppRouter>(caller, getQueryClient);
 ```
-
-## Benefits
-
-- **Consistency**: All apps use the same tRPC configuration
-- **DRY**: No code duplication across apps
-- **Maintainability**: Updates to shared utilities affect all apps
-- **Type Safety**: Full TypeScript support
-- **Flexibility**: Apps can still customize as needed
-
-## Migration
-
-To migrate existing apps:
-
-1. Replace `initTRPC` usage with `createTRPCInit`
-2. Replace manual timing middleware with `createTimingMiddleware`
-3. Replace manual context creation with `createServerContext`
-4. Update imports to use the shared utilities
