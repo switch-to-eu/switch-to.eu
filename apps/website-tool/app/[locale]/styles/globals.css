@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-hanken-grotesk);
+  --font-heading: var(--font-bricolage-grotesque);
+  --font-bold: var(--font-hanken-grotesk-bold);
+  --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
+  --font-italic: var(--font-hanken-grotesk-italic);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #fefbf9;
+  --foreground: #383838;
+
+  --card: #ffffff;
+  --card-foreground: #1a3c5a;
+
+  --popover: #ffffff;
+  --popover-foreground: #1a3c5a;
+
+  --primary: #1a3c5a;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #1a3c5a;
+
+  --muted: #f8f9fa;
+  --muted-foreground: #334155;
+  --accent: #ffffff;
+  --accent-foreground: #1a3c5a;
+  --destructive: #ff4a4a;
+
+  --border: #e5e7eb;
+  --input: #ffffff;
+  --ring: #1a3c5a;
+  --green: #a2d4a8;
+  --green-bg: #e8fff5;
+  --blue: #3ea6e3;
+  --blue-bg: #cce6f4;
+  --yellow: #f7df8f;
+
+  --feature-blue-bg: #e9f4fd;
+  --feature-pink-bg: #ffeae5;
+  --feature-green-bg: #e8f7ed;
+  --feature-icon-color: #1b456b;
+  --cta-button: #feb5a7;
+  --cta-button-hover: #ff8a74;
+
+  --chart-1: #1b456b;
+  --chart-2: #76c5f6;
+  --chart-3: #c1e1b8;
+  --chart-4: #ff9d8a;
+  --chart-5: #5694b8;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a3c5a;
+  --sidebar-primary: #1a3c5a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f8f9fa;
+  --sidebar-accent-foreground: #1a3c5a;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #1a3c5a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-family: var(--font-hanken-grotesk);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
+  }
+
+  h1.font-bold,
+  h2.font-bold,
+  h3.font-bold,
+  h4.font-bold,
+  h5.font-bold,
+  h6.font-bold {
+    font-family: var(--font-bricolage-grotesque);
+    font-weight: 800;
+  }
+
+  p {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 400;
+  }
+
+  strong,
+  b {
+    font-family: var(--font-hanken-grotesk-bold);
+    font-weight: 700;
+  }
+
+  button,
+  .btn {
+    @apply rounded-xl font-medium transition-colors;
+  }
+
+  input,
+  select,
+  textarea {
+    @apply rounded-xl border-[#e5e7eb];
+  }
+}

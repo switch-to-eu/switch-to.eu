@@ -1,0 +1,50 @@
+{
+    "name": "@switch-to-eu/website-tool",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "next build",
+        "dev": "next dev --turbo",
+        "start": "next start",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "catalog:",
+        "@layered/dns-records": "^2.3.0",
+        "@switch-to-eu/blocks": "workspace:*",
+        "@switch-to-eu/i18n": "workspace:*",
+        "@switch-to-eu/ui": "workspace:*",
+        "@tailwindcss/typography": "catalog:",
+        "class-variance-authority": "catalog:",
+        "clsx": "catalog:",
+        "lucide-react": "catalog:",
+        "next": "catalog:",
+        "next-intl": "catalog:",
+        "react": "catalog:",
+        "react-country-flag": "^3.1.0",
+        "react-dom": "catalog:",
+        "react-hook-form": "catalog:",
+        "redis": "^4.7.0",
+        "tailwind-merge": "catalog:",
+        "whoiser": "^2.0.0-beta.5",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3.3.1",
+        "@switch-to-eu/eslint-config": "workspace:*",
+        "@switch-to-eu/typescript-config": "workspace:*",
+        "@tailwindcss/postcss": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "eslint": "catalog:",
+        "eslint-config-next": "^15.3.3",
+        "postcss": "^8.5.3",
+        "tailwindcss": "catalog:",
+        "tw-animate-css": "^1.2.8",
+        "typescript": "catalog:"
+    }
+}
