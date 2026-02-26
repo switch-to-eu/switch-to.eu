@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { api } from "@/lib/trpc-client";
 import { encryptData, decryptData } from "@switch-to-eu/db/crypto";
-import type { DecryptedListData, DecryptedItemData } from "@/lib/types";
+import type { DecryptedListData, DecryptedItemData, ListSettings } from "@/lib/types";
 
 export interface DecryptedItem {
   id: string;
@@ -20,6 +20,7 @@ export interface DecryptedList {
   id: string;
   title: string;
   description?: string;
+  settings?: ListSettings;
   preset: string;
   createdAt: string;
   expiresAt: string;
@@ -29,9 +30,10 @@ export interface DecryptedList {
 
 interface UseListOptions {
   listId: string;
+  adminToken?: string;
 }
 
-export function useList({ listId }: UseListOptions) {
+export function useList({ listId, adminToken }: UseListOptions) {
   const [encryptionKey, setEncryptionKey] = useState("");
   const [missingKey, setMissingKey] = useState(false);
   const [decryptedList, setDecryptedList] = useState<DecryptedList | null>(null);
@@ -119,6 +121,7 @@ export function useList({ listId }: UseListOptions) {
           id: subscriptionData.list.id,
           title: listData.title,
           description: listData.description,
+          settings: listData.settings,
           preset: subscriptionData.list.preset,
           createdAt: subscriptionData.list.createdAt,
           expiresAt: subscriptionData.list.expiresAt,
@@ -140,6 +143,7 @@ export function useList({ listId }: UseListOptions) {
   const toggleItemMutation = api.list.toggleItem.useMutation();
   const removeItemMutation = api.list.removeItem.useMutation();
   const updateItemMutation = api.list.updateItem.useMutation();
+  const updateListMutation = api.list.updateList.useMutation();
   const deleteListMutation = api.list.delete.useMutation();
 
   // --- Optimistic update helpers ---
@@ -289,9 +293,84 @@ export function useList({ listId }: UseListOptions) {
     [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
   );
 
+  const moveItemToCategory = useCallback(
+    async (itemId: string, newCategory: string) => {
+      if (!encryptionKey || !decryptedList) return;
+      const item = decryptedList.items.find((i) => i.id === itemId);
+      if (!item) return;
+      if (item.category === newCategory) return;
+
+      // Optimistic: move item to new category immediately
+      const previousCategory = item.category;
+      updateItem(itemId, (i) => ({ ...i, category: newCategory }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, claimedBy: item.claimedBy, category: newCategory };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, category: previousCategory }));
+        throw error;
+      }
+    },
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
+  );
+
+  const updateListData = useCallback(
+    async (newListData: DecryptedListData) => {
+      if (!encryptionKey || !adminToken || !decryptedList) return;
+
+      // Stash previous state for rollback
+      const previousTitle = decryptedList.title;
+      const previousDescription = decryptedList.description;
+      const previousSettings = decryptedList.settings;
+
+      // Optimistic: update local state immediately
+      setDecryptedList((prev) =>
+        prev
+          ? {
+              ...prev,
+              title: newListData.title,
+              description: newListData.description,
+              settings: newListData.settings,
+            }
+          : null,
+      );
+
+      try {
+        const encryptedData = await encryptData(newListData, encryptionKey);
+        return await updateListMutation.mutateAsync({
+          id: listId,
+          adminToken,
+          encryptedData,
+        });
+      } catch (error) {
+        // Rollback
+        setDecryptedList((prev) =>
+          prev
+            ? {
+                ...prev,
+                title: previousTitle,
+                description: previousDescription,
+                settings: previousSettings,
+              }
+            : null,
+        );
+        throw error;
+      }
+    },
+    [encryptionKey, adminToken, listId, decryptedList, updateListMutation],
+  );
+
   const deleteList = useCallback(
-    async (adminToken: string) => {
-      return deleteListMutation.mutateAsync({ id: listId, adminToken });
+    async (token: string) => {
+      return deleteListMutation.mutateAsync({ id: listId, adminToken: token });
     },
     [listId, deleteListMutation],
   );
@@ -301,6 +380,7 @@ export function useList({ listId }: UseListOptions) {
     toggleItemMutation.isPending ||
     removeItemMutation.isPending ||
     updateItemMutation.isPending ||
+    updateListMutation.isPending ||
     deleteListMutation.isPending;
 
   const error = useMemo(() => {
@@ -321,6 +401,8 @@ export function useList({ listId }: UseListOptions) {
     removeItem,
     claimItem,
     unclaimItem,
+    moveItemToCategory,
+    updateListData,
     deleteList,
   };
 }

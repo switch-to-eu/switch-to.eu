@@ -123,7 +123,17 @@
         "removeError": "Item verwijderen mislukt.",
         "claimError": "Item claimen mislukt.",
         "unclaimError": "Claim ongedaan maken mislukt.",
-        "deleteError": "Lijst verwijderen mislukt."
+        "moveError": "Item verplaatsen mislukt.",
+        "deleteError": "Lijst verwijderen mislukt.",
+        "settings": {
+            "title": "Instellingen",
+            "presetLabel": "Lijsttype",
+            "enableCategories": "Categorieën inschakelen",
+            "enableClaims": "Items claimen inschakelen",
+            "categoriesTitle": "Categorieën",
+            "addCategory": "Categorie toevoegen...",
+            "updateError": "Instellingen bijwerken mislukt."
+        }
     },
     "AdminPage": {
         "title": "Lijst Beheer",

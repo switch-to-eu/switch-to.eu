@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Checkbox } from "@switch-to-eu/ui/components/checkbox";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Badge } from "@switch-to-eu/ui/components/badge";
-import { Trash2, Hand, X } from "lucide-react";
+import { Trash2, Hand, X, GripVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@switch-to-eu/ui/lib/utils";
+import type { DraggableAttributes, DraggableSyntheticListeners } from "@dnd-kit/core";
 import type { DecryptedItem } from "@hooks/use-list";
 
 interface ListItemProps {
@@ -17,6 +18,11 @@ interface ListItemProps {
   onRemove: (itemId: string) => Promise<void>;
   onClaim?: (itemId: string) => void;
   onUnclaim?: (itemId: string) => Promise<void>;
+  dragHandleProps?: {
+    attributes: DraggableAttributes;
+    listeners: DraggableSyntheticListeners;
+  };
+  isDragging?: boolean;
 }
 
 export function ListItem({
@@ -27,11 +33,13 @@ export function ListItem({
   onRemove,
   onClaim,
   onUnclaim,
+  dragHandleProps,
+  isDragging,
 }: ListItemProps) {
   const t = useTranslations("ListPage");
   const [isToggling, setIsToggling] = useState(false);
 
-  const isPotluck = preset === "potluck";
+  const showClaims = !!(onClaim || onUnclaim);
 
   const handleToggle = async () => {
     setIsToggling(true);
@@ -54,13 +62,25 @@ export function ListItem({
         compact
           ? cn("px-3 py-2.5", item.completed && "bg-teal-50/30")
           : cn("rounded-lg border bg-white p-3", item.completed && "bg-teal-50/50 border-teal-200/60"),
+        isDragging && "opacity-50",
       )}
     >
+      {dragHandleProps && (
+        <button
+          type="button"
+          className="shrink-0 touch-none text-neutral-300 hover:text-neutral-500 cursor-grab active:cursor-grabbing"
+          {...dragHandleProps.attributes}
+          {...dragHandleProps.listeners}
+        >
+          <GripVertical className="h-4 w-4" />
+        </button>
+      )}
+
       <Checkbox
         checked={item.completed}
         onCheckedChange={() => handleToggle()}
         disabled={isToggling}
-        className="shrink-0 size-5 rounded-md transition-colors duration-150 data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600"
+        className="shrink-0 size-5 rounded-md border-2 border-neutral-300 transition-colors duration-150 data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600"
       />
 
       <div className="flex-1 min-w-0">
@@ -73,7 +93,7 @@ export function ListItem({
           {item.text}
         </span>
 
-        {isPotluck && item.claimedBy && (
+        {showClaims && item.claimedBy && (
           <Badge variant="secondary" className="mt-1 text-xs">
             {t("claimedBy", { name: item.claimedBy })}
           </Badge>
@@ -81,7 +101,7 @@ export function ListItem({
       </div>
 
       <div className="flex items-center gap-1 shrink-0">
-        {isPotluck && !item.completed && (
+        {showClaims && !item.completed && (
           <>
             {item.claimedBy ? (
               <Button

@@ -1,80 +1,144 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
-import { SHOPPING_CATEGORIES, DEFAULT_CATEGORY } from "@/lib/categories";
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  useDroppable,
+  useDraggable,
+  type DragStartEvent,
+  type DragEndEvent,
+  type DraggableAttributes,
+  type DraggableSyntheticListeners,
+} from "@dnd-kit/core";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import { ListItem } from "@components/list-item";
 import type { DecryptedItem } from "@hooks/use-list";
+import type { CustomCategory } from "@/lib/types";
 
 interface CategorySectionsProps {
   items: DecryptedItem[];
+  categories: CustomCategory[];
   preset: string;
   onToggle: (itemId: string, completed: boolean) => Promise<void>;
   onRemove: (itemId: string) => Promise<void>;
   onAdd: (text: string, category: string) => Promise<void>;
+  onMoveToCategory: (itemId: string, newCategory: string) => Promise<void>;
+  onClaim?: (itemId: string) => void;
+  onUnclaim?: (itemId: string) => Promise<void>;
+  enableClaims?: boolean;
   isMutating: boolean;
 }
 
 export function CategorySections({
   items,
+  categories,
   preset,
   onToggle,
   onRemove,
   onAdd,
+  onMoveToCategory,
+  onClaim,
+  onUnclaim,
+  enableClaims,
   isMutating,
 }: CategorySectionsProps) {
-  const t = useTranslations("ListPage");
+  const [activeItem, setActiveItem] = useState<DecryptedItem | null>(null);
+
+  const fallbackCategory = categories[categories.length - 1]?.id ?? "other";
 
   const grouped = useMemo(() => {
+    const categoryIds = new Set(categories.map((c) => c.id));
     const map = new Map<string, DecryptedItem[]>();
     for (const item of items) {
-      const cat = item.category || DEFAULT_CATEGORY;
+      const cat = item.category && categoryIds.has(item.category)
+        ? item.category
+        : fallbackCategory;
       const arr = map.get(cat) || [];
       arr.push(item);
       map.set(cat, arr);
     }
     return map;
-  }, [items]);
+  }, [items, categories, fallbackCategory]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 },
+    }),
+  );
+
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const item = items.find((i) => i.id === event.active.id);
+      setActiveItem(item ?? null);
+    },
+    [items],
+  );
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      setActiveItem(null);
+      const { active, over } = event;
+      if (!over) return;
+
+      const targetCategory = over.id as string;
+      const itemId = active.id as string;
+      const sourceCategory =
+        (active.data.current as { category?: string })?.category ||
+        fallbackCategory;
+
+      if (targetCategory !== sourceCategory) {
+        void onMoveToCategory(itemId, targetCategory);
+      }
+    },
+    [onMoveToCategory, fallbackCategory],
+  );
 
   return (
-    <div className="space-y-1.5">
-      {SHOPPING_CATEGORIES.map((cat) => {
-        const catItems = grouped.get(cat);
-        const label = t(`categories.${cat}` as Parameters<typeof t>[0]);
-
-        if (catItems && catItems.length > 0) {
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <div className="space-y-1.5">
+        {categories.map((cat) => {
+          const catItems = grouped.get(cat.id) || [];
           return (
-            <PopulatedCategory
-              key={cat}
-              category={cat}
-              label={label}
+            <CategoryCard
+              key={cat.id}
+              category={cat.id}
+              label={cat.label}
               items={catItems}
               preset={preset}
               onToggle={onToggle}
               onRemove={onRemove}
               onAdd={onAdd}
+              onClaim={enableClaims ? onClaim : undefined}
+              onUnclaim={enableClaims ? onUnclaim : undefined}
               isMutating={isMutating}
             />
           );
-        }
+        })}
+      </div>
 
-        return (
-          <EmptyCategory
-            key={cat}
-            category={cat}
-            label={label}
-            onAdd={onAdd}
-            isMutating={isMutating}
-          />
-        );
-      })}
-    </div>
+      <DragOverlay>
+        {activeItem ? (
+          <div className="rounded-lg border bg-white shadow-lg p-3 opacity-90">
+            <span className="text-sm">{activeItem.text}</span>
+          </div>
+        ) : null}
+      </DragOverlay>
+    </DndContext>
   );
 }
 
-/** Category card with items and an inline add input at the bottom. */
-function PopulatedCategory({
+/** Unified category card — always shows header + inline add input. Droppable zone. */
+function CategoryCard({
   category,
   label,
   items,
@@ -82,6 +146,8 @@ function PopulatedCategory({
   onToggle,
   onRemove,
   onAdd,
+  onClaim,
+  onUnclaim,
   isMutating,
 }: {
   category: string;
@@ -91,118 +157,108 @@ function PopulatedCategory({
   onToggle: (itemId: string, completed: boolean) => Promise<void>;
   onRemove: (itemId: string) => Promise<void>;
   onAdd: (text: string, category: string) => Promise<void>;
+  onClaim?: (itemId: string) => void;
+  onUnclaim?: (itemId: string) => Promise<void>;
   isMutating: boolean;
 }) {
   const t = useTranslations("ListPage");
+  const { setNodeRef, isOver } = useDroppable({ id: category });
   const completedCount = items.filter((i) => i.completed).length;
+  const hasItems = items.length > 0;
 
   return (
-    <div className="rounded-lg border bg-white overflow-hidden">
+    <div
+      ref={setNodeRef}
+      className={cn(
+        "rounded-lg border bg-white overflow-hidden transition-colors",
+        isOver && "border-teal-400 bg-teal-50/30",
+      )}
+    >
       <div className="flex items-center justify-between px-3 py-2 bg-neutral-50/80">
         <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">
           {label}
         </h3>
-        <span className="text-xs text-neutral-400">
-          {completedCount}/{items.length}
-        </span>
+        {hasItems && (
+          <span className="text-xs text-neutral-400">
+            {completedCount}/{items.length}
+          </span>
+        )}
       </div>
-      <div className="divide-y divide-neutral-100">
-        {items.map((item) => (
-          <ListItem
-            key={item.id}
-            item={item}
-            preset={preset}
-            compact
-            onToggle={onToggle}
-            onRemove={onRemove}
-          />
-        ))}
-      </div>
+
+      {hasItems && (
+        <div className="divide-y divide-neutral-100">
+          {items.map((item) => (
+            <DraggableItem key={item.id} item={item} category={category}>
+              {(dragHandleProps, isDragging) => (
+                <ListItem
+                  item={item}
+                  preset={preset}
+                  compact
+                  onToggle={onToggle}
+                  onRemove={onRemove}
+                  onClaim={onClaim}
+                  onUnclaim={onUnclaim}
+                  dragHandleProps={dragHandleProps}
+                  isDragging={isDragging}
+                />
+              )}
+            </DraggableItem>
+          ))}
+        </div>
+      )}
+
       <InlineAddInput
         category={category}
         onAdd={onAdd}
         isMutating={isMutating}
         placeholder={t("addItemPlaceholder")}
+        hasItems={hasItems}
       />
     </div>
   );
 }
 
-/** Collapsed row for an empty category — expands to a card with an add input on click. */
-function EmptyCategory({
+/** Render-prop wrapper that makes a list item draggable without coupling ListItem to dnd-kit. */
+function DraggableItem({
+  item,
   category,
-  label,
-  onAdd,
-  isMutating,
+  children,
 }: {
+  item: DecryptedItem;
   category: string;
-  label: string;
-  onAdd: (text: string, category: string) => Promise<void>;
-  isMutating: boolean;
+  children: (
+    dragHandleProps: {
+      attributes: DraggableAttributes;
+      listeners: DraggableSyntheticListeners;
+    },
+    isDragging: boolean,
+  ) => React.ReactNode;
 }) {
-  const t = useTranslations("ListPage");
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [text, setText] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!text.trim() || isMutating) return;
-    await onAdd(text.trim(), category);
-    setText("");
-  };
-
-  if (!isExpanded) {
-    return (
-      <button
-        type="button"
-        onClick={() => setIsExpanded(true)}
-        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100/50 transition-colors"
-      >
-        <Plus className="h-3.5 w-3.5" />
-        <span className="font-medium">{label}</span>
-      </button>
-    );
-  }
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: item.id,
+    data: { category },
+  });
 
   return (
-    <div className="rounded-lg border bg-white overflow-hidden">
-      <div className="px-3 py-2 bg-neutral-50/80">
-        <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">
-          {label}
-        </h3>
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center gap-2 px-3 py-2.5"
-      >
-        <Plus className="h-4 w-4 text-neutral-300 shrink-0" />
-        <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={t("addItemPlaceholder")}
-          maxLength={500}
-          autoFocus
-          className="flex-1 text-sm bg-transparent outline-none placeholder:text-neutral-300"
-          onBlur={() => {
-            if (!text.trim()) setIsExpanded(false);
-          }}
-        />
-      </form>
+    <div ref={setNodeRef}>
+      {children({ attributes, listeners }, isDragging)}
     </div>
   );
 }
 
-/** Minimal inline input for adding items inside a populated category card. */
+/** Minimal inline input for adding items. Always visible in every category card. */
 function InlineAddInput({
   category,
   onAdd,
   isMutating,
   placeholder,
+  hasItems,
 }: {
   category: string;
   onAdd: (text: string, category: string) => Promise<void>;
   isMutating: boolean;
   placeholder: string;
+  hasItems: boolean;
 }) {
   const [text, setText] = useState("");
 
@@ -216,7 +272,10 @@ function InlineAddInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 px-3 py-2.5 border-t border-neutral-100"
+      className={cn(
+        "flex items-center gap-2 px-3 py-2.5",
+        hasItems && "border-t border-neutral-100",
+      )}
     >
       <Plus className="h-4 w-4 text-neutral-300 shrink-0" />
       <input

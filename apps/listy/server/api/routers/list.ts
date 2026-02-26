@@ -139,6 +139,12 @@ const removeItemInput = z.object({
   itemId: itemIdSchema,
 });
 
+const updateListInput = z.object({
+  id: listIdSchema,
+  adminToken: z.string().min(1),
+  encryptedData: z.string().min(1).max(MAX_ENCRYPTED_DATA_SIZE),
+});
+
 const deleteListInput = z.object({
   id: listIdSchema,
   adminToken: z.string().min(1),
@@ -336,6 +342,38 @@ export const listRouter = createTRPCRouter({
       await publishListUpdate(ctx.redis, input.listId);
 
       return { message: "Item removed" };
+    }),
+
+  updateList: publicProcedure
+    .input(updateListInput)
+    .mutation(async ({ ctx, input }) => {
+      const list = await getValidList(ctx.redis, input.id);
+
+      if (!verifyAdminToken(input.adminToken, list.adminToken)) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "List not found or invalid admin token",
+        });
+      }
+
+      const currentVersion = parseInt(list.version, 10) || 1;
+      const newVersion = currentVersion + 1;
+
+      await ctx.redis.hSet(`list:${input.id}`, {
+        encryptedData: input.encryptedData,
+        version: String(newVersion),
+      });
+
+      await publishListUpdate(ctx.redis, input.id);
+
+      return {
+        id: input.id,
+        encryptedData: input.encryptedData,
+        preset: list.preset,
+        createdAt: list.createdAt,
+        expiresAt: list.expiresAt,
+        version: newVersion,
+      } satisfies ListResponse;
     }),
 
   delete: publicProcedure

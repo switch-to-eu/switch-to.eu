@@ -1,8 +1,20 @@
 // --- Client-side (decrypted) types ---
 
+export interface CustomCategory {
+  id: string; // stable identifier (preset key or nanoid)
+  label: string; // display name
+}
+
+export interface ListSettings {
+  enableCategories: boolean;
+  enableClaims: boolean;
+  categories?: CustomCategory[]; // present when enableCategories is true
+}
+
 export interface DecryptedListData {
   title: string;
   description?: string;
+  settings?: ListSettings; // undefined = derive from preset (backward compat)
 }
 
 export interface DecryptedItemData {

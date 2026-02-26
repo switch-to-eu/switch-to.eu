@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Trash2, Loader2, AlertTriangle, LinkIcon, Pencil } from "lucide-react";
+import { Plus, Trash2, Loader2, AlertTriangle, LinkIcon, Pencil, Settings } from "lucide-react";
 
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -30,7 +30,10 @@ import { Badge } from "@switch-to-eu/ui/components/badge";
 import { useList } from "@hooks/use-list";
 import { ListItem } from "@components/list-item";
 import { CategorySections } from "@components/category-sections";
+import { AdminSettings } from "@components/admin-settings";
 import { parseAdminFragment } from "@switch-to-eu/db/admin";
+import { getListSettings, getDefaultCategories, SHOPPING_CATEGORIES } from "@/lib/categories";
+import type { DecryptedListData } from "@/lib/types";
 
 interface ListViewProps {
   listId: string;
@@ -44,6 +47,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
   const [adminToken, setAdminToken] = useState("");
   const [newItemText, setNewItemText] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [claimName, setClaimName] = useState("");
   const [nameInput, setNameInput] = useState("");
   const [showNameDialog, setShowNameDialog] = useState(false);
@@ -77,8 +81,29 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     removeItem,
     claimItem,
     unclaimItem,
+    moveItemToCategory,
+    updateListData,
     deleteList,
-  } = useList({ listId });
+  } = useList({ listId, adminToken });
+
+  // Derive effective settings from preset + stored settings
+  const settings = useMemo(
+    () => (list ? getListSettings(list.preset, list.settings) : null),
+    [list],
+  );
+
+  // Resolve categories: use stored categories, or default shopping categories for presets
+  const categoryLabels = useMemo(
+    () => Object.fromEntries(
+      SHOPPING_CATEGORIES.map((id) => [id, t(`categories.${id}` as Parameters<typeof t>[0])]),
+    ),
+    [t],
+  );
+  const categories = useMemo(() => {
+    if (!settings?.enableCategories) return [];
+    if (settings.categories && settings.categories.length > 0) return settings.categories;
+    return getDefaultCategories(categoryLabels);
+  }, [settings, categoryLabels]);
 
   const handleAddItem = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,7 +116,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     }
   };
 
-  const handleAddShoppingItem = async (text: string, category: string) => {
+  const handleAddCategoryItem = async (text: string, category: string) => {
     try {
       await addItem(text, category);
     } catch {
@@ -112,6 +137,14 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
       await removeItem(itemId);
     } catch {
       toast.error(t("removeError"));
+    }
+  };
+
+  const handleMoveToCategory = async (itemId: string, newCategory: string) => {
+    try {
+      await moveItemToCategory(itemId, newCategory);
+    } catch {
+      toast.error(t("moveError"));
     }
   };
 
@@ -155,6 +188,14 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
       await unclaimItem(itemId);
     } catch {
       toast.error(t("unclaimError"));
+    }
+  };
+
+  const handleUpdateSettings = async (newListData: DecryptedListData) => {
+    try {
+      await updateListData(newListData);
+    } catch {
+      toast.error(t("settings.updateError"));
     }
   };
 
@@ -213,7 +254,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     );
   }
 
-  if (!list) return null;
+  if (!list || !settings) return null;
 
   const completedCount = list.items.filter((i) => i.completed).length;
   const totalCount = list.items.length;
@@ -260,6 +301,15 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
               {t("copyShareLink")}
             </Button>
 
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowSettings(!showSettings)}
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              {t("settings.title")}
+            </Button>
+
             <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
@@ -289,8 +339,17 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
           </div>
         )}
 
-        {/* Claim name indicator for potluck lists */}
-        {list.preset === "potluck" && claimName && (
+        {/* Admin settings panel */}
+        {isAdmin && showSettings && list && (
+          <AdminSettings
+            list={list}
+            settings={settings}
+            onUpdate={handleUpdateSettings}
+          />
+        )}
+
+        {/* Claim name indicator when claims are enabled */}
+        {settings.enableClaims && claimName && (
           <div className="flex items-center gap-2 text-sm text-neutral-500">
             <span>{t("claimingAs", { name: claimName })}</span>
             <Button
@@ -304,55 +363,59 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
           </div>
         )}
 
-        {/* Add item (non-shopping only — shopping has inline add per category) */}
-        {list.preset !== "shopping" && (
-          <form onSubmit={handleAddItem} className="flex gap-2">
-            <Input
-              value={newItemText}
-              onChange={(e) => setNewItemText(e.target.value)}
-              placeholder={t("addItemPlaceholder")}
-              maxLength={500}
-              className="flex-1"
-            />
-            <Button type="submit" disabled={!newItemText.trim() || isMutating}>
-              <Plus className="h-4 w-4" />
-            </Button>
-          </form>
-        )}
-
         {/* Item list */}
-        {list.preset === "shopping" ? (
+        {settings.enableCategories && categories.length > 0 ? (
           <CategorySections
             items={list.items}
+            categories={categories}
             preset={list.preset}
             onToggle={handleToggle}
             onRemove={handleRemove}
-            onAdd={handleAddShoppingItem}
+            onAdd={handleAddCategoryItem}
+            onMoveToCategory={handleMoveToCategory}
+            onClaim={settings.enableClaims ? handleClaim : undefined}
+            onUnclaim={settings.enableClaims ? handleUnclaim : undefined}
+            enableClaims={settings.enableClaims}
             isMutating={isMutating}
           />
-        ) : list.items.length === 0 ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-neutral-400">{t("emptyList")}</p>
-            </CardContent>
-          </Card>
         ) : (
-          <div className="space-y-2">
-            {list.items.map((item) => (
-              <ListItem
-                key={item.id}
-                item={item}
-                preset={list.preset}
-                onToggle={handleToggle}
-                onRemove={handleRemove}
-                onClaim={handleClaim}
-                onUnclaim={handleUnclaim}
+          <div className="rounded-lg border bg-white overflow-hidden">
+            {list.items.length > 0 && (
+              <div className="divide-y divide-neutral-100">
+                {list.items.map((item) => (
+                  <ListItem
+                    key={item.id}
+                    item={item}
+                    preset={list.preset}
+                    compact
+                    onToggle={handleToggle}
+                    onRemove={handleRemove}
+                    onClaim={settings.enableClaims ? handleClaim : undefined}
+                    onUnclaim={settings.enableClaims ? handleUnclaim : undefined}
+                  />
+                ))}
+              </div>
+            )}
+            <form
+              onSubmit={handleAddItem}
+              className={cn(
+                "flex items-center gap-2 px-3 py-2.5",
+                list.items.length > 0 && "border-t border-neutral-100",
+              )}
+            >
+              <Plus className="h-4 w-4 text-neutral-300 shrink-0" />
+              <input
+                value={newItemText}
+                onChange={(e) => setNewItemText(e.target.value)}
+                placeholder={t("addItemPlaceholder")}
+                maxLength={500}
+                className="flex-1 text-sm bg-transparent outline-none placeholder:text-neutral-300"
               />
-            ))}
+            </form>
           </div>
         )}
 
-        {/* Name dialog for potluck claims */}
+        {/* Name dialog for claims */}
         <Dialog open={showNameDialog} onOpenChange={setShowNameDialog}>
           <DialogContent>
             <DialogHeader>
