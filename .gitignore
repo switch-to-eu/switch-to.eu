@@ -17,7 +17,7 @@ playwright-report/
 blob-report/
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
