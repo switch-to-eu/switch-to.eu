@@ -29,9 +29,41 @@ pnpm --filter website test:e2e:ui   # Open Playwright UI for debugging
 
 ## Testing
 
-**E2E smoke tests** (`apps/website/e2e/smoke.spec.ts`): Playwright tests that verify all website pages render without errors. Config in `apps/website/playwright.config.ts` (auto-builds and serves a production build). Run `pnpm --filter website test:e2e` after changes to website routes, layouts, content rendering, or shared packages (`ui`, `blocks`, `i18n`, `content`).
+Every app should have **two layers of tests**:
 
-**Unit tests** (keepfocus only): Vitest + @testing-library/react. Run with `pnpm --filter @switch-to-eu/keepfocus test`.
+### 1. Playwright E2E Smoke Tests
+
+Verify all pages render without errors in a production build. Each app has its own `playwright.config.ts` and `e2e/smoke.spec.ts`.
+
+```bash
+pnpm --filter website test:e2e           # website (port 3000)
+pnpm --filter @switch-to-eu/plotty test:e2e   # plotty (port 3042)
+pnpm --filter @switch-to-eu/listy test:e2e    # listy (port 5014)
+```
+
+**Pattern** — every smoke test file follows this structure:
+- Helper `expectPageOk(page, urlPath)` that checks status 200, no error overlay, body visible
+- Loop over `locales = ["en", "nl"]` and test each page in both locales
+- Config: `webServer.command` builds + serves the production app on the app's port
+
+### 2. Vitest Unit Tests
+
+```bash
+pnpm --filter @switch-to-eu/keepfocus test    # keepfocus (component + timer tests)
+pnpm --filter @switch-to-eu/plotty test       # plotty (tRPC router tests)
+pnpm --filter @switch-to-eu/listy test        # listy (tRPC router tests)
+```
+
+**tRPC router tests** (plotty, listy) use a shared in-memory Redis mock at `@switch-to-eu/db/mock-redis`. Pattern:
+
+1. Import `MockRedis` from `@switch-to-eu/db/mock-redis`
+2. Mock the redis module: `vi.mock("@switch-to-eu/db/redis", () => ({ getRedis: async () => mockRedis, getRedisSubscriber: async () => mockRedis }))`
+3. Import the app's `createCaller` **after** mocks are set up (top-level await)
+4. Create a caller with `createCaller({ redis: mockRedis as never, headers: new Headers() })`
+5. Use `mockRedis._clear()` in `beforeEach` to reset state between tests
+6. Seed data directly via `mockRedis.hSet()` / `mockRedis.sAdd()` for read/update/delete tests
+
+Each app's vitest config lives at `apps/{app}/vitest.config.ts` with `environment: "node"` and path aliases matching `tsconfig.json`.
 
 ## Monorepo Architecture
 
@@ -42,19 +74,21 @@ apps/
   website/        # Main switch-to.eu site (Next.js 16, App Router)
   keepfocus/      # Pomodoro timer app (Next.js 16, App Router)
   plotty/         # Poll/voting app (Next.js 16, App Router, tRPC + Redis)
+  listy/          # Shared lists app (Next.js 16, App Router, tRPC + Redis)
 packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
   content/        # Shared content system (Markdown parsing, Zod schemas, Fuse.js search)
-  trpc/           # Shared tRPC v11 infrastructure (used by plotty, NOT by website or keepfocus)
+  db/             # Shared database utilities (Redis client, crypto, admin tokens, expiration, mock-redis for tests)
+  trpc/           # Shared tRPC v11 infrastructure (used by plotty + listy, NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
   typescript-config/ # Shared tsconfig bases
 ```
 
 All internal packages use the `@switch-to-eu/` scope. Shared dependency versions are pinned via pnpm catalog in `pnpm-workspace.yaml`.
 
-**Dependency hierarchy:** `blocks` depends on `ui` + `i18n`. All three apps depend on `ui`, `i18n`, and `blocks`. The website does NOT use tRPC — it uses direct API routes. Plotty uses `@switch-to-eu/trpc` with Redis as its data store.
+**Dependency hierarchy:** `blocks` depends on `ui` + `i18n`. All apps depend on `ui`, `i18n`, and `blocks`. The website does NOT use tRPC — it uses direct API routes. Plotty and Listy use `@switch-to-eu/trpc` + `@switch-to-eu/db` with Redis as their data store.
 
 ## Key Non-Obvious Details
 
@@ -85,9 +119,17 @@ Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`.
 
 Search uses Fuse.js with in-memory caching (5-min TTL, keyed by locale).
 
-## Plotty (Poll App)
+## tRPC + Redis Apps (Plotty, Listy)
 
-Privacy-focused poll/voting app using tRPC v11 + Redis. Routes: `/create`, `/poll/[id]` (voting), `/poll/[id]/admin` (admin via HMAC token). Server code in `server/api/routers/poll.ts`. Data stored in Redis with `REDIS_URL` env var. Rate limiting via Redis sliding window middleware. Security headers configured in `vercel.json`.
+Both apps follow the same architecture: tRPC v11 + Redis, E2E encryption (key in URL fragment, never sent to server), admin tokens (SHA-256 hashed), real-time updates via Redis Pub/Sub → tRPC subscriptions (SSE).
+
+**Plotty** (poll/voting): Routes `/create`, `/poll/[id]`, `/poll/[id]/admin`. Server code in `server/api/routers/poll.ts`.
+
+**Listy** (shared lists): Routes `/create`, `/list/[id]`, `/list/[id]/admin`. Server code in `server/api/routers/list.ts`. Three presets: plain, shopping, potluck (with claim/unclaim).
+
+**Shared `@switch-to-eu/db` package** exports: `redis` (client singleton), `crypto` (AES-GCM encrypt/decrypt), `admin` (token generate/hash/verify), `expiration` (TTL calculation), `mock-redis` (in-memory mock for tests).
+
+Rate limiting via Redis sliding window middleware in `@switch-to-eu/trpc/middleware` with per-app `prefix` parameter.
 
 ## Code Style
 
