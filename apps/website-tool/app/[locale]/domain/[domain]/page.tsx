@@ -1,10 +1,9 @@
 import { ArrowLeftIcon } from "lucide-react";
-import { getFromRedis } from "@/lib/redis";
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
-import { AnalysisStep } from "@/lib/types";
 import { Metadata } from "next";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Locale } from "next-intl";
+import { api } from "@/server/api/trpc-server";
 
 function formatDomain(domain: string) {
   return domain.replace(/^(https?:\/\/)?(www\.)?/, "").replace(/\/$/, "");
@@ -19,16 +18,17 @@ export async function generateMetadata({
 
   const domainFromUrl = decodeURIComponent(domain);
   const formattedDomain = formatDomain(domainFromUrl);
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:5015";
 
   return {
     title: `${formattedDomain} | switch-to.eu`,
     description: `Check if ${formattedDomain} uses EU-based services and is EU GDPR compliant.`,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_URL}/${locale}/domain/${domain}`,
+      canonical: `${baseUrl}/${locale}/domain/${domain}`,
       languages: {
-        en: `${process.env.NEXT_PUBLIC_URL}/en/domain/${domain}`,
-        nl: `${process.env.NEXT_PUBLIC_URL}/nl/domain/${domain}`,
+        en: `${baseUrl}/en/domain/${domain}`,
+        nl: `${baseUrl}/nl/domain/${domain}`,
       },
     },
     openGraph: {
@@ -56,11 +56,7 @@ export default async function DomainAnalyzerPage({
   const domainFromUrl = decodeURIComponent(domain);
   const formattedDomain = formatDomain(domainFromUrl);
 
-  const cachedResults = await getFromRedis(`domain:${domainFromUrl}`);
-
-  const initialResults = cachedResults
-    ? (JSON.parse(cachedResults) as AnalysisStep[])
-    : null;
+  const initialResults = await api.domain.getCached({ domain: domainFromUrl });
 
   return (
     <div className="py-8 sm:py-12">

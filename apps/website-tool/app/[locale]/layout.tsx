@@ -10,6 +10,7 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { TRPCReactProvider } from "@/lib/trpc-client";
 
 export async function generateMetadata({
   params,
@@ -50,6 +51,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider>
+      <TRPCReactProvider>
       <Header
         useContainer={false}
         containerClassName="container mx-auto px-4"
@@ -126,6 +128,7 @@ export default async function LocaleLayout({
           <BrandIndicator locale={locale} variant="compact" asSpan />
         }
       />
+      </TRPCReactProvider>
     </NextIntlClientProvider>
   );
 }

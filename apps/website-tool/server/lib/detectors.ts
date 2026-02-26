@@ -1,5 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getFromRedis, setInRedis } from "@/lib/redis";
 import { AnalysisStep, Service } from "@/lib/types";
 import { getAllDnsRecords } from "@layered/dns-records";
 import { whoisDomain, whoisIp } from "whoiser";
@@ -11,7 +9,7 @@ import {
 } from "@/lib/countries";
 
 // Email provider detection from real MX records
-async function detectEmailProvider(domain: string): Promise<{
+export async function detectEmailProvider(domain: string): Promise<{
   provider: string;
   isEU: boolean | null;
   euFriendly: boolean | null;
@@ -20,7 +18,6 @@ async function detectEmailProvider(domain: string): Promise<{
     const dnsRecords = await getAllDnsRecords(domain);
     const mxRecords = dnsRecords.filter((record) => record.type === "MX");
 
-    // If no MX records found, return unknown
     if (!mxRecords || mxRecords.length === 0) {
       return {
         provider: "",
@@ -29,15 +26,12 @@ async function detectEmailProvider(domain: string): Promise<{
       };
     }
 
-    // Sort MX records by priority (lowest first)
     const sortedMX = mxRecords.sort((a, b) => {
-      // Extract priority from MX record value (e.g., "10 example.com")
       const priorityA = parseInt(a.data.split(" ")[0] || "0", 10);
       const priorityB = parseInt(b.data.split(" ")[0] || "0", 10);
       return priorityA - priorityB;
     });
 
-    // Extract domain part from MX records for easier matching
     const mxDomains = sortedMX.map((record) => {
       const parts = record.data.split(" ");
       if (parts.length > 1 && parts[1]) {
@@ -46,7 +40,6 @@ async function detectEmailProvider(domain: string): Promise<{
       return record.data.toLowerCase();
     });
 
-    // Match patterns in MX records to identify providers
     if (
       mxDomains.some(
         (mx) =>
@@ -88,7 +81,6 @@ async function detectEmailProvider(domain: string): Promise<{
     } else if (mxDomains.some((mx) => mx.includes("nameweb"))) {
       return { provider: "Nameweb", isEU: true, euFriendly: false };
     } else {
-      // Check for common hosting patterns or return the first MX domain
       const firstMxDomain = mxDomains[0];
       if (firstMxDomain) {
         const domainParts = firstMxDomain.split(".");
@@ -96,8 +88,6 @@ async function detectEmailProvider(domain: string): Promise<{
           const domainPart = domainParts[domainParts.length - 2];
           if (domainPart) {
             const provider = domainPart.charAt(0).toUpperCase() + domainPart.slice(1);
-
-            // Use the domain EU detection utility to determine EU status
             const domainStatus = getDomainEUStatus(firstMxDomain);
 
             return {
@@ -125,16 +115,13 @@ async function detectEmailProvider(domain: string): Promise<{
 }
 
 // Domain registrar detection from WHOIS data
-async function detectDomainRegistrar(domain: string) {
+export async function detectDomainRegistrar(domain: string) {
   try {
-    // Query WHOIS data for the domain
     const whoisData = (await whoisDomain(domain)) as Record<
       string,
       Record<string, string | string[]>
     >;
 
-    // WHOIS data structure is an object where keys are WHOIS servers
-    // We'll look for registrar information in any of the servers
     const registrars = new Set<{
       name: string;
       url?: string;
@@ -144,20 +131,18 @@ async function detectDomainRegistrar(domain: string) {
     let isEU = null;
     let euFriendly = null;
 
-    // Go through all WHOIS servers' responses
     for (const server in whoisData) {
       const data = whoisData[server];
-      
+
       if (!data) continue;
 
       let url: string | undefined = undefined;
       const rawUrl = data["Registrar URL"] || data["Registrar URL:"];
-      
+
       if (rawUrl) {
         url = Array.isArray(rawUrl) ? rawUrl[0] : rawUrl;
       }
 
-      // Check for Registrar field with different possible formats
       if (
         data["Registrar"] ||
         data["Registrar:"] ||
@@ -170,7 +155,7 @@ async function detectDomainRegistrar(domain: string) {
           data["registrar:"] ||
           data["Registrar Name"];
         if (Array.isArray(registrar)) {
-          registrar = registrar[0]; // Take the first one if it's an array
+          registrar = registrar[0];
         }
 
         if (typeof registrar === 'string') {
@@ -182,7 +167,6 @@ async function detectDomainRegistrar(domain: string) {
       }
     }
 
-    //
     const finalRegistrar = Array.from(registrars)[0] || {
       name: "Unknown registrar",
       url: undefined,
@@ -190,7 +174,6 @@ async function detectDomainRegistrar(domain: string) {
 
     console.log("finalRegistrar", finalRegistrar);
 
-    // Determine if registrar is EU-based
     const euRegistrars = [
       "gandi",
       "ovh",
@@ -217,7 +200,6 @@ async function detectDomainRegistrar(domain: string) {
 
     const euFriendlyRegistrars = ["infomaniak"];
 
-    // Check if any of the EU registrars are in the registrar name
     isEU = euRegistrars.some((euReg) =>
       finalRegistrar.name.toLowerCase().includes(euReg.toLowerCase())
     );
@@ -247,7 +229,7 @@ async function detectDomainRegistrar(domain: string) {
 }
 
 // Hosting provider detection from DNS records and IP WHOIS
-async function detectHostingProvider(domain: string): Promise<{
+export async function detectHostingProvider(domain: string): Promise<{
   provider: string;
   isEU: boolean | null;
   euFriendly: boolean | null;
@@ -259,21 +241,15 @@ async function detectHostingProvider(domain: string): Promise<{
 
     if (aRecords.length > 0 && aRecords[0]) {
       const ip = aRecords[0].data;
-      // ----- New IPinfo lookup -----
       const ipinfoRes = await fetch(
         `https://api.ipinfo.io/lite/${ip}?token=${process.env.IP_INFO_TOKEN}`
       );
       const ipInfo = await ipinfoRes.json() as { as_name?: string; country_code?: string };
 
-      // Parse provider from "org" (e.g. "AS15169 Google LLC")
       const orgString: string = ipInfo.as_name ?? "";
-
       const provider: string = orgString || "Unknown hosting provider";
-
-      // Country code from IPinfo
       const country_code: string | undefined = ipInfo.country_code;
 
-      // Determine EU status: prefer IP country, else domain extension
       let euStatus: boolean | null;
       let euFriendly: boolean | null;
       if (country_code && typeof country_code === 'string') {
@@ -292,10 +268,8 @@ async function detectHostingProvider(domain: string): Promise<{
       };
     }
 
-    // Fallback to CNAME-based detection
     if (cnameRecords.length > 0 && cnameRecords[0]) {
       const cname = String(cnameRecords[0].data).toLowerCase();
-      // … (your existing CNAME checks here) …
 
       const domainStatus = getDomainEUStatus(cname);
 
@@ -306,7 +280,6 @@ async function detectHostingProvider(domain: string): Promise<{
       };
     }
 
-    // Final fallback to extension only
     const domainStatus = getDomainEUStatus(domain);
 
     return {
@@ -325,16 +298,14 @@ async function detectHostingProvider(domain: string): Promise<{
 }
 
 // Third-party service detection by analyzing website content
-async function detectThirdPartyServices(domain: string): Promise<{
+export async function detectThirdPartyServices(domain: string): Promise<{
   services: Service[];
   isEU: boolean | null;
   euFriendly: boolean | null;
 }> {
   try {
-    // Ensure the domain has a protocol
     const url = domain.startsWith("http") ? domain : `https://${domain}`;
 
-    // Fetch the webpage content
     const response = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; ServiceDetector/1.0)",
@@ -517,29 +488,22 @@ async function detectThirdPartyServices(domain: string): Promise<{
       },
     ];
 
-    // Check for patterns in HTML content
-    // Extract all script tags content to avoid false positives
     const scriptTags = html.match(/<script[^>]*>[\s\S]*?<\/script>/gi) || [];
     const scriptContent = scriptTags.join(" ");
 
-    // Also extract all link tags for stylesheets and other resources
     const linkTags = html.match(/<link[^>]*>/gi) || [];
     const linkContent = linkTags.join(" ");
 
-    // Combine script content and link tags for analysis
     const contentToAnalyze = scriptContent + " " + linkContent;
 
-    // Check for patterns in script and link content
     const detectedServices = servicePatterns.filter((service) =>
       new RegExp(service.pattern || "", "i").test(contentToAnalyze)
     );
 
-    // If no services detected, check for tracking pixel img tags
     if (detectedServices.length === 0) {
       const imgTags = html.match(/<img[^>]*>/gi) || [];
       const imgTagContent = imgTags.join(" ");
 
-      // Check for tracking pixels in img tags
       servicePatterns.forEach((service) => {
         if (new RegExp(service.pattern || "", "i").test(imgTagContent)) {
           detectedServices.push({
@@ -551,7 +515,6 @@ async function detectThirdPartyServices(domain: string): Promise<{
       });
     }
 
-    // If still empty, return a default message
     if (detectedServices.length === 0) {
       return {
         services: [],
@@ -560,19 +523,15 @@ async function detectThirdPartyServices(domain: string): Promise<{
       };
     }
 
-    // Also check meta tags for common analytics IDs and verification tags
     const metaTags = html.match(/<meta[^>]*>/gi) || [];
-    const metaContent = metaTags.join(" ");
+    const _metaContent = metaTags.join(" ");
 
-    // Add specific check for Google Analytics IDs in the entire HTML
-    // This is a more restrictive pattern that looks for GA ID formats
     if (
       new RegExp("UA-\\d+-\\d+", "i").test(html) ||
       new RegExp("gtag\\(\\s*['\"]config['\"]\\s*,\\s*['\"][G-UA]", "i").test(
         html
       )
     ) {
-      // Check if Google Analytics is already in the list
       if (!detectedServices.some((s) => s.name === "Google Analytics")) {
         detectedServices.push({
           name: "Google Analytics",
@@ -582,9 +541,7 @@ async function detectThirdPartyServices(domain: string): Promise<{
       }
     }
 
-    // Check meta tags for verification and other service indicators
-    if (metaContent.includes("google-site-verification")) {
-      // Check if Google Services is already in the list
+    if (_metaContent.includes("google-site-verification")) {
       if (!detectedServices.some((s) => s.name === "Google Services")) {
         detectedServices.push({
           name: "Google Services",
@@ -594,7 +551,6 @@ async function detectThirdPartyServices(domain: string): Promise<{
       }
     }
 
-    // Determine overall EU status - if ANY non-EU service is detected, the result is non-EU
     const isEU = !detectedServices.some((service) => service.isEU === false);
     const euFriendly = detectedServices.some((service) => service.euFriendly);
 
@@ -613,9 +569,163 @@ async function detectThirdPartyServices(domain: string): Promise<{
   }
 }
 
-// Simulated analysis service - this function only returns a template
-function analyzeDomain(): AnalysisStep[] {
-  const analysisSteps: AnalysisStep[] = [
+// CDN detection from DNS records and HTTP headers
+export async function detectCdn(domain: string) {
+  try {
+    const dnsRecords = await getAllDnsRecords(domain);
+
+    const cnameRecords = dnsRecords.filter((record) => record.type === "CNAME");
+    for (const record of cnameRecords) {
+      const cname = record.data.toLowerCase();
+
+      if (cname.includes("cloudfront.net")) {
+        return {
+          provider: "Amazon CloudFront",
+          isEU: false,
+          euFriendly: false,
+        };
+      } else if (
+        cname.includes("cloudflare.com") ||
+        cname.includes("cdn.cloudflare.net")
+      ) {
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
+      } else if (cname.includes("akamai") || cname.includes("akamaiedge.net")) {
+        return { provider: "Akamai", isEU: false, euFriendly: false };
+      } else if (cname.includes("fastly.net")) {
+        return { provider: "Fastly", isEU: false, euFriendly: false };
+      } else if (cname.includes("edgecast") || cname.includes("edgesuite")) {
+        return { provider: "Edgecast/Verizon", isEU: false, euFriendly: false };
+      } else if (cname.includes("bunnycdn.com")) {
+        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
+      } else if (cname.includes("keycdn.com")) {
+        return { provider: "KeyCDN", isEU: true, euFriendly: false };
+      } else if (cname.includes("workers.dev")) {
+        return {
+          provider: "Cloudflare Workers",
+          isEU: false,
+          euFriendly: false,
+        };
+      }
+    }
+
+    try {
+      const url = domain.startsWith("http") ? domain : `https://${domain}`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; CDNDetector/1.0)",
+        },
+      });
+
+      const headers = response.headers;
+
+      if (headers.get("cf-ray") || headers.get("cf-cache-status")) {
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
+      } else if (headers.get("x-amz-cf-id")) {
+        return {
+          provider: "Amazon CloudFront",
+          isEU: false,
+          euFriendly: false,
+        };
+      } else if (
+        headers.get("x-akamai-transformed") ||
+        headers.get("x-akamai-request-id")
+      ) {
+        return { provider: "Akamai", isEU: false, euFriendly: false };
+      } else if (headers.get("x-served-by")?.includes("fastly")) {
+        return { provider: "Fastly", isEU: false, euFriendly: false };
+      } else if (headers.get("server")?.includes("cloudflare")) {
+        return { provider: "Cloudflare", isEU: false, euFriendly: false };
+      } else if (
+        headers.get("x-cdn")?.includes("bunny") ||
+        headers.get("server")?.includes("bunnycdn")
+      ) {
+        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
+      }
+    } catch (error) {
+      console.error("Failed to fetch headers for CDN detection:", error);
+    }
+
+    const aRecords = dnsRecords.filter((record) => record.type === "A");
+    if (aRecords.length > 0 && aRecords[0]) {
+      const ip = aRecords[0].data;
+
+      try {
+        const ipWhois = await whoisIp(ip);
+
+        let orgName = "";
+
+        if (typeof ipWhois === "object" && ipWhois !== null) {
+          if (ipWhois.Organisation) {
+            const org = Array.isArray(ipWhois.Organisation)
+              ? ipWhois.Organisation[0]
+              : ipWhois.Organisation;
+            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
+          } else if (ipWhois.Organization) {
+            const org = Array.isArray(ipWhois.Organization)
+              ? ipWhois.Organization[0]
+              : ipWhois.Organization;
+            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
+          } else if (
+            ipWhois.organisation &&
+            typeof ipWhois.organisation === "object"
+          ) {
+            const orgData = ipWhois.organisation as Record<string, unknown>;
+            if ("org-name" in orgData) {
+              orgName = String(orgData["org-name"]).toLowerCase();
+            } else if ("OrgName" in orgData) {
+              orgName = String(orgData["OrgName"]).toLowerCase();
+            }
+          }
+        }
+
+        if (orgName.includes("cloudflare")) {
+          return { provider: "Cloudflare", isEU: false, euFriendly: false };
+        } else if (orgName.includes("amazon") || orgName.includes("aws")) {
+          return {
+            provider: "Amazon CloudFront",
+            isEU: false,
+            euFriendly: false,
+          };
+        } else if (orgName.includes("akamai")) {
+          return { provider: "Akamai", isEU: false, euFriendly: false };
+        } else if (orgName.includes("fastly")) {
+          return { provider: "Fastly", isEU: false, euFriendly: false };
+        } else if (orgName.includes("bunny")) {
+          return { provider: "BunnyCDN", isEU: true, euFriendly: false };
+        }
+
+        if (ipWhois.Country || ipWhois.country) {
+          const country = ipWhois.Country || ipWhois.country;
+          const countryCode = Array.isArray(country) ? country[0] : country;
+
+          if (countryCode && orgName && typeof countryCode === 'string') {
+            return {
+              provider: orgName.charAt(0).toUpperCase() + orgName.slice(1),
+              isEU: isEUCountry(countryCode),
+              euFriendly: false,
+            };
+          }
+        }
+      } catch (error) {
+        console.error("Error in IP WHOIS lookup for CDN detection:", error);
+      }
+    }
+
+    return {
+      provider: "",
+      isEU: null,
+      euFriendly: null,
+    };
+  } catch (error) {
+    console.error("Error detecting CDN:", error);
+    return { provider: "Error detecting CDN", isEU: null, euFriendly: null };
+  }
+}
+
+// Create initial analysis template with all steps pending
+export function createAnalysisTemplate(): AnalysisStep[] {
+  return [
     {
       type: "mx_records",
       status: "pending",
@@ -652,352 +762,15 @@ function analyzeDomain(): AnalysisStep[] {
       euFriendly: null,
     },
   ];
-
-  return analysisSteps;
 }
 
-// CDN detection from DNS records and HTTP headers
-async function detectCdn(domain: string) {
+// Check if a domain exists by attempting a DNS lookup
+export async function checkDomainExists(domain: string): Promise<boolean> {
   try {
-    // 1. Check DNS records first
     const dnsRecords = await getAllDnsRecords(domain);
-
-    // Check CNAME records for CDN patterns
-    const cnameRecords = dnsRecords.filter((record) => record.type === "CNAME");
-    for (const record of cnameRecords) {
-      const cname = record.data.toLowerCase();
-
-      // Common CDN CNAME patterns
-      if (cname.includes("cloudfront.net")) {
-        return {
-          provider: "Amazon CloudFront",
-          isEU: false,
-          euFriendly: false,
-        };
-      } else if (
-        cname.includes("cloudflare.com") ||
-        cname.includes("cdn.cloudflare.net")
-      ) {
-        return { provider: "Cloudflare", isEU: false, euFriendly: false };
-      } else if (cname.includes("akamai") || cname.includes("akamaiedge.net")) {
-        return { provider: "Akamai", isEU: false, euFriendly: false };
-      } else if (cname.includes("fastly.net")) {
-        return { provider: "Fastly", isEU: false, euFriendly: false };
-      } else if (cname.includes("edgecast") || cname.includes("edgesuite")) {
-        return { provider: "Edgecast/Verizon", isEU: false, euFriendly: false };
-      } else if (cname.includes("bunnycdn.com")) {
-        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
-      } else if (cname.includes("keycdn.com")) {
-        return { provider: "KeyCDN", isEU: true, euFriendly: false };
-      } else if (cname.includes("workers.dev")) {
-        return {
-          provider: "Cloudflare Workers",
-          isEU: false,
-          euFriendly: false,
-        };
-      }
-    }
-
-    // 2. If no CDN found in DNS, check HTTP headers
-    try {
-      const url = domain.startsWith("http") ? domain : `https://${domain}`;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "User-Agent": "Mozilla/5.0 (compatible; CDNDetector/1.0)",
-        },
-      });
-
-      const headers = response.headers;
-
-      // Check for CDN-specific headers
-      if (headers.get("cf-ray") || headers.get("cf-cache-status")) {
-        return { provider: "Cloudflare", isEU: false, euFriendly: false };
-      } else if (headers.get("x-amz-cf-id")) {
-        return {
-          provider: "Amazon CloudFront",
-          isEU: false,
-          euFriendly: false,
-        };
-      } else if (
-        headers.get("x-akamai-transformed") ||
-        headers.get("x-akamai-request-id")
-      ) {
-        return { provider: "Akamai", isEU: false, euFriendly: false };
-      } else if (headers.get("x-served-by")?.includes("fastly")) {
-        return { provider: "Fastly", isEU: false, euFriendly: false };
-      } else if (headers.get("server")?.includes("cloudflare")) {
-        return { provider: "Cloudflare", isEU: false, euFriendly: false };
-      } else if (
-        headers.get("x-cdn")?.includes("bunny") ||
-        headers.get("server")?.includes("bunnycdn")
-      ) {
-        return { provider: "BunnyCDN", isEU: true, euFriendly: false };
-      }
-    } catch (error) {
-      // If fetch fails, continue with other methods
-      console.error("Failed to fetch headers for CDN detection:", error);
-    }
-
-    // 3. Check A records if no CDN found yet
-    const aRecords = dnsRecords.filter((record) => record.type === "A");
-    if (aRecords.length > 0 && aRecords[0]) {
-      // Get the IP
-      const ip = aRecords[0].data;
-
-      try {
-        // Check if IP belongs to known CDN ranges
-        const ipWhois = await whoisIp(ip);
-
-        // Extract organization info for CDN detection
-        let orgName = "";
-
-        if (typeof ipWhois === "object" && ipWhois !== null) {
-          if (ipWhois.Organisation) {
-            const org = Array.isArray(ipWhois.Organisation)
-              ? ipWhois.Organisation[0]
-              : ipWhois.Organisation;
-            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
-          } else if (ipWhois.Organization) {
-            const org = Array.isArray(ipWhois.Organization)
-              ? ipWhois.Organization[0]
-              : ipWhois.Organization;
-            orgName = org != null && typeof org === 'string' ? org.toLowerCase() : '';
-          } else if (
-            ipWhois.organisation &&
-            typeof ipWhois.organisation === "object"
-          ) {
-            // Safe access to potential organization name properties
-            const orgData = ipWhois.organisation as Record<string, unknown>;
-            if ("org-name" in orgData) {
-              orgName = String(orgData["org-name"]).toLowerCase();
-            } else if ("OrgName" in orgData) {
-              orgName = String(orgData["OrgName"]).toLowerCase();
-            }
-          }
-        }
-
-        // Try to determine CDN by organization name
-        if (orgName.includes("cloudflare")) {
-          return { provider: "Cloudflare", isEU: false, euFriendly: false };
-        } else if (orgName.includes("amazon") || orgName.includes("aws")) {
-          return {
-            provider: "Amazon CloudFront",
-            isEU: false,
-            euFriendly: false,
-          };
-        } else if (orgName.includes("akamai")) {
-          return { provider: "Akamai", isEU: false, euFriendly: false };
-        } else if (orgName.includes("fastly")) {
-          return { provider: "Fastly", isEU: false, euFriendly: false };
-        } else if (orgName.includes("bunny")) {
-          return { provider: "BunnyCDN", isEU: true, euFriendly: false };
-        }
-
-        // Check country code from IP WHOIS if organization-based detection fails
-        if (ipWhois.Country || ipWhois.country) {
-          const country = ipWhois.Country || ipWhois.country;
-          const countryCode = Array.isArray(country) ? country[0] : country;
-
-          // If we have a country code but couldn't identify the CDN provider by name,
-          // return a generic CDN provider with EU status based on the country
-          if (countryCode && orgName && typeof countryCode === 'string') {
-            return {
-              provider: orgName.charAt(0).toUpperCase() + orgName.slice(1),
-              isEU: isEUCountry(countryCode),
-              euFriendly: false,
-            };
-          }
-        }
-      } catch (error) {
-        console.error("Error in IP WHOIS lookup for CDN detection:", error);
-      }
-    }
-
-    return {
-      provider: "",
-      isEU: null,
-      euFriendly: null,
-    };
-  } catch (error) {
-    console.error("Error detecting CDN:", error);
-    return { provider: "Error detecting CDN", isEU: null, euFriendly: null };
-  }
-}
-
-// Function to simulate checking domain with streaming updates
-async function* checkDomain(domain: string): AsyncGenerator<AnalysisStep[]> {
-  const initialAnalysis = analyzeDomain();
-  yield initialAnalysis;
-
-  // Real check for MX records
-  const mxStep = initialAnalysis[0];
-  if (mxStep) {
-    mxStep.status = "processing";
-    yield [...initialAnalysis];
-    const mxResults = await detectEmailProvider(domain);
-    mxStep.status = "complete";
-    mxStep.details = mxResults.provider;
-    mxStep.isEU = mxResults.isEU;
-    mxStep.euFriendly = mxResults.euFriendly;
-    yield [...initialAnalysis];
-  }
-
-  // Real check for domain registrar using WHOIS
-  const registrarStep = initialAnalysis[1];
-  if (registrarStep) {
-    registrarStep.status = "processing";
-    yield [...initialAnalysis];
-    const registrarResults = await detectDomainRegistrar(domain);
-    registrarStep.status = "complete";
-    registrarStep.details = registrarResults.provider?.name;
-    registrarStep.isEU = registrarResults.isEU;
-    registrarStep.euFriendly = registrarResults.euFriendly;
-    yield [...initialAnalysis];
-  }
-
-  // Real check for hosting provider
-  const hostingStep = initialAnalysis[2];
-  if (hostingStep) {
-    hostingStep.status = "processing";
-    yield [...initialAnalysis];
-    const hostingResults = await detectHostingProvider(domain);
-    hostingStep.status = "complete";
-    hostingStep.details = hostingResults.provider;
-    hostingStep.isEU = hostingResults.isEU;
-    hostingStep.euFriendly = hostingResults.euFriendly;
-    yield [...initialAnalysis];
-  }
-
-  // Real check for third-party services
-  const servicesStep = initialAnalysis[3];
-  if (servicesStep) {
-    servicesStep.status = "processing";
-    yield [...initialAnalysis];
-
-    const servicesResults = await detectThirdPartyServices(domain);
-    servicesStep.status = "complete";
-    servicesStep.details = servicesResults.services;
-    servicesStep.isEU = servicesResults.isEU;
-    servicesStep.euFriendly = servicesResults.euFriendly;
-    yield [...initialAnalysis];
-  }
-
-  // Real check for CDN
-  const cdnStep = initialAnalysis[4];
-  if (cdnStep) {
-    cdnStep.status = "processing";
-    yield [...initialAnalysis];
-    const cdnResults = await detectCdn(domain);
-    cdnStep.status = "complete";
-    cdnStep.details = cdnResults.provider;
-    cdnStep.isEU = cdnResults.isEU;
-    cdnStep.euFriendly = cdnResults.euFriendly;
-    yield [...initialAnalysis];
-  }
-
-  // Cache final results in Redis
-  await setInRedis(`domain:${domain}`, initialAnalysis);
-
-  return initialAnalysis;
-}
-
-// Function to check if a domain exists by attempting a DNS lookup
-async function checkDomainExists(domain: string): Promise<boolean> {
-  try {
-    // Try to get DNS records as a simple existence check
-    const dnsRecords = await getAllDnsRecords(domain);
-    // If we get any records at all, the domain exists
     return dnsRecords.length > 0;
   } catch (error) {
     console.error("Error checking domain existence:", error);
     return false;
   }
-}
-
-export async function GET(request: NextRequest) {
-  const domain = request.nextUrl.searchParams.get("domain");
-  const force = request.nextUrl.searchParams.get("force") === "true";
-
-  if (!domain) {
-    return NextResponse.json(
-      { error: "Domain parameter is required" },
-      { status: 400 }
-    );
-  }
-
-  // Check if domain exists before proceeding
-  const domainExists = await checkDomainExists(domain);
-
-  if (!domainExists) {
-    return NextResponse.json(
-      {
-        error: "Domain not found",
-        domainExists: false,
-        complete: true,
-      },
-      { status: 404 }
-    );
-  }
-
-  // Check if we have cached results (and not forcing a new analysis)
-  const cachedResults = !force ? await getFromRedis(`domain:${domain}`) : null;
-
-  if (cachedResults) {
-    // Parse the cached results from Redis
-    const parsedResults: AnalysisStep[] =
-      typeof cachedResults === "string"
-        ? JSON.parse(cachedResults) as AnalysisStep[]
-        : cachedResults as AnalysisStep[];
-
-    return NextResponse.json({
-      results: parsedResults,
-      cached: true,
-      complete: true,
-      domainExists: true,
-    });
-  }
-
-  // Set up streaming response
-  const encoder = new TextEncoder();
-
-  const stream = new ReadableStream({
-    async start(controller) {
-      const domainChecker = checkDomain(domain);
-
-      let result: IteratorResult<AnalysisStep[]>;
-      do {
-        result = await domainChecker.next();
-
-        if (!result.done) {
-          const data =
-            JSON.stringify({
-              results: result.value,
-              complete: false,
-              domainExists: true,
-            }) + "\n";
-          controller.enqueue(encoder.encode(data));
-        } else {
-          // When done, send empty array as we've already sent all results
-          const data =
-            JSON.stringify({
-              results: [],
-              complete: true,
-              domainExists: true,
-            }) + "\n";
-          controller.enqueue(encoder.encode(data));
-        }
-      } while (!result.done);
-
-      controller.close();
-    },
-  });
-
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
-  });
 }

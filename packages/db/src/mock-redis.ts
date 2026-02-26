@@ -7,6 +7,8 @@ export class MockRedis {
   private hashes = new Map<string, Record<string, string>>();
   private sets = new Map<string, Set<string>>();
   private counters = new Map<string, number>();
+  private strings = new Map<string, string>();
+  private ttls = new Map<string, number>();
 
   async hSet(key: string, data: Record<string, string>) {
     const existing = this.hashes.get(key) || {};
@@ -45,11 +47,21 @@ export class MockRedis {
     return removed;
   }
 
+  async get(key: string): Promise<string | null> {
+    return this.strings.get(key) ?? null;
+  }
+
+  async set(key: string, value: string) {
+    this.strings.set(key, value);
+    return "OK";
+  }
+
   async expireAt(_key: string, _timestamp: number) {
     return true;
   }
 
-  async expire(_key: string, _seconds: number) {
+  async expire(key: string, seconds: number) {
+    this.ttls.set(key, seconds);
     return true;
   }
 
@@ -61,7 +73,8 @@ export class MockRedis {
     const keyArray = Array.isArray(keys) ? keys : [keys];
     let deleted = 0;
     for (const key of keyArray) {
-      if (this.hashes.delete(key) || this.sets.delete(key) || this.counters.delete(key)) {
+      this.ttls.delete(key);
+      if (this.hashes.delete(key) || this.sets.delete(key) || this.counters.delete(key) || this.strings.delete(key)) {
         deleted++;
       }
     }
@@ -111,6 +124,8 @@ export class MockRedis {
     this.hashes.clear();
     this.sets.clear();
     this.counters.clear();
+    this.strings.clear();
+    this.ttls.clear();
   }
 
   /** Inspect stored hash (for test assertions) */
@@ -121,5 +136,15 @@ export class MockRedis {
   /** Inspect stored set (for test assertions) */
   _getSet(key: string): Set<string> | undefined {
     return this.sets.get(key);
+  }
+
+  /** Inspect stored string (for test assertions) */
+  _getString(key: string): string | undefined {
+    return this.strings.get(key);
+  }
+
+  /** Inspect stored TTL (for test assertions) */
+  _getTtl(key: string): number | undefined {
+    return this.ttls.get(key);
   }
 }

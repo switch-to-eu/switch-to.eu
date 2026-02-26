@@ -9,6 +9,7 @@ export interface DecryptedItem {
   id: string;
   text: string;
   claimedBy?: string;
+  category?: string;
   completed: boolean;
   version: number;
   createdAt: string;
@@ -103,6 +104,7 @@ export function useList({ listId }: UseListOptions) {
               id: item.id,
               text: itemData.text,
               claimedBy: itemData.claimedBy,
+              category: itemData.category,
               completed: item.completed,
               version: item.version,
               createdAt: item.createdAt,
@@ -140,28 +142,95 @@ export function useList({ listId }: UseListOptions) {
   const updateItemMutation = api.list.updateItem.useMutation();
   const deleteListMutation = api.list.delete.useMutation();
 
+  // --- Optimistic update helpers ---
+  // Pattern: update local decrypted state immediately, fire mutation in background,
+  // SSE subscription naturally replaces local state with server truth on confirmation.
+  // On error: rollback local state and re-throw so the UI can show a toast.
+
+  const updateItem = useCallback(
+    (itemId: string, updater: (item: DecryptedItem) => DecryptedItem) => {
+      setDecryptedList((prev) =>
+        prev
+          ? { ...prev, items: prev.items.map((i) => (i.id === itemId ? updater(i) : i)) }
+          : null,
+      );
+    },
+    [],
+  );
+
   const addItem = useCallback(
-    async (text: string) => {
+    async (text: string, category?: string) => {
       if (!encryptionKey) return;
-      const itemData: DecryptedItemData = { text };
-      const encryptedItem = await encryptData(itemData, encryptionKey);
-      return addItemMutation.mutateAsync({ listId, encryptedItem });
+
+      // Optimistic: add item with temporary ID
+      const tempId = `temp-${Date.now()}`;
+      const now = new Date().toISOString();
+      setDecryptedList((prev) =>
+        prev
+          ? {
+              ...prev,
+              items: [
+                ...prev.items,
+                { id: tempId, text, category, completed: false, version: 0, createdAt: now, updatedAt: now },
+              ],
+            }
+          : null,
+      );
+
+      try {
+        const itemData: DecryptedItemData = { text, category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await addItemMutation.mutateAsync({ listId, encryptedItem });
+      } catch (error) {
+        // Rollback: remove the temp item
+        setDecryptedList((prev) =>
+          prev ? { ...prev, items: prev.items.filter((i) => i.id !== tempId) } : null,
+        );
+        throw error;
+      }
     },
     [encryptionKey, listId, addItemMutation],
   );
 
   const toggleItem = useCallback(
     async (itemId: string, completed: boolean) => {
-      return toggleItemMutation.mutateAsync({ listId, itemId, completed });
+      // Optimistic: flip the checkbox immediately
+      updateItem(itemId, (i) => ({ ...i, completed }));
+
+      try {
+        return await toggleItemMutation.mutateAsync({ listId, itemId, completed });
+      } catch (error) {
+        // Rollback: flip it back
+        updateItem(itemId, (i) => ({ ...i, completed: !completed }));
+        throw error;
+      }
     },
-    [listId, toggleItemMutation],
+    [listId, toggleItemMutation, updateItem],
   );
 
   const removeItem = useCallback(
     async (itemId: string) => {
-      return removeItemMutation.mutateAsync({ listId, itemId });
+      // Stash the item for rollback
+      const removedItem = decryptedList?.items.find((i) => i.id === itemId);
+
+      // Optimistic: remove immediately
+      setDecryptedList((prev) =>
+        prev ? { ...prev, items: prev.items.filter((i) => i.id !== itemId) } : null,
+      );
+
+      try {
+        return await removeItemMutation.mutateAsync({ listId, itemId });
+      } catch (error) {
+        // Rollback: restore the item
+        if (removedItem) {
+          setDecryptedList((prev) =>
+            prev ? { ...prev, items: [...prev.items, removedItem] } : null,
+          );
+        }
+        throw error;
+      }
     },
-    [listId, removeItemMutation],
+    [listId, decryptedList, removeItemMutation],
   );
 
   const claimItem = useCallback(
@@ -169,16 +238,27 @@ export function useList({ listId }: UseListOptions) {
       if (!encryptionKey || !decryptedList) return;
       const item = decryptedList.items.find((i) => i.id === itemId);
       if (!item) return;
-      const itemData: DecryptedItemData = { text: item.text, claimedBy };
-      const encryptedItem = await encryptData(itemData, encryptionKey);
-      return updateItemMutation.mutateAsync({
-        listId,
-        itemId,
-        encryptedItem,
-        expectedVersion: item.version,
-      });
+
+      // Optimistic: show claimed name immediately
+      const previousClaimedBy = item.claimedBy;
+      updateItem(itemId, (i) => ({ ...i, claimedBy }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, claimedBy, category: item.category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, claimedBy: previousClaimedBy }));
+        throw error;
+      }
     },
-    [encryptionKey, listId, decryptedList, updateItemMutation],
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
   );
 
   const unclaimItem = useCallback(
@@ -186,16 +266,27 @@ export function useList({ listId }: UseListOptions) {
       if (!encryptionKey || !decryptedList) return;
       const item = decryptedList.items.find((i) => i.id === itemId);
       if (!item) return;
-      const itemData: DecryptedItemData = { text: item.text };
-      const encryptedItem = await encryptData(itemData, encryptionKey);
-      return updateItemMutation.mutateAsync({
-        listId,
-        itemId,
-        encryptedItem,
-        expectedVersion: item.version,
-      });
+
+      // Optimistic: remove claimed name immediately
+      const previousClaimedBy = item.claimedBy;
+      updateItem(itemId, (i) => ({ ...i, claimedBy: undefined }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, category: item.category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, claimedBy: previousClaimedBy }));
+        throw error;
+      }
     },
-    [encryptionKey, listId, decryptedList, updateItemMutation],
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
   );
 
   const deleteList = useCallback(

@@ -56,7 +56,7 @@ export default function CreatePoll() {
 
       const { poll, adminToken } = response;
 
-      const adminUrl = `/poll/${poll.id}/admin#token=${adminToken}&key=${encryptionKey}`;
+      const adminUrl = `/poll/${poll.id}/admin#token=${encodeURIComponent(adminToken)}&key=${encodeURIComponent(encryptionKey)}`;
 
       toast.success(t('successMessage'));
       router.push(adminUrl);

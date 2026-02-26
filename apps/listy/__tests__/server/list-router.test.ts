@@ -21,7 +21,7 @@ function getCaller() {
 /** Seed a list directly in the mock Redis and return the admin token */
 async function seedList(
   id: string,
-  opts: { adminToken?: string; expired?: boolean; deleted?: boolean; preset?: string } = {},
+  opts: { adminToken?: string; expired?: boolean; preset?: string } = {},
 ) {
   const adminToken = opts.adminToken ?? "test-admin-token";
   const expiresAt = opts.expired
@@ -35,7 +35,6 @@ async function seedList(
     createdAt: new Date().toISOString(),
     expiresAt,
     version: "1",
-    isDeleted: opts.deleted ? "true" : "false",
   });
 
   return adminToken;

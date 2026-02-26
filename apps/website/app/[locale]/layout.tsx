@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t("description");
 
   // Default to localhost if NEXT_PUBLIC_URL is not defined
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:5010";
 
   return {
     metadataBase: new URL(baseUrl),

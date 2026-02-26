@@ -24,7 +24,7 @@ export function generateAdminUrl(
   token: string,
   encryptionKey: string,
 ): string {
-  return `${basePath}/${id}/admin#token=${token}&key=${encryptionKey}`;
+  return `${basePath}/${id}/admin#token=${encodeURIComponent(token)}&key=${encodeURIComponent(encryptionKey)}`;
 }
 
 /** Parse admin token and encryption key from URL fragment (e.g. #token=xxx&key=yyy) */

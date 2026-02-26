@@ -8,6 +8,7 @@ export interface DecryptedListData {
 export interface DecryptedItemData {
   text: string;
   claimedBy?: string; // potluck only
+  category?: string; // shopping only
 }
 
 // --- Server-side (Redis) types ---
@@ -19,7 +20,6 @@ export interface RedisListHash {
   createdAt: string; // ISO 8601
   expiresAt: string; // ISO 8601
   version: string;
-  isDeleted: string; // "true" | "false"
 }
 
 export interface RedisItemHash {

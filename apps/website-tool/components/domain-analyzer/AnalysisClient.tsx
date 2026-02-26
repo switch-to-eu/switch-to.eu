@@ -13,6 +13,7 @@ import {
 import { AnalysisStep } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { api } from "@/lib/trpc-client";
 
 import ReactCountryFlag from "react-country-flag";
 import { cn } from "@switch-to-eu/ui/lib/utils";
@@ -32,84 +33,60 @@ export function AnalysisClient({
   const [isComplete, setIsComplete] = useState(!!initialResults);
   const [isLoading, setIsLoading] = useState(!initialResults);
   const [error, setError] = useState<string | null>(null);
-  const [domainExists, setDomainExists] = useState<boolean | null>(null);
+  const [domainExists, setDomainExists] = useState<boolean | null>(
+    initialResults ? true : null
+  );
+  const [subscriptionEnabled, setSubscriptionEnabled] = useState(!initialResults);
 
   const t = useTranslations("domainAnalyzer");
   const commonT = useTranslations("common");
 
-  const fetchResults = useCallback(
-    async (force = false) => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        setDomainExists(null);
-
-        const response = await fetch(
-          `/api/domain-analyzer?domain=${domain}${force ? "&force=true" : ""}`
-        );
-
-        if (response.status === 404) {
-          setDomainExists(false);
-          setIsLoading(false);
-          setIsComplete(true);
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error("Failed to analyze domain");
-        }
-
-        setDomainExists(true);
-
-        const reader = response.body?.getReader();
-        if (!reader) throw new Error("Stream not available");
-
-        const decoder = new TextDecoder();
-        let done = false;
-
-        while (!done) {
-          const { value, done: doneReading } = await reader.read();
-          done = doneReading;
-
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n").filter((line) => line.trim());
-
-          for (const line of lines) {
-            try {
-              const data = JSON.parse(line) as { results: AnalysisStep[]; complete?: boolean; domainExists?: boolean };
-              setResults(data.results);
-
-              if (data.complete) {
-                setIsComplete(true);
-              }
-
-              if (data.domainExists === false) {
-                setDomainExists(false);
-              }
-            } catch (e) {
-              console.error("Error parsing stream data", e);
-            }
-          }
-        }
-
-        setIsLoading(false);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-        setIsLoading(false);
+  // Use tRPC subscription for streaming analysis
+  const { data: subscriptionData, error: subscriptionError } =
+    api.domain.analyze.useSubscription(
+      { domain },
+      {
+        enabled: subscriptionEnabled,
       }
-    },
-    [domain]
-  );
+    );
 
+  // Handle subscription data updates
   useEffect(() => {
-    if (initialResults) {
-      return;
-    }
+    if (!subscriptionData) return;
 
-    void fetchResults();
-  }, [domain, fetchResults, initialResults]);
+    setDomainExists(true);
+    setResults(subscriptionData.results);
+
+    if (subscriptionData.complete) {
+      setIsComplete(true);
+      setIsLoading(false);
+      setSubscriptionEnabled(false);
+    }
+  }, [subscriptionData]);
+
+  // Handle subscription errors
+  useEffect(() => {
+    if (!subscriptionError) return;
+
+    if (subscriptionError.data?.code === "NOT_FOUND") {
+      setDomainExists(false);
+    } else {
+      setError(subscriptionError.message);
+    }
+    setIsLoading(false);
+    setIsComplete(true);
+    setSubscriptionEnabled(false);
+  }, [subscriptionError]);
+
+  // "Check Again" handler — re-enable subscription
+  const handleCheckAgain = useCallback(() => {
+    setResults([]);
+    setIsComplete(false);
+    setIsLoading(true);
+    setError(null);
+    setDomainExists(null);
+    setSubscriptionEnabled(true);
+  }, []);
 
   const copyToClipboard = async () => {
     try {
@@ -139,7 +116,7 @@ export function AnalysisClient({
           <Button
             variant="default"
             size="sm"
-            onClick={() => fetchResults(true)}
+            onClick={handleCheckAgain}
             disabled={isLoading}
           >
             {isLoading ? commonT("loading") : t("buttons.checkAgain")}

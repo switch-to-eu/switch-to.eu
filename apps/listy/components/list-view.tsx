@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Plus, Copy, Trash2, Loader2, AlertTriangle, LinkIcon } from "lucide-react";
+import { Plus, Trash2, Loader2, AlertTriangle, LinkIcon, Pencil } from "lucide-react";
 
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
@@ -29,6 +29,7 @@ import { Badge } from "@switch-to-eu/ui/components/badge";
 
 import { useList } from "@hooks/use-list";
 import { ListItem } from "@components/list-item";
+import { CategorySections } from "@components/category-sections";
 import { parseAdminFragment } from "@switch-to-eu/db/admin";
 
 interface ListViewProps {
@@ -43,6 +44,16 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
   const [adminToken, setAdminToken] = useState("");
   const [newItemText, setNewItemText] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [claimName, setClaimName] = useState("");
+  const [nameInput, setNameInput] = useState("");
+  const [showNameDialog, setShowNameDialog] = useState(false);
+  const pendingClaimItemId = useRef<string | null>(null);
+
+  // Load claim name from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(`list-${listId}-claim-name`);
+    if (stored) setClaimName(stored);
+  }, [listId]);
 
   // Parse admin token from fragment on mount
   useEffect(() => {
@@ -80,6 +91,14 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     }
   };
 
+  const handleAddShoppingItem = async (text: string, category: string) => {
+    try {
+      await addItem(text, category);
+    } catch {
+      toast.error(t("addItemError"));
+    }
+  };
+
   const handleToggle = async (itemId: string, completed: boolean) => {
     try {
       await toggleItem(itemId, completed);
@@ -96,12 +115,39 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     }
   };
 
-  const handleClaim = async (itemId: string, name: string) => {
-    try {
-      await claimItem(itemId, name);
-    } catch {
-      toast.error(t("claimError"));
+  const handleClaim = useCallback(
+    (itemId: string) => {
+      if (claimName) {
+        claimItem(itemId, claimName).catch(() => toast.error(t("claimError")));
+      } else {
+        pendingClaimItemId.current = itemId;
+        setNameInput("");
+        setShowNameDialog(true);
+      }
+    },
+    [claimName, claimItem, t],
+  );
+
+  const handleNameSubmit = async () => {
+    const name = nameInput.trim();
+    if (!name) return;
+    setClaimName(name);
+    localStorage.setItem(`list-${listId}-claim-name`, name);
+    setShowNameDialog(false);
+    if (pendingClaimItemId.current) {
+      try {
+        await claimItem(pendingClaimItemId.current, name);
+      } catch {
+        toast.error(t("claimError"));
+      }
+      pendingClaimItemId.current = null;
     }
+  };
+
+  const handleEditName = () => {
+    setNameInput(claimName);
+    pendingClaimItemId.current = null;
+    setShowNameDialog(true);
   };
 
   const handleUnclaim = async (itemId: string) => {
@@ -243,22 +289,48 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
           </div>
         )}
 
-        {/* Add item */}
-        <form onSubmit={handleAddItem} className="flex gap-2">
-          <Input
-            value={newItemText}
-            onChange={(e) => setNewItemText(e.target.value)}
-            placeholder={t("addItemPlaceholder")}
-            maxLength={500}
-            className="flex-1"
-          />
-          <Button type="submit" disabled={!newItemText.trim() || isMutating}>
-            <Plus className="h-4 w-4" />
-          </Button>
-        </form>
+        {/* Claim name indicator for potluck lists */}
+        {list.preset === "potluck" && claimName && (
+          <div className="flex items-center gap-2 text-sm text-neutral-500">
+            <span>{t("claimingAs", { name: claimName })}</span>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleEditName}
+              className="h-6 px-1.5 text-neutral-400 hover:text-neutral-600"
+            >
+              <Pencil className="h-3 w-3" />
+            </Button>
+          </div>
+        )}
+
+        {/* Add item (non-shopping only — shopping has inline add per category) */}
+        {list.preset !== "shopping" && (
+          <form onSubmit={handleAddItem} className="flex gap-2">
+            <Input
+              value={newItemText}
+              onChange={(e) => setNewItemText(e.target.value)}
+              placeholder={t("addItemPlaceholder")}
+              maxLength={500}
+              className="flex-1"
+            />
+            <Button type="submit" disabled={!newItemText.trim() || isMutating}>
+              <Plus className="h-4 w-4" />
+            </Button>
+          </form>
+        )}
 
         {/* Item list */}
-        {list.items.length === 0 ? (
+        {list.preset === "shopping" ? (
+          <CategorySections
+            items={list.items}
+            preset={list.preset}
+            onToggle={handleToggle}
+            onRemove={handleRemove}
+            onAdd={handleAddShoppingItem}
+            isMutating={isMutating}
+          />
+        ) : list.items.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
               <p className="text-neutral-400">{t("emptyList")}</p>
@@ -279,6 +351,32 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
             ))}
           </div>
         )}
+
+        {/* Name dialog for potluck claims */}
+        <Dialog open={showNameDialog} onOpenChange={setShowNameDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{t("nameDialogTitle")}</DialogTitle>
+              <DialogDescription>{t("nameDialogDescription")}</DialogDescription>
+            </DialogHeader>
+            <Input
+              value={nameInput}
+              onChange={(e) => setNameInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleNameSubmit()}
+              placeholder={t("claimPlaceholder")}
+              maxLength={100}
+              autoFocus
+            />
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowNameDialog(false)}>
+                {t("cancel")}
+              </Button>
+              <Button onClick={handleNameSubmit} disabled={!nameInput.trim()}>
+                {t("nameDialogConfirm")}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

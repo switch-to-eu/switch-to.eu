@@ -32,15 +32,11 @@ function generateItemId(): string {
   return Array.from({ length: 8 }, () => chars[randomInt(chars.length)]!).join("");
 }
 
-/** Fetch and validate a list is not deleted/expired */
+/** Fetch and validate a list exists and is not expired */
 async function getValidList(redis: RedisClientType, id: string): Promise<RedisListHash> {
   const list = (await redis.hGetAll(`list:${id}`)) as unknown as RedisListHash;
 
   if (!list || !list.encryptedData) {
-    throw new TRPCError({ code: "NOT_FOUND", message: "List not found" });
-  }
-
-  if (list.isDeleted === "true") {
     throw new TRPCError({ code: "NOT_FOUND", message: "List not found" });
   }
 
@@ -170,7 +166,6 @@ export const listRouter = createTRPCRouter({
         createdAt: now,
         expiresAt,
         version: "1",
-        isDeleted: "false",
       } satisfies RedisListHash);
       await ctx.redis.expire(`list:${listId}`, ttl);
 

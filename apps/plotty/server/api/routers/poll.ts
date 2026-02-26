@@ -22,7 +22,7 @@ function generatePollId(): string {
   return Array.from({ length: 10 }, () => chars[randomInt(chars.length)]!).join("");
 }
 
-/** Fetch and validate a poll is not deleted/expired */
+/** Fetch and validate a poll exists and is not expired */
 async function getValidPoll(
   redis: RedisClientType,
   id: string
@@ -30,10 +30,6 @@ async function getValidPoll(
   const poll = (await redis.hGetAll(`poll:${id}`)) as unknown as RedisPollHash;
 
   if (!poll || !poll.encryptedData) {
-    throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
-  }
-
-  if (poll.isDeleted === "true") {
     throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
   }
 
@@ -148,7 +144,6 @@ export const pollRouter = createTRPCRouter({
           createdAt: now,
           expiresAt,
           version: "1",
-          isDeleted: "false",
         } satisfies RedisPollHash);
         await ctx.redis.expireAt(
           `poll:${pollId}`,

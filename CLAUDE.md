@@ -131,6 +131,15 @@ Both apps follow the same architecture: tRPC v11 + Redis, E2E encryption (key in
 
 Rate limiting via Redis sliding window middleware in `@switch-to-eu/trpc/middleware` with per-app `prefix` parameter.
 
+**Optimistic updates** — for instant-feeling UI on item-level mutations (toggle, add, remove, claim). Pattern:
+
+1. Update local decrypted state via `setState` immediately
+2. Fire the tRPC mutation in the background (encrypt → send)
+3. SSE subscription naturally replaces local state with server truth on confirmation
+4. On mutation error: rollback local state to previous value and re-throw for toast
+
+This applies to frequent, lightweight interactions (checkboxes, add/remove items). Form-submit-style operations (create poll, vote, delete) should use a loading spinner instead — optimistic updates don't make sense there.
+
 ## Code Style
 
 - TypeScript strict mode, functional React components

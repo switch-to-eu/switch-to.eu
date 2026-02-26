@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
-import { getFromRedis } from "@/lib/redis";
 import { AnalysisStep } from "@/lib/types";
+import { api } from "@/server/api/trpc-server";
 
 export const alt = "Domain EU Compliance Analysis";
 
@@ -150,11 +150,7 @@ export default async function Image({
   const domain = decodeURIComponent(params.domain);
   const formattedDomain = formatDomain(domain);
 
-  const cachedResults = await getFromRedis(`domain:${domain}`);
-
-  const results = cachedResults
-    ? (JSON.parse(cachedResults) as AnalysisStep[])
-    : [];
+  const results = (await api.domain.getCached({ domain })) ?? [];
 
   const bricolageGrotesque = await fetch(
     "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap"
