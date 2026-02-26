@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@switch-to-eu/ui/styles/globals.css";
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+/* PrivNote-specific color overrides */
+.gradient-primary {
+  @apply bg-gradient-to-r from-amber-600 to-red-600;
+}
+
+.header-bg {
+  @apply bg-gradient-to-br from-amber-600/10 via-red-500/5 to-transparent;
+}
+
+.text-primary-color {
+  @apply text-amber-600;
+}
+
+.focus-ring-accent {
+  @apply focus-visible:ring-amber-600/30 focus-visible:ring-[2px];
+}
+
+.focus-ring-accent-strong {
+  @apply focus-visible:ring-amber-600/50 focus-visible:ring-[3px];
+}

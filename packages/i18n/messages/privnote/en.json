@@ -1,0 +1,154 @@
+{
+  "layout": {
+    "metadata": {
+      "title": "PrivNote",
+      "description": "Self-destructing private notes"
+    },
+    "header": {
+      "createNote": "New Note",
+      "about": "About"
+    },
+    "footer": {
+      "about": "About",
+      "privacy": "Privacy Policy",
+      "copyright": "{year} <link>switch-to.eu</link> — a project by"
+    }
+  },
+  "HomePage": {
+    "hero": {
+      "title": "Send notes that",
+      "subtitle": "self-destruct",
+      "description": "Create encrypted, self-destructing notes. Once read, they're gone forever. No accounts, no tracking, just private communication.",
+      "cta": "Create Private Note",
+      "ctaMobile": "New Note",
+      "disclaimer": "No signup required",
+      "floatingBadge": "Read once, then gone"
+    },
+    "benefits": {
+      "title": "Why PrivNote?",
+      "description": "Simple, private, ephemeral messaging",
+      "selfDestruct": {
+        "title": "Self-Destructing",
+        "description": "Notes are permanently deleted after being read or when their timer expires. No traces left behind."
+      },
+      "encrypted": {
+        "title": "Private by Design",
+        "description": "Notes are stored encrypted in Redis and automatically purged. We never log or inspect your content."
+      },
+      "timer": {
+        "title": "Timed Expiry",
+        "description": "Set a custom expiry from 5 minutes to 7 days. Notes auto-delete even if never opened."
+      }
+    },
+    "howItWorks": {
+      "title": "Simple as 1-2-3",
+      "description": "No complicated setup, no account needed",
+      "step1": {
+        "title": "Write",
+        "description": "Type your private note and set an expiry time"
+      },
+      "step2": {
+        "title": "Share",
+        "description": "Send the unique link to your recipient"
+      },
+      "step3": {
+        "title": "Gone",
+        "description": "Once read, the note is permanently destroyed"
+      }
+    },
+    "trust": {
+      "badges": {
+        "noEmail": "No email required",
+        "autoDelete": "Auto-deleted",
+        "encrypted": "Private & secure",
+        "european": "Open source"
+      }
+    },
+    "cta": {
+      "title": "Try it now",
+      "description": "No signup, no spam, no tracking - just private notes that vanish.",
+      "button": "Create Private Note",
+      "buttonMobile": "Get Started"
+    }
+  },
+  "CreatePage": {
+    "title": "Create a Private Note",
+    "description": "Write your note below. It will self-destruct after being read or when the timer expires.",
+    "contentLabel": "Your Note",
+    "contentPlaceholder": "Type your private note here...",
+    "expiryLabel": "Self-destruct after",
+    "expiryOptions": {
+      "5m": "5 minutes",
+      "30m": "30 minutes",
+      "1h": "1 hour",
+      "24h": "24 hours",
+      "7d": "7 days"
+    },
+    "burnAfterReading": "Destroy after reading",
+    "burnAfterReadingDescription": "Note will be permanently deleted immediately after it's opened",
+    "passwordLabel": "Password protection (optional)",
+    "passwordPlaceholder": "Enter a password",
+    "createButton": "Create Note",
+    "creatingButton": "Creating..."
+  },
+  "SharePage": {
+    "title": "Your note is ready!",
+    "description": "Share this link with your recipient. The note will self-destruct after being read.",
+    "linkLabel": "Private note link",
+    "copyButton": "Copy Link",
+    "copiedButton": "Copied!",
+    "createAnother": "Create Another Note",
+    "warning": "This link will only work once. After the note is read, it's gone forever.",
+    "expiresIn": "Expires in {time}",
+    "burnWarning": "This note will be destroyed immediately after being opened."
+  },
+  "ViewNote": {
+    "title": "Private Note",
+    "revealButton": "Reveal Note",
+    "revealWarning": "This note will be permanently destroyed after you read it.",
+    "passwordRequired": "This note is password-protected",
+    "passwordPlaceholder": "Enter the password",
+    "unlockButton": "Unlock",
+    "wrongPassword": "Incorrect password. Please try again.",
+    "destroyed": "This note has been destroyed.",
+    "expired": "This note has expired and been deleted.",
+    "notFound": "Note not found",
+    "notFoundDescription": "This note doesn't exist, has already been read, or has expired.",
+    "returnHome": "Create a New Note",
+    "noteContent": "Note Content",
+    "noteDestroyed": "This note has been permanently destroyed.",
+    "copyContent": "Copy Note",
+    "copiedContent": "Copied!"
+  },
+  "AboutPage": {
+    "hero": {
+      "title": "About PrivNote",
+      "subtitle": "Self-destructing private notes built with privacy at the core. Part of the Switch-to.eu initiative.",
+      "badges": {
+        "european": "Open Source",
+        "encrypted": "Private by Design",
+        "noTracking": "No Tracking"
+      }
+    }
+  },
+  "tools": {
+    "plotty": {
+      "tagline": "Schedule meetings privately",
+      "description": "A privacy-first scheduling tool with end-to-end encryption. No accounts, no tracking, just simple scheduling.",
+      "cta": "Try Plotty"
+    },
+    "privnote": {
+      "tagline": "Self-destructing notes",
+      "description": "Send private notes that self-destruct after reading. No accounts, no tracking, just ephemeral messaging.",
+      "cta": "Try PrivNote"
+    },
+    "keepfocus": {
+      "tagline": "Focus with Pomodoro",
+      "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+      "cta": "Try KeepFocus"
+    },
+    "more": {
+      "cta": "Coming soon"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "layout": {
+    "metadata": {
+      "title": "PrivNote",
+      "description": "Zelfvernietigende privénotities"
+    },
+    "header": {
+      "createNote": "Nieuwe Notitie",
+      "about": "Over"
+    },
+    "footer": {
+      "about": "Over",
+      "privacy": "Privacybeleid",
+      "copyright": "{year} <link>switch-to.eu</link> — een project van"
+    }
+  },
+  "HomePage": {
+    "hero": {
+      "title": "Stuur notities die",
+      "subtitle": "zichzelf vernietigen",
+      "description": "Maak versleutelde, zelfvernietigende notities. Eenmaal gelezen, voor altijd verdwenen. Geen accounts, geen tracking, gewoon privécommunicatie.",
+      "cta": "Maak Privénotitie",
+      "ctaMobile": "Nieuwe Notitie",
+      "disclaimer": "Geen registratie nodig",
+      "floatingBadge": "Eenmaal lezen, dan weg"
+    },
+    "benefits": {
+      "title": "Waarom PrivNote?",
+      "description": "Eenvoudig, privé, vergankelijke berichten",
+      "selfDestruct": {
+        "title": "Zelfvernietigend",
+        "description": "Notities worden permanent verwijderd na het lezen of wanneer de timer afloopt. Geen sporen achtergelaten."
+      },
+      "encrypted": {
+        "title": "Privé by Design",
+        "description": "Notities worden versleuteld opgeslagen in Redis en automatisch gewist. We loggen of inspecteren uw inhoud nooit."
+      },
+      "timer": {
+        "title": "Timer Verloop",
+        "description": "Stel een aangepast verloop in van 5 minuten tot 7 dagen. Notities worden automatisch verwijderd, zelfs als ze nooit worden geopend."
+      }
+    },
+    "howItWorks": {
+      "title": "Simpel als 1-2-3",
+      "description": "Geen ingewikkelde setup, geen account nodig",
+      "step1": {
+        "title": "Schrijf",
+        "description": "Typ uw privénotitie en stel een verlooptijd in"
+      },
+      "step2": {
+        "title": "Deel",
+        "description": "Stuur de unieke link naar uw ontvanger"
+      },
+      "step3": {
+        "title": "Weg",
+        "description": "Eenmaal gelezen wordt de notitie permanent vernietigd"
+      }
+    },
+    "trust": {
+      "badges": {
+        "noEmail": "Geen e-mail nodig",
+        "autoDelete": "Automatisch verwijderd",
+        "encrypted": "Privé & veilig",
+        "european": "Open source"
+      }
+    },
+    "cta": {
+      "title": "Probeer het nu",
+      "description": "Geen registratie, geen spam, geen tracking - gewoon privénotities die verdwijnen.",
+      "button": "Maak Privénotitie",
+      "buttonMobile": "Aan de slag"
+    }
+  },
+  "CreatePage": {
+    "title": "Maak een Privénotitie",
+    "description": "Schrijf hieronder uw notitie. Deze wordt vernietigd na het lezen of wanneer de timer afloopt.",
+    "contentLabel": "Uw Notitie",
+    "contentPlaceholder": "Typ hier uw privénotitie...",
+    "expiryLabel": "Zelfvernietigen na",
+    "expiryOptions": {
+      "5m": "5 minuten",
+      "30m": "30 minuten",
+      "1h": "1 uur",
+      "24h": "24 uur",
+      "7d": "7 dagen"
+    },
+    "burnAfterReading": "Vernietigen na lezen",
+    "burnAfterReadingDescription": "Notitie wordt permanent verwijderd direct na het openen",
+    "passwordLabel": "Wachtwoordbeveiliging (optioneel)",
+    "passwordPlaceholder": "Voer een wachtwoord in",
+    "createButton": "Notitie Aanmaken",
+    "creatingButton": "Aanmaken..."
+  },
+  "SharePage": {
+    "title": "Uw notitie is klaar!",
+    "description": "Deel deze link met uw ontvanger. De notitie wordt vernietigd na het lezen.",
+    "linkLabel": "Privénotitie link",
+    "copyButton": "Kopieer Link",
+    "copiedButton": "Gekopieerd!",
+    "createAnother": "Maak Nog Een Notitie",
+    "warning": "Deze link werkt slechts één keer. Nadat de notitie is gelezen, is deze voor altijd verdwenen.",
+    "expiresIn": "Verloopt over {time}",
+    "burnWarning": "Deze notitie wordt direct na het openen vernietigd."
+  },
+  "ViewNote": {
+    "title": "Privénotitie",
+    "revealButton": "Toon Notitie",
+    "revealWarning": "Deze notitie wordt permanent vernietigd nadat u hem hebt gelezen.",
+    "passwordRequired": "Deze notitie is beveiligd met een wachtwoord",
+    "passwordPlaceholder": "Voer het wachtwoord in",
+    "unlockButton": "Ontgrendel",
+    "wrongPassword": "Onjuist wachtwoord. Probeer het opnieuw.",
+    "destroyed": "Deze notitie is vernietigd.",
+    "expired": "Deze notitie is verlopen en verwijderd.",
+    "notFound": "Notitie niet gevonden",
+    "notFoundDescription": "Deze notitie bestaat niet, is al gelezen of is verlopen.",
+    "returnHome": "Maak een Nieuwe Notitie",
+    "noteContent": "Notitie Inhoud",
+    "noteDestroyed": "Deze notitie is permanent vernietigd.",
+    "copyContent": "Kopieer Notitie",
+    "copiedContent": "Gekopieerd!"
+  },
+  "AboutPage": {
+    "hero": {
+      "title": "Over PrivNote",
+      "subtitle": "Zelfvernietigende privénotities gebouwd met privacy als kern. Onderdeel van het Switch-to.eu initiatief.",
+      "badges": {
+        "european": "Open Source",
+        "encrypted": "Privé by Design",
+        "noTracking": "Geen Tracking"
+      }
+    }
+  },
+  "tools": {
+    "plotty": {
+      "tagline": "Plan vergaderingen privé",
+      "description": "Een privacy-first planningtool met end-to-end encryptie. Geen accounts, geen tracking, gewoon eenvoudig plannen.",
+      "cta": "Probeer Plotty"
+    },
+    "privnote": {
+      "tagline": "Zelfvernietigende notities",
+      "description": "Stuur privénotities die zichzelf vernietigen na het lezen. Geen accounts, geen tracking, gewoon vergankelijke berichten.",
+      "cta": "Probeer PrivNote"
+    },
+    "keepfocus": {
+      "tagline": "Focus met Pomodoro",
+      "description": "Een privacy-first Pomodoro timer en taakbeheerder die volledig in uw browser draait.",
+      "cta": "Probeer KeepFocus"
+    },
+    "more": {
+      "cta": "Binnenkort beschikbaar"
+    }
+  }
+}
