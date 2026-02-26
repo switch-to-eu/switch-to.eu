@@ -9,7 +9,7 @@
 import { TRPCError } from "@trpc/server";
 import { createTRPCInit } from "@switch-to-eu/trpc/init";
 import { createTimingMiddleware } from "@switch-to-eu/trpc/middleware";
-import { getRedis } from "@/server/db/redis";
+import { getRedis } from "@switch-to-eu/db/redis";
 
 /**
  * 1. CONTEXT

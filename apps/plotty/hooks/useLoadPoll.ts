@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/trpc-client";
-import { decryptData } from "@/lib/crypto";
+import { decryptData } from "@switch-to-eu/db/crypto";
 import type {
   DecryptedPoll,
   EncryptedPollStructure,

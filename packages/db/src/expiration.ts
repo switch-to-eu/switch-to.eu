@@ -20,3 +20,10 @@ export function calculateExpirationDate(from: Date, days: number): Date {
   expirationDate.setDate(expirationDate.getDate() + days);
   return expirationDate;
 }
+
+/** Calculate TTL in seconds from expiresAt + a grace period */
+export function calculateTTLSeconds(expiresAt: string, gracePeriodDays = 7): number {
+  const gracePeriodMs = gracePeriodDays * 24 * 60 * 60 * 1000;
+  const expiryMs = new Date(expiresAt).getTime() + gracePeriodMs;
+  return Math.max(0, Math.floor((expiryMs - Date.now()) / 1000));
+}

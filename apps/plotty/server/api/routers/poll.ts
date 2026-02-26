@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { randomBytes, randomInt, timingSafeEqual, createHash } from "crypto";
-import type { RedisClientType } from "redis";
+import { randomInt } from "crypto";
+import type { RedisClientType } from "@switch-to-eu/db/redis";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { getRedisSubscriber } from "@/server/db/redis";
+import { getRedisSubscriber } from "@switch-to-eu/db/redis";
+import { generateAdminToken, hashAdminToken, verifyAdminToken } from "@switch-to-eu/db/admin";
+import { calculateTTLSeconds } from "@switch-to-eu/db/expiration";
 import type {
   RedisPollHash,
   RedisVoteHash,
@@ -18,29 +20,6 @@ import type {
 function generatePollId(): string {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
   return Array.from({ length: 10 }, () => chars[randomInt(chars.length)]!).join("");
-}
-
-function generateAdminToken(): string {
-  return randomBytes(48).toString("base64url");
-}
-
-/** Hash an admin token for storage (never store plain text) */
-function hashAdminToken(token: string): string {
-  return createHash("sha256").update(token).digest("hex");
-}
-
-/** Constant-time comparison of admin tokens */
-function verifyAdminToken(inputToken: string, storedHash: string): boolean {
-  const inputHash = hashAdminToken(inputToken);
-  if (inputHash.length !== storedHash.length) return false;
-  return timingSafeEqual(Buffer.from(inputHash), Buffer.from(storedHash));
-}
-
-/** Calculate TTL in seconds from expiresAt + 7-day grace period */
-function calculateTTLSeconds(expiresAt: string): number {
-  const gracePeriodMs = 7 * 24 * 60 * 60 * 1000;
-  const expiryMs = new Date(expiresAt).getTime() + gracePeriodMs;
-  return Math.max(0, Math.floor((expiryMs - Date.now()) / 1000));
 }
 
 /** Fetch and validate a poll is not deleted/expired */

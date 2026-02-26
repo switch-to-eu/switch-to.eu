@@ -14,7 +14,7 @@ import { PollLoading } from "@components/poll-loading";
 
 import { AvailabilityGrid } from "@components/availability-grid";
 import type { ProcessedPollFormData } from "@components/poll-form";
-import { parseAdminFragment } from "@/lib/admin";
+import { parseAdminFragment } from "@switch-to-eu/db/admin";
 
 export default function AdminPage() {
   const params = useParams();

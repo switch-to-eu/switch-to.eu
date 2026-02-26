@@ -3,10 +3,10 @@
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { PollForm, type ProcessedPollFormData } from "@components/poll-form";
-import { generateEncryptionKey, encryptData } from "@/lib/crypto";
+import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 import type { EncryptedPollStructure } from "@/lib/interfaces";
 import { toast } from "sonner";
-import { calculateExpirationDate } from "@/lib/expiration";
+import { calculateExpirationDate } from "@switch-to-eu/db/expiration";
 import { api } from "@/lib/trpc-client";
 import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
 import { Checkbox } from "@switch-to-eu/ui/components/checkbox";
