@@ -44,7 +44,6 @@
     "contribute": "Contribute",
     "github": "GitHub",
     "allCategories": "All Categories",
-    "websiteTool": "Website tool",
     "contributeGuide": "Contribution Guide",
     "feedback": "Feedback",
     "mobileMenu": "Toggle menu"
@@ -513,8 +512,7 @@
   },
   "tools": {
     "title": "Tools",
-    "description": "Tools to help you switch to EU services",
-    "availableTools": "Available Tools",
+    "description": "Privacy-first tools built in Europe. No tracking, no accounts — just useful apps that respect your data.",
     "whyUseTools": "Why Use Our Tools",
     "features": {
       "dataSovereignty": {
@@ -526,41 +524,27 @@
         "description": "All tools are free to use with intuitive interfaces and actionable results"
       },
       "euAlternatives": {
-        "title": "EU Alternatives",
-        "description": "Get recommendations for EU-based alternatives for any non-compliant services found"
+        "title": "Open Source",
+        "description": "All our tools are open source and community-driven — inspect, contribute, and build with confidence"
       }
     },
-    "websiteTool": {
-      "title": "Website Tool",
-      "description": "Analyze a website to check if it's EU-based"
-    },
-    "websiteAnalyzer": {
-      "pageTitle": "Is Your Website Using EU-Friendly Services? Find Out!",
-      "urlInputPlaceholder": "Enter your website URL (e.g., yourwebsite.com)",
-      "checkButton": "Check My Website",
-      "urlError": "Please enter a website URL",
-      "invalidUrlError": "Please enter a valid website URL",
-      "emptyStateTitle": "Enter your URL to get started!",
-      "emptyStateDescription": "We'll instantly show you which services your website relies on and whether they're EU-compliant.",
-      "howItWorksTitle": "How It Works",
-      "step1": {
-        "number": "1",
-        "title": "Enter Your Website URL",
-        "description": "Provide your website address to start checking the services your site currently uses."
+    "items": {
+      "websiteTool": {
+        "title": "Website Tool",
+        "description": "Analyze any website to check if it uses EU-based services and is GDPR compliant."
       },
-      "step2": {
-        "number": "2",
-        "title": "Instant Domain Check",
-        "description": "Our tool automatically detects your website's third-party services and identifies whether they're EU-based."
+      "keepfocus": {
+        "title": "KeepFocus",
+        "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser."
       },
-      "step3": {
-        "number": "3",
-        "title": "View Results",
-        "description": "Instantly see which services you're using, their EU compliance status, and receive recommendations for EU-friendly alternatives."
+      "plotty": {
+        "title": "Plotty",
+        "description": "Create polls instantly — no registration, no email, no hassle. Simple scheduling that respects your privacy."
       },
-      "ctaTitle": "Ready to make the switch?",
-      "ctaDescription": "Discover EU alternatives for any non-EU services detected on your website and follow our step-by-step migration guides.",
-      "ctaButton": "Explore EU Alternatives"
+      "listy": {
+        "title": "Listy",
+        "description": "Create shared lists instantly — groceries, tasks, potluck. No account needed, end-to-end encrypted."
+      }
     }
   },
   "language": {
@@ -625,54 +609,6 @@
       "continueButton": "Continue"
     },
     "unnamedStep": "Unnamed Step {number}"
-  },
-  "domainAnalyzer": {
-    "results": {
-      "howEuFriendly": "How EU-friendly is {domain}?",
-      "statusExcellent": "Excellent",
-      "statusImprovement": "Room for improvement",
-      "statusAttention": "Needs attention",
-      "pending": "Waiting to process...",
-      "complete": "Complete",
-      "notFound": "Not Found",
-      "eu": "EU",
-      "euFriendly": "EU-friendly",
-      "nonEu": "Non-EU",
-      "detectedServices": "Detected services:",
-      "congratulations": "Congratulations! Your website is using 100% EU-based services."
-    },
-    "domainNotFound": {
-      "title": "Domain Not Found",
-      "message": "We couldn't find the domain {domain}. Please check if the domain exists or try another one.",
-      "tryAgain": "Try another domain"
-    },
-    "recommendations": {
-      "switchToEu": "Consider switching to an EU-based alternative.",
-      "emailProviders": "Consider these email providers:",
-      "domainRegistrars": "Consider these domain registrars:",
-      "hostingProviders": "Consider these hosting providers:",
-      "services": "Consider these services:",
-      "cdnProviders": "Consider these EU CDN providers:"
-    },
-    "services": {
-      "mx_records": "Email",
-      "domain_registrar": "Domain Registrar",
-      "hosting": "Hosting",
-      "services": "Services",
-      "cdn": "CDN"
-    },
-    "buttons": {
-      "shareResults": "Share Results",
-      "checkAgain": "Check again"
-    },
-    "analyze": {
-      "analyzing": "Analyzing {domain}...",
-      "checkingAspects": "We're checking various aspects of this domain. This might take a moment."
-    },
-    "error": {
-      "title": "Analysis Error",
-      "tryAgain": "Try Again"
-    }
   },
   "newsletter": {
     "title": "Subscribe to our newsletter",
