@@ -1,5 +1,5 @@
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { Palette, Type, Component, LayoutGrid } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, FormInput } from "lucide-react";
 
 const sections = [
   {
@@ -16,9 +16,15 @@ const sections = [
   },
   {
     title: "Components",
-    description: "All shared UI components — buttons, cards, inputs, badges, dialogs, and more.",
+    description: "All shared UI components — buttons, cards, badges, dialogs, and more.",
     href: "/components",
     icon: Component,
+  },
+  {
+    title: "Forms",
+    description: "Form elements — inputs, selects, checkboxes, radio groups, fields, and input groups.",
+    href: "/forms",
+    icon: FormInput,
   },
   {
     title: "Blocks",

@@ -23,11 +23,6 @@ import {
   CardContent,
   CardFooter,
 } from "@switch-to-eu/ui/components/card";
-import { Input } from "@switch-to-eu/ui/components/input";
-import { Textarea } from "@switch-to-eu/ui/components/textarea";
-import { Label } from "@switch-to-eu/ui/components/label";
-import { Checkbox } from "@switch-to-eu/ui/components/checkbox";
-import { Switch } from "@switch-to-eu/ui/components/switch";
 import { Separator } from "@switch-to-eu/ui/components/separator";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
 import { Alert, AlertTitle, AlertDescription } from "@switch-to-eu/ui/components/alert";
@@ -45,13 +40,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@switch-to-eu/ui/components/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@switch-to-eu/ui/components/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -191,48 +179,6 @@ export default function ComponentsPage() {
               <p>Cards can use pop colors for visual variety.</p>
             </CardContent>
           </Card>
-        </div>
-      </Section>
-
-      {/* Form Elements */}
-      <Section title="Form Elements">
-        <div className="space-y-6 max-w-md">
-          <div className="space-y-2">
-            <Label htmlFor="input-demo">Input</Label>
-            <Input id="input-demo" placeholder="Type something..." />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email-demo">Email with icon</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input id="email-demo" placeholder="email@example.com" className="pl-10" />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="textarea-demo">Textarea</Label>
-            <Textarea id="textarea-demo" placeholder="Write a message..." />
-          </div>
-          <div className="space-y-2">
-            <Label>Select</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose an option" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="option-1">Option 1</SelectItem>
-                <SelectItem value="option-2">Option 2</SelectItem>
-                <SelectItem value="option-3">Option 3</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex items-center gap-2">
-            <Checkbox id="checkbox-demo" />
-            <Label htmlFor="checkbox-demo">Accept terms and conditions</Label>
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch id="switch-demo" />
-            <Label htmlFor="switch-demo">Enable notifications</Label>
-          </div>
         </div>
       </Section>
 
