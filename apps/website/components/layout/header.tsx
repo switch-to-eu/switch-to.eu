@@ -15,10 +15,10 @@ export function Header() {
       logo={
         <Link href={`/`} className="flex items-center">
           <h1
-            style={{ fontFamily: "var(--font-anton)", fontWeight: 400 }}
+            style={{ fontFamily: "var(--font-bonbance)", fontWeight: 400 }}
             className="text-2xl md:text-3xl tracking-wide text-brand-navy"
           >
-            Switch to EU
+            Switch.to-eu
           </h1>
         </Link>
       }

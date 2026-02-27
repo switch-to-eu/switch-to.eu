@@ -51,62 +51,36 @@ export function Footer({
   feedbackToolId,
 }: FooterProps) {
   const content = (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {/* Tools Column */}
-      {showTools && (
-        <FooterTools
-          excludeToolId={currentToolId}
-          title={toolsSectionTitle}
-        />
-      )}
-
-      {/* Links Column */}
-      {links.length > 0 && (
-        <div>
-          {linksSectionTitle && (
-            <h3 className="text-sm font-semibold text-foreground mb-3">
-              {linksSectionTitle}
-            </h3>
-          )}
-          <ul className="space-y-2">
-            {links.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  {...(link.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          {feedbackToolId && (
-            <div className="mt-2">
-              <FooterFeedback toolId={feedbackToolId} />
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Branding + Copyright Column */}
-      {(branding || copyright) && (
-        <div className="flex flex-col gap-4">
-          {branding}
-          {copyright && (
-            <p className="text-xs text-muted-foreground">{copyright}</p>
-          )}
-        </div>
-      )}
-    </div>
+    <>
+      <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+        {links.map((link, index) => (
+          <a
+            key={index}
+            href={link.href}
+            className="text-sm font-medium text-white/70 transition-colors hover:text-brand-yellow"
+            {...(link.external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        {copyright && (
+          <div className="text-sm text-white/50 text-center">
+            {copyright}
+          </div>
+        )}
+        {branding && (
+          <div className="text-xs text-white/40">{branding}</div>
+        )}
+      </div>
+    </>
   );
 
   return (
-    <footer
-      className={cn("border-t bg-background py-8 md:py-12", className)}
-    >
+    <footer className={cn("bg-brand-green py-8 md:py-12", className)}>
       {useContainer ? (
         <div
           className={cn(

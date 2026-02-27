@@ -236,15 +236,18 @@ export default async function GuideServicePage({
           <div className="lg:col-span-8">
             {/* Header - Full width */}
             <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
-              <div className="flex mt-4 space-x-4">
+              <h1 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4">
+                {frontmatter.title}
+              </h1>
+              <div className="flex mt-4 space-x-3">
                 <div
-                  className={`px-3 py-1 rounded-full text-sm ${frontmatter.difficulty === "beginner"
-                    ? "bg-green-100 text-green-800"
-                    : frontmatter.difficulty === "intermediate"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : "bg-red-100 text-red-800"
-                    }`}
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+                    frontmatter.difficulty === "beginner"
+                      ? "bg-brand-sage text-brand-green"
+                      : frontmatter.difficulty === "intermediate"
+                        ? "bg-brand-yellow text-brand-green"
+                        : "bg-brand-red text-white"
+                  }`}
                 >
                   {serviceT("difficultyLabel", {
                     level:
@@ -252,7 +255,7 @@ export default async function GuideServicePage({
                       frontmatter.difficulty.slice(1),
                   })}
                 </div>
-                <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                <div className="bg-brand-sky text-brand-green px-4 py-1.5 rounded-full text-sm font-semibold">
                   {frontmatter.timeRequired}
                 </div>
               </div>
@@ -288,14 +291,16 @@ export default async function GuideServicePage({
               <NewsletterCta />
             </div>
 
-            <div className="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">
+            <div className="mt-12 p-6 sm:p-8 bg-brand-sage/30 rounded-3xl">
+              <h2 className="font-heading text-xl uppercase text-brand-green mb-4">
                 {serviceT("editGuide.title")}
               </h2>
-              <p className="mb-4">{serviceT("editGuide.description")}</p>
+              <p className="mb-4 text-brand-green/80">
+                {serviceT("editGuide.description")}
+              </p>
               <a
                 href="https://github.com/switch-to-eu/switch-to.eu"
-                className="hover:underline"
+                className="inline-block px-5 py-2 bg-brand-green text-white rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
                 target="_blank"
                 rel="noopener noreferrer"
               >

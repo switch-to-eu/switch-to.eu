@@ -100,8 +100,8 @@ export function GuideStep({
   const renderContent = () => (
     <>
       {/* Step title with number */}
-      <h2 className="text-2xl font-bold mb-4 flex items-center">
-        <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">
+      <h2 className="text-2xl font-bold mb-4 flex items-center text-brand-green">
+        <span className="bg-brand-yellow text-brand-green w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold flex-shrink-0">
           {stepNumber}
         </span>
         {step.title}
@@ -143,7 +143,7 @@ export function GuideStep({
 
   return (
     <div
-      className="guide-step mb-10 pb-6 border-b border-gray-200 dark:border-gray-700"
+      className="guide-step mb-10 pb-6 border-b border-brand-sage"
       id={step.id}
     >
       {/* Responsive layout - adjust based on video orientation */}

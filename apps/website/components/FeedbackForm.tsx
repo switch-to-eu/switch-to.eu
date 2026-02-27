@@ -4,14 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@switch-to-eu/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@switch-to-eu/ui/components/card";
 import {
   Form,
   FormControl,
@@ -114,7 +106,10 @@ export default function FeedbackForm() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json() as { error?: string; issueUrl?: string };
+      const result = (await response.json()) as {
+        error?: string;
+        issueUrl?: string;
+      };
 
       if (!response.ok) {
         throw new Error(result.error ?? "Failed to submit feedback");
@@ -132,12 +127,14 @@ export default function FeedbackForm() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle>{t("form.title")}</CardTitle>
-        <CardDescription>{t("form.description")}</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-brand-sage/30 overflow-hidden">
+      <div className="px-6 sm:px-8 pt-8 pb-2">
+        <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
+          {t("form.title")}
+        </h2>
+        <p className="text-brand-green/60 mt-2">{t("form.description")}</p>
+      </div>
+      <div className="px-6 sm:px-8 py-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -145,13 +142,15 @@ export default function FeedbackForm() {
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("form.categoryLabel")}</FormLabel>
+                  <FormLabel className="text-brand-green font-semibold">
+                    {t("form.categoryLabel")}
+                  </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="rounded-xl border-brand-sage/50 focus:ring-brand-green/20 focus:border-brand-green/50">
                         <SelectValue
                           placeholder={t("form.categoryPlaceholder")}
                         />
@@ -185,10 +184,13 @@ export default function FeedbackForm() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("form.titleLabel")}</FormLabel>
+                  <FormLabel className="text-brand-green font-semibold">
+                    {t("form.titleLabel")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder={t("form.titlePlaceholder")}
+                      className="rounded-xl border-brand-sage/50 focus:ring-brand-green/20 focus:border-brand-green/50"
                       {...field}
                     />
                   </FormControl>
@@ -202,11 +204,13 @@ export default function FeedbackForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("form.descriptionLabel")}</FormLabel>
+                  <FormLabel className="text-brand-green font-semibold">
+                    {t("form.descriptionLabel")}
+                  </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder={t("form.descriptionPlaceholder")}
-                      className="min-h-[120px]"
+                      className="min-h-[120px] rounded-xl border-brand-sage/50 focus:ring-brand-green/20 focus:border-brand-green/50"
                       {...field}
                     />
                   </FormControl>
@@ -220,10 +224,13 @@ export default function FeedbackForm() {
               name="contactInfo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("form.contactInfoLabel")}</FormLabel>
+                  <FormLabel className="text-brand-green font-semibold">
+                    {t("form.contactInfoLabel")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder={t("form.contactInfoPlaceholder")}
+                      className="rounded-xl border-brand-sage/50 focus:ring-brand-green/20 focus:border-brand-green/50"
                       {...field}
                     />
                   </FormControl>
@@ -231,11 +238,9 @@ export default function FeedbackForm() {
                 </FormItem>
               )}
             />
+
             {submitStatus === "success" && (
-              <Alert
-                variant="default"
-                className="bg-green-50 text-green-800 border-green-200"
-              >
+              <Alert className="bg-brand-sage/30 text-brand-green border-brand-sage rounded-2xl">
                 <AlertDescription>
                   {t("form.successMessage")}
                   {issueUrl && (
@@ -244,7 +249,7 @@ export default function FeedbackForm() {
                         href={issueUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-brand-navy hover:underline font-semibold"
                       >
                         {t("form.viewIssue")}
                       </a>
@@ -255,15 +260,18 @@ export default function FeedbackForm() {
             )}
 
             {submitStatus === "error" && (
-              <Alert variant="destructive">
+              <Alert className="bg-brand-red/10 text-brand-red border-brand-red/20 rounded-2xl">
                 <AlertDescription>{t("form.errorMessage")}</AlertDescription>
               </Alert>
             )}
 
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-brand-green/40">
               <p>
                 {commonT("privacyNotice")}{" "}
-                <Link href="/privacy" className="text-blue-600 hover:underline">
+                <Link
+                  href="/privacy"
+                  className="text-brand-navy hover:underline"
+                >
                   {commonT("privacyPolicyLink")}
                 </Link>
                 .
@@ -271,17 +279,17 @@ export default function FeedbackForm() {
             </div>
 
             <div className="flex justify-end">
-              <Button
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className="min-w-[120px]"
+                className="px-8 py-3 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50 min-w-[140px]"
               >
                 {isSubmitting ? t("form.submitting") : t("form.submitButton")}
-              </Button>
+              </button>
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
