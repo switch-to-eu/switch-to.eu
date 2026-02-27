@@ -80,22 +80,20 @@ async function mcpCreateQuiz(
 }
 
 test("MCP create_quiz is rate-limited per IP", async ({ request }) => {
-  test.setTimeout(90_000);
   const testIp = randomIp();
 
-  // Fire MCP calls in batches of 10 to avoid overwhelming the server.
-  // Each create_quiz makes 2 tRPC calls, so 35 calls = 70 tRPC hits (limit is 60).
-  const allResults: string[] = [];
-  for (let batch = 0; batch < 4; batch++) {
-    const results = await Promise.all(
-      Array.from({ length: 10 }, () => mcpCreateQuiz(request, testIp)),
-    );
-    allResults.push(...results);
-    if (results.some((t) => t.includes("Too many requests"))) break;
-  }
+  // Exhaust the 60-req/min rate limit with cheap tRPC health calls first
+  await Promise.all(
+    Array.from({ length: 60 }, () =>
+      request.get(`${TRPC_URL}/quiz.health`, {
+        headers: { "x-forwarded-for": testIp },
+      }),
+    ),
+  );
 
-  const limited = allResults.filter((t) => t.includes("Too many requests")).length;
-  expect(limited).toBeGreaterThan(0);
+  // Now the MCP call (which internally calls tRPC) should be rate-limited
+  const text = await mcpCreateQuiz(request, testIp);
+  expect(text).toContain("Too many requests");
 
   // A different IP should still work
   const otherText = await mcpCreateQuiz(request, randomIp());
