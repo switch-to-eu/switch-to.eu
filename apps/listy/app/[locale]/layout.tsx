@@ -1,7 +1,7 @@
 import "./styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { ListChecks, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -31,11 +31,6 @@ export async function generateMetadata({
   };
 }
 
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
 export default async function LocaleLayout({
   children,
   params
@@ -51,10 +46,11 @@ export default async function LocaleLayout({
 
   const t = await getTranslations({ locale, namespace: 'layout.header' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
+  const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang={locale} className={`${geist.variable}`}>
+    <html lang={locale} className={fontVariables}>
       <body>
         <NextIntlClientProvider>
           <TRPCReactProvider>
@@ -99,6 +95,9 @@ export default async function LocaleLayout({
               />
               {children}
               <Footer
+                currentToolId="listy"
+                toolsSectionTitle={toolsT('sectionTitle')}
+                linksSectionTitle={toolsT('linksTitle')}
                 links={[
                   {
                     label: footerT('about'),

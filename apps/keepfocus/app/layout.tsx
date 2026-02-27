@@ -1,12 +1,7 @@
 import "./[locale]/styles/globals.css";
 
-import { Geist } from "next/font/google";
+import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { getLocale } from "next-intl/server";
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
 
 export default async function RootLayout({
   children,
@@ -16,7 +11,7 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={geist.variable}>
+    <html lang={locale} className={fontVariables}>
       <body>{children}</body>
     </html>
   );
