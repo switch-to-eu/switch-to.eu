@@ -12,13 +12,22 @@
   --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
   --font-italic: var(--font-hanken-grotesk-italic);
   --font-mono: var(--font-geist-mono);
+  --font-kiyosuna: var(--font-kiyosuna-sans);
+  --font-kiyosuna-light: var(--font-kiyosuna-sans-light);
+  --font-bonbance: var(--font-bonbance);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-green: var(--brand-green);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-red: var(--brand-red);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-orange: var(--brand-orange);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(
-    --sidebar-primary-foreground
-  );
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
@@ -88,11 +97,25 @@
   --cta-button: #feb5a7;
   --cta-button-hover: #ff8a74;
 
+  /* Brand palette */
+  --brand-yellow: #FBA616;
+  --brand-green: #0D492C;
+  --brand-sky: #9BCDD0;
+  --brand-red: #E22028;
+  --brand-pink: #E282B4;
+  --brand-navy: #1E42B0;
+  --brand-sage: #B0D8B0;
+  --brand-orange: #E45229;
+
   /* Pop colors for category cards */
-  --pop-1: #e9f4fd; /* Light blue */
-  --pop-2: #ffeae5; /* Light pink */
-  --pop-3: #e8f7ed; /* Light green */
-  --pop-4: #f0ebff; /* Light purple */
+  --pop-1: #e9f4fd;
+  /* Light blue */
+  --pop-2: #ffeae5;
+  /* Light pink */
+  --pop-3: #e8f7ed;
+  /* Light green */
+  --pop-4: #f0ebff;
+  /* Light purple */
 
   /* Chart colors */
   --chart-1: #1b456b;
@@ -109,55 +132,6 @@
   --sidebar-accent-foreground: #1a3c5a;
   --sidebar-border: #e5e7eb;
   --sidebar-ring: #1a3c5a;
-}
-
-.dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --card: #1e293b;
-  --card-foreground: #f8fafc;
-  --popover: #1e293b;
-  --popover-foreground: #f8fafc;
-  --primary: #64a5f6;
-  --primary-foreground: #0f172a;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #ff4a4a;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #64a5f6;
-  --green: #7aad81;
-  --green-bg: #1c3a2b;
-  --blue: #3ea6e3;
-  --yellow: #f2ca4c;
-
-  /* Feature card colors - darker versions */
-  --feature-blue-bg: #193548;
-  --feature-pink-bg: #482b29;
-  --feature-green-bg: #183828;
-  --feature-icon-color: #64a5f6;
-  --cta-button: #ff9d8a;
-  --cta-button-hover: #ff8a74;
-
-  /* Chart colors */
-  --chart-1: #64a5f6;
-  --chart-2: #76c5f6;
-  --chart-3: #c1e1b8;
-  --chart-4: #ff9d8a;
-  --chart-5: #5694b8;
-
-  --sidebar: #1e293b;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #64a5f6;
-  --sidebar-primary-foreground: #f8fafc;
-  --sidebar-accent: #0f172a;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #64a5f6;
 }
 
 @layer base {
@@ -320,9 +294,7 @@
 }
 
 .badge-eu-friendly:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--yellow) 90%,
-    black
-  ) !important;
+  background-color: color-mix(in srgb,
+      var(--yellow) 90%,
+      black) !important;
 }

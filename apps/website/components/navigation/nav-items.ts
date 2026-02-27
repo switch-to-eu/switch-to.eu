@@ -26,10 +26,6 @@ export async function getNavItems(): Promise<MainNavItem[]> {
 
   return [
     {
-      title: t("home"),
-      href: `/`,
-    },
-    {
       title: t("services"),
       dropdown: true,
       children: [...categories],
@@ -40,11 +36,11 @@ export async function getNavItems(): Promise<MainNavItem[]> {
     },
     {
       title: t("about"),
-      href: `/about`,
-    },
-    {
-      title: t("contribute"),
-      href: `/contribute`,
+      dropdown: true,
+      children: [
+        { title: t("aboutUs"), href: `/about` },
+        { title: t("contribute"), href: `/contribute` },
+      ],
     },
     {
       title: t("github"),

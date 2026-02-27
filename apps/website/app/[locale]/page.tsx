@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
-import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { ContributeCta } from "@/components/ContributeCta";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
+import { Hero } from "@/components/Hero";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -32,80 +32,14 @@ export default async function Home() {
   const imageSize = 120;
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <div className="flex flex-col gap-8 sm:gap-12 md:gap-20">
       {/* Hero Section */}
-      <section className="relative">
-        <Container className="flex flex-col md:mt-6 md:mb-6 md:flex-row items-center gap-6 sm:gap-8 py-4 sm:py-6">
-          <div className="flex flex-col gap-4 sm:gap-6">
-            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl ">
-              {t("heroTitle")}
-            </h1>
-            <p
-              className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
-              dangerouslySetInnerHTML={{
-                __html: t.markup("heroSubtitle", {
-                  b: (chunks) => `<b>${chunks}</b>`,
-                }),
-              }}
-            />
-            <p
-              className="text-base sm:text-lg md:text-xl max-w-[500px]"
-              dangerouslySetInnerHTML={{
-                __html: t.markup("heroDescription", {
-                  b: (chunks) => `<b>${chunks}</b>`,
-                }),
-              }}
-            />
-
-            {/* Search CTA */}
-            <div className="w-full ">
-              <InlineSearchInput
-                filterRegion="non-eu"
-                showOnlyServices={true}
-              />
-            </div>
-
-            <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">
-              {t("exampleLabel")}{" "}
-              <Link
-                href={`/services/non-eu/whatsapp`}
-                className="text-blue underline"
-              >
-                WhatsApp
-              </Link>
-              ,&nbsp;
-              <Link
-                href={`/services/non-eu/gmail`}
-                className="text-blue underline"
-              >
-                Gmail
-              </Link>{" "}
-              or&nbsp;
-              <Link
-                href={`/services/non-eu/google-drive`}
-                className="text-blue underline"
-              >
-                Google Drive
-              </Link>
-            </p>
-          </div>
-
-          <div className="relative w-full max-w-[300px] sm:max-w-[400px] h-[250px] sm:h-[300px] mt-4 sm:mt-0">
-            <Image
-              src="/images/europe.svg"
-              alt="Europe map illustration"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </Container>
-      </section>
+      <Hero />
 
       {/* Migration Guides Section */}
       <section>
         <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-8 text-brand-green">
             {t("migrationGuidesTitle")}
           </h2>
 
@@ -185,7 +119,7 @@ export default async function Home() {
       {/* Features Section */}
       <section>
         <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-8 text-brand-green">
             {t("featuredTitle")}
           </h2>
           <div className="grid gap-4 sm:gap-6 md:grid-cols-3">

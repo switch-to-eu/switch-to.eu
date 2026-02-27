@@ -10,18 +10,24 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-hanken-grotesk);
-  --font-heading: var(--font-bricolage-grotesque);
+  --font-heading: var(--font-bonbance);
   --font-bold: var(--font-hanken-grotesk-bold);
   --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
   --font-italic: var(--font-hanken-grotesk-italic);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-green: var(--brand-green);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-red: var(--brand-red);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-orange: var(--brand-orange);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(
-    --sidebar-primary-foreground
-  );
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
@@ -54,7 +60,7 @@
 
 :root {
   --radius: 0.75rem;
-  --background: #fefbf9;
+  --background: #e5e7eb;
   --foreground: #383838;
 
   --card: #ffffff;
@@ -91,11 +97,25 @@
   --cta-button: #feb5a7;
   --cta-button-hover: #ff8a74;
 
+  /* Brand palette */
+  --brand-yellow: #FBA616;
+  --brand-green: #0D492C;
+  --brand-sky: #9BCDD0;
+  --brand-red: #E22028;
+  --brand-pink: #E282B4;
+  --brand-navy: #1E42B0;
+  --brand-sage: #B0D8B0;
+  --brand-orange: #E45229;
+
   /* Pop colors for category cards */
-  --pop-1: #e9f4fd; /* Light blue */
-  --pop-2: #ffeae5; /* Light pink */
-  --pop-3: #e8f7ed; /* Light green */
-  --pop-4: #f0ebff; /* Light purple */
+  --pop-1: #e9f4fd;
+  /* Light blue */
+  --pop-2: #ffeae5;
+  /* Light pink */
+  --pop-3: #e8f7ed;
+  /* Light green */
+  --pop-4: #f0ebff;
+  /* Light purple */
 
   /* Chart colors */
   --chart-1: #1b456b;
@@ -180,7 +200,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-bricolage-grotesque);
+    font-family: var(--font-bonbance);
     font-weight: 800;
   }
 
@@ -192,7 +212,7 @@
   h5,
   h6 {
     &.font-bold {
-      font-family: var(--font-bricolage-grotesque) !important;
+      font-family: var(--font-bonbance) !important;
       font-weight: 800 !important;
     }
   }
@@ -204,7 +224,7 @@
   h4.font-bold,
   h5.font-bold,
   h6.font-bold {
-    font-family: var(--font-bricolage-grotesque);
+    font-family: var(--font-bonbance);
     font-weight: 800;
   }
 
@@ -240,25 +260,25 @@
 /* Custom styling for MDX content */
 .mdx-content h1 {
   @apply text-3xl mt-8 mb-4;
-  font-family: var(--font-bricolage-grotesque);
+  font-family: var(--font-bonbance);
   font-weight: 800;
 }
 
 .mdx-content h2 {
   @apply text-2xl mt-8 mb-4;
-  font-family: var(--font-bricolage-grotesque);
+  font-family: var(--font-bonbance);
   font-weight: 800;
 }
 
 .mdx-content h3 {
   @apply text-xl mt-6 mb-4;
-  font-family: var(--font-bricolage-grotesque);
+  font-family: var(--font-bonbance);
   font-weight: 800;
 }
 
 .mdx-content h4 {
   @apply text-lg mt-6 mb-3;
-  font-family: var(--font-bricolage-grotesque);
+  font-family: var(--font-bonbance);
   font-weight: 800;
 }
 
@@ -323,9 +343,21 @@
 }
 
 .badge-eu-friendly:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--yellow) 90%,
-    black
-  ) !important;
+  background-color: color-mix(in srgb,
+      var(--yellow) 90%,
+      black) !important;
+}
+
+/* Gentle floating animation for decorative shapes */
+@keyframes shape-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+.animate-shape-float {
+  animation: shape-float ease-in-out infinite;
 }
