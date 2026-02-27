@@ -5,14 +5,21 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbo --port 3003",
+    "dev": "PORT=5016 next dev --turbo --port 5016",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "1.25.3",
     "@switch-to-eu/blocks": "workspace:*",
+    "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
     "@switch-to-eu/trpc": "workspace:*",
     "@switch-to-eu/ui": "workspace:*",
@@ -23,12 +30,12 @@
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-react": "catalog:",
+    "mcp-handler": "^1.0.7",
     "nanoid": "^5.1.5",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "redis": "^4.7.0",
     "server-only": "^0.0.1",
     "sonner": "catalog:",
     "superjson": "catalog:",
@@ -36,6 +43,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
@@ -44,7 +52,9 @@
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "postcss": "^8.5.3",
+    "redis": "^4.7.0",
     "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "^4.0.18"
   }
 }
