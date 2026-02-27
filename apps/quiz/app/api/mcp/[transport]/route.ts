@@ -1,5 +1,6 @@
 import { createMcpHandler } from "mcp-handler";
 import { z } from "zod";
+import { headers } from "next/headers";
 import {
   generateEncryptionKey,
   encryptData,
@@ -69,7 +70,8 @@ function parseAdminUrl(adminUrl: string): {
 }
 
 async function getCaller() {
-  const ctx = await createTRPCContext({ headers: new Headers() });
+  const reqHeaders = await headers();
+  const ctx = await createTRPCContext({ headers: reqHeaders });
   return createCaller(ctx);
 }
 

@@ -11,8 +11,10 @@ vi.mock("@switch-to-eu/db/redis", () => ({
 
 const { createCaller } = await import("@/server/api/root");
 
-function getCaller() {
-  return createCaller({ redis: mockRedis as never, headers: new Headers() });
+function getCaller(ip?: string) {
+  const headers = new Headers();
+  if (ip) headers.set("x-forwarded-for", ip);
+  return createCaller({ redis: mockRedis as never, headers });
 }
 
 /** Seed a quiz directly in mock Redis */
@@ -795,6 +797,60 @@ describe("quiz router", () => {
       await expect(
         caller.quiz.get({ quizId: id })
       ).rejects.toThrow("expired");
+    });
+  });
+
+  // --- rate limiting ---
+
+  describe("rate limiting", () => {
+    it("blocks requests after exceeding limit for same IP", async () => {
+      const id = "testquiz25";
+      await seedQuiz(id);
+      const ip = "192.168.1.100";
+
+      // Rate limit is 60 requests per 60s window
+      for (let i = 0; i < 60; i++) {
+        const caller = getCaller(ip);
+        await caller.quiz.get({ quizId: id });
+      }
+
+      // 61st request should be rejected
+      const caller = getCaller(ip);
+      await expect(caller.quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
+    });
+
+    it("tracks rate limits per IP independently", async () => {
+      const id = "testquiz26";
+      await seedQuiz(id);
+
+      // Exhaust limit for IP A
+      for (let i = 0; i < 60; i++) {
+        await getCaller("10.0.0.1").quiz.get({ quizId: id });
+      }
+
+      // IP A is blocked
+      await expect(getCaller("10.0.0.1").quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
+
+      // IP B is still fine
+      const result = await getCaller("10.0.0.2").quiz.get({ quizId: id });
+      expect(result.id).toBe(id);
+    });
+
+    it("rate limits MCP-style calls with empty headers using shared 'unknown' bucket", async () => {
+      const id = "testquiz27";
+      await seedQuiz(id);
+
+      // Simulate MCP: no IP header → bucket key uses "unknown"
+      for (let i = 0; i < 60; i++) {
+        await getCaller().quiz.get({ quizId: id });
+      }
+
+      // Next call with no IP should be blocked
+      await expect(getCaller().quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
+
+      // But a call from a real IP still works
+      const result = await getCaller("203.0.113.1").quiz.get({ quizId: id });
+      expect(result.id).toBe(id);
     });
   });
 

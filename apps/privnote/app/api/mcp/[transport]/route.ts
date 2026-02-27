@@ -1,5 +1,6 @@
 import { createMcpHandler } from "mcp-handler";
 import { z } from "zod";
+import { headers } from "next/headers";
 import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 import { hashPassword } from "@/lib/crypto";
 import { createCaller } from "@/server/api/root";
@@ -62,7 +63,8 @@ const handler = createMcpHandler(
             : undefined;
 
           // Call the tRPC router directly — no HTTP round-trip
-          const ctx = await createTRPCContext({ headers: new Headers() });
+          const reqHeaders = await headers();
+          const ctx = await createTRPCContext({ headers: reqHeaders });
           
           const caller = createCaller(ctx);
           const result = await caller.note.create({
