@@ -1,4 +1,5 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Bot, Terminal, Settings, AlertTriangle } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
@@ -45,8 +46,12 @@ function ToolCard({
   );
 }
 
-export default function McpPage() {
-  const t = useTranslations("McpPage");
+export default async function McpPage() {
+  const t = await getTranslations("McpPage");
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "localhost:5018";
+  const protocol = headersList.get("x-forwarded-proto") ?? "http";
+  const mcpUrl = `${protocol}://${host}/api/mcp/mcp`;
 
   const tools = [
     {
@@ -171,7 +176,7 @@ export default function McpPage() {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://quiz.switch-to.eu/api/mcp/mcp"
+        "${mcpUrl}"
       ]
     }
   }
@@ -196,7 +201,7 @@ export default function McpPage() {
 {
   "mcpServers": {
     "quiz": {
-      "url": "https://quiz.switch-to.eu/api/mcp/mcp"
+      "url": "${mcpUrl}"
     }
   }
 }`}</CodeBlock>
@@ -218,7 +223,7 @@ export default function McpPage() {
   "mcpServers": {
     "quiz": {
       "type": "url",
-      "url": "https://quiz.switch-to.eu/api/mcp/mcp"
+      "url": "${mcpUrl}"
     }
   }
 }`}</CodeBlock>

@@ -1,6 +1,7 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { Bot, Terminal, Copy, Check, Settings, Globe } from "lucide-react";
+import { Bot, Terminal, Settings } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 
 function CodeBlock({ children }: { children: string }) {
@@ -11,8 +12,12 @@ function CodeBlock({ children }: { children: string }) {
   );
 }
 
-export default function McpPage() {
-  const t = useTranslations("McpPage");
+export default async function McpPage() {
+  const t = await getTranslations("McpPage");
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "localhost:5016";
+  const protocol = headersList.get("x-forwarded-proto") ?? "http";
+  const mcpUrl = `${protocol}://${host}/api/mcp/mcp`;
 
   return (
     <div className="bg-white">
@@ -103,7 +108,7 @@ export default function McpPage() {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://your-privnote-url/api/mcp/mcp"
+        "${mcpUrl}"
       ]
     }
   }
@@ -128,7 +133,7 @@ export default function McpPage() {
 {
   "mcpServers": {
     "privnote": {
-      "url": "https://your-privnote-url/api/mcp/mcp"
+      "url": "${mcpUrl}"
     }
   }
 }`}</CodeBlock>
@@ -150,7 +155,7 @@ export default function McpPage() {
   "mcpServers": {
     "privnote": {
       "type": "url",
-      "url": "https://your-privnote-url/api/mcp/mcp"
+      "url": "${mcpUrl}"
     }
   }
 }`}</CodeBlock>
