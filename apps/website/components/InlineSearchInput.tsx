@@ -303,12 +303,12 @@ export function InlineSearchInput({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="flex flex-col sm:flex-row rounded-xl overflow-hidden gap-2 sm:gap-0 shadow-sm border border-[#e5e7eb] ">
+      <div className="flex items-center rounded-full border border-brand-pink/30 bg-white/10 backdrop-blur-sm pr-1.5 sm:pr-2">
         <input
           ref={searchInputRef}
           type="text"
           placeholder={currentPlaceholder}
-          className={`flex-grow py-3 sm:py-4 px-4 sm:px-6 text-base sm:text-lg bg-white focus:outline-none focus:ring-0 rounded-xl sm:rounded-none ${className}`}
+          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-sky/50 focus:outline-none focus:ring-0 ${className}`}
           value={query}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
@@ -318,7 +318,7 @@ export function InlineSearchInput({
           }}
         />
         <button
-          className="hidden sm:block px-6 sm:px-8  py-3 sm:py-4 bg-[#ff9d8a] hover:bg-[#ff8a74] text-black font-medium rounded-xl sm:rounded-none"
+          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-pink hover:bg-brand-pink/80 text-brand-navy transition-colors"
           onClick={() => {
             if (query.trim()) {
               void fetchResults(query);
@@ -333,11 +333,11 @@ export function InlineSearchInput({
 
       {/* Dropdown Results */}
       {showDropdown && (
-        <div className="absolute w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-10 max-h-[350px] overflow-y-auto">
+        <div className="absolute w-full mt-2 bg-brand-navy/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
           <div className="py-0">
             {/* Dropdown Header */}
-            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-              <h3 className="text-sm font-medium text-gray-700">
+            <div className="px-4 py-2 border-b border-brand-pink/10">
+              <h3 className="text-sm font-medium text-brand-sky/70">
                 {dropdownTitle}
               </h3>
             </div>
@@ -346,15 +346,15 @@ export function InlineSearchInput({
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
+                  className={`px-4 py-2 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-pink/10" : "hover:bg-white/5"
                     }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="font-medium">{result.title}</div>
-                      <div className="text-sm text-gray-500 mr-2">
+                      <div className="font-medium text-white">{result.title}</div>
+                      <div className="text-sm text-brand-sky/60 mr-2">
                         {result.description}
                       </div>
                     </div>
@@ -368,8 +368,8 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-gray-500">{noResultsMessage}</p>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-brand-sky/70">{noResultsMessage}</p>
+                <p className="text-sm text-brand-sky/40 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>
@@ -381,7 +381,7 @@ export function InlineSearchInput({
       {/* Loading indicator */}
       {isLoading && (
         <div className="absolute right-14 top-1/2 transform -translate-y-1/2">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-brand-pink"></div>
         </div>
       )}
     </div>

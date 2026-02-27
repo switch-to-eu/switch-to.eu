@@ -10,11 +10,14 @@ import {
 import { ChevronDown } from "lucide-react";
 import { type Locale, localeNames, routing } from "@switch-to-eu/i18n/routing";
 import { Link, usePathname } from "@switch-to-eu/i18n/navigation";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 
 export function LanguageSelector({
   locale: currentLocale,
+  className,
 }: {
   locale: Locale;
+  className?: string;
 }) {
   const locales = routing.locales;
   const pathname = usePathname();
@@ -28,7 +31,7 @@ export function LanguageSelector({
           <Button
             variant="ghost"
             size="sm"
-            className="flex items-center text-sm font-medium text-muted-foreground"
+            className={cn("flex items-center text-sm font-medium text-muted-foreground", className)}
           >
             {localeNames[currentLocale]}
             <ChevronDown className="ml-1 h-4 w-4" />

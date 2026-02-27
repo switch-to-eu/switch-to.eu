@@ -5,50 +5,129 @@ import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categor
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 
+// CSS filter to approximate brand-green (#0D492C)
+const FILTER_BRAND_GREEN =
+  "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)";
+const FILTER_WHITE = "brightness(0) invert(1)";
+
+const CATEGORY_CARDS = [
+  {
+    bg: "bg-brand-sky",
+    text: "text-brand-green",
+    button: "bg-brand-green text-white",
+    shape: "spark",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    bg: "bg-brand-orange",
+    text: "text-white",
+    button: "bg-white text-brand-orange",
+    shape: "cloud",
+    shapeFilter: FILTER_WHITE,
+  },
+  {
+    bg: "bg-brand-yellow",
+    text: "text-brand-green",
+    button: "bg-brand-green text-white",
+    shape: "tulip",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    bg: "bg-brand-green",
+    text: "text-white",
+    button: "bg-white text-brand-green",
+    shape: "speech",
+    shapeFilter: FILTER_WHITE,
+  },
+  {
+    bg: "bg-brand-pink",
+    text: "text-brand-green",
+    button: "bg-brand-green text-white",
+    shape: "heart",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    bg: "bg-brand-navy",
+    text: "text-white",
+    button: "bg-white text-brand-navy",
+    shape: "sunburst",
+    shapeFilter: FILTER_WHITE,
+  },
+  {
+    bg: "bg-brand-sage",
+    text: "text-brand-green",
+    button: "bg-brand-green text-white",
+    shape: "flower",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    bg: "bg-brand-red",
+    text: "text-white",
+    button: "bg-white text-brand-red",
+    shape: "starburst",
+    shapeFilter: FILTER_WHITE,
+  },
+];
+
 export async function CategorySection() {
   const locale = await getLocale();
   const t = await getTranslations("home");
-  // Get all categories and their metadata, passing the language parameter
   const categories = getAllCategoriesMetadata(locale);
 
   return (
     <section>
       <Container>
-        <h2 className="mb-8 text-center font-bold text-3xl">
+        <h2 className="mb-10 font-heading text-4xl sm:text-5xl uppercase text-brand-green">
           {t("categoriesSectionTitle")}
         </h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+        <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
           {categories.map((category, index) => {
-            // Calculate the color index (1-4) - cycle through colors
-            const colorIndex = (index % 4) + 1;
+            const card = CATEGORY_CARDS[index % CATEGORY_CARDS.length];
 
             return (
               <Link
                 key={category.slug}
                 href={`/services/${category.slug}`}
-                className="no-underline h-full"
+                className="no-underline h-full group"
               >
                 <div
-                  className={`bg-[var(--pop-${colorIndex})] p-5 sm:p-8 rounded-xl h-full flex flex-col`}
+                  className={`${card.bg} rounded-3xl h-full flex flex-col overflow-hidden transition-shadow duration-200 group-hover:shadow-md`}
                 >
-                  <div className="flex flex-col items-center text-center h-full justify-between">
-                    <div className="mb-3 sm:mb-4">
-                      <Image
-                        src={`/images/categories/${category.slug}.svg`}
-                        alt={`${category.metadata.title} icon`}
-                        width={120}
-                        height={120}
-                        priority
-                        unoptimized
-                      />
-                    </div>
-                    <div>
-                      <h3 className="mb-2 font-bold text-xl">
-                        {category.metadata.title}
-                      </h3>
-                      <p className=" text-sm sm:text-base">
-                        {category.metadata.description}
-                      </p>
+                  {/* Decorative shape area */}
+                  <div className="relative h-40 sm:h-48 flex items-center justify-center p-6">
+                    <Image
+                      src={`/images/shapes/${card.shape}.svg`}
+                      alt=""
+                      fill
+                      className="object-contain p-4 sm:p-6 select-none animate-shape-float"
+                      style={{
+                        filter: card.shapeFilter,
+                        animationDuration: `${6 + (index % 4) * 1.5}s`,
+                        animationDelay: `${(index % 4) * -1.5}s`,
+                      }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+
+                  {/* Content area */}
+                  <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
+                    <h3
+                      className={`${card.text} mb-2 font-bold text-lg sm:text-xl`}
+                    >
+                      {category.metadata.title}
+                    </h3>
+                    <p
+                      className={`${card.text} text-sm sm:text-base opacity-80 leading-relaxed line-clamp-3 mb-5`}
+                    >
+                      {category.metadata.description}
+                    </p>
+                    <div className="mt-auto">
+                      <span
+                        className={`${card.button} inline-block px-5 py-2 rounded-full text-sm font-semibold`}
+                      >
+                        {t("exploreCategory")}
+                      </span>
                     </div>
                   </div>
                 </div>

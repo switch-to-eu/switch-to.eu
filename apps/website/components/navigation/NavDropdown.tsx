@@ -34,16 +34,20 @@ export function NavDropdown({ title, items, className }: NavDropdownProps) {
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger
         className={cn(
-          "flex cursor-pointer items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none",
+          "flex cursor-pointer items-center text-sm text-brand-navy uppercase tracking-wide transition-colors hover:underline focus-visible:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
           className
         )}
       >
         {title} <ChevronDown className="ml-1 h-4 w-4" />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent>
+      <DropdownMenuContent className="bg-brand-pink border-brand-navy/10">
         {items.map((item) => (
-          <DropdownMenuItem key={item.href} onClick={handleItemClick}>
+          <DropdownMenuItem
+            key={item.href}
+            onClick={handleItemClick}
+            className="text-brand-navy hover:text-brand-navy/70 focus:text-brand-navy/70 focus:bg-brand-navy/5"
+          >
             <Link
               href={item.href}
               className="w-full cursor-pointer"
