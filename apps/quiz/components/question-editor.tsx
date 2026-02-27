@@ -4,8 +4,11 @@ import { Trash2, Check, Copy, Plus, X, GripVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Input } from "@switch-to-eu/ui/components/input";
 import { Button } from "@switch-to-eu/ui/components/button";
+import { FieldError } from "@switch-to-eu/ui/components/field";
 import type { DraggableAttributes, DraggableSyntheticListeners } from "@dnd-kit/core";
+import type { FieldErrors } from "react-hook-form";
 import type { DecryptedQuestion } from "@/lib/interfaces";
+import type { QuestionFormData } from "@/lib/schemas";
 
 const OPTION_COLORS = [
   "border-red-300 focus-within:border-red-500",
@@ -30,6 +33,7 @@ interface QuestionEditorProps {
   onRemove: () => void;
   onDuplicate: () => void;
   canRemove: boolean;
+  errors?: FieldErrors<QuestionFormData>;
   dragHandleProps?: {
     attributes: DraggableAttributes;
     listeners: DraggableSyntheticListeners;
@@ -43,6 +47,7 @@ export function QuestionEditor({
   onRemove,
   onDuplicate,
   canRemove,
+  errors,
   dragHandleProps,
 }: QuestionEditorProps) {
   const t = useTranslations("create");
@@ -65,8 +70,11 @@ export function QuestionEditor({
     onChange({ ...question, options: newOptions, correctIndex: newCorrectIndex });
   };
 
+  const hasTextError = !!errors?.text;
+  const optionErrors = errors?.options;
+
   return (
-    <div className="rounded-lg border bg-white p-5 space-y-4">
+    <div className={`rounded-lg border bg-white p-5 space-y-4 ${hasTextError || optionErrors ? "border-destructive/50" : ""}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           {dragHandleProps && (
@@ -108,61 +116,72 @@ export function QuestionEditor({
         </div>
       </div>
 
-      <Input
-        value={question.text}
-        onChange={(e) => onChange({ ...question, text: e.target.value })}
-        placeholder={t("questionPlaceholder")}
-        className="text-base font-medium"
-      />
+      <div>
+        <Input
+          value={question.text}
+          onChange={(e) => onChange({ ...question, text: e.target.value })}
+          placeholder={t("questionPlaceholder")}
+          className="text-base font-medium"
+          aria-invalid={hasTextError}
+        />
+        {hasTextError && (
+          <FieldError className="mt-1" errors={[errors.text]} />
+        )}
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {question.options.map((option, i) => (
-          <div
-            key={i}
-            className={`relative flex items-center gap-2 rounded-lg border-2 px-3 py-2 transition-colors ${OPTION_COLORS[i % OPTION_COLORS.length]} ${
-              question.correctIndex === i
-                ? "bg-green-50 border-green-500 ring-2 ring-green-200"
-                : ""
-            }`}
-          >
-            <button
-              type="button"
-              onClick={() => onChange({ ...question, correctIndex: i })}
-              className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
-                question.correctIndex === i
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-              }`}
-              title={t("correctAnswer")}
-            >
-              {question.correctIndex === i ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                getOptionLabel(i)
-              )}
-            </button>
-            <Input
-              value={option}
-              onChange={(e) => {
-                const newOptions = [...question.options];
-                newOptions[i] = e.target.value;
-                onChange({ ...question, options: newOptions });
-              }}
-              placeholder={t("optionPlaceholder", { number: i + 1 })}
-              className="border-0 shadow-none focus-visible:ring-0 px-0"
-            />
-            {question.options.length > MIN_OPTIONS && (
-              <button
-                type="button"
-                onClick={() => handleRemoveOption(i)}
-                className="shrink-0 text-muted-foreground hover:text-red-500 transition-colors"
-                title={t("removeOption")}
+        {question.options.map((option, i) => {
+          const optionError = Array.isArray(optionErrors) ? optionErrors[i] : undefined;
+          return (
+            <div key={i}>
+              <div
+                className={`relative flex items-center gap-2 rounded-lg border-2 px-3 py-2 transition-colors ${OPTION_COLORS[i % OPTION_COLORS.length]} ${
+                  question.correctIndex === i
+                    ? "bg-green-50 border-green-500 ring-2 ring-green-200"
+                    : ""
+                } ${optionError ? "border-destructive!" : ""}`}
               >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        ))}
+                <button
+                  type="button"
+                  onClick={() => onChange({ ...question, correctIndex: i })}
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
+                    question.correctIndex === i
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                  }`}
+                  title={t("correctAnswer")}
+                >
+                  {question.correctIndex === i ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    getOptionLabel(i)
+                  )}
+                </button>
+                <Input
+                  value={option}
+                  onChange={(e) => {
+                    const newOptions = [...question.options];
+                    newOptions[i] = e.target.value;
+                    onChange({ ...question, options: newOptions });
+                  }}
+                  placeholder={t("optionPlaceholder", { number: i + 1 })}
+                  className="border-0 shadow-none focus-visible:ring-0 px-0"
+                  aria-invalid={!!optionError}
+                />
+                {question.options.length > MIN_OPTIONS && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveOption(i)}
+                    className="shrink-0 text-muted-foreground hover:text-red-500 transition-colors"
+                    title={t("removeOption")}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {question.options.length < MAX_OPTIONS && (

@@ -406,8 +406,8 @@ export const quizRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const quiz = await getValidQuiz(ctx.redis, input.quizId);
 
-      if (quiz.state === "finished") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Quiz has already finished" });
+      if (quiz.state !== "lobby") {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only join while quiz is in lobby" });
       }
 
       const participantCount = await ctx.redis.sCard(`quiz:${input.quizId}:participants`);
@@ -642,30 +642,30 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Not a participant of this quiz" });
       }
 
-      // Check for duplicate answer
-      const existingAnswer = await ctx.redis.hGetAll(
-        `quiz:${input.quizId}:a:${input.questionIndex}:${input.sessionId}`
-      );
-      if (existingAnswer && existingAnswer.encryptedAnswer) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Already answered this question" });
-      }
-
       const now = new Date().toISOString();
       const ttl = calculateTTLSeconds(quiz.expiresAt);
 
-      // Atomically add to order list and store answer
-      const multi = ctx.redis.multi();
-      multi.rPush(`quiz:${input.quizId}:order:${input.questionIndex}`, input.sessionId);
-      multi.expire(`quiz:${input.quizId}:order:${input.questionIndex}`, ttl);
-      multi.hSet(`quiz:${input.quizId}:a:${input.questionIndex}:${input.sessionId}`, {
-        encryptedAnswer: input.encryptedAnswer,
-        answeredAt: now,
-      } satisfies RedisAnswerHash);
-      multi.expire(`quiz:${input.quizId}:a:${input.questionIndex}:${input.sessionId}`, ttl);
-      await multi.exec();
+      // Atomically check for duplicate and store answer using Lua script
+      // This prevents a TOCTOU race where two concurrent requests both pass a non-atomic duplicate check
+      const answerKey = `quiz:${input.quizId}:a:${input.questionIndex}:${input.sessionId}`;
+      const orderKey = `quiz:${input.quizId}:order:${input.questionIndex}`;
+      const result = await ctx.redis.eval(
+        `if redis.call('HEXISTS', KEYS[1], 'encryptedAnswer') == 1 then
+          return -1
+        end
+        redis.call('HSET', KEYS[1], 'encryptedAnswer', ARGV[1], 'answeredAt', ARGV[2])
+        redis.call('EXPIRE', KEYS[1], ARGV[3])
+        redis.call('RPUSH', KEYS[2], ARGV[4])
+        redis.call('EXPIRE', KEYS[2], ARGV[3])
+        return redis.call('LLEN', KEYS[2])`,
+        { keys: [answerKey, orderKey], arguments: [input.encryptedAnswer, now, String(ttl), input.sessionId] }
+      ) as number;
 
-      // Get position (length of order list = position of this answer)
-      const position = await ctx.redis.lLen(`quiz:${input.quizId}:order:${input.questionIndex}`);
+      if (result === -1) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Already answered this question" });
+      }
+
+      const position = result;
 
       await publishQuizUpdate(ctx.redis, input.quizId);
 

@@ -113,6 +113,33 @@ export class MockRedis {
     return 0;
   }
 
+  /**
+   * Minimal eval implementation for Lua scripts used in our routers.
+   * Executes the script logic in JS instead of actual Lua.
+   */
+  async eval(
+    script: string,
+    options: { keys: string[]; arguments: string[] },
+  ): Promise<unknown> {
+    const { keys, arguments: args } = options;
+    // submitAnswer atomic check-and-set script
+    if (script.includes("HEXISTS") && script.includes("RPUSH")) {
+      const [answerKey, orderKey] = keys;
+      const [encryptedAnswer, answeredAt, ttlStr, sessionId] = args;
+      const ttl = parseInt(ttlStr!, 10);
+      const existing = this.hashes.get(answerKey!);
+      if (existing && existing.encryptedAnswer) {
+        return -1;
+      }
+      await this.hSet(answerKey!, { encryptedAnswer: encryptedAnswer!, answeredAt: answeredAt! });
+      await this.expire(answerKey!, ttl);
+      await this.rPush(orderKey!, sessionId!);
+      await this.expire(orderKey!, ttl);
+      return this.lists.get(orderKey!)?.length ?? 0;
+    }
+    throw new Error(`MockRedis.eval: unrecognized script pattern`);
+  }
+
   async ping() {
     return "PONG";
   }

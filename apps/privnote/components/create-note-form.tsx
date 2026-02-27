@@ -1,28 +1,46 @@
 "use client";
 
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { Flame, Lock } from "lucide-react";
 import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 
 import { api } from "@/lib/trpc-client";
 import { hashPassword } from "@/lib/crypto";
+import {
+  createNoteSchema,
+  EXPIRY_OPTIONS,
+  type CreateNoteFormData,
+} from "@/lib/schemas";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Textarea } from "@switch-to-eu/ui/components/textarea";
 import { Input } from "@switch-to-eu/ui/components/input";
-
-const EXPIRY_OPTIONS = ["5m", "30m", "1h", "24h", "7d"] as const;
+import { Checkbox } from "@switch-to-eu/ui/components/checkbox";
+import {
+  Field,
+  FieldLabel,
+  FieldContent,
+  FieldError,
+  FieldDescription,
+} from "@switch-to-eu/ui/components/field";
 
 export function CreateNoteForm() {
   const t = useTranslations("CreatePage");
-  const router = useRouter();
-
-  const [content, setContent] = useState("");
-  const [expiry, setExpiry] = useState<(typeof EXPIRY_OPTIONS)[number]>("24h");
-  const [burnAfterReading, setBurnAfterReading] = useState(true);
-  const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { control, handleSubmit, watch } = useForm<CreateNoteFormData>({
+    resolver: zodResolver(createNoteSchema),
+    defaultValues: {
+      content: "",
+      expiry: "24h",
+      burnAfterReading: true,
+      password: "",
+    },
+  });
+
+  const contentLength = watch("content").length;
 
   const createNote = api.note.create.useMutation({
     onError: () => {
@@ -30,129 +48,154 @@ export function CreateNoteForm() {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!content.trim() || isSubmitting) return;
-
+  const onSubmit = async (data: CreateNoteFormData) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     const encryptionKey = await generateEncryptionKey();
-    const encryptedContent = await encryptData(content.trim(), encryptionKey);
-    const passwordHash = password ? await hashPassword(password) : undefined;
+    const encryptedContent = await encryptData(data.content.trim(), encryptionKey);
+    const passwordHash = data.password ? await hashPassword(data.password) : undefined;
 
     createNote.mutate(
       {
         encryptedContent,
-        expiry,
-        burnAfterReading,
+        expiry: data.expiry,
+        burnAfterReading: data.burnAfterReading,
         passwordHash,
       },
       {
-        onSuccess: (data) => {
-          // Navigate to share page with encryption key in fragment (never sent to server)
-          const fragment = `key=${encodeURIComponent(encryptionKey)}&expires=${encodeURIComponent(data.expiresAt)}&burn=${data.burnAfterReading}`;
-          window.location.href = `/${window.location.pathname.split("/")[1]}/note/${data.noteId}/share#${fragment}`;
+        onSuccess: (result) => {
+          const fragment = `key=${encodeURIComponent(encryptionKey)}&expires=${encodeURIComponent(result.expiresAt)}&burn=${result.burnAfterReading}`;
+          window.location.href = `/${window.location.pathname.split("/")[1]}/note/${result.noteId}/share#${fragment}`;
         },
       },
     );
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Note content */}
-      <div>
-        <label
-          htmlFor="note-content"
-          className="mb-2 block text-sm font-medium text-gray-700"
-        >
-          {t("contentLabel")}
-        </label>
-        <Textarea
-          id="note-content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder={t("contentPlaceholder")}
-          rows={8}
-          maxLength={50000}
-          className="resize-y font-mono"
-          required
-        />
-        <p className="mt-1 text-right text-xs text-gray-400">
-          {content.length.toLocaleString()} / 50,000
-        </p>
-      </div>
+      <Controller
+        name="content"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name}>
+              {t("contentLabel")}
+            </FieldLabel>
+            <FieldContent>
+              <Textarea
+                {...field}
+                id={field.name}
+                aria-invalid={fieldState.invalid}
+                placeholder={t("contentPlaceholder")}
+                rows={8}
+                maxLength={50000}
+                className="resize-y font-mono"
+              />
+              <div className="flex items-center justify-between">
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <span />
+                )}
+                <p className="text-right text-xs text-gray-400">
+                  {contentLength.toLocaleString()} / 50,000
+                </p>
+              </div>
+            </FieldContent>
+          </Field>
+        )}
+      />
 
       {/* Expiry selector */}
-      <div>
-        <label className="mb-2 block text-sm font-medium text-gray-700">
-          {t("expiryLabel")}
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {EXPIRY_OPTIONS.map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setExpiry(option)}
-              className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-                expiry === option
-                  ? "border-amber-600 bg-amber-50 text-amber-700"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-              }`}
-            >
-              {t(`expiryOptions.${option}`)}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Controller
+        name="expiry"
+        control={control}
+        render={({ field }) => (
+          <Field>
+            <FieldLabel>{t("expiryLabel")}</FieldLabel>
+            <FieldContent>
+              <div className="flex flex-wrap gap-2">
+                {EXPIRY_OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => field.onChange(option)}
+                    className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+                      field.value === option
+                        ? "border-amber-600 bg-amber-50 text-amber-700"
+                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                    }`}
+                  >
+                    {t(`expiryOptions.${option}`)}
+                  </button>
+                ))}
+              </div>
+            </FieldContent>
+          </Field>
+        )}
+      />
 
       {/* Burn after reading */}
-      <div className="flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
-        <div className="mt-0.5">
-          <Flame className="h-5 w-5 text-red-500" />
-        </div>
-        <div className="flex-1">
-          <label className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={burnAfterReading}
-              onChange={(e) => setBurnAfterReading(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
-            />
-            <span className="text-sm font-medium text-gray-900">
-              {t("burnAfterReading")}
-            </span>
-          </label>
-          <p className="mt-1 ml-7 text-xs text-gray-500">
-            {t("burnAfterReadingDescription")}
-          </p>
-        </div>
-      </div>
+      <Controller
+        name="burnAfterReading"
+        control={control}
+        render={({ field }) => (
+          <div className="flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
+            <div className="mt-0.5">
+              <Flame className="h-5 w-5 text-red-500" />
+            </div>
+            <div className="flex-1">
+              <Field orientation="horizontal">
+                <Checkbox
+                  id={field.name}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <FieldContent>
+                  <FieldLabel htmlFor={field.name} className="text-sm font-medium text-gray-900">
+                    {t("burnAfterReading")}
+                  </FieldLabel>
+                  <FieldDescription className="text-xs text-gray-500">
+                    {t("burnAfterReadingDescription")}
+                  </FieldDescription>
+                </FieldContent>
+              </Field>
+            </div>
+          </div>
+        )}
+      />
 
       {/* Optional password */}
-      <div>
-        <label
-          htmlFor="note-password"
-          className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700"
-        >
-          <Lock className="h-4 w-4" />
-          {t("passwordLabel")}
-        </label>
-        <Input
-          id="note-password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder={t("passwordPlaceholder")}
-          autoComplete="off"
-        />
-      </div>
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <Field>
+            <FieldLabel htmlFor={field.name} className="flex items-center gap-2">
+              <Lock className="h-4 w-4" />
+              {t("passwordLabel")}
+            </FieldLabel>
+            <FieldContent>
+              <Input
+                {...field}
+                id={field.name}
+                type="password"
+                placeholder={t("passwordPlaceholder")}
+                autoComplete="off"
+              />
+            </FieldContent>
+          </Field>
+        )}
+      />
 
       {/* Submit */}
       <Button
         type="submit"
         size="lg"
         className="w-full gradient-primary text-white border-0"
-        disabled={!content.trim() || isSubmitting}
+        disabled={isSubmitting}
       >
         {isSubmitting ? t("creatingButton") : t("createButton")}
       </Button>

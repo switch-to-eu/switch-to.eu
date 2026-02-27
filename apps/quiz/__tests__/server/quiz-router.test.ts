@@ -228,7 +228,17 @@ describe("quiz router", () => {
 
       await expect(
         caller.quiz.join({ quizId: id, nickname: "Bob" })
-      ).rejects.toThrow("finished");
+      ).rejects.toThrow("lobby");
+    });
+
+    it("rejects when quiz is active", async () => {
+      const id = "testqz05ac";
+      await seedQuiz(id, { state: "active" });
+      const caller = getCaller();
+
+      await expect(
+        caller.quiz.join({ quizId: id, nickname: "Bob" })
+      ).rejects.toThrow("lobby");
     });
   });
 

@@ -10,4 +10,10 @@ export const createListSchema = z.object({
   expirationDays: z.number().min(1, "min").max(365, "max"),
 });
 
-export type CreateListFormData = z.infer<typeof createListSchema>;
+export const createListFormSchema = createListSchema.extend({
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: "required" }),
+  }),
+});
+
+export type CreateListFormData = z.infer<typeof createListFormSchema>;

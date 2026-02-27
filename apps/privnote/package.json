@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "catalog:",
+    "@hookform/resolvers": "catalog:",
     "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
@@ -36,6 +37,7 @@
     "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-hook-form": "catalog:",
     "server-only": "^0.0.1",
     "sonner": "catalog:",
     "superjson": "catalog:",
