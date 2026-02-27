@@ -15,25 +15,28 @@ export async function ServiceCard({
   const categoryFormatted =
     service.category.charAt(0).toUpperCase() + service.category.slice(1);
 
-  // Create slug from service name for linking
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
-  // Keep original 'eu' path (not 'eu-friendly')
   const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
   const serviceLink = `/services/${regionPath}/${serviceSlug}`;
 
   return (
     <Link
       href={serviceLink}
-      className="block h-full transition-transform hover:scale-[1.02] hover:shadow-md"
+      className="block h-full no-underline group"
     >
       <div
-        className={`flex flex-col h-full rounded-lg border border-gray-100 ${service.featured ? "bg-[var(--green-bg)]" : "bg-white"
-          } overflow-hidden transition-colors hover:border-slate-200`}
+        className={`flex flex-col h-full rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-md ${
+          service.featured
+            ? "bg-brand-sage"
+            : "bg-white border border-gray-100"
+        }`}
       >
         <div className="p-6 pb-3">
           <div className="flex justify-between items-start mb-1">
-            <h3 className="text-xl font-semibold">
-              {service.featured && <span className="mr-1">⭐</span>}
+            <h3 className="text-xl font-semibold text-brand-green">
+              {service.featured && (
+                <span className="inline-block w-2 h-2 rounded-full bg-brand-yellow mr-2 align-middle" />
+              )}
               {service.name}
             </h3>
             <RegionBadge region={service.region || "eu"} />
@@ -53,9 +56,8 @@ export async function ServiceCard({
               </div>
               <div className="text-sm flex items-center">
                 <span className="font-medium mr-1">{t("freeOption")}:</span>
-                <span>{service.freeOption ? "✅" : "❌"}</span>
+                <span>{service.freeOption ? "Yes" : "No"}</span>
               </div>
-              {/* Only show premium price if it exists and is a string */}
               {service.startingPrice &&
                 typeof service.startingPrice === "string" && (
                   <div className="text-sm flex items-center">
@@ -67,7 +69,9 @@ export async function ServiceCard({
                 )}
             </div>
           </div>
-          <p className="text-gray-700">{service.description}</p>
+          <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+            {service.description}
+          </p>
         </div>
       </div>
     </Link>

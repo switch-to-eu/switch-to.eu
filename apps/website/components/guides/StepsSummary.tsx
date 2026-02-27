@@ -202,12 +202,37 @@ export function StepsSummary({
   return (
     <div>
       <div className="relative h-40 mb-2">
-        <Image
-          src="/images/migrate.svg"
-          alt="Migration guides illustration"
-          fill
-          className="object-contain block"
-        />
+        <div className="absolute inset-0">
+          <Image
+            src="/images/shapes/squiggle.svg"
+            alt=""
+            fill
+            className="object-contain select-none animate-shape-float p-4"
+            style={{
+              filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
+              opacity: 0.25,
+              animationDuration: "8s",
+            }}
+            aria-hidden="true"
+            unoptimized
+          />
+        </div>
+        <div className="absolute inset-6">
+          <Image
+            src="/images/shapes/arch.svg"
+            alt=""
+            fill
+            className="object-contain select-none animate-shape-float"
+            style={{
+              filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
+              opacity: 0.4,
+              animationDuration: "6s",
+              animationDelay: "-2s",
+            }}
+            aria-hidden="true"
+            unoptimized
+          />
+        </div>
       </div>
       {/* Title section */}
       <div className="px-6 py-3">

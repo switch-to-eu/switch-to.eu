@@ -34,7 +34,7 @@ export async function Footer() {
             href="https://www.vinnie.studio"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+            className="text-brand-yellow hover:text-brand-yellow/80 transition-colors font-semibold"
           >
             Studio Vinnie
           </Link>{" "}
@@ -43,7 +43,7 @@ export async function Footer() {
             href="https://www.mvpeters.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-500 transition-colors underline font-semibold"
+            className="text-brand-yellow hover:text-brand-yellow/80 transition-colors font-semibold"
           >
             MVPeters
           </Link>

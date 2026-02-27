@@ -54,8 +54,8 @@ export function AnalysisResults({
   return (
     <div>
       <div className="mb-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-[#1a3c5a]">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="font-heading text-xl sm:text-2xl uppercase text-brand-green">
             {t.rich("results.howEuFriendly", { domain })}
           </h2>
           {status !== null && (
@@ -64,13 +64,13 @@ export function AnalysisResults({
                 className={cn(
                   "w-4 h-4 rounded-full",
                   status === "green"
-                    ? "bg-green-500"
+                    ? "bg-brand-sage"
                     : status === "yellow"
-                      ? "bg-yellow-500"
-                      : "bg-red-500"
+                      ? "bg-brand-yellow"
+                      : "bg-brand-red"
                 )}
               />
-              <span className="text-sm text-[#334155] font-medium">
+              <span className="text-sm text-brand-green/70 font-medium">
                 {status === "green"
                   ? t("results.statusExcellent")
                   : status === "yellow"
@@ -85,43 +85,43 @@ export function AnalysisResults({
           {results.map((step) => (
             <div
               key={step.type}
-              className="border bg-white rounded-lg p-4 transition-all"
+              className="border border-brand-sage/30 bg-white rounded-2xl p-4 transition-all"
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   {step.status === "pending" && (
-                    <Clock className="w-5 h-5 text-gray-400" />
+                    <Clock className="w-5 h-5 text-brand-green/30" />
                   )}
                   {step.status === "complete" &&
                     (step.isEU === true || step.euFriendly === true) && (
-                      <CheckCircle2Icon className="w-5 h-5 text-green-500" />
+                      <CheckCircle2Icon className="w-5 h-5 text-brand-green" />
                     )}
                   {step.status === "complete" &&
                     step.isEU === false &&
                     step.euFriendly === false && (
-                      <XCircleIcon className="w-5 h-5 text-red-500" />
+                      <XCircleIcon className="w-5 h-5 text-brand-red" />
                     )}
                   {step.status === "complete" &&
                     step.isEU === null &&
                     step.euFriendly === null && (
-                      <MinusCircleIcon className="w-5 h-5 text-gray-400" />
+                      <MinusCircleIcon className="w-5 h-5 text-brand-green/30" />
                     )}
                   {step.status === "processing" && (
-                    <div className="w-5 h-5 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
+                    <div className="w-5 h-5 rounded-full border-2 border-brand-navy border-t-transparent animate-spin" />
                   )}
-                  <h3 className="font-medium">
+                  <h3 className="font-medium text-brand-green">
                     {t(`services.${step.type}`) || step.type}
                   </h3>
                 </div>
                 {step.status === "complete" && (
                   <span
                     className={cn(
-                      "text-sm px-2 py-1 rounded-full",
+                      "text-sm px-3 py-1 rounded-full font-medium",
                       step.isEU === true || step.euFriendly === true
-                        ? "bg-green-100 text-green-700"
+                        ? "bg-brand-sage/30 text-brand-green"
                         : step.isEU === false
-                          ? "bg-red-100 text-red-700"
-                          : "bg-gray-100 text-gray-700"
+                          ? "bg-brand-red/10 text-brand-red"
+                          : "bg-brand-sage/20 text-brand-green/50"
                     )}
                   >
                     {step.isEU === true
@@ -139,29 +139,31 @@ export function AnalysisResults({
                 <div className="pl-8">
                   {Array.isArray(step.details) ? (
                     <div className="space-y-2">
-                      {(step.details).length > 0 ? (
+                      {step.details.length > 0 ? (
                         <>
-                          <p className="text-sm text-[#334155]">
+                          <p className="text-sm text-brand-green/60">
                             {t("results.detectedServices")}
                           </p>
                           <ul className="space-y-1">
-                            {(step.details).map((service, i) => (
+                            {step.details.map((service, i) => (
                               <li
                                 key={i}
                                 className="flex items-center gap-2 text-sm"
                               >
                                 {service.isEU ? (
-                                  <CheckCircle2Icon className="w-4 h-4 text-green-500" />
+                                  <CheckCircle2Icon className="w-4 h-4 text-brand-green" />
                                 ) : (
-                                  <XCircleIcon className="w-4 h-4 text-red-500" />
+                                  <XCircleIcon className="w-4 h-4 text-brand-red" />
                                 )}
-                                <span>{service.name}</span>
+                                <span className="text-brand-green">
+                                  {service.name}
+                                </span>
                                 <span
                                   className={cn(
-                                    "text-xs px-1.5 py-0.5 rounded-full",
+                                    "text-xs px-2 py-0.5 rounded-full font-medium",
                                     service.isEU
-                                      ? "bg-green-100 text-green-700"
-                                      : "bg-red-100 text-red-700"
+                                      ? "bg-brand-sage/30 text-brand-green"
+                                      : "bg-brand-red/10 text-brand-red"
                                   )}
                                 >
                                   {service.isEU
@@ -178,14 +180,16 @@ export function AnalysisResults({
                     </div>
                   ) : (
                     step.details && (
-                      <p className="text-sm text-[#334155]">{step.details}</p>
+                      <p className="text-sm text-brand-green/60">
+                        {step.details}
+                      </p>
                     )
                   )}
                 </div>
               )}
 
               {step.status === "pending" && (
-                <p className="text-sm text-[#334155] mt-2 pl-8">
+                <p className="text-sm text-brand-green/40 mt-2 pl-8">
                   {t("results.pending")}
                 </p>
               )}
@@ -195,11 +199,11 @@ export function AnalysisResults({
                 step.status === "complete" &&
                 step.isEU === false &&
                 step.euFriendly === false && (
-                  <div className="mt-4 bg-blue-50 rounded-b-lg p-3 m-[-16px]">
+                  <div className="mt-4 bg-brand-sky/20 rounded-xl p-3 mx-[-4px]">
                     <div className="flex items-start gap-3">
-                      <LightbulbIcon className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                      <LightbulbIcon className="w-5 h-5 text-brand-navy shrink-0 mt-0.5" />
                       <div>
-                        <div className="text-sm text-[#334155]">
+                        <div className="text-sm text-brand-green">
                           {getRecommendationText(step.type, t)}
                         </div>
                       </div>
@@ -212,8 +216,8 @@ export function AnalysisResults({
       </div>
 
       {isComplete && status === "green" && (
-        <div className="bg-green-50 rounded-lg p-4 mt-4">
-          <p className="text-green-700 flex items-center gap-2">
+        <div className="bg-brand-sage/30 rounded-2xl p-4 mt-4">
+          <p className="text-brand-green flex items-center gap-2">
             <CheckCircle2Icon className="w-5 h-5" />
             <span>{t("results.congratulations")}</span>
           </p>
@@ -237,7 +241,7 @@ function getRecommendationText(
               href="https://proton.me/mail"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="CH"
@@ -250,7 +254,7 @@ function getRecommendationText(
               href="https://mailbox.org/en/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="DE"
@@ -271,7 +275,7 @@ function getRecommendationText(
               href="https://matomo.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="DE"
@@ -284,7 +288,7 @@ function getRecommendationText(
               href="https://www.piwik.pro/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="PL"
@@ -305,7 +309,7 @@ function getRecommendationText(
               href="https://bunny.net/fonts/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="SI"
@@ -314,7 +318,7 @@ function getRecommendationText(
               />
               BunnyFonts (Slovenia)
             </Link>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-brand-green/50">
               {t("recommendations.selfHosting")}
             </span>
           </div>

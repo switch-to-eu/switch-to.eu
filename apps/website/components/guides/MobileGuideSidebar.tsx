@@ -143,7 +143,7 @@ export function MobileGuideSidebar({
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[85vw] sm:max-w-md px-0 pt-12 overflow-y-auto bg-[var(--pop-3)]">
+          <SheetContent side="right" className="w-[85vw] sm:max-w-md px-0 pt-12 overflow-y-auto bg-brand-sage">
             <SheetTitle className="text-lg font-semibold px-6 sr-only">
               {stepPlanText}
             </SheetTitle>

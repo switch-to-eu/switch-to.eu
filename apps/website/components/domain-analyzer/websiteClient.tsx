@@ -1,13 +1,43 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@switch-to-eu/ui/components/button";
-import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations } from "next-intl";
 
 import Image from "next/image";
-import { Container } from "../layout/container";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
+
+const HOW_IT_WORKS_CARDS = [
+  {
+    bg: "bg-brand-sky",
+    text: "text-brand-green",
+    numberBg: "bg-brand-green",
+    numberText: "text-white",
+    shape: "/images/shapes/cloud.svg",
+    shapeFilter:
+      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    step: "step1",
+  },
+  {
+    bg: "bg-brand-yellow/20",
+    text: "text-brand-green",
+    numberBg: "bg-brand-orange",
+    numberText: "text-white",
+    shape: "/images/shapes/star.svg",
+    shapeFilter:
+      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    step: "step2",
+  },
+  {
+    bg: "bg-brand-sage",
+    text: "text-brand-green",
+    numberBg: "bg-brand-navy",
+    numberText: "text-white",
+    shape: "/images/shapes/pebble.svg",
+    shapeFilter:
+      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    step: "step3",
+  },
+] as const;
 
 export function WebsiteAnalyzerClient() {
   const router = useRouter();
@@ -43,136 +73,184 @@ export function WebsiteAnalyzerClient() {
   };
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
       {/* Hero Section */}
-      <section className="relative">
-        <Container className="flex flex-col items-center gap-6 sm:gap-8 py-4 sm:py-6">
-          <div className="flex flex-col gap-4 sm:gap-6 text-center max-w-3xl">
-            <h1 className="font-bold text-3xl sm:text-4xl md:text-4xl text-[#1a3c5a]">
-              {t("websiteAnalyzer.pageTitle")}
-            </h1>
-          </div>
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="bg-brand-navy rounded-3xl">
+            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
+              {/* Decorative shapes */}
+              <div className="absolute -top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52 opacity-10 pointer-events-none">
+                <Image
+                  src="/images/shapes/sunburst.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ animationDuration: "8s", filter: "brightness(0) invert(1)" }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 opacity-10 pointer-events-none">
+                <Image
+                  src="/images/shapes/blob.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ animationDuration: "10s", animationDelay: "1s", filter: "brightness(0) invert(1)" }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
 
-          {/* Website URL Input */}
-          <div className="w-full max-w-2xl mt-4 sm:mt-6">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-0"
-            >
-              <Input
-                type="text"
-                value={url}
-                onChange={(e) => {
-                  setUrl(e.target.value);
-                  setError("");
-                }}
-                placeholder={t("websiteAnalyzer.urlInputPlaceholder")}
-                className="h-12 text-base bg-white border-2 focus-visible:border-primary sm:rounded-r-none sm:border-r-0"
-              />
-              <Button
-                variant="default"
-                size="lg"
-                type="submit"
-                className="sm:rounded-l-none sm:px-8"
-              >
-                {t("websiteAnalyzer.checkButton")}
-              </Button>
-            </form>
-            {error ? <p className="text-sm text-red-500 mt-2">{error}</p> : ""}
-          </div>
+              <div className="relative z-10 max-w-2xl mx-auto text-center">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8">
+                  {t("websiteAnalyzer.pageTitle")}
+                </h1>
 
-          {/* Results Placeholder (empty state) */}
-          <div className="w-full max-w-2xl mt-8 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-8 flex flex-col items-center justify-center text-center min-h-[300px]">
-            <div className="relative w-20 h-20 mb-4">
+                {/* Website URL Input */}
+                <form onSubmit={handleSubmit}>
+                  <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+                    <input
+                      type="text"
+                      value={url}
+                      onChange={(e) => {
+                        setUrl(e.target.value);
+                        setError("");
+                      }}
+                      placeholder={t("websiteAnalyzer.urlInputPlaceholder")}
+                      className="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow/50 text-sm sm:text-base"
+                    />
+                    <button
+                      type="submit"
+                      className="px-8 py-3 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity flex-shrink-0"
+                    >
+                      {t("websiteAnalyzer.checkButton")}
+                    </button>
+                  </div>
+                  {error && (
+                    <p className="text-brand-red text-sm mt-3">{error}</p>
+                  )}
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Empty State / Results Placeholder */}
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto rounded-3xl border-2 border-dashed border-brand-sage bg-brand-sage/10 p-10 flex flex-col items-center justify-center text-center min-h-[260px]">
+            <div className="relative w-20 h-20 mb-4 opacity-30">
               <Image
-                src="/images/icon-01.svg"
-                alt="Analysis icon"
+                src="/images/shapes/sunburst.svg"
+                alt=""
                 fill
-                className="object-contain opacity-50"
+                className="object-contain select-none animate-shape-float"
+                style={{
+                  filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
+                  animationDuration: "8s",
+                }}
+                aria-hidden="true"
+                unoptimized
               />
             </div>
-            <h3 className="text-xl font-semibold text-[#1a3c5a] mb-2">
+            <h3 className="font-heading text-xl uppercase text-brand-green mb-2">
               {t("websiteAnalyzer.emptyStateTitle")}
             </h3>
-            <p className="text-[#334155] max-w-md">
+            <p className="text-brand-green/60 max-w-md">
               {t("websiteAnalyzer.emptyStateDescription")}
             </p>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="bg-[#e9f4fd] py-12">
-        <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1a3c5a] mb-8 text-center">
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-8 text-center">
             {t("websiteAnalyzer.howItWorksTitle")}
           </h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="bg-white p-6 rounded-xl shadow-sm">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[#ff9d8a] flex items-center justify-center mb-4">
-                  <span className="font-bold text-white">
-                    {t("websiteAnalyzer.step1.number")}
-                  </span>
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
+            {HOW_IT_WORKS_CARDS.map((card) => (
+              <div
+                key={card.step}
+                className={`relative overflow-hidden rounded-3xl ${card.bg}`}
+              >
+                {/* Shape area */}
+                <div className="relative h-32 overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative w-20 h-20 opacity-15">
+                      <Image
+                        src={card.shape}
+                        alt=""
+                        fill
+                        className="object-contain select-none animate-shape-float"
+                        style={{ filter: card.shapeFilter }}
+                        aria-hidden="true"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                  {/* Step number */}
+                  <div className="absolute top-4 left-4">
+                    <div
+                      className={`w-10 h-10 rounded-full ${card.numberBg} ${card.numberText} flex items-center justify-center font-bold text-lg`}
+                    >
+                      {t(`websiteAnalyzer.${card.step}.number`)}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="mb-2 font-semibold text-lg">
-                  {t("websiteAnalyzer.step1.title")}
-                </h3>
-                <p className="text-[#334155] text-sm sm:text-base">
-                  {t("websiteAnalyzer.step1.description")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-sm">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[#ff9d8a] flex items-center justify-center mb-4">
-                  <span className="font-bold text-white">
-                    {t("websiteAnalyzer.step2.number")}
-                  </span>
+
+                {/* Content area */}
+                <div className="p-6 pt-2">
+                  <h3 className={`font-semibold text-lg mb-2 ${card.text}`}>
+                    {t(`websiteAnalyzer.${card.step}.title`)}
+                  </h3>
+                  <p className={`${card.text}/70 text-sm leading-relaxed`}>
+                    {t(`websiteAnalyzer.${card.step}.description`)}
+                  </p>
                 </div>
-                <h3 className="mb-2 font-semibold text-lg">
-                  {t("websiteAnalyzer.step2.title")}
-                </h3>
-                <p className="text-[#334155] text-sm sm:text-base">
-                  {t("websiteAnalyzer.step2.description")}
-                </p>
               </div>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-sm">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[#ff9d8a] flex items-center justify-center mb-4">
-                  <span className="font-bold text-white">
-                    {t("websiteAnalyzer.step3.number")}
-                  </span>
-                </div>
-                <h3 className="mb-2 font-semibold text-lg">
-                  {t("websiteAnalyzer.step3.title")}
-                </h3>
-                <p className="text-[#334155] text-sm sm:text-base">
-                  {t("websiteAnalyzer.step3.description")}
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-12">
-        <Container>
-          <div className="rounded-lg border p-8 text-center shadow-sm md:p-12 bg-[#fff9f5]">
-            <h2 className="font-bold text-2xl sm:text-3xl text-[#1a3c5a]">
-              {t("websiteAnalyzer.ctaTitle")}
-            </h2>
-            <p className="mx-auto mt-4 max-w-[600px] text-[#334155]">
-              {t("websiteAnalyzer.ctaDescription")}
-            </p>
-            <Button variant="default" size="lg" className="mt-6">
-              {t("websiteAnalyzer.ctaButton")}
-            </Button>
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="bg-brand-green rounded-3xl">
+            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 overflow-hidden text-center">
+              {/* Decorative shape */}
+              <div className="absolute -top-6 -right-6 w-36 h-36 opacity-10 pointer-events-none">
+                <Image
+                  src="/images/shapes/spark.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ animationDuration: "7s", filter: "brightness(0) invert(1)" }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
+
+              <div className="relative z-10">
+                <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-yellow mb-4">
+                  {t("websiteAnalyzer.ctaTitle")}
+                </h2>
+                <p className="text-white/80 max-w-xl mx-auto mb-6">
+                  {t("websiteAnalyzer.ctaDescription")}
+                </p>
+                <button className="px-8 py-3 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity">
+                  {t("websiteAnalyzer.ctaButton")}
+                </button>
+              </div>
+            </div>
           </div>
-        </Container>
+        </div>
       </section>
-    </div>
+    </main>
   );
 }

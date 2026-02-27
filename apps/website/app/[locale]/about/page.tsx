@@ -4,6 +4,72 @@ import { Container } from "@/components/layout/container";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
+const FILTER_BRAND_GREEN =
+  "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)";
+const FILTER_WHITE = "brightness(0) invert(1)";
+
+const PILLAR_CARDS = [
+  {
+    titleKey: "pillars.pillar1.title",
+    descKey: "pillars.pillar1.description",
+    bg: "bg-brand-sky",
+    text: "text-brand-green",
+    shape: "spark",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    titleKey: "pillars.pillar2.title",
+    descKey: "pillars.pillar2.description",
+    bg: "bg-brand-pink",
+    text: "text-brand-green",
+    shape: "heart",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    titleKey: "pillars.pillar3.title",
+    descKey: "pillars.pillar3.description",
+    bg: "bg-brand-sage",
+    text: "text-brand-green",
+    shape: "flower",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+] as const;
+
+const WHY_CHOOSE_CARDS = [
+  {
+    titleKey: "whyChoosePoints.point1.title",
+    descKey: "whyChoosePoints.point1.description",
+    bg: "bg-brand-yellow",
+    text: "text-brand-green",
+    shape: "sunburst",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    titleKey: "whyChoosePoints.point2.title",
+    descKey: "whyChoosePoints.point2.description",
+    bg: "bg-brand-sky",
+    text: "text-brand-green",
+    shape: "cloud",
+    shapeFilter: FILTER_BRAND_GREEN,
+  },
+  {
+    titleKey: "whyChoosePoints.point3.title",
+    descKey: "whyChoosePoints.point3.description",
+    bg: "bg-brand-orange",
+    text: "text-white",
+    shape: "tulip",
+    shapeFilter: FILTER_WHITE,
+  },
+  {
+    titleKey: "whyChoosePoints.point4.title",
+    descKey: "whyChoosePoints.point4.description",
+    bg: "bg-brand-green",
+    text: "text-white",
+    shape: "speech",
+    shapeFilter: FILTER_WHITE,
+  },
+] as const;
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("about");
   const locale = await getLocale();
@@ -17,71 +83,155 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
-  const imageSize = 120;
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <div className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
       {/* Hero Section */}
       <section>
-        <Container>
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                {t("initiative.heading")}
-              </h2>
-              <p className="mb-4 text-base sm:text-lg">
-                {t("initiative.intro")}
-              </p>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="bg-brand-navy rounded-3xl">
+            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
+              {/* Decorative shapes */}
+              <div className="absolute -top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48 opacity-20 pointer-events-none">
+                <Image
+                  src="/images/shapes/blob.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ filter: FILTER_WHITE }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52 opacity-15 pointer-events-none">
+                <Image
+                  src="/images/shapes/pebble.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ filter: FILTER_WHITE, animationDelay: "-3s" }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div className="flex-1">
+                  <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                    {t("initiative.heading")}
+                  </h1>
+                  <p className="text-brand-sky text-base sm:text-lg">
+                    {t("initiative.intro")}
+                  </p>
+                </div>
+                <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
+                  <div className="absolute inset-0">
+                    <Image
+                      src="/images/shapes/circle.svg"
+                      alt=""
+                      fill
+                      className="object-contain select-none animate-shape-float"
+                      style={{ filter: FILTER_WHITE, opacity: 0.25, animationDuration: "8s" }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="absolute inset-6">
+                    <Image
+                      src="/images/shapes/star.svg"
+                      alt=""
+                      fill
+                      className="object-contain select-none animate-shape-float"
+                      style={{ filter: FILTER_WHITE, opacity: 0.5, animationDuration: "6s", animationDelay: "-2s" }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="absolute bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20">
+                    <Image
+                      src="/images/shapes/fleur.svg"
+                      alt=""
+                      fill
+                      className="object-contain select-none animate-shape-float"
+                      style={{ filter: FILTER_WHITE, opacity: 0.35, animationDuration: "7s", animationDelay: "-4s" }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Details */}
+      <section>
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-10">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.mission.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg mb-4">
                 {t("initiative.mission.description1")}
               </p>
-              <p className="mb-4 text-base sm:text-lg">
+              <p className="text-base sm:text-lg">
                 {t("initiative.mission.description2")}
               </p>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.whatWeDo.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg">
                 {t("initiative.whatWeDo.description")}
               </p>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.uniqueness.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg mb-4">
                 {t("initiative.uniqueness.description1")}
               </p>
-              <p className="mb-4 text-base sm:text-lg">
+              <p className="text-base sm:text-lg mb-6">
                 {t("initiative.uniqueness.description2")}
               </p>
-              <ul className="list-disc pl-6 space-y-2 mb-8 text-base sm:text-lg">
+              <ul className="space-y-3 mb-8">
                 {(t.raw("initiative.uniqueness.points") as Array<string>).map(
                   (point: string, index: number) => (
-                    <li key={index}>{point}</li>
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 text-base sm:text-lg"
+                    >
+                      <span className="inline-block w-6 h-6 mt-0.5 flex-shrink-0 relative">
+                        <Image
+                          src="/images/shapes/star.svg"
+                          alt=""
+                          fill
+                          className="object-contain"
+                          style={{ filter: FILTER_BRAND_GREEN }}
+                          aria-hidden="true"
+                          unoptimized
+                        />
+                      </span>
+                      {point}
+                    </li>
                   )
                 )}
               </ul>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.callToAction.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg">
                 {t("initiative.callToAction.description")}
               </p>
-            </div>
-            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0 self-start mt-6 md:mt-0">
-              <Image
-                src="/images/europe.svg"
-                alt="Europe map illustration"
-                fill
-                className="object-contain object-top"
-                priority
-              />
             </div>
           </div>
         </Container>
@@ -90,67 +240,47 @@ export default async function AboutPage() {
       {/* Three Pillars Section */}
       <section>
         <Container>
-          <h2 className="mb-8 text-center font-bold text-3xl">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-10 text-brand-green">
             {t("pillarsTitle")}
           </h2>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-            <div className="bg-[var(--pop-1)] p-5 sm:p-8 rounded-xl sm:translate-y-[10px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-3 auto-rows-fr">
+            {PILLAR_CARDS.map((card, index) => (
+              <div
+                key={card.titleKey}
+                className={`${card.bg} rounded-3xl flex flex-col overflow-hidden`}
+              >
+                {/* Decorative shape area */}
+                <div className="relative h-40 sm:h-48 flex items-center justify-center">
                   <Image
-                    src="/images/icon-01.svg"
-                    alt="European Alternatives icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
+                    src={`/images/shapes/${card.shape}.svg`}
+                    alt=""
+                    fill
+                    className="object-contain p-4 sm:p-6 select-none animate-shape-float"
+                    style={{
+                      filter: card.shapeFilter,
+                      animationDuration: `${6 + (index % 3) * 1.5}s`,
+                      animationDelay: `${index * -1.5}s`,
+                    }}
+                    aria-hidden="true"
+                    unoptimized
                   />
                 </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar1.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar1.description")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-[var(--pop-2)] p-5 sm:p-8 rounded-xl sm:translate-y-[-20px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-02.svg"
-                    alt="Step-by-step Guides icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
+
+                {/* Content area */}
+                <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6 text-center">
+                  <h3
+                    className={`${card.text} mb-2 font-bold text-lg sm:text-xl`}
+                  >
+                    {t(card.titleKey)}
+                  </h3>
+                  <p
+                    className={`${card.text} text-sm sm:text-base opacity-80 leading-relaxed`}
+                  >
+                    {t(card.descKey)}
+                  </p>
                 </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar2.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar2.description")}
-                </p>
               </div>
-            </div>
-            <div className="bg-[var(--pop-3)] p-5 sm:p-8 rounded-xl">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-03.svg"
-                    alt="Community Driven icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar3.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar3.description")}
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </Container>
       </section>
@@ -158,47 +288,50 @@ export default async function AboutPage() {
       {/* Why Choose EU Services Section */}
       <section>
         <Container>
-          <h2 className="mb-8 text-center font-bold text-3xl">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-4 text-brand-green">
             {t("whyChooseTitle")}
           </h2>
-          <p className="text-center mb-6">{t("whyChooseDescription")}</p>
+          <p className="text-base sm:text-lg mb-10 max-w-2xl">
+            {t("whyChooseDescription")}
+          </p>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-            <div className="bg-[var(--pop-4)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point1.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point1.description")}
-              </p>
-            </div>
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-2 auto-rows-fr">
+            {WHY_CHOOSE_CARDS.map((card, index) => (
+              <div
+                key={card.titleKey}
+                className={`${card.bg} rounded-3xl overflow-hidden relative`}
+              >
+                {/* Decorative shape */}
+                <div className="absolute top-3 right-3 w-20 h-20 sm:w-24 sm:h-24 opacity-20 pointer-events-none">
+                  <Image
+                    src={`/images/shapes/${card.shape}.svg`}
+                    alt=""
+                    fill
+                    className="object-contain select-none animate-shape-float"
+                    style={{
+                      filter: card.shapeFilter,
+                      animationDuration: `${6 + (index % 4) * 1.5}s`,
+                      animationDelay: `${index * -1.5}s`,
+                    }}
+                    aria-hidden="true"
+                    unoptimized
+                  />
+                </div>
 
-            <div className="bg-[var(--pop-1)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point2.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point2.description")}
-              </p>
-            </div>
-
-            <div className="bg-[var(--pop-2)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point3.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point3.description")}
-              </p>
-            </div>
-
-            <div className="bg-[var(--pop-3)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point4.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point4.description")}
-              </p>
-            </div>
+                <div className="relative z-10 p-6 sm:p-8">
+                  <h3
+                    className={`${card.text} mb-3 font-bold text-lg sm:text-xl`}
+                  >
+                    {t(card.titleKey)}
+                  </h3>
+                  <p
+                    className={`${card.text} text-sm sm:text-base opacity-80 leading-relaxed`}
+                  >
+                    {t(card.descKey)}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </Container>
       </section>

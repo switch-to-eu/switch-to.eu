@@ -83,20 +83,6 @@
   --border: #e5e7eb;
   --input: #ffffff;
   --ring: #1a3c5a;
-  --green: #a2d4a8;
-  --green-bg: #e8fff5;
-  --blue: #3ea6e3;
-  --blue-bg: #cce6f4;
-  --yellow: #f7df8f;
-
-  /* Feature card colors */
-  --feature-blue-bg: #e9f4fd;
-  --feature-pink-bg: #ffeae5;
-  --feature-green-bg: #e8f7ed;
-  --feature-icon-color: #1b456b;
-  --cta-button: #feb5a7;
-  --cta-button-hover: #ff8a74;
-
   /* Brand palette */
   --brand-yellow: #FBA616;
   --brand-green: #0D492C;
@@ -106,16 +92,6 @@
   --brand-navy: #1E42B0;
   --brand-sage: #B0D8B0;
   --brand-orange: #E45229;
-
-  /* Pop colors for category cards */
-  --pop-1: #e9f4fd;
-  /* Light blue */
-  --pop-2: #ffeae5;
-  /* Light pink */
-  --pop-3: #e8f7ed;
-  /* Light green */
-  --pop-4: #f0ebff;
-  /* Light purple */
 
   /* Chart colors */
   --chart-1: #1b456b;
@@ -180,7 +156,7 @@
   }
 
   .text-blue {
-    color: var(--blue);
+    color: var(--brand-navy);
   }
 
   p {
@@ -255,7 +231,7 @@
 
 .mdx-content a {
   @apply hover:underline;
-  color: var(--blue);
+  color: var(--brand-navy);
 }
 
 .mdx-content blockquote {
@@ -288,13 +264,13 @@
 
 /* Custom badges for regions */
 .badge-eu-friendly {
-  background-color: var(--yellow) !important;
-  color: #1a1c1e !important;
+  background-color: var(--brand-yellow) !important;
+  color: var(--brand-green) !important;
   border-color: transparent !important;
 }
 
 .badge-eu-friendly:hover {
   background-color: color-mix(in srgb,
-      var(--yellow) 90%,
+      var(--brand-yellow) 90%,
       black) !important;
 }

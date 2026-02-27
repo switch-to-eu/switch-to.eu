@@ -67,7 +67,7 @@ export function GuideProgressIndicator({
         <div
           className={cn(
             "h-full **:transition-all duration-300 ease-in-out",
-            isComplete ? "bg-green-500" : "bg-[var(--green)]"
+            isComplete ? "bg-brand-green" : "bg-brand-sage"
           )}
           style={{ width: `${progressPercentage}%` }}
           aria-valuenow={progressPercentage}
