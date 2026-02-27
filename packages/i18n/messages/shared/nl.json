@@ -2,5 +2,14 @@
   "language": {
     "en": "English",
     "nl": "Nederlands"
+  },
+  "footerTools": {
+    "sectionTitle": "Onze Tools",
+    "linksTitle": "Links",
+    "plotty": "Plan vergaderingen privé",
+    "listy": "Deel lijsten samen",
+    "keepfocus": "Blijf gefocust met Pomodoro",
+    "privnote": "Zelfvernietigende privénotities",
+    "quiz": "Live quizzen voor klassen en teams"
   }
 }

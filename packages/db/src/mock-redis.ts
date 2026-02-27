@@ -8,6 +8,7 @@ export class MockRedis {
   private sets = new Map<string, Set<string>>();
   private counters = new Map<string, number>();
   private strings = new Map<string, string>();
+  private lists = new Map<string, string[]>();
   private ttls = new Map<string, number>();
 
   async hSet(key: string, data: Record<string, string>) {
@@ -47,6 +48,27 @@ export class MockRedis {
     return removed;
   }
 
+  async sIsMember(key: string, member: string): Promise<boolean> {
+    return this.sets.get(key)?.has(member) ?? false;
+  }
+
+  async rPush(key: string, value: string | string[]): Promise<number> {
+    if (!this.lists.has(key)) this.lists.set(key, []);
+    const values = Array.isArray(value) ? value : [value];
+    this.lists.get(key)!.push(...values);
+    return this.lists.get(key)!.length;
+  }
+
+  async lLen(key: string): Promise<number> {
+    return this.lists.get(key)?.length ?? 0;
+  }
+
+  async lRange(key: string, start: number, stop: number): Promise<string[]> {
+    const list = this.lists.get(key) ?? [];
+    const end = stop === -1 ? list.length : stop + 1;
+    return list.slice(start, end);
+  }
+
   async get(key: string): Promise<string | null> {
     return this.strings.get(key) ?? null;
   }
@@ -74,7 +96,7 @@ export class MockRedis {
     let deleted = 0;
     for (const key of keyArray) {
       this.ttls.delete(key);
-      if (this.hashes.delete(key) || this.sets.delete(key) || this.counters.delete(key) || this.strings.delete(key)) {
+      if (this.hashes.delete(key) || this.sets.delete(key) || this.counters.delete(key) || this.strings.delete(key) || this.lists.delete(key)) {
         deleted++;
       }
     }
@@ -110,6 +132,14 @@ export class MockRedis {
         commands.push(() => this.sAdd(key, member));
         return chain;
       },
+      set: (key: string, value: string) => {
+        commands.push(() => this.set(key, value));
+        return chain;
+      },
+      rPush: (key: string, value: string | string[]) => {
+        commands.push(() => this.rPush(key, value));
+        return chain;
+      },
       exec: async () => {
         const results = [];
         for (const cmd of commands) results.push(await cmd());
@@ -125,6 +155,7 @@ export class MockRedis {
     this.sets.clear();
     this.counters.clear();
     this.strings.clear();
+    this.lists.clear();
     this.ttls.clear();
   }
 
@@ -141,6 +172,11 @@ export class MockRedis {
   /** Inspect stored string (for test assertions) */
   _getString(key: string): string | undefined {
     return this.strings.get(key);
+  }
+
+  /** Inspect stored list (for test assertions) */
+  _getList(key: string): string[] | undefined {
+    return this.lists.get(key);
   }
 
   /** Inspect stored TTL (for test assertions) */

@@ -1,23 +1,34 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Check, Copy, Flame, Plus, AlertTriangle } from "lucide-react";
 
 export default function SharePage() {
   const t = useTranslations("SharePage");
-  const searchParams = useSearchParams();
   const [copied, setCopied] = useState(false);
+  const [fragmentParams, setFragmentParams] = useState<{
+    key: string;
+    expires: string;
+    burn: boolean;
+  } | null>(null);
 
-  const expiresAt = searchParams.get("expires");
-  const burn = searchParams.get("burn") === "true";
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    setFragmentParams({
+      key: params.get("key") ?? "",
+      expires: params.get("expires") ?? "",
+      burn: params.get("burn") === "true",
+    });
+  }, []);
 
+  // Build the share URL: note view URL + encryption key in fragment
   const fullNoteUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${window.location.pathname.replace("/share", "")}`
+    typeof window !== "undefined" && fragmentParams
+      ? `${window.location.origin}${window.location.pathname.replace("/share", "")}#key=${encodeURIComponent(fragmentParams.key)}`
       : "";
 
   const handleCopy = async () => {
@@ -26,7 +37,6 @@ export default function SharePage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for older browsers
       const input = document.createElement("input");
       input.value = fullNoteUrl;
       document.body.appendChild(input);
@@ -48,6 +58,16 @@ export default function SharePage() {
     if (hours > 0) return `${hours}h ${minutes % 60}m`;
     return `${minutes}m`;
   };
+
+  if (!fragmentParams) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <div className="flex items-center justify-center py-20">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600" />
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -96,9 +116,9 @@ export default function SharePage() {
         </div>
 
         {/* Expiry info */}
-        {expiresAt && (
+        {fragmentParams.expires && (
           <p className="mt-4 text-sm text-gray-500">
-            {t("expiresIn", { time: formatExpiry(expiresAt) })}
+            {t("expiresIn", { time: formatExpiry(fragmentParams.expires) })}
           </p>
         )}
 
@@ -109,7 +129,7 @@ export default function SharePage() {
         </div>
 
         {/* Burn warning */}
-        {burn && (
+        {fragmentParams.burn && (
           <div className="mt-4 flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
             <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
             <p className="text-sm text-red-700">{t("burnWarning")}</p>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { Flame, Lock } from "lucide-react";
+import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 
 import { api } from "@/lib/trpc-client";
 import { hashPassword } from "@/lib/crypto";
@@ -21,25 +22,39 @@ export function CreateNoteForm() {
   const [expiry, setExpiry] = useState<(typeof EXPIRY_OPTIONS)[number]>("24h");
   const [burnAfterReading, setBurnAfterReading] = useState(true);
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const createNote = api.note.create.useMutation({
-    onSuccess: (data) => {
-      router.push(`/note/${data.noteId}/share?expires=${data.expiresAt}&burn=${data.burnAfterReading}`);
+    onError: () => {
+      setIsSubmitting(false);
     },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content.trim()) return;
+    if (!content.trim() || isSubmitting) return;
 
+    setIsSubmitting(true);
+
+    const encryptionKey = await generateEncryptionKey();
+    const encryptedContent = await encryptData(content.trim(), encryptionKey);
     const passwordHash = password ? await hashPassword(password) : undefined;
 
-    createNote.mutate({
-      content: content.trim(),
-      expiry,
-      burnAfterReading,
-      passwordHash,
-    });
+    createNote.mutate(
+      {
+        encryptedContent,
+        expiry,
+        burnAfterReading,
+        passwordHash,
+      },
+      {
+        onSuccess: (data) => {
+          // Navigate to share page with encryption key in fragment (never sent to server)
+          const fragment = `key=${encodeURIComponent(encryptionKey)}&expires=${encodeURIComponent(data.expiresAt)}&burn=${data.burnAfterReading}`;
+          window.location.href = `/${window.location.pathname.split("/")[1]}/note/${data.noteId}/share#${fragment}`;
+        },
+      },
+    );
   };
 
   return (
@@ -137,9 +152,9 @@ export function CreateNoteForm() {
         type="submit"
         size="lg"
         className="w-full gradient-primary text-white border-0"
-        disabled={!content.trim() || createNote.isPending}
+        disabled={!content.trim() || isSubmitting}
       >
-        {createNote.isPending ? t("creatingButton") : t("createButton")}
+        {isSubmitting ? t("creatingButton") : t("createButton")}
       </Button>
     </form>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { nanoid } from "nanoid";
-import { Plus, Pencil, X, Check, List, ShoppingCart, Users } from "lucide-react";
+import { Plus, Pencil, X, Check, List, ShoppingCart, Users, SlidersHorizontal } from "lucide-react";
 
 import { Switch } from "@switch-to-eu/ui/components/switch";
 import { Label } from "@switch-to-eu/ui/components/label";
@@ -26,14 +26,24 @@ const PRESET_CONFIG = {
   potluck: { enableCategories: false, enableClaims: true },
 } as const;
 
-const PRESET_ICONS = {
+const CARD_ICONS = {
   plain: List,
   shopping: ShoppingCart,
   potluck: Users,
+  custom: SlidersHorizontal,
 } as const;
 
 export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) {
   const t = useTranslations("ListPage");
+
+  // Determine which preset matches current settings (if any)
+  const matchedPreset = Object.entries(PRESET_CONFIG).find(
+    ([, config]) =>
+      config.enableCategories === settings.enableCategories &&
+      config.enableClaims === settings.enableClaims,
+  )?.[0] as keyof typeof PRESET_CONFIG | undefined;
+
+  const [customMode, setCustomMode] = useState(!matchedPreset);
 
   const categoryLabels = Object.fromEntries(
     SHOPPING_CATEGORIES.map((id) => [id, t(`categories.${id}` as Parameters<typeof t>[0])]),
@@ -46,6 +56,7 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
   });
 
   const handlePresetClick = (preset: "plain" | "shopping" | "potluck") => {
+    setCustomMode(false);
     const presetDefaults = PRESET_CONFIG[preset];
     const newSettings: ListSettings = {
       ...presetDefaults,
@@ -54,6 +65,10 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
         : undefined,
     };
     void onUpdate(buildListData(newSettings));
+  };
+
+  const handleCustomClick = () => {
+    setCustomMode(true);
   };
 
   const handleToggleCategories = (enabled: boolean) => {
@@ -102,12 +117,8 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
     void onUpdate(buildListData(newSettings));
   };
 
-  // Determine which preset matches current settings (if any)
-  const activePreset = Object.entries(PRESET_CONFIG).find(
-    ([, config]) =>
-      config.enableCategories === settings.enableCategories &&
-      config.enableClaims === settings.enableClaims,
-  )?.[0];
+  const activeCard = customMode ? "custom" : matchedPreset;
+  const cards = ["plain", "shopping", "potluck", "custom"] as const;
 
   return (
     <div className="rounded-lg border bg-neutral-50 p-4 space-y-5">
@@ -115,18 +126,22 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
         {t("settings.title")}
       </h3>
 
-      {/* Preset quick-select */}
+      {/* Preset quick-select + custom */}
       <div className="space-y-2">
         <Label className="text-xs text-neutral-500">{t("settings.presetLabel")}</Label>
-        <div className="grid grid-cols-3 gap-2">
-          {(Object.keys(PRESET_CONFIG) as Array<keyof typeof PRESET_CONFIG>).map((preset) => {
-            const Icon = PRESET_ICONS[preset];
-            const isActive = activePreset === preset;
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {cards.map((card) => {
+            const Icon = CARD_ICONS[card];
+            const isActive = activeCard === card;
             return (
               <button
-                key={preset}
+                key={card}
                 type="button"
-                onClick={() => handlePresetClick(preset)}
+                onClick={() =>
+                  card === "custom"
+                    ? handleCustomClick()
+                    : handlePresetClick(card)
+                }
                 className={cn(
                   "flex flex-col items-center gap-1.5 rounded-lg border p-3 text-center transition-all",
                   isActive
@@ -136,7 +151,7 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
               >
                 <Icon className="h-4 w-4" />
                 <span className="text-xs font-medium">
-                  {t(`presets.${preset}` as Parameters<typeof t>[0])}
+                  {t(`presets.${card}` as Parameters<typeof t>[0])}
                 </span>
               </button>
             );
@@ -144,38 +159,42 @@ export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) 
         </div>
       </div>
 
-      {/* Feature toggles */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Label htmlFor="enable-categories" className="text-sm text-neutral-600">
-            {t("settings.enableCategories")}
-          </Label>
-          <Switch
-            id="enable-categories"
-            checked={settings.enableCategories}
-            onCheckedChange={handleToggleCategories}
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <Label htmlFor="enable-claims" className="text-sm text-neutral-600">
-            {t("settings.enableClaims")}
-          </Label>
-          <Switch
-            id="enable-claims"
-            checked={settings.enableClaims}
-            onCheckedChange={handleToggleClaims}
-          />
-        </div>
-      </div>
+      {/* Feature toggles — only visible in custom mode */}
+      {customMode && (
+        <>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-categories" className="text-sm text-neutral-600">
+                {t("settings.enableCategories")}
+              </Label>
+              <Switch
+                id="enable-categories"
+                checked={settings.enableCategories}
+                onCheckedChange={handleToggleCategories}
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-claims" className="text-sm text-neutral-600">
+                {t("settings.enableClaims")}
+              </Label>
+              <Switch
+                id="enable-claims"
+                checked={settings.enableClaims}
+                onCheckedChange={handleToggleClaims}
+              />
+            </div>
+          </div>
 
-      {/* Category management */}
-      {settings.enableCategories && (
-        <CategoryManager
-          categories={settings.categories ?? []}
-          onAdd={handleAddCategory}
-          onRename={handleRenameCategory}
-          onDelete={handleDeleteCategory}
-        />
+          {/* Category management */}
+          {settings.enableCategories && (
+            <CategoryManager
+              categories={settings.categories ?? []}
+              onAdd={handleAddCategory}
+              onRename={handleRenameCategory}
+              onDelete={handleDeleteCategory}
+            />
+          )}
+        </>
       )}
     </div>
   );

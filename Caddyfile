@@ -23,6 +23,18 @@ list.switch-to.test {
 	reverse_proxy localhost:5014
 }
 
+note.switch-to.test {
+	reverse_proxy localhost:5016
+}
+
 website.switch-to.test {
 	reverse_proxy localhost:5015
+}
+
+quiz.switch-to.test {
+	reverse_proxy localhost:5018
+}
+
+ui-kit.switch-to.test {
+	reverse_proxy localhost:5013
 }

@@ -6,11 +6,13 @@
     },
     "header": {
       "createNote": "Nieuwe Notitie",
-      "about": "Over"
+      "about": "Over",
+      "mcp": "MCP"
     },
     "footer": {
       "about": "Over",
       "privacy": "Privacybeleid",
+      "mcp": "MCP Integratie",
       "copyright": "{year} <link>switch-to.eu</link> — een project van"
     }
   },
@@ -32,8 +34,8 @@
         "description": "Notities worden permanent verwijderd na het lezen of wanneer de timer afloopt. Geen sporen achtergelaten."
       },
       "encrypted": {
-        "title": "Privé by Design",
-        "description": "Notities worden versleuteld opgeslagen in Redis en automatisch gewist. We loggen of inspecteren uw inhoud nooit."
+        "title": "End-to-End Versleuteld",
+        "description": "Notities worden in uw browser versleuteld voordat ze naar de server worden verzonden. Alleen de ontvanger met de link kan ze ontcijferen."
       },
       "timer": {
         "title": "Timer Verloop",
@@ -60,7 +62,7 @@
       "badges": {
         "noEmail": "Geen e-mail nodig",
         "autoDelete": "Automatisch verwijderd",
-        "encrypted": "Privé & veilig",
+        "encrypted": "End-to-end versleuteld",
         "european": "Open source"
       }
     },
@@ -73,7 +75,7 @@
   },
   "CreatePage": {
     "title": "Maak een Privénotitie",
-    "description": "Schrijf hieronder uw notitie. Deze wordt vernietigd na het lezen of wanneer de timer afloopt.",
+    "description": "Schrijf hieronder uw notitie. Deze wordt versleuteld en vernietigd na het lezen of wanneer de timer afloopt.",
     "contentLabel": "Uw Notitie",
     "contentPlaceholder": "Typ hier uw privénotitie...",
     "expiryLabel": "Zelfvernietigen na",
@@ -126,10 +128,136 @@
       "subtitle": "Zelfvernietigende privénotities gebouwd met privacy als kern. Onderdeel van het Switch-to.eu initiatief.",
       "badges": {
         "european": "Open Source",
-        "encrypted": "Privé by Design",
+        "encrypted": "End-to-End Versleuteld",
         "noTracking": "Geen Tracking"
       }
+    },
+    "howItWorks": {
+      "title": "Hoe Het Werkt",
+      "encrypt": {
+        "title": "Versleutelen",
+        "description": "Uw notitie wordt in uw browser versleuteld met AES-256-GCM voordat deze uw apparaat verlaat. De encryptiesleutel is onderdeel van de link — wordt nooit naar onze server gestuurd."
+      },
+      "store": {
+        "title": "Tijdelijk Opslaan",
+        "description": "De versleutelde gegevens worden opgeslagen in Redis met een vervaltijd. Onze server kan uw notitie niet lezen — het bevat alleen versleutelde gegevens."
+      },
+      "destroy": {
+        "title": "Vernietigen",
+        "description": "Zodra de ontvanger de link opent en de notitie leest, wordt deze permanent van onze servers verwijderd. Als niemand het leest, verwijdert de timer het automatisch."
+      }
+    },
+    "security": {
+      "title": "Privacy & Beveiliging",
+      "e2e": {
+        "title": "End-to-End Encryptie",
+        "description": "Notities worden versleuteld met AES-256-GCM in de browser. De decryptiesleutel is ingebed in het URL-fragment, dat nooit naar de server wordt verzonden."
+      },
+      "zeroKnowledge": {
+        "title": "Zero-Knowledge Architectuur",
+        "description": "Onze servers slaan alleen versleutelde gegevens op. Wij kunnen de inhoud van uw notities niet lezen, inspecteren of loggen."
+      },
+      "ephemeral": {
+        "title": "Standaard Vergankelijk",
+        "description": "Notities worden verwijderd na het lezen (burn-after-reading) of verlopen automatisch op basis van de timer die u instelt."
+      },
+      "password": {
+        "title": "Optionele Wachtwoordbeveiliging",
+        "description": "Voeg een extra beveiligingslaag toe met een wachtwoord. Zelfs als iemand de link onderschept, kan diegene de notitie niet openen zonder het wachtwoord."
+      }
+    },
+    "cta": "Maak een Privénotitie"
+  },
+  "PrivacyPage": {
+    "hero": {
+      "title": "Privacybeleid",
+      "subtitle": "PrivNote is gebouwd om standaard privé te zijn. Zo gaan wij om met uw gegevens.",
+      "lastUpdated": "Laatst bijgewerkt: februari 2026"
+    },
+    "summary": {
+      "title": "Privacy in een Oogopslag",
+      "points": [
+        "Alle notities zijn end-to-end versleuteld — wij kunnen ze niet lezen",
+        "Geen accounts, geen e-mail, geen persoonlijke gegevens verzameld",
+        "Notities worden automatisch verwijderd na lezen of verloop",
+        "Geen analytics, geen tracking cookies, geen scripts van derden",
+        "Open source — inspecteer de code zelf"
+      ]
+    },
+    "dataCollection": {
+      "title": "Gegevensverzameling",
+      "content": "PrivNote verzamelt minimale gegevens om te functioneren. Wij slaan versleutelde notitie-inhoud op, een optionele wachtwoord-hash, vervalmetadata en burn-after-reading voorkeuren. Wij verzamelen geen e-mailadressen, namen, IP-adressen of andere persoonlijke informatie. Er worden geen cookies gebruikt voor tracking."
+    },
+    "encryption": {
+      "title": "Encryptie",
+      "content": "Alle notities worden in uw browser versleuteld met AES-256-GCM voordat ze naar onze server worden gestuurd. De encryptiesleutel is ingebed in het URL-fragment (het deel na #), dat nooit door uw browser naar onze server wordt verzonden. Dit betekent dat wij fysiek niet in staat zijn uw notities te ontcijferen of te lezen."
+    },
+    "dataRetention": {
+      "title": "Gegevensbewaring",
+      "content": "Notities worden direct verwijderd na het lezen als burn-after-reading is ingeschakeld. Anders worden notities automatisch verwijderd wanneer hun vervaltimer afloopt (tussen 5 minuten en 7 dagen). Er worden geen back-ups of kopieën van verwijderde notities bewaard."
+    },
+    "thirdParty": {
+      "title": "Diensten van Derden",
+      "content": "PrivNote maakt geen gebruik van analytics-, advertentie- of trackingdiensten van derden. De applicatie is op zichzelf staand en deelt geen gegevens met externe partijen."
+    },
+    "userRights": {
+      "title": "Uw Rechten",
+      "content": "Aangezien wij geen persoonlijke gegevens verzamelen, zijn er doorgaans geen persoonlijke gegevens om in te zien, te wijzigen of te verwijderen. Als u vragen heeft over uw gegevens, kunt u contact met ons opnemen via het Switch-to.eu project."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "PrivNote is onderdeel van het Switch-to.eu initiatief, een open-source project dat gebruikers helpt over te stappen naar privacyvriendelijke Europese digitale diensten. Voor privacygerelateerde vragen, bezoek switch-to.eu."
     }
+  },
+  "McpPage": {
+    "hero": {
+      "title": "MCP Integratie",
+      "subtitle": "Maak privénotities rechtstreeks vanuit AI-assistenten zoals Claude, Cursor en andere MCP-compatibele tools.",
+      "badges": {
+        "aiPowered": "AI-Aangedreven",
+        "encrypted": "End-to-End Versleuteld",
+        "open": "Open Protocol"
+      }
+    },
+    "whatIsMcp": {
+      "title": "Wat is MCP?",
+      "description": "Het Model Context Protocol (MCP) is een open standaard waarmee AI-assistenten kunnen communiceren met externe tools en diensten. PrivNote biedt een MCP-endpoint waarmee AI-agents versleutelde, zelfvernietigende notities kunnen aanmaken en de deel-URL kunnen retourneren — allemaal zonder uw AI-workflow te verlaten."
+    },
+    "tools": {
+      "title": "Beschikbare Tools",
+      "createPrivnote": {
+        "description": "Maak een versleutelde, zelfvernietigende privénotitie. Retourneert een deel-URL met de decryptiesleutel.",
+        "params": {
+          "content": "(vereist) — De platte tekst van de notitie om te versleutelen",
+          "expiry": "(optioneel, standaard: 24u) — 5m, 30m, 1u, 24u of 7d",
+          "burnAfterReading": "(optioneel, standaard: true) — Verwijderen na eerste lezing",
+          "password": "(optioneel) — Beveilig de notitie met een wachtwoord"
+        }
+      }
+    },
+    "setup": {
+      "title": "Installatie-instructies",
+      "claudeDesktop": {
+        "title": "Claude Desktop",
+        "description": "Voeg het volgende toe aan uw Claude Desktop configuratiebestand. Op macOS is dit ~/Library/Application Support/Claude/claude_desktop_config.json",
+        "note": "Vereist mcp-remote (automatisch geïnstalleerd via npx) om stdio naar HTTP te bridgen."
+      },
+      "cursor": {
+        "title": "Cursor / Windsurf",
+        "description": "Voeg een .cursor/mcp.json of .windsurf/mcp.json bestand toe aan uw projectroot. Deze editors ondersteunen streamable HTTP native.",
+        "note": ""
+      },
+      "claudeCode": {
+        "title": "Claude Code",
+        "description": "Voeg een .mcp.json bestand toe aan uw projectroot of homedirectory.",
+        "note": ""
+      }
+    },
+    "security": {
+      "title": "Beveiligingsopmerking",
+      "description": "Bij het aanmaken van notities via MCP wordt de encryptiesleutel opgenomen in de geretourneerde deel-URL. De notitie-inhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. De encryptiesleutel gaat echter wel via het MCP-protocol, dus gebruik dit alleen met vertrouwde AI-tools en deel de resulterende URL via beveiligde kanalen."
+    },
+    "cta": "Maak een Privénotitie"
   },
   "tools": {
     "plotty": {

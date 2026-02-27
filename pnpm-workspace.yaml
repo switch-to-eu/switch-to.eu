@@ -28,3 +28,5 @@ catalog:
   '@tanstack/react-query': ^5.69.0
   'superjson': ^2.2.1
   'next-intl': ^4.1.0
+  '@modelcontextprotocol/sdk': 1.25.3
+  'mcp-handler': ^1.0.7

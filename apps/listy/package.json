@@ -12,6 +12,7 @@
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
@@ -64,6 +65,7 @@
     "typescript": "catalog:",
     "typescript-eslint": "^8.27.0",
     "@playwright/test": "^1.58.2",
+    "redis": "^4.7.0",
     "vitest": "^4.0.18"
   }
 }

@@ -19,13 +19,13 @@ export const tools: Tool[] = [
         icon: 'calendar'
     },
     {
-        id: 'nully',
-        name: 'Nully',
-        url: 'https://nully.eu',
+        id: 'listy',
+        name: 'Listy',
+        url: 'https://list.switch-to.eu',
         status: 'active',
-        color: 'green-600',
-        secondaryColor: 'yellow-600',
-        icon: 'upload'
+        color: 'teal-600',
+        secondaryColor: 'green-600',
+        icon: 'list-checks'
     },
     {
         id: 'keepfocus',
@@ -35,6 +35,24 @@ export const tools: Tool[] = [
         color: 'blue-600',
         secondaryColor: 'purple-600',
         icon: 'target'
+    },
+    {
+        id: 'privnote',
+        name: 'PrivNote',
+        url: 'https://privnote.switch-to.eu',
+        status: 'active',
+        color: 'amber-600',
+        secondaryColor: 'orange-600',
+        icon: 'file-lock'
+    },
+    {
+        id: 'quiz',
+        name: 'Quiz',
+        url: 'https://quiz.switch-to.eu',
+        status: 'active',
+        color: 'rose-600',
+        secondaryColor: 'orange-600',
+        icon: 'brain'
     }
 ];
 

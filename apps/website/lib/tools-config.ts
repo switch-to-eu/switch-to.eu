@@ -30,4 +30,18 @@ export const tools: Tool[] = [
     href: isDev ? "https://list.switch-to.test" : "https://list.switch-to.eu",
     i18nKey: "listy",
   },
+  {
+    id: "privnote",
+    href: isDev
+      ? "https://note.switch-to.test"
+      : "https://note.switch-to.eu",
+    i18nKey: "privnote",
+  },
+  {
+    id: "quiz",
+    href: isDev
+      ? "https://quiz.switch-to.test"
+      : "https://quiz.switch-to.eu",
+    i18nKey: "quiz",
+  },
 ];

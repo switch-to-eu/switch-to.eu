@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import { nanoid } from "nanoid";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 const EXPIRY_OPTIONS: Record<string, number> = {
@@ -12,31 +13,24 @@ const EXPIRY_OPTIONS: Record<string, number> = {
 
 const NOTE_PREFIX = "privnote:note:";
 
-function generateNoteId(): string {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const bytes = new Uint8Array(12);
-  crypto.getRandomValues(bytes);
-  return Array.from(bytes, (b) => chars[b % chars.length]).join("");
-}
-
 export const noteRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
-        content: z.string().min(1).max(50_000),
+        encryptedContent: z.string().min(1).max(100_000),
         expiry: z.enum(["5m", "30m", "1h", "24h", "7d"]),
         burnAfterReading: z.boolean().default(true),
         passwordHash: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const noteId = generateNoteId();
+      const noteId = nanoid(12);
       const key = `${NOTE_PREFIX}${noteId}`;
       const ttlSeconds = EXPIRY_OPTIONS[input.expiry]!;
       const expiresAt = new Date(Date.now() + ttlSeconds * 1000).toISOString();
 
       await ctx.redis.hSet(key, {
-        content: input.content,
+        encryptedContent: input.encryptedContent,
         burnAfterReading: input.burnAfterReading ? "1" : "0",
         passwordHash: input.passwordHash ?? "",
         expiresAt,
@@ -60,21 +54,16 @@ export const noteRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const key = `${NOTE_PREFIX}${input.id}`;
-      const exists = await ctx.redis.exists(key);
+      const note = await ctx.redis.hGetAll(key);
 
-      if (!exists) {
+      if (!note || Object.keys(note).length === 0) {
         return { exists: false, hasPassword: false, burnAfterReading: false };
       }
 
-      const [passwordHash, burnAfterReading] = await Promise.all([
-        ctx.redis.hGet(key, "passwordHash"),
-        ctx.redis.hGet(key, "burnAfterReading"),
-      ]);
-
       return {
         exists: true,
-        hasPassword: !!passwordHash && passwordHash.length > 0,
-        burnAfterReading: burnAfterReading === "1",
+        hasPassword: !!note.passwordHash && note.passwordHash.length > 0,
+        burnAfterReading: note.burnAfterReading === "1",
       };
     }),
 
@@ -89,7 +78,7 @@ export const noteRouter = createTRPCRouter({
       const key = `${NOTE_PREFIX}${input.id}`;
       const note = await ctx.redis.hGetAll(key);
 
-      if (!note || !note.content) {
+      if (!note || !note.encryptedContent) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Note not found. It may have already been read or expired.",
@@ -106,7 +95,7 @@ export const noteRouter = createTRPCRouter({
         }
       }
 
-      const content = note.content;
+      const encryptedContent = note.encryptedContent;
       const burnAfterReading = note.burnAfterReading === "1";
 
       // If burn after reading, delete the note immediately
@@ -115,7 +104,7 @@ export const noteRouter = createTRPCRouter({
       }
 
       return {
-        content,
+        encryptedContent,
         burnAfterReading,
         destroyed: burnAfterReading,
       };

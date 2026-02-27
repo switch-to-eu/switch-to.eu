@@ -479,6 +479,14 @@
       "listy": {
         "title": "Listy",
         "description": "Maak direct gedeelde lijsten — boodschappen, taken, potluck. Geen account nodig, end-to-end versleuteld."
+      },
+      "privnote": {
+        "title": "PrivNote",
+        "description": "Verstuur zelfvernietigende privénotities — end-to-end versleuteld, geen account nodig."
+      },
+      "quiz": {
+        "title": "Quiz",
+        "description": "Organiseer live quizzen voor klassen en teams — geen registratie, end-to-end versleuteld, privacy-first."
       }
     }
   },

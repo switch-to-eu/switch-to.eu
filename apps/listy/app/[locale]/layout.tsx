@@ -142,7 +142,12 @@ export default async function LocaleLayout({
                     </a>
                   </>
                 }
-                branding={<BrandIndicator locale={locale} variant="compact" asSpan />}
+                branding={
+                  <div className="flex flex-col gap-1">
+                    <span className="text-lg font-black tracking-wide uppercase text-foreground">Listy</span>
+                    <BrandIndicator locale={locale} />
+                  </div>
+                }
               />
             </div>
           </TRPCReactProvider>

@@ -1,0 +1,290 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Quiz",
+            "description": "Maak live quizzen en strijd in real-time"
+        },
+        "header": {
+            "createQuiz": "Quiz Maken",
+            "about": "Over",
+            "mcp": "MCP"
+        },
+        "footer": {
+            "about": "Over",
+            "privacy": "Privacybeleid",
+            "mcp": "MCP Integratie",
+            "copyright": "{year} <link>switch-to.eu</link> — een project van"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Ontbrekende Encryptiesleutel",
+            "message": "Deze quiz vereist een encryptiesleutel om te bekijken. De sleutel zou in de URL na het # symbool moeten staan.",
+            "urlFormat": "Verwacht URL-formaat:",
+            "urlExample": "/quiz/[id]#key=[encryptiesleutel]"
+        },
+        "quizNotFound": {
+            "title": "Quiz Niet Gevonden",
+            "titleAdmin": "Quiz Niet Gevonden of Geen Toegang",
+            "message": "Deze quiz bestaat niet of is verwijderd.",
+            "messageAdmin": "Deze quiz bestaat niet, is verlopen, of je hebt geen beheerderstoegang.",
+            "returnHome": "Terug naar Home"
+        },
+        "decryption": {
+            "title": "Ontsleuteling Mislukt",
+            "message": "Kan de quizgegevens niet ontsleutelen. Dit kan komen door een ongeldige encryptiesleutel of beschadigde gegevens.",
+            "technicalDetails": "Technische details:",
+            "returnHome": "Terug naar Home"
+        }
+    },
+    "home": {
+        "hero": {
+            "title": "Live Quizzen,",
+            "titleHighlight": "Geen Registratie Nodig",
+            "subtitle": "Maak interactieve quizzen in seconden. Deelnemers doen mee met een simpele code. Strijd op een real-time scorebord. Volledig versleuteld.",
+            "createQuiz": "Maak een Quiz",
+            "joinQuiz": "Doe mee aan een Quiz"
+        },
+        "features": {
+            "title": "Hoe het werkt",
+            "create": {
+                "title": "Maak Je Quiz",
+                "description": "Voeg meerkeuzevragen toe met een timer. Stel de juiste antwoorden in en pas de ervaring aan."
+            },
+            "share": {
+                "title": "Deel de Code",
+                "description": "Deel een simpele deelnamecode of link. Deelnemers doen direct mee — geen accounts, geen downloads."
+            },
+            "play": {
+                "title": "Speel Live",
+                "description": "Beheer de quizflow. Deelnemers beantwoorden in real-time en strijden op een snelheidsgebaseerd scorebord."
+            },
+            "results": {
+                "title": "Bekijk Resultaten",
+                "description": "Bekijk antwoordverdelingen, scores en het eindpodium. Alles wordt client-side berekend voor privacy."
+            }
+        },
+        "privacy": {
+            "title": "Privacy Eerst",
+            "description": "Alle quizinhoud is end-to-end versleuteld. De server ziet nooit je vragen of antwoorden. Quizzen verlopen automatisch na de door jou gekozen tijd."
+        }
+    },
+    "create": {
+        "title": "Maak een Quiz",
+        "subtitle": "Voeg vragen toe en configureer je quizinstellingen",
+        "quizTitle": "Quiztitel",
+        "quizTitlePlaceholder": "bijv. Aardrijkskunde Uitdaging",
+        "quizDescription": "Beschrijving (optioneel)",
+        "quizDescriptionPlaceholder": "bijv. Test je kennis van wereldhoofdsteden",
+        "questions": "Vragen",
+        "addQuestion": "Vraag Toevoegen",
+        "duplicateQuestion": "Vraag dupliceren",
+        "questionPlaceholder": "Voer je vraag in",
+        "optionPlaceholder": "Optie {number}",
+        "correctAnswer": "Juiste antwoord",
+        "removeQuestion": "Vraag verwijderen",
+        "addOption": "Optie toevoegen",
+        "removeOption": "Optie verwijderen",
+        "settings": "Instellingen",
+        "timerPerQuestion": "Timer per vraag",
+        "noTimer": "Geen timer",
+        "seconds": "{count} seconden",
+        "expiration": "Quiz verloopt na",
+        "hours": "{count} uur",
+        "days": "{count} dagen",
+        "createQuiz": "Quiz Maken",
+        "creating": "Aanmaken...",
+        "needAtLeastOneQuestion": "Voeg minstens één vraag toe",
+        "fillAllOptions": "Vul alle opties in voor elke vraag",
+        "fillQuestionText": "Vul de vraagtekst in voor elke vraag"
+    },
+    "join": {
+        "title": "Doe Mee aan een Quiz",
+        "subtitle": "Voer je bijnaam in om mee te doen",
+        "nickname": "Je Bijnaam",
+        "nicknamePlaceholder": "bijv. Alex",
+        "joinButton": "Deelnemen",
+        "joining": "Deelnemen...",
+        "quizNotFound": "Quiz niet gevonden. Controleer je deelnamecode.",
+        "quizAlreadyFinished": "Deze quiz is al afgelopen."
+    },
+    "quiz": {
+        "lobby": {
+            "title": "Wachten tot de quiz begint...",
+            "participants": "Deelnemers",
+            "noParticipants": "Nog geen deelnemers",
+            "waitingForHost": "Wachten tot de host de quiz start",
+            "shareLink": "Deel deze link om mee te doen:",
+            "joinCode": "Code",
+            "copyLink": "Link Kopiëren",
+            "linkCopied": "Link gekopieerd!",
+            "startQuiz": "Quiz Starten",
+            "needParticipants": "Minstens 1 deelnemer nodig om te starten",
+            "needQuestions": "Minstens 1 vraag nodig om te starten"
+        },
+        "active": {
+            "question": "Vraag {current} van {total}",
+            "timeLeft": "Tijd over",
+            "answered": "Antwoord ingediend!",
+            "waitingForResults": "Wachten op resultaten..."
+        },
+        "results": {
+            "title": "Resultaten",
+            "correct": "Correct!",
+            "incorrect": "Fout",
+            "yourAnswer": "Jouw antwoord",
+            "correctAnswer": "Juiste antwoord",
+            "points": "{points} punten",
+            "position": "#{position}",
+            "nextQuestion": "Volgende Vraag",
+            "showResults": "Resultaten Tonen",
+            "finishQuiz": "Quiz Beëindigen",
+            "waitingForNext": "Wachten tot de host verdergaat..."
+        },
+        "leaderboard": {
+            "title": "Scorebord",
+            "rank": "Rang",
+            "player": "Speler",
+            "score": "Score",
+            "points": "ptn"
+        },
+        "finished": {
+            "title": "Quiz Voltooid!",
+            "podium": "Eindresultaten",
+            "first": "1e",
+            "second": "2e",
+            "third": "3e",
+            "yourScore": "Jouw Score",
+            "totalPoints": "{points} punten",
+            "playAgain": "Nog een Quiz Maken",
+            "backHome": "Terug naar Home"
+        }
+    },
+    "admin": {
+        "title": "Quiz Beheer",
+        "controlPanel": "Bedieningspaneel",
+        "editQuestions": "Vragen",
+        "editButton": "Bewerken",
+        "doneButton": "Klaar",
+        "addQuestionLobby": "Vraag Toevoegen",
+        "saving": "Opslaan...",
+        "resetQuiz": "Opnieuw Spelen",
+        "resetTitle": "Quiz Resetten?",
+        "resetConfirm": "Dit zet de quiz terug naar de lobby. Alle antwoorden en deelnemers worden gewist.",
+        "deleteQuiz": "Quiz Verwijderen",
+        "deleteTitle": "Quiz Verwijderen?",
+        "deleteConfirm": "Weet je zeker dat je deze quiz wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+        "quizDeleted": "Quiz succesvol verwijderd",
+        "cancel": "Annuleren",
+        "confirm": "Bevestigen"
+    },
+    "about": {
+        "title": "Over Quiz",
+        "description": "Quiz is een gratis, privacy-first live quiztool. Maak interactieve quizzen, deel een deelnamecode en strijd in real-time — alles zonder accounts of tracking.",
+        "howItWorks": "Hoe het werkt",
+        "step1": "Maak een quiz met meerkeuzevragen",
+        "step2": "Deel de deelnamecode of link met deelnemers",
+        "step3": "Beheer de quizflow als presentator",
+        "step4": "Deelnemers beantwoorden in real-time en zien het scorebord",
+        "privacy": "Privacy",
+        "privacyText": "Alle quizinhoud is end-to-end versleuteld. De encryptiesleutel wordt opgeslagen in het URL-fragment en wordt nooit naar onze servers gestuurd. Quizzen verlopen automatisch na de door jou gekozen tijd.",
+        "openSource": "Open Source",
+        "openSourceText": "Quiz maakt deel uit van het switch-to.eu-platform, dat gebruikers helpt om EU-gebaseerde digitale tools te vinden en te gebruiken."
+    },
+    "privacy": {
+        "title": "Privacybeleid",
+        "intro": "Quiz is ontworpen met privacy als kern. Hier is hoe we omgaan met je gegevens.",
+        "encryption": {
+            "title": "End-to-End Encryptie",
+            "description": "Alle quizinhoud (vragen, antwoorden, opties) wordt versleuteld in je browser voordat het naar onze servers wordt gestuurd. We zien of bewaren je quizinhoud nooit in leesbare vorm."
+        },
+        "data": {
+            "title": "Wat We Opslaan",
+            "description": "We slaan versleutelde quizgegevens, bijnamen van deelnemers en antwoordtijdstempels op. Alle gegevens worden automatisch verwijderd wanneer de quiz verloopt."
+        },
+        "noTracking": {
+            "title": "Geen Tracking",
+            "description": "We gebruiken geen cookies, analytics of enige vorm van tracking. Er zijn geen accounts nodig."
+        },
+        "expiration": {
+            "title": "Automatische Verloop",
+            "description": "Alle quizzen worden automatisch verwijderd na de door jou gekozen verlooptijd (1 uur tot 7 dagen)."
+        }
+    },
+    "McpPage": {
+        "hero": {
+            "title": "MCP Integratie",
+            "subtitle": "Maak en beheer quizzen rechtstreeks vanuit AI-assistenten zoals Claude, Cursor en andere MCP-compatibele tools.",
+            "badges": {
+                "aiPowered": "AI-Aangedreven",
+                "encrypted": "End-to-End Versleuteld",
+                "open": "Open Protocol"
+            }
+        },
+        "whatIsMcp": {
+            "title": "Wat is MCP?",
+            "description": "Het Model Context Protocol (MCP) is een open standaard waarmee AI-assistenten kunnen communiceren met externe tools en diensten. Quiz biedt een MCP-endpoint waarmee AI-agents quizzen kunnen aanmaken, vragen kunnen toevoegen en bewerken, en de volledige quizlevenscyclus kunnen beheren — allemaal zonder uw AI-workflow te verlaten."
+        },
+        "tools": {
+            "title": "Beschikbare Tools",
+            "createQuiz": {
+                "description": "Maak een nieuwe quiz met vragen. Retourneert een admin-URL (met de encryptiesleutel en admin-token) plus een deelname-URL voor deelnemers."
+            },
+            "getQuiz": {
+                "description": "Haal de volledige details van een quiz op, inclusief alle ontsleutelde vragen, deelnemers en status. Vereist de admin-URL."
+            },
+            "addQuestion": {
+                "description": "Voeg een nieuwe vraag toe aan een bestaande quiz (moet in lobbystatus zijn). Vereist de admin-URL."
+            },
+            "updateQuestion": {
+                "description": "Werk een bestaande vraag bij in een quiz (moet in lobbystatus zijn). Vereist de admin-URL."
+            },
+            "removeQuestion": {
+                "description": "Verwijder een vraag uit een quiz (moet in lobbystatus zijn). Resterende vragen worden opnieuw geïndexeerd. Vereist de admin-URL."
+            },
+            "deleteQuiz": {
+                "description": "Verwijder een quiz en alle bijbehorende gegevens permanent. Dit kan niet ongedaan worden gemaakt. Vereist de admin-URL."
+            },
+            "params": {
+                "title": "(vereist) — De quiztitel",
+                "description": "(optioneel) — Quizbeschrijving",
+                "questions": "(vereist) — Array van vragen met text, options, correctIndex en optioneel timerOverride",
+                "timerSeconds": "(optioneel, standaard: 20) — Standaard timer per vraag in seconden (0 = geen timer)",
+                "expirationHours": "(optioneel, standaard: 24) — Uren tot de quiz verloopt (1–168)",
+                "adminUrl": "(vereist) — De admin-URL die bij het aanmaken van de quiz werd geretourneerd",
+                "text": "(vereist) — De vraagtekst",
+                "options": "(vereist) — 2–4 antwoordopties",
+                "correctIndex": "(vereist) — 0-gebaseerde index van het juiste antwoord",
+                "timerOverride": "(optioneel) — Per-vraag timer override in seconden (5–120)",
+                "index": "(vereist) — 0-gebaseerde index van de vraag"
+            }
+        },
+        "adminKey": {
+            "title": "Over de Admin-URL",
+            "description": "Wanneer u een quiz aanmaakt via MCP, ontvangt de AI-assistent de admin-URL die zowel de encryptiesleutel als het admin-token bevat. Deze URL wordt niet op de server opgeslagen — hij bestaat alleen in het gespreksgeheugen van de AI. Afhankelijk van welke AI-tool u gebruikt, kan de admin-URL in uw gespreksgeschiedenis bewaard blijven. Maak alleen quizzen aan via vertrouwde AI-tools en behandel de admin-URL als een wachtwoord."
+        },
+        "setup": {
+            "title": "Installatie-instructies",
+            "claudeDesktop": {
+                "title": "Claude Desktop",
+                "description": "Voeg het volgende toe aan uw Claude Desktop configuratiebestand. Op macOS is dit ~/Library/Application Support/Claude/claude_desktop_config.json",
+                "note": "Vereist mcp-remote (automatisch geïnstalleerd via npx) om stdio naar HTTP te bridgen."
+            },
+            "cursor": {
+                "title": "Cursor / Windsurf",
+                "description": "Voeg een .cursor/mcp.json of .windsurf/mcp.json bestand toe aan uw projectroot. Deze editors ondersteunen streamable HTTP native.",
+                "note": ""
+            },
+            "claudeCode": {
+                "title": "Claude Code",
+                "description": "Voeg een .mcp.json bestand toe aan uw projectroot of homedirectory.",
+                "note": ""
+            }
+        },
+        "security": {
+            "title": "Beveiligingsopmerking",
+            "description": "Alle quizinhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. Bij het aanmaken of beheren van quizzen via MCP gaan de encryptiesleutel en het admin-token via het MCP-protocol. Gebruik dit alleen met vertrouwde AI-tools en deel deelname-links (geen admin-links) met deelnemers."
+        },
+        "cta": "Maak een Quiz"
+    }
+}

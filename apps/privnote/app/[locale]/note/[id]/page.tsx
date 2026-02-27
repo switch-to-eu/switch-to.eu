@@ -2,10 +2,11 @@
 
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
+import { decryptData } from "@switch-to-eu/db/crypto";
 import {
   Flame,
   Eye,
@@ -24,7 +25,8 @@ type NoteState =
   | { type: "loading" }
   | { type: "ready"; hasPassword: boolean; burnAfterReading: boolean }
   | { type: "revealed"; content: string; destroyed: boolean }
-  | { type: "not_found" };
+  | { type: "not_found" }
+  | { type: "decrypt_error" };
 
 export default function ViewNotePage() {
   const t = useTranslations("ViewNote");
@@ -35,6 +37,18 @@ export default function ViewNotePage() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [encryptionKey, setEncryptionKey] = useState<string | null>(null);
+
+  // Extract encryption key from URL fragment
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const key = params.get("key");
+    setEncryptionKey(key);
+    if (!key) {
+      setState({ type: "not_found" });
+    }
+  }, []);
 
   // Check if note exists
   const existsQuery = api.note.exists.useQuery(
@@ -42,7 +56,7 @@ export default function ViewNotePage() {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      enabled: state.type === "loading",
+      enabled: state.type === "loading" && encryptionKey !== null,
     },
   );
 
@@ -64,12 +78,24 @@ export default function ViewNotePage() {
   }
 
   const readNote = api.note.read.useMutation({
-    onSuccess: (data) => {
-      setState({
-        type: "revealed",
-        content: data.content,
-        destroyed: data.destroyed,
-      });
+    onSuccess: async (data) => {
+      if (!encryptionKey) {
+        setState({ type: "decrypt_error" });
+        return;
+      }
+      try {
+        const decryptedContent = await decryptData<string>(
+          data.encryptedContent,
+          encryptionKey,
+        );
+        setState({
+          type: "revealed",
+          content: decryptedContent,
+          destroyed: data.destroyed,
+        });
+      } catch {
+        setState({ type: "decrypt_error" });
+      }
     },
     onError: (error) => {
       if (error.data?.code === "UNAUTHORIZED") {
@@ -122,8 +148,8 @@ export default function ViewNotePage() {
     );
   }
 
-  // Not found
-  if (state.type === "not_found") {
+  // Not found or decrypt error
+  if (state.type === "not_found" || state.type === "decrypt_error") {
     return (
       <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="text-center">

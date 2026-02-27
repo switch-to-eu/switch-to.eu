@@ -1,0 +1,290 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Quiz",
+            "description": "Create live quizzes and compete in real-time"
+        },
+        "header": {
+            "createQuiz": "Create Quiz",
+            "about": "About",
+            "mcp": "MCP"
+        },
+        "footer": {
+            "about": "About",
+            "privacy": "Privacy Policy",
+            "mcp": "MCP Integration",
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
+        }
+    },
+    "ErrorStates": {
+        "missingKey": {
+            "title": "Missing Encryption Key",
+            "message": "This quiz requires an encryption key to view. The key should be included in the URL after the # symbol.",
+            "urlFormat": "Expected URL format:",
+            "urlExample": "/quiz/[id]#key=[encryption-key]"
+        },
+        "quizNotFound": {
+            "title": "Quiz Not Found",
+            "titleAdmin": "Quiz Not Found or Access Denied",
+            "message": "This quiz doesn't exist or may have been removed.",
+            "messageAdmin": "This quiz doesn't exist, has expired, or you don't have admin access.",
+            "returnHome": "Return to Home"
+        },
+        "decryption": {
+            "title": "Decryption Failed",
+            "message": "Unable to decrypt the quiz data. This could be due to an invalid encryption key or corrupted data.",
+            "technicalDetails": "Technical details:",
+            "returnHome": "Return to Home"
+        }
+    },
+    "home": {
+        "hero": {
+            "title": "Live Quizzes,",
+            "titleHighlight": "No Sign-Up Required",
+            "subtitle": "Create interactive quizzes in seconds. Participants join with a simple code. Compete on a real-time leaderboard. All fully encrypted.",
+            "createQuiz": "Create a Quiz",
+            "joinQuiz": "Join a Quiz"
+        },
+        "features": {
+            "title": "How it works",
+            "create": {
+                "title": "Create Your Quiz",
+                "description": "Add multiple-choice questions with a timer. Set the correct answers and customize the experience."
+            },
+            "share": {
+                "title": "Share the Code",
+                "description": "Share a simple join code or link. Participants join instantly — no accounts, no downloads."
+            },
+            "play": {
+                "title": "Play Live",
+                "description": "Control the quiz flow. Participants answer in real-time and compete on a speed-based leaderboard."
+            },
+            "results": {
+                "title": "See Results",
+                "description": "View answer distributions, scores, and the final podium. All computed client-side for privacy."
+            }
+        },
+        "privacy": {
+            "title": "Privacy First",
+            "description": "All quiz content is end-to-end encrypted. The server never sees your questions or answers. Quizzes auto-expire after the time you choose."
+        }
+    },
+    "create": {
+        "title": "Create a Quiz",
+        "subtitle": "Add questions and configure your quiz settings",
+        "quizTitle": "Quiz Title",
+        "quizTitlePlaceholder": "e.g., Geography Challenge",
+        "quizDescription": "Description (optional)",
+        "quizDescriptionPlaceholder": "e.g., Test your knowledge of world capitals",
+        "questions": "Questions",
+        "addQuestion": "Add Question",
+        "duplicateQuestion": "Duplicate question",
+        "questionPlaceholder": "Enter your question",
+        "optionPlaceholder": "Option {number}",
+        "correctAnswer": "Correct answer",
+        "removeQuestion": "Remove question",
+        "addOption": "Add option",
+        "removeOption": "Remove option",
+        "settings": "Settings",
+        "timerPerQuestion": "Timer per question",
+        "noTimer": "No timer",
+        "seconds": "{count} seconds",
+        "expiration": "Quiz expires after",
+        "hours": "{count} hours",
+        "days": "{count} days",
+        "createQuiz": "Create Quiz",
+        "creating": "Creating...",
+        "needAtLeastOneQuestion": "Add at least one question",
+        "fillAllOptions": "Fill in all options for each question",
+        "fillQuestionText": "Fill in the question text for each question"
+    },
+    "join": {
+        "title": "Join a Quiz",
+        "subtitle": "Enter your nickname to join",
+        "nickname": "Your Nickname",
+        "nicknamePlaceholder": "e.g., Alex",
+        "joinButton": "Join Quiz",
+        "joining": "Joining...",
+        "quizNotFound": "Quiz not found. Check your join code.",
+        "quizAlreadyFinished": "This quiz has already finished."
+    },
+    "quiz": {
+        "lobby": {
+            "title": "Waiting for the quiz to start...",
+            "participants": "Participants",
+            "noParticipants": "No participants yet",
+            "waitingForHost": "Waiting for the host to start the quiz",
+            "shareLink": "Share this link to join:",
+            "joinCode": "Code",
+            "copyLink": "Copy Link",
+            "linkCopied": "Link copied!",
+            "startQuiz": "Start Quiz",
+            "needParticipants": "Need at least 1 participant to start",
+            "needQuestions": "Need at least 1 question to start"
+        },
+        "active": {
+            "question": "Question {current} of {total}",
+            "timeLeft": "Time left",
+            "answered": "Answer submitted!",
+            "waitingForResults": "Waiting for results..."
+        },
+        "results": {
+            "title": "Results",
+            "correct": "Correct!",
+            "incorrect": "Incorrect",
+            "yourAnswer": "Your answer",
+            "correctAnswer": "Correct answer",
+            "points": "{points} points",
+            "position": "#{position}",
+            "nextQuestion": "Next Question",
+            "showResults": "Show Results",
+            "finishQuiz": "Finish Quiz",
+            "waitingForNext": "Waiting for the host to continue..."
+        },
+        "leaderboard": {
+            "title": "Leaderboard",
+            "rank": "Rank",
+            "player": "Player",
+            "score": "Score",
+            "points": "pts"
+        },
+        "finished": {
+            "title": "Quiz Complete!",
+            "podium": "Final Results",
+            "first": "1st",
+            "second": "2nd",
+            "third": "3rd",
+            "yourScore": "Your Score",
+            "totalPoints": "{points} points",
+            "playAgain": "Create Another Quiz",
+            "backHome": "Back to Home"
+        }
+    },
+    "admin": {
+        "title": "Quiz Admin",
+        "controlPanel": "Control Panel",
+        "editQuestions": "Questions",
+        "editButton": "Edit",
+        "doneButton": "Done",
+        "addQuestionLobby": "Add Question",
+        "saving": "Saving...",
+        "resetQuiz": "Play Again",
+        "resetTitle": "Reset Quiz?",
+        "resetConfirm": "This will return the quiz to the lobby. All answers and participants will be cleared.",
+        "deleteQuiz": "Delete Quiz",
+        "deleteTitle": "Delete Quiz?",
+        "deleteConfirm": "Are you sure you want to delete this quiz? This cannot be undone.",
+        "quizDeleted": "Quiz deleted successfully",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "about": {
+        "title": "About Quiz",
+        "description": "Quiz is a free, privacy-first live quiz tool. Create interactive quizzes, share a join code, and compete in real-time — all without accounts or tracking.",
+        "howItWorks": "How it works",
+        "step1": "Create a quiz with multiple-choice questions",
+        "step2": "Share the join code or link with participants",
+        "step3": "Control the quiz flow as the presenter",
+        "step4": "Participants answer in real-time and see the leaderboard",
+        "privacy": "Privacy",
+        "privacyText": "All quiz content is end-to-end encrypted. The encryption key is stored in the URL fragment and never sent to our servers. Quizzes automatically expire after the time you choose.",
+        "openSource": "Open Source",
+        "openSourceText": "Quiz is part of the switch-to.eu platform, helping users find and use EU-based digital tools."
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "intro": "Quiz is designed with privacy at its core. Here's how we handle your data.",
+        "encryption": {
+            "title": "End-to-End Encryption",
+            "description": "All quiz content (questions, answers, options) is encrypted in your browser before being sent to our servers. We never see or store your quiz content in readable form."
+        },
+        "data": {
+            "title": "What We Store",
+            "description": "We store encrypted quiz data, participant nicknames, and answer timestamps. All data is automatically deleted when the quiz expires."
+        },
+        "noTracking": {
+            "title": "No Tracking",
+            "description": "We don't use cookies, analytics, or any form of tracking. No accounts are required."
+        },
+        "expiration": {
+            "title": "Automatic Expiration",
+            "description": "All quizzes are automatically deleted after the expiration time you choose (1 hour to 7 days)."
+        }
+    },
+    "McpPage": {
+        "hero": {
+            "title": "MCP Integration",
+            "subtitle": "Create and manage quizzes directly from AI assistants like Claude, Cursor, and other MCP-compatible tools.",
+            "badges": {
+                "aiPowered": "AI-Powered",
+                "encrypted": "End-to-End Encrypted",
+                "open": "Open Protocol"
+            }
+        },
+        "whatIsMcp": {
+            "title": "What is MCP?",
+            "description": "The Model Context Protocol (MCP) is an open standard that lets AI assistants interact with external tools and services. Quiz exposes an MCP endpoint that allows AI agents to create quizzes, add and edit questions, and manage the full quiz lifecycle — all without leaving your AI workflow."
+        },
+        "tools": {
+            "title": "Available Tools",
+            "createQuiz": {
+                "description": "Create a new quiz with questions. Returns an admin URL (containing the encryption key and admin token) plus a join URL for participants."
+            },
+            "getQuiz": {
+                "description": "Get the full details of a quiz including all decrypted questions, participants, and state. Requires the admin URL."
+            },
+            "addQuestion": {
+                "description": "Add a new question to an existing quiz (must be in lobby state). Requires the admin URL."
+            },
+            "updateQuestion": {
+                "description": "Update an existing question in a quiz (must be in lobby state). Requires the admin URL."
+            },
+            "removeQuestion": {
+                "description": "Remove a question from a quiz (must be in lobby state). Remaining questions are re-indexed. Requires the admin URL."
+            },
+            "deleteQuiz": {
+                "description": "Permanently delete a quiz and all its data. This cannot be undone. Requires the admin URL."
+            },
+            "params": {
+                "title": "(required) — The quiz title",
+                "description": "(optional) — Quiz description",
+                "questions": "(required) — Array of questions with text, options, correctIndex, and optional timerOverride",
+                "timerSeconds": "(optional, default: 20) — Default timer per question in seconds (0 = no timer)",
+                "expirationHours": "(optional, default: 24) — Hours until the quiz expires (1–168)",
+                "adminUrl": "(required) — The admin URL returned when the quiz was created",
+                "text": "(required) — The question text",
+                "options": "(required) — 2–4 answer options",
+                "correctIndex": "(required) — 0-based index of the correct answer",
+                "timerOverride": "(optional) — Per-question timer override in seconds (5–120)",
+                "index": "(required) — 0-based index of the question"
+            }
+        },
+        "adminKey": {
+            "title": "About the Admin URL",
+            "description": "When you create a quiz via MCP, the AI assistant receives the admin URL which contains both the encryption key and admin token. This URL is not stored on the server — it only exists in the AI's conversation memory. Depending on which AI tool you use, be aware that the admin URL may persist in your conversation history. Only create quizzes through trusted AI tools and treat the admin URL like a password."
+        },
+        "setup": {
+            "title": "Setup Instructions",
+            "claudeDesktop": {
+                "title": "Claude Desktop",
+                "description": "Add the following to your Claude Desktop configuration file. On macOS this is at ~/Library/Application Support/Claude/claude_desktop_config.json",
+                "note": "Requires mcp-remote (installed automatically via npx) to bridge stdio to HTTP."
+            },
+            "cursor": {
+                "title": "Cursor / Windsurf",
+                "description": "Add a .cursor/mcp.json or .windsurf/mcp.json file to your project root. These editors support streamable HTTP natively.",
+                "note": ""
+            },
+            "claudeCode": {
+                "title": "Claude Code",
+                "description": "Add a .mcp.json file to your project root or home directory.",
+                "note": ""
+            }
+        },
+        "security": {
+            "title": "Security Note",
+            "description": "All quiz content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. When creating or managing quizzes via MCP, the encryption key and admin token travel through the MCP protocol. Only use this with trusted AI tools and share quiz join links (not admin links) with participants."
+        },
+        "cta": "Create a Quiz"
+    }
+}

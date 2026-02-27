@@ -10,10 +10,12 @@
         "redis": "^4.7.0"
     },
     "devDependencies": {
-        "@types/node": "catalog:",
         "@switch-to-eu/eslint-config": "workspace:*",
         "@switch-to-eu/typescript-config": "workspace:*",
+        "@testcontainers/redis": "^11.12.0",
+        "@types/node": "catalog:",
         "eslint": "catalog:",
+        "testcontainers": "^11.12.0",
         "typescript": "catalog:"
     },
     "exports": {
@@ -21,6 +23,7 @@
         "./crypto": "./src/crypto.ts",
         "./admin": "./src/admin.ts",
         "./expiration": "./src/expiration.ts",
-        "./mock-redis": "./src/mock-redis.ts"
+        "./mock-redis": "./src/mock-redis.ts",
+        "./test-redis": "./src/test-redis.ts"
     }
 }

@@ -544,6 +544,14 @@
       "listy": {
         "title": "Listy",
         "description": "Create shared lists instantly — groceries, tasks, potluck. No account needed, end-to-end encrypted."
+      },
+      "privnote": {
+        "title": "PrivNote",
+        "description": "Send self-destructing private notes — end-to-end encrypted, no account needed."
+      },
+      "quiz": {
+        "title": "Quiz",
+        "description": "Run live quizzes for classrooms and teams — no registration, end-to-end encrypted, privacy-first."
       }
     }
   },

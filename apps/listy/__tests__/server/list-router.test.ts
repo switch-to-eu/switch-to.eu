@@ -109,9 +109,11 @@ describe("list router", () => {
       });
 
       const expiresAt = new Date(result.list.expiresAt).getTime();
+      // setDate() adds calendar days, not exact 24h periods — DST can shift by ±1h
       const thirtyDays = 30 * 24 * 60 * 60 * 1000;
-      expect(expiresAt).toBeGreaterThanOrEqual(before + thirtyDays - 5000);
-      expect(expiresAt).toBeLessThanOrEqual(Date.now() + thirtyDays + 5000);
+      const dstMargin = 2 * 60 * 60 * 1000; // 2 hours
+      expect(expiresAt).toBeGreaterThanOrEqual(before + thirtyDays - dstMargin);
+      expect(expiresAt).toBeLessThanOrEqual(Date.now() + thirtyDays + dstMargin);
     });
   });
 
@@ -288,6 +290,87 @@ describe("list router", () => {
       expect(mockRedis._getHash("list:REMLIST001:item:REMITEM1")).toBeUndefined();
       const itemSet = mockRedis._getSet("list:REMLIST001:items");
       expect(itemSet?.has("REMITEM1")).toBeFalsy();
+    });
+  });
+
+  // --- updateList ---
+
+  describe("updateList", () => {
+    it("updates encrypted data with valid admin token", async () => {
+      const adminToken = await seedList("UPDLIST001");
+
+      const caller = getCaller();
+      const result = await caller.list.updateList({
+        id: "UPDLIST001",
+        adminToken,
+        encryptedData: "new-encrypted-data",
+      });
+
+      expect(result.id).toBe("UPDLIST001");
+      expect(result.encryptedData).toBe("new-encrypted-data");
+      expect(result.version).toBe(2);
+
+      // Verify persisted in Redis
+      const stored = mockRedis._getHash("list:UPDLIST001");
+      expect(stored!.encryptedData).toBe("new-encrypted-data");
+      expect(stored!.version).toBe("2");
+    });
+
+    it("rejects invalid admin token", async () => {
+      await seedList("UPDLIST002");
+
+      const caller = getCaller();
+      await expect(
+        caller.list.updateList({
+          id: "UPDLIST002",
+          adminToken: "wrong-token",
+          encryptedData: "new-data",
+        }),
+      ).rejects.toThrow("invalid admin token");
+    });
+
+    it("preserves preset and other fields after update", async () => {
+      await seedList("UPDLIST003", { preset: "shopping" });
+
+      const caller = getCaller();
+      const result = await caller.list.updateList({
+        id: "UPDLIST003",
+        adminToken: "test-admin-token",
+        encryptedData: "updated-settings-data",
+      });
+
+      expect(result.preset).toBe("shopping");
+      expect(result.encryptedData).toBe("updated-settings-data");
+    });
+
+    it("bumps version on each update", async () => {
+      const adminToken = await seedList("UPDLIST004");
+
+      const caller = getCaller();
+      const r1 = await caller.list.updateList({
+        id: "UPDLIST004",
+        adminToken,
+        encryptedData: "data-v2",
+      });
+      expect(r1.version).toBe(2);
+
+      const r2 = await caller.list.updateList({
+        id: "UPDLIST004",
+        adminToken,
+        encryptedData: "data-v3",
+      });
+      expect(r2.version).toBe(3);
+    });
+
+    it("throws NOT_FOUND for non-existent list", async () => {
+      const caller = getCaller();
+      await expect(
+        caller.list.updateList({
+          id: "ZZZZZZZZZZ",
+          adminToken: "any-token",
+          encryptedData: "data",
+        }),
+      ).rejects.toThrow("List not found");
     });
   });
 

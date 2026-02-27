@@ -52,6 +52,7 @@ export default async function LocaleLayout({
 
   const t = await getTranslations({ locale, namespace: 'layout.header' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
+  const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
   const currentYear = new Date().getFullYear();
 
   return (
@@ -98,6 +99,9 @@ export default async function LocaleLayout({
           />
           {children}
           <Footer
+            currentToolId="plotty"
+            toolsSectionTitle={toolsT('sectionTitle')}
+            linksSectionTitle={toolsT('linksTitle')}
             links={[
               {
                 label: footerT('about'),
@@ -142,7 +146,12 @@ export default async function LocaleLayout({
                 </a>
               </>
             }
-            branding={<BrandIndicator locale={locale} variant="compact" asSpan />}
+            branding={
+              <div className="flex flex-col gap-1">
+                <span className="text-lg font-black tracking-wide uppercase text-foreground">Plotty</span>
+                <BrandIndicator locale={locale} />
+              </div>
+            }
           />
         </div>
       </TRPCReactProvider>

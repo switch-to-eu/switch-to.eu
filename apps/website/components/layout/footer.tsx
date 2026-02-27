@@ -6,9 +6,12 @@ export async function Footer() {
   const currentYear = new Date().getFullYear();
   const t = await getTranslations("navigation");
   const footerT = await getTranslations("footer");
+  const toolsT = await getTranslations("footerTools");
 
   return (
     <BlocksFooter
+      toolsSectionTitle={toolsT("sectionTitle")}
+      linksSectionTitle={toolsT("linksTitle")}
       links={[
         {
           label: t("about"),
@@ -27,9 +30,19 @@ export async function Footer() {
           href: `/terms`,
         },
       ]}
+      branding={
+        <div className="flex flex-col gap-1">
+          <span className="text-lg font-black tracking-wide uppercase text-foreground">
+            Switch-to.eu
+          </span>
+          <span className="text-sm text-muted-foreground">
+            EU alternatives to global services
+          </span>
+        </div>
+      }
       copyright={
         <>
-          © {currentYear} switch-to.eu a project by{" "}
+          &copy; {currentYear} switch-to.eu — a project by{" "}
           <Link
             href="https://www.vinnie.studio"
             target="_blank"
@@ -38,7 +51,7 @@ export async function Footer() {
           >
             Studio Vinnie
           </Link>{" "}
-          and{" "}
+          &amp;{" "}
           <Link
             href="https://www.mvpeters.com/"
             target="_blank"

@@ -6,11 +6,13 @@
     },
     "header": {
       "createNote": "New Note",
-      "about": "About"
+      "about": "About",
+      "mcp": "MCP"
     },
     "footer": {
       "about": "About",
       "privacy": "Privacy Policy",
+      "mcp": "MCP Integration",
       "copyright": "{year} <link>switch-to.eu</link> — a project by"
     }
   },
@@ -32,8 +34,8 @@
         "description": "Notes are permanently deleted after being read or when their timer expires. No traces left behind."
       },
       "encrypted": {
-        "title": "Private by Design",
-        "description": "Notes are stored encrypted in Redis and automatically purged. We never log or inspect your content."
+        "title": "End-to-End Encrypted",
+        "description": "Notes are encrypted in your browser before being sent to the server. Only the recipient with the link can decrypt them."
       },
       "timer": {
         "title": "Timed Expiry",
@@ -60,7 +62,7 @@
       "badges": {
         "noEmail": "No email required",
         "autoDelete": "Auto-deleted",
-        "encrypted": "Private & secure",
+        "encrypted": "End-to-end encrypted",
         "european": "Open source"
       }
     },
@@ -73,7 +75,7 @@
   },
   "CreatePage": {
     "title": "Create a Private Note",
-    "description": "Write your note below. It will self-destruct after being read or when the timer expires.",
+    "description": "Write your note below. It will be encrypted and self-destruct after being read or when the timer expires.",
     "contentLabel": "Your Note",
     "contentPlaceholder": "Type your private note here...",
     "expiryLabel": "Self-destruct after",
@@ -126,10 +128,136 @@
       "subtitle": "Self-destructing private notes built with privacy at the core. Part of the Switch-to.eu initiative.",
       "badges": {
         "european": "Open Source",
-        "encrypted": "Private by Design",
+        "encrypted": "End-to-End Encrypted",
         "noTracking": "No Tracking"
       }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "encrypt": {
+        "title": "Encrypt",
+        "description": "Your note is encrypted in your browser using AES-256-GCM before it ever leaves your device. The encryption key is part of the link — never sent to our server."
+      },
+      "store": {
+        "title": "Store Temporarily",
+        "description": "The encrypted blob is stored in Redis with a time-to-live. Our server cannot read your note — it only holds encrypted data."
+      },
+      "destroy": {
+        "title": "Destroy",
+        "description": "Once the recipient opens the link and reads the note, it is permanently deleted from our servers. If no one reads it, the timer deletes it automatically."
+      }
+    },
+    "security": {
+      "title": "Privacy & Security",
+      "e2e": {
+        "title": "End-to-End Encryption",
+        "description": "Notes are encrypted with AES-256-GCM in the browser. The decryption key is embedded in the URL fragment, which is never sent to the server."
+      },
+      "zeroKnowledge": {
+        "title": "Zero-Knowledge Architecture",
+        "description": "Our servers store only encrypted data. We cannot read, inspect, or log the content of your notes."
+      },
+      "ephemeral": {
+        "title": "Ephemeral by Default",
+        "description": "Notes are deleted after being read (burn-after-reading) or automatically expire based on the timer you set."
+      },
+      "password": {
+        "title": "Optional Password Protection",
+        "description": "Add an extra layer of security with a password. Even if someone intercepts the link, they cannot access the note without the password."
+      }
+    },
+    "cta": "Create a Private Note"
+  },
+  "PrivacyPage": {
+    "hero": {
+      "title": "Privacy Policy",
+      "subtitle": "PrivNote is built to be private by design. Here's how we handle your data.",
+      "lastUpdated": "Last updated: February 2026"
+    },
+    "summary": {
+      "title": "Privacy at a Glance",
+      "points": [
+        "All notes are end-to-end encrypted — we cannot read them",
+        "No accounts, no email, no personal data collected",
+        "Notes are automatically deleted after reading or expiry",
+        "No analytics, no tracking cookies, no third-party scripts",
+        "Open source — inspect the code yourself"
+      ]
+    },
+    "dataCollection": {
+      "title": "Data Collection",
+      "content": "PrivNote collects minimal data to function. We store encrypted note content, an optional password hash, expiry metadata, and burn-after-reading preferences. We do not collect email addresses, names, IP addresses, or any other personal information. No cookies are used for tracking."
+    },
+    "encryption": {
+      "title": "Encryption",
+      "content": "All notes are encrypted in your browser using AES-256-GCM before being sent to our server. The encryption key is embedded in the URL fragment (the part after #), which is never transmitted to our server by your browser. This means we physically cannot decrypt or read your notes."
+    },
+    "dataRetention": {
+      "title": "Data Retention",
+      "content": "Notes are deleted immediately after being read if burn-after-reading is enabled. Otherwise, notes are automatically deleted when their expiry timer runs out (between 5 minutes and 7 days). No backups or copies of deleted notes are retained."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "content": "PrivNote does not use any third-party analytics, advertising, or tracking services. The application is self-contained and does not share data with external parties."
+    },
+    "userRights": {
+      "title": "Your Rights",
+      "content": "Since we don't collect personal data, there is typically no personal data to access, modify, or delete. If you have questions about your data, you can contact us through the Switch-to.eu project."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "PrivNote is part of the Switch-to.eu initiative, an open-source project helping users switch to privacy-respecting European digital services. For privacy-related questions, visit switch-to.eu."
     }
+  },
+  "McpPage": {
+    "hero": {
+      "title": "MCP Integration",
+      "subtitle": "Create private notes directly from AI assistants like Claude, Cursor, and other MCP-compatible tools.",
+      "badges": {
+        "aiPowered": "AI-Powered",
+        "encrypted": "End-to-End Encrypted",
+        "open": "Open Protocol"
+      }
+    },
+    "whatIsMcp": {
+      "title": "What is MCP?",
+      "description": "The Model Context Protocol (MCP) is an open standard that lets AI assistants interact with external tools and services. PrivNote exposes an MCP endpoint that allows AI agents to create encrypted, self-destructing notes on your behalf and return the share URL — all without leaving your AI workflow."
+    },
+    "tools": {
+      "title": "Available Tools",
+      "createPrivnote": {
+        "description": "Create an encrypted, self-destructing private note. Returns a share URL containing the decryption key.",
+        "params": {
+          "content": "(required) — The plaintext note content to encrypt",
+          "expiry": "(optional, default: 24h) — 5m, 30m, 1h, 24h, or 7d",
+          "burnAfterReading": "(optional, default: true) — Delete after first read",
+          "password": "(optional) — Password-protect the note"
+        }
+      }
+    },
+    "setup": {
+      "title": "Setup Instructions",
+      "claudeDesktop": {
+        "title": "Claude Desktop",
+        "description": "Add the following to your Claude Desktop configuration file. On macOS this is at ~/Library/Application Support/Claude/claude_desktop_config.json",
+        "note": "Requires mcp-remote (installed automatically via npx) to bridge stdio to HTTP."
+      },
+      "cursor": {
+        "title": "Cursor / Windsurf",
+        "description": "Add a .cursor/mcp.json or .windsurf/mcp.json file to your project root. These editors support streamable HTTP natively.",
+        "note": ""
+      },
+      "claudeCode": {
+        "title": "Claude Code",
+        "description": "Add a .mcp.json file to your project root or home directory.",
+        "note": ""
+      }
+    },
+    "security": {
+      "title": "Security Note",
+      "description": "When creating notes via MCP, the encryption key is included in the returned share URL. The note content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. However, the encryption key passes through the MCP protocol, so only use this with trusted AI tools and share the resulting URL through secure channels."
+    },
+    "cta": "Create a Private Note"
   },
   "tools": {
     "plotty": {

@@ -45,6 +45,7 @@ export default async function LocaleLayout({
 
   const t = await getTranslations({ locale, namespace: "layout.header" });
   const footerT = await getTranslations({ locale, namespace: "layout.footer" });
+  const toolsT = await getTranslations({ locale, namespace: "footerTools" });
   const currentYear = new Date().getFullYear();
 
   return (
@@ -75,7 +76,13 @@ export default async function LocaleLayout({
                   </Link>
                 }
                 navigation={
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-4">
+                    <Link href="/about" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                      {t("about")}
+                    </Link>
+                    <Link href="/mcp" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                      {t("mcp")}
+                    </Link>
                     <LanguageSelector locale={locale} />
                     <Link href="/create">
                       <Button size="sm">
@@ -86,15 +93,21 @@ export default async function LocaleLayout({
                   </div>
                 }
                 mobileNavigation={
-                  <Link href="/create">
-                    <Button size="sm">
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <LanguageSelector locale={locale} />
+                    <Link href="/create">
+                      <Button size="sm">
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </div>
                 }
               />
               {children}
               <Footer
+                currentToolId="privnote"
+                toolsSectionTitle={toolsT("sectionTitle")}
+                linksSectionTitle={toolsT("linksTitle")}
                 links={[
                   {
                     label: footerT("about"),
@@ -103,6 +116,10 @@ export default async function LocaleLayout({
                   {
                     label: footerT("privacy"),
                     href: "/privacy",
+                  },
+                  {
+                    label: footerT("mcp"),
+                    href: "/mcp",
                   },
                 ]}
                 copyright={
@@ -124,11 +141,10 @@ export default async function LocaleLayout({
                   </>
                 }
                 branding={
-                  <BrandIndicator
-                    locale={locale}
-                    variant="compact"
-                    asSpan
-                  />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-lg font-black tracking-wide uppercase text-foreground">PrivNote</span>
+                    <BrandIndicator locale={locale} />
+                  </div>
                 }
               />
             </div>

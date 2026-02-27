@@ -17,7 +17,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.25.3",
+    "@modelcontextprotocol/sdk": "catalog:",
     "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
@@ -30,7 +30,7 @@
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-react": "catalog:",
-    "mcp-handler": "^1.0.7",
+    "mcp-handler": "catalog:",
     "nanoid": "^5.1.5",
     "next": "catalog:",
     "next-intl": "catalog:",

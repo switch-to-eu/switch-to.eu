@@ -82,7 +82,8 @@
         "presets": {
             "plain": "Checklist",
             "shopping": "Boodschappen",
-            "potluck": "Wie-brengt-wat"
+            "potluck": "Wie-brengt-wat",
+            "custom": "Aangepast"
         },
         "progress": "{completed}/{total} klaar",
         "addItemPlaceholder": "Voeg een item toe...",

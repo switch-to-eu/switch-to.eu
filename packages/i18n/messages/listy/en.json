@@ -82,7 +82,8 @@
         "presets": {
             "plain": "Checklist",
             "shopping": "Shopping",
-            "potluck": "Potluck"
+            "potluck": "Potluck",
+            "custom": "Custom"
         },
         "progress": "{completed}/{total} done",
         "addItemPlaceholder": "Add an item...",
