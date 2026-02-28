@@ -1,10 +1,10 @@
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { Palette, Type, Component, LayoutGrid } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, Sparkles } from "lucide-react";
 
 const sections = [
   {
     title: "Colors",
-    description: "Theme color palette — primary, semantic, feature, pop, and chart colors.",
+    description: "Theme color palette — core, brand, dark mode, chart, and card rotation colors.",
     href: "/colors",
     icon: Palette,
   },
@@ -13,6 +13,12 @@ const sections = [
     description: "Font families, heading scale, body text, bold, and italic variants.",
     href: "/typography",
     icon: Type,
+  },
+  {
+    title: "Shapes",
+    description: "Animated SVG shapes, floating animations, CSS filter utilities.",
+    href: "/shapes",
+    icon: Sparkles,
   },
   {
     title: "Components",

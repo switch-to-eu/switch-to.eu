@@ -180,15 +180,15 @@ export default function ComponentsPage() {
               <Button>Save</Button>
             </CardFooter>
           </Card>
-          <Card className="bg-[var(--pop-1)]">
+          <Card className="bg-brand-sky">
             <CardHeader>
-              <CardTitle>Pop Color Card</CardTitle>
-              <CardDescription>
-                Using pop-1 background color.
+              <CardTitle className="text-brand-green">Brand Color Card</CardTitle>
+              <CardDescription className="text-brand-green/70">
+                Using brand-sky background color.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Cards can use pop colors for visual variety.</p>
+              <p className="text-brand-green">Cards can use brand colors for visual variety.</p>
             </CardContent>
           </Card>
         </div>
@@ -327,6 +327,26 @@ export default function ComponentsPage() {
             <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </Section>
+
+      {/* CTA on Dark Background */}
+      <Section title="CTA on Dark Background">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="rounded-xl bg-brand-navy p-8 flex flex-col items-center gap-4">
+            <p className="text-white text-sm font-mono">bg-brand-navy</p>
+            <p className="text-white text-lg font-bold text-center">Yellow CTA on navy</p>
+            <Button className="bg-brand-yellow text-brand-green hover:bg-brand-yellow/90 font-bold">
+              Get Started <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="rounded-xl bg-brand-green p-8 flex flex-col items-center gap-4">
+            <p className="text-white text-sm font-mono">bg-brand-green</p>
+            <p className="text-white text-lg font-bold text-center">White CTA on green</p>
+            <Button className="bg-white text-brand-green hover:bg-white/90 font-bold">
+              Learn More <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
       </Section>
 
       {/* Separator */}
