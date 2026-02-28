@@ -82,7 +82,7 @@ export async function CategorySection() {
         </h2>
         <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
           {categories.map((category, index) => {
-            const card = CATEGORY_CARDS[index % CATEGORY_CARDS.length];
+            const card = CATEGORY_CARDS[index % CATEGORY_CARDS.length]!;
 
             return (
               <Link
