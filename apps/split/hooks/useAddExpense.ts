@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/lib/trpc-client";
-import { encryptData } from "@/lib/crypto";
+import { encryptData } from "@switch-to-eu/db/crypto";
 import type { EncryptedExpenseData } from "@/lib/interfaces";
 
 export function useAddExpense() {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { generateEncryptionKey, encryptData } from "@/lib/crypto";
+import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 import type { EncryptedGroupStructure } from "@/lib/interfaces";
 import { toast } from "sonner";
 import { api } from "@/lib/trpc-client";
@@ -78,7 +78,7 @@ export default function CreateGroup() {
     setIsLoading(true);
 
     try {
-      const encryptionKey = generateEncryptionKey();
+      const encryptionKey = await generateEncryptionKey();
 
       const groupData: EncryptedGroupStructure = {
         name: groupName.trim(),

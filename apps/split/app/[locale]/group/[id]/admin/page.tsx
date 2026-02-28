@@ -3,8 +3,8 @@
 import { use, useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { parseAdminFragment } from "@/lib/admin";
-import { encryptData } from "@/lib/crypto";
+import { parseAdminFragment } from "@switch-to-eu/db/admin";
+import { encryptData } from "@switch-to-eu/db/crypto";
 import type { EncryptedGroupStructure } from "@/lib/interfaces";
 import { useLoadGroup } from "@hooks/useLoadGroup";
 import { useDeleteGroup } from "@hooks/useDeleteGroup";

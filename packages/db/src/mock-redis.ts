@@ -91,6 +91,13 @@ export class MockRedis {
     return true;
   }
 
+  async exists(key: string): Promise<number> {
+    if (this.hashes.has(key) || this.sets.has(key) || this.counters.has(key) || this.strings.has(key) || this.lists.has(key)) {
+      return 1;
+    }
+    return 0;
+  }
+
   async del(keys: string | string[]) {
     const keyArray = Array.isArray(keys) ? keys : [keys];
     let deleted = 0;
