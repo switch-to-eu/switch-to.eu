@@ -30,7 +30,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export const NewsletterCta = () => {
+export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => {
   const t = useTranslations("newsletter");
   const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,7 +83,7 @@ export const NewsletterCta = () => {
 
   return (
     <section>
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+      <div className={contained ? "container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8" : ""}>
         <div className="bg-brand-navy rounded-3xl">
           <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
             {/* Decorative shapes — same scale as Hero */}

@@ -3,7 +3,6 @@
 import { Check } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@switch-to-eu/ui/lib/utils";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useGuideProgressStore } from "@/lib/store/guide-progress";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -199,129 +198,105 @@ export function StepsSummary({
     return null;
   }
 
+  // Count completed steps
+  const completedCount = Object.values(completedSteps).filter(Boolean).length;
+  const totalCount = steps.length;
+
   return (
     <div>
-      <div className="relative h-40 mb-2">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/shapes/squiggle.svg"
-            alt=""
-            fill
-            className="object-contain select-none animate-shape-float p-4"
-            style={{
-              filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-              opacity: 0.25,
-              animationDuration: "8s",
-            }}
-            aria-hidden="true"
-            unoptimized
-          />
-        </div>
-        <div className="absolute inset-6">
-          <Image
-            src="/images/shapes/arch.svg"
-            alt=""
-            fill
-            className="object-contain select-none animate-shape-float"
-            style={{
-              filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-              opacity: 0.4,
-              animationDuration: "6s",
-              animationDelay: "-2s",
-            }}
-            aria-hidden="true"
-            unoptimized
-          />
-        </div>
-      </div>
-      {/* Title section */}
-      <div className="px-6 py-3">
-        <h2 className="text-xl font-bold">{stepsToCompleteText}</h2>
+      {/* Title + progress inline */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-heading text-lg uppercase text-brand-green">
+          {stepsToCompleteText}
+        </h2>
+        <span className="text-xs font-semibold text-brand-green/60 bg-brand-green/10 px-2 py-0.5 rounded-full">
+          {completedCount}/{totalCount}
+        </span>
       </div>
 
-      <div className="">
-        <ol className="space-y-3">
-          {steps.map((step, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <Link
-                href={`#${step.id}`}
-                className={cn(
-                  "flex items-center gap-2 text-sm transition-colors duration-300 ease-in-out",
-                  activeStep === step.id
-                    ? "text-blue-600 dark:text-blue-400 font-medium"
-                    : "text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (isBrowser) {
-                    try {
-                      const element = findElementByStep(step);
-                      if (element) {
-                        // Add padding to account for the fixed header
-                        const headerHeight = 80; // Estimated header height
-                        const elementPosition =
-                          element.getBoundingClientRect().top;
-                        const offsetPosition =
-                          elementPosition + window.pageYOffset - headerHeight;
+      {/* Progress bar */}
+      <div className="h-1.5 bg-brand-green/10 rounded-full mb-4 overflow-hidden">
+        <div
+          className={cn(
+            "h-full rounded-full transition-all duration-500 ease-out",
+            completedCount === totalCount ? "bg-brand-green" : "bg-brand-yellow"
+          )}
+          style={{
+            width: `${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%`,
+          }}
+        />
+      </div>
 
-                        // Scroll with custom offset instead of using scrollIntoView
-                        window.scrollTo({
-                          top: offsetPosition,
-                          behavior: "smooth",
-                        });
+      <ol className="space-y-1">
+        {steps.map((step, index) => (
+          <li key={index}>
+            <Link
+              href={`#${step.id}`}
+              className={cn(
+                "flex items-center gap-3 py-2 px-3 rounded-xl text-sm transition-all duration-200",
+                activeStep === step.id
+                  ? "bg-brand-green text-white font-medium"
+                  : completedSteps[step.id]
+                    ? "text-brand-green/50 hover:bg-brand-green/5"
+                    : "text-brand-green hover:bg-brand-green/5"
+              )}
+              onClick={(e) => {
+                e.preventDefault();
+                if (isBrowser) {
+                  try {
+                    const element = findElementByStep(step);
+                    if (element) {
+                      const headerHeight = 80;
+                      const elementPosition =
+                        element.getBoundingClientRect().top;
+                      const offsetPosition =
+                        elementPosition + window.pageYOffset - headerHeight;
 
-                        setActiveStep(step.id);
-                        // Update URL hash without causing page reload
-                        window.history.pushState(
-                          null,
-                          "",
-                          `${pathname}#${step.id}`
-                        );
-                      }
-                    } catch (error) {
-                      console.error("Error in click handler:", error);
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth",
+                      });
+
+                      setActiveStep(step.id);
+                      window.history.pushState(
+                        null,
+                        "",
+                        `${pathname}#${step.id}`
+                      );
                     }
+                  } catch (error) {
+                    console.error("Error in click handler:", error);
                   }
-                }}
+                }
+              }}
+            >
+              <span
+                className={cn(
+                  "flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold flex-shrink-0 transition-all duration-200",
+                  activeStep === step.id
+                    ? "bg-brand-yellow text-brand-green"
+                    : completedSteps[step.id]
+                      ? "bg-brand-green/20 text-brand-green/50"
+                      : "bg-brand-yellow/40 text-brand-green"
+                )}
               >
-                <span
-                  className={cn(
-                    "flex items-center justify-center w-5 h-5 rounded-full text-xs transition-all duration-300 ease-in-out",
-                    activeStep === step.id
-                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 transform scale-110 shadow-sm"
-                      : completedSteps[step.id]
-                        ? "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
-                        : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
-                  )}
-                >
-                  {activeStep === step.id ? (
-                    <Check className="h-3 w-3 animate-fadeIn" />
-                  ) : completedSteps[step.id] ? (
-                    <Check className="h-3 w-3" />
-                  ) : (
-                    <span className="transition-opacity duration-200">
-                      {index + 1}
-                    </span>
-                  )}
-                </span>
-                <span
-                  className={cn(
-                    "transition-all duration-300 ease-in-out",
-                    activeStep === step.id
-                      ? "font-medium transform translate-x-0.5"
-                      : "opacity-80",
-                    completedSteps[step.id]
-                      ? "line-through text-slate-500 dark:text-slate-400"
-                      : ""
-                  )}
-                >
-                  {step.title}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </div>
+                {completedSteps[step.id] ? (
+                  <Check className="h-3.5 w-3.5" />
+                ) : (
+                  index + 1
+                )}
+              </span>
+              <span
+                className={cn(
+                  completedSteps[step.id] ? "line-through" : ""
+                )}
+              >
+                {step.title}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }

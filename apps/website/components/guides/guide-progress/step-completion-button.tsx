@@ -85,10 +85,10 @@ export function StepCompletionButton({
         variant={isCompleted ? "outline" : "default"}
         size="sm"
         className={cn(
-          "transition-all",
+          "transition-all rounded-full font-semibold",
           isCompleted
-            ? "bg-white hover:bg-muted text-green-600 border-green-200 dark:bg-background dark:text-green-400 dark:border-green-800"
-            : ""
+            ? "bg-brand-sage/30 hover:bg-brand-sage/50 text-brand-green border-brand-sage"
+            : "bg-brand-green hover:bg-brand-green/90 text-white"
         )}
       >
         {isCompleted ? (

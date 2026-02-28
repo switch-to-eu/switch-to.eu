@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, AlertTriangle, AlertCircle, Info } from 'lucide-react';
+import { ChevronDown, AlertTriangle, AlertCircle, Info } from 'lucide-react';
 import { cn } from '@switch-to-eu/ui/lib/utils';
 
 type IconType = 'alert-triangle' | 'alert-circle' | 'info';
@@ -29,19 +29,25 @@ export function WarningCollapsible({
 
   const variantStyles = {
     warning: {
-      container: "text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-900/30 hover:bg-amber-100 dark:hover:bg-amber-900/30",
-      badge: "bg-amber-200/50 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300",
-      bullet: "text-amber-500 dark:text-amber-400"
+      container: "text-brand-green bg-brand-yellow/10 rounded-2xl border border-brand-yellow/30",
+      button: "hover:bg-brand-yellow/10",
+      badge: "bg-brand-yellow/30 text-brand-green",
+      icon: "text-brand-orange",
+      bullet: "text-brand-orange"
     },
     error: {
-      container: "text-red-800 dark:text-red-300 bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/30",
-      badge: "bg-red-200/50 dark:bg-red-900/50 text-red-800 dark:text-red-300",
-      bullet: "text-red-500 dark:text-red-400"
+      container: "text-brand-green bg-brand-red/5 rounded-2xl border border-brand-red/20",
+      button: "hover:bg-brand-red/10",
+      badge: "bg-brand-red/15 text-brand-red",
+      icon: "text-brand-red",
+      bullet: "text-brand-red"
     },
     info: {
-      container: "text-blue-800 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/30",
-      badge: "bg-blue-200/50 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300",
-      bullet: "text-blue-500 dark:text-blue-400"
+      container: "text-brand-green bg-brand-sky/15 rounded-2xl border border-brand-sky/30",
+      button: "hover:bg-brand-sky/15",
+      badge: "bg-brand-sky/30 text-brand-green",
+      icon: "text-brand-navy",
+      bullet: "text-brand-navy"
     }
   };
 
@@ -61,39 +67,41 @@ export function WarningCollapsible({
   return (
     <div className={cn(
       variantStyles[variant].container,
+      "overflow-hidden",
       className
     )}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-full flex items-center justify-between px-6 py-4",
-          "border-b transition-colors"
+          "w-full flex items-center justify-between px-5 py-4 transition-colors",
+          variantStyles[variant].button
         )}
       >
-        <div className="flex items-center gap-2 font-medium">
-          <IconComponent />
+        <div className="flex items-center gap-2.5 font-semibold text-sm">
+          <span className={variantStyles[variant].icon}>
+            <IconComponent />
+          </span>
           <span>{title}</span>
-          <span className={cn("text-xs px-2 py-0.5 rounded-full", variantStyles[variant].badge)}>
+          <span className={cn("text-xs px-2 py-0.5 rounded-full font-bold", variantStyles[variant].badge)}>
             {items.length}
           </span>
         </div>
-        {isOpen ? (
-          <ChevronUp className="h-4 w-4 flex-shrink-0" />
-        ) : (
-          <ChevronDown className="h-4 w-4 flex-shrink-0" />
-        )}
+        <ChevronDown className={cn(
+          "h-4 w-4 flex-shrink-0 transition-transform duration-200",
+          isOpen && "rotate-180"
+        )} />
       </button>
 
       {isOpen && (
-        <div className="p-6">
-          <ul className="space-y-2">
+        <div className="px-5 pb-5">
+          <ul className="space-y-2.5">
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex items-start gap-2 text-sm"
+                className="flex items-start gap-2.5 text-sm"
               >
-                <span className={cn("mt-0.5", variantStyles[variant].bullet)}>•</span>
-                <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                <span className={cn("mt-0.5 flex-shrink-0", variantStyles[variant].bullet)}>•</span>
+                <span className="text-brand-green/80">{item}</span>
               </li>
             ))}
           </ul>

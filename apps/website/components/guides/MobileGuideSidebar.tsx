@@ -137,13 +137,13 @@ export function MobileGuideSidebar({
               variant="default"
               size="default"
               aria-label="Open guide navigation"
-              className="rounded-full shadow-lg flex items-center gap-2 px-4"
+              className="rounded-full shadow-lg flex items-center gap-2 px-4 bg-brand-green hover:bg-brand-green/90 text-white"
             >
               <span>{stepPlanText}</span>
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[85vw] sm:max-w-md px-0 pt-12 overflow-y-auto bg-brand-sage">
+          <SheetContent side="right" className="w-[85vw] sm:max-w-md px-0 pt-12 overflow-y-auto bg-brand-cream border-l-brand-sage">
             <SheetTitle className="text-lg font-semibold px-6 sr-only">
               {stepPlanText}
             </SheetTitle>

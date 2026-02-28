@@ -22,7 +22,7 @@ export function GuideSidebar({
     <div className={className}>
       <div className="overflow-hidden p-6 pt-0">
         {steps.length > 0 && (
-          <div className="bg-brand-sage rounded-3xl p-5">
+          <div className="bg-brand-sky/20 rounded-3xl p-5 border border-brand-sky/30">
             <StepsSummary
               steps={steps}
               stepsToCompleteText={stepsToCompleteText}
