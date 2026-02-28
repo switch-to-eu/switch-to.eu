@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { BlobShape, PebbleShape, PuddleShape } from "@/components/HeroShapes";
+import { BlobShape, PebbleShape, PuddleShape } from "@switch-to-eu/ui/components/hero-shapes";
 
 export function Hero() {
   const t = useTranslations("home");

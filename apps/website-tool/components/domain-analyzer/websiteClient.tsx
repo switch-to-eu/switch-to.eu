@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 
 import Image from "next/image";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
+import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
 
 const HOW_IT_WORKS_CARDS = [
   {
@@ -82,7 +83,7 @@ export function WebsiteAnalyzerClient() {
                   alt=""
                   fill
                   className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "8s", filter: "brightness(0) invert(1)" }}
+                  style={{ animationDuration: "8s", filter: FILTER_WHITE }}
                   aria-hidden="true"
                   unoptimized
                 />
@@ -93,7 +94,7 @@ export function WebsiteAnalyzerClient() {
                   alt=""
                   fill
                   className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "10s", animationDelay: "1s", filter: "brightness(0) invert(1)" }}
+                  style={{ animationDuration: "10s", animationDelay: "1s", filter: FILTER_WHITE }}
                   aria-hidden="true"
                   unoptimized
                 />
@@ -145,7 +146,7 @@ export function WebsiteAnalyzerClient() {
                 fill
                 className="object-contain select-none animate-shape-float"
                 style={{
-                  filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
+                  filter: FILTER_BRAND_GREEN,
                   animationDuration: "8s",
                 }}
                 aria-hidden="true"
@@ -226,7 +227,7 @@ export function WebsiteAnalyzerClient() {
                   alt=""
                   fill
                   className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "7s", filter: "brightness(0) invert(1)" }}
+                  style={{ animationDuration: "7s", filter: FILTER_WHITE }}
                   aria-hidden="true"
                   unoptimized
                 />

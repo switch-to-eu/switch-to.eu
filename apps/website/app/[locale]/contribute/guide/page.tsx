@@ -7,9 +7,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 
-const FILTER_WHITE = "brightness(0) invert(1)";
-const FILTER_BRAND_GREEN =
-  "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)";
+import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contribute");

@@ -4,11 +4,7 @@ import { Container } from "@/components/layout/container";
 import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-
-// CSS filter to approximate brand-green (#0D492C)
-const FILTER_BRAND_GREEN =
-  "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)";
-const FILTER_WHITE = "brightness(0) invert(1)";
+import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
 
 const CATEGORY_CARDS = [
   {
