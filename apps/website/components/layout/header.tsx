@@ -2,12 +2,13 @@ import { MainNav } from "@/components/navigation/main-nav";
 import { MobileNav } from "@/components/navigation/mobile-nav";
 import { SearchInput } from "@/components/SearchInput";
 import { Header as BlocksHeader } from "@switch-to-eu/blocks/components/header";
-import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { NavLanguageSelector } from "@/components/navigation/NavLanguageSelector";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { useLocale } from "next-intl";
+import type { Locale } from "@switch-to-eu/i18n/routing";
 
 export function Header() {
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
 
   return (
     <BlocksHeader
@@ -25,7 +26,7 @@ export function Header() {
       navigation={
         <>
           <MainNav />
-          <LanguageSelector locale={locale} className="text-brand-navy uppercase tracking-wide hover:bg-transparent hover:underline" />
+          <NavLanguageSelector locale={locale} />
           <SearchInput buttonVariant="ghost" className="text-brand-navy hover:bg-transparent hover:underline" />
         </>
       }
