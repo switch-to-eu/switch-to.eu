@@ -5,7 +5,7 @@ export type MainNavItem = {
   title: string;
   href?: string;
   isExternal?: boolean;
-  dropdown?: boolean;
+  dropdown?: "simple" | "mega";
   mobileOnly?: boolean;
   children?: SubNavItem[];
 };
@@ -13,6 +13,8 @@ export type MainNavItem = {
 export interface SubNavItem {
   title: string;
   href: string;
+  description?: string;
+  icon?: string;
   isExternal?: boolean;
 }
 
@@ -20,6 +22,8 @@ export async function getNavItems(): Promise<MainNavItem[]> {
   const categories = getAllCategoriesMetadata().map((category) => ({
     title: category.metadata.title,
     href: `/services/${category.slug}`,
+    description: category.metadata.description,
+    icon: category.metadata.icon,
   }));
 
   const t = await getTranslations("navigation");
@@ -27,7 +31,7 @@ export async function getNavItems(): Promise<MainNavItem[]> {
   return [
     {
       title: t("services"),
-      dropdown: true,
+      dropdown: "mega",
       children: [...categories],
     },
     {
@@ -36,7 +40,7 @@ export async function getNavItems(): Promise<MainNavItem[]> {
     },
     {
       title: t("about"),
-      dropdown: true,
+      dropdown: "simple",
       children: [
         { title: t("aboutUs"), href: `/about` },
         { title: t("contribute"), href: `/contribute` },

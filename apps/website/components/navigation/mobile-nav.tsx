@@ -6,6 +6,7 @@ import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selec
 import { SearchInput } from "@/components/SearchInput";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { MobileCategoryIcon } from "./MobileCategoryIcon";
 
 export async function MobileNav() {
   const locale = await getLocale();
@@ -27,18 +28,21 @@ export async function MobileNav() {
         {navItems.map((item) => {
           if (item.dropdown && item.children) {
             return (
-              <div key={item.href} className="flex flex-col gap-2">
+              <div key={item.title} className="flex flex-col gap-2">
                 <p className="text-lg font-medium text-brand-navy/50 pl-1">
                   {item.title}
                 </p>
 
-                <div className="flex flex-col gap-2 pl-6">
+                <div className="flex flex-col gap-1 pl-2">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="text-base font-medium text-brand-navy transition-colors hover:text-brand-pink"
+                      className="flex items-center gap-2.5 rounded-xl px-2 py-2 text-base font-medium text-brand-navy transition-colors hover:bg-brand-navy/5"
                     >
+                      {child.icon && (
+                        <MobileCategoryIcon iconName={child.icon} />
+                      )}
                       {child.title}
                     </Link>
                   ))}
