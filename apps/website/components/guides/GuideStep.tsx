@@ -143,7 +143,7 @@ export function GuideStep({
 
   return (
     <div
-      className="guide-step mb-10 pb-6 border-b border-brand-sage"
+      className="guide-step mb-6 rounded-2xl bg-brand-cream p-6 sm:p-8 shadow-sm"
       id={step.id}
     >
       {/* Responsive layout - adjust based on video orientation */}

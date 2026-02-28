@@ -288,7 +288,7 @@ export default async function GuideServicePage({
 
             {/* Newsletter Section */}
             <div className="mb-0 mt-12">
-              <NewsletterCta />
+              <NewsletterCta contained={false} />
             </div>
 
             <div className="mt-12 p-6 sm:p-8 bg-brand-sage/30 rounded-3xl">

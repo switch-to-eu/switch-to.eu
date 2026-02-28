@@ -57,17 +57,17 @@ export function GuideProgressIndicator({
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 w-full z-50 transition-all duration-300 border-t",
+        "fixed bottom-0 left-0 w-full z-50 transition-all duration-300",
         className
       )}
       suppressHydrationWarning
     >
-      <div className="relative h-2 bg-muted overflow-hidden">
+      <div className="relative h-1.5 bg-brand-sage/30 overflow-hidden">
         {/* Progress bar */}
         <div
           className={cn(
-            "h-full **:transition-all duration-300 ease-in-out",
-            isComplete ? "bg-brand-green" : "bg-brand-sage"
+            "h-full transition-all duration-500 ease-out",
+            isComplete ? "bg-brand-green" : "bg-brand-yellow"
           )}
           style={{ width: `${progressPercentage}%` }}
           aria-valuenow={progressPercentage}
@@ -79,7 +79,7 @@ export function GuideProgressIndicator({
 
         {/* Show completion message if enabled */}
         {showCompletedMessage && (
-          <div className="absolute bottom-0 right-0 text-xs text-green-500 p-1">
+          <div className="absolute bottom-full right-4 mb-2 text-xs font-semibold text-brand-green bg-brand-sage/80 backdrop-blur-sm px-3 py-1 rounded-full">
             {t('completed')}
             {currentStepTitle && `: ${currentStepTitle}`}
           </div>
