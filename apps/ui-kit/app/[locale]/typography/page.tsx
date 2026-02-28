@@ -36,6 +36,14 @@ export default function TypographyPage() {
           </div>
           <div className="rounded-xl border border-border p-6">
             <p className="text-xs text-muted-foreground mb-2 font-mono">
+              font-family: var(--font-anton) &middot; font-anton
+            </p>
+            <p className="font-[family-name:var(--font-anton)] text-4xl uppercase">
+              Anton — Ultra-black condensed display, used for hero headings
+            </p>
+          </div>
+          <div className="rounded-xl border border-border p-6">
+            <p className="text-xs text-muted-foreground mb-2 font-mono">
               font-family: var(--font-kiyosuna-sans) &middot; font-kiyosuna
             </p>
             <p className="font-[family-name:var(--font-kiyosuna-sans)] text-3xl">
@@ -56,6 +64,17 @@ export default function TypographyPage() {
             </p>
             <p className="font-[family-name:var(--font-bonbance)] text-3xl">
               Bonbance Bold Condensed — Vintage serif inspired by French printing
+            </p>
+          </div>
+          <div className="rounded-xl border border-dashed border-brand-navy/30 bg-brand-navy/5 p-6">
+            <p className="text-xs text-brand-navy mb-2 font-mono">
+              Website Override
+            </p>
+            <p className="text-sm text-muted-foreground">
+              The website app overrides{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">--font-heading</code>{" "}
+              to use Bonbance for headings, while the base design system uses BricolageGrotesque.
+              Other apps (keepfocus, plotty) use the default BricolageGrotesque heading font.
             </p>
           </div>
         </div>
@@ -160,6 +179,21 @@ export default function TypographyPage() {
           <p className="text-muted-foreground">text-muted-foreground — Muted/secondary text</p>
           <p className="text-destructive">text-destructive — Error/destructive text</p>
           <p className="text-blue">text-blue — Link blue</p>
+        </div>
+      </section>
+
+      {/* Brand Text Colors */}
+      <section className="mb-12">
+        <h2 className="text-2xl mb-4">Brand Text Colors</h2>
+        <div className="space-y-2 rounded-xl border border-border p-6">
+          <p className="text-brand-yellow text-lg font-bold">text-brand-yellow — #FBA616</p>
+          <p className="text-brand-green text-lg font-bold">text-brand-green — #0D492C</p>
+          <p className="text-brand-sky text-lg font-bold">text-brand-sky — #9BCDD0</p>
+          <p className="text-brand-red text-lg font-bold">text-brand-red — #E22028</p>
+          <p className="text-brand-pink text-lg font-bold">text-brand-pink — #E282B4</p>
+          <p className="text-brand-navy text-lg font-bold">text-brand-navy — #1E42B0</p>
+          <p className="text-brand-sage text-lg font-bold">text-brand-sage — #B0D8B0</p>
+          <p className="text-brand-orange text-lg font-bold">text-brand-orange — #E45229</p>
         </div>
       </section>
     </div>
