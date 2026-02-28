@@ -1,8 +1,11 @@
 import { createClient, type RedisClientType } from "redis";
 
-const redisUrl = process.env.REDIS_URL;
-if (!redisUrl) {
-  throw new Error("REDIS_URL environment variable is required");
+function getRedisUrl(): string {
+  const redisUrl = process.env.REDIS_URL;
+  if (!redisUrl) {
+    throw new Error("REDIS_URL environment variable is required");
+  }
+  return redisUrl;
 }
 
 /**
@@ -15,7 +18,7 @@ const globalForRedis = globalThis as unknown as {
 };
 
 async function createRedisClient(): Promise<RedisClientType> {
-  const client = createClient({ url: redisUrl });
+  const client = createClient({ url: getRedisUrl() });
 
   client.on("error", (err) => console.error("Redis Client Error", err));
 
