@@ -1,6 +1,7 @@
 import { createI18nMiddleware } from "@switch-to-eu/i18n/proxy";
 
-export default createI18nMiddleware();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default createI18nMiddleware() as any;
 
 export const config = {
   // Match all pathnames except for

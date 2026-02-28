@@ -1,36 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
-
-const floatKeyframes = [
-  `@keyframes hero-float-1 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    25% { transform: translate(6px, -10px) rotate(3deg) scale(1.03); }
-    50% { transform: translate(-4px, -6px) rotate(-2deg) scale(0.98); }
-    75% { transform: translate(8px, 4px) rotate(2deg) scale(1.02); }
-  }`,
-  `@keyframes hero-float-2 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    20% { transform: translate(-8px, 6px) rotate(-3deg) scale(1.02); }
-    45% { transform: translate(5px, 10px) rotate(2deg) scale(0.97); }
-    70% { transform: translate(-6px, -8px) rotate(-1deg) scale(1.04); }
-  }`,
-  `@keyframes hero-float-3 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    30% { transform: translate(10px, 5px) rotate(4deg) scale(0.98); }
-    60% { transform: translate(-7px, -9px) rotate(-3deg) scale(1.03); }
-    85% { transform: translate(3px, 7px) rotate(1deg) scale(1.01); }
-  }`,
-];
-
-let injected = false;
-function injectKeyframes() {
-  if (injected || typeof document === "undefined") return;
-  injected = true;
-  const style = document.createElement("style");
-  style.textContent = floatKeyframes.join("\n");
-  document.head.appendChild(style);
-}
+import { useEffect, useState } from "react";
 
 let shapeCounter = 0;
 
@@ -47,7 +17,6 @@ function AnimatedShape({
   const [index] = useState(() => shapeCounter++);
 
   useEffect(() => {
-    injectKeyframes();
     const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
   }, [delay]);

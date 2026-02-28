@@ -23,6 +23,7 @@
   --color-brand-navy: var(--brand-navy);
   --color-brand-sage: var(--brand-sage);
   --color-brand-orange: var(--brand-orange);
+  --color-brand-cream: var(--brand-cream);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -92,6 +93,7 @@
   --brand-navy: #1E42B0;
   --brand-sage: #B0D8B0;
   --brand-orange: #E45229;
+  --brand-cream: #fefbf9;
 
   /* Chart colors */
   --chart-1: #1b456b;
@@ -108,6 +110,40 @@
   --sidebar-accent-foreground: #1a3c5a;
   --sidebar-border: #e5e7eb;
   --sidebar-ring: #1a3c5a;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #64a5f6;
+  --primary-foreground: #0f172a;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #ff4a4a;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #64a5f6;
+  --chart-1: #64a5f6;
+  --chart-2: #76c5f6;
+  --chart-3: #c1e1b8;
+  --chart-4: #ff9d8a;
+  --chart-5: #5694b8;
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #64a5f6;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #0f172a;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #64a5f6;
 }
 
 @layer base {
@@ -273,4 +309,40 @@
   background-color: color-mix(in srgb,
       var(--brand-yellow) 90%,
       black) !important;
+}
+
+/* Gentle floating animation for decorative shapes */
+@keyframes shape-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+.animate-shape-float {
+  animation: shape-float ease-in-out infinite;
+}
+
+/* Hero floating animation variants */
+@keyframes hero-float-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate(6px, -10px) rotate(3deg) scale(1.03); }
+  50% { transform: translate(-4px, -6px) rotate(-2deg) scale(0.98); }
+  75% { transform: translate(8px, 4px) rotate(2deg) scale(1.02); }
+}
+
+@keyframes hero-float-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  20% { transform: translate(-8px, 6px) rotate(-3deg) scale(1.02); }
+  45% { transform: translate(5px, 10px) rotate(2deg) scale(0.97); }
+  70% { transform: translate(-6px, -8px) rotate(-1deg) scale(1.04); }
+}
+
+@keyframes hero-float-3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  30% { transform: translate(10px, 5px) rotate(4deg) scale(0.98); }
+  60% { transform: translate(-7px, -9px) rotate(-3deg) scale(1.03); }
+  85% { transform: translate(3px, 7px) rotate(1deg) scale(1.01); }
 }

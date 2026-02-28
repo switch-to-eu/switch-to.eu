@@ -14,6 +14,7 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { fontVariables } from "@switch-to-eu/ui/fonts";
 
 export async function generateMetadata({
   params,
@@ -62,7 +63,7 @@ export default async function LocaleLayout({
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang={locale} className={`${geist.variable}`}>
+    <html lang={locale} className={`${geist.variable} ${fontVariables}`}>
       <body>
         <NextIntlClientProvider>
           <div className="min-h-screen bg-gray-50">
