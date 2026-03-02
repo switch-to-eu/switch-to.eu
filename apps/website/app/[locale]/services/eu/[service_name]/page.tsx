@@ -12,7 +12,6 @@ import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { ContributeCta } from "@/components/ContributeCta";
-import { Button } from "@switch-to-eu/ui/components/button";
 
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -71,6 +70,7 @@ export default async function ServiceDetailPage({
 }) {
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail");
+  const servicesT = await getTranslations("services");
 
   const slug = service_name.replace(/-/g, " ");
   const serviceData = getServiceBySlug(slug, locale);
@@ -97,269 +97,389 @@ export default async function ServiceDetailPage({
     .slice(0, 4);
 
   const htmlContent = content ? parseMarkdown(content) : "";
+  const categoryFormatted =
+    frontmatter.category.charAt(0).toUpperCase() +
+    frontmatter.category.slice(1);
 
   return (
-    <main className="py-4 sm:py-6 md:py-8">
-      {/* Hero Banner */}
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 mb-8 sm:mb-12">
-        <div className="bg-brand-navy rounded-3xl">
-          <div className="relative px-6 sm:px-10 md:px-16 py-10 sm:py-14 overflow-hidden">
-            <div className="absolute -top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44 opacity-15 pointer-events-none">
-              <Image
-                src="/images/shapes/spark.svg"
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{ filter: "brightness(0) invert(1)" }}
-                aria-hidden="true"
-                unoptimized
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="flex justify-between items-start mb-4">
-                <h1 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow">
-                  {frontmatter.name}
-                </h1>
-                <RegionBadge
-                  region={
-                    (frontmatter.region as
-                      | "eu"
-                      | "non-eu"
-                      | "eu-friendly") || "non-eu"
-                  }
+    <main className="flex flex-col gap-8 sm:gap-12 md:gap-16 py-4 sm:py-6 md:py-8">
+      {/* Hero */}
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="bg-brand-navy rounded-3xl">
+            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
+              {/* Decorative shapes */}
+              <div className="absolute -top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48 opacity-15 pointer-events-none">
+                <Image
+                  src="/images/shapes/spark.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ filter: "brightness(0) invert(1)" }}
+                  aria-hidden="true"
+                  unoptimized
                 />
               </div>
-              <p className="text-brand-sky text-base sm:text-lg mb-6 max-w-2xl">
-                {frontmatter.description}
-              </p>
-              <div className="flex flex-wrap gap-4 mb-6 text-sm text-white/80">
-                <div className="flex items-center">
-                  <span className="font-semibold mr-2">{t("location")}:</span>
-                  <span>{frontmatter.location}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold mr-2">
-                    {t("freeOption")}:
-                  </span>
-                  <span>
-                    {frontmatter.freeOption
-                      ? t("freeOptionYes")
-                      : t("freeOptionNo")}
-                  </span>
-                </div>
-                {frontmatter.startingPrice && (
-                  <div className="flex items-center">
-                    <span className="font-semibold mr-2">
-                      {t("startingPrice")}:
-                    </span>
-                    <span>{frontmatter.startingPrice}</span>
-                  </div>
-                )}
+              <div className="absolute bottom-4 right-20 hidden sm:block w-28 h-28 opacity-10 pointer-events-none">
+                <Image
+                  src="/images/shapes/blob.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{
+                    filter: "brightness(0) invert(1)",
+                    animationDuration: "9s",
+                    animationDelay: "-3s",
+                  }}
+                  aria-hidden="true"
+                  unoptimized
+                />
               </div>
-              <Button
-                variant="default"
-                asChild
-                className="bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full px-8 font-semibold"
-              >
-                <Link href={frontmatter.url} target="_blank">
-                  {t("visitWebsite")}
+              <div className="absolute top-1/3 -left-4 hidden md:block w-16 h-16 opacity-10 pointer-events-none">
+                <Image
+                  src="/images/shapes/diamond-4.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{
+                    filter: "brightness(0) invert(1)",
+                    animationDuration: "7s",
+                    animationDelay: "-5s",
+                  }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Breadcrumb */}
+                <Link
+                  href={`/services/${frontmatter.category}`}
+                  className="inline-flex items-center gap-1.5 text-brand-sky/70 text-sm mb-6 no-underline hover:text-brand-sky transition-colors"
+                >
+                  <span>&larr;</span>
+                  <span>{categoryFormatted}</span>
                 </Link>
-              </Button>
+
+                <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+                  {/* Avatar */}
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
+                      {frontmatter.name.charAt(0)}
+                    </div>
+                  </div>
+
+                  {/* Title & description */}
+                  <div className="flex-1">
+                    <div className="flex items-start gap-3 mb-3">
+                      <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
+                        {frontmatter.name}
+                      </h1>
+                      <div className="flex-shrink-0 mt-2">
+                        <RegionBadge
+                          region={
+                            (frontmatter.region as
+                              | "eu"
+                              | "non-eu"
+                              | "eu-friendly") || "eu"
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <p className="text-brand-sky text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
+                      {frontmatter.description}
+                    </p>
+
+                    {/* Meta info as pills */}
+                    <div className="flex flex-wrap gap-3 mb-6">
+                      <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                        <span className="text-brand-yellow">&#9679;</span>
+                        {frontmatter.location}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                        <span className="text-brand-yellow">&#9679;</span>
+                        {t("freeOption")}:{" "}
+                        {frontmatter.freeOption
+                          ? t("freeOptionYes")
+                          : t("freeOptionNo")}
+                      </span>
+                      {frontmatter.startingPrice && (
+                        <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                          <span className="text-brand-yellow">&#9679;</span>
+                          {t("startingPrice")}: {frontmatter.startingPrice}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* CTAs */}
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href={frontmatter.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-8 py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base no-underline"
+                      >
+                        {t("visitWebsite")} &rarr;
+                      </a>
+                      {relatedGuides.length > 0 && (
+                        <a
+                          href="#guides"
+                          className="inline-block px-8 py-3 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-sm sm:text-base no-underline"
+                        >
+                          {t("migrationGuides")}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container mx-auto px-4 max-w-7xl lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Mobile Migration Guides */}
-            {relatedGuides.length > 0 ? (
-              <div className="lg:hidden mb-8 p-6 bg-brand-sage rounded-3xl">
-                <h2 className="font-heading text-2xl uppercase text-brand-green mb-4">
-                  {t("migrationGuides")}
-                </h2>
-                <p className="text-brand-green/80 mb-4">
-                  {t("migrateHelp")} <b>{frontmatter.name}</b>
-                </p>
-                <div className="space-y-4">
-                  {relatedGuides.map((guide) => (
-                    <Link
-                      key={`${guide.category}-${guide.slug}`}
-                      href={`/guides/${guide.category}/${guide.slug}`}
-                      className="block rounded-2xl bg-white/50 p-4 no-underline transition-colors hover:bg-white/80"
-                    >
-                      <h3 className="text-lg mb-1 text-brand-green font-semibold">
-                        {guide.frontmatter.sourceService &&
-                          `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                        {!guide.frontmatter.sourceService &&
-                          guide.frontmatter.title}
-                      </h3>
-                      <p className="text-xs text-brand-green/70">
-                        {guide.frontmatter.description}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-                <div className="mt-6 pt-4 border-t border-brand-green/20">
-                  <div className="flex justify-center">
-                    <Link
-                      href="/contribute"
-                      className="inline-block px-6 py-2.5 bg-brand-green text-white rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
-                    >
-                      {t("writeAnotherGuide")}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="lg:hidden mb-8 p-6 bg-brand-sage rounded-3xl">
-                <h2 className="font-heading text-2xl uppercase text-brand-green mb-4">
-                  {t("migrationGuides")}
-                </h2>
-                <p className="text-brand-green/80 mb-4">
-                  {t("noGuides")} <b>{frontmatter.name}</b>.
-                </p>
-                <p className="text-brand-green/80 mb-6">{t("helpOthers")}</p>
-                <div className="flex justify-center">
-                  <Link
-                    href="/contribute"
-                    className="inline-block px-6 py-2.5 bg-brand-green text-white rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
-                  >
-                    {t("writeMigrationGuide")}
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {/* Markdown Content */}
-            {htmlContent && (
-              <div className="mdx-content prose prose-sm sm:prose dark:prose-invert max-w-none mb-12">
-                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-              </div>
-            )}
-
-            {/* Similar Services */}
-            {similarServices.length > 0 && (
-              <div className="mb-12">
-                <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
-                  {t("similarServices")}
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {similarServices.map((service) => (
-                    <div key={service.name} className="relative">
-                      <ServiceCard service={service} showCategory={false} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* CTA Section */}
-            <ContributeCta />
+      {/* Features tags */}
+      {frontmatter.features && frontmatter.features.length > 0 && (
+        <section>
+          <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <div className="flex flex-wrap gap-2.5">
+              {frontmatter.features.map((feature) => (
+                <span
+                  key={feature}
+                  className="inline-block bg-brand-sky/20 text-brand-green px-4 py-2 rounded-full text-sm font-medium"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
           </div>
+        </section>
+      )}
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="hidden lg:block sticky top-24 bg-brand-sage rounded-3xl p-6 overflow-hidden">
-              <div className="relative h-40 mb-6">
-                <div className="absolute inset-0">
-                  <Image
-                    src="/images/shapes/squiggle.svg"
-                    alt=""
-                    fill
-                    className="object-contain select-none animate-shape-float p-4"
-                    style={{
-                      filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-                      opacity: 0.25,
-                      animationDuration: "8s",
-                    }}
-                    aria-hidden="true"
-                    unoptimized
-                  />
+      {/* Main content area */}
+      <section>
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Main content */}
+            <div className="lg:col-span-2">
+              {htmlContent && (
+                <div className="mdx-content prose prose-sm sm:prose dark:prose-invert max-w-none">
+                  <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                 </div>
-                <div className="absolute inset-6">
-                  <Image
-                    src="/images/shapes/arch.svg"
-                    alt=""
-                    fill
-                    className="object-contain select-none animate-shape-float"
-                    style={{
-                      filter: "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-                      opacity: 0.4,
-                      animationDuration: "6s",
-                      animationDelay: "-2s",
-                    }}
-                    aria-hidden="true"
-                    unoptimized
-                  />
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <div
+                id="guides"
+                className="hidden lg:block sticky top-24 bg-brand-green rounded-3xl overflow-hidden"
+              >
+                <div className="relative px-6 py-8">
+                  {/* Decorative shapes */}
+                  <div className="absolute -top-4 -right-4 w-24 h-24 opacity-15 pointer-events-none">
+                    <Image
+                      src="/images/shapes/coral.svg"
+                      alt=""
+                      fill
+                      className="object-contain select-none animate-shape-float"
+                      style={{
+                        filter: "brightness(0) invert(1)",
+                        animationDuration: "8s",
+                      }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="absolute bottom-6 -left-4 w-20 h-20 opacity-10 pointer-events-none">
+                    <Image
+                      src="/images/shapes/flower.svg"
+                      alt=""
+                      fill
+                      className="object-contain select-none animate-shape-float"
+                      style={{
+                        filter: "brightness(0) invert(1)",
+                        animationDuration: "7s",
+                        animationDelay: "-2s",
+                      }}
+                      aria-hidden="true"
+                      unoptimized
+                    />
+                  </div>
+
+                  <div className="relative z-10">
+                    <h2 className="font-heading text-xl uppercase text-brand-yellow mb-4">
+                      {t("migrationGuides")}
+                    </h2>
+
+                    {relatedGuides.length > 0 ? (
+                      <>
+                        <p className="text-brand-sky/80 mb-4 text-sm">
+                          {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
+                        </p>
+                        <div className="space-y-3">
+                          {relatedGuides.map((guide) => (
+                            <Link
+                              key={`${guide.category}-${guide.slug}`}
+                              href={`/guides/${guide.category}/${guide.slug}`}
+                              className="block rounded-2xl bg-white/10 p-3 no-underline transition-colors hover:bg-white/20 border border-white/5"
+                            >
+                              <h3 className="text-base mb-1 text-white font-semibold">
+                                {guide.frontmatter.sourceService &&
+                                  `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
+                                {!guide.frontmatter.sourceService &&
+                                  guide.frontmatter.title}
+                              </h3>
+                              <p className="text-xs text-brand-sky/70">
+                                {guide.frontmatter.description}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="mt-6 pt-4 border-t border-white/10">
+                          <p className="text-sm text-brand-sky/60 mb-3 text-center">
+                            {t("anotherServiceHelp")}
+                          </p>
+                          <div className="flex justify-center">
+                            <Link
+                              href="/contribute"
+                              className="inline-block px-5 py-2 bg-brand-yellow text-brand-navy rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
+                            >
+                              {t("writeAnotherGuide")}
+                            </Link>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-brand-sky/80 mb-3 text-sm">
+                          {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
+                        </p>
+                        <p className="text-brand-sky/60 mb-6 text-sm">
+                          {t("helpOthers")}
+                        </p>
+                        <div className="flex justify-center">
+                          <Link
+                            href="/contribute"
+                            className="inline-block px-5 py-2 bg-brand-yellow text-brand-navy rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
+                          >
+                            {t("writeMigrationGuide")}
+                          </Link>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-              <h2 className="font-heading text-xl uppercase text-brand-green text-center mb-4">
-                {t("migrationGuides")}
-              </h2>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {relatedGuides.length > 0 ? (
-                <>
-                  <p className="text-brand-green/80 mb-4 text-sm">
-                    {t("migrateHelp")} <b>{frontmatter.name}</b>
-                  </p>
-                  <div className="space-y-3">
-                    {relatedGuides.map((guide) => (
-                      <Link
-                        key={`${guide.category}-${guide.slug}`}
-                        href={`/guides/${guide.category}/${guide.slug}`}
-                        className="block rounded-2xl bg-white/50 p-3 no-underline transition-colors hover:bg-white/80"
-                      >
-                        <h3 className="text-base mb-1 text-brand-green font-semibold">
-                          {guide.frontmatter.sourceService &&
-                            `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                          {!guide.frontmatter.sourceService &&
-                            guide.frontmatter.title}
-                        </h3>
-                        <p className="text-xs text-brand-green/70">
-                          {guide.frontmatter.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-brand-green/20">
-                    <p className="text-sm text-brand-green/70 mb-3 text-center">
-                      {t("anotherServiceHelp")}
+      {/* Mobile migration guides */}
+      <section className="lg:hidden">
+        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="bg-brand-green rounded-3xl relative overflow-hidden">
+            <div className="relative px-6 py-8">
+              <div className="absolute -top-4 -right-4 w-20 h-20 opacity-15 pointer-events-none">
+                <Image
+                  src="/images/shapes/coral.svg"
+                  alt=""
+                  fill
+                  className="object-contain select-none animate-shape-float"
+                  style={{ filter: "brightness(0) invert(1)" }}
+                  aria-hidden="true"
+                  unoptimized
+                />
+              </div>
+              <div className="relative z-10">
+                <h2 className="font-heading text-2xl uppercase text-brand-yellow mb-4">
+                  {t("migrationGuides")}
+                </h2>
+                {relatedGuides.length > 0 ? (
+                  <>
+                    <p className="text-brand-sky/80 mb-4 text-sm">
+                      {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
+                    </p>
+                    <div className="space-y-3">
+                      {relatedGuides.map((guide) => (
+                        <Link
+                          key={`${guide.category}-${guide.slug}`}
+                          href={`/guides/${guide.category}/${guide.slug}`}
+                          className="block rounded-2xl bg-white/10 p-4 no-underline transition-colors hover:bg-white/20 border border-white/5"
+                        >
+                          <h3 className="text-lg mb-1 text-white font-semibold">
+                            {guide.frontmatter.sourceService &&
+                              `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
+                            {!guide.frontmatter.sourceService &&
+                              guide.frontmatter.title}
+                          </h3>
+                          <p className="text-xs text-brand-sky/70">
+                            {guide.frontmatter.description}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-white/10">
+                      <div className="flex justify-center">
+                        <Link
+                          href="/contribute"
+                          className="inline-block px-6 py-2.5 bg-brand-yellow text-brand-navy rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
+                        >
+                          {t("writeAnotherGuide")}
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-brand-sky/80 mb-3 text-sm">
+                      {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
+                    </p>
+                    <p className="text-brand-sky/60 mb-6 text-sm">
+                      {t("helpOthers")}
                     </p>
                     <div className="flex justify-center">
                       <Link
                         href="/contribute"
-                        className="inline-block px-5 py-2 bg-brand-green text-white rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
+                        className="inline-block px-6 py-2.5 bg-brand-yellow text-brand-navy rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
                       >
-                        {t("writeAnotherGuide")}
+                        {t("writeMigrationGuide")}
                       </Link>
                     </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="text-brand-green/80 mb-4 text-sm">
-                    {t("noGuides")} <b>{frontmatter.name}</b>.
-                  </p>
-                  <p className="text-brand-green/70 mb-6 text-sm">
-                    {t("helpOthers")}
-                  </p>
-                  <div className="flex justify-center">
-                    <Link
-                      href="/contribute"
-                      className="inline-block px-5 py-2 bg-brand-green text-white rounded-full text-sm font-semibold no-underline hover:opacity-90 transition-opacity"
-                    >
-                      {t("writeMigrationGuide")}
-                    </Link>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Similar Services */}
+      {similarServices.length > 0 && (
+        <section>
+          <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
+              {t("similarServices")}
+            </h2>
+            <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-4 auto-rows-fr">
+              {similarServices.map((service, index) => (
+                <ServiceCard
+                  key={service.name}
+                  service={service}
+                  showCategory={false}
+                  colorIndex={index}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      <ContributeCta />
     </main>
   );
 }

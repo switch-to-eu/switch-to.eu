@@ -25,101 +25,118 @@ export async function RecommendedAlternative({
   const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
 
   return (
-    <div className="mb-10 p-6 sm:p-8 bg-brand-sage rounded-3xl relative overflow-hidden">
-      <div className="absolute -top-4 -right-4 w-24 h-24 sm:w-32 sm:h-32 opacity-15 pointer-events-none">
-        <Image
-          src="/images/shapes/spark.svg"
-          alt=""
-          fill
-          className="object-contain select-none animate-shape-float"
-          style={{
-            filter:
-              "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-          }}
-          aria-hidden="true"
-          unoptimized
-        />
-      </div>
-
-      <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green mb-6">
-        {t("detail.recommendedAlternative.title")}
-      </h2>
-
-      <div className="absolute right-16 top-1/2 -translate-y-1/2 hidden lg:block w-32 h-32 opacity-20 pointer-events-none">
-        <Image
-          src="/images/shapes/swirl.svg"
-          alt=""
-          fill
-          className="object-contain select-none animate-shape-float"
-          style={{
-            filter:
-              "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(750%) hue-rotate(127deg) brightness(93%) contrast(102%)",
-            animationDuration: "8s",
-          }}
-          aria-hidden="true"
-          unoptimized
-        />
-      </div>
-
-      <div className="flex items-start">
-        <div className="rounded-full bg-brand-green p-1 mr-4 flex-shrink-0">
-          <div className="w-12 h-12 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-xl font-semibold">
-            {service.name.charAt(0)}
+    <div className="bg-brand-green rounded-3xl relative overflow-hidden">
+      <div className="flex flex-col md:flex-row">
+        {/* Shape visual — left panel */}
+        <div className="relative w-full md:w-72 lg:w-80 flex-shrink-0 flex items-center justify-center py-10 md:py-0">
+          {/* Large avatar / initial */}
+          <div className="relative z-10 flex flex-col items-center gap-3">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
+              {service.name.charAt(0)}
+            </div>
+            <span className="text-white/60 text-xs font-semibold uppercase tracking-widest">
+              Featured
+            </span>
+          </div>
+          {/* Background shape */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none">
+            <Image
+              src="/images/shapes/star.svg"
+              alt=""
+              fill
+              className="object-contain p-6 select-none animate-shape-float"
+              style={{ filter: "brightness(0) invert(1)" }}
+              aria-hidden="true"
+              unoptimized
+            />
           </div>
         </div>
-        <div className="flex-grow">
-          <h3 className="text-xl font-bold text-brand-green mb-2">
-            {service.name}
-          </h3>
 
-          <p className="text-brand-green/80 mb-3 max-w-md">
+        {/* Content — right panel */}
+        <div className="flex-1 px-6 sm:px-8 md:px-10 py-8 sm:py-10 md:py-12 relative">
+          {/* Decorative shapes */}
+          <div className="absolute -top-4 -right-4 w-24 h-24 opacity-10 pointer-events-none">
+            <Image
+              src="/images/shapes/swirl.svg"
+              alt=""
+              fill
+              className="object-contain select-none animate-shape-float"
+              style={{
+                filter: "brightness(0) invert(1)",
+                animationDuration: "9s",
+                animationDelay: "-3s",
+              }}
+              aria-hidden="true"
+              unoptimized
+            />
+          </div>
+
+          <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow mb-4">
+            {service.name}
+          </h2>
+
+          <p className="text-brand-sky text-base sm:text-lg mb-5 max-w-xl leading-relaxed">
             {service.description}
           </p>
 
-          <div className="flex flex-wrap gap-x-4 gap-y-1 mb-2">
-            <div className="text-sm flex items-center text-brand-green">
-              <span className="font-medium mr-1">
-                {t("detail.freeOption")}:
-              </span>
-              <span>{service.freeOption ? "Yes" : "No"}</span>
+          {/* Meta info */}
+          <div className="flex flex-wrap gap-4 mb-6">
+            {service.location && (
+              <div className="flex items-center gap-1.5 text-white/80 text-sm">
+                <span className="text-brand-yellow">&#9679;</span>
+                {service.location}
+              </div>
+            )}
+            <div className="flex items-center gap-1.5 text-white/80 text-sm">
+              <span className="text-brand-yellow">&#9679;</span>
+              {service.freeOption
+                ? t("detail.freeOptionYes") + " " + t("detail.freeOption")
+                : t("detail.freeOptionNo") + " " + t("detail.freeOption")}
             </div>
-
             {service.startingPrice &&
               typeof service.startingPrice === "string" && (
-                <div className="text-sm flex items-center text-brand-green">
-                  <span className="font-medium mr-1">
-                    {t("detail.startingPrice")}:
-                  </span>
-                  <span>{service.startingPrice}</span>
+                <div className="flex items-center gap-1.5 text-white/80 text-sm">
+                  <span className="text-brand-yellow">&#9679;</span>
+                  {t("detail.startingPrice")}: {service.startingPrice}
                 </div>
               )}
           </div>
-        </div>
-      </div>
 
-      <div className="mt-6">
-        <div className="flex flex-wrap gap-3">
-          {sourceService &&
-            migrationGuides.length > 0 &&
-            migrationGuides.map((guide) => (
-              <Link
-                key={`${guide.category}-${guide.slug}`}
-                href={`/guides/${guide.category}/${guide.slug}`}
-                className="inline-block py-2.5 px-6 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+          {/* Actions */}
+          <div className="flex flex-wrap gap-3">
+            {sourceService &&
+              migrationGuides.length > 0 &&
+              migrationGuides.map((guide) => (
+                <Link
+                  key={`${guide.category}-${guide.slug}`}
+                  href={`/guides/${guide.category}/${guide.slug}`}
+                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                >
+                  {t("detail.recommendedAlternative.migrateFrom", {
+                    source: sourceService,
+                    target: service.name,
+                  })}
+                </Link>
+              ))}
+
+            <Link
+              href={`/services/${regionPath}/${serviceSlug}`}
+              className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+            >
+              {t("detail.recommendedAlternative.viewDetails")}
+            </Link>
+
+            {service.url && (
+              <a
+                href={service.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
               >
-                {t("detail.recommendedAlternative.migrateFrom", {
-                  source: sourceService,
-                  target: service.name,
-                })}
-              </Link>
-            ))}
-
-          <Link
-            href={`/services/${regionPath}/${serviceSlug}`}
-            className="inline-block py-2.5 px-6 border-2 border-brand-green text-brand-green rounded-full font-semibold text-sm hover:bg-brand-green hover:text-white transition-colors no-underline"
-          >
-            {t("detail.recommendedAlternative.viewDetails")}
-          </Link>
+                {t("detail.visitWebsite")} &rarr;
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>

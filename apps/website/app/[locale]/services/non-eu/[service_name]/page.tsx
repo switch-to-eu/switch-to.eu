@@ -207,11 +207,12 @@ export default async function ServiceDetailPage({
                     : t("oneMoreEUAlternative")}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {otherAlternatives.map((service) => (
+                  {otherAlternatives.map((service, index) => (
                     <ServiceCard
                       key={service.name}
                       service={service}
                       showCategory={false}
+                      colorIndex={index}
                     />
                   ))}
                 </div>
