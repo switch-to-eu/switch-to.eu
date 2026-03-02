@@ -5,14 +5,9 @@ import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
 import { hashPassword } from "@/lib/crypto";
 import { createCaller } from "@/server/api/root";
 import { createTRPCContext } from "@/server/api/trpc";
+import { getMcpBaseUrl } from "@switch-to-eu/trpc/mcp-base-url";
 
 const EXPIRY_OPTIONS = ["5m", "30m", "1h", "24h", "7d"] as const;
-
-function getBaseUrl(): string {
-  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 5016}`;
-}
 
 const handler = createMcpHandler(
   (server) => {
@@ -75,7 +70,7 @@ const handler = createMcpHandler(
           });
 
           // Build the share URL with encryption key in fragment
-          const baseUrl = getBaseUrl();
+          const baseUrl = await getMcpBaseUrl(5016);
           const shareUrl = `${baseUrl}/en/note/${result.noteId}#key=${encodeURIComponent(encryptionKey)}`;
 
           const lines = [

@@ -8,12 +8,7 @@ import {
 } from "@switch-to-eu/db/crypto";
 import { createCaller } from "@/server/api/root";
 import { createTRPCContext } from "@/server/api/trpc";
-
-function getBaseUrl(): string {
-  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 5018}`;
-}
+import { getMcpBaseUrl } from "@switch-to-eu/trpc/mcp-base-url";
 
 interface QuizMetadata {
   title: string;
@@ -184,7 +179,7 @@ const handler = createMcpHandler(
             });
           }
 
-          const baseUrl = getBaseUrl();
+          const baseUrl = await getMcpBaseUrl(5018);
           const keyFragment = encodeURIComponent(encryptionKey);
           const adminUrl = `${baseUrl}/en/quiz/${result.quiz.id}/admin#token=${encodeURIComponent(result.adminToken)}&key=${keyFragment}`;
           const joinUrl = `${baseUrl}/en/join/${result.joinCode}#key=${keyFragment}`;
@@ -274,7 +269,7 @@ const handler = createMcpHandler(
             }),
           );
 
-          const baseUrl = getBaseUrl();
+          const baseUrl = await getMcpBaseUrl(5018);
           const keyFragment = encodeURIComponent(encryptionKey);
           const joinUrl = `${baseUrl}/en/join/${quiz.joinCode}#key=${keyFragment}`;
 

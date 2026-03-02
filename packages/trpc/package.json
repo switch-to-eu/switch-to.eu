@@ -34,6 +34,7 @@
         "./middleware": "./src/middleware.ts",
         "./init": "./src/init.ts",
         "./react": "./src/react.tsx",
-        "./query-client": "./src/query-client.ts"
+        "./query-client": "./src/query-client.ts",
+        "./mcp-base-url": "./src/mcp-base-url.ts"
     }
 }
