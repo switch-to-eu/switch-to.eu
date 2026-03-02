@@ -189,7 +189,7 @@ export default async function ServiceDetailPage({
             {/* Service Details */}
             <div className="mb-12">
               {htmlContent && (
-                <div className="mdx-content prose prose-slate prose-sm sm:prose dark:prose-invert max-w-none">
+                <div className="mdx-content prose prose-slate prose-sm sm:prose max-w-none">
                   <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                 </div>
               )}
@@ -201,7 +201,7 @@ export default async function ServiceDetailPage({
                 <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                   {t("otherAlternatives")}
                 </h2>
-                <p className="mb-6 text-slate-600 dark:text-slate-300">
+                <p className="mb-6 text-slate-600">
                   {otherAlternatives.length > 1
                     ? t("otherEUAlternatives")
                     : t("oneMoreEUAlternative")}
@@ -250,7 +250,7 @@ export default async function ServiceDetailPage({
                           <line x1="9" y1="9" x2="15" y2="15" />
                         </svg>
                       </span>
-                      <p className="text-slate-700 dark:text-slate-300 text-sm">
+                      <p className="text-slate-700 text-sm">
                         {issue}
                       </p>
                     </div>

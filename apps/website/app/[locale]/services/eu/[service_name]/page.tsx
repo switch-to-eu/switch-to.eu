@@ -265,7 +265,7 @@ export default async function ServiceDetailPage({
             {/* Main content */}
             <div className="lg:col-span-2">
               {htmlContent && (
-                <div className="mdx-content prose prose-sm sm:prose dark:prose-invert max-w-none">
+                <div className="mdx-content prose prose-sm sm:prose max-w-none">
                   <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                 </div>
               )}

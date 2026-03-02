@@ -207,7 +207,7 @@ export default async function ContributeGuidePage() {
       {/* Guide Content */}
       <section>
         <Container>
-          <div className="prose prose-slate max-w-3xl mx-auto lg:prose-lg dark:prose-invert">
+          <div className="prose prose-slate max-w-3xl mx-auto lg:prose-lg">
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mt-0">
               {t("guide.repositoryOverview.title")}
             </h2>

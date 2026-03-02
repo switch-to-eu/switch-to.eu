@@ -59,20 +59,6 @@ const brandColors = [
   { name: "brand-cream", value: "#fefbf9" },
 ];
 
-const darkModeColors = [
-  { name: "background", value: "#0f172a" },
-  { name: "foreground", value: "#f8fafc" },
-  { name: "card", value: "#1e293b" },
-  { name: "card-foreground", value: "#f8fafc" },
-  { name: "primary", value: "#64a5f6" },
-  { name: "primary-foreground", value: "#0f172a" },
-  { name: "secondary", value: "#1e293b" },
-  { name: "muted", value: "#1e293b" },
-  { name: "muted-foreground", value: "#94a3b8" },
-  { name: "border", value: "rgba(255,255,255,0.1)" },
-  { name: "ring", value: "#64a5f6" },
-];
-
 const chartColors = [
   { name: "chart-1", value: "#1b456b" },
   { name: "chart-2", value: "#76c5f6" },
@@ -110,19 +96,6 @@ export default function ColorsPage() {
 
       <ColorGroup title="Core" colors={coreColors} />
       <ColorGroup title="Brand Palette" colors={brandColors} />
-
-      {/* Dark Mode Overrides */}
-      <section className="mb-10">
-        <h2 className="text-2xl mb-4">Dark Mode Overrides</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          Token values that change under <code className="text-sm bg-muted px-1.5 py-0.5 rounded">.dark</code> class.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
-          {darkModeColors.map((color) => (
-            <Swatch key={color.name} {...color} />
-          ))}
-        </div>
-      </section>
 
       {/* Brand Card Palette */}
       <section className="mb-10">
