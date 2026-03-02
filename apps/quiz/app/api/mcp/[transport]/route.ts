@@ -79,7 +79,8 @@ const handler = createMcpHandler(
         description:
           "Create a new quiz with questions. Returns an admin URL that contains " +
           "the admin token and encryption key — save this URL to manage the quiz later. " +
-          "Also returns a join code and join URL for participants. " +
+          "Also returns a participant URL to share with players. " +
+          "The quiz starts in draft state — use the admin UI to open the lobby when ready. " +
           "All data is E2E encrypted with AES-256-GCM before storage.",
         inputSchema: {
           title: z.string().min(1).max(200).describe("The quiz title."),
@@ -194,13 +195,13 @@ const handler = createMcpHandler(
           const baseUrl = await getMcpBaseUrl(5018);
           const keyFragment = encodeURIComponent(encryptionKey);
           const adminUrl = `${baseUrl}/en/quiz/${result.quiz.id}/admin#token=${encodeURIComponent(result.adminToken)}&key=${keyFragment}`;
-          const joinUrl = `${baseUrl}/en/join/${result.joinCode}#key=${keyFragment}`;
+          const participantUrl = `${baseUrl}/en/quiz/${result.quiz.id}#key=${keyFragment}`;
 
           const lines = [
             `Quiz created successfully!`,
             ``,
             `Admin URL (save this!): ${adminUrl}`,
-            `Join URL (share this with participants!): ${joinUrl}`,
+            `Participant URL (share this with players!): ${participantUrl}`,
             ``,
             `Details:`,
             `- Title: ${title}`,
@@ -285,7 +286,7 @@ const handler = createMcpHandler(
 
           const baseUrl = await getMcpBaseUrl(5018);
           const keyFragment = encodeURIComponent(encryptionKey);
-          const joinUrl = `${baseUrl}/en/join/${quiz.joinCode}#key=${keyFragment}`;
+          const participantUrl = `${baseUrl}/en/quiz/${quizId}#key=${keyFragment}`;
 
           const lines = [
             `Quiz: ${metadata.title}`,
@@ -294,7 +295,7 @@ const handler = createMcpHandler(
               : null,
             ``,
             `State: ${quiz.state}`,
-            `Join URL: ${joinUrl}`,
+            `Participant URL: ${participantUrl}`,
             `Admin URL: ${adminUrl}`,
             `Timer: ${quiz.timerSeconds === 0 ? "No timer" : `${quiz.timerSeconds}s`}`,
             `Scoring: ${quiz.scoringEnabled ? "Enabled" : "Disabled"}`,
@@ -345,7 +346,7 @@ const handler = createMcpHandler(
       "add_question",
       {
         description:
-          "Add a single new question to an existing quiz (must be in lobby state). " +
+          "Add a single new question to an existing quiz (must be in draft state). " +
           "For adding or editing 2+ questions at once, use upsert_questions instead. " +
           "Requires the admin URL.",
         inputSchema: {
@@ -426,7 +427,7 @@ const handler = createMcpHandler(
       "update_question",
       {
         description:
-          "Update a single existing question in a quiz (must be in lobby state). " +
+          "Update a single existing question in a quiz (must be in draft state). " +
           "For adding or editing 2+ questions at once, use upsert_questions instead. " +
           "Requires the admin URL.",
         inputSchema: {
@@ -520,7 +521,7 @@ const handler = createMcpHandler(
       "remove_question",
       {
         description:
-          "Remove a question from a quiz (must be in lobby state). " +
+          "Remove a question from a quiz (must be in draft state). " +
           "Remaining questions are re-indexed. Requires the admin URL.",
         inputSchema: {
           adminUrl: z

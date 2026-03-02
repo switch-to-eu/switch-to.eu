@@ -41,9 +41,8 @@
         "hero": {
             "title": "Live Quizzes,",
             "titleHighlight": "No Sign-Up Required",
-            "subtitle": "Create interactive quizzes in seconds. Participants join with a simple code. Compete on a real-time leaderboard. All fully encrypted.",
-            "createQuiz": "Create a Quiz",
-            "joinQuiz": "Join a Quiz"
+            "subtitle": "Create interactive quizzes in seconds. Participants join with a link or QR code. Compete on a real-time leaderboard. All fully encrypted.",
+            "createQuiz": "Create a Quiz"
         },
         "features": {
             "title": "How it works",
@@ -52,8 +51,8 @@
                 "description": "Add multiple-choice questions with a timer. Set the correct answers and customize the experience."
             },
             "share": {
-                "title": "Share the Code",
-                "description": "Share a simple join code or link. Participants join instantly — no accounts, no downloads."
+                "title": "Share the Link",
+                "description": "Share a link or scan a QR code. Participants join instantly — no accounts, no downloads."
             },
             "play": {
                 "title": "Play Live",
@@ -103,26 +102,28 @@
         "fillAllOptions": "Fill in all options for each question",
         "fillQuestionText": "Fill in the question text for each question"
     },
-    "join": {
-        "title": "Join a Quiz",
-        "subtitle": "Enter your nickname to join",
-        "nickname": "Your Nickname",
-        "nicknamePlaceholder": "e.g., Alex",
-        "joinButton": "Join Quiz",
-        "joining": "Joining...",
-        "quizNotFound": "Quiz not found. Check your join code.",
-        "quizAlreadyFinished": "This quiz has already finished.",
-        "missingEncryptionKey": "Invalid join link. Ask the quiz host for the full link including the encryption key."
-    },
     "quiz": {
         "missingEncryptionKey": "Invalid link. Ask the quiz host for the full link including the encryption key.",
+        "draft": {
+            "notOpenYet": "Quiz Not Open Yet",
+            "waitingForLobby": "The host hasn't opened the lobby yet. Please wait."
+        },
+        "join": {
+            "title": "Join a Quiz",
+            "subtitle": "Enter your nickname to join",
+            "nickname": "Your Nickname",
+            "nicknamePlaceholder": "e.g., Alex",
+            "joinButton": "Join Quiz",
+            "joining": "Joining...",
+            "quizAlreadyStarted": "This quiz has already started.",
+            "error": "Failed to join quiz. Please try again."
+        },
         "lobby": {
             "title": "Waiting for the quiz to start...",
             "participants": "Participants",
             "noParticipants": "No participants yet",
             "waitingForHost": "Waiting for the host to start the quiz",
             "shareLink": "Share this link to join:",
-            "joinCode": "Code",
             "copyLink": "Copy Link",
             "linkCopied": "Link copied!",
             "startQuiz": "Start Quiz",
@@ -175,9 +176,11 @@
         "doneButton": "Done",
         "addQuestionLobby": "Add Question",
         "saving": "Saving...",
+        "openLobby": "Open Lobby",
+        "backToDraft": "Back to Editing",
         "resetQuiz": "Play Again",
         "resetTitle": "Reset Quiz?",
-        "resetConfirm": "This will return the quiz to the lobby. All answers and participants will be cleared.",
+        "resetConfirm": "This will reset the quiz to editing mode. All answers and participants will be cleared.",
         "deleteQuiz": "Delete Quiz",
         "deleteTitle": "Delete Quiz?",
         "deleteConfirm": "Are you sure you want to delete this quiz? This cannot be undone.",
@@ -187,10 +190,10 @@
     },
     "about": {
         "title": "About Quiz",
-        "description": "Quiz is a free, privacy-first live quiz tool. Create interactive quizzes, share a join code, and compete in real-time — all without accounts or tracking.",
+        "description": "Quiz is a free, privacy-first live quiz tool. Create interactive quizzes, share a link, and compete in real-time — all without accounts or tracking.",
         "howItWorks": "How it works",
         "step1": "Create a quiz with multiple-choice questions",
-        "step2": "Share the join code or link with participants",
+        "step2": "Share the link or QR code with participants",
         "step3": "Control the quiz flow as the presenter",
         "step4": "Participants answer in real-time and see the leaderboard",
         "privacy": "Privacy",
@@ -235,19 +238,19 @@
         "tools": {
             "title": "Available Tools",
             "createQuiz": {
-                "description": "Create a new quiz with questions. Returns an admin URL (containing the encryption key and admin token) plus a join URL for participants."
+                "description": "Create a new quiz with questions. Returns an admin URL (containing the encryption key and admin token) plus a participant URL."
             },
             "getQuiz": {
                 "description": "Get the full details of a quiz including all decrypted questions, participants, and state. Requires the admin URL."
             },
             "addQuestion": {
-                "description": "Add a new question to an existing quiz (must be in lobby state). Requires the admin URL."
+                "description": "Add a new question to an existing quiz (must be in draft state). Requires the admin URL."
             },
             "updateQuestion": {
-                "description": "Update an existing question in a quiz (must be in lobby state). Requires the admin URL."
+                "description": "Update an existing question in a quiz (must be in draft state). Requires the admin URL."
             },
             "removeQuestion": {
-                "description": "Remove a question from a quiz (must be in lobby state). Remaining questions are re-indexed. Requires the admin URL."
+                "description": "Remove a question from a quiz (must be in draft state). Remaining questions are re-indexed. Requires the admin URL."
             },
             "deleteQuiz": {
                 "description": "Permanently delete a quiz and all its data. This cannot be undone. Requires the admin URL."

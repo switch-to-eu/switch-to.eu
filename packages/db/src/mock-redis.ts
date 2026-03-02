@@ -167,6 +167,14 @@ export class MockRedis {
         commands.push(() => this.rPush(key, value));
         return chain;
       },
+      del: (keys: string | string[]) => {
+        commands.push(() => this.del(keys));
+        return chain;
+      },
+      sRem: (key: string, member: string | string[]) => {
+        commands.push(() => this.sRem(key, member));
+        return chain;
+      },
       exec: async () => {
         const results = [];
         for (const cmd of commands) results.push(await cmd());

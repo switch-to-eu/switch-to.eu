@@ -16,9 +16,9 @@ test.describe.configure({ mode: "parallel" });
 test("tRPC quiz.health is rate-limited per IP", async ({ request }) => {
   const ip = randomIp();
 
-  // Blast 65 concurrent requests — limit is 60/min
+  // Blast 25 concurrent requests — limit is 20/min (set via RATE_LIMIT_MAX in playwright config)
   const results = await Promise.all(
-    Array.from({ length: 65 }, () =>
+    Array.from({ length: 25 }, () =>
       request.get(`${TRPC_URL}/quiz.health`, {
         headers: { "x-forwarded-for": ip },
       }),
@@ -29,7 +29,7 @@ test("tRPC quiz.health is rate-limited per IP", async ({ request }) => {
   const ok = statuses.filter((s) => s === 200).length;
   const limited = statuses.filter((s) => s === 429).length;
 
-  expect(ok).toBe(60);
+  expect(ok).toBe(20);
   expect(limited).toBe(5);
 
   // A different IP should still work
@@ -82,9 +82,9 @@ async function mcpCreateQuiz(
 test("MCP create_quiz is rate-limited per IP", async ({ request }) => {
   const testIp = randomIp();
 
-  // Exhaust the 60-req/min rate limit with cheap tRPC health calls first
+  // Exhaust the 20-req/min rate limit with cheap tRPC health calls first
   await Promise.all(
-    Array.from({ length: 60 }, () =>
+    Array.from({ length: 20 }, () =>
       request.get(`${TRPC_URL}/quiz.health`, {
         headers: { "x-forwarded-for": testIp },
       }),

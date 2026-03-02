@@ -33,13 +33,10 @@ async function seedQuiz(
     ? new Date(Date.now() - 86_400_000).toISOString()
     : new Date(Date.now() + 7 * 86_400_000).toISOString();
 
-  const joinCode = "ABC123";
-
   await mockRedis.hSet(`quiz:${id}`, {
     encryptedData: "encrypted-quiz-data",
     adminToken: hashAdminToken(adminToken),
-    joinCode,
-    state: opts.state ?? "lobby",
+    state: opts.state ?? "draft",
     currentQuestion: String(opts.currentQuestion ?? 0),
     questionStartedAt: "",
     timerSeconds: "20",
@@ -49,9 +46,7 @@ async function seedQuiz(
     expiresAt,
   });
 
-  await mockRedis.set(`quiz:join:${joinCode}`, id);
-
-  return { adminToken, joinCode };
+  return { adminToken };
 }
 
 /** Add a question to a seeded quiz */
@@ -79,7 +74,7 @@ describe("quiz router", () => {
   // --- create ---
 
   describe("create", () => {
-    it("creates a quiz and returns id, admin token, and join code", async () => {
+    it("creates a quiz and returns id and admin token", async () => {
       const caller = getCaller();
       const result = await caller.quiz.create({
         encryptedData: "test-encrypted-data",
@@ -88,13 +83,12 @@ describe("quiz router", () => {
 
       expect(result.quiz.id).toHaveLength(10);
       expect(result.quiz.encryptedData).toBe("test-encrypted-data");
-      expect(result.quiz.state).toBe("lobby");
+      expect(result.quiz.state).toBe("draft");
       expect(result.quiz.timerSeconds).toBe(20);
       expect(result.quiz.questionCount).toBe(0);
       expect(result.quiz.version).toBe(1);
       expect(result.adminToken).toBeDefined();
       expect(result.adminToken.length).toBeGreaterThan(0);
-      expect(result.joinCode).toHaveLength(6);
     });
 
     it("stores hashed admin token, not plaintext", async () => {
@@ -107,17 +101,6 @@ describe("quiz router", () => {
       const stored = mockRedis._getHash(`quiz:${result.quiz.id}`);
       expect(stored!.adminToken).not.toBe(result.adminToken);
       expect(stored!.adminToken).toBe(hashAdminToken(result.adminToken));
-    });
-
-    it("creates a join code lookup key", async () => {
-      const caller = getCaller();
-      const result = await caller.quiz.create({
-        encryptedData: "test-data",
-        timerSeconds: 20,
-      });
-
-      const quizId = mockRedis._getString(`quiz:join:${result.joinCode}`);
-      expect(quizId).toBe(result.quiz.id);
     });
 
     it("uses custom expiration hours", async () => {
@@ -185,7 +168,7 @@ describe("quiz router", () => {
       ).rejects.toThrow();
     });
 
-    it("rejects when quiz is not in lobby state", async () => {
+    it("rejects when quiz is not in draft state", async () => {
       const id = "testquiz03";
       const { adminToken } = await seedQuiz(id, { state: "active" });
       const caller = getCaller();
@@ -196,7 +179,43 @@ describe("quiz router", () => {
           adminToken,
           encryptedQuestion: "data",
         })
-      ).rejects.toThrow("lobby");
+      ).rejects.toThrow("draft");
+    });
+
+    it("inserts after specified index and shifts subsequent questions", async () => {
+      const caller = getCaller();
+
+      const quiz = await caller.quiz.create({
+        encryptedData: "test-data",
+        timerSeconds: 20,
+      });
+      const quizId = quiz.quiz.id;
+      const adminToken = quiz.adminToken;
+
+      // Add 3 questions: A(0), B(1), C(2)
+      await caller.quiz.addQuestion({ quizId, adminToken, encryptedQuestion: "enc-A" });
+      await caller.quiz.addQuestion({ quizId, adminToken, encryptedQuestion: "enc-B" });
+      await caller.quiz.addQuestion({ quizId, adminToken, encryptedQuestion: "enc-C" });
+
+      // Duplicate B (index 1) — should insert copy at index 2, shifting C to index 3
+      const result = await caller.quiz.addQuestion({
+        quizId,
+        adminToken,
+        encryptedQuestion: "enc-B-copy",
+        insertAfterIndex: 1,
+      });
+
+      expect(result.index).toBe(2);
+
+      // Question count should be 4
+      const quizState = await caller.quiz.get({ quizId });
+      expect(quizState.questionCount).toBe(4);
+
+      // Verify order: A, B, B-copy, C
+      expect(mockRedis._getHash(`quiz:${quizId}:q:0`)!.encryptedQuestion).toBe("enc-A");
+      expect(mockRedis._getHash(`quiz:${quizId}:q:1`)!.encryptedQuestion).toBe("enc-B");
+      expect(mockRedis._getHash(`quiz:${quizId}:q:2`)!.encryptedQuestion).toBe("enc-B-copy");
+      expect(mockRedis._getHash(`quiz:${quizId}:q:3`)!.encryptedQuestion).toBe("enc-C");
     });
   });
 
@@ -205,7 +224,7 @@ describe("quiz router", () => {
   describe("join", () => {
     it("adds a participant and returns session id", async () => {
       const id = "testquiz04";
-      await seedQuiz(id);
+      await seedQuiz(id, { state: "lobby" });
       const caller = getCaller();
 
       const result = await caller.quiz.join({
@@ -244,33 +263,12 @@ describe("quiz router", () => {
     });
   });
 
-  // --- resolveJoinCode ---
-
-  describe("resolveJoinCode", () => {
-    it("resolves a valid join code to quiz id", async () => {
-      const id = "testquiz06";
-      const { joinCode } = await seedQuiz(id);
-      const caller = getCaller();
-
-      const result = await caller.quiz.resolveJoinCode({ joinCode });
-      expect(result.quizId).toBe(id);
-    });
-
-    it("throws for invalid join code", async () => {
-      const caller = getCaller();
-
-      await expect(
-        caller.quiz.resolveJoinCode({ joinCode: "ZZZZZZ" })
-      ).rejects.toThrow("not found");
-    });
-  });
-
   // --- startQuiz ---
 
   describe("startQuiz", () => {
     it("transitions from lobby to active", async () => {
       const id = "testquiz07";
-      const { adminToken } = await seedQuiz(id, { questionCount: 1 });
+      const { adminToken } = await seedQuiz(id, { state: "lobby", questionCount: 1 });
       await seedQuestion(id, 0);
       await seedParticipant(id, "sess0001", "Alice");
       const caller = getCaller();
@@ -290,7 +288,7 @@ describe("quiz router", () => {
 
     it("rejects when no questions exist", async () => {
       const id = "testquiz08";
-      const { adminToken } = await seedQuiz(id);
+      const { adminToken } = await seedQuiz(id, { state: "lobby" });
       await seedParticipant(id, "sess0002", "Bob");
       const caller = getCaller();
 
@@ -301,7 +299,7 @@ describe("quiz router", () => {
 
     it("rejects when no participants exist", async () => {
       const id = "testquiz09";
-      const { adminToken } = await seedQuiz(id, { questionCount: 1 });
+      const { adminToken } = await seedQuiz(id, { state: "lobby", questionCount: 1 });
       await seedQuestion(id, 0);
       const caller = getCaller();
 
@@ -554,6 +552,9 @@ describe("quiz router", () => {
       const quizState = await caller.quiz.get({ quizId });
       expect(quizState.questionCount).toBe(2);
 
+      // 2b. Open lobby
+      await caller.quiz.openLobby({ quizId, adminToken });
+
       // 3. Two participants join
       const alice = await caller.quiz.join({ quizId, nickname: "Alice" });
       const bob = await caller.quiz.join({ quizId, nickname: "Bob" });
@@ -733,7 +734,7 @@ describe("quiz router", () => {
   describe("delete", () => {
     it("removes all quiz data", async () => {
       const id = "testquiz21";
-      const { adminToken, joinCode } = await seedQuiz(id, { questionCount: 1 });
+      const { adminToken } = await seedQuiz(id, { questionCount: 1 });
       await seedQuestion(id, 0);
       await seedParticipant(id, "sess0060", "Alice");
       await mockRedis.hSet(`quiz:${id}:a:0:sess0060`, {
@@ -749,10 +750,167 @@ describe("quiz router", () => {
 
       // Verify all keys are gone
       expect(mockRedis._getHash(`quiz:${id}`)).toBeUndefined();
-      expect(mockRedis._getString(`quiz:join:${joinCode}`)).toBeUndefined();
       expect(mockRedis._getHash(`quiz:${id}:q:0`)).toBeUndefined();
       expect(mockRedis._getHash(`quiz:${id}:p:sess0060`)).toBeUndefined();
       expect(mockRedis._getHash(`quiz:${id}:a:0:sess0060`)).toBeUndefined();
+    });
+  });
+
+  // --- resetQuiz ---
+
+  describe("resetQuiz", () => {
+    it("clears participants, answers, and order keys on reset", async () => {
+      const id = "testreset1";
+      const { adminToken } = await seedQuiz(id, { state: "active", questionCount: 2 });
+      await seedQuestion(id, 0);
+      await seedQuestion(id, 1);
+      await seedParticipant(id, "sess0200", "Alice");
+      await mockRedis.hSet(`quiz:${id}`, { questionStartedAt: new Date().toISOString() });
+
+      const caller = getCaller();
+
+      // Answer question 0
+      await caller.quiz.submitAnswer({
+        quizId: id, sessionId: "sess0200", questionIndex: 0, encryptedAnswer: "a1",
+      });
+
+      // Transition to finished
+      await caller.quiz.showResults({ quizId: id, adminToken });
+      await caller.quiz.finishQuiz({ quizId: id, adminToken });
+
+      // Reset
+      await caller.quiz.resetQuiz({ quizId: id, adminToken });
+
+      // Participants should be gone
+      const participants = await caller.quiz.getParticipants({ quizId: id });
+      expect(participants).toHaveLength(0);
+
+      // Answer keys should be gone
+      expect(mockRedis._getHash(`quiz:${id}:a:0:sess0200`)).toBeUndefined();
+
+      // Order keys should be gone (del removes the key entirely)
+      expect(mockRedis._getList(`quiz:${id}:order:0`) ?? []).toEqual([]);
+    });
+
+    it("allows new participants to join and play after reset", async () => {
+      const caller = getCaller();
+
+      // Create quiz with 1 question
+      const quiz = await caller.quiz.create({
+        encryptedData: "encrypted-title",
+        timerSeconds: 20,
+      });
+      const quizId = quiz.quiz.id;
+      const adminToken = quiz.adminToken;
+
+      await caller.quiz.addQuestion({ quizId, adminToken, encryptedQuestion: "enc-q1" });
+
+      // Open lobby for first round
+      await caller.quiz.openLobby({ quizId, adminToken });
+
+      // First round: Alice joins, plays, finishes
+      const alice1 = await caller.quiz.join({ quizId, nickname: "Alice" });
+      await caller.quiz.startQuiz({ quizId, adminToken });
+      await caller.quiz.submitAnswer({
+        quizId, sessionId: alice1.sessionId, questionIndex: 0, encryptedAnswer: "a1",
+      });
+      await caller.quiz.showResults({ quizId, adminToken });
+      await caller.quiz.finishQuiz({ quizId, adminToken });
+
+      // Reset
+      const reset = await caller.quiz.resetQuiz({ quizId, adminToken });
+      expect(reset.state).toBe("draft");
+
+      // Open lobby for new round
+      await caller.quiz.openLobby({ quizId, adminToken });
+
+      // New round: Bob joins (new group)
+      const bob = await caller.quiz.join({ quizId, nickname: "Bob" });
+      expect(bob.sessionId).toHaveLength(8);
+
+      const participants = await caller.quiz.getParticipants({ quizId });
+      expect(participants).toHaveLength(1);
+      expect(participants[0]!.nickname).toBe("Bob");
+
+      // Start and Bob can answer
+      await caller.quiz.startQuiz({ quizId, adminToken });
+      const r1 = await caller.quiz.submitAnswer({
+        quizId, sessionId: bob.sessionId, questionIndex: 0, encryptedAnswer: "b1",
+      });
+      expect(r1.position).toBe(1);
+    });
+  });
+
+  // --- openLobby ---
+
+  describe("openLobby", () => {
+    it("transitions from draft to lobby", async () => {
+      const id = "testopenl1";
+      const { adminToken } = await seedQuiz(id, { state: "draft", questionCount: 1 });
+      await seedQuestion(id, 0);
+      const caller = getCaller();
+
+      const result = await caller.quiz.openLobby({ quizId: id, adminToken });
+      expect(result.state).toBe("lobby");
+
+      const quiz = mockRedis._getHash(`quiz:${id}`);
+      expect(quiz!.state).toBe("lobby");
+    });
+
+    it("rejects when no questions exist", async () => {
+      const id = "testopenl2";
+      const { adminToken } = await seedQuiz(id, { state: "draft", questionCount: 0 });
+      const caller = getCaller();
+
+      await expect(
+        caller.quiz.openLobby({ quizId: id, adminToken })
+      ).rejects.toThrow("question");
+    });
+
+    it("rejects from non-draft state", async () => {
+      const id = "testopenl3";
+      const { adminToken } = await seedQuiz(id, { state: "lobby", questionCount: 1 });
+      await seedQuestion(id, 0);
+      const caller = getCaller();
+
+      await expect(
+        caller.quiz.openLobby({ quizId: id, adminToken })
+      ).rejects.toThrow();
+    });
+  });
+
+  // --- closeLobby ---
+
+  describe("closeLobby", () => {
+    it("transitions from lobby to draft and clears participants", async () => {
+      const id = "testclose1";
+      const { adminToken } = await seedQuiz(id, { state: "lobby", questionCount: 1 });
+      await seedQuestion(id, 0);
+      await seedParticipant(id, "sess0300", "Alice");
+      await seedParticipant(id, "sess0301", "Bob");
+      const caller = getCaller();
+
+      const result = await caller.quiz.closeLobby({ quizId: id, adminToken });
+      expect(result.state).toBe("draft");
+
+      const quiz = mockRedis._getHash(`quiz:${id}`);
+      expect(quiz!.state).toBe("draft");
+
+      // Participants should be cleared
+      const participants = await caller.quiz.getParticipants({ quizId: id });
+      expect(participants).toHaveLength(0);
+      expect(mockRedis._getHash(`quiz:${id}:p:sess0300`)).toBeUndefined();
+      expect(mockRedis._getHash(`quiz:${id}:p:sess0301`)).toBeUndefined();
+    });
+
+    it("rejects from non-lobby state", async () => {
+      const id = "testclose2";
+      const { adminToken } = await seedQuiz(id, { state: "active", questionCount: 1 });
+      const caller = getCaller();
+
+      await expect(
+        caller.quiz.closeLobby({ quizId: id, adminToken })
+      ).rejects.toThrow();
     });
   });
 
@@ -777,8 +935,7 @@ describe("quiz router", () => {
       const result = await caller.quiz.get({ quizId: id });
 
       expect(result.id).toBe(id);
-      expect(result.state).toBe("lobby");
-      expect(result.joinCode).toBe("ABC123");
+      expect(result.state).toBe("draft");
       expect(result.questionCount).toBe(2);
     });
 
@@ -800,66 +957,12 @@ describe("quiz router", () => {
     });
   });
 
-  // --- rate limiting ---
-
-  describe("rate limiting", () => {
-    it("blocks requests after exceeding limit for same IP", async () => {
-      const id = "testquiz25";
-      await seedQuiz(id);
-      const ip = "192.168.1.100";
-
-      // Rate limit is 60 requests per 60s window
-      for (let i = 0; i < 60; i++) {
-        const caller = getCaller(ip);
-        await caller.quiz.get({ quizId: id });
-      }
-
-      // 61st request should be rejected
-      const caller = getCaller(ip);
-      await expect(caller.quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
-    });
-
-    it("tracks rate limits per IP independently", async () => {
-      const id = "testquiz26";
-      await seedQuiz(id);
-
-      // Exhaust limit for IP A
-      for (let i = 0; i < 60; i++) {
-        await getCaller("10.0.0.1").quiz.get({ quizId: id });
-      }
-
-      // IP A is blocked
-      await expect(getCaller("10.0.0.1").quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
-
-      // IP B is still fine
-      const result = await getCaller("10.0.0.2").quiz.get({ quizId: id });
-      expect(result.id).toBe(id);
-    });
-
-    it("rate limits MCP-style calls with empty headers using shared 'unknown' bucket", async () => {
-      const id = "testquiz27";
-      await seedQuiz(id);
-
-      // Simulate MCP: no IP header → bucket key uses "unknown"
-      for (let i = 0; i < 60; i++) {
-        await getCaller().quiz.get({ quizId: id });
-      }
-
-      // Next call with no IP should be blocked
-      await expect(getCaller().quiz.get({ quizId: id })).rejects.toThrow("Too many requests");
-
-      // But a call from a real IP still works
-      const result = await getCaller("203.0.113.1").quiz.get({ quizId: id });
-      expect(result.id).toBe(id);
-    });
-  });
-
   // --- getParticipants ---
 
   describe("getParticipants", () => {
     it("returns all participants", async () => {
       const id = "testquiz24";
-      await seedQuiz(id);
+      await seedQuiz(id, { state: "lobby" });
       await seedParticipant(id, "sess0070", "Alice");
       await seedParticipant(id, "sess0071", "Bob");
 

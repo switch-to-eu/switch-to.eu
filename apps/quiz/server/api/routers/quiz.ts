@@ -32,11 +32,6 @@ function generateSessionId(): string {
   return Array.from({ length: 8 }, () => chars[randomInt(chars.length)]!).join("");
 }
 
-function generateJoinCode(): string {
-  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-  return Array.from({ length: 6 }, () => chars[randomInt(chars.length)]!).join("");
-}
-
 async function getValidQuiz(
   redis: RedisClientType,
   id: string
@@ -57,7 +52,6 @@ async function getValidQuiz(
 function quizHashToResponse(id: string, quiz: RedisQuizHash): QuizResponse {
   return {
     id,
-    joinCode: quiz.joinCode,
     state: quiz.state,
     currentQuestion: parseInt(quiz.currentQuestion, 10) || 0,
     questionStartedAt: quiz.questionStartedAt,
@@ -128,10 +122,11 @@ async function publishQuizUpdate(
 
 function isValidTransition(from: QuizState, to: QuizState): boolean {
   const validTransitions: Record<QuizState, QuizState[]> = {
-    lobby: ["active"],
+    draft: ["lobby"],
+    lobby: ["active", "draft"],
     active: ["results"],
     results: ["active", "finished"],
-    finished: ["lobby"],
+    finished: ["draft"],
   };
   return validTransitions[from]?.includes(to) ?? false;
 }
@@ -148,7 +143,6 @@ const MAX_PARTICIPANTS = 50;
 
 const quizIdSchema = z.string().length(10).regex(/^[A-Za-z0-9]+$/);
 const sessionIdSchema = z.string().length(8).regex(/^[A-Za-z0-9]+$/);
-const joinCodeSchema = z.string().length(6).regex(/^[A-Z0-9]+$/);
 
 // --- Router ---
 
@@ -163,7 +157,6 @@ export const quizRouter = createTRPCRouter({
     }))
     .mutation(async ({ ctx, input }) => {
       const quizId = generateQuizId();
-      const joinCode = generateJoinCode();
       const adminToken = generateAdminToken();
       const hashedToken = hashAdminToken(adminToken);
       const now = new Date();
@@ -177,8 +170,7 @@ export const quizRouter = createTRPCRouter({
       const quizHash: RedisQuizHash = {
         encryptedData: input.encryptedData,
         adminToken: hashedToken,
-        joinCode,
-        state: "lobby",
+        state: "draft",
         currentQuestion: "0",
         questionStartedAt: "",
         timerSeconds: String(input.timerSeconds),
@@ -193,14 +185,11 @@ export const quizRouter = createTRPCRouter({
       const multi = ctx.redis.multi();
       multi.hSet(`quiz:${quizId}`, quizHash as unknown as Record<string, string>);
       if (ttl) multi.expire(`quiz:${quizId}`, ttl);
-      multi.set(`quiz:join:${joinCode}`, quizId);
-      if (ttl) multi.expire(`quiz:join:${joinCode}`, ttl);
       await multi.exec();
 
       return {
         quiz: quizHashToResponse(quizId, quizHash),
         adminToken,
-        joinCode,
       };
     }),
 
@@ -210,6 +199,7 @@ export const quizRouter = createTRPCRouter({
       adminToken: z.string().min(1),
       encryptedQuestion: z.string().min(1).max(MAX_ENCRYPTED_QUESTION_SIZE),
       timerOverride: z.number().int().min(5).max(120).optional(),
+      insertAfterIndex: z.number().int().min(0).optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const quiz = await getValidQuiz(ctx.redis, input.quizId);
@@ -218,8 +208,8 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
       }
 
-      if (quiz.state !== "lobby") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only add questions in lobby state" });
+      if (quiz.state !== "draft") {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only add questions in draft state" });
       }
 
       const currentCount = parseInt(quiz.questionCount, 10) || 0;
@@ -227,8 +217,21 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "BAD_REQUEST", message: `Maximum ${MAX_QUESTIONS} questions allowed` });
       }
 
-      const index = currentCount;
       const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
+
+      // Determine insert position
+      const insertAt = input.insertAfterIndex != null && input.insertAfterIndex < currentCount
+        ? input.insertAfterIndex + 1
+        : currentCount;
+
+      // Shift questions up to make room (work backwards to avoid overwriting)
+      for (let i = currentCount - 1; i >= insertAt; i--) {
+        const q = await ctx.redis.hGetAll(`quiz:${input.quizId}:q:${i}`);
+        if (q && Object.keys(q).length > 0) {
+          await ctx.redis.hSet(`quiz:${input.quizId}:q:${i + 1}`, q);
+          if (ttl) await ctx.redis.expire(`quiz:${input.quizId}:q:${i + 1}`, ttl);
+        }
+      }
 
       const questionHash: RedisQuestionHash = {
         encryptedQuestion: input.encryptedQuestion,
@@ -236,17 +239,17 @@ export const quizRouter = createTRPCRouter({
       };
 
       const multi = ctx.redis.multi();
-      multi.hSet(`quiz:${input.quizId}:q:${index}`, questionHash as unknown as Record<string, string>);
-      if (ttl) multi.expire(`quiz:${input.quizId}:q:${index}`, ttl);
+      multi.hSet(`quiz:${input.quizId}:q:${insertAt}`, questionHash as unknown as Record<string, string>);
+      if (ttl) multi.expire(`quiz:${input.quizId}:q:${insertAt}`, ttl);
       multi.hSet(`quiz:${input.quizId}`, {
-        questionCount: String(index + 1),
+        questionCount: String(currentCount + 1),
         version: String((parseInt(quiz.version, 10) || 1) + 1),
       });
       await multi.exec();
 
       await publishQuizUpdate(ctx.redis, input.quizId);
 
-      return { index };
+      return { index: insertAt };
     }),
 
   updateQuestion: publicProcedure
@@ -264,8 +267,8 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
       }
 
-      if (quiz.state !== "lobby") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only update questions in lobby state" });
+      if (quiz.state !== "draft") {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only update questions in draft state" });
       }
 
       const questionCount = parseInt(quiz.questionCount, 10) || 0;
@@ -300,8 +303,8 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
       }
 
-      if (quiz.state !== "lobby") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only remove questions in lobby state" });
+      if (quiz.state !== "draft") {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only remove questions in draft state" });
       }
 
       const questionCount = parseInt(quiz.questionCount, 10) || 0;
@@ -349,8 +352,8 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
       }
 
-      if (quiz.state !== "lobby") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only upsert questions in lobby state" });
+      if (quiz.state !== "draft") {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Can only upsert questions in draft state" });
       }
 
       let currentCount = parseInt(quiz.questionCount, 10) || 0;
@@ -590,32 +593,33 @@ export const quizRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
       }
 
-      if (!isValidTransition(quiz.state, "lobby")) {
+      if (!isValidTransition(quiz.state, "draft")) {
         throw new TRPCError({ code: "BAD_REQUEST", message: `Cannot reset quiz from state: ${quiz.state}` });
       }
 
       const questionCount = parseInt(quiz.questionCount, 10) || 0;
       const sessionIds = await ctx.redis.sMembers(`quiz:${input.quizId}:participants`);
 
-      // Delete all answer keys
-      const answerKeys: string[] = [];
+      // Delete all answer, order, and participant keys
+      const keysToDelete: string[] = [];
       for (let i = 0; i < questionCount; i++) {
+        keysToDelete.push(`quiz:${input.quizId}:order:${i}`);
         for (const sid of sessionIds) {
-          answerKeys.push(`quiz:${input.quizId}:a:${i}:${sid}`);
+          keysToDelete.push(`quiz:${input.quizId}:a:${i}:${sid}`);
         }
       }
-
-      // Delete participant session keys and the participants set
-      const participantKeys = sessionIds.map((sid) => `quiz:${input.quizId}:p:${sid}`);
-      const keysToDelete = [...answerKeys, ...participantKeys, `quiz:${input.quizId}:participants`];
+      for (const sid of sessionIds) {
+        keysToDelete.push(`quiz:${input.quizId}:p:${sid}`);
+      }
+      keysToDelete.push(`quiz:${input.quizId}:participants`);
 
       if (keysToDelete.length > 0) {
         await ctx.redis.del(keysToDelete);
       }
 
-      // Reset quiz state to lobby
+      // Reset quiz state to draft
       await ctx.redis.hSet(`quiz:${input.quizId}`, {
-        state: "lobby",
+        state: "draft",
         currentQuestion: "0",
         questionStartedAt: "",
         version: String((parseInt(quiz.version, 10) || 1) + 1),
@@ -623,7 +627,74 @@ export const quizRouter = createTRPCRouter({
 
       await publishQuizUpdate(ctx.redis, input.quizId);
 
+      return { state: "draft" as QuizState };
+    }),
+
+  openLobby: publicProcedure
+    .input(z.object({
+      quizId: quizIdSchema,
+      adminToken: z.string().min(1),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const quiz = await getValidQuiz(ctx.redis, input.quizId);
+
+      if (!verifyAdminToken(input.adminToken, quiz.adminToken)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
+      }
+
+      if (!isValidTransition(quiz.state, "lobby")) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: `Cannot open lobby from state: ${quiz.state}` });
+      }
+
+      const questionCount = parseInt(quiz.questionCount, 10) || 0;
+      if (questionCount === 0) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Need at least 1 question to open lobby" });
+      }
+
+      await ctx.redis.hSet(`quiz:${input.quizId}`, {
+        state: "lobby",
+        version: String((parseInt(quiz.version, 10) || 1) + 1),
+      });
+
+      await publishQuizUpdate(ctx.redis, input.quizId);
+
       return { state: "lobby" as QuizState };
+    }),
+
+  closeLobby: publicProcedure
+    .input(z.object({
+      quizId: quizIdSchema,
+      adminToken: z.string().min(1),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const quiz = await getValidQuiz(ctx.redis, input.quizId);
+
+      if (!verifyAdminToken(input.adminToken, quiz.adminToken)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Invalid admin token" });
+      }
+
+      if (!isValidTransition(quiz.state, "draft")) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: `Cannot close lobby from state: ${quiz.state}` });
+      }
+
+      // Clear all participants
+      const sessionIds = await ctx.redis.sMembers(`quiz:${input.quizId}:participants`);
+      const keysToDelete: string[] = [`quiz:${input.quizId}:participants`];
+      for (const sid of sessionIds) {
+        keysToDelete.push(`quiz:${input.quizId}:p:${sid}`);
+      }
+      if (keysToDelete.length > 0) {
+        await ctx.redis.del(keysToDelete);
+      }
+
+      await ctx.redis.hSet(`quiz:${input.quizId}`, {
+        state: "draft",
+        version: String((parseInt(quiz.version, 10) || 1) + 1),
+      });
+
+      await publishQuizUpdate(ctx.redis, input.quizId);
+
+      return { state: "draft" as QuizState };
     }),
 
   submitAnswer: publicProcedure
@@ -704,7 +775,6 @@ export const quizRouter = createTRPCRouter({
       const keysToDelete = [
         `quiz:${input.quizId}`,
         `quiz:${input.quizId}:participants`,
-        `quiz:join:${quiz.joinCode}`,
       ];
 
       // Question keys
@@ -783,16 +853,6 @@ export const quizRouter = createTRPCRouter({
       return getParticipants(ctx.redis, input.quizId);
     }),
 
-  resolveJoinCode: publicProcedure
-    .input(z.object({ joinCode: joinCodeSchema }))
-    .query(async ({ ctx, input }) => {
-      const quizId = await ctx.redis.get(`quiz:join:${input.joinCode}`);
-      if (!quizId) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Join code not found" });
-      }
-      return { quizId };
-    }),
-
   health: publicProcedure.query(async ({ ctx }) => {
     try {
       await ctx.redis.ping();
@@ -823,8 +883,8 @@ export const quizRouter = createTRPCRouter({
         const currentQ = parseInt(quiz.currentQuestion, 10) || 0;
         const questionCount = parseInt(quiz.questionCount, 10) || 0;
 
-        // Include all questions in lobby state (for admin UI live updates)
-        if (quiz.state === "lobby" && questionCount > 0) {
+        // Include all questions in draft/lobby state (for admin UI live updates)
+        if ((quiz.state === "draft" || quiz.state === "lobby") && questionCount > 0) {
           update.allQuestions = [];
           for (let i = 0; i < questionCount; i++) {
             const q = (await ctx.redis.hGetAll(

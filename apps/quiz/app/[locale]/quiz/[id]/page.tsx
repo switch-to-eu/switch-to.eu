@@ -16,6 +16,8 @@ import { AnswerDistribution } from "@components/answer-distribution";
 import { Leaderboard } from "@components/leaderboard";
 import { Podium } from "@components/podium";
 import { ParticipantList } from "@components/participant-list";
+import { Button } from "@switch-to-eu/ui/components/button";
+import { Input } from "@switch-to-eu/ui/components/input";
 import type { DecryptedQuestion, DecryptedQuizData, DecryptedAnswer } from "@/lib/interfaces";
 import { QUIZ_STATE_TITLES } from "@/server/db/types";
 import type { QuizStateUpdate } from "@/server/db/types";
@@ -37,7 +39,13 @@ export default function QuizParticipantPage() {
   >([]);
   const lastQuestionIndexRef = useRef<number>(-1);
 
+  const [nickname, setNickname] = useState("");
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinError, setJoinError] = useState<string | null>(null);
+
   const encryptionKey = fragment.params.key || "";
+
+  const joinMutation = api.quiz.join.useMutation();
 
   // Load session ID from sessionStorage
   useEffect(() => {
@@ -63,6 +71,22 @@ export default function QuizParticipantPage() {
       onData: (data: QuizStateUpdate) => {
         void (async () => {
         setLatestUpdate(data);
+
+        // Detect stale session after quiz reset: our sessionId is no longer in the participants list
+        if ((data.quiz.state === "draft" || data.quiz.state === "lobby") && sessionId && data.participants.length >= 0) {
+          const stillParticipant = data.participants.some((p) => p.sessionId === sessionId);
+          if (!stillParticipant) {
+            sessionStorage.removeItem(`quiz-session-${params.id}`);
+            setSessionId(null);
+            setQuizData(null);
+            setCurrentQuestion(null);
+            setHasAnswered(false);
+            setSelectedAnswer(null);
+            setScoring(null);
+            setAllAnsweredQuestions([]);
+            lastQuestionIndexRef.current = -1;
+          }
+        }
 
         // Decrypt quiz title
         if (encryptionKey && data.quiz.encryptedData && !quizData) {
@@ -173,11 +197,102 @@ export default function QuizParticipantPage() {
     );
   }
 
-  // No session ID
+  const handleJoin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!nickname.trim() || isJoining) return;
+
+    setIsJoining(true);
+    setJoinError(null);
+
+    try {
+      const result = await joinMutation.mutateAsync({
+        quizId: params.id,
+        nickname: nickname.trim(),
+      });
+      sessionStorage.setItem(`quiz-session-${params.id}`, result.sessionId);
+      setSessionId(result.sessionId);
+    } catch {
+      setJoinError(t("join.error"));
+      setIsJoining(false);
+    }
+  };
+
+  // No session ID — show state-dependent join UI
   if (!sessionId) {
+    const quizState = latestUpdate?.quiz.state;
+
+    // Still loading SSE
+    if (!latestUpdate) {
+      return (
+        <main className="mx-auto max-w-md px-4 py-20 text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-muted-foreground" />
+        </main>
+      );
+    }
+
+    // Draft — quiz not open yet
+    if (quizState === "draft") {
+      return (
+        <main className="mx-auto max-w-md px-4 py-12 text-center space-y-4">
+          <h1 className="font-bricolage text-2xl font-bold">{t("draft.notOpenYet")}</h1>
+          <p className="text-muted-foreground">{t("draft.waitingForLobby")}</p>
+          <Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" />
+        </main>
+      );
+    }
+
+    // Lobby — show inline join form
+    if (quizState === "lobby") {
+      return (
+        <main className="mx-auto max-w-md px-4 py-12">
+          <div className="text-center mb-8">
+            <h1 className="font-bricolage text-3xl font-bold mb-2">{t("join.title")}</h1>
+            <p className="text-muted-foreground">{t("join.subtitle")}</p>
+          </div>
+
+          <form onSubmit={handleJoin} className="space-y-4">
+            <div>
+              <label htmlFor="nickname" className="mb-1 block text-sm font-medium">
+                {t("join.nickname")}
+              </label>
+              <Input
+                id="nickname"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                placeholder={t("join.nicknamePlaceholder")}
+                maxLength={30}
+                required
+                autoFocus
+                disabled={isJoining}
+              />
+            </div>
+
+            {joinError && <p className="text-sm text-red-600">{joinError}</p>}
+
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full gradient-primary text-white"
+              disabled={isJoining || !nickname.trim()}
+            >
+              {isJoining ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {t("join.joining")}
+                </>
+              ) : (
+                t("join.joinButton")
+              )}
+            </Button>
+          </form>
+        </main>
+      );
+    }
+
+    // Active/results/finished — quiz already started
     return (
-      <main className="mx-auto max-w-lg px-4 py-20 text-center">
-        <p className="text-muted-foreground">No session found. Please join the quiz first.</p>
+      <main className="mx-auto max-w-md px-4 py-12 text-center">
+        <h1 className="font-bricolage text-2xl font-bold mb-4">{t("join.quizAlreadyStarted")}</h1>
       </main>
     );
   }

@@ -134,9 +134,14 @@ export function LobbyQuestionList({
         quizId,
         adminToken,
         encryptedQuestion: encrypted,
+        insertAfterIndex: index,
       });
       if (result) {
-        setQuestions(prev => [...prev, { ...question }]);
+        setQuestions(prev => [
+          ...prev.slice(0, index + 1),
+          { ...question },
+          ...prev.slice(index + 1),
+        ]);
       }
     } catch {
       // ignore

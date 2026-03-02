@@ -2,8 +2,7 @@
 export interface RedisQuizHash {
   encryptedData: string;       // Encrypted JSON: { title, description }
   adminToken: string;          // SHA-256 hash
-  joinCode: string;            // 6-char uppercase alphanumeric
-  state: QuizState;            // lobby | active | results | finished
+  state: QuizState;            // draft | lobby | active | results | finished
   currentQuestion: string;     // 0-based index as string
   questionStartedAt: string;   // ISO 8601 (empty when not active)
   timerSeconds: string;        // Default timer per question
@@ -34,13 +33,14 @@ export interface RedisAnswerHash {
 }
 
 /** Quiz states */
-export type QuizState = "lobby" | "active" | "results" | "finished";
+export type QuizState = "draft" | "lobby" | "active" | "results" | "finished";
 
 /**
  * Document title prefixes per quiz state.
  * Used by the player page to set document.title and by e2e tests to detect state.
  */
 export const QUIZ_STATE_TITLES: Record<QuizState, string> = {
+  draft: "[draft]",
   lobby: "[lobby]",
   active: "[active]",
   results: "[results]",
@@ -49,16 +49,16 @@ export const QUIZ_STATE_TITLES: Record<QuizState, string> = {
 
 /** Valid state transitions */
 export const VALID_TRANSITIONS: Record<QuizState, QuizState[]> = {
-  lobby: ["active"],
+  draft: ["lobby"],
+  lobby: ["active", "draft"],
   active: ["results"],
   results: ["active", "finished"],
-  finished: [],
+  finished: ["draft"],
 };
 
 /** tRPC response types */
 export interface QuizResponse {
   id: string;
-  joinCode: string;
   state: QuizState;
   currentQuestion: number;
   questionStartedAt: string;
@@ -102,6 +102,6 @@ export interface QuizStateUpdate {
     startedAt: string;
   };
   answers?: AnswerInfo[];
-  /** All questions — included in lobby state so the admin UI updates via SSE without extra fetches */
+  /** All questions — included in draft/lobby state so the admin UI updates via SSE without extra fetches */
   allQuestions?: QuestionResponse[];
 }

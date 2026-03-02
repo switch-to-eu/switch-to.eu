@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Loader2, Play, SkipForward, BarChart3, Flag, Trash2, Users, RotateCcw } from "lucide-react";
+import { Loader2, Play, SkipForward, BarChart3, Flag, Trash2, Users, RotateCcw, DoorOpen, ArrowLeft } from "lucide-react";
 import { decryptData } from "@switch-to-eu/db/crypto";
 
 import { api } from "@/lib/trpc-client";
 import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { useCountdown } from "@hooks/use-countdown";
 import { computeScoring, type ScoringResult } from "@hooks/use-scoring";
-import { JoinCodeDisplay } from "@components/join-code-display";
+import { QrShareDisplay } from "@components/qr-share-display";
 import { LobbyQuestionList } from "@components/lobby-question-list";
 import { ParticipantList } from "@components/participant-list";
 import { CountdownTimer } from "@components/countdown-timer";
@@ -50,6 +50,8 @@ export default function QuizAdminPage() {
   const encryptionKey = fragment.params.key || "";
   const adminToken = fragment.params.token || "";
 
+  const openLobby = api.quiz.openLobby.useMutation();
+  const closeLobby = api.quiz.closeLobby.useMutation();
   const startQuiz = api.quiz.startQuiz.useMutation();
   const showResults = api.quiz.showResults.useMutation();
   const nextQuestion = api.quiz.nextQuestion.useMutation();
@@ -143,6 +145,20 @@ export default function QuizAdminPage() {
     enabled: latestUpdate?.quiz.state === "active",
   });
 
+  const handleOpenLobby = async () => {
+    setIsTransitioning(true);
+    try {
+      await openLobby.mutateAsync({ quizId: params.id, adminToken });
+    } catch { setIsTransitioning(false); }
+  };
+
+  const handleCloseLobby = async () => {
+    setIsTransitioning(true);
+    try {
+      await closeLobby.mutateAsync({ quizId: params.id, adminToken });
+    } catch { setIsTransitioning(false); }
+  };
+
   const handleStartQuiz = async () => {
     setIsTransitioning(true);
     try {
@@ -209,9 +225,9 @@ export default function QuizAdminPage() {
   const { scoringEnabled, leaderboardEnabled } = latestUpdate.quiz;
   const isLastQuestion = latestUpdate.quiz.currentQuestion >= latestUpdate.quiz.questionCount - 1;
 
-  // Build share URL for join page
+  // Build share URL for participant page
   const shareUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/${window.location.pathname.split("/")[1]}/join/${latestUpdate.quiz.joinCode}#key=${encodeURIComponent(encryptionKey)}`
+    ? `${window.location.origin}/${window.location.pathname.split("/")[1]}/quiz/${params.id}#key=${encodeURIComponent(encryptionKey)}`
     : "";
 
   return (
@@ -248,13 +264,9 @@ export default function QuizAdminPage() {
         </AlertDialog>
       </div>
 
-      {/* Lobby */}
-      {state === "lobby" && (
+      {/* Draft — edit questions, then open lobby */}
+      {state === "draft" && (
         <div className="space-y-6">
-          <div className="rounded-lg border bg-white p-6">
-            <JoinCodeDisplay joinCode={latestUpdate.quiz.joinCode} shareUrl={shareUrl} />
-          </div>
-
           <div className="rounded-lg border bg-white p-6">
             <LobbyQuestionList
               quizId={params.id}
@@ -264,6 +276,33 @@ export default function QuizAdminPage() {
               version={latestUpdate.quiz.version}
               allQuestions={latestUpdate.allQuestions}
             />
+          </div>
+
+          <Button
+            size="lg"
+            className="w-full gradient-primary text-white"
+            onClick={handleOpenLobby}
+            disabled={isTransitioning || latestUpdate.quiz.questionCount === 0}
+          >
+            {isTransitioning ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <DoorOpen className="mr-2 h-4 w-4" />
+            )}
+            {tAdmin("openLobby")}
+          </Button>
+
+          {latestUpdate.quiz.questionCount === 0 && (
+            <p className="text-sm text-amber-600 text-center">{t("lobby.needQuestions")}</p>
+          )}
+        </div>
+      )}
+
+      {/* Lobby — QR code, participants join, start quiz */}
+      {state === "lobby" && (
+        <div className="space-y-6">
+          <div className="rounded-lg border bg-white p-6">
+            <QrShareDisplay shareUrl={shareUrl} />
           </div>
 
           <div className="rounded-lg border bg-white p-6">
@@ -288,9 +327,17 @@ export default function QuizAdminPage() {
             {t("lobby.startQuiz")}
           </Button>
 
-          {latestUpdate.quiz.questionCount === 0 && (
-            <p className="text-sm text-amber-600 text-center">{t("lobby.needQuestions")}</p>
-          )}
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-full"
+            onClick={handleCloseLobby}
+            disabled={isTransitioning}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {tAdmin("backToDraft")}
+          </Button>
+
           {latestUpdate.participants.length === 0 && (
             <p className="text-sm text-amber-600 text-center">{t("lobby.needParticipants")}</p>
           )}

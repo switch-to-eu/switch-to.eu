@@ -41,9 +41,8 @@
         "hero": {
             "title": "Live Quizzen,",
             "titleHighlight": "Geen Registratie Nodig",
-            "subtitle": "Maak interactieve quizzen in seconden. Deelnemers doen mee met een simpele code. Strijd op een real-time scorebord. Volledig versleuteld.",
-            "createQuiz": "Maak een Quiz",
-            "joinQuiz": "Doe mee aan een Quiz"
+            "subtitle": "Maak interactieve quizzen in seconden. Deelnemers doen mee via een link of QR-code. Strijd op een real-time scorebord. Volledig versleuteld.",
+            "createQuiz": "Maak een Quiz"
         },
         "features": {
             "title": "Hoe het werkt",
@@ -52,8 +51,8 @@
                 "description": "Voeg meerkeuzevragen toe met een timer. Stel de juiste antwoorden in en pas de ervaring aan."
             },
             "share": {
-                "title": "Deel de Code",
-                "description": "Deel een simpele deelnamecode of link. Deelnemers doen direct mee — geen accounts, geen downloads."
+                "title": "Deel de Link",
+                "description": "Deel een link of scan een QR-code. Deelnemers doen direct mee — geen accounts, geen downloads."
             },
             "play": {
                 "title": "Speel Live",
@@ -103,26 +102,28 @@
         "fillAllOptions": "Vul alle opties in voor elke vraag",
         "fillQuestionText": "Vul de vraagtekst in voor elke vraag"
     },
-    "join": {
-        "title": "Doe Mee aan een Quiz",
-        "subtitle": "Voer je bijnaam in om mee te doen",
-        "nickname": "Je Bijnaam",
-        "nicknamePlaceholder": "bijv. Alex",
-        "joinButton": "Deelnemen",
-        "joining": "Deelnemen...",
-        "quizNotFound": "Quiz niet gevonden. Controleer je deelnamecode.",
-        "quizAlreadyFinished": "Deze quiz is al afgelopen.",
-        "missingEncryptionKey": "Ongeldige deelnamelink. Vraag de quizhost om de volledige link met de encryptiesleutel."
-    },
     "quiz": {
         "missingEncryptionKey": "Ongeldige link. Vraag de quizhost om de volledige link met de encryptiesleutel.",
+        "draft": {
+            "notOpenYet": "Quiz Nog Niet Open",
+            "waitingForLobby": "De host heeft de lobby nog niet geopend. Even geduld."
+        },
+        "join": {
+            "title": "Doe Mee aan een Quiz",
+            "subtitle": "Voer je bijnaam in om mee te doen",
+            "nickname": "Je Bijnaam",
+            "nicknamePlaceholder": "bijv. Alex",
+            "joinButton": "Deelnemen",
+            "joining": "Deelnemen...",
+            "quizAlreadyStarted": "Deze quiz is al begonnen.",
+            "error": "Deelnemen mislukt. Probeer het opnieuw."
+        },
         "lobby": {
             "title": "Wachten tot de quiz begint...",
             "participants": "Deelnemers",
             "noParticipants": "Nog geen deelnemers",
             "waitingForHost": "Wachten tot de host de quiz start",
             "shareLink": "Deel deze link om mee te doen:",
-            "joinCode": "Code",
             "copyLink": "Link Kopiëren",
             "linkCopied": "Link gekopieerd!",
             "startQuiz": "Quiz Starten",
@@ -175,9 +176,11 @@
         "doneButton": "Klaar",
         "addQuestionLobby": "Vraag Toevoegen",
         "saving": "Opslaan...",
+        "openLobby": "Lobby Openen",
+        "backToDraft": "Terug naar Bewerken",
         "resetQuiz": "Opnieuw Spelen",
         "resetTitle": "Quiz Resetten?",
-        "resetConfirm": "Dit zet de quiz terug naar de lobby. Alle antwoorden en deelnemers worden gewist.",
+        "resetConfirm": "Dit zet de quiz terug naar de bewerkingsmodus. Alle antwoorden en deelnemers worden gewist.",
         "deleteQuiz": "Quiz Verwijderen",
         "deleteTitle": "Quiz Verwijderen?",
         "deleteConfirm": "Weet je zeker dat je deze quiz wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
@@ -187,10 +190,10 @@
     },
     "about": {
         "title": "Over Quiz",
-        "description": "Quiz is een gratis, privacy-first live quiztool. Maak interactieve quizzen, deel een deelnamecode en strijd in real-time — alles zonder accounts of tracking.",
+        "description": "Quiz is een gratis, privacy-first live quiztool. Maak interactieve quizzen, deel een link en strijd in real-time — alles zonder accounts of tracking.",
         "howItWorks": "Hoe het werkt",
         "step1": "Maak een quiz met meerkeuzevragen",
-        "step2": "Deel de deelnamecode of link met deelnemers",
+        "step2": "Deel de link of QR-code met deelnemers",
         "step3": "Beheer de quizflow als presentator",
         "step4": "Deelnemers beantwoorden in real-time en zien het scorebord",
         "privacy": "Privacy",
@@ -235,19 +238,19 @@
         "tools": {
             "title": "Beschikbare Tools",
             "createQuiz": {
-                "description": "Maak een nieuwe quiz met vragen. Retourneert een admin-URL (met de encryptiesleutel en admin-token) plus een deelname-URL voor deelnemers."
+                "description": "Maak een nieuwe quiz met vragen. Retourneert een admin-URL (met de encryptiesleutel en admin-token) plus een deelnemers-URL."
             },
             "getQuiz": {
                 "description": "Haal de volledige details van een quiz op, inclusief alle ontsleutelde vragen, deelnemers en status. Vereist de admin-URL."
             },
             "addQuestion": {
-                "description": "Voeg een nieuwe vraag toe aan een bestaande quiz (moet in lobbystatus zijn). Vereist de admin-URL."
+                "description": "Voeg een nieuwe vraag toe aan een bestaande quiz (moet in conceptstatus zijn). Vereist de admin-URL."
             },
             "updateQuestion": {
-                "description": "Werk een bestaande vraag bij in een quiz (moet in lobbystatus zijn). Vereist de admin-URL."
+                "description": "Werk een bestaande vraag bij in een quiz (moet in conceptstatus zijn). Vereist de admin-URL."
             },
             "removeQuestion": {
-                "description": "Verwijder een vraag uit een quiz (moet in lobbystatus zijn). Resterende vragen worden opnieuw geïndexeerd. Vereist de admin-URL."
+                "description": "Verwijder een vraag uit een quiz (moet in conceptstatus zijn). Resterende vragen worden opnieuw geïndexeerd. Vereist de admin-URL."
             },
             "deleteQuiz": {
                 "description": "Verwijder een quiz en alle bijbehorende gegevens permanent. Dit kan niet ongedaan worden gemaakt. Vereist de admin-URL."
