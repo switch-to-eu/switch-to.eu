@@ -51,32 +51,56 @@ export function Footer({
   feedbackToolId,
 }: FooterProps) {
   const content = (
-    <>
-      <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
-        {links.map((link, index) => (
-          <a
-            key={index}
-            href={link.href}
-            className="text-sm font-medium text-white/70 transition-colors hover:text-brand-yellow"
-            {...(link.external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-      <div className="flex flex-col items-center gap-2">
-        {copyright && (
-          <div className="text-sm text-white/50 text-center">
-            {copyright}
-          </div>
-        )}
-        {branding && (
-          <div className="text-xs text-white/40">{branding}</div>
-        )}
-      </div>
-    </>
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Tools Column */}
+      {showTools && (
+        <FooterTools
+          excludeToolId={currentToolId}
+          title={toolsSectionTitle}
+        />
+      )}
+
+      {/* Links Column */}
+      {links.length > 0 && (
+        <div>
+          {linksSectionTitle && (
+            <h3 className="text-sm font-semibold text-white mb-3">
+              {linksSectionTitle}
+            </h3>
+          )}
+          <ul className="space-y-2">
+            {links.map((link, index) => (
+              <li key={index}>
+                <a
+                  href={link.href}
+                  className="text-sm text-white/60 transition-colors hover:text-brand-yellow"
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          {feedbackToolId && (
+            <div className="mt-2">
+              <FooterFeedback toolId={feedbackToolId} />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Branding + Copyright Column */}
+      {(branding || copyright) && (
+        <div className="flex flex-col gap-4">
+          {branding}
+          {copyright && (
+            <p className="text-xs text-white/40">{copyright}</p>
+          )}
+        </div>
+      )}
+    </div>
   );
 
   return (

@@ -124,7 +124,7 @@ export default async function LocaleLayout({
                           href="https://switch-to.eu"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-indigo-600 hover:text-indigo-500 transition-colors font-semibold underline"
+                          className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
                         >
                           {chunks}
                         </a>
@@ -134,7 +134,7 @@ export default async function LocaleLayout({
                       href="https://www.vinnie.studio"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-indigo-600 hover:text-indigo-500 transition-colors font-semibold underline"
+                      className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
                     >
                       Studio Vinnie
                     </a>
@@ -143,7 +143,7 @@ export default async function LocaleLayout({
                       href="https://www.mvpeters.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-indigo-600 hover:text-indigo-500 transition-colors font-semibold underline"
+                      className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
                     >
                       MVPeters
                     </a>
@@ -151,7 +151,7 @@ export default async function LocaleLayout({
                 }
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-foreground">Kanban</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-white">Kanban</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }

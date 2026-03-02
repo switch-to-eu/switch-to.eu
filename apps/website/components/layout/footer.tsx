@@ -32,10 +32,10 @@ export async function Footer() {
       ]}
       branding={
         <div className="flex flex-col gap-1">
-          <span className="text-lg font-black tracking-wide uppercase text-foreground">
+          <span className="text-lg font-black tracking-wide uppercase text-white">
             Switch-to.eu
           </span>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-white/50">
             EU alternatives to global services
           </span>
         </div>

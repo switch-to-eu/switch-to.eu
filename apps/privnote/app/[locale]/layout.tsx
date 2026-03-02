@@ -136,7 +136,7 @@ export default async function LocaleLayout({
                           href="https://switch-to.eu"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
+                          className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
                         >
                           {chunks}
                         </a>
@@ -146,7 +146,7 @@ export default async function LocaleLayout({
                 }
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-foreground">PrivNote</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-white">PrivNote</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }
