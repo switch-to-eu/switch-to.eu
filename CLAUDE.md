@@ -169,6 +169,7 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
+- **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code. The `packages/ui/` (shadcn) may retain dark mode variants from upstream but they are unused — never add new ones in app-level code.
 - Custom fonts: BricolageGrotesque (headings, `--font-bricolage-grotesque`), HankenGrotesk (body, `--font-hanken-grotesk`)
 - ESLint 9 flat config; unused vars prefixed with `_` are allowed
 - shadcn/ui components live in `packages/ui/src/components/`
