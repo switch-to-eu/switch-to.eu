@@ -33,18 +33,18 @@
         "next": "catalog:",
         "next-intl": "catalog:",
         "react": "catalog:",
-        "react-country-flag": "^3.1.0",
+        "react-country-flag": "catalog:",
         "react-dom": "catalog:",
         "react-hook-form": "catalog:",
-        "server-only": "^0.0.1",
+        "server-only": "catalog:",
         "superjson": "catalog:",
         "tailwind-merge": "catalog:",
         "whoiser": "^2.0.0-beta.5",
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@eslint/eslintrc": "^3.3.1",
-        "@playwright/test": "^1.58.2",
+        "@eslint/eslintrc": "catalog:",
+        "@playwright/test": "catalog:",
         "@switch-to-eu/eslint-config": "workspace:*",
         "@switch-to-eu/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "catalog:",
@@ -52,11 +52,11 @@
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "eslint": "catalog:",
-        "eslint-config-next": "^15.3.3",
-        "postcss": "^8.5.3",
+        "eslint-config-next": "catalog:",
+        "postcss": "catalog:",
         "tailwindcss": "catalog:",
-        "tw-animate-css": "^1.2.8",
+        "tw-animate-css": "catalog:",
         "typescript": "catalog:",
-        "vitest": "^4.0.18"
+        "vitest": "catalog:"
     }
 }

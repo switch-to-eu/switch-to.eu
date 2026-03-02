@@ -38,3 +38,7 @@ quiz.switch-to.test {
 ui-kit.switch-to.test {
 	reverse_proxy localhost:5013
 }
+
+kanban.switch-to.test {
+	reverse_proxy localhost:5022
+}

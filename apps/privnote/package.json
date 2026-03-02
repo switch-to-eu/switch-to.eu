@@ -32,20 +32,20 @@
     "clsx": "catalog:",
     "lucide-react": "catalog:",
     "mcp-handler": "catalog:",
-    "nanoid": "^5.1.5",
+    "nanoid": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
-    "server-only": "^0.0.1",
+    "server-only": "catalog:",
     "sonner": "catalog:",
     "superjson": "catalog:",
     "tailwind-merge": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "catalog:",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
@@ -53,10 +53,10 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
-    "postcss": "^8.5.3",
-    "redis": "^4.7.0",
+    "postcss": "catalog:",
+    "redis": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^4.0.18"
+    "vitest": "catalog:"
   }
 }

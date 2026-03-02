@@ -25,7 +25,7 @@
         "tailwind-merge": "catalog:"
     },
     "devDependencies": {
-        "@eslint/eslintrc": "^3.3.1",
+        "@eslint/eslintrc": "catalog:",
         "@switch-to-eu/eslint-config": "workspace:*",
         "@switch-to-eu/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "catalog:",
@@ -33,9 +33,9 @@
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "eslint": "catalog:",
-        "postcss": "^8.5.3",
+        "postcss": "catalog:",
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
-        "typescript-eslint": "^8.27.0"
+        "typescript-eslint": "catalog:"
     }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ExternalLink, ArrowRight } from "lucide-react";
-import { tools, type Tool } from "@switch-to-eu/blocks/data/tools";
+import { getActiveTools, type Tool } from "@switch-to-eu/blocks/data/tools";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { cva } from "class-variance-authority";
@@ -152,7 +152,7 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
 export function ToolShowcase({ className }: ToolShowcaseProps) {
   return (
     <div className={`space-y-6 max-w-4xl mx-auto ${className}`}>
-      {tools.map((tool, index) => (
+      {getActiveTools().map((tool, index) => (
         <ToolCard key={tool.id} tool={tool} index={index} />
       ))}
     </div>

@@ -36,14 +36,14 @@
     "react-confetti": "^6.4.0",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
-    "redis": "^4.7.0",
-    "tw-animate-css": "^1.2.8",
+    "redis": "catalog:",
+    "tw-animate-css": "catalog:",
     "uuid": "^11.1.0",
     "zod": "catalog:",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "catalog:",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
@@ -53,7 +53,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
-    "gray-matter": "^4.0.3",
+    "gray-matter": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },

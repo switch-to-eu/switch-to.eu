@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 export interface Tool {
     id: string;
     name: string;
@@ -10,10 +12,19 @@ export interface Tool {
 
 export const tools: Tool[] = [
     {
+        id: 'website-tool',
+        name: 'Website Tool',
+        url: isDev ? 'https://website.switch-to.test' : 'https://website.switch-to.eu',
+        status: 'active',
+        color: 'emerald-600',
+        secondaryColor: 'teal-600',
+        icon: 'globe'
+    },
+    {
         id: 'plotty',
         name: 'Plotty',
-        url: 'https://plotty.eu',
-        status: 'active',
+        url: isDev ? 'https://poll.switch-to.test' : 'https://plotty.eu',
+        status: 'coming-soon',
         color: 'purple-600',
         secondaryColor: 'blue-600',
         icon: 'calendar'
@@ -21,8 +32,8 @@ export const tools: Tool[] = [
     {
         id: 'listy',
         name: 'Listy',
-        url: 'https://list.switch-to.eu',
-        status: 'active',
+        url: isDev ? 'https://list.switch-to.test' : 'https://list.switch-to.eu',
+        status: 'coming-soon',
         color: 'teal-600',
         secondaryColor: 'green-600',
         icon: 'list-checks'
@@ -30,7 +41,7 @@ export const tools: Tool[] = [
     {
         id: 'keepfocus',
         name: 'KeepFocus',
-        url: 'https://keepfocus.eu',
+        url: isDev ? 'https://focus.switch-to.test' : 'https://keepfocus.eu',
         status: 'active',
         color: 'blue-600',
         secondaryColor: 'purple-600',
@@ -39,7 +50,7 @@ export const tools: Tool[] = [
     {
         id: 'privnote',
         name: 'PrivNote',
-        url: 'https://privnote.switch-to.eu',
+        url: isDev ? 'https://note.switch-to.test' : 'https://privnote.switch-to.eu',
         status: 'active',
         color: 'amber-600',
         secondaryColor: 'orange-600',
@@ -48,11 +59,20 @@ export const tools: Tool[] = [
     {
         id: 'quiz',
         name: 'Quiz',
-        url: 'https://quiz.switch-to.eu',
+        url: isDev ? 'https://quiz.switch-to.test' : 'https://quiz.switch-to.eu',
         status: 'active',
         color: 'rose-600',
         secondaryColor: 'orange-600',
         icon: 'brain'
+    },
+    {
+        id: 'kanban',
+        name: 'Kanban',
+        url: isDev ? 'https://kanban.switch-to.test' : 'https://kanban.switch-to.eu',
+        status: 'coming-soon',
+        color: 'indigo-600',
+        secondaryColor: 'violet-600',
+        icon: 'kanban-square'
     }
 ];
 
@@ -61,6 +81,7 @@ export const getToolById = (id: string): Tool | undefined => {
 };
 
 export const getActiveTools = (): Tool[] => {
+    if (isDev) return tools;
     return tools.filter(tool => tool.status === 'active');
 };
 

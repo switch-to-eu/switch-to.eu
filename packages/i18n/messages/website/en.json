@@ -552,6 +552,10 @@
       "quiz": {
         "title": "Quiz",
         "description": "Run live quizzes for classrooms and teams — no registration, end-to-end encrypted, privacy-first."
+      },
+      "kanban": {
+        "title": "Kanban",
+        "description": "Private Kanban boards for teams — organize tasks visually, no account needed, end-to-end encrypted."
       }
     }
   },
