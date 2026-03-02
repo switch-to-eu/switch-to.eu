@@ -128,17 +128,17 @@ const handler = createMcpHandler(
             .int()
             .min(0)
             .max(120)
-            .default(20)
+            .default(0)
             .describe(
-              "Default timer per question in seconds (0 = no timer). Default: 20.",
+              "Default timer per question in seconds (0 = no timer). Default: 0 (no timer).",
             ),
           expirationHours: z
             .number()
             .int()
-            .min(1)
+            .min(0)
             .max(168)
-            .default(24)
-            .describe("Hours until the quiz expires (1–168). Default: 24."),
+            .default(0)
+            .describe("Hours until the quiz expires (0 = no expiration, 1–168). Default: 0 (no expiration)."),
         },
       },
       async ({
@@ -185,14 +185,15 @@ const handler = createMcpHandler(
           }
 
           const baseUrl = getBaseUrl();
-          const adminUrl = `${baseUrl}/en/quiz/${result.quiz.id}/admin#token=${encodeURIComponent(result.adminToken)}&key=${encodeURIComponent(encryptionKey)}`;
-          const joinUrl = `${baseUrl}/en/join/${result.joinCode}`;
+          const keyFragment = encodeURIComponent(encryptionKey);
+          const adminUrl = `${baseUrl}/en/quiz/${result.quiz.id}/admin#token=${encodeURIComponent(result.adminToken)}&key=${keyFragment}`;
+          const joinUrl = `${baseUrl}/en/join/${result.joinCode}#key=${keyFragment}`;
 
           const lines = [
             `Quiz created successfully!`,
             ``,
             `Admin URL (save this!): ${adminUrl}`,
-            `Join URL: ${joinUrl}`,
+            `Join URL (share this with participants!): ${joinUrl}`,
             ``,
             `Details:`,
             `- Title: ${title}`,
@@ -274,7 +275,8 @@ const handler = createMcpHandler(
           );
 
           const baseUrl = getBaseUrl();
-          const joinUrl = `${baseUrl}/en/join/${quiz.joinCode}`;
+          const keyFragment = encodeURIComponent(encryptionKey);
+          const joinUrl = `${baseUrl}/en/join/${quiz.joinCode}#key=${keyFragment}`;
 
           const lines = [
             `Quiz: ${metadata.title}`,

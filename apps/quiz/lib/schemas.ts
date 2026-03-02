@@ -10,7 +10,7 @@ export const nicknameSchema = z.string().min(1).max(30).trim();
 
 export const timerSecondsSchema = z.number().min(0).max(120);
 
-export const expirationHoursSchema = z.number().min(1).max(168);
+export const expirationHoursSchema = z.number().min(0).max(168);
 
 export const questionIndexSchema = z.number().int().min(0);
 
@@ -29,7 +29,7 @@ export const quizFormSchema = z.object({
   description: z.string().max(500, "maxLength").optional().or(z.literal("")),
   questions: z.array(questionFormSchema).min(1, "minQuestions"),
   timerSeconds: z.number().min(0).max(120),
-  expirationHours: z.number().min(1).max(168),
+  expirationHours: z.number().min(0).max(168),
 });
 
 export type QuizFormData = z.infer<typeof quizFormSchema>;

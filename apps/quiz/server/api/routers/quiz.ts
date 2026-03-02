@@ -47,7 +47,7 @@ async function getValidQuiz(
     throw new TRPCError({ code: "NOT_FOUND", message: "Quiz not found" });
   }
 
-  if (new Date(quiz.expiresAt) < new Date()) {
+  if (quiz.expiresAt && new Date(quiz.expiresAt) < new Date()) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "Quiz has expired" });
   }
 
@@ -155,7 +155,7 @@ export const quizRouter = createTRPCRouter({
     .input(z.object({
       encryptedData: z.string().min(1).max(MAX_ENCRYPTED_DATA_SIZE),
       timerSeconds: z.number().int().min(0).max(120),
-      expirationHours: z.number().int().min(1).max(168).optional(),
+      expirationHours: z.number().int().min(0).max(168).optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const quizId = generateQuizId();
@@ -163,9 +163,12 @@ export const quizRouter = createTRPCRouter({
       const adminToken = generateAdminToken();
       const hashedToken = hashAdminToken(adminToken);
       const now = new Date();
-      const hours = input.expirationHours ?? 24;
-      const expiresAt = new Date(now.getTime() + hours * 60 * 60 * 1000);
-      const ttl = calculateTTLSeconds(expiresAt.toISOString());
+      const hours = input.expirationHours ?? 0;
+      const hasExpiration = hours > 0;
+      const expiresAt = hasExpiration
+        ? new Date(now.getTime() + hours * 60 * 60 * 1000)
+        : null;
+      const ttl = expiresAt ? calculateTTLSeconds(expiresAt.toISOString()) : null;
 
       const quizHash: RedisQuizHash = {
         encryptedData: input.encryptedData,
@@ -178,14 +181,14 @@ export const quizRouter = createTRPCRouter({
         questionCount: "0",
         version: "1",
         createdAt: now.toISOString(),
-        expiresAt: expiresAt.toISOString(),
+        expiresAt: expiresAt?.toISOString() ?? "",
       };
 
       const multi = ctx.redis.multi();
       multi.hSet(`quiz:${quizId}`, quizHash as unknown as Record<string, string>);
-      multi.expire(`quiz:${quizId}`, ttl);
+      if (ttl) multi.expire(`quiz:${quizId}`, ttl);
       multi.set(`quiz:join:${joinCode}`, quizId);
-      multi.expire(`quiz:join:${joinCode}`, ttl);
+      if (ttl) multi.expire(`quiz:join:${joinCode}`, ttl);
       await multi.exec();
 
       return {
@@ -219,7 +222,7 @@ export const quizRouter = createTRPCRouter({
       }
 
       const index = currentCount;
-      const ttl = calculateTTLSeconds(quiz.expiresAt);
+      const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
 
       const questionHash: RedisQuestionHash = {
         encryptedQuestion: input.encryptedQuestion,
@@ -228,7 +231,7 @@ export const quizRouter = createTRPCRouter({
 
       const multi = ctx.redis.multi();
       multi.hSet(`quiz:${input.quizId}:q:${index}`, questionHash as unknown as Record<string, string>);
-      multi.expire(`quiz:${input.quizId}:q:${index}`, ttl);
+      if (ttl) multi.expire(`quiz:${input.quizId}:q:${index}`, ttl);
       multi.hSet(`quiz:${input.quizId}`, {
         questionCount: String(index + 1),
         version: String((parseInt(quiz.version, 10) || 1) + 1),
@@ -301,12 +304,12 @@ export const quizRouter = createTRPCRouter({
       }
 
       // Shift questions down to fill the gap
-      const ttl = calculateTTLSeconds(quiz.expiresAt);
+      const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
       for (let i = input.index; i < questionCount - 1; i++) {
         const nextQ = await ctx.redis.hGetAll(`quiz:${input.quizId}:q:${i + 1}`);
         if (nextQ) {
           await ctx.redis.hSet(`quiz:${input.quizId}:q:${i}`, nextQ);
-          await ctx.redis.expire(`quiz:${input.quizId}:q:${i}`, ttl);
+          if (ttl) await ctx.redis.expire(`quiz:${input.quizId}:q:${i}`, ttl);
         }
       }
 
@@ -345,7 +348,7 @@ export const quizRouter = createTRPCRouter({
       }
 
       let currentCount = parseInt(quiz.questionCount, 10) || 0;
-      const ttl = calculateTTLSeconds(quiz.expiresAt);
+      const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
 
       // Split into updates (existing index) and adds (new questions)
       const updates: typeof input.questions = [];
@@ -383,7 +386,7 @@ export const quizRouter = createTRPCRouter({
           encryptedQuestion: q.encryptedQuestion,
           timerOverride: q.timerOverride ? String(q.timerOverride) : "",
         });
-        multi.expire(`quiz:${input.quizId}:q:${index}`, ttl);
+        if (ttl) multi.expire(`quiz:${input.quizId}:q:${index}`, ttl);
       }
 
       // Single version bump
@@ -417,7 +420,7 @@ export const quizRouter = createTRPCRouter({
 
       const sessionId = generateSessionId();
       const now = new Date().toISOString();
-      const ttl = calculateTTLSeconds(quiz.expiresAt);
+      const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
 
       const participantHash: RedisParticipantHash = {
         nickname: input.nickname,
@@ -426,9 +429,9 @@ export const quizRouter = createTRPCRouter({
 
       const multi = ctx.redis.multi();
       multi.hSet(`quiz:${input.quizId}:p:${sessionId}`, participantHash as unknown as Record<string, string>);
-      multi.expire(`quiz:${input.quizId}:p:${sessionId}`, ttl);
+      if (ttl) multi.expire(`quiz:${input.quizId}:p:${sessionId}`, ttl);
       multi.sAdd(`quiz:${input.quizId}:participants`, sessionId);
-      multi.expire(`quiz:${input.quizId}:participants`, ttl);
+      if (ttl) multi.expire(`quiz:${input.quizId}:participants`, ttl);
       await multi.exec();
 
       await publishQuizUpdate(ctx.redis, input.quizId);
@@ -643,22 +646,27 @@ export const quizRouter = createTRPCRouter({
       }
 
       const now = new Date().toISOString();
-      const ttl = calculateTTLSeconds(quiz.expiresAt);
+      const ttl = quiz.expiresAt ? calculateTTLSeconds(quiz.expiresAt) : null;
 
       // Atomically check for duplicate and store answer using Lua script
       // This prevents a TOCTOU race where two concurrent requests both pass a non-atomic duplicate check
       const answerKey = `quiz:${input.quizId}:a:${input.questionIndex}:${input.sessionId}`;
       const orderKey = `quiz:${input.quizId}:order:${input.questionIndex}`;
+      const ttlStr = ttl ? String(ttl) : "0";
       const result = await ctx.redis.eval(
         `if redis.call('HEXISTS', KEYS[1], 'encryptedAnswer') == 1 then
           return -1
         end
         redis.call('HSET', KEYS[1], 'encryptedAnswer', ARGV[1], 'answeredAt', ARGV[2])
-        redis.call('EXPIRE', KEYS[1], ARGV[3])
+        if tonumber(ARGV[3]) > 0 then
+          redis.call('EXPIRE', KEYS[1], ARGV[3])
+        end
         redis.call('RPUSH', KEYS[2], ARGV[4])
-        redis.call('EXPIRE', KEYS[2], ARGV[3])
+        if tonumber(ARGV[3]) > 0 then
+          redis.call('EXPIRE', KEYS[2], ARGV[3])
+        end
         return redis.call('LLEN', KEYS[2])`,
-        { keys: [answerKey, orderKey], arguments: [input.encryptedAnswer, now, String(ttl), input.sessionId] }
+        { keys: [answerKey, orderKey], arguments: [input.encryptedAnswer, now, ttlStr, input.sessionId] }
       ) as number;
 
       if (result === -1) {

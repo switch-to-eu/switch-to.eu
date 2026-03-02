@@ -39,6 +39,7 @@ import type { QuestionFormData } from "@/lib/schemas";
 
 const TIMER_OPTIONS = [0, 10, 20, 30, 60];
 const EXPIRATION_OPTIONS = [
+  { hours: 0, labelKey: "noExpiration" as const },
   { hours: 1, labelKey: "hours" as const },
   { hours: 6, labelKey: "hours" as const },
   { hours: 24, labelKey: "hours" as const },
@@ -108,8 +109,8 @@ export function QuizForm() {
       title: "",
       description: "",
       questions: [{ text: "", options: ["", "", "", ""], correctIndex: 0 }],
-      timerSeconds: 20,
-      expirationHours: 24,
+      timerSeconds: 0,
+      expirationHours: 0,
     },
   });
 
@@ -346,9 +347,11 @@ export function QuizForm() {
                       disabled={isSubmitting}
                       className={field.value === hours ? "gradient-primary text-white" : ""}
                     >
-                      {labelKey === "days"
-                        ? t("days", { count: hours / 24 })
-                        : t("hours", { count: hours })}
+                      {labelKey === "noExpiration"
+                        ? t("noExpiration")
+                        : labelKey === "days"
+                          ? t("days", { count: hours / 24 })
+                          : t("hours", { count: hours })}
                     </Button>
                   ))}
                 </div>
