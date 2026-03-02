@@ -2,11 +2,12 @@
 
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
 import { decryptData } from "@switch-to-eu/db/crypto";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import {
   Flame,
   Eye,
@@ -33,22 +34,18 @@ export default function ViewNotePage() {
   const params = useParams<{ id: string }>();
   const noteId = params.id;
 
+  const fragment = useFragment();
+  const encryptionKey = fragment.params.key || null;
+
   const [state, setState] = useState<NoteState>({ type: "loading" });
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [encryptionKey, setEncryptionKey] = useState<string | null>(null);
 
-  // Extract encryption key from URL fragment
-  useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const key = params.get("key");
-    setEncryptionKey(key);
-    if (!key) {
-      setState({ type: "not_found" });
-    }
-  }, []);
+  // Show not_found when fragment is parsed but key is missing
+  if (fragment.ready && !encryptionKey && state.type === "loading") {
+    setState({ type: "not_found" });
+  }
 
   // Check if note exists
   const existsQuery = api.note.exists.useQuery(

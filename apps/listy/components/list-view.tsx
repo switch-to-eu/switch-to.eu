@@ -31,7 +31,7 @@ import { useList } from "@hooks/use-list";
 import { ListItem } from "@components/list-item";
 import { CategorySections } from "@components/category-sections";
 import { AdminSettings } from "@components/admin-settings";
-import { parseAdminFragment } from "@switch-to-eu/db/admin";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { getListSettings, getDefaultCategories, SHOPPING_CATEGORIES } from "@/lib/categories";
 import type { DecryptedListData } from "@/lib/types";
 
@@ -44,7 +44,8 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
   const t = useTranslations("ListPage");
   const router = useRouter();
 
-  const [adminToken, setAdminToken] = useState("");
+  const fragment = useFragment();
+  const adminToken = isAdmin ? (fragment.params.token || "") : "";
   const [newItemText, setNewItemText] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -58,16 +59,6 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
     const stored = localStorage.getItem(`list-${listId}-claim-name`);
     if (stored) setClaimName(stored);
   }, [listId]);
-
-  // Parse admin token from fragment on mount
-  useEffect(() => {
-    if (!isAdmin) return;
-    const fragment = window.location.hash.substring(1);
-    if (fragment.includes("token=")) {
-      const { token } = parseAdminFragment(window.location.hash);
-      setAdminToken(token);
-    }
-  }, [isAdmin]);
 
   const {
     list,

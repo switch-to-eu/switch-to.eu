@@ -106,9 +106,11 @@
         "joinButton": "Deelnemen",
         "joining": "Deelnemen...",
         "quizNotFound": "Quiz niet gevonden. Controleer je deelnamecode.",
-        "quizAlreadyFinished": "Deze quiz is al afgelopen."
+        "quizAlreadyFinished": "Deze quiz is al afgelopen.",
+        "missingEncryptionKey": "Ongeldige deelnamelink. Vraag de quizhost om de volledige link met de encryptiesleutel."
     },
     "quiz": {
+        "missingEncryptionKey": "Ongeldige link. Vraag de quizhost om de volledige link met de encryptiesleutel.",
         "lobby": {
             "title": "Wachten tot de quiz begint...",
             "participants": "Deelnemers",

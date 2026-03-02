@@ -1,29 +1,24 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Check, Copy, Flame, Plus, AlertTriangle } from "lucide-react";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 
 export default function SharePage() {
   const t = useTranslations("SharePage");
+  const fragment = useFragment();
   const [copied, setCopied] = useState(false);
-  const [fragmentParams, setFragmentParams] = useState<{
-    key: string;
-    expires: string;
-    burn: boolean;
-  } | null>(null);
 
-  useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    setFragmentParams({
-      key: params.get("key") ?? "",
-      expires: params.get("expires") ?? "",
-      burn: params.get("burn") === "true",
-    });
-  }, []);
+  const fragmentParams = fragment.ready
+    ? {
+        key: fragment.params.key ?? "",
+        expires: fragment.params.expires ?? "",
+        burn: fragment.params.burn === "true",
+      }
+    : null;
 
   // Build the share URL: note view URL + encryption key in fragment
   const fullNoteUrl =

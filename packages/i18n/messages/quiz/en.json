@@ -106,9 +106,11 @@
         "joinButton": "Join Quiz",
         "joining": "Joining...",
         "quizNotFound": "Quiz not found. Check your join code.",
-        "quizAlreadyFinished": "This quiz has already finished."
+        "quizAlreadyFinished": "This quiz has already finished.",
+        "missingEncryptionKey": "Invalid join link. Ask the quiz host for the full link including the encryption key."
     },
     "quiz": {
+        "missingEncryptionKey": "Invalid link. Ask the quiz host for the full link including the encryption key.",
         "lobby": {
             "title": "Waiting for the quiz to start...",
             "participants": "Participants",

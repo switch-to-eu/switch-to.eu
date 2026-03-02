@@ -7,7 +7,7 @@ import { Loader2, CheckCircle2 } from "lucide-react";
 import { decryptData, encryptData } from "@switch-to-eu/db/crypto";
 
 import { api } from "@/lib/trpc-client";
-import { useFragment } from "@hooks/use-fragment";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { useCountdown } from "@hooks/use-countdown";
 import { computeScoring, type ScoringResult } from "@hooks/use-scoring";
 import { CountdownTimer } from "@components/countdown-timer";
@@ -37,7 +37,7 @@ export default function QuizParticipantPage() {
   >([]);
   const lastQuestionIndexRef = useRef<number>(-1);
 
-  const encryptionKey = fragment.key || "";
+  const encryptionKey = fragment.params.key || "";
 
   // Load session ID from sessionStorage
   useEffect(() => {
@@ -163,6 +163,15 @@ export default function QuizParticipantPage() {
       setSelectedAnswer(null);
     }
   }, [hasAnswered, sessionId, latestUpdate, encryptionKey, params.id, submitAnswer]);
+
+  // No encryption key
+  if (fragment.ready && !encryptionKey) {
+    return (
+      <main className="mx-auto max-w-lg px-4 py-20 text-center">
+        <p className="text-red-600 font-semibold">{t("missingEncryptionKey")}</p>
+      </main>
+    );
+  }
 
   // No session ID
   if (!sessionId) {

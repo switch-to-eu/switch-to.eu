@@ -10,6 +10,10 @@
     "./data/*": {
       "types": "./src/data/*.ts",
       "default": "./src/data/*.ts"
+    },
+    "./hooks/*": {
+      "types": "./src/hooks/*.ts",
+      "default": "./src/hooks/*.ts"
     }
   },
   "scripts": {

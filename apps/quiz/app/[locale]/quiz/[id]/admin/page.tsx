@@ -7,7 +7,7 @@ import { Loader2, Play, SkipForward, BarChart3, Flag, Trash2, Users, RotateCcw }
 import { decryptData } from "@switch-to-eu/db/crypto";
 
 import { api } from "@/lib/trpc-client";
-import { useFragment } from "@hooks/use-fragment";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { useCountdown } from "@hooks/use-countdown";
 import { computeScoring, type ScoringResult } from "@hooks/use-scoring";
 import { JoinCodeDisplay } from "@components/join-code-display";
@@ -47,8 +47,8 @@ export default function QuizAdminPage() {
     Array<{ index: number; encryptedQuestion: string; answers: NonNullable<QuizStateUpdate["answers"]>; timerSeconds: number; startedAt: string }>
   >([]);
 
-  const encryptionKey = fragment.key || "";
-  const adminToken = fragment.token || "";
+  const encryptionKey = fragment.params.key || "";
+  const adminToken = fragment.params.token || "";
 
   const startQuiz = api.quiz.startQuiz.useMutation();
   const showResults = api.quiz.showResults.useMutation();

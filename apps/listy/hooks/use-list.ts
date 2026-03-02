@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { api } from "@/lib/trpc-client";
 import { encryptData, decryptData } from "@switch-to-eu/db/crypto";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import type { DecryptedListData, DecryptedItemData, ListSettings } from "@/lib/types";
 
 export interface DecryptedItem {
@@ -34,31 +35,16 @@ interface UseListOptions {
 }
 
 export function useList({ listId, adminToken }: UseListOptions) {
-  const [encryptionKey, setEncryptionKey] = useState("");
-  const [missingKey, setMissingKey] = useState(false);
+  const fragment = useFragment();
   const [decryptedList, setDecryptedList] = useState<DecryptedList | null>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
   const [decryptionError, setDecryptionError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [queryError, setQueryError] = useState(false);
 
-  // Extract encryption key from URL fragment
-  useEffect(() => {
-    const fragment = window.location.hash.substring(1);
-    if (fragment) {
-      if (fragment.includes("key=")) {
-        const params = new URLSearchParams(fragment);
-        const key = params.get("key") ?? "";
-        setEncryptionKey(key);
-        setMissingKey(!key);
-      } else {
-        setEncryptionKey(fragment);
-        setMissingKey(false);
-      }
-    } else {
-      setMissingKey(true);
-    }
-  }, []);
+  // Derive encryption key from fragment — supports both #rawKey (legacy) and #key=xxx
+  const encryptionKey = fragment.params.key || "";
+  const missingKey = fragment.ready && !encryptionKey;
 
   // Use SSE subscription for real-time updates
   const { data: subscriptionData, error: subscriptionError } =

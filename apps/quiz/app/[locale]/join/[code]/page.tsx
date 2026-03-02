@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 
 import { api } from "@/lib/trpc-client";
-import { useFragment } from "@hooks/use-fragment";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
 
@@ -14,6 +14,7 @@ export default function JoinQuizPage() {
   const t = useTranslations("join");
   const params = useParams<{ code: string }>();
   const fragment = useFragment();
+  const encryptionKey = fragment.params.key;
 
   const [nickname, setNickname] = useState("");
   const [isJoining, setIsJoining] = useState(false);
@@ -50,15 +51,14 @@ export default function JoinQuizPage() {
 
       // Redirect to quiz page with encryption key from fragment
       const locale = window.location.pathname.split("/")[1];
-      const keyParam = fragment.key ? `key=${encodeURIComponent(fragment.key)}` : "";
-      window.location.href = `/${locale}/quiz/${resolveCode.data.quizId}#${keyParam}`;
+      window.location.href = `/${locale}/quiz/${resolveCode.data.quizId}#key=${encodeURIComponent(encryptionKey!)}`;
     } catch {
       setError("Failed to join quiz. Please try again.");
       setIsJoining(false);
     }
   };
 
-  if (resolveCode.isLoading) {
+  if (!fragment.ready || resolveCode.isLoading) {
     return (
       <main className="mx-auto max-w-md px-4 py-20 text-center">
         <Loader2 className="h-8 w-8 animate-spin mx-auto text-muted-foreground" />
@@ -71,6 +71,16 @@ export default function JoinQuizPage() {
       <main className="mx-auto max-w-md px-4 py-12 text-center">
         <h1 className="font-bricolage text-2xl font-bold mb-4 text-red-600">
           {t("quizNotFound")}
+        </h1>
+      </main>
+    );
+  }
+
+  if (!encryptionKey) {
+    return (
+      <main className="mx-auto max-w-md px-4 py-12 text-center">
+        <h1 className="font-bricolage text-2xl font-bold mb-4 text-red-600">
+          {t("missingEncryptionKey")}
         </h1>
       </main>
     );
