@@ -448,6 +448,7 @@
   "tools": {
     "title": "Tools",
     "description": "Privacy-first tools, gebouwd in Europa. Geen tracking, geen accounts — gewoon handige apps die je data respecteren.",
+    "comingSoon": "Binnenkort beschikbaar",
     "whyUseTools": "Waarom Onze Tools Gebruiken",
     "features": {
       "dataSovereignty": {
@@ -464,8 +465,8 @@
       }
     },
     "items": {
-      "websiteTool": {
-        "title": "Website Tool",
+      "euScan": {
+        "title": "EU-Scan",
         "description": "Analyseer elke website om te controleren of deze EU-gebaseerde diensten gebruikt en AVG-conform is."
       },
       "keepfocus": {

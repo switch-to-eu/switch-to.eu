@@ -25,16 +25,24 @@ export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
       <ul className="space-y-2">
         {displayTools.map((tool) => (
           <li key={tool.id}>
-            <a
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-medium">{tool.name}</span>
-              <span className="text-muted-foreground/60"> — </span>
-              <span className="text-xs">{t(tool.id as never)}</span>
-            </a>
+            {tool.status === 'active' ? (
+              <a
+                href={tool.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <span className="font-medium">{tool.name}</span>
+                <span className="text-muted-foreground/60"> — </span>
+                <span className="text-xs">{t(tool.id as never)}</span>
+              </a>
+            ) : (
+              <span className="text-sm text-muted-foreground/50">
+                <span className="font-medium">{tool.name}</span>
+                <span className="text-muted-foreground/30"> — </span>
+                <span className="text-xs italic">{t('comingSoon')}</span>
+              </span>
+            )}
           </li>
         ))}
       </ul>

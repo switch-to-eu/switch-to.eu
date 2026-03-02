@@ -4,7 +4,7 @@
   },
   "layout": {
     "metadata": {
-      "title": "Website Tool - switch-to.eu",
+      "title": "EU-Scan - switch-to.eu",
       "description": "Analyze a website to check if it uses EU-based services and is GDPR compliant."
     },
     "header": {
@@ -19,8 +19,8 @@
   "tools": {
     "title": "Tools",
     "description": "Tools to help you switch to EU services",
-    "websiteTool": {
-      "title": "Website Tool",
+    "euScan": {
+      "title": "EU-Scan",
       "description": "Analyze a website to check if it's EU-based"
     },
     "websiteAnalyzer": {

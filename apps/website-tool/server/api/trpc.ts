@@ -19,7 +19,7 @@ export const publicProcedure = t.procedure
   .concat(timingProcedure)
   .concat(
     createRateLimitProcedure({
-      prefix: "website-tool",
+      prefix: "eu-scan",
       windowMs: 60_000,
       maxRequests: 30,
     }),

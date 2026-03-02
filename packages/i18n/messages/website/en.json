@@ -513,6 +513,7 @@
   "tools": {
     "title": "Tools",
     "description": "Privacy-first tools built in Europe. No tracking, no accounts — just useful apps that respect your data.",
+    "comingSoon": "Coming soon",
     "whyUseTools": "Why Use Our Tools",
     "features": {
       "dataSovereignty": {
@@ -529,8 +530,8 @@
       }
     },
     "items": {
-      "websiteTool": {
-        "title": "Website Tool",
+      "euScan": {
+        "title": "EU-Scan",
         "description": "Analyze any website to check if it uses EU-based services and is GDPR compliant."
       },
       "keepfocus": {

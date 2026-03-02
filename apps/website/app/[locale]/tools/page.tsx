@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { getActiveTools } from "@switch-to-eu/blocks/data/tools";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import {
   ArrowUpRightIcon,
   GlobeIcon,
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const i18nKeyMap: Record<string, string> = {
-  "website-tool": "websiteTool",
+  "eu-scan": "euScan",
 };
 
 const iconMap: Record<string, LucideIcon> = {
@@ -42,7 +42,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export default async function ToolsPage() {
   const t = await getTranslations("tools");
-  const tools = getActiveTools();
+  const tools = getAllToolsSorted();
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
@@ -60,13 +60,23 @@ export default async function ToolsPage() {
           <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             {tools.map((tool, index) => {
               const Icon = tool.icon ? iconMap[tool.icon] : undefined;
+              const isActive = tool.status === "active";
+              const Wrapper = isActive ? "a" : "div";
+              const wrapperProps = isActive
+                ? {
+                    href: tool.url,
+                    target: "_blank" as const,
+                    rel: "noopener noreferrer",
+                  }
+                : {};
+
               return (
-                <a
+                <Wrapper
                   key={tool.id}
-                  href={tool.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group p-5 sm:p-8 rounded-xl transition-shadow hover:shadow-lg ${
+                  {...wrapperProps}
+                  className={`group p-5 sm:p-8 rounded-xl transition-shadow ${
+                    isActive ? "hover:shadow-lg cursor-pointer" : "opacity-60"
+                  } ${
                     ["bg-[var(--pop-1)]", "bg-[var(--pop-2)]", "bg-[var(--pop-3)]", "bg-[var(--pop-4)]"][index % 4]
                   }`}
                 >
@@ -84,9 +94,15 @@ export default async function ToolsPage() {
                         </p>
                       </div>
                     </div>
-                    <ArrowUpRightIcon className="w-5 h-5 flex-shrink-0 mt-1 opacity-60 group-hover:opacity-100 transition-opacity" />
+                    {isActive ? (
+                      <ArrowUpRightIcon className="w-5 h-5 flex-shrink-0 mt-1 opacity-60 group-hover:opacity-100 transition-opacity" />
+                    ) : (
+                      <span className="text-xs font-medium italic text-muted-foreground flex-shrink-0 mt-1">
+                        {t("comingSoon")}
+                      </span>
+                    )}
                   </div>
-                </a>
+                </Wrapper>
               );
             })}
           </div>

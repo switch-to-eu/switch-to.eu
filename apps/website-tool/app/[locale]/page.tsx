@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: t("websiteAnalyzer.pageTitle"),
-    description: t("websiteTool.description"),
+    description: t("euScan.description"),
     alternates: generateLanguageAlternates("", locale),
   };
 }

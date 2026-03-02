@@ -12,9 +12,9 @@ export interface Tool {
 
 export const tools: Tool[] = [
     {
-        id: 'website-tool',
-        name: 'Website Tool',
-        url: isDev ? 'https://website.switch-to.test' : 'https://website.switch-to.eu',
+        id: 'eu-scan',
+        name: 'EU-Scan',
+        url: isDev ? 'https://scan.switch-to.test' : 'https://scan.switch-to.eu',
         status: 'coming-soon',
         color: 'emerald-600',
         secondaryColor: 'teal-600',
@@ -83,6 +83,14 @@ export const getToolById = (id: string): Tool | undefined => {
 export const getActiveTools = (): Tool[] => {
     if (isDev) return tools;
     return tools.filter(tool => tool.status === 'active');
+};
+
+export const getAllToolsSorted = (): Tool[] => {
+    return [...tools].sort((a, b) => {
+        if (a.status === 'active' && b.status !== 'active') return -1;
+        if (a.status !== 'active' && b.status === 'active') return 1;
+        return 0;
+    });
 };
 
 export const getToolsByStatus = (status: Tool['status']): Tool[] => {
