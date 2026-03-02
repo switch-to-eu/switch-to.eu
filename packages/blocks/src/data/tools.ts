@@ -15,7 +15,7 @@ export const tools: Tool[] = [
         id: 'website-tool',
         name: 'Website Tool',
         url: isDev ? 'https://website.switch-to.test' : 'https://website.switch-to.eu',
-        status: 'active',
+        status: 'coming-soon',
         color: 'emerald-600',
         secondaryColor: 'teal-600',
         icon: 'globe'
@@ -51,7 +51,7 @@ export const tools: Tool[] = [
         id: 'privnote',
         name: 'PrivNote',
         url: isDev ? 'https://note.switch-to.test' : 'https://privnote.switch-to.eu',
-        status: 'active',
+        status: 'coming-soon',
         color: 'amber-600',
         secondaryColor: 'orange-600',
         icon: 'file-lock'
