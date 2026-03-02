@@ -342,7 +342,18 @@ export function InlineSearchInput({
               </h3>
             </div>
 
-            {displayResults.length > 0 ? (
+            {isLoading && query.trim() ? (
+              <div className="px-4 py-3 space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse flex items-center gap-3">
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-white/10 rounded w-1/3" />
+                      <div className="h-3 bg-white/10 rounded w-2/3" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : displayResults.length > 0 ? (
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
@@ -378,12 +389,6 @@ export function InlineSearchInput({
         </div>
       )}
 
-      {/* Loading indicator */}
-      {isLoading && (
-        <div className="absolute right-14 top-1/2 transform -translate-y-1/2">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-brand-pink"></div>
-        </div>
-      )}
     </div>
   );
 }
