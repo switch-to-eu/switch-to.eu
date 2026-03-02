@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ServiceRequestModal } from "@/components/ServiceRequestModal";
+import { Container } from "@/components/layout/container";
 
 export const ContributeCta = () => {
   const t = useTranslations("contribute");
 
   return (
     <section>
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+      <Container>
         <div className="bg-brand-green rounded-3xl">
           <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
             {/* Decorative shapes — same scale as Hero */}
@@ -80,7 +81,7 @@ export const ContributeCta = () => {
                 </div>
               </div>
               <div className="text-center md:text-left">
-                <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-4 sm:mb-6">
+                <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
                   {t("ctaTitle")}
                 </h2>
                 <p className="text-white/90 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl">
@@ -94,7 +95,7 @@ export const ContributeCta = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

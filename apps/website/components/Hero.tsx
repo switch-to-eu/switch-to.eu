@@ -4,13 +4,14 @@ import { useTranslations } from "next-intl";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { BlobShape, PebbleShape, PuddleShape } from "@switch-to-eu/ui/components/hero-shapes";
+import { Container } from "@/components/layout/container";
 
 export function Hero() {
   const t = useTranslations("home");
 
   return (
-    <section className="py-4 sm:py-6 md:py-8">
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+    <section>
+      <Container>
         <div className="bg-brand-navy rounded-3xl">
         <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="relative text-center">
@@ -33,7 +34,7 @@ export function Hero() {
               className="relative uppercase text-brand-yellow text-center"
               style={{
                 fontFamily: "var(--font-anton)",
-                fontSize: "clamp(3.5rem, 12vw, 14rem)",
+                fontSize: "clamp(3.5rem, 12vw, 10rem)",
                 fontWeight: 400,
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
@@ -67,7 +68,7 @@ export function Hero() {
           </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

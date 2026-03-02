@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { ContributeCta } from "@/components/ContributeCta";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
@@ -95,14 +96,14 @@ export default async function Home() {
   const t = await getTranslations("home");
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 md:gap-20">
+    <PageLayout>
       {/* Hero Section */}
       <Hero />
 
       {/* Migration Guides Section */}
       <section>
         <Container>
-          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-10 text-brand-green">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-8 sm:mb-10 text-brand-green">
             {t("migrationGuidesTitle")}
           </h2>
 
@@ -165,7 +166,7 @@ export default async function Home() {
 
       {/* Features Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-green rounded-3xl overflow-hidden">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20">
               {/* Background decorative shapes */}
@@ -192,7 +193,7 @@ export default async function Home() {
                 />
               </div>
 
-              <h2 className="relative z-10 font-heading text-4xl sm:text-5xl uppercase mb-12 sm:mb-16 text-brand-yellow text-center">
+              <h2 className="relative z-10 font-heading text-4xl sm:text-5xl uppercase mb-8 sm:mb-10 text-brand-yellow text-center">
                 {t("featuredTitle")}
               </h2>
 
@@ -241,7 +242,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Newsletter Section */}
@@ -252,6 +253,6 @@ export default async function Home() {
 
       {/* CTA Section */}
       <ContributeCta />
-    </div>
+    </PageLayout>
   );
 }

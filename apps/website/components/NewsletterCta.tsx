@@ -18,6 +18,7 @@ import {
 
 import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations, useLocale } from "next-intl";
+import { Container } from "@/components/layout/container";
 
 const formSchema = z.object({
   firstname: z.string().min(1, {
@@ -36,6 +37,8 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const Wrapper = contained ? Container : "div";
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -83,7 +86,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
 
   return (
     <section>
-      <div className={contained ? "container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8" : ""}>
+      <Wrapper>
         <div className="bg-brand-navy rounded-3xl">
           <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
             {/* Decorative shapes — same scale as Hero */}
@@ -129,7 +132,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
 
             {/* Content */}
             <div className="relative z-10 max-w-2xl mx-auto text-center">
-              <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-4 sm:mb-6">
+              <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
                 {t("title")}
               </h2>
               <p className="text-brand-sky text-base sm:text-lg mb-8 sm:mb-10">
@@ -208,7 +211,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
             </div>
           </div>
         </div>
-      </div>
+      </Wrapper>
     </section>
   );
 };

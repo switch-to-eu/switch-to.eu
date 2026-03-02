@@ -73,7 +73,7 @@ export async function CategorySection() {
   return (
     <section>
       <Container>
-        <h2 className="mb-10 font-heading text-4xl sm:text-5xl uppercase text-brand-green">
+        <h2 className="mb-8 sm:mb-10 font-heading text-4xl sm:text-5xl uppercase text-brand-green">
           {t("categoriesSectionTitle")}
         </h2>
         <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
