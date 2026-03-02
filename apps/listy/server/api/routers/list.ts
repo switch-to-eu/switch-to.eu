@@ -448,6 +448,13 @@ export const listRouter = createTRPCRouter({
 
           if (signal?.aborted) break;
 
+          // Debounce: wait briefly and drain any additional queued messages
+          // so rapid-fire updates trigger only one fetch
+          await new Promise((r) => setTimeout(r, 150));
+          messageQueue.length = 0;
+
+          if (signal?.aborted) break;
+
           try {
             yield await fetchFullListState(ctx.redis, input.id);
           } catch {

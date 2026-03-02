@@ -904,6 +904,13 @@ export const quizRouter = createTRPCRouter({
 
           if (signal?.aborted) break;
 
+          // Debounce: wait briefly and drain any additional queued messages
+          // so rapid-fire updates (e.g. 20 answers at once) trigger only one fetch
+          await new Promise((r) => setTimeout(r, 150));
+          messageQueue.length = 0;
+
+          if (signal?.aborted) break;
+
           try {
             yield await fetchFullState();
           } catch {
