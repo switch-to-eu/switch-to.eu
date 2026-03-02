@@ -319,20 +319,27 @@ describe("poll router", () => {
       });
 
       const caller = getCaller();
+      const before = Date.now();
       const result = await caller.poll.extend({
         id: "EXTPOLL001",
         adminToken,
         days: 30,
       });
+      const after = Date.now();
 
       expect(result.id).toBe("EXTPOLL001");
       expect(result.message).toContain("30 days");
 
-      // Verify the new expiry is ~30 days from now
+      // Verify the new expiry is ~30 calendar days from now
+      // Use setDate (calendar days) like the procedure does, not raw ms,
+      // to avoid DST-related 1-hour discrepancies
+      const earliest = new Date(before);
+      earliest.setDate(earliest.getDate() + 30);
+      const latest = new Date(after);
+      latest.setDate(latest.getDate() + 30);
       const newExpiry = new Date(result.expiresAt).getTime();
-      const expected = Date.now() + 30 * 86_400_000;
-      expect(newExpiry).toBeGreaterThan(expected - 5000);
-      expect(newExpiry).toBeLessThan(expected + 5000);
+      expect(newExpiry).toBeGreaterThanOrEqual(earliest.getTime());
+      expect(newExpiry).toBeLessThanOrEqual(latest.getTime());
     });
   });
 });
