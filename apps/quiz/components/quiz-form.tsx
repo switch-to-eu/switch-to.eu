@@ -25,6 +25,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { api } from "@/lib/trpc-client";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
+import { Switch } from "@switch-to-eu/ui/components/switch";
 import {
   Field,
   FieldLabel,
@@ -111,6 +112,8 @@ export function QuizForm() {
       questions: [{ text: "", options: ["", "", "", ""], correctIndex: 0 }],
       timerSeconds: 0,
       expirationHours: 0,
+      scoringEnabled: true,
+      leaderboardEnabled: true,
     },
   });
 
@@ -164,6 +167,8 @@ export function QuizForm() {
         encryptedData,
         timerSeconds: data.timerSeconds,
         expirationHours: data.expirationHours,
+        scoringEnabled: data.scoringEnabled,
+        leaderboardEnabled: data.leaderboardEnabled,
       });
 
       for (const question of data.questions) {
@@ -356,6 +361,44 @@ export function QuizForm() {
                   ))}
                 </div>
               </FieldContent>
+            </Field>
+          )}
+        />
+
+        <Controller
+          name="scoringEnabled"
+          control={control}
+          render={({ field }) => (
+            <Field>
+              <div className="flex items-center justify-between">
+                <FieldLabel htmlFor="scoringEnabled">{t("scoring")}</FieldLabel>
+                <Switch
+                  id="scoringEnabled"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={isSubmitting}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">{t("scoringDescription")}</p>
+            </Field>
+          )}
+        />
+
+        <Controller
+          name="leaderboardEnabled"
+          control={control}
+          render={({ field }) => (
+            <Field>
+              <div className="flex items-center justify-between">
+                <FieldLabel htmlFor="leaderboardEnabled">{t("leaderboard")}</FieldLabel>
+                <Switch
+                  id="leaderboardEnabled"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={isSubmitting}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">{t("leaderboardDescription")}</p>
             </Field>
           )}
         />

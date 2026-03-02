@@ -206,6 +206,7 @@ export default function QuizAdminPage() {
   }
 
   const state = latestUpdate.quiz.state;
+  const { scoringEnabled, leaderboardEnabled } = latestUpdate.quiz;
   const isLastQuestion = latestUpdate.quiz.currentQuestion >= latestUpdate.quiz.questionCount - 1;
 
   // Build share URL for join page
@@ -383,7 +384,7 @@ export default function QuizAdminPage() {
             </div>
           )}
 
-          {scoring && <Leaderboard entries={scoring.leaderboard} />}
+          {leaderboardEnabled && scoring && <Leaderboard entries={scoring.leaderboard} />}
 
           <div className="flex gap-3">
             {!isLastQuestion ? (
@@ -425,8 +426,8 @@ export default function QuizAdminPage() {
           <h1 className="font-bricolage text-3xl font-bold text-center">
             {t("finished.title")}
           </h1>
-          <Podium entries={scoring.leaderboard} />
-          <Leaderboard entries={scoring.leaderboard} />
+          {leaderboardEnabled && <Podium entries={scoring.leaderboard} />}
+          {leaderboardEnabled && <Leaderboard entries={scoring.leaderboard} />}
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button

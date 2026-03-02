@@ -8,6 +8,8 @@ export interface RedisQuizHash {
   questionStartedAt: string;   // ISO 8601 (empty when not active)
   timerSeconds: string;        // Default timer per question
   questionCount: string;       // Number of questions
+  scoringEnabled: string;      // "1" or "0"
+  leaderboardEnabled: string;  // "1" or "0"
   version: string;             // Monotonic counter
   createdAt: string;           // ISO 8601
   expiresAt: string;           // ISO 8601
@@ -62,6 +64,8 @@ export interface QuizResponse {
   questionStartedAt: string;
   timerSeconds: number;
   questionCount: number;
+  scoringEnabled: boolean;
+  leaderboardEnabled: boolean;
   version: number;
   encryptedData: string;
   createdAt: string;

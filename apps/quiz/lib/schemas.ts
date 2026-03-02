@@ -30,6 +30,8 @@ export const quizFormSchema = z.object({
   questions: z.array(questionFormSchema).min(1, "minQuestions"),
   timerSeconds: z.number().min(0).max(120),
   expirationHours: z.number().min(0).max(168),
+  scoringEnabled: z.boolean(),
+  leaderboardEnabled: z.boolean(),
 });
 
 export type QuizFormData = z.infer<typeof quizFormSchema>;

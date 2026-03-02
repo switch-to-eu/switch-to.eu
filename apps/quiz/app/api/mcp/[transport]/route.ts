@@ -134,6 +134,14 @@ const handler = createMcpHandler(
             .max(168)
             .default(0)
             .describe("Hours until the quiz expires (0 = no expiration, 1–168). Default: 0 (no expiration)."),
+          scoringEnabled: z
+            .boolean()
+            .default(true)
+            .describe("Whether to show scores (points per question) to participants. Default: true."),
+          leaderboardEnabled: z
+            .boolean()
+            .default(true)
+            .describe("Whether to show the leaderboard and podium. Default: true."),
         },
       },
       async ({
@@ -142,6 +150,8 @@ const handler = createMcpHandler(
         questions,
         timerSeconds,
         expirationHours,
+        scoringEnabled,
+        leaderboardEnabled,
       }) => {
         try {
           const encryptionKey = await generateEncryptionKey();
@@ -156,6 +166,8 @@ const handler = createMcpHandler(
             encryptedData,
             timerSeconds,
             expirationHours,
+            scoringEnabled,
+            leaderboardEnabled,
           });
 
           // Encrypt all questions in parallel
@@ -194,6 +206,8 @@ const handler = createMcpHandler(
             `- Title: ${title}`,
             `- Questions: ${questions.length}`,
             `- Timer: ${timerSeconds === 0 ? "No timer" : `${timerSeconds}s per question`}`,
+            `- Scoring: ${scoringEnabled ? "Enabled" : "Disabled"}`,
+            `- Leaderboard: ${leaderboardEnabled ? "Enabled" : "Disabled"}`,
             `- Expires: ${result.quiz.expiresAt}`,
             ``,
             `IMPORTANT: The admin URL above contains the encryption key and admin ` +
@@ -283,6 +297,8 @@ const handler = createMcpHandler(
             `Join URL: ${joinUrl}`,
             `Admin URL: ${adminUrl}`,
             `Timer: ${quiz.timerSeconds === 0 ? "No timer" : `${quiz.timerSeconds}s`}`,
+            `Scoring: ${quiz.scoringEnabled ? "Enabled" : "Disabled"}`,
+            `Leaderboard: ${quiz.leaderboardEnabled ? "Enabled" : "Disabled"}`,
             `Participants: ${participants.length}`,
             participants.length > 0
               ? `  ${participants.map((p) => p.nickname).join(", ")}`

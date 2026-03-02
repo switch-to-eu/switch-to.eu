@@ -192,6 +192,7 @@ export default function QuizParticipantPage() {
   }
 
   const state = latestUpdate.quiz.state;
+  const { scoringEnabled, leaderboardEnabled } = latestUpdate.quiz;
 
   // Lobby state
   if (state === "lobby") {
@@ -267,11 +268,13 @@ export default function QuizParticipantPage() {
             <p className={`font-bold text-lg ${myEntry.correct ? "text-green-700" : "text-red-700"}`}>
               {myEntry.correct ? t("results.correct") : t("results.incorrect")}
             </p>
-            <p className="text-sm text-muted-foreground">
-              {t("results.points", { points: myEntry.score })}
-              {" - "}
-              {t("results.position", { position: myEntry.position })}
-            </p>
+            {scoringEnabled && (
+              <p className="text-sm text-muted-foreground">
+                {t("results.points", { points: myEntry.score })}
+                {" - "}
+                {t("results.position", { position: myEntry.position })}
+              </p>
+            )}
           </div>
         )}
 
@@ -283,7 +286,9 @@ export default function QuizParticipantPage() {
           />
         )}
 
-        <Leaderboard entries={scoring.leaderboard} currentSessionId={sessionId} />
+        {leaderboardEnabled && (
+          <Leaderboard entries={scoring.leaderboard} currentSessionId={sessionId} />
+        )}
 
         <p className="text-center text-sm text-muted-foreground">
           {t("results.waitingForNext")}
@@ -302,9 +307,9 @@ export default function QuizParticipantPage() {
           {t("finished.title")}
         </h1>
 
-        <Podium entries={scoring.leaderboard} />
+        {leaderboardEnabled && <Podium entries={scoring.leaderboard} />}
 
-        {myEntry && (
+        {scoringEnabled && myEntry && (
           <div className="text-center py-4 rounded-lg bg-rose-50">
             <p className="text-sm text-muted-foreground">{t("finished.yourScore")}</p>
             <p className="text-2xl font-black text-rose-700">
@@ -316,7 +321,9 @@ export default function QuizParticipantPage() {
           </div>
         )}
 
-        <Leaderboard entries={scoring.leaderboard} currentSessionId={sessionId} />
+        {leaderboardEnabled && (
+          <Leaderboard entries={scoring.leaderboard} currentSessionId={sessionId} />
+        )}
       </main>
     );
   }

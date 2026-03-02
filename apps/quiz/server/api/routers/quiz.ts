@@ -63,6 +63,8 @@ function quizHashToResponse(id: string, quiz: RedisQuizHash): QuizResponse {
     questionStartedAt: quiz.questionStartedAt,
     timerSeconds: parseInt(quiz.timerSeconds, 10),
     questionCount: parseInt(quiz.questionCount, 10) || 0,
+    scoringEnabled: quiz.scoringEnabled !== "0",
+    leaderboardEnabled: quiz.leaderboardEnabled !== "0",
     version: parseInt(quiz.version, 10) || 1,
     encryptedData: quiz.encryptedData,
     createdAt: quiz.createdAt,
@@ -156,6 +158,8 @@ export const quizRouter = createTRPCRouter({
       encryptedData: z.string().min(1).max(MAX_ENCRYPTED_DATA_SIZE),
       timerSeconds: z.number().int().min(0).max(120),
       expirationHours: z.number().int().min(0).max(168).optional(),
+      scoringEnabled: z.boolean().optional(),
+      leaderboardEnabled: z.boolean().optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const quizId = generateQuizId();
@@ -179,6 +183,8 @@ export const quizRouter = createTRPCRouter({
         questionStartedAt: "",
         timerSeconds: String(input.timerSeconds),
         questionCount: "0",
+        scoringEnabled: (input.scoringEnabled ?? true) ? "1" : "0",
+        leaderboardEnabled: (input.leaderboardEnabled ?? true) ? "1" : "0",
         version: "1",
         createdAt: now.toISOString(),
         expiresAt: expiresAt?.toISOString() ?? "",
