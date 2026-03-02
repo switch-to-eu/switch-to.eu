@@ -12,6 +12,38 @@
     "privnote": "Self-destructing private notes",
     "quiz": "Live quizzes for classrooms and teams",
     "kanban": "Private Kanban boards for teams",
-    "website-tool": "Analyze any website for EU compliance"
+    "eu-scan": "Analyze any website for EU compliance",
+    "comingSoon": "Coming soon"
+  },
+  "feedback": {
+    "triggerButton": "Feedback",
+    "dialogTitle": "Share Your Feedback",
+    "dialogDescription": "Help us improve by sharing your thoughts, reporting bugs, or suggesting new features.",
+    "form": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Brief summary of your feedback",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Please provide details about your feedback, bug report, or feature request...",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Select a category",
+      "bugCategory": "Bug Report",
+      "featureCategory": "Feature Request",
+      "feedbackCategory": "General Feedback",
+      "otherCategory": "Other",
+      "contactInfoLabel": "Email (optional)",
+      "contactInfoPlaceholder": "Your email for follow-up",
+      "submitButton": "Submit Feedback",
+      "submitting": "Submitting...",
+      "successMessage": "Thank you for your feedback! Your issue has been created.",
+      "errorMessage": "An error occurred while submitting your feedback. Please try again.",
+      "validation": {
+        "titleMinLength": "Title must be at least 5 characters.",
+        "titleNoHtml": "HTML tags are not allowed in the title.",
+        "descriptionMinLength": "Description must be at least 10 characters.",
+        "descriptionNoHtml": "HTML tags are not allowed in the description.",
+        "categoryRequired": "Please select a category.",
+        "invalidEmail": "Invalid email address."
+      }
+    }
   }
 }

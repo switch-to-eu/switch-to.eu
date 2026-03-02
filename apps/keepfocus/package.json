@@ -21,6 +21,7 @@
         "@dnd-kit/utilities": "catalog:",
         "@hookform/resolvers": "catalog:",
         "@switch-to-eu/blocks": "workspace:*",
+        "@switch-to-eu/db": "workspace:*",
         "@switch-to-eu/i18n": "workspace:*",
         "@switch-to-eu/ui": "workspace:*",
         "@tailwindcss/typography": "catalog:",

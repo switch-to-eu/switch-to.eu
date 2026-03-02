@@ -9,7 +9,13 @@
         "test:watch": "vitest"
     },
     "dependencies": {
-        "redis": "catalog:"
+        "octokit": "catalog:",
+        "redis": "catalog:",
+        "uuid": "catalog:",
+        "zod": "catalog:"
+    },
+    "peerDependencies": {
+        "next": "catalog:"
     },
     "devDependencies": {
         "@switch-to-eu/eslint-config": "workspace:*",
@@ -30,6 +36,7 @@
         "./admin": "./src/admin.ts",
         "./expiration": "./src/expiration.ts",
         "./mock-redis": "./src/mock-redis.ts",
-        "./test-redis": "./src/test-redis.ts"
+        "./test-redis": "./src/test-redis.ts",
+        "./github": "./src/github.ts"
     }
 }

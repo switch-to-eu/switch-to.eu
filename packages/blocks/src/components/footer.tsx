@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import { FooterTools } from "./footer-tools";
+import { FooterFeedback } from "./footer-feedback";
 
 export interface FooterLink {
   /** Link text or label */
@@ -32,6 +33,8 @@ export interface FooterProps {
   currentToolId?: string;
   /** Whether to show the tools section (default: true) */
   showTools?: boolean;
+  /** Tool ID for the feedback dialog — when set, a "Feedback" link appears in the links column */
+  feedbackToolId?: string;
 }
 
 export function Footer({
@@ -45,6 +48,7 @@ export function Footer({
   linksSectionTitle,
   currentToolId,
   showTools = true,
+  feedbackToolId,
 }: FooterProps) {
   const content = (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -79,6 +83,11 @@ export function Footer({
               </li>
             ))}
           </ul>
+          {feedbackToolId && (
+            <div className="mt-2">
+              <FooterFeedback toolId={feedbackToolId} />
+            </div>
+          )}
         </div>
       )}
 

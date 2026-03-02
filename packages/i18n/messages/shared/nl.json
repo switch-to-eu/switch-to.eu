@@ -12,6 +12,38 @@
     "privnote": "Zelfvernietigende privénotities",
     "quiz": "Live quizzen voor klassen en teams",
     "kanban": "Privé Kanban-borden voor teams",
-    "website-tool": "Analyseer elke website op EU-conformiteit"
+    "eu-scan": "Analyseer elke website op EU-conformiteit",
+    "comingSoon": "Binnenkort beschikbaar"
+  },
+  "feedback": {
+    "triggerButton": "Feedback",
+    "dialogTitle": "Deel Je Feedback",
+    "dialogDescription": "Help ons verbeteren door je gedachten te delen, bugs te melden of nieuwe functies voor te stellen.",
+    "form": {
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Korte samenvatting van je feedback",
+      "descriptionLabel": "Beschrijving",
+      "descriptionPlaceholder": "Geef details over je feedback, bugrapport of functieverzoek...",
+      "categoryLabel": "Categorie",
+      "categoryPlaceholder": "Selecteer een categorie",
+      "bugCategory": "Bugrapport",
+      "featureCategory": "Functieverzoek",
+      "feedbackCategory": "Algemene Feedback",
+      "otherCategory": "Overig",
+      "contactInfoLabel": "E-mail (optioneel)",
+      "contactInfoPlaceholder": "Je e-mail voor opvolging",
+      "submitButton": "Feedback Indienen",
+      "submitting": "Bezig met versturen...",
+      "successMessage": "Bedankt voor je feedback! Je melding is aangemaakt.",
+      "errorMessage": "Er is een fout opgetreden bij het indienen van je feedback. Probeer het opnieuw.",
+      "validation": {
+        "titleMinLength": "Titel moet minimaal 5 tekens bevatten.",
+        "titleNoHtml": "HTML-tags zijn niet toegestaan in de titel.",
+        "descriptionMinLength": "Beschrijving moet minimaal 10 tekens bevatten.",
+        "descriptionNoHtml": "HTML-tags zijn niet toegestaan in de beschrijving.",
+        "categoryRequired": "Selecteer een categorie.",
+        "invalidEmail": "Ongeldig e-mailadres."
+      }
+    }
   }
 }

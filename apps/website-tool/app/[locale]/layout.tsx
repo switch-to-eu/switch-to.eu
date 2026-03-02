@@ -10,6 +10,7 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 import { TRPCReactProvider } from "@/lib/trpc-client";
 
 export async function generateMetadata({
@@ -63,7 +64,7 @@ export default async function LocaleLayout({
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-black text-primary tracking-wide uppercase sm:text-xl leading-none">
-                  Website Tool
+                  EU-Scan
                 </span>
                 <BrandIndicator
                   locale={locale}
@@ -78,11 +79,13 @@ export default async function LocaleLayout({
         navigation={
           <div className="flex items-center gap-2">
             <LanguageSelector locale={locale} />
+            <HeaderFeedback toolId="eu-scan" />
           </div>
         }
         mobileNavigation={
           <div className="flex items-center gap-2">
             <LanguageSelector locale={locale} />
+            <HeaderFeedback toolId="eu-scan" />
           </div>
         }
       />
@@ -90,6 +93,7 @@ export default async function LocaleLayout({
       <Footer
         useContainer={false}
         containerClassName="container mx-auto px-4"
+        feedbackToolId="eu-scan"
         links={[
           {
             label: footerT("privacy"),

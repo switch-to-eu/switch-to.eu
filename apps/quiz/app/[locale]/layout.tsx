@@ -12,6 +12,7 @@ import { routing } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 
 export async function generateMetadata({
   params,
@@ -75,13 +76,14 @@ export default async function LocaleLayout({
             }
             navigation={
               <div className="flex items-center gap-4">
+                <LanguageSelector locale={locale} />
                 <Link href="/about" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                   {t('about')}
                 </Link>
                 <Link href="/mcp" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                   {t('mcp')}
                 </Link>
-                <LanguageSelector locale={locale} />
+                <HeaderFeedback toolId="quiz" />
                 <Link href="/create">
                   <Button size="sm">
                     <Plus className="mr-2 h-4 w-4" />
@@ -91,16 +93,21 @@ export default async function LocaleLayout({
               </div>
             }
             mobileNavigation={
-              <Link href="/create">
-                <Button size="sm">
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </Link>
+              <div className="flex items-center gap-2">
+                <LanguageSelector locale={locale} />
+                <HeaderFeedback toolId="quiz" />
+                <Link href="/create">
+                  <Button size="sm">
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
             }
           />
           {children}
           <Footer
             currentToolId="quiz"
+            feedbackToolId="quiz"
             toolsSectionTitle={toolsT('sectionTitle')}
             linksSectionTitle={toolsT('linksTitle')}
             links={[

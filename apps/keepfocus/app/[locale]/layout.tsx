@@ -11,6 +11,7 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 
 export async function generateMetadata({
   params,
@@ -76,6 +77,7 @@ export default async function LocaleLayout({
           navigation={
             <div className="flex items-center gap-2">
               <LanguageSelector locale={locale} />
+              <HeaderFeedback toolId="keepfocus" />
               <Link href="/about">
                 <Button className="bg-primary hover:bg-primary/90" size="sm">
                   {t('about')}
@@ -86,6 +88,7 @@ export default async function LocaleLayout({
           mobileNavigation={
             <div className="flex items-center gap-2">
               <LanguageSelector locale={locale} />
+              <HeaderFeedback toolId="keepfocus" />
               <Link href="/about">
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="sm">
                   {t('about')}
@@ -99,6 +102,7 @@ export default async function LocaleLayout({
           useContainer={false}
           containerClassName="container mx-auto px-4"
           currentToolId="keepfocus"
+          feedbackToolId="keepfocus"
           toolsSectionTitle={toolsT('sectionTitle')}
           linksSectionTitle={toolsT('linksTitle')}
           links={[

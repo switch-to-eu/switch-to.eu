@@ -21,10 +21,13 @@
     "clean": "rm -rf .turbo node_modules"
   },
   "peerDependencies": {
+    "@hookform/resolvers": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-hook-form": "catalog:",
+    "zod": "catalog:"
   },
   "dependencies": {
     "@switch-to-eu/i18n": "workspace:*",
