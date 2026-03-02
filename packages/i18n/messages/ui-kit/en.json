@@ -9,6 +9,8 @@
       "colors": "Colors",
       "typography": "Typography",
       "shapes": "Shapes",
+      "shapesWithIcons": "Shapes + Icons",
+      "icons": "Icons",
       "components": "Components",
       "forms": "Forms",
       "blocks": "Blocks"

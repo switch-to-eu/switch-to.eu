@@ -63,8 +63,8 @@
     "heroSubtitle": "Are you concerned about your privacy and the power abuse by <b>American tech companies</b>? This website helps you switch to <b>European and open-source alternatives</b>.",
     "heroSubtitleShort": "We help you make the switch to EU alternatives.",
     "heroOr": "or",
-    "heroViewServices": "View Services",
     "heroViewCategories": "View Categories",
+    "heroWhatWeStandFor": "What we stand for",
     "heroDescription": "Tell us which <b>digital service</b> you want to change and we'll help you with <b>the transition!</b>",
     "exampleLabel": "For example:",
     "featuredTitle": "What does Switch-to.eu stand for?",
@@ -349,6 +349,7 @@
         "description": "Ready to take back control of your digital life? Explore our guides and discover how easy it can be to transition to a more privacy-respecting digital existence with European technology that simply works."
       }
     },
+    "viewServicesButton": "Start making the switch",
     "pillarsTitle": "Our Three Pillars",
     "pillars": {
       "pillar1": {

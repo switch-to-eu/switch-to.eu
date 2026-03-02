@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles, Shapes, Smile } from "lucide-react";
 
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { routing } from "@switch-to-eu/i18n/routing";
@@ -30,6 +30,8 @@ const navItems = [
   { href: "/colors", label: "colors", icon: Palette },
   { href: "/typography", label: "typography", icon: Type },
   { href: "/shapes", label: "shapes", icon: Sparkles },
+  { href: "/shapes-with-icons", label: "shapesWithIcons", icon: Shapes },
+  { href: "/icons", label: "icons", icon: Smile },
   { href: "/components", label: "components", icon: Component },
   { href: "/forms", label: "forms", icon: FormInput },
   { href: "/blocks", label: "blocks", icon: LayoutGrid },

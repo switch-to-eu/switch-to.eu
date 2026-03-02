@@ -1,5 +1,5 @@
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles, Shapes, Smile } from "lucide-react";
 
 const sections = [
   {
@@ -19,6 +19,18 @@ const sections = [
     description: "Animated SVG shapes, floating animations, CSS filter utilities.",
     href: "/shapes",
     icon: Sparkles,
+  },
+  {
+    title: "Shapes with Icons",
+    description: "All 36 static SVG shapes with icon overlays — find which shapes work best at each size.",
+    href: "/shapes-with-icons",
+    icon: Shapes,
+  },
+  {
+    title: "Icons",
+    description: "All Lucide icons used across the platform, organized by category.",
+    href: "/icons",
+    icon: Smile,
   },
   {
     title: "Components",

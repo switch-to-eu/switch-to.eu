@@ -9,6 +9,8 @@
       "colors": "Kleuren",
       "typography": "Typografie",
       "shapes": "Vormen",
+      "shapesWithIcons": "Vormen + Iconen",
+      "icons": "Iconen",
       "components": "Componenten",
       "forms": "Formulieren",
       "blocks": "Blokken"

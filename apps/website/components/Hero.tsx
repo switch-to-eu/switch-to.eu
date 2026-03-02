@@ -2,9 +2,16 @@
 
 import { useTranslations } from "next-intl";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { BlobShape, PebbleShape, PuddleShape } from "@switch-to-eu/ui/components/hero-shapes";
 import { Container } from "@/components/layout/container";
+
+function scrollTo(e: React.MouseEvent<HTMLAnchorElement>) {
+  e.preventDefault();
+  const id = e.currentTarget.getAttribute("href")?.slice(1);
+  if (id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }
+}
 
 export function Hero() {
   const t = useTranslations("home");
@@ -34,7 +41,7 @@ export function Hero() {
               className="relative uppercase text-brand-yellow text-center"
               style={{
                 fontFamily: "var(--font-anton)",
-                fontSize: "clamp(3.5rem, 12vw, 10rem)",
+                fontSize: "clamp(3.5rem, 10vw, 9rem)",
                 fontWeight: 400,
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
@@ -53,18 +60,20 @@ export function Hero() {
           </div>
 
           <div className="flex justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
-            <Link
-              href="/services"
+            <a
+              href="#categories"
+              onClick={scrollTo}
               className="px-6 sm:px-8 py-3 bg-brand-yellow text-brand-navy font-medium rounded-full hover:opacity-90 transition-colors text-sm sm:text-base"
             >
-              {t("heroViewServices")}
-            </Link>
-            <Link
-              href="/services"
+              {t("heroViewCategories")}
+            </a>
+            <a
+              href="#stand-for"
+              onClick={scrollTo}
               className="px-6 sm:px-8 py-3 border border-brand-yellow text-brand-yellow font-medium rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-sm sm:text-base"
             >
-              {t("heroViewCategories")}
-            </Link>
+              {t("heroWhatWeStandFor")}
+            </a>
           </div>
           </div>
         </div>

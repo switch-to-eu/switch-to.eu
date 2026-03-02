@@ -71,7 +71,7 @@ export async function CategorySection() {
   const categories = getAllCategoriesMetadata(locale);
 
   return (
-    <section>
+    <section id="categories">
       <Container>
         <h2 className="mb-8 sm:mb-10 font-heading text-4xl sm:text-5xl uppercase text-brand-green">
           {t("categoriesSectionTitle")}

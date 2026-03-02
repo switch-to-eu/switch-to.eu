@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
@@ -166,7 +167,7 @@ export default async function AboutPage() {
       {/* Mission & Details */}
       <section>
         <Container>
-          <div className="max-w-3xl mx-auto space-y-10">
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
             <div>
               <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.mission.title")}
@@ -198,7 +199,7 @@ export default async function AboutPage() {
               <p className="text-base sm:text-lg mb-6">
                 {t("initiative.uniqueness.description2")}
               </p>
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3">
                 {(t.raw("initiative.uniqueness.points") as Array<string>).map(
                   (point: string, index: number) => (
                     <li
@@ -227,9 +228,15 @@ export default async function AboutPage() {
               <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.callToAction.title")}
               </h2>
-              <p className="text-base sm:text-lg">
+              <p className="text-base sm:text-lg mb-6">
                 {t("initiative.callToAction.description")}
               </p>
+              <Link
+                href="/#categories"
+                className="inline-block px-6 sm:px-8 py-3 bg-brand-green text-white font-medium rounded-full hover:opacity-90 transition-colors text-sm sm:text-base"
+              >
+                {t("viewServicesButton")}
+              </Link>
             </div>
           </div>
         </Container>

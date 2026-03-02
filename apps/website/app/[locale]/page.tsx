@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
-import { ContributeCta } from "@/components/ContributeCta";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { CategorySection } from "@/components/CategorySection";
 import { Hero } from "@/components/Hero";
@@ -100,6 +99,9 @@ export default async function Home() {
       {/* Hero Section */}
       <Hero />
 
+      {/* Categories Section */}
+      <CategorySection />
+
       {/* Migration Guides Section */}
       <section>
         <Container>
@@ -165,7 +167,7 @@ export default async function Home() {
       </section>
 
       {/* Features Section */}
-      <section>
+      <section id="stand-for">
         <Container>
           <div className="bg-brand-green rounded-3xl overflow-hidden">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20">
@@ -247,12 +249,6 @@ export default async function Home() {
 
       {/* Newsletter Section */}
       <NewsletterCta />
-
-      {/* Categories Section */}
-      <CategorySection />
-
-      {/* CTA Section */}
-      <ContributeCta />
     </PageLayout>
   );
 }

@@ -60,8 +60,8 @@
     "heroSubtitle": "Maak jij je ook zorgen over je privacy en machtsmisbruik door <b>Amerikaanse techbedrijven</b>? Deze website helpt je om de switch te maken naar <b>Europese en open-source alternatieven</b>.",
     "heroSubtitleShort": "Wij helpen je de overstap te maken naar EU-alternatieven.",
     "heroOr": "of",
-    "heroViewServices": "Bekijk Diensten",
     "heroViewCategories": "Bekijk Categorieën",
+    "heroWhatWeStandFor": "Waar staan wij voor",
     "heroDescription": "Vertel ons welke <b>digitale dienst</b> je wil veranderen en wij helpen je bij <b>de overstap!</b>",
     "exampleLabel": "Bijvoorbeeld:",
     "featuredTitle": "Waar staat Switch-to.eu voor?",
@@ -343,6 +343,7 @@
         "description": "Klaar om de controle over je digitale leven terug te nemen? Verken onze gidsen en ontdek hoe eenvoudig het kan zijn om de overstap te maken naar een meer privacy-respecterend digitaal bestaan met Europese technologie die gewoon werkt."
       }
     },
+    "viewServicesButton": "Begin met de overstap",
     "pillarsTitle": "Onze Drie Pijlers",
     "pillars": {
       "pillar1": {
