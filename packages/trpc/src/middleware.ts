@@ -42,6 +42,8 @@ export function createRateLimitProcedure(opts: {
   maxRequests: number;
 }) {
   return t.procedure.use(async ({ ctx, next }) => {
+    if (process.env.NODE_ENV === "development") return next();
+
     const ip =
       ctx.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       ctx.headers.get("x-real-ip") ??

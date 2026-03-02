@@ -21,6 +21,6 @@ export const publicProcedure = t.procedure
     createRateLimitProcedure({
       prefix: "quiz",
       windowMs: 60_000,
-      maxRequests: 60,
+      maxRequests: 1000,
     }),
   );

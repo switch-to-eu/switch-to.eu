@@ -15,7 +15,7 @@
  *   PLAYERS   — Number of simulated players (default: 5)
  */
 import { test, chromium, type BrowserContext, type Page } from "@playwright/test";
-import { QUIZ_STATE_TITLES, type QuizState } from "../../server/db/types";
+import { QUIZ_STATE_TITLES, type QuizState } from "../server/db/types";
 
 // ── Configuration ──────────────────────────────────────────────────────────
 
