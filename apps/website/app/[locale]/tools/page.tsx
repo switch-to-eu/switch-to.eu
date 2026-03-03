@@ -1,9 +1,12 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { getToolCardColor } from "@switch-to-eu/ui/lib/tool-colors";
 import {
   ArrowUpRightIcon,
   GlobeIcon,
@@ -57,9 +60,9 @@ export default async function ToolsPage() {
   const tools = getAllToolsSorted();
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <PageLayout>
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
             <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-green mb-4">
               {t("title")}
@@ -81,7 +84,7 @@ export default async function ToolsPage() {
                     rel: "noopener noreferrer",
                   }
                 : {};
-              const card = getCardColor(index);
+              const card = getToolCardColor(tool.id);
               const shape = TOOL_SHAPES[index % TOOL_SHAPES.length]!;
 
               return (
@@ -160,11 +163,11 @@ export default async function ToolsPage() {
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl uppercase text-brand-green mb-8 text-center">
             {t("whyUseTools")}
           </h2>
@@ -212,8 +215,8 @@ export default async function ToolsPage() {
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
-    </div>
+    </PageLayout>
   );
 }
