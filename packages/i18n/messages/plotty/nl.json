@@ -8,6 +8,9 @@
             "createPoll": "Maak Poll",
             "about": "Over"
         },
+        "nav": {
+            "about": "Over"
+        },
         "footer": {
             "about": "Over",
             "privacy": "Privacybeleid",

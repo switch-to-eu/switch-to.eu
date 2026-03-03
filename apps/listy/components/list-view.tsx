@@ -214,7 +214,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
       <div className="container mx-auto py-12">
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
-            <AlertTriangle className="mx-auto h-12 w-12 text-orange-500 mb-4" />
+            <AlertTriangle className="mx-auto h-12 w-12 text-warning mb-4" />
             <CardTitle>{t("missingKey")}</CardTitle>
             <CardDescription>{t("missingKeyDescription")}</CardDescription>
           </CardHeader>
@@ -226,7 +226,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
   if (isLoading) {
     return (
       <div className="container mx-auto py-12 flex justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-teal-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-tool-primary" />
       </div>
     );
   }
@@ -236,7 +236,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
       <div className="container mx-auto py-12">
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
-            <AlertTriangle className="mx-auto h-12 w-12 text-red-500 mb-4" />
+            <AlertTriangle className="mx-auto h-12 w-12 text-destructive mb-4" />
             <CardTitle>{t("errorTitle")}</CardTitle>
             <CardDescription>{error}</CardDescription>
           </CardHeader>
@@ -257,9 +257,9 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
         <div>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-neutral-900">{list.title}</h1>
+              <h1 className="text-2xl font-bold text-foreground">{list.title}</h1>
               {list.description && (
-                <p className="mt-1 text-neutral-500">{list.description}</p>
+                <p className="mt-1 text-muted-foreground">{list.description}</p>
               )}
             </div>
             <Badge variant="outline" className="shrink-0">
@@ -268,13 +268,13 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
           </div>
 
           {totalCount > 0 && (
-            <div className="mt-3 flex items-center gap-2 text-sm text-neutral-500">
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
               <span>
                 {t("progress", { completed: completedCount, total: totalCount })}
               </span>
-              <div className="flex-1 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+              <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-teal-500 rounded-full transition-all"
+                  className="h-full bg-tool-primary rounded-full transition-all"
                   style={{
                     width: `${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%`,
                   }}
@@ -303,7 +303,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
 
             <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
                   <Trash2 className="mr-2 h-4 w-4" />
                   {t("deleteList")}
                 </Button>
@@ -341,13 +341,13 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
 
         {/* Claim name indicator when claims are enabled */}
         {settings.enableClaims && claimName && (
-          <div className="flex items-center gap-2 text-sm text-neutral-500">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{t("claimingAs", { name: claimName })}</span>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleEditName}
-              className="h-6 px-1.5 text-neutral-400 hover:text-neutral-600"
+              className="h-6 px-1.5 text-muted-foreground hover:text-foreground"
             >
               <Pencil className="h-3 w-3" />
             </Button>
@@ -370,9 +370,9 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
             isMutating={isMutating}
           />
         ) : (
-          <div className="rounded-lg border bg-white overflow-hidden">
+          <div className="rounded-lg border bg-card overflow-hidden">
             {list.items.length > 0 && (
-              <div className="divide-y divide-neutral-100">
+              <div className="divide-y divide-border">
                 {list.items.map((item) => (
                   <ListItem
                     key={item.id}
@@ -391,16 +391,16 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
               onSubmit={handleAddItem}
               className={cn(
                 "flex items-center gap-2 px-3 py-2.5",
-                list.items.length > 0 && "border-t border-neutral-100",
+                list.items.length > 0 && "border-t border-border",
               )}
             >
-              <Plus className="h-4 w-4 text-neutral-300 shrink-0" />
+              <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
               <input
                 value={newItemText}
                 onChange={(e) => setNewItemText(e.target.value)}
                 placeholder={t("addItemPlaceholder")}
                 maxLength={500}
-                className="flex-1 text-sm bg-transparent outline-none placeholder:text-neutral-300"
+                className="flex-1 text-sm bg-transparent outline-none placeholder:text-muted-foreground"
               />
             </form>
           </div>

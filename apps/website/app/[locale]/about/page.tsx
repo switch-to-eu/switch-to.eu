@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -84,10 +85,10 @@ export default async function AboutPage() {
   const t = await getTranslations("about");
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -161,7 +162,7 @@ export default async function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Mission & Details */}
@@ -340,6 +341,6 @@ export default async function AboutPage() {
           </div>
         </Container>
       </section>
-    </div>
+    </PageLayout>
   );
 }

@@ -16,7 +16,7 @@ export default function HomePage() {
 
           {/* Hero Section */}
           <div className="text-center py-8 mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
+            <h1 className="text-4xl font-bold text-foreground mb-3">
               {t('homepage.heroTitle').split('.').map((part, index, array) => (
                 <span key={index}>
                   {index === array.length - 1 ? (
@@ -27,10 +27,10 @@ export default function HomePage() {
                 </span>
               ))}
             </h1>
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 bg-tool-primary/10 text-tool-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
               {t('homepage.technique')}
             </div>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               {t('homepage.heroDescription')}
             </p>
           </div>

@@ -7,7 +7,7 @@ export default function PrivacyPage() {
     <div className="container mx-auto py-12">
       <div className="max-w-3xl mx-auto prose">
         <h1>{t('title')}</h1>
-        <p className="text-neutral-600">{t('placeholder')}</p>
+        <p className="text-muted-foreground">{t('placeholder')}</p>
         {/* TODO: Full privacy policy page */}
       </div>
     </div>

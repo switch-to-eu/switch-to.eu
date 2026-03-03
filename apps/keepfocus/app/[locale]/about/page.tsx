@@ -35,25 +35,25 @@ export default function AboutPage() {
         <div className="relative z-10 container mx-auto">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="mb-6 text-5xl font-bold sm:mb-8 sm:text-6xl lg:text-7xl">
-              <span className="text-neutral-900">
+              <span className="text-foreground">
                 {t('hero.title')}
               </span>
             </h1>
 
-            <p className="mx-auto mb-8 max-w-3xl text-xl text-neutral-600 sm:mb-10 sm:text-2xl">
+            <p className="mx-auto mb-8 max-w-3xl text-xl text-muted-foreground sm:mb-10 sm:text-2xl">
               {t('hero.subtitle')}
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 text-lg">
-              <div className="flex items-center gap-2 text-neutral-700">
+              <div className="flex items-center gap-2 text-foreground">
                 <MapPin className="h-5 w-5 text-primary-color" />
                 {t('hero.badges.european')}
               </div>
-              <div className="flex items-center gap-2 text-neutral-700">
-                <Shield className="h-5 w-5 text-green-600" />
+              <div className="flex items-center gap-2 text-foreground">
+                <Shield className="h-5 w-5 text-success" />
                 {t('hero.badges.localData')}
               </div>
-              <div className="flex items-center gap-2 text-neutral-700">
+              <div className="flex items-center gap-2 text-foreground">
                 <Eye className="h-5 w-5 text-primary-color" />
                 {t('hero.badges.noTracking')}
               </div>
@@ -64,55 +64,55 @@ export default function AboutPage() {
 
 
       {/* About KeepFocus Section */}
-      <div className="bg-neutral-50 py-16 sm:py-20">
+      <div className="bg-muted py-16 sm:py-20">
         <div className="container mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="mb-4 text-4xl font-bold text-neutral-900 sm:text-5xl">
+            <h2 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
               {t('keepfocus.title')}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-neutral-600">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t('keepfocus.subtitle')}
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-            <Card className="border-0 bg-white shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+            <Card className="border-0 bg-card shadow-lg transition-all hover:scale-105 hover:shadow-xl">
               <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                  <Timer className="h-6 w-6 text-red-600" />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
+                  <Timer className="h-6 w-6 text-destructive" />
                 </div>
-                <CardTitle className="text-xl text-neutral-900">
+                <CardTitle className="text-xl text-foreground">
                   {t('keepfocus.features.pomodoro.title')}
                 </CardTitle>
-                <CardDescription className="text-neutral-600">
+                <CardDescription className="text-muted-foreground">
                   {t('keepfocus.features.pomodoro.description')}
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="border-0 bg-white shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+            <Card className="border-0 bg-card shadow-lg transition-all hover:scale-105 hover:shadow-xl">
               <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-primary/20">
                   <Target className="h-6 w-6 text-primary-color" />
                 </div>
-                <CardTitle className="text-xl text-neutral-900">
+                <CardTitle className="text-xl text-foreground">
                   {t('keepfocus.features.tasks.title')}
                 </CardTitle>
-                <CardDescription className="text-neutral-600">
+                <CardDescription className="text-muted-foreground">
                   {t('keepfocus.features.tasks.description')}
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="border-0 bg-white shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+            <Card className="border-0 bg-card shadow-lg transition-all hover:scale-105 hover:shadow-xl">
               <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                  <Brain className="h-6 w-6 text-green-600" />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+                  <Brain className="h-6 w-6 text-success" />
                 </div>
-                <CardTitle className="text-xl text-neutral-900">
+                <CardTitle className="text-xl text-foreground">
                   {t('keepfocus.features.focus.title')}
                 </CardTitle>
-                <CardDescription className="text-neutral-600">
+                <CardDescription className="text-muted-foreground">
                   {t('keepfocus.features.focus.description')}
                 </CardDescription>
               </CardHeader>
@@ -123,47 +123,47 @@ export default function AboutPage() {
       </div>
 
       {/* Technical Deep Dive Section */}
-      <div className="bg-white py-16 sm:py-20">
+      <div className="bg-card py-16 sm:py-20">
         <div className="container mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="mb-4 text-4xl font-bold text-neutral-900 sm:text-5xl">
+            <h2 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
               {t('technical.title')}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-neutral-600">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t('technical.subtitle')}
             </p>
           </div>
 
           {/* Architecture Overview */}
           <div className="mb-16">
-            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-              <h3 className="text-2xl font-bold text-center text-neutral-900 mb-8">
+            <div className="bg-tool-primary/10 rounded-2xl p-8 border border-tool-primary/20">
+              <h3 className="text-2xl font-bold text-center text-foreground mb-8">
                 {t('technical.architecture.title')}
               </h3>
 
               <div className="grid gap-6 md:grid-cols-3">
                 <div className="text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-primary/20">
                     <Database className="h-6 w-6 text-primary-color" />
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{t('technical.architecture.localStorage.title')}</h4>
-                  <p className="text-sm text-neutral-600">{t('technical.architecture.localStorage.description')}</p>
+                  <h4 className="font-semibold text-foreground mb-2">{t('technical.architecture.localStorage.title')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('technical.architecture.localStorage.description')}</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <Timer className="h-6 w-6 text-green-600" />
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+                    <Timer className="h-6 w-6 text-success" />
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{t('technical.architecture.webWorkers.title')}</h4>
-                  <p className="text-sm text-neutral-600">{t('technical.architecture.webWorkers.description')}</p>
+                  <h4 className="font-semibold text-foreground mb-2">{t('technical.architecture.webWorkers.title')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('technical.architecture.webWorkers.description')}</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-accent/20">
                     <Shield className="h-6 w-6 text-primary-color" />
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{t('technical.architecture.privacy.title')}</h4>
-                  <p className="text-sm text-neutral-600">{t('technical.architecture.privacy.description')}</p>
+                  <h4 className="font-semibold text-foreground mb-2">{t('technical.architecture.privacy.title')}</h4>
+                  <p className="text-sm text-muted-foreground">{t('technical.architecture.privacy.description')}</p>
                 </div>
               </div>
             </div>
@@ -175,27 +175,27 @@ export default function AboutPage() {
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
                   <Shield className="h-6 w-6 text-primary-color" />
-                  <CardTitle className="text-xl text-neutral-900">
+                  <CardTitle className="text-xl text-foreground">
                     {t('technical.details.privacy.title')}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-neutral-600">
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.privacy.localData')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.privacy.noAnalytics')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.privacy.noAccounts')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.privacy.offline')}</span>
                   </li>
                 </ul>
@@ -205,28 +205,28 @@ export default function AboutPage() {
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  <Zap className="h-6 w-6 text-green-600" />
-                  <CardTitle className="text-xl text-neutral-900">
+                  <Zap className="h-6 w-6 text-success" />
+                  <CardTitle className="text-xl text-foreground">
                     {t('technical.details.performance.title')}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-neutral-600">
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.performance.webWorkers')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.performance.notifications')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.performance.responsive')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.performance.instant')}</span>
                   </li>
                 </ul>
@@ -236,28 +236,28 @@ export default function AboutPage() {
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  <Timer className="h-6 w-6 text-red-600" />
-                  <CardTitle className="text-xl text-neutral-900">
+                  <Timer className="h-6 w-6 text-destructive" />
+                  <CardTitle className="text-xl text-foreground">
                     {t('technical.details.pomodoro.title')}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-neutral-600">
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.pomodoro.customizable')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.pomodoro.autoStart')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.pomodoro.notifications')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.pomodoro.statistics')}</span>
                   </li>
                 </ul>
@@ -267,28 +267,28 @@ export default function AboutPage() {
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  <Server className="h-6 w-6 text-orange-600" />
-                  <CardTitle className="text-xl text-neutral-900">
+                  <Server className="h-6 w-6 text-warning" />
+                  <CardTitle className="text-xl text-foreground">
                     {t('technical.details.modern.title')}
                   </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-neutral-600">
+                <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.modern.nextjs')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.modern.typescript')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.modern.tailwind')}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-success mt-1 flex-shrink-0" />
                     <span className="text-sm">{t('technical.details.modern.pwa')}</span>
                   </li>
                 </ul>
@@ -299,13 +299,13 @@ export default function AboutPage() {
       </div>
 
       {/* Open Source Section */}
-      <div className="bg-neutral-100 py-16 sm:py-20">
+      <div className="bg-muted py-16 sm:py-20">
         <div className="container mx-auto">
           <div className="text-center mb-12 max-w-4xl mx-auto">
-            <h2 className="mb-4 text-4xl font-bold text-neutral-900 sm:text-5xl">
+            <h2 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
               {t('openSource.title')}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-neutral-600 mb-8">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground mb-8">
               {t('openSource.description')}
             </p>
 
@@ -322,27 +322,27 @@ export default function AboutPage() {
 
             <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+                  <CheckCircle className="h-6 w-6 text-success" />
                 </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">{t('openSource.benefits.transparency.title')}</h4>
-                <p className="text-sm text-neutral-600">{t('openSource.benefits.transparency.description')}</p>
+                <h4 className="font-semibold text-foreground mb-2">{t('openSource.benefits.transparency.title')}</h4>
+                <p className="text-sm text-muted-foreground">{t('openSource.benefits.transparency.description')}</p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-primary/20">
                   <Users className="h-6 w-6 text-primary-color" />
                 </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">{t('openSource.benefits.community.title')}</h4>
-                <p className="text-sm text-neutral-600">{t('openSource.benefits.community.description')}</p>
+                <h4 className="font-semibold text-foreground mb-2">{t('openSource.benefits.community.title')}</h4>
+                <p className="text-sm text-muted-foreground">{t('openSource.benefits.community.description')}</p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-accent/20">
                   <Shield className="h-6 w-6 text-primary-color" />
                 </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">{t('openSource.benefits.security.title')}</h4>
-                <p className="text-sm text-neutral-600">{t('openSource.benefits.security.description')}</p>
+                <h4 className="font-semibold text-foreground mb-2">{t('openSource.benefits.security.title')}</h4>
+                <p className="text-sm text-muted-foreground">{t('openSource.benefits.security.description')}</p>
               </div>
             </div>
           </div>
@@ -350,40 +350,40 @@ export default function AboutPage() {
       </div>
 
       {/* Switch-to.eu Platform Section */}
-      <div className="bg-white py-16 sm:py-20">
+      <div className="bg-card py-16 sm:py-20">
         <div className="container mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="mb-4 text-4xl font-bold text-neutral-900 sm:text-5xl">
+            <h2 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
               {t('platform.title')}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-neutral-600">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t('platform.description')}
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto mb-12">
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                <Shield className="h-6 w-6 text-green-600" />
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+                <Shield className="h-6 w-6 text-success" />
               </div>
-              <h4 className="font-semibold text-neutral-900 mb-2">{t('platform.benefits.sovereignty.title')}</h4>
-              <p className="text-sm text-neutral-600">{t('platform.benefits.sovereignty.description')}</p>
+              <h4 className="font-semibold text-foreground mb-2">{t('platform.benefits.sovereignty.title')}</h4>
+              <p className="text-sm text-muted-foreground">{t('platform.benefits.sovereignty.description')}</p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-primary/20">
                 <Lock className="h-6 w-6 text-primary-color" />
               </div>
-              <h4 className="font-semibold text-neutral-900 mb-2">{t('platform.benefits.privacy.title')}</h4>
-              <p className="text-sm text-neutral-600">{t('platform.benefits.privacy.description')}</p>
+              <h4 className="font-semibold text-foreground mb-2">{t('platform.benefits.privacy.title')}</h4>
+              <p className="text-sm text-muted-foreground">{t('platform.benefits.privacy.description')}</p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tool-accent/20">
                 <Zap className="h-6 w-6 text-primary-color" />
               </div>
-              <h4 className="font-semibold text-neutral-900 mb-2">{t('platform.benefits.innovation.title')}</h4>
-              <p className="text-sm text-neutral-600">{t('platform.benefits.innovation.description')}</p>
+              <h4 className="font-semibold text-foreground mb-2">{t('platform.benefits.innovation.title')}</h4>
+              <p className="text-sm text-muted-foreground">{t('platform.benefits.innovation.description')}</p>
             </div>
           </div>
 

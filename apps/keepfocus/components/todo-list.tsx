@@ -109,7 +109,7 @@ export function TodoList({
     return (
       <Card className={`shadow-lg border-0 bg-white/80 backdrop-blur-sm ${className || ''}`}>
         <CardContent className="p-8 text-center">
-          <div className="text-gray-500">{t('pomodoro.tasks.loading')}</div>
+          <div className="text-muted-foreground">{t('pomodoro.tasks.loading')}</div>
         </CardContent>
       </Card>
     );
@@ -118,7 +118,7 @@ export function TodoList({
   return (
     <Card className={`shadow-lg border-0 bg-white/80 backdrop-blur-sm ${className || ''}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-2xl text-gray-800">{displayTitle}</CardTitle>
+        <CardTitle className="text-2xl text-foreground">{displayTitle}</CardTitle>
 
         <form onSubmit={handleAddTask} className="flex gap-2">
           <Input
@@ -126,20 +126,20 @@ export function TodoList({
             value={newTaskInput}
             onChange={(e) => setNewTaskInput(e.target.value)}
             maxLength={maxLength}
-            className="flex-1 border-gray-200 focus:border-blue-400 focus:ring-blue-400"
+            className="flex-1 border-border focus:border-tool-primary focus:ring-tool-primary"
             autoFocus
           />
           <Button
             type="submit"
             disabled={!newTaskInput.trim()}
-            className="bg-blue-500 hover:bg-blue-600 text-white shadow-sm"
+            className="bg-tool-primary hover:bg-tool-primary/90 text-white shadow-sm"
           >
             <Plus className="w-4 h-4" />
           </Button>
         </form>
 
         {showCharacterWarning && (
-          <p className="text-sm text-amber-600">
+          <p className="text-sm text-warning">
             {charactersRemaining} {t('pomodoro.tasks.charactersRemaining')}
           </p>
         )}
@@ -149,9 +149,9 @@ export function TodoList({
         {/* Active Tasks Section */}
         <div className="space-y-2">
           {activeTasks.length === 0 ? (
-            <div className="text-center py-12 text-gray-500">
-              <CheckCircle2 className={`w-16 h-16 mx-auto mb-4 ${completedTasks.length > 0 ? 'text-green-400' : 'text-gray-200'}`} />
-              <h3 className="text-lg font-medium text-gray-600 mb-2">
+            <div className="text-center py-12 text-muted-foreground">
+              <CheckCircle2 className={`w-16 h-16 mx-auto mb-4 ${completedTasks.length > 0 ? 'text-success' : 'text-muted'}`} />
+              <h3 className="text-lg font-medium text-muted-foreground mb-2">
                 {completedTasks.length > 0
                   ? t('pomodoro.tasks.emptyState.allTasksCompleted')
                   : t('pomodoro.tasks.emptyState.readyToFocus')
@@ -213,7 +213,7 @@ export function TodoList({
               <Button
                 variant="ghost"
                 onClick={() => setShowCompleted(!showCompleted)}
-                className="text-gray-600 hover:text-gray-800 p-0 h-auto font-normal"
+                className="text-muted-foreground hover:text-foreground p-0 h-auto font-normal"
               >
                 <CheckCircle2 className="w-4 h-4 mr-2" />
                 {t('pomodoro.tasks.completed')} ({completedTasks.length})
@@ -242,7 +242,7 @@ export function TodoList({
                     variant="outline"
                     size="sm"
                     onClick={clearCompleted}
-                    className="text-gray-600 hover:text-red-600 border-gray-200"
+                    className="text-muted-foreground hover:text-destructive border-border"
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     {t('pomodoro.tasks.clearCompleted')}

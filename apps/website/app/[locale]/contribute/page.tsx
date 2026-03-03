@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -97,10 +98,10 @@ export default async function ContributePage() {
   const t = await getTranslations("contribute");
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-green rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -163,7 +164,7 @@ export default async function ContributePage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Contribution Cards Section */}
@@ -249,7 +250,7 @@ export default async function ContributePage() {
 
       {/* Why Your Contribution Matters Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               <div className="absolute -top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44 opacity-15 pointer-events-none">
@@ -273,8 +274,8 @@ export default async function ContributePage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
-    </div>
+    </PageLayout>
   );
 }

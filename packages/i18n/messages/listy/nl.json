@@ -8,6 +8,9 @@
             "createList": "Maak Lijst",
             "about": "Over"
         },
+        "nav": {
+            "about": "Over"
+        },
         "footer": {
             "about": "Over",
             "privacy": "Privacybeleid",

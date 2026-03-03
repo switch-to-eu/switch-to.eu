@@ -121,7 +121,7 @@ export function AnalysisClient({
       )}
 
       {isLoading && results.length === 0 && (
-        <div className="w-full max-w-3xl mx-auto bg-white rounded-3xl border border-brand-sage/30 p-8 text-center">
+        <div className="w-full max-w-3xl mx-auto bg-card rounded-3xl border border-brand-sage/30 p-8 text-center">
           <div className="w-8 h-8 rounded-full border-2 border-brand-navy border-t-transparent animate-spin mx-auto mb-4"></div>
           <h3 className="font-semibold text-lg text-brand-green mb-2">
             {t.rich("analyze.analyzing", {

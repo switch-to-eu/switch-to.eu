@@ -8,6 +8,8 @@ import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { ContributeCta } from "@/components/ContributeCta";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 import { Locale } from "next-intl";
@@ -101,10 +103,10 @@ export default async function ServicesCategoryPage({
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-16 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero — large navy block with title, description, and stats */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -195,13 +197,13 @@ export default async function ServicesCategoryPage({
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Featured services — prominent horizontal cards */}
       {featuredServices.length > 0 && (
         <section>
-          <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <Container>
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
               {t("featuredAlternatives")}
             </h2>
@@ -225,13 +227,13 @@ export default async function ServicesCategoryPage({
                 </React.Suspense>
               ))}
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
       {/* All services — colorful card grid */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="flex items-end justify-between mb-8">
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
               {t("alternatives", { category: capitalizedCategory })}
@@ -247,7 +249,7 @@ export default async function ServicesCategoryPage({
               />
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Newsletter Section */}
@@ -255,6 +257,6 @@ export default async function ServicesCategoryPage({
 
       {/* CTA Section */}
       <ContributeCta />
-    </main>
+    </PageLayout>
   );
 }

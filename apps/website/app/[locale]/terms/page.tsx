@@ -1,4 +1,5 @@
 import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { getPageContent } from "@switch-to-eu/content/services/pages";
 import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -35,7 +36,7 @@ export default async function TermsPage({
   const htmlContent = parseMarkdown(content);
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <PageLayout>
       <section>
         <Container>
           <div className="max-w-4xl mx-auto">
@@ -46,6 +47,6 @@ export default async function TermsPage({
           </div>
         </Container>
       </section>
-    </div>
+    </PageLayout>
   );
 }

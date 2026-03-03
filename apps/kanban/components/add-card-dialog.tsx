@@ -13,11 +13,11 @@ import type { DecryptedCardData } from "@/lib/types";
 const AVAILABLE_LABELS = ["bug", "feature", "improvement", "urgent", "design", "research"];
 
 const LABEL_COLORS: Record<string, string> = {
-  bug: "bg-red-100 text-red-700 border-red-200",
-  feature: "bg-blue-100 text-blue-700 border-blue-200",
-  improvement: "bg-green-100 text-green-700 border-green-200",
-  urgent: "bg-orange-100 text-orange-700 border-orange-200",
-  design: "bg-purple-100 text-purple-700 border-purple-200",
+  bug: "bg-destructive/10 text-destructive border-destructive/20",
+  feature: "bg-tool-primary/10 text-tool-primary border-tool-primary/20",
+  improvement: "bg-success/10 text-success border-success/20",
+  urgent: "bg-warning/10 text-warning border-warning/20",
+  design: "bg-tool-accent/20 text-tool-accent border-tool-accent/30",
   research: "bg-yellow-100 text-yellow-700 border-yellow-200",
 };
 
@@ -58,7 +58,7 @@ export function AddCardDialog({ initialData, onSave, onCancel, onDelete }: AddCa
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onCancel}>
       <div
-        className="bg-white rounded-xl shadow-lg w-full max-w-md mx-4 p-6"
+        className="bg-card rounded-xl shadow-lg w-full max-w-md mx-4 p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
@@ -107,8 +107,8 @@ export function AddCardDialog({ initialData, onSave, onCancel, onDelete }: AddCa
                   type="button"
                   className={`rounded-full px-3 py-1 text-xs font-medium border transition-all ${
                     labels.includes(label)
-                      ? LABEL_COLORS[label] || "bg-gray-100 text-gray-700 border-gray-200"
-                      : "bg-gray-50 text-gray-400 border-gray-200 hover:bg-gray-100"
+                      ? LABEL_COLORS[label] || "bg-muted text-foreground border-border"
+                      : "bg-muted text-muted-foreground border-border hover:bg-muted"
                   }`}
                   onClick={() => toggleLabel(label)}
                 >

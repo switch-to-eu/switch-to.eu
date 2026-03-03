@@ -8,6 +8,9 @@
       "createItem": "Item Aanmaken",
       "about": "Over"
     },
+    "nav": {
+      "about": "Over"
+    },
     "footer": {
       "about": "Over",
       "privacy": "Privacybeleid",

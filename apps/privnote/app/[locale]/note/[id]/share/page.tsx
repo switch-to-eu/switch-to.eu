@@ -58,7 +58,7 @@ export default function SharePage() {
     return (
       <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-tool-accent/20 border-t-tool-primary" />
         </div>
       </main>
     );
@@ -67,19 +67,19 @@ export default function SharePage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <Check className="h-8 w-8 text-green-600" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
+          <Check className="h-8 w-8 text-success" />
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           {t("title")}
         </h1>
-        <p className="mt-3 text-gray-600">{t("description")}</p>
+        <p className="mt-3 text-muted-foreground">{t("description")}</p>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
+      <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         {/* Link display */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-foreground">
             {t("linkLabel")}
           </label>
           <div className="flex gap-2">
@@ -87,7 +87,7 @@ export default function SharePage() {
               type="text"
               readOnly
               value={fullNoteUrl}
-              className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm font-mono text-gray-700 select-all"
+              className="flex-1 rounded-lg border border-border bg-muted px-4 py-2.5 text-sm font-mono text-foreground select-all"
               onClick={(e) => (e.target as HTMLInputElement).select()}
             />
             <Button
@@ -112,22 +112,22 @@ export default function SharePage() {
 
         {/* Expiry info */}
         {fragmentParams.expires && (
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-muted-foreground">
             {t("expiresIn", { time: formatExpiry(fragmentParams.expires) })}
           </p>
         )}
 
         {/* Warning */}
-        <div className="mt-6 flex items-start gap-3 rounded-lg border border-amber-100 bg-amber-50/50 p-4">
-          <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500" />
-          <p className="text-sm text-amber-700">{t("warning")}</p>
+        <div className="mt-6 flex items-start gap-3 rounded-lg border border-tool-accent/20 bg-tool-surface/10 p-4">
+          <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-tool-accent" />
+          <p className="text-sm text-tool-primary">{t("warning")}</p>
         </div>
 
         {/* Burn warning */}
         {fragmentParams.burn && (
-          <div className="mt-4 flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
-            <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
-            <p className="text-sm text-red-700">{t("burnWarning")}</p>
+          <div className="mt-4 flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/10 p-4">
+            <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-destructive" />
+            <p className="text-sm text-destructive">{t("burnWarning")}</p>
           </div>
         )}
       </div>

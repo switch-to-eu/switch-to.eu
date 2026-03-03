@@ -10,11 +10,11 @@ export function ServiceIssues({ issues, title = "Why is this service problematic
   if (!issues || issues.length === 0) return null;
 
   return (
-    <div className="sticky top-24 border rounded-lg p-6 bg-gray-50 mb-6">
-      <h2 className="text-xl font-bold mb-4 text-red-700">{title}</h2>
-      <Alert className="mb-4 border-red-200 bg-red-50">
-        <AlertTitle className="text-red-800">Non-EU Service Warning</AlertTitle>
-        <AlertDescription className="text-red-700">
+    <div className="sticky top-24 border rounded-lg p-6 bg-muted mb-6">
+      <h2 className="text-xl font-bold mb-4 text-destructive">{title}</h2>
+      <Alert className="mb-4 border-destructive/20 bg-destructive/10">
+        <AlertTitle className="text-destructive">Non-EU Service Warning</AlertTitle>
+        <AlertDescription className="text-destructive">
           This service is based outside the EU and may not provide the privacy protections required by GDPR.
         </AlertDescription>
       </Alert>
@@ -22,10 +22,10 @@ export function ServiceIssues({ issues, title = "Why is this service problematic
         {issues.map((issue, index) => (
           <li
             key={index}
-            className="p-3 rounded-md bg-white border-l-2 border-red-500"
+            className="p-3 rounded-md bg-card border-l-2 border-destructive"
           >
             <div className="flex items-start gap-2">
-              <span className="text-red-500">✗</span>
+              <span className="text-destructive">✗</span>
               <p className="text-sm text-muted-foreground">{issue}</p>
             </div>
           </li>

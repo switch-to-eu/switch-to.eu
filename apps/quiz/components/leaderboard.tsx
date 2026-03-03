@@ -11,9 +11,9 @@ interface LeaderboardProps {
 }
 
 const RANK_COLORS = [
-  "text-yellow-500", // 1st
-  "text-gray-400",   // 2nd
-  "text-amber-600",  // 3rd
+  "text-warning", // 1st
+  "text-muted-foreground",   // 2nd
+  "text-tool-accent",  // 3rd
 ];
 
 export function Leaderboard({ entries, currentSessionId, maxEntries = 10 }: LeaderboardProps) {
@@ -21,8 +21,8 @@ export function Leaderboard({ entries, currentSessionId, maxEntries = 10 }: Lead
   const displayed = entries.slice(0, maxEntries);
 
   return (
-    <div className="rounded-lg border bg-white overflow-hidden">
-      <div className="flex items-center gap-2 p-4 border-b bg-gray-50">
+    <div className="rounded-lg border bg-card overflow-hidden">
+      <div className="flex items-center gap-2 p-4 border-b bg-muted">
         <Trophy className="h-4 w-4 text-primary-color" />
         <h3 className="font-semibold">{t("title")}</h3>
       </div>
@@ -33,12 +33,12 @@ export function Leaderboard({ entries, currentSessionId, maxEntries = 10 }: Lead
             <div
               key={entry.sessionId}
               className={`flex items-center gap-3 px-4 py-3 ${
-                isCurrentUser ? "bg-rose-50" : ""
+                isCurrentUser ? "bg-tool-primary/10" : ""
               }`}
             >
               <span
                 className={`w-8 text-center font-bold ${
-                  entry.rank <= 3 ? RANK_COLORS[entry.rank - 1] : "text-gray-400"
+                  entry.rank <= 3 ? RANK_COLORS[entry.rank - 1] : "text-muted-foreground"
                 }`}
               >
                 {entry.rank <= 3 ? (
@@ -47,7 +47,7 @@ export function Leaderboard({ entries, currentSessionId, maxEntries = 10 }: Lead
                   `#${entry.rank}`
                 )}
               </span>
-              <span className={`flex-1 font-medium ${isCurrentUser ? "text-rose-700" : ""}`}>
+              <span className={`flex-1 font-medium ${isCurrentUser ? "text-tool-primary" : ""}`}>
                 {entry.nickname}
               </span>
               <span className="font-mono text-sm font-semibold">

@@ -8,6 +8,9 @@
             "createPoll": "Create Poll",
             "about": "About"
         },
+        "nav": {
+            "about": "About"
+        },
         "footer": {
             "about": "About",
             "privacy": "Privacy Policy",

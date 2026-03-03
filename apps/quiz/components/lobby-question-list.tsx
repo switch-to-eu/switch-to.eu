@@ -214,7 +214,7 @@ export function LobbyQuestionList({
                 {question.options.map((opt, i) => (
                   <span
                     key={i}
-                    className={`text-xs ${i === question.correctIndex ? "text-green-600 font-medium" : "text-muted-foreground"}`}
+                    className={`text-xs ${i === question.correctIndex ? "text-success font-medium" : "text-muted-foreground"}`}
                   >
                     {String.fromCharCode(65 + i)}) {opt || "—"}
                     {i === question.correctIndex ? " ✓" : ""}

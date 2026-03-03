@@ -116,7 +116,7 @@ export function AdminSection({
                 )}
                 Copy Poll Link
               </Button>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Share this link so people can vote on your poll
               </p>
             </div>
@@ -138,7 +138,7 @@ export function AdminSection({
                 )}
                 Copy Admin Link
               </Button>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Keep this link safe - it gives full control over the poll
               </p>
             </div>

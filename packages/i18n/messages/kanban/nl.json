@@ -8,6 +8,9 @@
             "createBoard": "Maak Bord",
             "about": "Over"
         },
+        "nav": {
+            "about": "Over"
+        },
         "footer": {
             "about": "Over",
             "privacy": "Privacybeleid",

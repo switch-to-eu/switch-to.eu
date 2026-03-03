@@ -139,7 +139,7 @@ export default function ViewNotePage() {
     return (
       <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-tool-accent/20 border-t-tool-primary" />
         </div>
       </main>
     );
@@ -150,13 +150,13 @@ export default function ViewNotePage() {
     return (
       <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="text-center">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-            <FileX className="h-8 w-8 text-gray-400" />
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+            <FileX className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {t("notFound")}
           </h1>
-          <p className="mt-3 text-gray-600">
+          <p className="mt-3 text-muted-foreground">
             {t("notFoundDescription")}
           </p>
           <div className="mt-8">
@@ -177,16 +177,16 @@ export default function ViewNotePage() {
     return (
       <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="text-center">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-            <Eye className="h-8 w-8 text-amber-600" />
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
+            <Eye className="h-8 w-8 text-tool-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             {t("noteContent")}
           </h1>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
-          <pre className="whitespace-pre-wrap break-words font-mono text-sm text-gray-800 leading-relaxed">
+        <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+          <pre className="whitespace-pre-wrap break-words font-mono text-sm text-foreground leading-relaxed">
             {state.content}
           </pre>
           <div className="mt-4 flex justify-end">
@@ -211,9 +211,9 @@ export default function ViewNotePage() {
         </div>
 
         {state.destroyed && (
-          <div className="mt-6 flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
-            <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
-            <p className="text-sm text-red-700">{t("noteDestroyed")}</p>
+          <div className="mt-6 flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/10 p-4">
+            <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-destructive" />
+            <p className="text-sm text-destructive">{t("noteDestroyed")}</p>
           </div>
         )}
 
@@ -233,25 +233,25 @@ export default function ViewNotePage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-          <FileX className="h-8 w-8 text-amber-600" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
+          <FileX className="h-8 w-8 text-tool-primary" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
+        <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
+      <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         {/* Burn warning */}
         {state.burnAfterReading && (
-          <div className="mb-6 flex items-start gap-3 rounded-lg border border-amber-100 bg-amber-50/50 p-4">
-            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500" />
-            <p className="text-sm text-amber-700">{t("revealWarning")}</p>
+          <div className="mb-6 flex items-start gap-3 rounded-lg border border-tool-accent/20 bg-tool-surface/10 p-4">
+            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-tool-accent" />
+            <p className="text-sm text-tool-primary">{t("revealWarning")}</p>
           </div>
         )}
 
         {/* Password input */}
         {state.hasPassword && (
           <div className="mb-6">
-            <label className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700">
+            <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
               <Lock className="h-4 w-4" />
               {t("passwordRequired")}
             </label>
@@ -266,7 +266,7 @@ export default function ViewNotePage() {
               autoComplete="off"
             />
             {passwordError && (
-              <p className="mt-2 text-sm text-red-600">{t("wrongPassword")}</p>
+              <p className="mt-2 text-sm text-destructive">{t("wrongPassword")}</p>
             )}
           </div>
         )}

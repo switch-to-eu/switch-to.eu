@@ -86,8 +86,8 @@ export function TaskItem({
       className={cn(
         "group flex items-center gap-3 p-3 rounded-lg border transition-all duration-200",
         isActive
-          ? "bg-blue-50 border-blue-200 shadow-sm"
-          : "bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm",
+          ? "bg-tool-primary/10 border-tool-primary/20 shadow-sm"
+          : "bg-card border-border hover:border-border hover:shadow-sm",
         completed && "opacity-60",
         isDragging && "shadow-lg scale-105 z-50 rotate-1 opacity-90"
       )}
@@ -98,8 +98,8 @@ export function TaskItem({
         className={cn(
           "flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
           completed
-            ? "bg-green-500 border-green-500 text-white"
-            : "border-gray-300 hover:border-green-400"
+            ? "bg-success border-success text-white"
+            : "border-border hover:border-success"
         )}
       >
         {completed && <Check className="w-3 h-3" />}
@@ -114,7 +114,7 @@ export function TaskItem({
             onChange={(e) => setEditValue(e.target.value)}
             onBlur={handleEdit}
             onKeyDown={handleKeyPress}
-            className="w-full bg-transparent border-none outline-none text-gray-800"
+            className="w-full bg-transparent border-none outline-none text-foreground"
             maxLength={200}
             autoFocus
           />
@@ -122,8 +122,8 @@ export function TaskItem({
           <div
             onClick={() => !completed && setIsEditing(true)}
             className={cn(
-              "cursor-pointer text-gray-800",
-              completed && "line-through text-gray-500"
+              "cursor-pointer text-foreground",
+              completed && "line-through text-muted-foreground"
             )}
           >
             {description}
@@ -131,7 +131,7 @@ export function TaskItem({
         )}
 
         {pomodoros > 0 && (
-          <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+          <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
             <Timer className="w-3 h-3" />
             {pomodoros} {pomodoros === 1 ? t('pomodoro') : t('pomodoros')}
           </div>
@@ -148,8 +148,8 @@ export function TaskItem({
             className={cn(
               "h-8 w-8 p-0",
               isActive
-                ? "bg-blue-100 text-primary-color"
-                : "text-gray-400 hover:text-primary-color hover:bg-blue-50"
+                ? "bg-tool-primary/20 text-primary-color"
+                : "text-muted-foreground hover:text-primary-color hover:bg-tool-primary/10"
             )}
             title={isActive ? t('deactivate') : t('setActive')}
           >
@@ -162,7 +162,7 @@ export function TaskItem({
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing"
             title={t('dragToReorder')}
             {...attributes}
             {...listeners}
@@ -177,7 +177,7 @@ export function TaskItem({
             variant="ghost"
             size="sm"
             onClick={onMoveUp}
-            className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
             title={t('actions.moveUp')}
           >
             <ChevronUp className="w-4 h-4" />
@@ -189,7 +189,7 @@ export function TaskItem({
             variant="ghost"
             size="sm"
             onClick={onMoveDown}
-            className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
             title={t('actions.moveDown')}
           >
             <ChevronDown className="w-4 h-4" />
@@ -200,7 +200,7 @@ export function TaskItem({
           variant="ghost"
           size="sm"
           onClick={onDelete}
-          className="h-8 w-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
           title={t('actions.deleteTask')}
         >
           <Trash2 className="w-4 h-4" />

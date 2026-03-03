@@ -40,26 +40,26 @@ export function PomodoroTimer({
   const getPhaseColor = () => {
     switch (phase) {
       case 'work':
-        return 'text-red-500';
+        return 'text-tool-accent';
       case 'shortBreak':
-        return 'text-green-500';
+        return 'text-success';
       case 'longBreak':
-        return 'text-blue-500';
+        return 'text-tool-primary';
       default:
-        return 'text-gray-900';
+        return 'text-foreground';
     }
   };
 
   const getPhaseBackground = () => {
     switch (phase) {
       case 'work':
-        return 'bg-red-50';
+        return 'bg-tool-accent/10';
       case 'shortBreak':
-        return 'bg-green-50';
+        return 'bg-success/10';
       case 'longBreak':
-        return 'bg-blue-50';
+        return 'bg-tool-primary/10';
       default:
-        return 'bg-gray-50';
+        return 'bg-muted';
     }
   };
 
@@ -76,7 +76,7 @@ export function PomodoroTimer({
             <Button
               variant="ghost"
               size="sm"
-              className="h-10 w-10 p-0 text-gray-400 hover:text-gray-600 rounded-full opacity-60 hover:opacity-100 transition-opacity"
+              className="h-10 w-10 p-0 text-muted-foreground hover:text-foreground rounded-full opacity-60 hover:opacity-100 transition-opacity"
             >
               <Settings className="h-4 w-4" />
             </Button>
@@ -86,10 +86,10 @@ export function PomodoroTimer({
 
       {/* Phase indicator */}
       <div className="text-center mb-12">
-        <div className="text-xl font-semibold text-gray-700 mb-3">
+        <div className="text-xl font-semibold text-foreground mb-3">
           {t(`pomodoro.timer.phases.${phase}`)}
         </div>
-        <div className="text-base text-gray-500">
+        <div className="text-base text-muted-foreground">
           {completedPomodoros} {t('pomodoro.timer.pomodorosToday')}
         </div>
       </div>
@@ -112,8 +112,8 @@ export function PomodoroTimer({
           className={cn(
             "h-20 w-40 text-xl font-bold rounded-3xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105",
             isRunning
-              ? "bg-red-500 hover:bg-red-600 text-white"
-              : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white"
+              ? "bg-tool-accent hover:bg-tool-accent/90 text-tool-accent-foreground"
+              : "bg-success hover:bg-success/90 text-white"
           )}
         >
           {isRunning ? (
@@ -136,7 +136,7 @@ export function PomodoroTimer({
           onClick={reset}
           variant="ghost"
           size="sm"
-          className="text-gray-400 hover:text-gray-600 rounded-full px-6 py-2 opacity-70 hover:opacity-100 transition-all"
+          className="text-muted-foreground hover:text-foreground rounded-full px-6 py-2 opacity-70 hover:opacity-100 transition-all"
         >
           <RotateCcw className="h-4 w-4 mr-2" />
           {t('pomodoro.timer.reset')}

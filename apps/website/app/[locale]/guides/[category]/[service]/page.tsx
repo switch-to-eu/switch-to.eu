@@ -18,6 +18,8 @@ import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
 import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { notFound } from "next/navigation";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
 
 // Generate static params for all guide pages
@@ -229,7 +231,8 @@ export default async function GuideServicePage({
       />
 
       {/* Two-column layout for entire page content and sidebar */}
-      <main className="container mx-auto px-4 py-8 max-w-7xl lg:px-8">
+      <PageLayout>
+        <Container>
         {/* Grid layout with sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main content - wider column */}
@@ -320,7 +323,8 @@ export default async function GuideServicePage({
             </div>
           </div>
         </div>
-      </main>
+        </Container>
+      </PageLayout>
     </>
   );
 }

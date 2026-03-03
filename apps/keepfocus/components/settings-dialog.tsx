@@ -56,14 +56,14 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
           <Button
             variant="outline"
             size="default"
-            className="w-full bg-white border-gray-300 hover:bg-gray-50 justify-center"
+            className="w-full bg-card border-border hover:bg-muted justify-center"
           >
             <Settings className="w-4 h-4 mr-2" />
             {t('pomodoro.settings.openSettings')}
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="bg-white sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-card sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t('pomodoro.settings.title')}</DialogTitle>
           <DialogDescription>
@@ -76,7 +76,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
           {/* Left Column - Timer Durations */}
           <div className="space-y-6">
             <div className="space-y-5">
-              <h3 className="font-semibold text-base text-gray-900 border-b pb-2">{t('pomodoro.settings.timerDurations')}</h3>
+              <h3 className="font-semibold text-base text-foreground border-b pb-2">{t('pomodoro.settings.timerDurations')}</h3>
 
               <div className="space-y-3">
                 <Label htmlFor="work-duration" className="text-sm font-medium">{t('pomodoro.settings.workSession')} ({t('pomodoro.settings.units.minutes')})</Label>
@@ -89,7 +89,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
                   onChange={(e) => updateLocalSetting('workDuration', parseInt(e.target.value) || 25)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t('pomodoro.settings.workSessionHint')}
                 </p>
               </div>
@@ -105,7 +105,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
                   onChange={(e) => updateLocalSetting('shortBreakDuration', parseInt(e.target.value) || 5)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t('pomodoro.settings.shortBreakHint')}
                 </p>
               </div>
@@ -121,7 +121,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
                   onChange={(e) => updateLocalSetting('longBreakDuration', parseInt(e.target.value) || 15)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t('pomodoro.settings.longBreakHint')}
                 </p>
               </div>
@@ -137,7 +137,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
                   onChange={(e) => updateLocalSetting('longBreakInterval', parseInt(e.target.value) || 4)}
                   className="w-full"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {t('pomodoro.settings.longBreakIntervalHint')}
                 </p>
               </div>
@@ -148,12 +148,12 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
           <div className="space-y-6">
             {/* Auto-start Settings */}
             <div className="space-y-5">
-              <h3 className="font-semibold text-base text-gray-900 border-b pb-2">{t('pomodoro.settings.autoStart')}</h3>
+              <h3 className="font-semibold text-base text-foreground border-b pb-2">{t('pomodoro.settings.autoStart')}</h3>
 
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <Label htmlFor="auto-start-breaks" className="text-sm font-medium">{t('pomodoro.settings.autoStartBreaks')}</Label>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {t('pomodoro.settings.autoStartBreaksHint')}
                   </p>
                 </div>
@@ -167,7 +167,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <Label htmlFor="auto-start-work" className="text-sm font-medium">{t('pomodoro.settings.autoStartWork')}</Label>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {t('pomodoro.settings.autoStartWorkHint')}
                   </p>
                 </div>
@@ -183,12 +183,12 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
 
             {/* Notification Settings */}
             <div className="space-y-5">
-              <h3 className="font-semibold text-base text-gray-900 border-b pb-2">{t('pomodoro.settings.notifications')}</h3>
+              <h3 className="font-semibold text-base text-foreground border-b pb-2">{t('pomodoro.settings.notifications')}</h3>
 
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <Label htmlFor="sound-enabled" className="text-sm font-medium">{t('pomodoro.settings.soundNotifications')}</Label>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {t('pomodoro.settings.soundNotificationsHint')}
                   </p>
                 </div>
@@ -202,7 +202,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps = {}) {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <Label htmlFor="desktop-notifications" className="text-sm font-medium">{t('pomodoro.settings.desktopNotifications')}</Label>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {t('pomodoro.settings.desktopNotificationsHint')}
                   </p>
                 </div>

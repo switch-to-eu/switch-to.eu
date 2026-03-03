@@ -11,12 +11,12 @@ import type { DecryptedQuestion } from "@/lib/interfaces";
 import type { QuestionFormData } from "@/lib/schemas";
 
 const OPTION_COLORS = [
-  "border-red-300 focus-within:border-red-500",
-  "border-blue-300 focus-within:border-blue-500",
-  "border-yellow-300 focus-within:border-yellow-500",
-  "border-green-300 focus-within:border-green-500",
-  "border-purple-300 focus-within:border-purple-500",
-  "border-orange-300 focus-within:border-orange-500",
+  "border-destructive/30 focus-within:border-destructive",
+  "border-tool-primary/30 focus-within:border-tool-primary",
+  "border-warning/30 focus-within:border-warning",
+  "border-success/30 focus-within:border-success",
+  "border-brand-navy/30 focus-within:border-brand-navy",
+  "border-tool-accent/30 focus-within:border-tool-accent",
 ];
 
 const MAX_OPTIONS = 6;
@@ -74,7 +74,7 @@ export function QuestionEditor({
   const optionErrors = errors?.options;
 
   return (
-    <div className={`rounded-lg border bg-white p-5 space-y-4 ${hasTextError || optionErrors ? "border-destructive/50" : ""}`}>
+    <div className={`rounded-lg border bg-card p-5 space-y-4 ${hasTextError || optionErrors ? "border-destructive/50" : ""}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           {dragHandleProps && (
@@ -108,7 +108,7 @@ export function QuestionEditor({
               variant="ghost"
               size="sm"
               onClick={onRemove}
-              className="text-muted-foreground hover:text-red-600"
+              className="text-muted-foreground hover:text-destructive"
             >
               <Trash2 className="h-4 w-4" />
             </Button>
@@ -137,7 +137,7 @@ export function QuestionEditor({
               <div
                 className={`relative flex items-center gap-2 rounded-lg border-2 px-3 py-2 transition-colors ${OPTION_COLORS[i % OPTION_COLORS.length]} ${
                   question.correctIndex === i
-                    ? "bg-green-50 border-green-500 ring-2 ring-green-200"
+                    ? "bg-success/10 border-success ring-2 ring-success/20"
                     : ""
                 } ${optionError ? "border-destructive!" : ""}`}
               >
@@ -146,8 +146,8 @@ export function QuestionEditor({
                   onClick={() => onChange({ ...question, correctIndex: i })}
                   className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
                     question.correctIndex === i
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                      ? "bg-success text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted"
                   }`}
                   title={t("correctAnswer")}
                 >
@@ -172,7 +172,7 @@ export function QuestionEditor({
                   <button
                     type="button"
                     onClick={() => handleRemoveOption(i)}
-                    className="shrink-0 text-muted-foreground hover:text-red-500 transition-colors"
+                    className="shrink-0 text-muted-foreground hover:text-destructive transition-colors"
                     title={t("removeOption")}
                   >
                     <X className="h-3.5 w-3.5" />

@@ -20,11 +20,11 @@ const AVAILABLE_LABELS = [
 ];
 
 const LABEL_COLORS: Record<string, string> = {
-  bug: "bg-red-100 text-red-700 border-red-200",
-  feature: "bg-blue-100 text-blue-700 border-blue-200",
-  improvement: "bg-green-100 text-green-700 border-green-200",
-  urgent: "bg-orange-100 text-orange-700 border-orange-200",
-  design: "bg-purple-100 text-purple-700 border-purple-200",
+  bug: "bg-destructive/10 text-destructive border-destructive/20",
+  feature: "bg-tool-primary/10 text-tool-primary border-tool-primary/20",
+  improvement: "bg-success/10 text-success border-success/20",
+  urgent: "bg-warning/10 text-warning border-warning/20",
+  design: "bg-tool-accent/20 text-tool-accent border-tool-accent/30",
   research: "bg-yellow-100 text-yellow-700 border-yellow-200",
 };
 
@@ -74,7 +74,7 @@ export function CardDetailDialog({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 mb-8"
+        className="bg-card rounded-xl shadow-xl w-full max-w-lg mx-4 mb-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -102,7 +102,7 @@ export function CardDetailDialog({
           {/* Labels */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Tag className="h-4 w-4 text-neutral-400" />
+              <Tag className="h-4 w-4 text-muted-foreground" />
               <Label className="text-sm font-medium">{t("labelsLabel")}</Label>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -113,8 +113,8 @@ export function CardDetailDialog({
                   className={`rounded-full px-3 py-1 text-xs font-medium border transition-all ${
                     labels.includes(label)
                       ? LABEL_COLORS[label] ||
-                        "bg-gray-100 text-gray-700 border-gray-200"
-                      : "bg-gray-50 text-gray-400 border-gray-200 hover:bg-gray-100"
+                        "bg-muted text-foreground border-border"
+                      : "bg-muted text-muted-foreground border-border hover:bg-muted"
                   }`}
                   onClick={() => toggleLabel(label)}
                 >
@@ -127,7 +127,7 @@ export function CardDetailDialog({
           {/* Description */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <AlignLeft className="h-4 w-4 text-neutral-400" />
+              <AlignLeft className="h-4 w-4 text-muted-foreground" />
               <Label className="text-sm font-medium">
                 {t("descriptionLabel")}
               </Label>
@@ -145,7 +145,7 @@ export function CardDetailDialog({
           {/* Due Date */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Calendar className="h-4 w-4 text-neutral-400" />
+              <Calendar className="h-4 w-4 text-muted-foreground" />
               <Label className="text-sm font-medium">{t("dueDateLabel")}</Label>
             </div>
             <Input
@@ -162,7 +162,7 @@ export function CardDetailDialog({
           <div>
             {confirmingDelete ? (
               <div className="flex items-center gap-2">
-                <span className="text-sm text-red-600">
+                <span className="text-sm text-destructive">
                   {t("deleteConfirmTitle")}
                 </span>
                 <Button
@@ -184,7 +184,7 @@ export function CardDetailDialog({
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
                 onClick={() => setConfirmingDelete(true)}
               >
                 <Trash2 className="mr-1 h-4 w-4" />

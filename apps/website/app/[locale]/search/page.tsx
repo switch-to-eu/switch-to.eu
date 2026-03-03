@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { SearchResult } from "@switch-to-eu/content/search";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import Image from "next/image";
 
@@ -144,10 +146,10 @@ function SearchPageContent() {
   };
 
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero / Search Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -205,12 +207,12 @@ function SearchPageContent() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Results Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           {/* Loading state */}
           {loading && (
             <div className="space-y-4">
@@ -268,18 +270,18 @@ function SearchPageContent() {
               {renderResultSection("category", categoryResults)}
             </div>
           )}
-        </div>
+        </Container>
       </section>
-    </main>
+    </PageLayout>
   );
 }
 
 // Loading fallback for Suspense
 function SearchPageSkeleton() {
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20">
               <div className="max-w-2xl mx-auto text-center space-y-6">
@@ -289,18 +291,18 @@ function SearchPageSkeleton() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             <Skeleton className="h-[140px] rounded-3xl" />
             <Skeleton className="h-[140px] rounded-3xl" />
             <Skeleton className="h-[140px] rounded-3xl" />
           </div>
-        </div>
+        </Container>
       </section>
-    </main>
+    </PageLayout>
   );
 }
 

@@ -12,6 +12,8 @@ import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { ContributeCta } from "@/components/ContributeCta";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -102,10 +104,10 @@ export default async function ServiceDetailPage({
     frontmatter.category.slice(1);
 
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-16 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -237,13 +239,13 @@ export default async function ServiceDetailPage({
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Features tags */}
       {frontmatter.features && frontmatter.features.length > 0 && (
         <section>
-          <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <Container>
             <div className="flex flex-wrap gap-2.5">
               {frontmatter.features.map((feature) => (
                 <span
@@ -254,13 +256,13 @@ export default async function ServiceDetailPage({
                 </span>
               ))}
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
       {/* Main content area */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Main content */}
             <div className="lg:col-span-2">
@@ -375,12 +377,12 @@ export default async function ServiceDetailPage({
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Mobile migration guides */}
       <section className="lg:hidden">
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-green rounded-3xl relative overflow-hidden">
             <div className="relative px-6 py-8">
               <div className="absolute -top-4 -right-4 w-20 h-20 opacity-15 pointer-events-none">
@@ -454,13 +456,13 @@ export default async function ServiceDetailPage({
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Similar Services */}
       {similarServices.length > 0 && (
         <section>
-          <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <Container>
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
               {t("similarServices")}
             </h2>
@@ -474,12 +476,12 @@ export default async function ServiceDetailPage({
                 />
               ))}
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
       {/* CTA Section */}
       <ContributeCta />
-    </main>
+    </PageLayout>
   );
 }

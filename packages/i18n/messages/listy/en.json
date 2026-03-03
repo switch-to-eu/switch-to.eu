@@ -8,6 +8,9 @@
             "createList": "Create List",
             "about": "About"
         },
+        "nav": {
+            "about": "About"
+        },
         "footer": {
             "about": "About",
             "privacy": "Privacy Policy",

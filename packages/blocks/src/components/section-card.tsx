@@ -49,13 +49,13 @@ export function SectionHeader({
   className
 }: SectionHeaderProps) {
   return (
-    <div className={cn("border-b border-gray-200 px-6 py-4 header-bg", className)}>
+    <div className={cn("border-b border-border px-6 py-4 header-bg", className)}>
       <div className="flex items-center gap-2">
         {icon && <span className="text-primary-color">{icon}</span>}
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
       </div>
       {description && (
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm text-muted-foreground">
           {description}
         </p>
       )}
@@ -66,7 +66,7 @@ export function SectionHeader({
 
 export function SectionContent({ children, className }: SectionContentProps) {
   return (
-    <div className={cn("p-6 bg-white", className)}>
+    <div className={cn("p-6 bg-card", className)}>
       {children}
     </div>
   );
@@ -74,7 +74,7 @@ export function SectionContent({ children, className }: SectionContentProps) {
 
 export function SectionFooter({ children, className }: SectionFooterProps) {
   return (
-    <div className={cn("border-t border-gray-200 bg-gray-50 px-6 py-4", className)}>
+    <div className={cn("border-t border-border bg-muted px-6 py-4", className)}>
       {children}
     </div>
   );

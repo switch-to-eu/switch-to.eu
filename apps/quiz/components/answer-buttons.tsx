@@ -1,12 +1,12 @@
 "use client";
 
 const BUTTON_STYLES = [
-  "bg-red-500 hover:bg-red-600 active:bg-red-700",
-  "bg-blue-500 hover:bg-blue-600 active:bg-blue-700",
-  "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700",
-  "bg-green-500 hover:bg-green-600 active:bg-green-700",
-  "bg-purple-500 hover:bg-purple-600 active:bg-purple-700",
-  "bg-orange-500 hover:bg-orange-600 active:bg-orange-700",
+  "bg-destructive hover:bg-destructive/90 active:bg-destructive/80",
+  "bg-tool-primary hover:bg-tool-primary/90 active:bg-tool-primary/80",
+  "bg-warning hover:bg-warning/90 active:bg-warning/80",
+  "bg-success hover:bg-success/90 active:bg-success/80",
+  "bg-brand-navy hover:bg-brand-navy/90 active:bg-brand-navy/80",
+  "bg-tool-accent hover:bg-tool-accent/90 active:bg-tool-accent/80",
 ];
 
 function getOptionLabel(index: number): string {

@@ -26,7 +26,7 @@ export function ParticipantList({ participants }: ParticipantListProps) {
           {participants.map((p) => (
             <span
               key={p.sessionId}
-              className="inline-flex items-center rounded-full bg-rose-100 px-3 py-1 text-sm font-medium text-rose-700"
+              className="inline-flex items-center rounded-full bg-tool-primary/20 px-3 py-1 text-sm font-medium text-tool-primary"
             >
               {p.nickname}
             </span>

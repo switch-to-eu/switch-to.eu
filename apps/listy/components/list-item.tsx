@@ -60,15 +60,15 @@ export function ListItem({
       className={cn(
         "group flex items-center gap-3 transition-colors",
         compact
-          ? cn("px-3 py-2.5", item.completed && "bg-teal-50/30")
-          : cn("rounded-lg border bg-white p-3", item.completed && "bg-teal-50/50 border-teal-200/60"),
+          ? cn("px-3 py-2.5", item.completed && "bg-tool-surface/5")
+          : cn("rounded-lg border bg-card p-3", item.completed && "bg-tool-surface/10 border-tool-primary/20"),
         isDragging && "opacity-50",
       )}
     >
       {dragHandleProps && (
         <button
           type="button"
-          className="shrink-0 touch-none text-neutral-300 hover:text-neutral-500 cursor-grab active:cursor-grabbing"
+          className="shrink-0 touch-none text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing"
           {...dragHandleProps.attributes}
           {...dragHandleProps.listeners}
         >
@@ -80,14 +80,14 @@ export function ListItem({
         checked={item.completed}
         onCheckedChange={() => handleToggle()}
         disabled={isToggling}
-        className="shrink-0 size-5 rounded-md border-2 border-neutral-300 transition-colors duration-150 data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600"
+        className="shrink-0 size-5 rounded-md border-2 border-border transition-colors duration-150 data-[state=checked]:bg-tool-primary data-[state=checked]:border-tool-primary"
       />
 
       <div className="flex-1 min-w-0">
         <span
           className={cn(
             "block text-sm",
-            item.completed && "line-through text-neutral-400",
+            item.completed && "line-through text-muted-foreground",
           )}
         >
           {item.text}
@@ -108,7 +108,7 @@ export function ListItem({
                 variant="ghost"
                 size="sm"
                 onClick={handleUnclaim}
-                className="h-8 px-2 text-xs text-neutral-500 hover:text-red-600"
+                className="h-8 px-2 text-xs text-muted-foreground hover:text-destructive"
               >
                 <X className="h-3.5 w-3.5" />
               </Button>
@@ -117,7 +117,7 @@ export function ListItem({
                 variant="ghost"
                 size="sm"
                 onClick={() => onClaim?.(item.id)}
-                className="h-8 px-2 text-xs text-teal-600 hover:text-teal-700"
+                className="h-8 px-2 text-xs text-tool-primary hover:text-tool-primary"
               >
                 <Hand className="mr-1 h-3.5 w-3.5" />
                 {t("claim")}
@@ -130,7 +130,7 @@ export function ListItem({
           variant="ghost"
           size="sm"
           onClick={() => onRemove(item.id)}
-          className="h-8 px-2 text-neutral-400 opacity-0 group-hover:opacity-100 hover:text-red-600 transition-opacity"
+          className="h-8 px-2 text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-destructive transition-opacity"
         >
           <Trash2 className="h-3.5 w-3.5" />
         </Button>

@@ -92,10 +92,10 @@ export default function CreatePoll() {
               checked={termsAccepted}
               onCheckedChange={(checked) => setTermsAccepted(checked === true)}
             />
-            <label htmlFor="terms" className="text-sm text-neutral-600 leading-tight cursor-pointer">
+            <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
               {t.rich('termsLabel', {
                 link: (chunks) => (
-                  <Link href="/privacy" className="text-blue-600 hover:text-blue-500 underline" target="_blank">
+                  <Link href="/privacy" className="text-tool-primary hover:text-tool-primary underline" target="_blank">
                     {chunks}
                   </Link>
                 ),
@@ -106,7 +106,7 @@ export default function CreatePoll() {
       </div>
 
       {/* Mobile Sticky Footer Button */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 p-4 sm:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border p-4 sm:hidden">
         <LoadingButton
           type="button"
           onClick={handleMobileSubmit}

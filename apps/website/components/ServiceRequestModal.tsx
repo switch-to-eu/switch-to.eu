@@ -202,7 +202,7 @@ export function ServiceRequestModal({
             />
 
             {submitStatus === "success" && (
-              <Alert className="bg-green-50 text-green-800 border-green-200">
+              <Alert className="bg-success/10 text-success border-success/20">
                 <AlertDescription>
                   {t("serviceRequestSuccessMessage")}
                 </AlertDescription>
@@ -217,10 +217,10 @@ export function ServiceRequestModal({
               </Alert>
             )}
 
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-muted-foreground">
               <p>
                 {commonT("privacyNotice")}{" "}
-                <Link href="/privacy" className="text-blue-600 hover:underline">
+                <Link href="/privacy" className="text-brand-navy hover:underline">
                   {commonT("privacyPolicyLink")}
                 </Link>
                 .

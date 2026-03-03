@@ -13,26 +13,26 @@ export default function PrivacyPage() {
   ] as const;
 
   return (
-    <div className="bg-white">
+    <div className="bg-card">
       <div className="container mx-auto max-w-4xl px-6 py-16">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900">
+          <h1 className="mb-4 text-4xl font-bold text-foreground">
             {t("hero.title")}
           </h1>
-          <p className="mb-4 text-lg text-gray-600">{t("hero.subtitle")}</p>
-          <p className="text-sm text-gray-500">{t("hero.lastUpdated")}</p>
+          <p className="mb-4 text-lg text-muted-foreground">{t("hero.subtitle")}</p>
+          <p className="text-sm text-muted-foreground">{t("hero.lastUpdated")}</p>
         </div>
 
         {/* Summary */}
-        <div className="mb-12 rounded-lg border border-green-200 bg-green-50 p-6">
-          <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+        <div className="mb-12 rounded-lg border border-success/20 bg-success/10 p-6">
+          <h2 className="mb-4 text-2xl font-semibold text-foreground">
             {t("summary.title")}
           </h2>
           <ul className="space-y-2">
             {(t.raw("summary.points") as string[]).map(
               (point: string, index: number) => (
-                <li key={index} className="text-gray-700">
+                <li key={index} className="text-foreground">
                   &bull; {point}
                 </li>
               ),
@@ -44,10 +44,10 @@ export default function PrivacyPage() {
         <div className="space-y-10">
           {sections.map((section) => (
             <section key={section}>
-              <h2 className="mb-3 text-2xl font-semibold text-gray-900">
+              <h2 className="mb-3 text-2xl font-semibold text-foreground">
                 {t(`${section}.title`)}
               </h2>
-              <p className="leading-relaxed text-gray-700">
+              <p className="leading-relaxed text-foreground">
                 {t(`${section}.content`)}
               </p>
             </section>

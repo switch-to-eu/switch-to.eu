@@ -46,7 +46,7 @@ const sections = [
   },
   {
     title: "Blocks",
-    description: "Page-level shared components — Header, Footer, LanguageSelector, BrandIndicator.",
+    description: "Page-level shared components — Header, Footer, NavMenu, NavLanguageSelector, BrandIndicator.",
     href: "/blocks",
     icon: LayoutGrid,
   },

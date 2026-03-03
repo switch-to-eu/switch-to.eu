@@ -24,11 +24,11 @@ export function QrShareDisplay({ shareUrl }: QrShareDisplayProps) {
     <div className="text-center space-y-4">
       <p className="text-sm text-muted-foreground">{t("shareLink")}</p>
       <div className="flex justify-center">
-        <div className="rounded-xl border bg-white p-4">
+        <div className="rounded-xl border bg-card p-4">
           <QRCodeSVG value={shareUrl} size={256} level="M" />
         </div>
       </div>
-      <div className="flex items-center gap-2 rounded-lg border bg-gray-50 px-4 py-3">
+      <div className="flex items-center gap-2 rounded-lg border bg-muted px-4 py-3">
         <Link2 className="h-4 w-4 shrink-0 text-muted-foreground" />
         <span className="flex-1 truncate text-sm font-mono text-left">{shareUrl}</span>
       </div>
@@ -40,7 +40,7 @@ export function QrShareDisplay({ shareUrl }: QrShareDisplayProps) {
       >
         {copied ? (
           <>
-            <Check className="h-4 w-4 text-green-600" />
+            <Check className="h-4 w-4 text-success" />
             {t("linkCopied")}
           </>
         ) : (

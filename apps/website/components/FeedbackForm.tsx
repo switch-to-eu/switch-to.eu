@@ -127,7 +127,7 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-brand-sage/30 overflow-hidden">
+    <div className="w-full max-w-2xl mx-auto bg-card rounded-3xl border border-brand-sage/30 overflow-hidden">
       <div className="px-6 sm:px-8 pt-8 pb-2">
         <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
           {t("form.title")}

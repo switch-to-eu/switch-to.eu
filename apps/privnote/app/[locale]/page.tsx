@@ -25,17 +25,17 @@ export default function HomePage() {
         <div className="header-bg absolute inset-0" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-sm font-medium text-amber-700">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-tool-accent/20 bg-tool-surface/10 px-4 py-1.5 text-sm font-medium text-tool-primary">
               <Flame className="h-4 w-4" />
               {t("hero.floatingBadge")}
             </div>
-            <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-6xl">
               {t("hero.title")}{" "}
               <span className="gradient-primary bg-clip-text text-transparent">
                 {t("hero.subtitle")}
               </span>
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
               {t("hero.description")}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-4">
@@ -47,7 +47,7 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
-            <p className="mt-4 text-sm text-gray-500">{t("hero.disclaimer")}</p>
+            <p className="mt-4 text-sm text-muted-foreground">{t("hero.disclaimer")}</p>
           </div>
         </div>
       </section>
@@ -56,44 +56,44 @@ export default function HomePage() {
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {t("benefits.title")}
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-muted-foreground">
               {t("benefits.description")}
             </p>
           </div>
           <div className="mx-auto mt-12 grid max-w-5xl gap-8 sm:grid-cols-3">
-            <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-red-50 p-3">
-                <Flame className="h-6 w-6 text-red-600" />
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+              <div className="mb-4 inline-flex rounded-lg bg-destructive/10 p-3">
+                <Flame className="h-6 w-6 text-destructive" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("benefits.selfDestruct.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("benefits.selfDestruct.description")}
               </p>
             </div>
-            <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-amber-50 p-3">
-                <Shield className="h-6 w-6 text-amber-600" />
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+              <div className="mb-4 inline-flex rounded-lg bg-tool-surface/10 p-3">
+                <Shield className="h-6 w-6 text-tool-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("benefits.encrypted.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("benefits.encrypted.description")}
               </p>
             </div>
-            <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-orange-50 p-3">
-                <Timer className="h-6 w-6 text-orange-600" />
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+              <div className="mb-4 inline-flex rounded-lg bg-tool-accent/10 p-3">
+                <Timer className="h-6 w-6 text-tool-accent" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("benefits.timer.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("benefits.timer.description")}
               </p>
             </div>
@@ -102,13 +102,13 @@ export default function HomePage() {
       </section>
 
       {/* How It Works */}
-      <section className="bg-white py-16 sm:py-24">
+      <section className="bg-card py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {t("howItWorks.title")}
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-muted-foreground">
               {t("howItWorks.description")}
             </p>
           </div>
@@ -117,10 +117,10 @@ export default function HomePage() {
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
                 1
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("howItWorks.step1.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("howItWorks.step1.description")}
               </p>
             </div>
@@ -128,10 +128,10 @@ export default function HomePage() {
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
                 2
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("howItWorks.step2.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("howItWorks.step2.description")}
               </p>
             </div>
@@ -139,10 +139,10 @@ export default function HomePage() {
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
                 3
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("howItWorks.step3.title")}
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-muted-foreground">
                 {t("howItWorks.step3.description")}
               </p>
             </div>
@@ -154,20 +154,20 @@ export default function HomePage() {
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700">
-              <Mail className="h-4 w-4 text-gray-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+              <Mail className="h-4 w-4 text-muted-foreground" />
               {t("trust.badges.noEmail")}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700">
-              <Trash2 className="h-4 w-4 text-gray-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+              <Trash2 className="h-4 w-4 text-muted-foreground" />
               {t("trust.badges.autoDelete")}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700">
-              <Lock className="h-4 w-4 text-gray-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+              <Lock className="h-4 w-4 text-muted-foreground" />
               {t("trust.badges.encrypted")}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700">
-              <Code className="h-4 w-4 text-gray-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
+              <Code className="h-4 w-4 text-muted-foreground" />
               {t("trust.badges.european")}
             </span>
           </div>
@@ -185,7 +185,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="bg-white text-gray-900 hover:bg-gray-100"
+                  className="bg-card text-foreground hover:bg-muted"
                 >
                   <span className="hidden sm:inline">{t("cta.button")}</span>
                   <span className="sm:hidden">{t("cta.buttonMobile")}</span>

@@ -236,7 +236,7 @@ export function FeedbackDialog({ toolId, trigger }: FeedbackDialogProps) {
             {submitStatus === "success" && (
               <Alert
                 variant="default"
-                className="bg-green-50 text-green-800 border-green-200"
+                className="bg-success/10 text-success border-success/20"
               >
                 <AlertDescription>{t("form.successMessage")}</AlertDescription>
               </Alert>

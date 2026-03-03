@@ -3,12 +3,12 @@
 import { Check, X } from "lucide-react";
 
 const BAR_COLORS = [
-  "bg-red-500",
-  "bg-blue-500",
-  "bg-yellow-500",
-  "bg-green-500",
-  "bg-purple-500",
-  "bg-orange-500",
+  "bg-destructive",
+  "bg-tool-primary",
+  "bg-warning",
+  "bg-success",
+  "bg-brand-navy",
+  "bg-tool-accent",
 ];
 
 function getOptionLabel(index: number): string {
@@ -45,17 +45,17 @@ export function AnswerDistribution({
             </span>
             <div className="flex-1">
               <div className="flex items-center justify-between text-sm mb-1">
-                <span className={`font-medium ${isCorrect ? "text-green-700" : ""}`}>
+                <span className={`font-medium ${isCorrect ? "text-success" : ""}`}>
                   {option}
-                  {isCorrect && <Check className="inline ml-1 h-4 w-4 text-green-600" />}
-                  {!isCorrect && count > 0 && <X className="inline ml-1 h-4 w-4 text-red-400" />}
+                  {isCorrect && <Check className="inline ml-1 h-4 w-4 text-success" />}
+                  {!isCorrect && count > 0 && <X className="inline ml-1 h-4 w-4 text-destructive" />}
                 </span>
                 <span className="text-muted-foreground">{count}</span>
               </div>
-              <div className="h-3 w-full rounded-full bg-gray-100 overflow-hidden">
+              <div className="h-3 w-full rounded-full bg-muted overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
-                    isCorrect ? "bg-green-500" : barColor
+                    isCorrect ? "bg-success" : barColor
                   }`}
                   style={{ width: `${pct}%` }}
                 />

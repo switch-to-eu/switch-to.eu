@@ -107,7 +107,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-tool-primary" />
       </div>
     );
   }
@@ -115,9 +115,9 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
   if (missingKey) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <Lock className="h-12 w-12 text-neutral-400 mb-4" />
+        <Lock className="h-12 w-12 text-muted-foreground mb-4" />
         <h2 className="text-xl font-semibold mb-2">Invalid Admin Link</h2>
-        <p className="text-neutral-500 max-w-md">This link is missing credentials. Please use the admin link provided when the board was created.</p>
+        <p className="text-muted-foreground max-w-md">This link is missing credentials. Please use the admin link provided when the board was created.</p>
       </div>
     );
   }
@@ -125,7 +125,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
   if (error || !board) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <AlertTriangle className="h-12 w-12 text-red-400 mb-4" />
+        <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
         <h2 className="text-xl font-semibold mb-2">{error || "Board not found"}</h2>
       </div>
     );
@@ -136,7 +136,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
       <div className="max-w-2xl mx-auto space-y-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
-          <p className="text-neutral-500">{board.title}</p>
+          <p className="text-muted-foreground">{board.title}</p>
         </div>
 
         {/* Share links */}
@@ -172,7 +172,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
                   onClick={() => handleRemoveColumn(col.id)}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -207,9 +207,9 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
         </Card>
 
         {/* Danger zone */}
-        <Card className="border-red-200">
+        <Card className="border-destructive/20">
           <CardHeader>
-            <CardTitle className="text-lg text-red-600">{t("deleteBoard")}</CardTitle>
+            <CardTitle className="text-lg text-destructive">{t("deleteBoard")}</CardTitle>
             <CardDescription>{t("deleteBoardConfirmDescription")}</CardDescription>
           </CardHeader>
           <CardContent>

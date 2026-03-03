@@ -22,20 +22,20 @@ function ToolCard({
   params: { name: string; description: string }[];
 }) {
   return (
-    <div className="rounded-xl border border-gray-100 bg-gray-50 p-6">
+    <div className="rounded-xl border border-border bg-muted p-6">
       <div className="flex items-start gap-4">
-        <Bot className="mt-1 h-8 w-8 flex-shrink-0 text-rose-600" />
+        <Bot className="mt-1 h-8 w-8 flex-shrink-0 text-tool-primary" />
         <div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">{name}</h3>
-          <p className="mb-4 text-sm text-gray-600">{description}</p>
+          <h3 className="mb-2 text-lg font-semibold text-foreground">{name}</h3>
+          <p className="mb-4 text-sm text-muted-foreground">{description}</p>
           {params.length > 0 && (
             <div className="space-y-2">
               {params.map((param) => (
                 <div key={param.name} className="flex gap-2 text-sm">
-                  <code className="rounded bg-gray-200 px-2 py-0.5 font-mono text-gray-800">
+                  <code className="rounded bg-muted px-2 py-0.5 font-mono text-foreground">
                     {param.name}
                   </code>
-                  <span className="text-gray-600">{param.description}</span>
+                  <span className="text-muted-foreground">{param.description}</span>
                 </div>
               ))}
             </div>
@@ -87,19 +87,19 @@ export default async function McpPage() {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-card">
       <div className="container mx-auto max-w-4xl px-6 py-16">
         {/* Hero */}
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             {t("hero.title")}
           </h1>
-          <p className="mt-4 text-lg text-gray-600">{t("hero.subtitle")}</p>
+          <p className="mt-4 text-lg text-muted-foreground">{t("hero.subtitle")}</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {(["aiPowered", "encrypted", "open"] as const).map((badge) => (
               <span
                 key={badge}
-                className="rounded-full bg-rose-50 px-4 py-1.5 text-sm font-medium text-rose-700 border border-rose-200"
+                className="rounded-full bg-tool-primary/10 px-4 py-1.5 text-sm font-medium text-tool-primary border border-tool-primary/20"
               >
                 {t(`hero.badges.${badge}`)}
               </span>
@@ -109,17 +109,17 @@ export default async function McpPage() {
 
         {/* What is MCP */}
         <div className="mb-16">
-          <h2 className="mb-4 text-2xl font-bold text-gray-900">
+          <h2 className="mb-4 text-2xl font-bold text-foreground">
             {t("whatIsMcp.title")}
           </h2>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed">
             {t("whatIsMcp.description")}
           </p>
         </div>
 
         {/* Available Tools */}
         <div className="mb-16">
-          <h2 className="mb-8 text-2xl font-bold text-gray-900">
+          <h2 className="mb-8 text-2xl font-bold text-foreground">
             {t("tools.title")}
           </h2>
           <div className="space-y-4">
@@ -138,14 +138,14 @@ export default async function McpPage() {
         </div>
 
         {/* Admin Key Warning */}
-        <div className="mb-16 rounded-xl border border-rose-200 bg-rose-50/50 p-6">
+        <div className="mb-16 rounded-xl border border-tool-primary/20 bg-tool-primary/10/50 p-6">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-rose-700" />
+            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-tool-primary" />
             <div>
-              <h3 className="mb-2 font-semibold text-rose-800">
+              <h3 className="mb-2 font-semibold text-tool-primary">
                 {t("adminKey.title")}
               </h3>
-              <p className="text-sm text-rose-700 leading-relaxed">
+              <p className="text-sm text-tool-primary leading-relaxed">
                 {t("adminKey.description")}
               </p>
             </div>
@@ -154,19 +154,19 @@ export default async function McpPage() {
 
         {/* Setup Instructions */}
         <div className="mb-16 space-y-10">
-          <h2 className="mb-8 text-2xl font-bold text-gray-900">
+          <h2 className="mb-8 text-2xl font-bold text-foreground">
             {t("setup.title")}
           </h2>
 
           {/* Claude Desktop */}
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <Terminal className="h-6 w-6 text-rose-600" />
-              <h3 className="text-xl font-semibold text-gray-900">
+              <Terminal className="h-6 w-6 text-tool-primary" />
+              <h3 className="text-xl font-semibold text-foreground">
                 {t("setup.claudeDesktop.title")}
               </h3>
             </div>
-            <p className="mb-4 text-sm text-gray-600">
+            <p className="mb-4 text-sm text-muted-foreground">
               {t("setup.claudeDesktop.description")}
             </p>
             <CodeBlock>{`// claude_desktop_config.json
@@ -181,7 +181,7 @@ export default async function McpPage() {
     }
   }
 }`}</CodeBlock>
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="mt-3 text-xs text-muted-foreground">
               {t("setup.claudeDesktop.note")}
             </p>
           </div>
@@ -189,12 +189,12 @@ export default async function McpPage() {
           {/* Cursor / Windsurf */}
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <Settings className="h-6 w-6 text-rose-600" />
-              <h3 className="text-xl font-semibold text-gray-900">
+              <Settings className="h-6 w-6 text-tool-primary" />
+              <h3 className="text-xl font-semibold text-foreground">
                 {t("setup.cursor.title")}
               </h3>
             </div>
-            <p className="mb-4 text-sm text-gray-600">
+            <p className="mb-4 text-sm text-muted-foreground">
               {t("setup.cursor.description")}
             </p>
             <CodeBlock>{`// .cursor/mcp.json or .windsurf/mcp.json
@@ -210,12 +210,12 @@ export default async function McpPage() {
           {/* Claude Code */}
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <Terminal className="h-6 w-6 text-rose-600" />
-              <h3 className="text-xl font-semibold text-gray-900">
+              <Terminal className="h-6 w-6 text-tool-primary" />
+              <h3 className="text-xl font-semibold text-foreground">
                 {t("setup.claudeCode.title")}
               </h3>
             </div>
-            <p className="mb-4 text-sm text-gray-600">
+            <p className="mb-4 text-sm text-muted-foreground">
               {t("setup.claudeCode.description")}
             </p>
             <CodeBlock>{`// .mcp.json
@@ -231,11 +231,11 @@ export default async function McpPage() {
         </div>
 
         {/* Security Note */}
-        <div className="mb-16 rounded-xl border border-rose-200 bg-rose-50/50 p-6">
-          <h3 className="mb-2 font-semibold text-rose-800">
+        <div className="mb-16 rounded-xl border border-tool-primary/20 bg-tool-primary/10/50 p-6">
+          <h3 className="mb-2 font-semibold text-tool-primary">
             {t("security.title")}
           </h3>
-          <p className="text-sm text-rose-700 leading-relaxed">
+          <p className="text-sm text-tool-primary leading-relaxed">
             {t("security.description")}
           </p>
         </div>

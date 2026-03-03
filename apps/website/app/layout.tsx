@@ -11,9 +11,9 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={fontVariables}>
       <body
-        className={`${fontVariables} antialiased min-h-screen flex flex-col`}
+        className="antialiased min-h-screen flex flex-col"
       >
         {children}
       </body>

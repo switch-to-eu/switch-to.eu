@@ -11,10 +11,13 @@ import { Footer } from "@switch-to-eu/blocks/components/footer";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { routing } from "@switch-to-eu/i18n/routing";
+import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
+import { type MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 
 export async function generateMetadata({
@@ -46,57 +49,58 @@ export default async function LocaleLayout({
   }
 
   const t = await getTranslations({ locale, namespace: 'layout.header' });
+  const navT = await getTranslations({ locale, namespace: 'layout.nav' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
   const currentYear = new Date().getFullYear();
+
+  const navItems: MainNavItem[] = [
+    { title: navT('about'), href: '/about' },
+  ];
 
   return (
     <html lang={locale} className={fontVariables}>
       <body>
         <NextIntlClientProvider>
           <TRPCReactProvider>
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-muted">
               <Header
                 logo={
                   <Link href="/">
                     <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
                       <div className="flex items-center justify-center mt-1">
-                        <ListChecks className="h-4 w-4 text-primary-color" />
+                        <ListChecks className="h-4 w-4 text-tool-primary-foreground" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-lg font-black text-primary-color tracking-wide uppercase sm:text-xl leading-none">Listy</span>
+                        <span className="text-lg font-black text-tool-primary-foreground tracking-wide uppercase sm:text-xl leading-none">Listy</span>
                         <BrandIndicator locale={locale} variant="compact" className="-mt-0.5" asSpan />
                       </div>
                     </div>
                   </Link>
                 }
                 navigation={
-                  <div className="flex items-center gap-2">
-                    <LanguageSelector locale={locale} />
+                  <>
+                    <NavMenu navItems={navItems} />
+                    <NavLanguageSelector locale={locale as Locale} />
                     <HeaderFeedback toolId="listy" />
-                    <Link href="/about">
-                      <Button variant="ghost" size="sm">
-                        {t('about')}
-                      </Button>
-                    </Link>
                     <Link href="/create">
-                      <Button size="sm">
+                      <Button size="sm" variant="secondary">
                         <Plus className="mr-2 h-4 w-4" />
                         {t('createList')}
                       </Button>
                     </Link>
-                  </div>
+                  </>
                 }
                 mobileNavigation={
-                  <div className="flex items-center gap-2">
-                    <LanguageSelector locale={locale} />
+                  <MobileNav navItems={navItems} locale={locale as Locale}>
                     <HeaderFeedback toolId="listy" />
                     <Link href="/create">
-                      <Button size="sm">
-                        <Plus className="h-4 w-4" />
+                      <Button size="sm" variant="secondary" className="w-full">
+                        <Plus className="mr-2 h-4 w-4" />
+                        {t('createList')}
                       </Button>
                     </Link>
-                  </div>
+                  </MobileNav>
                 }
               />
               {children}
@@ -124,7 +128,7 @@ export default async function LocaleLayout({
                           href="https://switch-to.eu"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
+                          className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
                         >
                           {chunks}
                         </a>
@@ -134,7 +138,7 @@ export default async function LocaleLayout({
                       href="https://www.vinnie.studio"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
+                      className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
                     >
                       Studio Vinnie
                     </a>
@@ -143,7 +147,7 @@ export default async function LocaleLayout({
                       href="https://www.mvpeters.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/70 hover:text-brand-yellow transition-colors font-semibold underline"
+                      className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
                     >
                       MVPeters
                     </a>
@@ -151,7 +155,7 @@ export default async function LocaleLayout({
                 }
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-white">Listy</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary-foreground">Listy</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }

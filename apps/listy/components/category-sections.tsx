@@ -128,7 +128,7 @@ export function CategorySections({
 
       <DragOverlay>
         {activeItem ? (
-          <div className="rounded-lg border bg-white shadow-lg p-3 opacity-90">
+          <div className="rounded-lg border bg-card shadow-lg p-3 opacity-90">
             <span className="text-sm">{activeItem.text}</span>
           </div>
         ) : null}
@@ -170,16 +170,16 @@ function CategoryCard({
     <div
       ref={setNodeRef}
       className={cn(
-        "rounded-lg border bg-white overflow-hidden transition-colors",
+        "rounded-lg border bg-card overflow-hidden transition-colors",
         isOver && "border-teal-400 bg-teal-50/30",
       )}
     >
-      <div className="flex items-center justify-between px-3 py-2 bg-neutral-50/80">
-        <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">
+      <div className="flex items-center justify-between px-3 py-2 bg-muted/80">
+        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
           {label}
         </h3>
         {hasItems && (
-          <span className="text-xs text-neutral-400">
+          <span className="text-xs text-muted-foreground">
             {completedCount}/{items.length}
           </span>
         )}
@@ -274,16 +274,16 @@ function InlineAddInput({
       onSubmit={handleSubmit}
       className={cn(
         "flex items-center gap-2 px-3 py-2.5",
-        hasItems && "border-t border-neutral-100",
+        hasItems && "border-t border-border",
       )}
     >
-      <Plus className="h-4 w-4 text-neutral-300 shrink-0" />
+      <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={placeholder}
         maxLength={500}
-        className="flex-1 text-sm bg-transparent outline-none placeholder:text-neutral-300"
+        className="flex-1 text-sm bg-transparent outline-none placeholder:text-muted-foreground"
       />
     </form>
   );

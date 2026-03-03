@@ -50,12 +50,10 @@ describe("InlineSearchInput", () => {
     let resolveSearch!: (value: unknown) => void;
     fetchMock.mockImplementation((url: string) => {
       if (url.includes("/api/search?")) {
-        // Search request — keep it pending
         return new Promise((resolve) => {
           resolveSearch = resolve;
         });
       }
-      // Featured services — resolve immediately with empty
       return Promise.resolve({
         json: async () => ({ results: [] }),
       });
@@ -70,7 +68,7 @@ describe("InlineSearchInput", () => {
     // Focus the input first (opens the dropdown)
     fireEvent.focus(input);
 
-    // Type a query
+    // Type a query (>= 3 chars to trigger search)
     fireEvent.change(input, { target: { value: "whatsapp" } });
 
     // Wait for debounce (300ms) to fire the fetch
@@ -84,8 +82,7 @@ describe("InlineSearchInput", () => {
       { timeout: 1000 }
     );
 
-    // BUG: While loading, the dropdown shows "no results" instead of a loading state.
-    // This assertion should pass — "no results" must NOT appear during loading.
+    // While loading, the "no results" message should NOT be visible
     expect(
       screen.queryByText(/No results found for/i)
     ).not.toBeInTheDocument();
@@ -94,6 +91,117 @@ describe("InlineSearchInput", () => {
     resolveSearch({
       json: async () => ({ results: [] }),
     });
+  });
+
+  it("should NOT flash 'no results' during debounce period", async () => {
+    // Featured services returns some items (so we can verify fallback)
+    fetchMock.mockImplementation((url: string) => {
+      if (url.includes("/api/search/featured")) {
+        return Promise.resolve({
+          json: async () => ({
+            results: [
+              {
+                id: "whatsapp",
+                type: "service",
+                title: "WhatsApp",
+                description: "Messaging app",
+                url: "/services/non-eu/whatsapp",
+                region: "non-eu",
+                location: "US",
+                category: "messaging",
+                freeOption: true,
+              },
+            ],
+          }),
+        });
+      }
+      if (url.includes("/api/search?")) {
+        // Delay search response
+        return new Promise(() => {});
+      }
+      return Promise.resolve({ json: async () => ({ results: [] }) });
+    });
+
+    render(<InlineSearchInput animatePlaceholder={false} />);
+
+    const input = screen.getByPlaceholderText(
+      "Search services, guides, categories..."
+    );
+
+    // Wait for featured services to load
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        expect.stringContaining("/api/search/featured")
+      );
+    });
+
+    fireEvent.focus(input);
+
+    // Type a query — isLoading should be set immediately, no "no results" flash
+    fireEvent.change(input, { target: { value: "chat" } });
+
+    // "No results" should never appear — either loading skeleton or featured services
+    expect(
+      screen.queryByText(/No results found for/i)
+    ).not.toBeInTheDocument();
+  });
+
+  it("should show featured services for queries shorter than 3 characters", async () => {
+    fetchMock.mockImplementation((url: string) => {
+      if (url.includes("/api/search/featured")) {
+        return Promise.resolve({
+          json: async () => ({
+            results: [
+              {
+                id: "whatsapp",
+                type: "service",
+                title: "WhatsApp",
+                description: "Messaging app",
+                url: "/services/non-eu/whatsapp",
+                region: "non-eu",
+                location: "US",
+                category: "messaging",
+                freeOption: true,
+              },
+            ],
+          }),
+        });
+      }
+      return Promise.resolve({ json: async () => ({ results: [] }) });
+    });
+
+    render(<InlineSearchInput animatePlaceholder={false} />);
+
+    // Wait for featured services to load
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        expect.stringContaining("/api/search/featured")
+      );
+    });
+
+    const input = screen.getByPlaceholderText(
+      "Search services, guides, categories..."
+    );
+
+    fireEvent.focus(input);
+
+    // Type only 2 chars — should NOT trigger a search API call
+    fireEvent.change(input, { target: { value: "cg" } });
+
+    // Wait a bit past the debounce
+    await new Promise((r) => setTimeout(r, 400));
+
+    // Should not have called the search API
+    const searchCalls = fetchMock.mock.calls.filter((call: string[]) =>
+      call[0]?.includes("/api/search?")
+    );
+    expect(searchCalls).toHaveLength(0);
+
+    // Should still show featured services, not "no results"
+    expect(screen.getByText("WhatsApp")).toBeInTheDocument();
+    expect(
+      screen.queryByText(/No results found for/i)
+    ).not.toBeInTheDocument();
   });
 
   it("should show 'no results' message only after loading completes with empty results", async () => {
@@ -114,7 +222,7 @@ describe("InlineSearchInput", () => {
       "Search services, guides, categories..."
     );
 
-    // Focus + type
+    // Focus + type (>= 3 chars)
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: "xyznonexistent" } });
 

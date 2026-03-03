@@ -74,7 +74,7 @@ function EditableColumnTitle({
   if (!editing) {
     return (
       <h3
-        className="font-semibold text-sm cursor-pointer hover:bg-neutral-100 rounded px-1 -mx-1"
+        className="font-semibold text-sm cursor-pointer hover:bg-muted rounded px-1 -mx-1"
         onClick={() => setEditing(true)}
       >
         {title}
@@ -135,7 +135,7 @@ function QuickAddCard({
     return (
       <button
         type="button"
-        className="flex items-center gap-1 w-full rounded-lg px-2 py-1.5 text-sm text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 transition-colors"
+        className="flex items-center gap-1 w-full rounded-lg px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
         onClick={() => setActive(true)}
       >
         <Plus className="h-4 w-4" />
@@ -363,7 +363,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-tool-primary" />
       </div>
     );
   }
@@ -372,9 +372,9 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   if (missingKey) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <Lock className="h-12 w-12 text-neutral-400 mb-4" />
+        <Lock className="h-12 w-12 text-muted-foreground mb-4" />
         <h2 className="text-xl font-semibold mb-2">{t("missingKey")}</h2>
-        <p className="text-neutral-500 max-w-md">
+        <p className="text-muted-foreground max-w-md">
           {t("missingKeyDescription")}
         </p>
       </div>
@@ -385,9 +385,9 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   if (error || !board || !boardData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <AlertTriangle className="h-12 w-12 text-red-400 mb-4" />
+        <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
         <h2 className="text-xl font-semibold mb-2">{t("errorTitle")}</h2>
-        <p className="text-neutral-500">{error}</p>
+        <p className="text-muted-foreground">{error}</p>
       </div>
     );
   }
@@ -424,12 +424,12 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   return (
     <div className="min-h-[calc(100vh-12rem)]">
       {/* Board header */}
-      <div className="border-b bg-white">
+      <div className="border-b bg-card">
         <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">{board.title}</h1>
             {board.description && (
-              <p className="text-sm text-neutral-500">{board.description}</p>
+              <p className="text-sm text-muted-foreground">{board.description}</p>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -485,7 +485,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
                       {col?.title || column.title}
                     </h3>
                   )}
-                  <span className="text-xs text-neutral-400 bg-neutral-100 rounded-full px-2 py-0.5">
+                  <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-0.5">
                     {column.children.length}
                   </span>
                 </div>
@@ -493,7 +493,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-7 w-7 p-0 text-red-400 hover:text-red-600 hover:bg-red-50"
+                    className="h-7 w-7 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
                     onClick={() => setConfirmDeleteColumn(column.id)}
                   >
                     <X className="h-4 w-4" />
@@ -516,7 +516,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
         {isAdmin && (
           <div className="shrink-0 w-[272px] ml-2">
             {addingColumn ? (
-              <div className="rounded-xl border bg-white p-2 space-y-1.5">
+              <div className="rounded-xl border bg-card p-2 space-y-1.5">
                 <Input
                   ref={addColumnInputRef}
                   value={newColumnTitle}
@@ -560,7 +560,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
             ) : (
               <button
                 type="button"
-                className="flex items-center gap-2 w-full rounded-xl border border-dashed border-neutral-300 bg-neutral-50 hover:bg-neutral-100 px-4 py-3 text-sm text-neutral-500 hover:text-neutral-700 transition-colors"
+                className="flex items-center gap-2 w-full rounded-xl border border-dashed border-border bg-muted hover:bg-muted px-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setAddingColumn(true)}
               >
                 <Plus className="h-4 w-4" />
@@ -591,7 +591,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
           <AlertDialogFooter>
             <AlertDialogCancel>{tAdmin("cancel")}</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-destructive hover:bg-destructive/90"
               onClick={() => {
                 if (confirmDeleteColumn) handleRemoveColumn(confirmDeleteColumn);
                 setConfirmDeleteColumn(null);
@@ -613,7 +613,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
           <AlertDialogFooter>
             <AlertDialogCancel>{tAdmin("cancel")}</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-destructive hover:bg-destructive/90"
               onClick={handleDeleteBoard}
             >
               {tAdmin("confirmDelete")}

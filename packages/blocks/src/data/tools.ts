@@ -5,8 +5,6 @@ export interface Tool {
     name: string;
     url: string;
     status: 'active' | 'beta' | 'coming-soon';
-    color: string;
-    secondaryColor: string;
     icon?: string;
 }
 
@@ -16,8 +14,6 @@ export const tools: Tool[] = [
         name: 'EU-Scan',
         url: isDev ? 'https://scan.switch-to.test' : 'https://scan.switch-to.eu',
         status: 'coming-soon',
-        color: 'emerald-600',
-        secondaryColor: 'teal-600',
         icon: 'globe'
     },
     {
@@ -25,8 +21,6 @@ export const tools: Tool[] = [
         name: 'Plotty',
         url: isDev ? 'https://poll.switch-to.test' : 'https://plotty.eu',
         status: 'coming-soon',
-        color: 'purple-600',
-        secondaryColor: 'blue-600',
         icon: 'calendar'
     },
     {
@@ -34,8 +28,6 @@ export const tools: Tool[] = [
         name: 'Listy',
         url: isDev ? 'https://list.switch-to.test' : 'https://list.switch-to.eu',
         status: 'coming-soon',
-        color: 'teal-600',
-        secondaryColor: 'green-600',
         icon: 'list-checks'
     },
     {
@@ -43,8 +35,6 @@ export const tools: Tool[] = [
         name: 'KeepFocus',
         url: isDev ? 'https://focus.switch-to.test' : 'https://keepfocus.eu',
         status: 'active',
-        color: 'blue-600',
-        secondaryColor: 'purple-600',
         icon: 'target'
     },
     {
@@ -52,8 +42,6 @@ export const tools: Tool[] = [
         name: 'PrivNote',
         url: isDev ? 'https://note.switch-to.test' : 'https://privnote.switch-to.eu',
         status: 'coming-soon',
-        color: 'amber-600',
-        secondaryColor: 'orange-600',
         icon: 'file-lock'
     },
     {
@@ -61,8 +49,6 @@ export const tools: Tool[] = [
         name: 'Quiz',
         url: isDev ? 'https://quiz.switch-to.test' : 'https://quiz.switch-to.eu',
         status: 'active',
-        color: 'rose-600',
-        secondaryColor: 'orange-600',
         icon: 'brain'
     },
     {
@@ -70,8 +56,6 @@ export const tools: Tool[] = [
         name: 'Kanban',
         url: isDev ? 'https://kanban.switch-to.test' : 'https://kanban.switch-to.eu',
         status: 'coming-soon',
-        color: 'indigo-600',
-        secondaryColor: 'violet-600',
         icon: 'kanban-square'
     }
 ];

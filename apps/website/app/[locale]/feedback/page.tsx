@@ -1,4 +1,6 @@
 import FeedbackForm from "@/components/FeedbackForm";
+import { Container } from "@/components/layout/container";
+import { PageLayout } from "@/components/layout/page-layout";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -19,10 +21,10 @@ export default async function FeedbackPage() {
   const t = await getTranslations("feedback");
 
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
+    <PageLayout>
       {/* Hero Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <div className="bg-brand-pink rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
@@ -88,15 +90,15 @@ export default async function FeedbackPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Feedback Form Section */}
       <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <Container>
           <FeedbackForm />
-        </div>
+        </Container>
       </section>
-    </main>
+    </PageLayout>
   );
 }
