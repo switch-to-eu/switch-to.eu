@@ -69,7 +69,7 @@ export default async function LocaleLayout({
         .map(tool => ({
           title: tool.status === 'coming-soon' ? `${tool.name}::soon` : tool.name,
           href: tool.url,
-          description: toolsT(tool.id),
+          description: toolsT(tool.id as Parameters<typeof toolsT>[0]),
           icon: tool.icon,
           isExternal: true,
         })),
