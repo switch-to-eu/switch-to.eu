@@ -4,23 +4,37 @@
 @source '../../../node_modules/@switch-to-eu/ui/src';
 @source '../../../node_modules/@switch-to-eu/blocks/src';
 
+:root {
+  --primary: var(--brand-red);
+  --primary-foreground: #ffffff;
+  --ring: var(--brand-red);
+  --tool-primary: var(--brand-red);
+  --tool-primary-foreground: #ffffff;
+  --tool-accent: var(--brand-orange);
+  --tool-accent-foreground: #ffffff;
+  --tool-surface: var(--brand-orange);
+  --tool-surface-foreground: #ffffff;
+}
+
 /* Quiz-specific color overrides */
 .gradient-primary {
-  @apply bg-gradient-to-r from-rose-600 to-orange-500;
+  background: linear-gradient(to right, var(--tool-primary), var(--tool-accent));
 }
 
 .header-bg {
-  @apply bg-gradient-to-br from-rose-600/10 via-orange-500/5 to-transparent;
+  background: linear-gradient(to bottom right, oklch(from var(--tool-primary) l c h / 0.1), transparent);
 }
 
 .text-primary-color {
-  @apply text-rose-600;
+  color: var(--tool-primary);
 }
 
 .focus-ring-accent {
-  @apply focus-visible:ring-rose-600/30 focus-visible:ring-[2px];
+  @apply focus-visible:ring-[2px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.3);
 }
 
 .focus-ring-accent-strong {
-  @apply focus-visible:ring-rose-600/50 focus-visible:ring-[3px];
+  @apply focus-visible:ring-[3px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.5);
 }

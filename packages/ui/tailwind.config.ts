@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-hanken-grotesk)'],
-        heading: ['var(--font-bricolage-grotesque)'],
+        heading: ['var(--font-bonbance)'],
         bold: ['var(--font-hanken-grotesk-bold)'],
       },
       animation: {

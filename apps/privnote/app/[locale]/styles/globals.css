@@ -4,23 +4,37 @@
 @source '../../../node_modules/@switch-to-eu/ui/src';
 @source '../../../node_modules/@switch-to-eu/blocks/src';
 
+:root {
+  --primary: var(--brand-orange);
+  --primary-foreground: #ffffff;
+  --ring: var(--brand-orange);
+  --tool-primary: var(--brand-orange);
+  --tool-primary-foreground: #ffffff;
+  --tool-accent: var(--brand-yellow);
+  --tool-accent-foreground: #1a1a1a;
+  --tool-surface: var(--brand-yellow);
+  --tool-surface-foreground: #1a1a1a;
+}
+
 /* PrivNote-specific color overrides */
 .gradient-primary {
-  @apply bg-gradient-to-r from-amber-600 to-red-600;
+  background: linear-gradient(to right, var(--tool-primary), var(--tool-accent));
 }
 
 .header-bg {
-  @apply bg-gradient-to-br from-amber-600/10 via-red-500/5 to-transparent;
+  background: linear-gradient(to bottom right, oklch(from var(--tool-primary) l c h / 0.1), transparent);
 }
 
 .text-primary-color {
-  @apply text-amber-600;
+  color: var(--tool-primary);
 }
 
 .focus-ring-accent {
-  @apply focus-visible:ring-amber-600/30 focus-visible:ring-[2px];
+  @apply focus-visible:ring-[2px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.3);
 }
 
 .focus-ring-accent-strong {
-  @apply focus-visible:ring-amber-600/50 focus-visible:ring-[3px];
+  @apply focus-visible:ring-[3px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.5);
 }

@@ -10,7 +10,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-hanken-grotesk);
-  --font-heading: var(--font-bricolage-grotesque);
+  --font-heading: var(--font-bonbance);
   --font-bold: var(--font-hanken-grotesk-bold);
   --font-bold-italic: var(--font-hanken-grotesk-bold-italic);
   --font-italic: var(--font-hanken-grotesk-italic);
@@ -102,6 +102,17 @@
   --sidebar-accent-foreground: #1a3c5a;
   --sidebar-border: #e5e7eb;
   --sidebar-ring: #1a3c5a;
+
+  /* Tool color scheme — eu-scan */
+  --primary: var(--brand-green);
+  --primary-foreground: #ffffff;
+  --ring: var(--brand-green);
+  --tool-primary: var(--brand-green);
+  --tool-primary-foreground: #ffffff;
+  --tool-accent: var(--brand-sky);
+  --tool-accent-foreground: #1a1a1a;
+  --tool-surface: var(--brand-sky);
+  --tool-surface-foreground: #1a1a1a;
 }
 
 @layer base {
@@ -121,7 +132,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-bricolage-grotesque);
+    font-family: var(--font-heading);
     font-weight: 800;
   }
 
@@ -131,7 +142,7 @@
   h4.font-bold,
   h5.font-bold,
   h6.font-bold {
-    font-family: var(--font-bricolage-grotesque);
+    font-family: var(--font-heading);
     font-weight: 800;
   }
 
@@ -154,6 +165,6 @@
   input,
   select,
   textarea {
-    @apply rounded-xl border-[#e5e7eb];
+    @apply rounded-xl border-border;
   }
 }
