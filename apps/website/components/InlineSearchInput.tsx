@@ -61,6 +61,11 @@ export function InlineSearchInput({
     let isDeleting = false;
     let isTypingDefault = false;
     const typingSpeed = 100;
+    let cancelled = false;
+
+    const schedule = (fn: () => void, delay: number) => {
+      if (!cancelled) setTimeout(() => { if (!cancelled) fn(); }, delay);
+    };
 
     const animatePlaceholderText = () => {
       const currentExample = examples[currentIndex];
@@ -72,7 +77,7 @@ export function InlineSearchInput({
         showingDefault = false;
         isTyping = true;
         currentText = "";
-        setTimeout(animatePlaceholderText, typingSpeed);
+        schedule(animatePlaceholderText, typingSpeed);
         return;
       }
 
@@ -82,12 +87,10 @@ export function InlineSearchInput({
         setCurrentPlaceholder(currentText);
 
         if (currentText === currentExample) {
-          // Finished typing the service name
           isTyping = false;
-          setTimeout(animatePlaceholderText, pauseDuration);
+          schedule(animatePlaceholderText, pauseDuration);
         } else {
-          // Continue typing
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         }
         return;
       }
@@ -95,24 +98,22 @@ export function InlineSearchInput({
       // Start deleting the service name
       if (!isTyping && !isDeleting && !isTypingDefault && !showingDefault) {
         isDeleting = true;
-        setTimeout(animatePlaceholderText, typingSpeed);
+        schedule(animatePlaceholderText, typingSpeed);
         return;
       }
 
       // Deleting effect for service name
       if (isDeleting) {
         currentText = currentText.substring(0, currentText.length - 1);
-        setCurrentPlaceholder(currentText || " "); // Ensure placeholder isn't empty
+        setCurrentPlaceholder(currentText || " ");
 
         if (currentText === "") {
-          // Finished deleting, start typing default text
           isDeleting = false;
           isTypingDefault = true;
           currentText = "";
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         } else {
-          // Continue deleting
-          setTimeout(animatePlaceholderText, typingSpeed / 2);
+          schedule(animatePlaceholderText, typingSpeed / 2);
         }
         return;
       }
@@ -123,18 +124,15 @@ export function InlineSearchInput({
         setCurrentPlaceholder(currentText);
 
         if (currentText === defaultText) {
-          // Finished typing default text
           isTypingDefault = false;
           showingDefault = true;
 
-          // Setup for next service
-          setTimeout(() => {
+          schedule(() => {
             currentIndex = (currentIndex + 1) % examples.length;
-            setTimeout(animatePlaceholderText, 500);
+            schedule(animatePlaceholderText, 500);
           }, 1500);
         } else {
-          // Continue typing default text
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         }
         return;
       }
@@ -142,12 +140,10 @@ export function InlineSearchInput({
 
     // Start with default text initially
     setCurrentPlaceholder(defaultText);
-    const initialTimeout = setTimeout(() => {
-      animatePlaceholderText();
-    }, 2000);
+    schedule(animatePlaceholderText, 2000);
 
     return () => {
-      clearTimeout(initialTimeout);
+      cancelled = true;
     };
   }, [animatePlaceholder, query, placeholder, t]);
 
@@ -177,14 +173,15 @@ export function InlineSearchInput({
     void fetchFeaturedServices();
   }, [showOnlyServices, fetchFeaturedServices]);
 
+  const MIN_QUERY_LENGTH = 3;
+
   // Function to fetch search results from API
   const fetchResults = async (searchQuery: string) => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() || searchQuery.trim().length < MIN_QUERY_LENGTH) {
       setResults([]);
+      setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
 
     try {
       // Add region filter to the API call if provided
@@ -220,6 +217,16 @@ export function InlineSearchInput({
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
+
+    // Below minimum length — clear results, no loading
+    if (value.trim().length < MIN_QUERY_LENGTH) {
+      setResults([]);
+      setIsLoading(false);
+      return;
+    }
+
+    // Mark loading immediately so the dropdown never flashes "no results"
+    setIsLoading(true);
 
     // Set a new timer
     debounceTimerRef.current = setTimeout(() => {
@@ -272,7 +279,7 @@ export function InlineSearchInput({
     // Enter
     else if (e.key === "Enter") {
       e.preventDefault();
-      const currentResults = query.trim() ? results : featuredServices;
+      const currentResults = isSearchQuery ? results : featuredServices;
       const selectedResult = currentResults[focusedIndex];
       if (focusedIndex >= 0 && focusedIndex < currentResults.length && selectedResult) {
         handleSelect(selectedResult);
@@ -292,12 +299,13 @@ export function InlineSearchInput({
   };
 
   // Determine which results to show in the dropdown
-  const displayResults = query.trim() ? results : featuredServices;
-  const dropdownTitle = query.trim()
+  const isSearchQuery = query.trim().length >= MIN_QUERY_LENGTH;
+  const displayResults = isSearchQuery ? results : featuredServices;
+  const dropdownTitle = isSearchQuery
     ? t("dropdownSearchResults")
     : t("dropdownPopularServices");
 
-  const noResultsMessage = query.trim()
+  const noResultsMessage = isSearchQuery
     ? t("noResultsMessage", { query })
     : t("noFeaturedServices");
 
@@ -342,7 +350,7 @@ export function InlineSearchInput({
               </h3>
             </div>
 
-            {isLoading && query.trim() ? (
+            {isLoading && isSearchQuery ? (
               <div className="px-4 py-3 space-y-3">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="animate-pulse flex items-center gap-3">
