@@ -28,10 +28,14 @@ import {
 
 export function CreateNoteForm() {
   const t = useTranslations("CreatePage");
+  const v = useTranslations("validation");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { control, handleSubmit, watch } = useForm<CreateNoteFormData>({
-    resolver: zodResolver(createNoteSchema),
+    resolver: zodResolver(createNoteSchema({
+      required: v("required"),
+      maxLength: v("maxLength"),
+    })),
     defaultValues: {
       content: "",
       expiry: "24h",
@@ -99,7 +103,7 @@ export function CreateNoteForm() {
                 ) : (
                   <span />
                 )}
-                <p className="text-right text-xs text-gray-400">
+                <p className="text-right text-xs text-muted-foreground">
                   {contentLength.toLocaleString()} / 50,000
                 </p>
               </div>
@@ -124,8 +128,8 @@ export function CreateNoteForm() {
                     onClick={() => field.onChange(option)}
                     className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                       field.value === option
-                        ? "border-amber-600 bg-amber-50 text-amber-700"
-                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        ? "border-tool-primary bg-tool-surface/10 text-tool-primary"
+                        : "border-border bg-card text-muted-foreground hover:border-border"
                     }`}
                   >
                     {t(`expiryOptions.${option}`)}
@@ -142,9 +146,9 @@ export function CreateNoteForm() {
         name="burnAfterReading"
         control={control}
         render={({ field }) => (
-          <div className="flex items-start gap-3 rounded-lg border border-red-100 bg-red-50/50 p-4">
+          <div className="flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/10 p-4">
             <div className="mt-0.5">
-              <Flame className="h-5 w-5 text-red-500" />
+              <Flame className="h-5 w-5 text-destructive" />
             </div>
             <div className="flex-1">
               <Field orientation="horizontal">
@@ -154,10 +158,10 @@ export function CreateNoteForm() {
                   onCheckedChange={field.onChange}
                 />
                 <FieldContent>
-                  <FieldLabel htmlFor={field.name} className="text-sm font-medium text-gray-900">
+                  <FieldLabel htmlFor={field.name} className="text-sm font-medium text-foreground">
                     {t("burnAfterReading")}
                   </FieldLabel>
-                  <FieldDescription className="text-xs text-gray-500">
+                  <FieldDescription className="text-xs text-muted-foreground">
                     {t("burnAfterReadingDescription")}
                   </FieldDescription>
                 </FieldContent>

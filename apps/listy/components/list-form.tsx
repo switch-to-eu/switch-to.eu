@@ -59,11 +59,17 @@ const EXPIRATION_OPTIONS = [
 
 export function ListForm() {
   const t = useTranslations("CreatePage");
+  const v = useTranslations("validation");
   const locale = useLocale();
   const router = useRouter();
 
   const { control, handleSubmit, formState } = useForm<CreateListFormData>({
-    resolver: zodResolver(createListFormSchema),
+    resolver: zodResolver(createListFormSchema({
+      required: v("required"),
+      maxLength: v("maxLength"),
+      min: v("min"),
+      max: v("max"),
+    })),
     defaultValues: {
       preset: "plain",
       title: "",
@@ -127,8 +133,8 @@ export function ListForm() {
                       className={cn(
                         "cursor-pointer transition-all hover:shadow-md",
                         field.value === p
-                          ? "border-teal-500 ring-2 ring-teal-500/20 shadow-md"
-                          : "border-neutral-200 hover:border-neutral-300",
+                          ? "border-tool-primary ring-2 ring-tool-primary/20 shadow-md"
+                          : "border-border hover:border-border",
                       )}
                       onClick={() => field.onChange(p)}
                     >
@@ -137,8 +143,8 @@ export function ListForm() {
                           className={cn(
                             "mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full",
                             field.value === p
-                              ? "bg-teal-100 text-teal-600"
-                              : "bg-neutral-100 text-neutral-500",
+                              ? "bg-tool-surface/20 text-tool-primary"
+                              : "bg-muted text-muted-foreground",
                           )}
                         >
                           <Icon className="h-5 w-5" />
@@ -192,7 +198,7 @@ export function ListForm() {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor={field.name} className="text-base font-semibold">
               {t("descriptionLabel")}
-              <span className="ml-1 text-sm font-normal text-neutral-400">
+              <span className="ml-1 text-sm font-normal text-muted-foreground">
                 ({t("optional")})
               </span>
             </FieldLabel>
@@ -265,7 +271,7 @@ export function ListForm() {
             <FieldContent>
               <FieldLabel
                 htmlFor={field.name}
-                className="text-sm text-neutral-600 leading-relaxed cursor-pointer font-normal"
+                className="text-sm text-muted-foreground leading-relaxed cursor-pointer font-normal"
               >
                 {t("terms")}
               </FieldLabel>

@@ -33,7 +33,7 @@ import {
   FieldError,
 } from "@switch-to-eu/ui/components/field";
 import { QuestionEditor } from "@components/question-editor";
-import { quizFormSchema, type QuizFormData } from "@/lib/schemas";
+import { createQuizFormSchema, type QuizFormData } from "@/lib/schemas";
 import type { DecryptedQuestion, DecryptedQuizData } from "@/lib/interfaces";
 import type { FieldErrors } from "react-hook-form";
 import type { QuestionFormData } from "@/lib/schemas";
@@ -101,11 +101,16 @@ function SortableQuestionEditor({
 
 export function QuizForm() {
   const t = useTranslations("create");
+  const v = useTranslations("validation");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const { control, handleSubmit, formState: { errors } } = useForm<QuizFormData>({
-    resolver: zodResolver(quizFormSchema),
+    resolver: zodResolver(createQuizFormSchema({
+      required: v("required"),
+      maxLength: v("maxLength"),
+      minQuestions: v("minQuestions"),
+    })),
     defaultValues: {
       title: "",
       description: "",
@@ -285,7 +290,7 @@ export function QuizForm() {
           </SortableContext>
           <DragOverlay>
             {activeField ? (
-              <div className="rounded-lg border bg-white p-5 shadow-lg opacity-90">
+              <div className="rounded-lg border bg-card p-5 shadow-lg opacity-90">
                 <p className="font-medium">{activeField.text || t("questionPlaceholder")}</p>
               </div>
             ) : null}
@@ -304,7 +309,7 @@ export function QuizForm() {
       </div>
 
       {/* Settings */}
-      <div className="rounded-lg border bg-white p-5 space-y-4">
+      <div className="rounded-lg border bg-card p-5 space-y-4">
         <h2 className="text-lg font-semibold">{t("settings")}</h2>
 
         <Controller

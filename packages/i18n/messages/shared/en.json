@@ -15,6 +15,16 @@
     "eu-scan": "Analyze any website for EU compliance",
     "comingSoon": "Coming soon"
   },
+  "validation": {
+    "required": "This field is required.",
+    "maxLength": "This field is too long.",
+    "invalidEmail": "Please enter a valid email address.",
+    "min": "This value is too low.",
+    "max": "This value is too high.",
+    "arrayMinLength": "Please select at least one option.",
+    "futureDate": "Please select a date in the future.",
+    "minQuestions": "Please add at least one question."
+  },
   "feedback": {
     "triggerButton": "Feedback",
     "dialogTitle": "Share Your Feedback",

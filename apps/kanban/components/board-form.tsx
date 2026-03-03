@@ -50,11 +50,17 @@ const DEFAULT_COLUMNS: DecryptedColumnMeta[] = [
 
 export function BoardForm() {
   const t = useTranslations("CreatePage");
+  const v = useTranslations("validation");
   const locale = useLocale();
   const router = useRouter();
 
   const { control, handleSubmit, formState } = useForm<CreateBoardFormData>({
-    resolver: zodResolver(createBoardFormSchema),
+    resolver: zodResolver(createBoardFormSchema({
+      required: v("required"),
+      maxLength: v("maxLength"),
+      min: v("min"),
+      max: v("max"),
+    })),
     defaultValues: {
       title: "",
       description: "",
@@ -140,7 +146,7 @@ export function BoardForm() {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor={field.name} className="text-base font-semibold">
               {t("descriptionLabel")}
-              <span className="ml-1 text-sm font-normal text-neutral-400">
+              <span className="ml-1 text-sm font-normal text-muted-foreground">
                 ({t("optional")})
               </span>
             </FieldLabel>
@@ -213,7 +219,7 @@ export function BoardForm() {
             <FieldContent>
               <FieldLabel
                 htmlFor={field.name}
-                className="text-sm text-neutral-600 leading-relaxed cursor-pointer font-normal"
+                className="text-sm text-muted-foreground leading-relaxed cursor-pointer font-normal"
               >
                 {t("terms")}
               </FieldLabel>

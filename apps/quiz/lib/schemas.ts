@@ -16,21 +16,31 @@ export const answerIndexSchema = z.number().int().min(0).max(5);
 
 // Form schemas
 
-export const questionFormSchema = z.object({
-  text: z.string().min(1, "required"),
-  options: z.array(z.string().min(1, "required")).min(2).max(6),
-  correctIndex: z.number().int().min(0),
-});
+export type ValidationMessages = {
+  required: string;
+  maxLength: string;
+  minQuestions: string;
+};
 
-export const quizFormSchema = z.object({
-  title: z.string().min(1, "required").max(200, "maxLength"),
-  description: z.string().max(500, "maxLength").optional().or(z.literal("")),
-  questions: z.array(questionFormSchema).min(1, "minQuestions"),
-  timerSeconds: z.number().min(0).max(120),
-  expirationHours: z.number().min(0).max(168),
-  scoringEnabled: z.boolean(),
-  leaderboardEnabled: z.boolean(),
-});
+export const createQuestionFormSchema = (v: ValidationMessages) =>
+  z.object({
+    text: z.string().min(1, v.required),
+    options: z.array(z.string().min(1, v.required)).min(2).max(6),
+    correctIndex: z.number().int().min(0),
+  });
 
-export type QuizFormData = z.infer<typeof quizFormSchema>;
-export type QuestionFormData = z.infer<typeof questionFormSchema>;
+export const createQuizFormSchema = (v: ValidationMessages) =>
+  z.object({
+    title: z.string().min(1, v.required).max(200, v.maxLength),
+    description: z.string().max(500, v.maxLength).optional().or(z.literal("")),
+    questions: z.array(createQuestionFormSchema(v)).min(1, v.minQuestions),
+    timerSeconds: z.number().min(0).max(120),
+    expirationHours: z.number().min(0).max(168),
+    scoringEnabled: z.boolean(),
+    leaderboardEnabled: z.boolean(),
+  });
+
+export type QuizFormData = z.infer<ReturnType<typeof createQuizFormSchema>>;
+export type QuestionFormData = z.infer<
+  ReturnType<typeof createQuestionFormSchema>
+>;

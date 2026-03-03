@@ -15,6 +15,16 @@
     "eu-scan": "Analyseer elke website op EU-conformiteit",
     "comingSoon": "Binnenkort beschikbaar"
   },
+  "validation": {
+    "required": "Dit veld is verplicht.",
+    "maxLength": "Dit veld is te lang.",
+    "invalidEmail": "Voer een geldig e-mailadres in.",
+    "min": "Deze waarde is te laag.",
+    "max": "Deze waarde is te hoog.",
+    "arrayMinLength": "Selecteer minimaal één optie.",
+    "futureDate": "Selecteer een datum in de toekomst.",
+    "minQuestions": "Voeg minimaal één vraag toe."
+  },
   "feedback": {
     "triggerButton": "Feedback",
     "dialogTitle": "Deel Je Feedback",

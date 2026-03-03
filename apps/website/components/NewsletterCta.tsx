@@ -20,19 +20,17 @@ import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations, useLocale } from "next-intl";
 import { Container } from "@/components/layout/container";
 
-const formSchema = z.object({
-  firstname: z.string().min(1, {
-    message: "Please enter your name",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-});
+const createFormSchema = (validation: { required: string; invalidEmail: string }) =>
+  z.object({
+    firstname: z.string().min(1, { message: validation.required }),
+    email: z.string().email({ message: validation.invalidEmail }),
+  });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
 
 export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => {
   const t = useTranslations("newsletter");
+  const v = useTranslations("validation");
   const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,7 +39,10 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
   const Wrapper = contained ? Container : "div";
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(createFormSchema({
+      required: v("required"),
+      invalidEmail: v("invalidEmail"),
+    })),
     defaultValues: {
       firstname: "",
       email: "",
