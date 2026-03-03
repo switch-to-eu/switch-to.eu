@@ -44,7 +44,7 @@ export async function ServiceCard({
   return (
     <Link href={serviceLink} className="block h-full no-underline group">
       <div
-        className={`${card.bg} flex flex-col h-full rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-lg group-hover:scale-[1.02]`}
+        className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-lg group-hover:scale-[1.02]`}
       >
         {/* Decorative shape area */}
         <div className="relative h-36 sm:h-44 flex items-center justify-center">

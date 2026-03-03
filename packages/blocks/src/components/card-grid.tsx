@@ -16,7 +16,7 @@ export function CardGrid({
   return (
     <div
       className={cn(
-        "grid gap-5 sm:gap-6 auto-rows-fr",
+        "grid gap-0 md:gap-5 auto-rows-fr",
         COL_CLASSES[cols],
         className
       )}

@@ -467,6 +467,8 @@ export default async function ServiceDetailPage({
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
               {t("similarServices")}
             </h2>
+          </Container>
+          <Container noPaddingMobile>
             <CardGrid cols={4}>
               {similarServices.map((service, index) => (
                 <ServiceCard

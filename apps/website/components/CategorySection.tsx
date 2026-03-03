@@ -29,7 +29,7 @@ export async function CategorySection() {
       </Container>
 
       <Container noPaddingMobile>
-        <CardGrid cols={4} className="gap-0 md:gap-5">
+        <CardGrid cols={4}>
           {categories.map((category, index) => (
             <BrandCard
               key={category.slug}

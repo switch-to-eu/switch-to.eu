@@ -240,6 +240,8 @@ export default async function ServicesCategoryPage({
               {t("alternatives", { category: capitalizedCategory })}
             </h2>
           </div>
+        </Container>
+        <Container noPaddingMobile>
           <CardGrid cols={4}>
             {allDisplayServices.map((service, index) => (
               <ServiceCard
