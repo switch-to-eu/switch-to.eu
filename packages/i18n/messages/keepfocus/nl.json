@@ -29,8 +29,6 @@
     "features": {
       "title": "Functies",
       "nextjs": "Next.js App Router",
-      "trpc": "tRPC voor type-safe API's",
-      "drizzle": "Drizzle ORM voor database",
       "i18n": "Meertalige ondersteuning",
       "ui": "Radix UI componenten"
     },
