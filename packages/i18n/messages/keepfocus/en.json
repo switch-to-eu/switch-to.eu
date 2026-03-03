@@ -4,10 +4,6 @@
       "title": "KeepFocus - Pomodoro Timer & Task Manager",
       "description": "Focus with the Pomodoro Technique. 25-minute work sessions, 5-minute breaks, and task management to boost productivity."
     },
-    "header": {
-      "createItem": "Create Item",
-      "about": "About"
-    },
     "nav": {
       "about": "About",
       "tools": "Tools"
@@ -20,35 +16,8 @@
     }
   },
   "homepage": {
-    "title": "KeepFocus",
-    "subtitle": "Pomodoro Timer & Task Manager",
     "heroTitle": "Focus. Work. Achieve",
-    "technique": "🍅 Pomodoro Technique",
     "heroDescription": "Break your work into focused 25-minute sessions. Stay productive, avoid burnout, and accomplish more with proven time management.",
-    "createButton": "Create New Item",
-    "features": {
-      "title": "Features",
-      "nextjs": "Next.js App Router",
-      "i18n": "Multi-language support",
-      "ui": "Radix UI components"
-    },
-    "instructions": {
-      "title": "How to use KeepFocus:",
-      "timer": {
-        "title": "Timer:",
-        "focusSessions": "25-minute focus sessions",
-        "shortBreaks": "5-minute short breaks",
-        "longBreaks": "15-minute long breaks",
-        "customizeSettings": "Click Settings to customize timer preferences"
-      },
-      "tasks": {
-        "title": "Tasks:",
-        "addTasks": "Add tasks to track your work",
-        "setActive": "Click a task to set it as active",
-        "autoCount": "Pomodoros count automatically",
-        "localData": "Data saved locally in your browser"
-      }
-    },
     "howItWorks": {
       "title": "How Pomodoro Works",
       "focus": {
@@ -63,46 +32,18 @@
         "title": "Repeat",
         "description": "Keep the cycle going. Each session builds momentum and trains your focus muscle."
       }
-    },
-    "footer": "Focus with the Pomodoro Technique",
-    "subtitle2": "25-minute work sessions • 5-minute breaks • Stay productive"
-  },
-  "create": {
-    "title": "Create New Item",
-    "form": {
-      "name": "Name",
-      "description": "Description",
-      "submit": "Create Item",
-      "cancel": "Cancel"
-    },
-    "success": "Item created successfully!",
-    "error": "Failed to create item"
-  },
-  "items": {
-    "title": "Items",
-    "empty": "No items found",
-    "loading": "Loading items...",
-    "error": "Failed to load items"
+    }
   },
   "pomodoro": {
     "timer": {
-      "title": "Pomodoro Timer",
       "start": "Start",
       "pause": "Pause",
       "reset": "Reset",
-      "skip": "Skip",
-      "complete": "complete",
       "pomodorosToday": "pomodoros today",
-      "currentPhase": "current phase",
       "phases": {
         "work": "Focus Time",
         "shortBreak": "Short Break",
         "longBreak": "Long Break"
-      },
-      "phaseLabels": {
-        "work": "work",
-        "shortBreak": "short break",
-        "longBreak": "long break"
       }
     },
     "tasks": {
@@ -113,11 +54,8 @@
       "completed": "Completed",
       "clearCompleted": "Clear All Completed",
       "charactersRemaining": "characters remaining",
-      "pomodorosCompleted": "pomodoros completed",
-      "activeTask": "Active Task",
       "setActive": "Set as active task",
       "deactivate": "Deactivate task",
-      "noActiveTask": "No active task - general focus session",
       "dragToReorder": "Drag to reorder tasks",
       "emptyState": {
         "readyToFocus": "Ready to focus?",
@@ -167,21 +105,12 @@
       }
     },
     "notifications": {
-      "workComplete": "Work session complete! Time for a break.",
-      "breakComplete": "Break time is over! Ready to focus?",
-      "longBreakComplete": "Long break finished! Time to get back to work.",
+      "workCompleteTitle": "Pomodoro Complete!",
+      "shortBreakStart": "Time for a short break.",
+      "longBreakStart": "Time for a long break.",
+      "breakCompleteTitle": "Break Complete!",
+      "breakComplete": "Time to get back to work.",
       "permissionDenied": "Desktop notifications are disabled. Enable them in your browser settings for better productivity tracking."
-    },
-    "footer": {
-      "description": "Your guide to European digital alternatives. We help you discover, evaluate, and switch to EU-based tools that respect your privacy and data sovereignty.",
-      "confidence": "We don't just recommend EU alternatives—we build them. Our own apps prove that European software can be both privacy-first and beautifully designed.",
-      "toolsTitle": "Tools we've built in house",
-      "browseMore": "Browse more EU alternatives",
-      "links": "Links",
-      "about": "About",
-      "privacy": "Privacy Policy",
-      "contact": "Contact",
-      "copyright": "© 2025 Switch-to.eu - A project by"
     }
   },
   "tools": {
@@ -189,11 +118,6 @@
       "tagline": "Plan your week visually",
       "description": "A simple, privacy-first weekly planner that helps you organize your time and stay on track.",
       "cta": "Try Plotty"
-    },
-    "nully": {
-      "tagline": "Share files securely",
-      "description": "End-to-end encrypted file sharing built in Europe. No accounts needed, no tracking, just secure transfers.",
-      "cta": "Try Nully"
     },
     "keepfocus": {
       "tagline": "Focus with Pomodoro",
@@ -229,21 +153,6 @@
         "focus": {
           "title": "Distraction-Free",
           "description": "Clean, minimal interface designed to reduce distractions and help you maintain focus on what matters most."
-        }
-      },
-      "perfectFor": {
-        "title": "Perfect for",
-        "professionals": {
-          "title": "Professionals",
-          "description": "Manage work tasks, meetings, and projects with focused time blocks"
-        },
-        "students": {
-          "title": "Students",
-          "description": "Study sessions, homework, and research with better time management"
-        },
-        "anyone": {
-          "title": "Anyone",
-          "description": "Anyone wanting to improve focus and build better work habits"
         }
       }
     },
@@ -333,12 +242,6 @@
         }
       },
       "cta": "Explore Switch-to.eu"
-    },
-    "cta": {
-      "title": "Ready to Focus Better?",
-      "description": "Start using the Pomodoro technique today with a privacy-first timer that puts your productivity first.",
-      "startFocusing": "Start Focusing",
-      "learnMore": "Learn More"
     }
   }
 }

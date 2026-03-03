@@ -53,7 +53,6 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const t = await getTranslations({ locale, namespace: 'layout.header' });
   const navT = await getTranslations({ locale, namespace: 'layout.nav' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
