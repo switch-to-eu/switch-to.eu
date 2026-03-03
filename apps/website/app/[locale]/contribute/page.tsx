@@ -5,8 +5,7 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-
-import { FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 const CONTRIBUTION_CARDS = [
   { titleKey: "cards.migration.title", descKey: "cards.migration.description", ctaKey: "cards.migration.cta", href: "/contribute/guide", colorIndex: 0, shape: "spark" },
@@ -53,24 +52,19 @@ export default async function ContributePage() {
                 </p>
               </div>
               <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
-                <div className="absolute inset-0">
-                  <img
-                    src="/images/shapes/wide-heart.svg"
-                    alt=""
-                    className="w-full h-full object-contain select-none animate-shape-float"
-                    style={{ filter: FILTER_WHITE, opacity: 0.3, animationDuration: "7s" }}
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="absolute inset-8">
-                  <img
-                    src="/images/shapes/clover.svg"
-                    alt=""
-                    className="w-full h-full object-contain select-none animate-shape-float"
-                    style={{ filter: FILTER_WHITE, opacity: 0.5, animationDuration: "6s", animationDelay: "-2s" }}
-                    aria-hidden="true"
-                  />
-                </div>
+                <DecorativeShape
+                  shape="wide-heart"
+                  className="inset-0"
+                  opacity={0.3}
+                  duration="7s"
+                />
+                <DecorativeShape
+                  shape="clover"
+                  className="inset-8"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
               </div>
             </div>
           </Banner>
@@ -92,7 +86,7 @@ export default async function ContributePage() {
                 ctaText={t(card.ctaKey)}
                 href={card.href}
                 external={"external" in card ? card.external : undefined}
-                shape={`/images/shapes/${card.shape}.svg`}
+                shape={card.shape}
                 contentClassName="text-center"
               />
             ))}

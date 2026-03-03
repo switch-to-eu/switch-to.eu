@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@switch-to-eu/ui/components/button";
@@ -7,8 +6,8 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
-
-import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contribute");
@@ -141,67 +140,39 @@ export default async function ContributeGuidePage() {
       {/* Hero Section */}
       <section>
         <Container>
-          <div className="bg-brand-green rounded-3xl">
-            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-              <div className="absolute -top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48 opacity-15 pointer-events-none">
-                <Image
-                  src="/images/shapes/cloud.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: FILTER_WHITE }}
-                  aria-hidden="true"
-                  unoptimized
-                />
+          <Banner
+            color="bg-brand-green"
+            shapes={[
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
+              { shape: "star", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.1, delay: "-3s" },
+            ]}
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="flex-1">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                  {t("guide.hero.title")}
+                </h1>
+                <p className="text-white/90 text-base sm:text-lg">
+                  {t("guide.hero.description")}
+                </p>
               </div>
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/star.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: FILTER_WHITE, animationDelay: "-3s" }}
-                  aria-hidden="true"
-                  unoptimized
+              <div className="w-40 h-40 sm:w-56 sm:h-56 relative flex-shrink-0">
+                <DecorativeShape
+                  shape="cross"
+                  className="inset-0"
+                  opacity={0.3}
+                  duration="7s"
                 />
-              </div>
-
-              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                <div className="flex-1">
-                  <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
-                    {t("guide.hero.title")}
-                  </h1>
-                  <p className="text-white/90 text-base sm:text-lg">
-                    {t("guide.hero.description")}
-                  </p>
-                </div>
-                <div className="w-40 h-40 sm:w-56 sm:h-56 relative flex-shrink-0">
-                  <div className="absolute inset-0">
-                    <Image
-                      src="/images/shapes/cross.svg"
-                      alt=""
-                      fill
-                      className="object-contain select-none animate-shape-float"
-                      style={{ filter: FILTER_WHITE, opacity: 0.3, animationDuration: "7s" }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="absolute inset-8">
-                    <Image
-                      src="/images/shapes/diamond-4.svg"
-                      alt=""
-                      fill
-                      className="object-contain select-none animate-shape-float"
-                      style={{ filter: FILTER_WHITE, opacity: 0.5, animationDuration: "6s", animationDelay: "-2s" }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
-                  </div>
-                </div>
+                <DecorativeShape
+                  shape="diamond-4"
+                  className="inset-8"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
               </div>
             </div>
-          </div>
+          </Banner>
         </Container>
       </section>
 
@@ -308,42 +279,33 @@ export default async function ContributeGuidePage() {
       {/* CTA Section */}
       <section>
         <Container>
-          <div className="bg-brand-navy rounded-3xl">
-            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-              <div className="absolute -top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44 opacity-15 pointer-events-none">
-                <Image
-                  src="/images/shapes/starburst.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: FILTER_WHITE }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
-              <div className="relative z-10 text-center max-w-2xl mx-auto">
-                <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
-                  {t("guide.callToAction.title")}
-                </h2>
-                <p className="text-brand-sky text-base sm:text-lg mb-8">
-                  {t("guide.callToAction.description")}
-                </p>
-                <Button
-                  variant="red"
-                  asChild
-                  className="bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
-                >
-                  <Link
-                    href="https://github.com/switch-to-eu/content"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t("guide.callToAction.buttonText")}
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
+          <Banner
+            color="bg-brand-navy"
+            shapes={[
+              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
+            ]}
+            contentClassName="text-center max-w-2xl mx-auto"
+          >
+            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
+              {t("guide.callToAction.title")}
+            </h2>
+            <p className="text-brand-sky text-base sm:text-lg mb-8">
+              {t("guide.callToAction.description")}
+            </p>
+            <Button
+              variant="red"
+              asChild
+              className="bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
+            >
+              <Link
+                href="https://github.com/switch-to-eu/content"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t("guide.callToAction.buttonText")}
+              </Link>
+            </Button>
+          </Banner>
         </Container>
       </section>
     </PageLayout>

@@ -1,10 +1,10 @@
 import React from "react";
-import Image from "next/image";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { ServiceFrontmatter } from "@switch-to-eu/content";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { shapes } from "@switch-to-eu/blocks/shapes";
 
 const SERVICE_SHAPES = [
   "spark",
@@ -39,7 +39,8 @@ export async function ServiceCard({
   const serviceLink = `/services/${regionPath}/${serviceSlug}`;
 
   const card = getCardColor(colorIndex);
-  const shape = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
+  const shapeName = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
+  const shapeData = shapes[shapeName];
 
   return (
     <Link href={serviceLink} className="block h-full no-underline group">
@@ -47,20 +48,20 @@ export async function ServiceCard({
         className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-lg group-hover:scale-[1.02]`}
       >
         {/* Decorative shape area */}
-        <div className="relative h-36 sm:h-44 flex items-center justify-center">
-          <Image
-            src={`/images/shapes/${shape}.svg`}
-            alt=""
-            fill
-            className="object-contain p-8 sm:p-10 select-none animate-shape-float"
-            style={{
-              filter: card.shapeFilter,
-              animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-              animationDelay: `${(colorIndex % 4) * -1.5}s`,
-            }}
-            aria-hidden="true"
-            unoptimized
-          />
+        <div className="relative h-36 sm:h-44 flex items-center justify-center p-8 sm:p-10">
+          {shapeData && (
+            <svg
+              viewBox={shapeData.viewBox}
+              className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+              style={{
+                animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+                animationDelay: `${(colorIndex % 4) * -1.5}s`,
+              }}
+              aria-hidden="true"
+            >
+              <path d={shapeData.d} fill="currentColor" />
+            </svg>
+          )}
           {/* Region badge floated top-right */}
           <div className="absolute top-3 right-3">
             <RegionBadge region={service.region || "eu"} />

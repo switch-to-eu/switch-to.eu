@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
@@ -10,8 +9,7 @@ import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
-
-import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { shapes } from "@switch-to-eu/blocks/shapes";
 
 const CATEGORY_SHAPES = [
   "spark", "cloud", "tulip", "speech",
@@ -25,7 +23,7 @@ const GUIDE_CARDS = [
     titleKey: "whatsappToSignal.title",
     descKey: "whatsappToSignal.description",
     altKey: "whatsappToSignal.alt",
-    shape: "/images/shapes/speech.svg",
+    shape: "speech",
     colorIndex: 0,
   },
   {
@@ -34,7 +32,7 @@ const GUIDE_CARDS = [
     titleKey: "gmailToProton.title",
     descKey: "gmailToProton.description",
     altKey: "gmailToProton.alt",
-    shape: "/images/shapes/cloud.svg",
+    shape: "cloud",
     colorIndex: 1,
   },
   {
@@ -43,7 +41,7 @@ const GUIDE_CARDS = [
     titleKey: "driveToPcloud.title",
     descKey: "driveToPcloud.description",
     altKey: "driveToPcloud.alt",
-    shape: "/images/shapes/star.svg",
+    shape: "star",
     colorIndex: 2,
   },
 ] as const;
@@ -54,21 +52,21 @@ const FEATURE_ITEMS = [
     descKey: "featuresEuropeanDescription",
     shapeBg: "bg-brand-sky",
     shape: "spark",
-    shapeFilter: FILTER_BRAND_GREEN,
+    shapeColor: "text-brand-green",
   },
   {
     titleKey: "featuresGuidesTitle",
     descKey: "featuresGuidesDescription",
     shapeBg: "bg-brand-pink",
     shape: "squiggle",
-    shapeFilter: FILTER_WHITE,
+    shapeColor: "text-white",
   },
   {
     titleKey: "featuresCommunityTitle",
     descKey: "featuresCommunityDescription",
     shapeBg: "bg-brand-yellow",
     shape: "flower",
-    shapeFilter: FILTER_BRAND_GREEN,
+    shapeColor: "text-brand-green",
   },
 ] as const;
 
@@ -113,7 +111,7 @@ export default async function Home() {
                 description={category.metadata.description}
                 href={`/services/${category.slug}`}
                 ctaText={t("exploreCategory")}
-                shape={`/images/shapes/${CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}.svg`}
+                shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}
               />
             ))}
           </div>
@@ -158,29 +156,32 @@ export default async function Home() {
             </SectionHeading>
 
             <AlternatingShowcase
-              items={FEATURE_ITEMS.map((item, index) => ({
-                visual: (
-                  <div
-                    className={`${item.shapeBg} w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full relative`}
-                  >
-                    <Image
-                      src={`/images/shapes/${item.shape}.svg`}
-                      alt=""
-                      fill
-                      className="object-contain p-5 sm:p-7 select-none animate-shape-float"
-                      style={{
-                        filter: item.shapeFilter,
-                        animationDuration: `${6 + (index % 3) * 1.5}s`,
-                        animationDelay: `${index * -1.5}s`,
-                      }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
-                  </div>
-                ),
-                title: t(item.titleKey),
-                description: t(item.descKey),
-              }))}
+              items={FEATURE_ITEMS.map((item, index) => {
+                const shapeData = shapes[item.shape];
+                return {
+                  visual: (
+                    <div
+                      className={`${item.shapeBg} w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full relative flex items-center justify-center p-5 sm:p-7`}
+                    >
+                      {shapeData && (
+                        <svg
+                          viewBox={shapeData.viewBox}
+                          className={`w-full h-full select-none animate-shape-float ${item.shapeColor}`}
+                          style={{
+                            animationDuration: `${6 + (index % 3) * 1.5}s`,
+                            animationDelay: `${index * -1.5}s`,
+                          }}
+                          aria-hidden="true"
+                        >
+                          <path d={shapeData.d} fill="currentColor" />
+                        </svg>
+                      )}
+                    </div>
+                  ),
+                  title: t(item.titleKey),
+                  description: t(item.descKey),
+                };
+              })}
             />
           </Banner>
         </Container>

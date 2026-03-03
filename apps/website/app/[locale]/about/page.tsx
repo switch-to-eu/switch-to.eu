@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -8,8 +7,8 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-
-import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+import { shapes } from "@switch-to-eu/blocks/shapes";
 
 const PILLAR_CARDS = [
   { titleKey: "pillars.pillar1.title", descKey: "pillars.pillar1.description", colorIndex: 0, shape: "spark" },
@@ -37,6 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
+  const starShape = shapes["star"];
 
   return (
     <PageLayout>
@@ -60,39 +60,26 @@ export default async function AboutPage() {
                 </p>
               </div>
               <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
-                <div className="absolute inset-0">
-                  <Image
-                    src="/images/shapes/circle.svg"
-                    alt=""
-                    fill
-                    className="object-contain select-none animate-shape-float"
-                    style={{ filter: FILTER_WHITE, opacity: 0.25, animationDuration: "8s" }}
-                    aria-hidden="true"
-                    unoptimized
-                  />
-                </div>
-                <div className="absolute inset-6">
-                  <Image
-                    src="/images/shapes/star.svg"
-                    alt=""
-                    fill
-                    className="object-contain select-none animate-shape-float"
-                    style={{ filter: FILTER_WHITE, opacity: 0.5, animationDuration: "6s", animationDelay: "-2s" }}
-                    aria-hidden="true"
-                    unoptimized
-                  />
-                </div>
-                <div className="absolute bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20">
-                  <Image
-                    src="/images/shapes/fleur.svg"
-                    alt=""
-                    fill
-                    className="object-contain select-none animate-shape-float"
-                    style={{ filter: FILTER_WHITE, opacity: 0.35, animationDuration: "7s", animationDelay: "-4s" }}
-                    aria-hidden="true"
-                    unoptimized
-                  />
-                </div>
+                <DecorativeShape
+                  shape="circle"
+                  className="inset-0"
+                  opacity={0.25}
+                  duration="8s"
+                />
+                <DecorativeShape
+                  shape="star"
+                  className="inset-6"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
+                <DecorativeShape
+                  shape="fleur"
+                  className="bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20"
+                  opacity={0.35}
+                  duration="7s"
+                  delay="-4s"
+                />
               </div>
             </div>
           </Banner>
@@ -141,16 +128,12 @@ export default async function AboutPage() {
                       key={index}
                       className="flex items-start gap-3 text-base sm:text-lg"
                     >
-                      <span className="inline-block w-6 h-6 mt-0.5 flex-shrink-0 relative">
-                        <Image
-                          src="/images/shapes/star.svg"
-                          alt=""
-                          fill
-                          className="object-contain"
-                          style={{ filter: FILTER_BRAND_GREEN }}
-                          aria-hidden="true"
-                          unoptimized
-                        />
+                      <span className="inline-block w-6 h-6 mt-0.5 flex-shrink-0 text-brand-green">
+                        {starShape && (
+                          <svg viewBox={starShape.viewBox} aria-hidden="true">
+                            <path d={starShape.d} fill="currentColor" />
+                          </svg>
+                        )}
                       </span>
                       {point}
                     </li>
@@ -188,7 +171,7 @@ export default async function AboutPage() {
                 colorIndex={card.colorIndex}
                 title={t(card.titleKey)}
                 description={t(card.descKey)}
-                shape={`/images/shapes/${card.shape}.svg`}
+                shape={card.shape}
                 contentClassName="text-center"
               />
             ))}
@@ -211,7 +194,7 @@ export default async function AboutPage() {
                 colorIndex={card.colorIndex}
                 title={t(card.titleKey)}
                 description={t(card.descKey)}
-                shape={`/images/shapes/${card.shape}.svg`}
+                shape={card.shape}
                 shapePosition="accent"
               />
             ))}

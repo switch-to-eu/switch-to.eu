@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -7,6 +6,7 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { getToolCardColor } from "@switch-to-eu/ui/lib/tool-colors";
+import { shapes } from "@switch-to-eu/blocks/shapes";
 import {
   ArrowUpRightIcon,
   GlobeIcon,
@@ -85,7 +85,8 @@ export default async function ToolsPage() {
                   }
                 : {};
               const card = getToolCardColor(tool.id);
-              const shape = TOOL_SHAPES[index % TOOL_SHAPES.length]!;
+              const shapeName = TOOL_SHAPES[index % TOOL_SHAPES.length]!;
+              const shapeData = shapes[shapeName];
 
               return (
                 <Wrapper
@@ -98,20 +99,20 @@ export default async function ToolsPage() {
                   }`}
                 >
                   {/* Decorative shape area */}
-                  <div className="relative h-32 sm:h-36 flex items-center justify-center">
-                    <Image
-                      src={`/images/shapes/${shape}.svg`}
-                      alt=""
-                      fill
-                      className="object-contain p-8 sm:p-10 select-none animate-shape-float"
-                      style={{
-                        filter: card.shapeFilter,
-                        animationDuration: `${6 + (index % 4) * 1.5}s`,
-                        animationDelay: `${(index % 4) * -1.5}s`,
-                      }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
+                  <div className="relative h-32 sm:h-36 flex items-center justify-center p-8 sm:p-10">
+                    {shapeData && (
+                      <svg
+                        viewBox={shapeData.viewBox}
+                        className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+                        style={{
+                          animationDuration: `${6 + (index % 4) * 1.5}s`,
+                          animationDelay: `${(index % 4) * -1.5}s`,
+                        }}
+                        aria-hidden="true"
+                      >
+                        <path d={shapeData.d} fill="currentColor" />
+                      </svg>
+                    )}
                     {/* Icon badge */}
                     {Icon && (
                       <div className="absolute top-4 left-4">
@@ -180,24 +181,23 @@ export default async function ToolsPage() {
               ] as const
             ).map((feature) => {
               const card = getCardColor(feature.colorIdx);
+              const shapeData = shapes[feature.shape];
               return (
                 <div
                   key={feature.key}
                   className={`${card.bg} rounded-3xl overflow-hidden`}
                 >
-                  <div className="relative h-28 flex items-center justify-center">
-                    <Image
-                      src={`/images/shapes/${feature.shape}.svg`}
-                      alt=""
-                      fill
-                      className="object-contain p-6 select-none animate-shape-float"
-                      style={{
-                        filter: card.shapeFilter,
-                        animationDuration: "8s",
-                      }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
+                  <div className="relative h-28 flex items-center justify-center p-6">
+                    {shapeData && (
+                      <svg
+                        viewBox={shapeData.viewBox}
+                        className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+                        style={{ animationDuration: "8s" }}
+                        aria-hidden="true"
+                      >
+                        <path d={shapeData.d} fill="currentColor" />
+                      </svg>
+                    )}
                   </div>
                   <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-center">
                     <h3

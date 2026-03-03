@@ -14,6 +14,10 @@
     "./hooks/*": {
       "types": "./src/hooks/*.ts",
       "default": "./src/hooks/*.ts"
+    },
+    "./shapes": {
+      "types": "./src/shapes/index.ts",
+      "default": "./src/shapes/index.ts"
     }
   },
   "scripts": {

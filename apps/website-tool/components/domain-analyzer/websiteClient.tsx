@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-import Image from "next/image";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
-import { FILTER_BRAND_GREEN, FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+import { shapes } from "@switch-to-eu/blocks/shapes";
 
 const HOW_IT_WORKS_CARDS = [
   {
@@ -13,9 +13,8 @@ const HOW_IT_WORKS_CARDS = [
     text: "text-brand-green",
     numberBg: "bg-brand-green",
     numberText: "text-white",
-    shape: "/images/shapes/cloud.svg",
-    shapeFilter:
-      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    shape: "cloud",
+    shapeColor: "text-brand-green",
     step: "step1",
   },
   {
@@ -23,9 +22,8 @@ const HOW_IT_WORKS_CARDS = [
     text: "text-brand-green",
     numberBg: "bg-brand-orange",
     numberText: "text-white",
-    shape: "/images/shapes/star.svg",
-    shapeFilter:
-      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    shape: "star",
+    shapeColor: "text-brand-green",
     step: "step2",
   },
   {
@@ -33,9 +31,8 @@ const HOW_IT_WORKS_CARDS = [
     text: "text-brand-green",
     numberBg: "bg-brand-navy",
     numberText: "text-white",
-    shape: "/images/shapes/pebble.svg",
-    shapeFilter:
-      "brightness(0) saturate(100%) invert(22%) sepia(95%) saturate(1000%) hue-rotate(130deg) brightness(90%) contrast(95%)",
+    shape: "pebble",
+    shapeColor: "text-brand-green",
     step: "step3",
   },
 ] as const;
@@ -69,6 +66,8 @@ export function WebsiteAnalyzerClient() {
     router.push(`/domain/${encodeURIComponent(domain)}`);
   };
 
+  const sunburstShape = shapes["sunburst"];
+
   return (
     <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
       {/* Hero Section */}
@@ -77,28 +76,19 @@ export function WebsiteAnalyzerClient() {
           <div className="bg-brand-navy rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
               {/* Decorative shapes */}
-              <div className="absolute -top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/sunburst.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "8s", filter: FILTER_WHITE }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/blob.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "10s", animationDelay: "1s", filter: FILTER_WHITE }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
+              <DecorativeShape
+                shape="sunburst"
+                className="-top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52"
+                opacity={0.1}
+                duration="8s"
+              />
+              <DecorativeShape
+                shape="blob"
+                className="-bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40"
+                opacity={0.1}
+                duration="10s"
+                delay="1s"
+              />
 
               <div className="relative z-10 max-w-2xl mx-auto text-center">
                 <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8">
@@ -139,19 +129,17 @@ export function WebsiteAnalyzerClient() {
       <section>
         <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto rounded-3xl border-2 border-dashed border-brand-sage bg-brand-sage/10 p-10 flex flex-col items-center justify-center text-center min-h-[260px]">
-            <div className="relative w-20 h-20 mb-4 opacity-30">
-              <Image
-                src="/images/shapes/sunburst.svg"
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{
-                  filter: FILTER_BRAND_GREEN,
-                  animationDuration: "8s",
-                }}
-                aria-hidden="true"
-                unoptimized
-              />
+            <div className="w-20 h-20 mb-4 opacity-30 text-brand-green">
+              {sunburstShape && (
+                <svg
+                  viewBox={sunburstShape.viewBox}
+                  className="w-full h-full select-none animate-shape-float"
+                  style={{ animationDuration: "8s" }}
+                  aria-hidden="true"
+                >
+                  <path d={sunburstShape.d} fill="currentColor" />
+                </svg>
+              )}
             </div>
             <h3 className="font-heading text-xl uppercase text-brand-green mb-2">
               {t("websiteAnalyzer.emptyStateTitle")}
@@ -170,47 +158,50 @@ export function WebsiteAnalyzerClient() {
             {t("websiteAnalyzer.howItWorksTitle")}
           </h2>
           <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
-            {HOW_IT_WORKS_CARDS.map((card) => (
-              <div
-                key={card.step}
-                className={`relative overflow-hidden rounded-3xl ${card.bg}`}
-              >
-                {/* Shape area */}
-                <div className="relative h-32 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-20 h-20 opacity-15">
-                      <Image
-                        src={card.shape}
-                        alt=""
-                        fill
-                        className="object-contain select-none animate-shape-float"
-                        style={{ filter: card.shapeFilter }}
-                        aria-hidden="true"
-                        unoptimized
-                      />
+            {HOW_IT_WORKS_CARDS.map((card) => {
+              const shapeData = shapes[card.shape];
+              return (
+                <div
+                  key={card.step}
+                  className={`relative overflow-hidden rounded-3xl ${card.bg}`}
+                >
+                  {/* Shape area */}
+                  <div className="relative h-32 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={`w-20 h-20 opacity-15 ${card.shapeColor}`}>
+                        {shapeData && (
+                          <svg
+                            viewBox={shapeData.viewBox}
+                            className="w-full h-full select-none animate-shape-float"
+                            aria-hidden="true"
+                          >
+                            <path d={shapeData.d} fill="currentColor" />
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+                    {/* Step number */}
+                    <div className="absolute top-4 left-4">
+                      <div
+                        className={`w-10 h-10 rounded-full ${card.numberBg} ${card.numberText} flex items-center justify-center font-bold text-lg`}
+                      >
+                        {t(`websiteAnalyzer.${card.step}.number`)}
+                      </div>
                     </div>
                   </div>
-                  {/* Step number */}
-                  <div className="absolute top-4 left-4">
-                    <div
-                      className={`w-10 h-10 rounded-full ${card.numberBg} ${card.numberText} flex items-center justify-center font-bold text-lg`}
-                    >
-                      {t(`websiteAnalyzer.${card.step}.number`)}
-                    </div>
-                  </div>
-                </div>
 
-                {/* Content area */}
-                <div className="p-6 pt-2">
-                  <h3 className={`font-semibold text-lg mb-2 ${card.text}`}>
-                    {t(`websiteAnalyzer.${card.step}.title`)}
-                  </h3>
-                  <p className={`${card.text}/70 text-sm leading-relaxed`}>
-                    {t(`websiteAnalyzer.${card.step}.description`)}
-                  </p>
+                  {/* Content area */}
+                  <div className="p-6 pt-2">
+                    <h3 className={`font-semibold text-lg mb-2 ${card.text}`}>
+                      {t(`websiteAnalyzer.${card.step}.title`)}
+                    </h3>
+                    <p className={`${card.text}/70 text-sm leading-relaxed`}>
+                      {t(`websiteAnalyzer.${card.step}.description`)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -221,17 +212,12 @@ export function WebsiteAnalyzerClient() {
           <div className="bg-brand-green rounded-3xl">
             <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 overflow-hidden text-center">
               {/* Decorative shape */}
-              <div className="absolute -top-6 -right-6 w-36 h-36 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/spark.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ animationDuration: "7s", filter: FILTER_WHITE }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
+              <DecorativeShape
+                shape="spark"
+                className="-top-6 -right-6 w-36 h-36"
+                opacity={0.1}
+                duration="7s"
+              />
 
               <div className="relative z-10">
                 <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-yellow mb-4">

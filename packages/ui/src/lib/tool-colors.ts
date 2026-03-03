@@ -1,4 +1,3 @@
-import { FILTER_BRAND_GREEN, FILTER_WHITE } from "./shape-filters";
 import type { CardColorScheme } from "./brand-palette";
 
 export const BRAND_COLORS = {
@@ -51,7 +50,7 @@ export function getToolCSSVars(scheme: ToolColorScheme) {
 export function getToolCardColor(toolId: string): CardColorScheme {
   const scheme = TOOL_SCHEMES[toolId];
   if (!scheme) {
-    return { bg: "bg-brand-green", text: "text-white", button: "bg-white text-brand-green", shapeFilter: FILTER_WHITE };
+    return { bg: "bg-brand-green", text: "text-white", button: "bg-white text-brand-green", shapeColor: "text-white" };
   }
 
   const primary = BRAND_COLORS[scheme.primary];
@@ -63,7 +62,7 @@ export function getToolCardColor(toolId: string): CardColorScheme {
     button: isDark
       ? `bg-white text-${primary.tw}`
       : `bg-brand-green text-white`,
-    shapeFilter: isDark ? FILTER_WHITE : FILTER_BRAND_GREEN,
+    shapeColor: isDark ? "text-white" : "text-brand-green",
   };
 }
 

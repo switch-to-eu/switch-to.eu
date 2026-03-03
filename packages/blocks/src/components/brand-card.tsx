@@ -2,6 +2,7 @@ import Image from "next/image";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { shapes } from "../shapes";
 
 export interface BrandCardProps {
   colorIndex: number;
@@ -10,6 +11,7 @@ export interface BrandCardProps {
   href?: string;
   external?: boolean;
   ctaText?: string;
+  /** Shape name (e.g. "spark"), looked up from the shapes data */
   shape?: string;
   /** "top" (default): shape in dedicated visual area. "accent": small corner decoration. */
   shapePosition?: "top" | "accent";
@@ -19,6 +21,24 @@ export interface BrandCardProps {
   className?: string;
   /** Extra classes on the content area (e.g. "text-center") */
   contentClassName?: string;
+}
+
+function ShapeSvg({ name, color, colorIndex }: { name: string; color: string; colorIndex: number }) {
+  const shapeData = shapes[name];
+  if (!shapeData) return null;
+  return (
+    <svg
+      viewBox={shapeData.viewBox}
+      className={cn("w-full h-full select-none animate-shape-float", color)}
+      style={{
+        animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+        animationDelay: `${(colorIndex % 4) * -1.5}s`,
+      }}
+      aria-hidden="true"
+    >
+      <path d={shapeData.d} fill="currentColor" />
+    </svg>
+  );
 }
 
 export function BrandCard({
@@ -57,55 +77,19 @@ export function BrandCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           {shape && (
             <div className="absolute top-3 right-3 w-14 h-14 sm:w-16 sm:h-16 opacity-30 pointer-events-none">
-              <Image
-                src={shape}
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{
-                  filter: card.shapeFilter,
-                  animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-                  animationDelay: `${(colorIndex % 4) * -1.5}s`,
-                }}
-                aria-hidden="true"
-                unoptimized
-              />
+              <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
             </div>
           )}
         </div>
       ) : shape && shapePosition === "top" ? (
-        <div className="relative h-40 sm:h-48 flex items-center justify-center">
-          <Image
-            src={shape}
-            alt=""
-            fill
-            className="object-contain p-4 sm:p-6 select-none animate-shape-float"
-            style={{
-              filter: card.shapeFilter,
-              animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-              animationDelay: `${(colorIndex % 4) * -1.5}s`,
-            }}
-            aria-hidden="true"
-            unoptimized
-          />
+        <div className="relative h-40 sm:h-48 flex items-center justify-center p-4 sm:p-6">
+          <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       ) : null}
 
       {shape && shapePosition === "accent" && (
         <div className="absolute top-3 right-3 w-20 h-20 sm:w-24 sm:h-24 opacity-20 pointer-events-none">
-          <Image
-            src={shape}
-            alt=""
-            fill
-            className="object-contain select-none animate-shape-float"
-            style={{
-              filter: card.shapeFilter,
-              animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-              animationDelay: `${(colorIndex % 4) * -1.5}s`,
-            }}
-            aria-hidden="true"
-            unoptimized
-          />
+          <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       )}
 

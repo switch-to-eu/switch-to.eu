@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ServiceRequestModal } from "@/components/ServiceRequestModal";
 import { Container } from "@/components/layout/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import { FILTER_WHITE } from "@switch-to-eu/ui/lib/shape-filters";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 export const ContributeCta = () => {
   const t = useTranslations("contribute");
@@ -23,28 +22,19 @@ export const ContributeCta = () => {
         >
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
-              <div className="absolute inset-0">
-                <Image
-                  src="/images/shapes/wide-heart.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: FILTER_WHITE, opacity: 0.3, animationDuration: "7s" }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
-              <div className="absolute inset-8">
-                <Image
-                  src="/images/shapes/clover.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: FILTER_WHITE, opacity: 0.5, animationDuration: "6s", animationDelay: "-2s" }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
+              <DecorativeShape
+                shape="wide-heart"
+                className="inset-0"
+                opacity={0.3}
+                duration="7s"
+              />
+              <DecorativeShape
+                shape="clover"
+                className="inset-8"
+                opacity={0.5}
+                duration="6s"
+                delay="-2s"
+              />
             </div>
             <div className="text-center md:text-left">
               <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">

@@ -22,8 +22,8 @@ export function Banner({
   contentClassName,
 }: BannerProps) {
   return (
-    <div className={cn(color, "md:rounded-3xl", className)}>
-      <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
+    <div className={cn(color, "md:rounded-3xl overflow-hidden", className)}>
+      <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20">
         {shapes?.map((shapeProps, i) => (
           <DecorativeShape key={i} {...shapeProps} />
         ))}
