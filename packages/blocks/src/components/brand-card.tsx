@@ -11,6 +11,9 @@ export interface BrandCardProps {
   external?: boolean;
   ctaText?: string;
   shape?: string;
+  /** Cover image URL — renders an object-cover photo area instead of a centered shape */
+  image?: string;
+  imageAlt?: string;
   className?: string;
 }
 
@@ -22,6 +25,8 @@ export function BrandCard({
   external,
   ctaText,
   shape,
+  image,
+  imageAlt,
   className,
 }: BrandCardProps) {
   const card = getCardColor(colorIndex);
@@ -34,7 +39,34 @@ export function BrandCard({
         className
       )}
     >
-      {shape && (
+      {image ? (
+        <div className="relative h-44 sm:h-52">
+          <Image
+            src={image}
+            alt={imageAlt ?? ""}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          {shape && (
+            <div className="absolute top-3 right-3 w-14 h-14 sm:w-16 sm:h-16 opacity-30 pointer-events-none">
+              <Image
+                src={shape}
+                alt=""
+                fill
+                className="object-contain select-none animate-shape-float"
+                style={{
+                  filter: card.shapeFilter,
+                  animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+                  animationDelay: `${(colorIndex % 4) * -1.5}s`,
+                }}
+                aria-hidden="true"
+                unoptimized
+              />
+            </div>
+          )}
+        </div>
+      ) : shape ? (
         <div className="relative h-40 sm:h-48 flex items-center justify-center">
           <Image
             src={shape}
@@ -50,9 +82,9 @@ export function BrandCard({
             unoptimized
           />
         </div>
-      )}
+      ) : null}
 
-      <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
+      <div className={cn("flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6", image && "pt-4")}>
         <h3 className={`${card.text} mb-2 font-bold text-lg sm:text-xl`}>
           {title}
         </h3>

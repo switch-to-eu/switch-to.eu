@@ -11,7 +11,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
-import { CardGrid } from "@switch-to-eu/blocks/components/card-grid";
+
 import { ContributeCta } from "@/components/ContributeCta";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
@@ -469,7 +469,7 @@ export default async function ServiceDetailPage({
             </h2>
           </Container>
           <Container noPaddingMobile>
-            <CardGrid cols={4}>
+            <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {similarServices.map((service, index) => (
                 <ServiceCard
                   key={service.name}
@@ -478,7 +478,7 @@ export default async function ServiceDetailPage({
                   colorIndex={index}
                 />
               ))}
-            </CardGrid>
+            </div>
           </Container>
         </section>
       )}

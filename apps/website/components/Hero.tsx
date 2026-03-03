@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <section className="mt-[-30px] md:mt-initial">
       <Container noPaddingMobile>
-        <div className="bg-brand-navy roundend:none md:rounded-3xl">
+        <div className="bg-brand-navy rounded-none md:rounded-3xl">
         <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="relative text-center">
             <BlobShape

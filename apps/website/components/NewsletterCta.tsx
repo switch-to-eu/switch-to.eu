@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -19,6 +18,7 @@ import {
 import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations, useLocale } from "next-intl";
 import { Container } from "@/components/layout/container";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
 
 const createFormSchema = (validation: { required: string; invalidEmail: string }) =>
   z.object({
@@ -36,7 +36,9 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const Wrapper = contained ? Container : "div";
+  const Wrapper = contained
+    ? (props: { children: React.ReactNode }) => <Container noPaddingMobile>{props.children}</Container>
+    : "div";
 
   const form = useForm<FormValues>({
     resolver: zodResolver(createFormSchema({
@@ -88,130 +90,92 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
   return (
     <section>
       <Wrapper>
-        <div className="bg-brand-navy rounded-3xl">
-          <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-            {/* Decorative shapes — same scale as Hero */}
-            <div className="absolute -top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48 opacity-20 pointer-events-none">
-              <Image
-                src="/images/shapes/sunburst.svg"
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{ filter: "brightness(0) invert(1)" }}
-                aria-hidden="true"
-                unoptimized
-              />
-            </div>
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52 opacity-15 pointer-events-none">
-              <Image
-                src="/images/shapes/blob.svg"
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{
-                  filter: "brightness(0) invert(1)",
-                  animationDelay: "-3s",
-                }}
-                aria-hidden="true"
-                unoptimized
-              />
-            </div>
-            <div className="absolute top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 opacity-10 pointer-events-none -translate-y-1/2">
-              <Image
-                src="/images/shapes/spark.svg"
-                alt=""
-                fill
-                className="object-contain select-none animate-shape-float"
-                style={{
-                  filter: "brightness(0) invert(1)",
-                  animationDelay: "-5s",
-                }}
-                aria-hidden="true"
-                unoptimized
-              />
-            </div>
+        <Banner
+          color="bg-brand-navy"
+          shapes={[
+            { shape: "sunburst", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.2 },
+            { shape: "blob", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s" },
+            { shape: "spark", className: "top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 -translate-y-1/2", opacity: 0.1, delay: "-5s" },
+          ]}
+          contentClassName="max-w-2xl mx-auto text-center"
+        >
+          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
+            {t("title")}
+          </h2>
+          <p className="text-brand-sky text-base sm:text-lg mb-8 sm:mb-10">
+            {t("description")}
+          </p>
 
-            {/* Content */}
-            <div className="relative z-10 max-w-2xl mx-auto text-center">
-              <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
-                {t("title")}
-              </h2>
-              <p className="text-brand-sky text-base sm:text-lg mb-8 sm:mb-10">
-                {t("description")}
-              </p>
-
-              {!isSuccess ? (
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-5"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="firstname"
-                        render={({ field }) => (
-                          <FormItem className="text-left">
-                            <FormLabel className="text-brand-sky/80 text-sm">
-                              {t("firstNameLabel")}
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="John"
-                                {...field}
-                                className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem className="text-left">
-                            <FormLabel className="text-brand-sky/80 text-sm">
-                              {t("emailLabel")}
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="john.doe@example.com"
-                                {...field}
-                                className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    {error && (
-                      <div className="bg-brand-red/20 text-brand-red p-3 rounded-full text-sm">
-                        {error}
-                      </div>
+          {!isSuccess ? (
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="firstname"
+                    render={({ field }) => (
+                      <FormItem className="text-left">
+                        <FormLabel className="text-brand-sky/80 text-sm">
+                          {t("firstNameLabel")}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="John"
+                            {...field}
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                    <Button
-                      variant="cta"
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="h-12 px-8 text-base bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full font-semibold"
-                    >
-                      {isSubmitting ? "..." : t("submitLabel")}
-                    </Button>
-                  </form>
-                </Form>
-              ) : (
-                <div className="bg-brand-green/30 p-6 rounded-3xl">
-                  <p className="text-white text-lg font-medium">
-                    {t("successMessage")}
-                  </p>
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="text-left">
+                        <FormLabel className="text-brand-sky/80 text-sm">
+                          {t("emailLabel")}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="john.doe@example.com"
+                            {...field}
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-              )}
+                {error && (
+                  <div className="bg-brand-red/20 text-brand-red p-3 rounded-full text-sm">
+                    {error}
+                  </div>
+                )}
+                <Button
+                  variant="cta"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="h-12 px-8 text-base bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full font-semibold"
+                >
+                  {isSubmitting ? "..." : t("submitLabel")}
+                </Button>
+              </form>
+            </Form>
+          ) : (
+            <div className="bg-brand-green/30 p-6 rounded-3xl">
+              <p className="text-white text-lg font-medium">
+                {t("successMessage")}
+              </p>
             </div>
-          </div>
-        </div>
+          )}
+        </Banner>
       </Wrapper>
     </section>
   );
