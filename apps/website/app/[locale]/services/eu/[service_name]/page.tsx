@@ -11,6 +11,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { CardGrid } from "@switch-to-eu/blocks/components/card-grid";
 import { ContributeCta } from "@/components/ContributeCta";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
@@ -466,7 +467,7 @@ export default async function ServiceDetailPage({
             <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
               {t("similarServices")}
             </h2>
-            <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-4 auto-rows-fr">
+            <CardGrid cols={4}>
               {similarServices.map((service, index) => (
                 <ServiceCard
                   key={service.name}
@@ -475,7 +476,7 @@ export default async function ServiceDetailPage({
                   colorIndex={index}
                 />
               ))}
-            </div>
+            </CardGrid>
           </Container>
         </section>
       )}
