@@ -19,7 +19,7 @@ export async function MobileNav() {
       renderDropdownChild={(child) => (
         <Link
           href={child.href}
-          className="flex items-center gap-2.5 rounded-xl px-2 py-2 text-base font-medium text-brand-navy transition-colors hover:bg-brand-navy/5"
+          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[15px] font-medium text-brand-navy transition-colors hover:bg-brand-navy/5"
         >
           {child.icon && <MobileCategoryIcon iconName={child.icon} />}
           {child.title}
