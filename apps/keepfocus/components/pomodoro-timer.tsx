@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Play, Pause, RotateCcw, Settings } from 'lucide-react';
 import { Button } from '@switch-to-eu/ui/components/button';
@@ -37,110 +37,127 @@ export function PomodoroTimer({
     },
   });
 
-  const getPhaseColor = () => {
+  const getPhaseContainerClass = () => {
     switch (phase) {
       case 'work':
-        return 'text-tool-accent';
+        return 'phase-work';
       case 'shortBreak':
-        return 'text-success';
+        return 'phase-short-break';
       case 'longBreak':
-        return 'text-tool-primary';
+        return 'phase-long-break';
       default:
-        return 'text-foreground';
+        return 'phase-work';
     }
   };
 
-  const getPhaseBackground = () => {
+  const getPhaseBadgeClass = () => {
     switch (phase) {
       case 'work':
-        return 'bg-tool-accent/10';
+        return 'bg-brand-navy/10 text-brand-navy';
       case 'shortBreak':
-        return 'bg-success/10';
+        return 'bg-brand-sage/10 text-brand-green';
       case 'longBreak':
-        return 'bg-tool-primary/10';
+        return 'bg-brand-sky/15 text-brand-navy';
       default:
-        return 'bg-muted';
+        return 'bg-brand-navy/10 text-brand-navy';
     }
   };
 
   return (
     <div className={cn(
-      "relative w-full rounded-3xl p-12 transition-all duration-500 shadow-xl",
-      getPhaseBackground(),
+      "relative w-full rounded-3xl overflow-hidden transition-all duration-500 border-2 border-brand-navy",
+      getPhaseContainerClass(),
       className
     )}>
-      {/* Settings button - minimal and tucked away */}
-      <div className="absolute top-6 right-6">
-        <SettingsDialog
-          trigger={
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-10 w-10 p-0 text-muted-foreground hover:text-foreground rounded-full opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <Settings className="h-4 w-4" />
-            </Button>
-          }
-        />
-      </div>
+      {/* Decorative shapes */}
+      <div
+        className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-brand-navy/8 animate-shape-float pointer-events-none"
+        aria-hidden="true"
+        style={{ animationDuration: '8s' }}
+      />
+      <div
+        className="absolute -bottom-8 -left-8 w-32 h-32 bg-brand-sky/10 animate-shape-float pointer-events-none"
+        aria-hidden="true"
+        style={{
+          borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+          animationDuration: '9s',
+          animationDelay: '-3s'
+        }}
+      />
+      <div
+        className="absolute top-1/3 -right-4 w-16 h-16 bg-brand-navy/5 rotate-45 animate-shape-float pointer-events-none"
+        aria-hidden="true"
+        style={{ animationDuration: '7s', animationDelay: '-1.5s' }}
+      />
 
-      {/* Phase indicator */}
-      <div className="text-center mb-12">
-        <div className="text-xl font-semibold text-foreground mb-3">
-          {t(`pomodoro.timer.phases.${phase}`)}
+      <div className="relative z-10 px-6 sm:px-10 md:px-12 py-10 sm:py-14 flex flex-col items-center">
+
+        {/* Settings button - top right */}
+        <div className="absolute top-5 right-5">
+          <SettingsDialog
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 w-10 p-0 text-brand-navy/30 hover:text-brand-navy/60 rounded-full transition-colors bg-transparent hover:bg-brand-navy/5"
+              >
+                <Settings className="h-4 w-4" />
+              </Button>
+            }
+          />
         </div>
-        <div className="text-base text-muted-foreground">
+
+        {/* Phase label badge */}
+        <div className="mb-4">
+          <span className={cn(
+            "inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium",
+            getPhaseBadgeClass()
+          )}>
+            {t(`pomodoro.timer.phases.${phase}`)}
+          </span>
+        </div>
+
+        {/* Pomodoro count */}
+        <div className="text-brand-navy/50 text-sm mb-10">
           {completedPomodoros} {t('pomodoro.timer.pomodorosToday')}
         </div>
-      </div>
 
-      {/* Main timer display - prominent but not overwhelming */}
-      <div className="text-center mb-16">
-        <div className={cn(
-          "text-7xl md:text-8xl font-mono font-black tracking-tight leading-none transition-colors duration-300",
-          getPhaseColor()
-        )}>
+        {/* Main timer display */}
+        <div className="text-brand-navy text-8xl md:text-9xl font-mono font-black tracking-tight leading-none mb-12 transition-colors duration-300">
           {formatTime(timeLeft)}
         </div>
-      </div>
 
-      {/* Single primary action button */}
-      <div className="flex justify-center mb-8">
-        <Button
-          onClick={isRunning ? pause : start}
-          size="lg"
-          className={cn(
-            "h-20 w-40 text-xl font-bold rounded-3xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105",
-            isRunning
-              ? "bg-tool-accent hover:bg-tool-accent/90 text-tool-accent-foreground"
-              : "bg-success hover:bg-success/90 text-white"
-          )}
-        >
-          {isRunning ? (
-            <>
-              <Pause className="h-6 w-6 mr-3" />
-              {t('pomodoro.timer.pause')}
-            </>
-          ) : (
-            <>
-              <Play className="h-6 w-6 mr-3" />
-              {t('pomodoro.timer.start')}
-            </>
-          )}
-        </Button>
-      </div>
+        {/* Primary action button - large pill */}
+        <div className="mb-6">
+          <button
+            onClick={isRunning ? pause : start}
+            className={cn(
+              "h-16 px-12 text-lg font-semibold rounded-full transition-all duration-200 hover:opacity-90 flex items-center gap-3",
+              "bg-brand-yellow text-brand-navy"
+            )}
+          >
+            {isRunning ? (
+              <>
+                <Pause className="h-5 w-5" />
+                {t('pomodoro.timer.pause')}
+              </>
+            ) : (
+              <>
+                <Play className="h-5 w-5" />
+                {t('pomodoro.timer.start')}
+              </>
+            )}
+          </button>
+        </div>
 
-      {/* Secondary action - reset only, smaller and less prominent */}
-      <div className="flex justify-center">
-        <Button
+        {/* Reset - ghost pill */}
+        <button
           onClick={reset}
-          variant="ghost"
-          size="sm"
-          className="text-muted-foreground hover:text-foreground rounded-full px-6 py-2 opacity-70 hover:opacity-100 transition-all"
+          className="text-brand-navy/40 hover:text-brand-navy rounded-full px-6 py-2 text-sm flex items-center gap-2 transition-colors hover:bg-brand-navy/5"
         >
-          <RotateCcw className="h-4 w-4 mr-2" />
+          <RotateCcw className="h-4 w-4" />
           {t('pomodoro.timer.reset')}
-        </Button>
+        </button>
       </div>
     </div>
   );

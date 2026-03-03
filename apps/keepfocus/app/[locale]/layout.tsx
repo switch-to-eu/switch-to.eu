@@ -10,10 +10,11 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { MainNavClient } from "../../components/main-nav-client";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 
 export async function generateMetadata({
   params,
@@ -58,7 +59,21 @@ export default async function LocaleLayout({
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
   const currentYear = new Date().getFullYear();
 
+  const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
+    {
+      title: navT('tools'),
+      dropdown: 'mega',
+      children: allTools
+        .filter(tool => tool.id !== 'keepfocus')
+        .map(tool => ({
+          title: tool.status === 'coming-soon' ? `${tool.name}::soon` : tool.name,
+          href: tool.url,
+          description: toolsT(tool.id),
+          icon: tool.icon,
+          isExternal: true,
+        })),
+    },
     { title: navT('about'), href: '/about' },
   ];
 
@@ -81,7 +96,7 @@ export default async function LocaleLayout({
           }
           navigation={
             <>
-              <NavMenu navItems={navItems} />
+              <MainNavClient navItems={navItems} />
               <NavLanguageSelector locale={locale as Locale} />
               <HeaderFeedback toolId="keepfocus" />
             </>

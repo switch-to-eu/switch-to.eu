@@ -9,7 +9,8 @@
       "about": "Over"
     },
     "nav": {
-      "about": "Over"
+      "about": "Over",
+      "tools": "Tools"
     },
     "footer": {
       "about": "Over",
@@ -48,6 +49,21 @@
         "setActive": "Klik op een taak om deze als actief in te stellen",
         "autoCount": "Pomodoro's worden automatisch geteld",
         "localData": "Gegevens worden lokaal in je browser opgeslagen"
+      }
+    },
+    "howItWorks": {
+      "title": "Hoe Pomodoro Werkt",
+      "focus": {
+        "title": "Focus",
+        "description": "Werk 25 minuten met volledige concentratie. Eén taak, geen afleidingen — alleen diep werk."
+      },
+      "break": {
+        "title": "Pauze",
+        "description": "Neem 5 minuten pauze om op te laden. Na 4 sessies geniet je van een langere pauze van 15 minuten."
+      },
+      "repeat": {
+        "title": "Herhaal",
+        "description": "Houd de cyclus gaande. Elke sessie bouwt momentum op en traint je focusspier."
       }
     },
     "footer": "Focus met de Pomodoro Techniek",

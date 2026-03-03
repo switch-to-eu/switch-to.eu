@@ -24,3 +24,8 @@
 .text-primary-color {
   color: var(--tool-primary);
 }
+
+/* Phase background variants — calm, light tints */
+.phase-work { background-color: color-mix(in srgb, var(--brand-sky) 15%, white); }
+.phase-short-break { background-color: color-mix(in srgb, var(--brand-sage) 12%, white); }
+.phase-long-break { background-color: color-mix(in srgb, var(--brand-sky) 20%, white); }

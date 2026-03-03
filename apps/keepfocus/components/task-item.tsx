@@ -84,25 +84,25 @@ export function TaskItem({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group flex items-center gap-3 p-3 rounded-lg border transition-all duration-200",
+        "group flex items-center gap-3 p-4 rounded-xl border transition-all duration-200",
         isActive
-          ? "bg-tool-primary/10 border-tool-primary/20 shadow-sm"
-          : "bg-card border-border hover:border-border hover:shadow-sm",
-        completed && "opacity-60",
-        isDragging && "shadow-lg scale-105 z-50 rotate-1 opacity-90"
+          ? "bg-brand-navy/5 border-brand-navy/15"
+          : "bg-white border-border/60 hover:border-brand-navy/20",
+        completed && "opacity-50",
+        isDragging && "scale-105 z-50 rotate-1 opacity-90"
       )}
     >
-      {/* Checkbox */}
+      {/* Circle Checkbox */}
       <button
         onClick={onToggleComplete}
         className={cn(
-          "flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
+          "flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors",
           completed
-            ? "bg-success border-success text-white"
-            : "border-border hover:border-success"
+            ? "bg-brand-yellow border-brand-yellow text-brand-navy"
+            : "border-brand-navy/30 hover:border-brand-navy"
         )}
       >
-        {completed && <Check className="w-3 h-3" />}
+        {completed && <Check className="w-3 h-3" strokeWidth={3} />}
       </button>
 
       {/* Task Content */}
@@ -122,7 +122,7 @@ export function TaskItem({
           <div
             onClick={() => !completed && setIsEditing(true)}
             className={cn(
-              "cursor-pointer text-foreground",
+              "cursor-pointer text-foreground text-sm",
               completed && "line-through text-muted-foreground"
             )}
           >
@@ -131,9 +131,11 @@ export function TaskItem({
         )}
 
         {pomodoros > 0 && (
-          <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-            <Timer className="w-3 h-3" />
-            {pomodoros} {pomodoros === 1 ? t('pomodoro') : t('pomodoros')}
+          <div className="flex items-center gap-1 mt-1">
+            <span className="inline-flex items-center gap-1 bg-brand-sky/10 text-brand-navy rounded-full px-2 py-0.5 text-xs">
+              <Timer className="w-3 h-3" />
+              {pomodoros} {pomodoros === 1 ? t('pomodoro') : t('pomodoros')}
+            </span>
           </div>
         )}
       </div>
@@ -146,41 +148,41 @@ export function TaskItem({
             size="sm"
             onClick={onSetActive}
             className={cn(
-              "h-8 w-8 p-0",
+              "h-7 w-7 p-0 rounded-full",
               isActive
-                ? "bg-tool-primary/20 text-primary-color"
-                : "text-muted-foreground hover:text-primary-color hover:bg-tool-primary/10"
+                ? "bg-brand-navy/10 text-brand-navy"
+                : "text-muted-foreground hover:text-brand-navy hover:bg-brand-navy/10"
             )}
             title={isActive ? t('deactivate') : t('setActive')}
           >
-            {isActive ? <TimerOff className="w-4 h-4" /> : <Timer className="w-4 h-4" />}
+            {isActive ? <TimerOff className="w-3.5 h-3.5" /> : <Timer className="w-3.5 h-3.5" />}
           </Button>
         )}
 
-        {/* Drag Handle - Show instead of move buttons when drag and drop is enabled */}
+        {/* Drag Handle */}
         {!completed && !showMoveButtons && (
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing"
+            className="h-7 w-7 p-0 rounded-full text-brand-sky/40 hover:text-brand-sky cursor-grab active:cursor-grabbing"
             title={t('dragToReorder')}
             {...attributes}
             {...listeners}
           >
-            <GripVertical className="w-4 h-4" />
+            <GripVertical className="w-3.5 h-3.5" />
           </Button>
         )}
 
-        {/* Legacy move buttons - only show when explicitly enabled */}
+        {/* Legacy move buttons */}
         {showMoveButtons && onMoveUp && (
           <Button
             variant="ghost"
             size="sm"
             onClick={onMoveUp}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-7 w-7 p-0 rounded-full text-muted-foreground hover:text-brand-navy hover:bg-brand-navy/10"
             title={t('actions.moveUp')}
           >
-            <ChevronUp className="w-4 h-4" />
+            <ChevronUp className="w-3.5 h-3.5" />
           </Button>
         )}
 
@@ -189,10 +191,10 @@ export function TaskItem({
             variant="ghost"
             size="sm"
             onClick={onMoveDown}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            className="h-7 w-7 p-0 rounded-full text-muted-foreground hover:text-brand-navy hover:bg-brand-navy/10"
             title={t('actions.moveDown')}
           >
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-3.5 h-3.5" />
           </Button>
         )}
 
@@ -200,10 +202,10 @@ export function TaskItem({
           variant="ghost"
           size="sm"
           onClick={onDelete}
-          className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+          className="h-7 w-7 p-0 rounded-full text-muted-foreground hover:text-brand-red hover:bg-brand-red/10"
           title={t('actions.deleteTask')}
         >
-          <Trash2 className="w-4 h-4" />
+          <Trash2 className="w-3.5 h-3.5" />
         </Button>
       </div>
     </div>

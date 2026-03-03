@@ -9,7 +9,8 @@
       "about": "About"
     },
     "nav": {
-      "about": "About"
+      "about": "About",
+      "tools": "Tools"
     },
     "footer": {
       "about": "About",
@@ -48,6 +49,21 @@
         "setActive": "Click a task to set it as active",
         "autoCount": "Pomodoros count automatically",
         "localData": "Data saved locally in your browser"
+      }
+    },
+    "howItWorks": {
+      "title": "How Pomodoro Works",
+      "focus": {
+        "title": "Focus",
+        "description": "Work for 25 minutes with full concentration. One task, no distractions — just deep work."
+      },
+      "break": {
+        "title": "Break",
+        "description": "Take a 5-minute break to recharge. After 4 sessions, enjoy a longer 15-minute break."
+      },
+      "repeat": {
+        "title": "Repeat",
+        "description": "Keep the cycle going. Each session builds momentum and trains your focus muscle."
       }
     },
     "footer": "Focus with the Pomodoro Technique",

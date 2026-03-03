@@ -3,6 +3,7 @@ const isDev = process.env.NODE_ENV === 'development';
 export interface Tool {
     id: string;
     name: string;
+    description: string;
     url: string;
     status: 'active' | 'beta' | 'coming-soon';
     icon?: string;
@@ -12,6 +13,7 @@ export const tools: Tool[] = [
     {
         id: 'eu-scan',
         name: 'EU-Scan',
+        description: 'Scan any website to check its EU compliance and data practices',
         url: isDev ? 'https://scan.switch-to.test' : 'https://scan.switch-to.eu',
         status: 'coming-soon',
         icon: 'globe'
@@ -19,6 +21,7 @@ export const tools: Tool[] = [
     {
         id: 'plotty',
         name: 'Plotty',
+        description: 'Create privacy-friendly polls and vote together',
         url: isDev ? 'https://poll.switch-to.test' : 'https://plotty.eu',
         status: 'coming-soon',
         icon: 'calendar'
@@ -26,6 +29,7 @@ export const tools: Tool[] = [
     {
         id: 'listy',
         name: 'Listy',
+        description: 'Shared lists for shopping, potlucks, and more',
         url: isDev ? 'https://list.switch-to.test' : 'https://list.switch-to.eu',
         status: 'coming-soon',
         icon: 'list-checks'
@@ -33,6 +37,7 @@ export const tools: Tool[] = [
     {
         id: 'keepfocus',
         name: 'KeepFocus',
+        description: 'Pomodoro timer and task manager for deep focus',
         url: isDev ? 'https://focus.switch-to.test' : 'https://keepfocus.eu',
         status: 'active',
         icon: 'target'
@@ -40,6 +45,7 @@ export const tools: Tool[] = [
     {
         id: 'privnote',
         name: 'PrivNote',
+        description: 'Self-destructing encrypted notes for sensitive info',
         url: isDev ? 'https://note.switch-to.test' : 'https://privnote.switch-to.eu',
         status: 'coming-soon',
         icon: 'file-lock'
@@ -47,6 +53,7 @@ export const tools: Tool[] = [
     {
         id: 'quiz',
         name: 'Quiz',
+        description: 'Test your knowledge about EU digital privacy',
         url: isDev ? 'https://quiz.switch-to.test' : 'https://quiz.switch-to.eu',
         status: 'active',
         icon: 'brain'
@@ -54,6 +61,7 @@ export const tools: Tool[] = [
     {
         id: 'kanban',
         name: 'Kanban',
+        description: 'Simple kanban boards for project management',
         url: isDev ? 'https://kanban.switch-to.test' : 'https://kanban.switch-to.eu',
         status: 'coming-soon',
         icon: 'kanban-square'
