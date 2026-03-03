@@ -20,7 +20,7 @@ export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
   return (
     <div>
       {title && (
-        <h3 className="text-sm font-semibold text-white mb-3">{title}</h3>
+        <h3 className="text-sm font-semibold text-tool-primary-foreground mb-3">{title}</h3>
       )}
       <ul className="space-y-2">
         {displayTools.map((tool) => (
@@ -30,16 +30,16 @@ export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
                 href={tool.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-white/60 transition-colors hover:text-brand-yellow"
+                className="text-sm text-tool-primary-foreground/60 transition-colors hover:text-brand-yellow"
               >
                 <span className="font-medium">{tool.name}</span>
-                <span className="text-white/30"> — </span>
+                <span className="text-tool-primary-foreground/30"> — </span>
                 <span className="text-xs">{t(tool.id as never)}</span>
               </a>
             ) : (
-              <span className="text-sm text-white/30">
+              <span className="text-sm text-tool-primary-foreground/30">
                 <span className="font-medium">{tool.name}</span>
-                <span className="text-white/20"> — </span>
+                <span className="text-tool-primary-foreground/20"> — </span>
                 <span className="text-xs italic">{t('comingSoon')}</span>
               </span>
             )}

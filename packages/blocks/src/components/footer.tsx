@@ -64,7 +64,7 @@ export function Footer({
       {links.length > 0 && (
         <div>
           {linksSectionTitle && (
-            <h3 className="text-sm font-semibold text-white mb-3">
+            <h3 className="text-sm font-semibold text-tool-primary-foreground mb-3">
               {linksSectionTitle}
             </h3>
           )}
@@ -73,7 +73,7 @@ export function Footer({
               <li key={index}>
                 <a
                   href={link.href}
-                  className="text-sm text-white/60 transition-colors hover:text-brand-yellow"
+                  className="text-sm text-tool-primary-foreground/60 transition-colors hover:text-brand-yellow"
                   {...(link.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
@@ -96,7 +96,7 @@ export function Footer({
         <div className="flex flex-col gap-4">
           {branding}
           {copyright && (
-            <p className="text-xs text-white/40">{copyright}</p>
+            <p className="text-xs text-tool-primary-foreground/40">{copyright}</p>
           )}
         </div>
       )}
@@ -104,7 +104,7 @@ export function Footer({
   );
 
   return (
-    <footer className={cn("bg-brand-green py-8 md:py-12", className)}>
+    <footer className={cn("bg-tool-primary text-tool-primary-foreground py-8 md:py-12", className)}>
       {useContainer ? (
         <div
           className={cn(
