@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { Link, usePathname } from "@switch-to-eu/i18n/navigation";
 import { type Locale, localeNames, routing } from "@switch-to-eu/i18n/routing";
 import { cn } from "@switch-to-eu/ui/lib/utils";
-import { useNavDropdown } from "./use-nav-dropdown";
+import { useNavDropdown } from "../hooks/use-nav-dropdown";
 
 interface NavLanguageSelectorProps {
   locale: Locale;
@@ -33,7 +33,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
         onMouseLeave={scheduleClose}
         onClick={toggle}
         className={cn(
-          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-brand-navy uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
+          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
           className,
         )}
       >
@@ -51,7 +51,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
           <div
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
-            className="fixed z-40 rounded-b-xl border border-t-0 border-gray-200 bg-gray-100 shadow-lg shadow-black/8"
+            className="fixed z-40 rounded-b-xl border border-t-0 border-border bg-muted shadow-lg shadow-black/8"
             style={{
               top: headerPos.top,
               left: getTriggerLeft(),
@@ -63,7 +63,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
                   key={otherLocale}
                   href={pathname}
                   locale={otherLocale}
-                  className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-brand-navy hover:bg-white focus:bg-white outline-none"
+                  className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none"
                 >
                   {localeNames[otherLocale]}
                 </Link>

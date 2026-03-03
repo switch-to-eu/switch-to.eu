@@ -1,20 +1,41 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { type ReactNode, useRef, useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { ChevronDown } from "lucide-react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { cn } from "@switch-to-eu/ui/lib/utils";
-import { getCategoryIcon, getCategoryShape } from "./category-icons";
-import { useNavDropdown } from "./use-nav-dropdown";
-import type { MainNavItem } from "./nav-items";
+import { useNavDropdown } from "../hooks/use-nav-dropdown";
+import type { MainNavItem, SubNavItem } from "./nav-types";
 
-interface NavMenuClientProps {
+interface NavMenuProps {
   navItems: MainNavItem[];
   className?: string;
+  /** Custom renderer for mega dropdown children. If not provided, renders title + description. */
+  renderMegaItem?: (child: SubNavItem, onClose: () => void) => ReactNode;
 }
 
-export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
+function DefaultMegaItem({ child, onClose }: { child: SubNavItem; onClose: () => void }) {
+  return (
+    <Link
+      key={child.href}
+      href={child.href}
+      onClick={onClose}
+      className="group/item flex flex-col gap-0.5 rounded-xl px-4 py-3.5 text-tool-primary hover:bg-white focus:bg-white outline-none"
+    >
+      <span className="text-sm font-semibold leading-tight text-tool-primary">
+        {child.title}
+      </span>
+      {child.description && (
+        <span className="text-xs text-muted-foreground leading-snug line-clamp-2">
+          {child.description}
+        </span>
+      )}
+    </Link>
+  );
+}
+
+export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
   const triggerRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
   const [openId, setOpenId] = useState<string | null>(null);
   const { headerPos, mounted, open: baseOpen, scheduleClose: baseScheduleClose, cancelClose } = useNavDropdown();
@@ -56,6 +77,8 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
     return trigger.getBoundingClientRect().left;
   };
 
+  const onClose = useCallback(() => setOpenId(null), []);
+
   return (
     <>
       <nav className={cn("flex items-center gap-1 lg:gap-2", className)}>
@@ -72,7 +95,7 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
                 onMouseEnter={() => open(id)}
                 onMouseLeave={scheduleClose}
                 onClick={() => openId === id ? setOpenId(null) : open(id)}
-                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-brand-navy uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
               >
                 {item.title}
                 <ChevronDown
@@ -90,7 +113,7 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="inline-flex h-9 items-center px-4 py-2 text-sm text-brand-navy uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="inline-flex h-9 items-center px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -113,7 +136,7 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
               key={item.title}
               onMouseEnter={cancelMegaClose}
               onMouseLeave={scheduleClose}
-              className="fixed z-40 rounded-b-2xl border border-t-0 border-gray-200 bg-gray-100 shadow-lg shadow-black/8"
+              className="fixed z-40 rounded-b-2xl border border-t-0 border-border bg-muted shadow-lg shadow-black/8"
               style={{
                 top: headerPos.top,
                 left: headerPos.containerLeft,
@@ -121,45 +144,11 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
               }}
             >
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 p-2">
-                {item.children.map((child) => {
-                  const Icon = getCategoryIcon(child.icon);
-                  const shape = getCategoryShape(child.icon);
-                  return (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      onClick={() => setOpenId(null)}
-                      className="group/item flex items-start gap-3 rounded-xl px-4 py-3.5 text-brand-navy hover:bg-white focus:bg-white outline-none"
-                    >
-                      <div className="relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center">
-                        <div
-                          className="absolute inset-0 bg-brand-navy/10 transition-colors group-hover/item:bg-brand-yellow"
-                          style={{
-                            maskImage: `url(${shape})`,
-                            WebkitMaskImage: `url(${shape})`,
-                            maskSize: "contain",
-                            WebkitMaskSize: "contain",
-                            maskRepeat: "no-repeat",
-                            WebkitMaskRepeat: "no-repeat",
-                            maskPosition: "center",
-                            WebkitMaskPosition: "center",
-                          }}
-                        />
-                        <Icon className="relative h-[18px] w-[18px] text-brand-navy transition-colors group-hover/item:text-brand-green" />
-                      </div>
-                      <div className="flex flex-col gap-0.5 min-w-0">
-                        <span className="text-sm font-semibold leading-tight text-brand-navy">
-                          {child.title}
-                        </span>
-                        {child.description && (
-                          <span className="text-xs text-gray-500 leading-snug line-clamp-2">
-                            {child.description}
-                          </span>
-                        )}
-                      </div>
-                    </Link>
-                  );
-                })}
+                {item.children.map((child) =>
+                  renderMegaItem
+                    ? renderMegaItem(child, onClose)
+                    : <DefaultMegaItem key={child.href} child={child} onClose={onClose} />
+                )}
               </div>
             </div>,
             document.body
@@ -172,7 +161,7 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
               key={item.title}
               onMouseEnter={cancelMegaClose}
               onMouseLeave={scheduleClose}
-              className="fixed z-40 rounded-b-xl border border-t-0 border-gray-200 bg-gray-100 shadow-lg shadow-black/8"
+              className="fixed z-40 rounded-b-xl border border-t-0 border-border bg-muted shadow-lg shadow-black/8"
               style={{
                 top: headerPos.top,
                 left: getSimpleDropdownLeft(item.title),
@@ -183,8 +172,8 @@ export function NavMenuClient({ navItems, className }: NavMenuClientProps) {
                   <Link
                     key={child.href}
                     href={child.href}
-                    onClick={() => setOpenId(null)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-brand-navy hover:bg-white focus:bg-white outline-none"
+                    onClick={onClose}
+                    className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none"
                     {...(child.isExternal
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}

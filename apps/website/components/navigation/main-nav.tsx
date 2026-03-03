@@ -1,5 +1,5 @@
 import { getNavItems } from "./nav-items";
-import { NavMenuClient } from "./NavMenuClient";
+import { MainNavClient } from "./MainNavClient";
 
 interface MainNavProps {
   className?: string;
@@ -9,7 +9,7 @@ export async function MainNav({ className }: MainNavProps) {
   const navItems = await getNavItems();
 
   return (
-    <NavMenuClient
+    <MainNavClient
       navItems={navItems.filter((item) => !item.mobileOnly)}
       className={className}
     />

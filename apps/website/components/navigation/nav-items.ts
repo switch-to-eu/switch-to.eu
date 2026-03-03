@@ -1,22 +1,6 @@
 import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
 import { getTranslations } from "next-intl/server";
-
-export type MainNavItem = {
-  title: string;
-  href?: string;
-  isExternal?: boolean;
-  dropdown?: "simple" | "mega";
-  mobileOnly?: boolean;
-  children?: SubNavItem[];
-};
-
-export interface SubNavItem {
-  title: string;
-  href: string;
-  description?: string;
-  icon?: string;
-  isExternal?: boolean;
-}
+import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 
 export async function getNavItems(): Promise<MainNavItem[]> {
   const categories = getAllCategoriesMetadata().map((category) => ({
