@@ -9,6 +9,7 @@ import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { getAllGuides } from "@switch-to-eu/content/services/guides";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { CardGrid } from "@switch-to-eu/blocks/components/card-grid";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import React from "react";
@@ -211,7 +212,7 @@ export default async function ServiceDetailPage({
                     ? t("otherEUAlternatives")
                     : t("oneMoreEUAlternative")}
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <CardGrid cols={2}>
                   {otherAlternatives.map((service, index) => (
                     <ServiceCard
                       key={service.name}
@@ -220,7 +221,7 @@ export default async function ServiceDetailPage({
                       colorIndex={index}
                     />
                   ))}
-                </div>
+                </CardGrid>
               </div>
             )}
           </div>

@@ -6,6 +6,7 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { CardGrid } from "@switch-to-eu/blocks/components/card-grid";
 import { ContributeCta } from "@/components/ContributeCta";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { Container } from "@/components/layout/container";
@@ -239,7 +240,7 @@ export default async function ServicesCategoryPage({
               {t("alternatives", { category: capitalizedCategory })}
             </h2>
           </div>
-          <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
+          <CardGrid cols={4}>
             {allDisplayServices.map((service, index) => (
               <ServiceCard
                 key={service.name}
@@ -248,7 +249,7 @@ export default async function ServicesCategoryPage({
                 colorIndex={index}
               />
             ))}
-          </div>
+          </CardGrid>
         </Container>
       </section>
 
