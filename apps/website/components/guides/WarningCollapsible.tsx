@@ -29,23 +29,23 @@ export function WarningCollapsible({
 
   const variantStyles = {
     warning: {
-      container: "text-brand-green bg-brand-yellow/10 rounded-2xl border border-brand-yellow/30",
-      button: "hover:bg-brand-yellow/10",
-      badge: "bg-brand-yellow/30 text-brand-green",
+      container: "md:rounded-2xl border-y md:border border-brand-orange",
+      button: "hover:bg-brand-orange/5",
+      badge: "bg-brand-orange/10 text-brand-orange",
       icon: "text-brand-orange",
       bullet: "text-brand-orange"
     },
     error: {
-      container: "text-brand-green bg-brand-red/5 rounded-2xl border border-brand-red/20",
-      button: "hover:bg-brand-red/10",
-      badge: "bg-brand-red/15 text-brand-red",
+      container: "md:rounded-2xl border-y md:border border-brand-red",
+      button: "hover:bg-brand-red/5",
+      badge: "bg-brand-red/10 text-brand-red",
       icon: "text-brand-red",
       bullet: "text-brand-red"
     },
     info: {
-      container: "text-brand-green bg-brand-sky/15 rounded-2xl border border-brand-sky/30",
-      button: "hover:bg-brand-sky/15",
-      badge: "bg-brand-sky/30 text-brand-green",
+      container: "md:rounded-2xl border-y md:border border-brand-navy",
+      button: "hover:bg-brand-navy/5",
+      badge: "bg-brand-navy/10 text-brand-navy",
       icon: "text-brand-navy",
       bullet: "text-brand-navy"
     }
@@ -101,7 +101,7 @@ export function WarningCollapsible({
                 className="flex items-start gap-2.5 text-sm"
               >
                 <span className={cn("mt-0.5 flex-shrink-0", variantStyles[variant].bullet)}>•</span>
-                <span className="text-brand-green/80">{item}</span>
+                <span className="text-muted-foreground">{item}</span>
               </li>
             ))}
           </ul>

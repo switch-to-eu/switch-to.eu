@@ -16,9 +16,11 @@ import { ContributeCta } from "@/components/ContributeCta";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 
 export function generateStaticParams() {
   const serviceNames = getServiceSlugs("eu");
@@ -108,138 +110,97 @@ export default async function ServiceDetailPage({
     <PageLayout>
       {/* Hero */}
       <section>
-        <Container>
-          <div className="bg-brand-navy rounded-3xl">
-            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-              {/* Decorative shapes */}
-              <div className="absolute -top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48 opacity-15 pointer-events-none">
-                <Image
-                  src="/images/shapes/spark.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: "brightness(0) invert(1)" }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
-              <div className="absolute bottom-4 right-20 hidden sm:block w-28 h-28 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/blob.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{
-                    filter: "brightness(0) invert(1)",
-                    animationDuration: "9s",
-                    animationDelay: "-3s",
-                  }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
-              <div className="absolute top-1/3 -left-4 hidden md:block w-16 h-16 opacity-10 pointer-events-none">
-                <Image
-                  src="/images/shapes/diamond-4.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{
-                    filter: "brightness(0) invert(1)",
-                    animationDuration: "7s",
-                    animationDelay: "-5s",
-                  }}
-                  aria-hidden="true"
-                  unoptimized
-                />
+        <Container noPaddingMobile overlapHeader>
+          <Banner
+            color="bg-brand-navy"
+            shapes={[
+              { shape: "spark", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
+              { shape: "blob", className: "bottom-4 right-20 hidden sm:block w-28 h-28", opacity: 0.1, duration: "9s", delay: "-3s" },
+              { shape: "diamond-4", className: "top-1/3 -left-4 hidden md:block w-16 h-16", opacity: 0.1, duration: "7s", delay: "-5s" },
+            ]}
+          >
+            {/* Breadcrumb */}
+            <Link
+              href={`/services/${frontmatter.category}`}
+              className="inline-flex items-center gap-1.5 text-brand-sky/70 text-sm mb-6 no-underline hover:text-brand-sky transition-colors"
+            >
+              <span>&larr;</span>
+              <span>{categoryFormatted}</span>
+            </Link>
+
+            <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+              {/* Avatar */}
+              <div className="flex-shrink-0">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
+                  {frontmatter.name.charAt(0)}
+                </div>
               </div>
 
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Breadcrumb */}
-                <Link
-                  href={`/services/${frontmatter.category}`}
-                  className="inline-flex items-center gap-1.5 text-brand-sky/70 text-sm mb-6 no-underline hover:text-brand-sky transition-colors"
-                >
-                  <span>&larr;</span>
-                  <span>{categoryFormatted}</span>
-                </Link>
-
-                <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-                  {/* Avatar */}
-                  <div className="flex-shrink-0">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
-                      {frontmatter.name.charAt(0)}
-                    </div>
+              {/* Title & description */}
+              <div className="flex-1">
+                <div className="flex items-start gap-3 mb-3">
+                  <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
+                    {frontmatter.name}
+                  </h1>
+                  <div className="flex-shrink-0 mt-2">
+                    <RegionBadge
+                      region={
+                        (frontmatter.region as
+                          | "eu"
+                          | "non-eu"
+                          | "eu-friendly") || "eu"
+                      }
+                    />
                   </div>
+                </div>
 
-                  {/* Title & description */}
-                  <div className="flex-1">
-                    <div className="flex items-start gap-3 mb-3">
-                      <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
-                        {frontmatter.name}
-                      </h1>
-                      <div className="flex-shrink-0 mt-2">
-                        <RegionBadge
-                          region={
-                            (frontmatter.region as
-                              | "eu"
-                              | "non-eu"
-                              | "eu-friendly") || "eu"
-                          }
-                        />
-                      </div>
-                    </div>
+                <p className="text-brand-sky text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
+                  {frontmatter.description}
+                </p>
 
-                    <p className="text-brand-sky text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
-                      {frontmatter.description}
-                    </p>
+                {/* Meta info as pills */}
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                    <span className="text-brand-yellow">&#9679;</span>
+                    {frontmatter.location}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                    <span className="text-brand-yellow">&#9679;</span>
+                    {t("freeOption")}:{" "}
+                    {frontmatter.freeOption
+                      ? t("freeOptionYes")
+                      : t("freeOptionNo")}
+                  </span>
+                  {frontmatter.startingPrice && (
+                    <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
+                      <span className="text-brand-yellow">&#9679;</span>
+                      {t("startingPrice")}: {frontmatter.startingPrice}
+                    </span>
+                  )}
+                </div>
 
-                    {/* Meta info as pills */}
-                    <div className="flex flex-wrap gap-3 mb-6">
-                      <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
-                        <span className="text-brand-yellow">&#9679;</span>
-                        {frontmatter.location}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
-                        <span className="text-brand-yellow">&#9679;</span>
-                        {t("freeOption")}:{" "}
-                        {frontmatter.freeOption
-                          ? t("freeOptionYes")
-                          : t("freeOptionNo")}
-                      </span>
-                      {frontmatter.startingPrice && (
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
-                          <span className="text-brand-yellow">&#9679;</span>
-                          {t("startingPrice")}: {frontmatter.startingPrice}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* CTAs */}
-                    <div className="flex flex-wrap gap-3">
-                      <a
-                        href={frontmatter.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block px-8 py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base no-underline"
-                      >
-                        {t("visitWebsite")} &rarr;
-                      </a>
-                      {relatedGuides.length > 0 && (
-                        <a
-                          href="#guides"
-                          className="inline-block px-8 py-3 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-sm sm:text-base no-underline"
-                        >
-                          {t("migrationGuides")}
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                {/* CTAs */}
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={frontmatter.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base no-underline"
+                  >
+                    {t("visitWebsite")} &rarr;
+                  </a>
+                  {relatedGuides.length > 0 && (
+                    <a
+                      href="#guides"
+                      className="inline-block px-8 py-3 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-sm sm:text-base no-underline"
+                    >
+                      {t("migrationGuides")}
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
+          </Banner>
         </Container>
       </section>
 
@@ -281,36 +242,18 @@ export default async function ServiceDetailPage({
                 className="hidden lg:block sticky top-24 bg-brand-green rounded-3xl overflow-hidden"
               >
                 <div className="relative px-6 py-8">
-                  {/* Decorative shapes */}
-                  <div className="absolute -top-4 -right-4 w-24 h-24 opacity-15 pointer-events-none">
-                    <Image
-                      src="/images/shapes/coral.svg"
-                      alt=""
-                      fill
-                      className="object-contain select-none animate-shape-float"
-                      style={{
-                        filter: "brightness(0) invert(1)",
-                        animationDuration: "8s",
-                      }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="absolute bottom-6 -left-4 w-20 h-20 opacity-10 pointer-events-none">
-                    <Image
-                      src="/images/shapes/flower.svg"
-                      alt=""
-                      fill
-                      className="object-contain select-none animate-shape-float"
-                      style={{
-                        filter: "brightness(0) invert(1)",
-                        animationDuration: "7s",
-                        animationDelay: "-2s",
-                      }}
-                      aria-hidden="true"
-                      unoptimized
-                    />
-                  </div>
+                  <DecorativeShape
+                    shape="coral"
+                    className="-top-4 -right-4 w-24 h-24"
+                    duration="8s"
+                  />
+                  <DecorativeShape
+                    shape="flower"
+                    className="bottom-6 -left-4 w-20 h-20"
+                    opacity={0.1}
+                    duration="7s"
+                    delay="-2s"
+                  />
 
                   <div className="relative z-10">
                     <h2 className="font-heading text-xl uppercase text-brand-yellow mb-4">
@@ -383,20 +326,13 @@ export default async function ServiceDetailPage({
 
       {/* Mobile migration guides */}
       <section className="lg:hidden">
-        <Container>
-          <div className="bg-brand-green rounded-3xl relative overflow-hidden">
+        <Container noPaddingMobile>
+          <div className="bg-brand-green md:rounded-3xl relative overflow-hidden">
             <div className="relative px-6 py-8">
-              <div className="absolute -top-4 -right-4 w-20 h-20 opacity-15 pointer-events-none">
-                <Image
-                  src="/images/shapes/coral.svg"
-                  alt=""
-                  fill
-                  className="object-contain select-none animate-shape-float"
-                  style={{ filter: "brightness(0) invert(1)" }}
-                  aria-hidden="true"
-                  unoptimized
-                />
-              </div>
+              <DecorativeShape
+                shape="coral"
+                className="-top-4 -right-4 w-20 h-20"
+              />
               <div className="relative z-10">
                 <h2 className="font-heading text-2xl uppercase text-brand-yellow mb-4">
                   {t("migrationGuides")}
@@ -463,12 +399,10 @@ export default async function ServiceDetailPage({
       {/* Similar Services */}
       {similarServices.length > 0 && (
         <section>
-          <Container>
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-6">
-              {t("similarServices")}
-            </h2>
-          </Container>
           <Container noPaddingMobile>
+            <SectionHeading>
+              {t("similarServices")}
+            </SectionHeading>
             <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {similarServices.map((service, index) => (
                 <ServiceCard

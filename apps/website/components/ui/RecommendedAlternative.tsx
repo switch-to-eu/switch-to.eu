@@ -92,7 +92,7 @@ export async function RecommendedAlternative({
                 <Link
                   key={`${guide.category}-${guide.slug}`}
                   href={`/guides/${guide.category}/${guide.slug}`}
-                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
                 >
                   {t("detail.recommendedAlternative.migrateFrom", {
                     source: sourceService,
