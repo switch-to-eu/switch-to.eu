@@ -73,10 +73,13 @@ export async function CategorySection() {
   return (
     <section id="categories">
       <Container>
-        <h2 className="mb-8 sm:mb-10 font-heading text-4xl sm:text-5xl uppercase text-brand-green">
+        <h2 className="mb-6 font-heading text-4xl uppercase text-brand-green">
           {t("categoriesSectionTitle")}
         </h2>
-        <div className="grid gap-5 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
+        </Container>
+
+      <Container noPaddingMobile>
+        <div className="grid gap-0 md:gap-5 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
           {categories.map((category, index) => {
             const card = CATEGORY_CARDS[index % CATEGORY_CARDS.length]!;
 
@@ -87,7 +90,7 @@ export async function CategorySection() {
                 className="no-underline h-full group"
               >
                 <div
-                  className={`${card.bg} rounded-3xl h-full flex flex-col overflow-hidden transition-shadow duration-200 group-hover:shadow-md`}
+                  className={`${card.bg}  h-full flex flex-col overflow-hidden transition-shadow duration-200 group-hover:shadow-md`}
                 >
                   {/* Decorative shape area */}
                   <div className="relative h-40 sm:h-48 flex items-center justify-center p-6">

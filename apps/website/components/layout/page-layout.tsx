@@ -7,7 +7,7 @@ export function PageLayout({
   return (
     <main
       className={cn(
-        "flex flex-col gap-8 sm:gap-12 md:gap-20 py-6 sm:py-8 md:py-12",
+        "flex flex-col gap-8 sm:gap-12 md:gap-20 py-6 sm:py-8 md:py-12 overflow-hidden",
         className
       )}
       {...props}

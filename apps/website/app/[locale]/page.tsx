@@ -105,11 +105,11 @@ export default async function Home() {
       {/* Migration Guides Section */}
       <section>
         <Container>
-          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-8 sm:mb-10 text-brand-green">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase mb-3 text-brand-green">
             {t("migrationGuidesTitle")}
           </h2>
 
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-3 auto-rows-fr">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-3 auto-rows-fr">
             {GUIDE_CARDS.map((card, index) => (
               <Link
                 key={card.href}
