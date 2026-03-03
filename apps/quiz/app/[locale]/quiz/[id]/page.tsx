@@ -192,7 +192,7 @@ export default function QuizParticipantPage() {
   if (fragment.ready && !encryptionKey) {
     return (
       <main className="mx-auto max-w-lg px-4 py-20 text-center">
-        <p className="text-red-600 font-semibold">{t("missingEncryptionKey")}</p>
+        <p className="text-destructive font-semibold">{t("missingEncryptionKey")}</p>
       </main>
     );
   }
@@ -234,7 +234,7 @@ export default function QuizParticipantPage() {
     if (quizState === "draft") {
       return (
         <main className="mx-auto max-w-md px-4 py-12 text-center space-y-4">
-          <h1 className="font-bricolage text-2xl font-bold">{t("draft.notOpenYet")}</h1>
+          <h1 className="font-heading text-2xl font-bold">{t("draft.notOpenYet")}</h1>
           <p className="text-muted-foreground">{t("draft.waitingForLobby")}</p>
           <Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" />
         </main>
@@ -246,7 +246,7 @@ export default function QuizParticipantPage() {
       return (
         <main className="mx-auto max-w-md px-4 py-12">
           <div className="text-center mb-8">
-            <h1 className="font-bricolage text-3xl font-bold mb-2">{t("join.title")}</h1>
+            <h1 className="font-heading text-3xl font-bold mb-2">{t("join.title")}</h1>
             <p className="text-muted-foreground">{t("join.subtitle")}</p>
           </div>
 
@@ -267,7 +267,7 @@ export default function QuizParticipantPage() {
               />
             </div>
 
-            {joinError && <p className="text-sm text-red-600">{joinError}</p>}
+            {joinError && <p className="text-sm text-destructive">{joinError}</p>}
 
             <Button
               type="submit"
@@ -292,7 +292,7 @@ export default function QuizParticipantPage() {
     // Active/results/finished — quiz already started
     return (
       <main className="mx-auto max-w-md px-4 py-12 text-center">
-        <h1 className="font-bricolage text-2xl font-bold mb-4">{t("join.quizAlreadyStarted")}</h1>
+        <h1 className="font-heading text-2xl font-bold mb-4">{t("join.quizAlreadyStarted")}</h1>
       </main>
     );
   }
@@ -314,12 +314,12 @@ export default function QuizParticipantPage() {
     return (
       <main className="mx-auto max-w-lg px-4 py-12 text-center space-y-6">
         {quizData && (
-          <h1 className="font-bricolage text-2xl font-bold">{quizData.title}</h1>
+          <h1 className="font-heading text-2xl font-bold">{quizData.title}</h1>
         )}
         <p className="text-muted-foreground">{t("lobby.waitingForHost")}</p>
         <ParticipantList participants={latestUpdate.participants} />
         <div className="flex justify-center">
-          <Loader2 className="h-6 w-6 animate-spin text-rose-600" />
+          <Loader2 className="h-6 w-6 animate-spin text-tool-primary" />
         </div>
       </main>
     );
@@ -350,8 +350,8 @@ export default function QuizParticipantPage() {
 
             {hasAnswered ? (
               <div className="text-center py-8 space-y-3">
-                <CheckCircle2 className="h-12 w-12 text-green-600 mx-auto" />
-                <p className="font-semibold text-green-700">{t("active.answered")}</p>
+                <CheckCircle2 className="h-12 w-12 text-success mx-auto" />
+                <p className="font-semibold text-success">{t("active.answered")}</p>
                 <p className="text-sm text-muted-foreground">{t("active.waitingForResults")}</p>
               </div>
             ) : (
@@ -376,11 +376,11 @@ export default function QuizParticipantPage() {
 
     return (
       <main className="mx-auto max-w-lg px-4 py-8 space-y-6">
-        <h2 className="font-bricolage text-xl font-bold">{t("results.title")}</h2>
+        <h2 className="font-heading text-xl font-bold">{t("results.title")}</h2>
 
         {myEntry && (
-          <div className={`text-center py-4 rounded-lg ${myEntry.correct ? "bg-green-50" : "bg-red-50"}`}>
-            <p className={`font-bold text-lg ${myEntry.correct ? "text-green-700" : "text-red-700"}`}>
+          <div className={`text-center py-4 rounded-lg ${myEntry.correct ? "bg-success/10" : "bg-destructive/10"}`}>
+            <p className={`font-bold text-lg ${myEntry.correct ? "text-success" : "text-destructive"}`}>
               {myEntry.correct ? t("results.correct") : t("results.incorrect")}
             </p>
             {scoringEnabled && (
@@ -418,16 +418,16 @@ export default function QuizParticipantPage() {
 
     return (
       <main className="mx-auto max-w-lg px-4 py-8 space-y-8">
-        <h1 className="font-bricolage text-3xl font-bold text-center">
+        <h1 className="font-heading text-3xl font-bold text-center">
           {t("finished.title")}
         </h1>
 
         {leaderboardEnabled && <Podium entries={scoring.leaderboard} />}
 
         {scoringEnabled && myEntry && (
-          <div className="text-center py-4 rounded-lg bg-rose-50">
+          <div className="text-center py-4 rounded-lg bg-tool-primary/10">
             <p className="text-sm text-muted-foreground">{t("finished.yourScore")}</p>
-            <p className="text-2xl font-black text-rose-700">
+            <p className="text-2xl font-black text-tool-primary">
               {t("finished.totalPoints", { points: myEntry.totalScore })}
             </p>
             <p className="text-sm text-muted-foreground">

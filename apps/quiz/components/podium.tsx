@@ -26,7 +26,7 @@ export function Podium({ entries }: PodiumProps) {
 
   return (
     <div className="text-center space-y-6">
-      <h2 className="font-bricolage text-2xl font-bold">{t("podium")}</h2>
+      <h2 className="font-heading text-2xl font-bold">{t("podium")}</h2>
       <div className="flex items-end justify-center gap-4">
         {orderedEntries.map((entry) => {
           if (!entry) return null;

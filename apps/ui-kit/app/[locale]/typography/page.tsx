@@ -12,10 +12,10 @@ export default function TypographyPage() {
         <div className="space-y-6">
           <div className="rounded-xl border border-border p-6">
             <p className="text-xs text-muted-foreground mb-2 font-mono">
-              font-family: var(--font-bricolage-grotesque) &middot; font-heading
+              font-family: var(--font-bonbance) &middot; font-heading
             </p>
             <p className="font-heading text-3xl">
-              BricolageGrotesque ExtraBold — Used for all headings
+              Bonbance Bold Condensed — Default heading font for all apps
             </p>
           </div>
           <div className="rounded-xl border border-border p-6">
@@ -39,42 +39,7 @@ export default function TypographyPage() {
               font-family: var(--font-anton) &middot; font-anton
             </p>
             <p className="font-[family-name:var(--font-anton)] text-4xl uppercase">
-              Anton — Ultra-black condensed display, used for hero headings
-            </p>
-          </div>
-          <div className="rounded-xl border border-border p-6">
-            <p className="text-xs text-muted-foreground mb-2 font-mono">
-              font-family: var(--font-kiyosuna-sans) &middot; font-kiyosuna
-            </p>
-            <p className="font-[family-name:var(--font-kiyosuna-sans)] text-3xl">
-              KT Kiyosuna Sans Bold — Geometric sans-serif with smooth arching strokes
-            </p>
-          </div>
-          <div className="rounded-xl border border-border p-6">
-            <p className="text-xs text-muted-foreground mb-2 font-mono">
-              font-family: var(--font-kiyosuna-sans-light) &middot; font-kiyosuna-light
-            </p>
-            <p className="font-[family-name:var(--font-kiyosuna-sans-light)] text-3xl">
-              KT Kiyosuna Sans Light — Geometric sans-serif, light weight
-            </p>
-          </div>
-          <div className="rounded-xl border border-border p-6">
-            <p className="text-xs text-muted-foreground mb-2 font-mono">
-              font-family: var(--font-bonbance) &middot; font-bonbance
-            </p>
-            <p className="font-[family-name:var(--font-bonbance)] text-3xl">
-              Bonbance Bold Condensed — Vintage serif inspired by French printing
-            </p>
-          </div>
-          <div className="rounded-xl border border-dashed border-brand-navy/30 bg-brand-navy/5 p-6">
-            <p className="text-xs text-brand-navy mb-2 font-mono">
-              Website Override
-            </p>
-            <p className="text-sm text-muted-foreground">
-              The website app overrides{" "}
-              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">--font-heading</code>{" "}
-              to use Bonbance for headings, while the base design system uses BricolageGrotesque.
-              Other apps (keepfocus, plotty) use the default BricolageGrotesque heading font.
+              Anton — Ultra-black condensed display, used in website hero
             </p>
           </div>
         </div>

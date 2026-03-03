@@ -152,10 +152,6 @@ export default async function Image({
 
   const results = (await api.domain.getCached({ domain })) ?? [];
 
-  const bricolageGrotesque = await fetch(
-    "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap"
-  ).then((res) => res.text());
-
   const hankenGroteskSemiBold = await fetch(
     "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600&display=swap"
   ).then((res) => res.text());
@@ -164,15 +160,11 @@ export default async function Image({
     "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@700&display=swap"
   ).then((res) => res.text());
 
-  const bricolageUrl = bricolageGrotesque.match(/url\((.*?)\)/)?.[1];
   const hankenSemiBoldUrl = hankenGroteskSemiBold.match(/url\((.*?)\)/)?.[1];
   const hankenBoldUrl = hankenGroteskBold.match(/url\((.*?)\)/)?.[1];
 
-  const [bricolageFont, hankenSemiBoldFont, hankenBoldFont] = await Promise.all(
+  const [hankenSemiBoldFont, hankenBoldFont] = await Promise.all(
     [
-      bricolageUrl
-        ? fetch(bricolageUrl).then((res) => res.arrayBuffer())
-        : null,
       hankenSemiBoldUrl
         ? fetch(hankenSemiBoldUrl).then((res) => res.arrayBuffer())
         : null,
@@ -182,7 +174,7 @@ export default async function Image({
     ]
   );
 
-  if (!bricolageFont || !hankenSemiBoldFont || !hankenBoldFont) {
+  if (!hankenSemiBoldFont || !hankenBoldFont) {
     return new Response("Font files not found", { status: 404 });
   }
 
@@ -224,7 +216,8 @@ export default async function Image({
               color: "#1a3c5a",
               display: "flex",
               alignItems: "flex-start",
-              fontFamily: "Bricolage Grotesque, sans-serif",
+              fontFamily: "Hanken Grotesk, sans-serif",
+              fontWeight: 700,
             }}
           >
             <svg
@@ -251,7 +244,8 @@ export default async function Image({
             fontSize: 48,
             fontWeight: "bold",
             marginBottom: 24,
-            fontFamily: "Bricolage Grotesque, sans-serif",
+            fontFamily: "Hanken Grotesk, sans-serif",
+              fontWeight: 700,
             position: "relative",
             zIndex: 1,
           }}
@@ -330,12 +324,6 @@ export default async function Image({
     {
       ...size,
       fonts: [
-        {
-          name: "Bricolage Grotesque",
-          data: bricolageFont,
-          weight: 800,
-          style: "normal",
-        },
         {
           name: "Hanken Grotesk",
           data: hankenSemiBoldFont,

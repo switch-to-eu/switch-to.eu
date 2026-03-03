@@ -236,13 +236,13 @@ export default function QuizAdminPage() {
       <div className="flex items-center justify-between">
         <div>
           {quizData && (
-            <h1 className="font-bricolage text-2xl font-bold">{quizData.title}</h1>
+            <h1 className="font-heading text-2xl font-bold">{quizData.title}</h1>
           )}
           <p className="text-sm text-muted-foreground">{tAdmin("controlPanel")}</p>
         </div>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+            <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
               <Trash2 className="h-4 w-4" />
             </Button>
           </AlertDialogTrigger>
@@ -255,7 +255,7 @@ export default function QuizAdminPage() {
               <AlertDialogCancel>{tAdmin("cancel")}</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => void handleDeleteQuiz()}
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-destructive hover:bg-destructive/90"
               >
                 {tAdmin("deleteQuiz")}
               </AlertDialogAction>
@@ -267,7 +267,7 @@ export default function QuizAdminPage() {
       {/* Draft — edit questions, then open lobby */}
       {state === "draft" && (
         <div className="space-y-6">
-          <div className="rounded-lg border bg-white p-6">
+          <div className="rounded-lg border bg-card p-6">
             <LobbyQuestionList
               quizId={params.id}
               encryptionKey={encryptionKey}
@@ -293,7 +293,7 @@ export default function QuizAdminPage() {
           </Button>
 
           {latestUpdate.quiz.questionCount === 0 && (
-            <p className="text-sm text-amber-600 text-center">{t("lobby.needQuestions")}</p>
+            <p className="text-sm text-warning text-center">{t("lobby.needQuestions")}</p>
           )}
         </div>
       )}
@@ -301,11 +301,11 @@ export default function QuizAdminPage() {
       {/* Lobby — QR code, participants join, start quiz */}
       {state === "lobby" && (
         <div className="space-y-6">
-          <div className="rounded-lg border bg-white p-6">
+          <div className="rounded-lg border bg-card p-6">
             <QrShareDisplay shareUrl={shareUrl} />
           </div>
 
-          <div className="rounded-lg border bg-white p-6">
+          <div className="rounded-lg border bg-card p-6">
             <ParticipantList participants={latestUpdate.participants} />
           </div>
 
@@ -339,7 +339,7 @@ export default function QuizAdminPage() {
           </Button>
 
           {latestUpdate.participants.length === 0 && (
-            <p className="text-sm text-amber-600 text-center">{t("lobby.needParticipants")}</p>
+            <p className="text-sm text-warning text-center">{t("lobby.needParticipants")}</p>
           )}
         </div>
       )}
@@ -363,7 +363,7 @@ export default function QuizAdminPage() {
           </div>
 
           {currentQuestion && (
-            <div className="rounded-lg border bg-white p-6">
+            <div className="rounded-lg border bg-card p-6">
               <h2 className="text-xl font-bold mb-4">{currentQuestion.text}</h2>
               <div className={`grid gap-2 ${currentQuestion.options.length >= 4 ? "grid-cols-2" : "grid-cols-1"}`}>
                 {currentQuestion.options.map((opt, i) => (
@@ -371,8 +371,8 @@ export default function QuizAdminPage() {
                     key={i}
                     className={`rounded-lg p-3 text-sm ${
                       i === currentQuestion.correctIndex
-                        ? "bg-green-100 border-2 border-green-300 font-semibold"
-                        : "bg-gray-50 border"
+                        ? "bg-success/10 border-2 border-success/30 font-semibold"
+                        : "bg-muted border"
                     }`}
                   >
                     <span className="font-bold mr-2">{String.fromCharCode(65 + i)}</span>
@@ -383,7 +383,7 @@ export default function QuizAdminPage() {
             </div>
           )}
 
-          <div className="flex items-center justify-between rounded-lg border bg-white p-4">
+          <div className="flex items-center justify-between rounded-lg border bg-card p-4">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">
@@ -412,10 +412,10 @@ export default function QuizAdminPage() {
       {/* Results */}
       {state === "results" && (
         <div className="space-y-6">
-          <h2 className="font-bricolage text-xl font-bold">{t("results.title")}</h2>
+          <h2 className="font-heading text-xl font-bold">{t("results.title")}</h2>
 
           {currentQuestion && scoring && (
-            <div className="rounded-lg border bg-white p-6">
+            <div className="rounded-lg border bg-card p-6">
               <h3 className="font-semibold mb-4">{currentQuestion.text}</h3>
               {scoring.questionResults.find((q) => q.questionIndex === latestUpdate.quiz.currentQuestion) && (
                 <AnswerDistribution
@@ -470,7 +470,7 @@ export default function QuizAdminPage() {
       {/* Finished */}
       {state === "finished" && scoring && (
         <div className="space-y-8">
-          <h1 className="font-bricolage text-3xl font-bold text-center">
+          <h1 className="font-heading text-3xl font-bold text-center">
             {t("finished.title")}
           </h1>
           {leaderboardEnabled && <Podium entries={scoring.leaderboard} />}

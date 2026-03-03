@@ -12,7 +12,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 header-bg" />
         <div className="relative mx-auto max-w-4xl px-4 py-20 sm:py-28 text-center">
-          <h1 className="font-bricolage text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="font-heading text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
             {t("hero.title")}{" "}
             <span className="gradient-primary bg-clip-text text-transparent">
               {t("hero.titleHighlight")}
@@ -34,7 +34,7 @@ export default function HomePage() {
 
       {/* How it works */}
       <section className="mx-auto max-w-5xl px-4 py-16">
-        <h2 className="text-center font-bricolage text-3xl font-bold mb-12">
+        <h2 className="text-center font-heading text-3xl font-bold mb-12">
           {t("features.title")}
         </h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -60,7 +60,7 @@ export default function HomePage() {
       {/* Privacy section */}
       <section className="bg-gradient-to-br from-neutral-50 to-rose-50/30 py-16">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="font-bricolage text-2xl font-bold mb-4">
+          <h2 className="font-heading text-2xl font-bold mb-4">
             {t("privacy.title")}
           </h2>
           <p className="text-muted-foreground">

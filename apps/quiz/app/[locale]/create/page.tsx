@@ -8,7 +8,7 @@ export default function CreateQuizPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="font-bricolage text-3xl font-bold mb-2">{t("title")}</h1>
+      <h1 className="font-heading text-3xl font-bold mb-2">{t("title")}</h1>
       <p className="text-muted-foreground mb-8">{t("subtitle")}</p>
       <QuizForm />
     </main>
