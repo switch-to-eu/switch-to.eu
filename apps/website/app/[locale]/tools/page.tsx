@@ -6,6 +6,7 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { getToolCardColor } from "@switch-to-eu/ui/lib/tool-colors";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import {
   ArrowUpRightIcon,
@@ -62,8 +63,8 @@ export default async function ToolsPage() {
   return (
     <PageLayout>
       <section>
-        <Container>
-          <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
+        <Container noPaddingMobile>
+          <div className="flex flex-col items-center text-center mb-8 sm:mb-12 px-3 md:px-0">
             <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-green mb-4">
               {t("title")}
             </h1>
@@ -72,7 +73,7 @@ export default async function ToolsPage() {
             </p>
           </div>
 
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+          <div className="grid gap-0 md:gap-5 md:grid-cols-2">
             {tools.map((tool, index) => {
               const Icon = tool.icon ? iconMap[tool.icon] : undefined;
               const isActive = tool.status === "active";
@@ -92,7 +93,7 @@ export default async function ToolsPage() {
                 <Wrapper
                   key={tool.id}
                   {...wrapperProps}
-                  className={`group ${card.bg} rounded-3xl overflow-hidden transition-all duration-200 ${
+                  className={`group ${card.bg} md:rounded-3xl overflow-hidden transition-all duration-200 ${
                     isActive
                       ? "hover:shadow-lg hover:scale-[1.02] cursor-pointer"
                       : "opacity-60"
@@ -168,11 +169,11 @@ export default async function ToolsPage() {
       </section>
 
       <section>
-        <Container>
-          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl uppercase text-brand-green mb-8 text-center">
+        <Container noPaddingMobile>
+          <SectionHeading className="text-center">
             {t("whyUseTools")}
-          </h2>
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
+          </SectionHeading>
+          <div className="grid gap-0 md:gap-5 md:grid-cols-3">
             {(
               [
                 { key: "dataSovereignty", colorIdx: 0, shape: "cloud" },
@@ -185,7 +186,7 @@ export default async function ToolsPage() {
               return (
                 <div
                   key={feature.key}
-                  className={`${card.bg} rounded-3xl overflow-hidden`}
+                  className={`${card.bg} md:rounded-3xl overflow-hidden`}
                 >
                   <div className="relative h-28 flex items-center justify-center p-6">
                     {shapeData && (
