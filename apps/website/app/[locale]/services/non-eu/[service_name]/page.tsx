@@ -12,7 +12,6 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
-import React from "react";
 import { Locale } from "next-intl";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
@@ -73,7 +72,6 @@ export default async function ServiceDetailPage({
 }) {
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail.nonEu");
-  const commonT = await getTranslations("common");
 
   const originalSlug = service_name;
   const slug = service_name.replace(/-/g, " ");
@@ -164,19 +162,11 @@ export default async function ServiceDetailPage({
           <div className="lg:col-span-2">
             {/* Recommended Alternative */}
             {recommendedAlternativeData && (
-              <React.Suspense
-                fallback={
-                  <div className="mb-10 p-6 bg-brand-sage rounded-3xl">
-                    <p className="text-center">{commonT("loading")}</p>
-                  </div>
-                }
-              >
-                <RecommendedAlternative
-                  service={recommendedAlternativeData}
-                  sourceService={frontmatter.name}
-                  migrationGuides={migrationGuides}
-                />
-              </React.Suspense>
+              <RecommendedAlternative
+                service={recommendedAlternativeData}
+                sourceService={frontmatter.name}
+                migrationGuides={migrationGuides}
+              />
             )}
 
             {/* Mobile Service Issues Section */}

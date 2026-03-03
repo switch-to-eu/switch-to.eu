@@ -11,10 +11,14 @@ export interface BrandCardProps {
   external?: boolean;
   ctaText?: string;
   shape?: string;
+  /** "top" (default): shape in dedicated visual area. "accent": small corner decoration. */
+  shapePosition?: "top" | "accent";
   /** Cover image URL — renders an object-cover photo area instead of a centered shape */
   image?: string;
   imageAlt?: string;
   className?: string;
+  /** Extra classes on the content area (e.g. "text-center") */
+  contentClassName?: string;
 }
 
 export function BrandCard({
@@ -25,9 +29,11 @@ export function BrandCard({
   external,
   ctaText,
   shape,
+  shapePosition = "top",
   image,
   imageAlt,
   className,
+  contentClassName,
 }: BrandCardProps) {
   const card = getCardColor(colorIndex);
 
@@ -36,6 +42,7 @@ export function BrandCard({
       className={cn(
         card.bg,
         "h-full flex flex-col overflow-hidden transition-shadow duration-200 group-hover:shadow-md md:rounded-3xl",
+        shapePosition === "accent" && "relative",
         className
       )}
     >
@@ -66,7 +73,7 @@ export function BrandCard({
             </div>
           )}
         </div>
-      ) : shape ? (
+      ) : shape && shapePosition === "top" ? (
         <div className="relative h-40 sm:h-48 flex items-center justify-center">
           <Image
             src={shape}
@@ -84,12 +91,41 @@ export function BrandCard({
         </div>
       ) : null}
 
-      <div className={cn("flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6", image && "pt-4")}>
+      {shape && shapePosition === "accent" && (
+        <div className="absolute top-3 right-3 w-20 h-20 sm:w-24 sm:h-24 opacity-20 pointer-events-none">
+          <Image
+            src={shape}
+            alt=""
+            fill
+            className="object-contain select-none animate-shape-float"
+            style={{
+              filter: card.shapeFilter,
+              animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+              animationDelay: `${(colorIndex % 4) * -1.5}s`,
+            }}
+            aria-hidden="true"
+            unoptimized
+          />
+        </div>
+      )}
+
+      <div
+        className={cn(
+          "flex flex-col flex-1",
+          shapePosition === "accent"
+            ? "relative z-10 p-6 sm:p-8"
+            : cn("px-5 pb-5 sm:px-6 sm:pb-6", image && "pt-4"),
+          contentClassName
+        )}
+      >
         <h3 className={`${card.text} mb-2 font-bold text-lg sm:text-xl`}>
           {title}
         </h3>
         <p
-          className={`${card.text} text-sm sm:text-base opacity-80 leading-relaxed line-clamp-3 mb-5`}
+          className={cn(
+            `${card.text} text-sm sm:text-base opacity-80 leading-relaxed`,
+            ctaText && "line-clamp-3 mb-5"
+          )}
         >
           {description}
         </p>

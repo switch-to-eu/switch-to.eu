@@ -252,7 +252,7 @@ export function FeedbackDialog({ toolId, trigger }: FeedbackDialogProps) {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="min-w-[120px]"
+                className="min-w-[120px] bg-tool-primary text-tool-primary-foreground hover:bg-tool-primary/90"
               >
                 {isSubmitting ? t("form.submitting") : t("form.submitButton")}
               </Button>

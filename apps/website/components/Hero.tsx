@@ -17,8 +17,8 @@ export function Hero() {
   const t = useTranslations("home");
 
   return (
-    <section className="mt-[-30px] md:mt-initial">
-      <Container noPaddingMobile>
+    <section>
+      <Container noPaddingMobile overlapHeader>
         <div className="bg-brand-navy rounded-none md:rounded-3xl">
         <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="relative text-center">

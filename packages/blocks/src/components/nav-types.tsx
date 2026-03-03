@@ -13,4 +13,5 @@ export interface SubNavItem {
   description?: string;
   icon?: string;
   isExternal?: boolean;
+  disabled?: boolean;
 }

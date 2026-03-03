@@ -1,6 +1,11 @@
 import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getTranslations } from "next-intl/server";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
+
+const i18nKeyMap: Record<string, string> = {
+  "eu-scan": "euScan",
+};
 
 export async function getNavItems(): Promise<MainNavItem[]> {
   const categories = getAllCategoriesMetadata().map((category) => ({
@@ -11,6 +16,20 @@ export async function getNavItems(): Promise<MainNavItem[]> {
   }));
 
   const t = await getTranslations("navigation");
+  const tTools = await getTranslations("tools.items");
+
+  const allTools = getAllToolsSorted();
+  const toolChildren = allTools.map((tool) => {
+    const i18nKey = i18nKeyMap[tool.id] ?? tool.id;
+    return {
+      title: tTools(`${i18nKey}.title`),
+      href: tool.url,
+      description: tTools(`${i18nKey}.description`),
+      icon: tool.icon,
+      isExternal: true,
+      disabled: tool.status !== "active",
+    };
+  });
 
   return [
     {
@@ -21,6 +40,8 @@ export async function getNavItems(): Promise<MainNavItem[]> {
     {
       title: t("tools"),
       href: `/tools`,
+      dropdown: "mega",
+      children: toolChildren,
     },
     {
       title: t("about"),

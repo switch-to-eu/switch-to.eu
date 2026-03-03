@@ -1,8 +1,7 @@
-import React from "react";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { ServiceFrontmatter } from "@switch-to-eu/content/schemas";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 interface MigrationGuide {
   category: string;
@@ -25,11 +24,10 @@ export async function RecommendedAlternative({
   const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
 
   return (
-    <div className="bg-brand-green rounded-3xl relative overflow-hidden">
+    <div className="bg-brand-green md:rounded-3xl relative overflow-hidden">
       <div className="flex flex-col md:flex-row">
         {/* Shape visual — left panel */}
         <div className="relative w-full md:w-72 lg:w-80 flex-shrink-0 flex items-center justify-center py-10 md:py-0">
-          {/* Large avatar / initial */}
           <div className="relative z-10 flex flex-col items-center gap-3">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
               {service.name.charAt(0)}
@@ -38,38 +36,22 @@ export async function RecommendedAlternative({
               Featured
             </span>
           </div>
-          {/* Background shape */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none">
-            <Image
-              src="/images/shapes/star.svg"
-              alt=""
-              fill
-              className="object-contain p-6 select-none animate-shape-float"
-              style={{ filter: "brightness(0) invert(1)" }}
-              aria-hidden="true"
-              unoptimized
-            />
-          </div>
+          <DecorativeShape
+            shape="star"
+            className="inset-0 flex items-center justify-center"
+            opacity={0.15}
+          />
         </div>
 
         {/* Content — right panel */}
         <div className="flex-1 px-6 sm:px-8 md:px-10 py-8 sm:py-10 md:py-12 relative">
-          {/* Decorative shapes */}
-          <div className="absolute -top-4 -right-4 w-24 h-24 opacity-10 pointer-events-none">
-            <Image
-              src="/images/shapes/swirl.svg"
-              alt=""
-              fill
-              className="object-contain select-none animate-shape-float"
-              style={{
-                filter: "brightness(0) invert(1)",
-                animationDuration: "9s",
-                animationDelay: "-3s",
-              }}
-              aria-hidden="true"
-              unoptimized
-            />
-          </div>
+          <DecorativeShape
+            shape="swirl"
+            className="-top-4 -right-4 w-24 h-24"
+            opacity={0.1}
+            duration="9s"
+            delay="-3s"
+          />
 
           <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow mb-4">
             {service.name}

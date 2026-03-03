@@ -2,6 +2,7 @@
 
 import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MegaCategoryItem } from "./MegaCategoryItem";
+import { MegaToolItem } from "./MegaToolItem";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 
 interface MainNavClientProps {
@@ -14,9 +15,12 @@ export function MainNavClient({ navItems, className }: MainNavClientProps) {
     <NavMenu
       navItems={navItems}
       className={className}
-      renderMegaItem={(child, onClose) => (
-        <MegaCategoryItem key={child.href} child={child} onClose={onClose} />
-      )}
+      renderMegaItem={(child, onClose, parent) => {
+        if (parent.href === "/tools") {
+          return <MegaToolItem key={child.href} child={child} onClose={onClose} />;
+        }
+        return <MegaCategoryItem key={child.href} child={child} onClose={onClose} />;
+      }}
     />
   );
 }

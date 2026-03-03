@@ -12,7 +12,7 @@ interface NavMenuProps {
   navItems: MainNavItem[];
   className?: string;
   /** Custom renderer for mega dropdown children. If not provided, renders title + description. */
-  renderMegaItem?: (child: SubNavItem, onClose: () => void) => ReactNode;
+  renderMegaItem?: (child: SubNavItem, onClose: () => void, parent: MainNavItem) => ReactNode;
 }
 
 function DefaultMegaItem({ child, onClose }: { child: SubNavItem; onClose: () => void }) {
@@ -85,6 +85,30 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
         {navItems.map((item, index) => {
           const id = item.title;
 
+          if (item.dropdown && item.children && item.href) {
+            // Hybrid: clickable link that also opens a dropdown on hover
+            return (
+              <Link
+                key={index}
+                ref={(el: HTMLAnchorElement | null) => {
+                  if (el) triggerRefs.current.set(id, el as unknown as HTMLButtonElement);
+                }}
+                href={item.href}
+                onMouseEnter={() => open(id)}
+                onMouseLeave={scheduleClose}
+                className="group flex items-center gap-1 px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+              >
+                {item.title}
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 transition-transform duration-200",
+                    openId === id && "rotate-180"
+                  )}
+                />
+              </Link>
+            );
+          }
+
           if (item.dropdown && item.children) {
             return (
               <button
@@ -146,7 +170,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 p-2">
                 {item.children.map((child) =>
                   renderMegaItem
-                    ? renderMegaItem(child, onClose)
+                    ? renderMegaItem(child, onClose, item)
                     : <DefaultMegaItem key={child.href} child={child} onClose={onClose} />
                 )}
               </div>

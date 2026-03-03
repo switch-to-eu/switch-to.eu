@@ -13,7 +13,7 @@ export function MobileLanguageSelector({ locale }: MobileLanguageSelectorProps) 
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm font-bold uppercase text-tool-primary/40">
+      <span className="text-sm font-bold uppercase opacity-40">
         {localeNames[locale]}
       </span>
       {otherLocales.map((otherLocale) => (
@@ -21,7 +21,7 @@ export function MobileLanguageSelector({ locale }: MobileLanguageSelectorProps) 
           key={otherLocale}
           href={pathname}
           locale={otherLocale}
-          className="rounded-md bg-tool-primary/10 px-3 py-1.5 text-sm font-semibold text-tool-primary hover:bg-tool-primary/20 transition-colors"
+          className="rounded-md bg-current/10 px-3 py-1.5 text-sm font-semibold hover:bg-current/20 transition-colors"
         >
           {localeNames[otherLocale]}
         </Link>
