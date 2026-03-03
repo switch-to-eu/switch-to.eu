@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "PORT=5016 next dev --turbo --port 5016",
+    "dev": "next dev --turbo --port 5016",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

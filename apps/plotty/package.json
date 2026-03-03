@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "PORT=5012 next dev --turbo --port 5012",
+    "dev": "next dev --turbo --port 5012",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "catalog:",
-"@switch-to-eu/blocks": "workspace:*",
+    "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
     "@switch-to-eu/trpc": "workspace:*",

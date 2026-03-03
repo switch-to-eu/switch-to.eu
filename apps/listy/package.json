@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "PORT=5014 next dev --turbo --port 5014",
+    "dev": "next dev --turbo --port 5014",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -20,7 +20,7 @@
     "@dnd-kit/core": "catalog:",
     "@dnd-kit/utilities": "catalog:",
     "@hookform/resolvers": "catalog:",
-"@switch-to-eu/blocks": "workspace:*",
+    "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
     "@switch-to-eu/trpc": "workspace:*",
