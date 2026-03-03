@@ -55,6 +55,37 @@ Note: The UI package base background is `#fefbf9` (cream). The website app overr
 - **Buttons on dark backgrounds**: Yellow fill with Navy text (primary), Yellow outline with Yellow text (secondary)
 - **Buttons on light backgrounds**: Green fill with white text
 
+### Tool Color System
+
+Each tool app has its own color scheme defined in `packages/ui/src/lib/tool-colors.ts` via `TOOL_SCHEMES`. Every scheme assigns three brand colors: **primary** (header, footer, buttons), **accent** (highlights, icons), and **surface** (light tinted backgrounds).
+
+| Tool      | Primary | Accent | Surface |
+| --------- | ------- | ------ | ------- |
+| KeepFocus | Navy    | Sky    | Sky     |
+| Plotty    | Navy    | Pink   | Pink    |
+| Listy     | Green   | Sage   | Sage    |
+| PrivNote  | Orange  | Yellow | Yellow  |
+| Kanban    | Navy    | Sage   | Sage    |
+| Quiz      | Red     | Orange | Orange  |
+| EU-Scan   | Green   | Sky    | Sky     |
+
+Each color role has a foreground counterpart (following the shadcn `--{color}` / `--{color}-foreground` pattern):
+
+| CSS Variable                | Default                | Purpose                          |
+| --------------------------- | ---------------------- | -------------------------------- |
+| `--tool-primary`            | `var(--primary)`       | Header, footer, primary buttons  |
+| `--tool-primary-foreground` | `var(--primary-foreground)` | Text on primary backgrounds |
+| `--tool-accent`             | `var(--brand-sky)`     | Highlight elements, icons        |
+| `--tool-accent-foreground`  | `#1a1a1a`              | Text on accent backgrounds       |
+| `--tool-surface`            | `var(--muted)`         | Light tinted backgrounds         |
+| `--tool-surface-foreground` | `var(--foreground)`    | Text on surface backgrounds      |
+
+Defaults are set in `packages/ui/src/styles/globals.css` `:root`. Each app overrides these in its own `globals.css`, along with `--primary`, `--primary-foreground`, and `--ring` so that shadcn Button default variant matches the tool scheme.
+
+The **website app** is a special case: it sets `--tool-primary: var(--brand-green)` (for the footer) but overrides the header with `bg-border text-foreground [--tool-primary-foreground:var(--foreground)]` to keep the gray header style.
+
+**Foreground contrast rule**: dark brand colors (green, navy, red, orange) use `#ffffff` foreground; light brand colors (yellow, sky, pink, sage, cream) use `#1a1a1a` foreground.
+
 ---
 
 ## Typography
@@ -69,8 +100,6 @@ Note: The UI package base background is `#fefbf9` (cream). The website app overr
 | Bold text        | Hanken Grotesk Bold         | `--font-hanken-grotesk-bold`        | 700    | `<strong>`, `<b>` elements      |
 | Italic text      | Hanken Grotesk SemiBold Italic | `--font-hanken-grotesk-italic`   | —      | `<em>` elements                 |
 | Bold italic      | Hanken Grotesk Bold Italic  | `--font-hanken-grotesk-bold-italic` | —      | Combined bold + italic          |
-| Display (alt)    | KT Kiyosuna Sans Bold       | `--font-kiyosuna-sans`              | —      | Available for special use       |
-| Display light    | KT Kiyosuna Sans Light      | `--font-kiyosuna-sans-light`        | —      | Available for special use       |
 | Monospace        | System monospace stack      | `--font-mono`                       | —      | Code blocks                     |
 
 ### Tailwind Aliases
@@ -81,7 +110,7 @@ Note: The UI package base background is `#fefbf9` (cream). The website app overr
 --font-bold     → var(--font-hanken-grotesk-bold)
 ```
 
-Note: The UI package base uses `--font-bricolage-grotesque` as the heading default. The website app overrides this to `--font-bonbance` in its own `globals.css`.
+Note: All apps use Bonbance as the heading font via `--font-heading`.
 
 ### Heading Treatment
 
@@ -205,38 +234,80 @@ Duration is typically 6-9s, with staggered `animationDelay` values (e.g., `-1.5s
 
 ## Layout Patterns
 
-### Page Structure
+### Layout Components
 
-Pages use a vertical stack with consistent spacing:
+Three layout components in `apps/website/components/layout/` standardize page structure:
 
-```html
-<div class="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
-  <!-- sections -->
-</div>
+**`PageLayout`** — wraps the entire page in a `<main>` with consistent vertical spacing:
+
+```tsx
+import { PageLayout } from "@/components/layout/page-layout";
+
+<PageLayout>
+  {/* sections */}
+</PageLayout>
 ```
 
-### Container
+Renders: `<main class="flex flex-col gap-8 sm:gap-12 md:gap-20 py-6 sm:py-8 md:py-12">`
 
-Content width is capped at `max-w-7xl` with responsive horizontal padding:
+**`Container`** — constrains content width with responsive horizontal padding:
 
-```html
-<div class="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+```tsx
+import { Container } from "@/components/layout/container";
+
+<Container>
+  {/* content */}
+</Container>
+```
+
+Renders: `<div class="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">`
+
+**`Section`** — combines a `<section>` with vertical padding and a `Container`:
+
+```tsx
+import { Section } from "@/components/layout/section";
+
+<Section>
+  {/* content inside a Container */}
+</Section>
+```
+
+Renders: `<section class="py-12 sm:py-16 md:py-20"><Container>...</Container></section>`
+
+### Page Structure
+
+Every page uses `PageLayout` as the outer wrapper, with `<section>` + `<Container>` pairs for each content block:
+
+```tsx
+<PageLayout>
+  <section>
+    <Container>
+      {/* Hero or content */}
+    </Container>
+  </section>
+
+  <section>
+    <Container>
+      {/* Next section */}
+    </Container>
+  </section>
+</PageLayout>
 ```
 
 ### Section Blocks
 
-Full-bleed colored sections use a rounded container pattern:
+Full-bleed colored sections use a rounded container pattern inside `<Container>`:
 
-```html
+```tsx
 <section>
-  <div class="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-    <div class="bg-brand-navy rounded-3xl">
-      <div class="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-        <!-- decorative shapes (absolute) -->
-        <!-- content (relative z-10) -->
+  <Container>
+    <div className="bg-brand-navy rounded-3xl">
+      <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
+        {/* decorative shapes (absolute) */}
+        {/* content (relative z-10) */}
       </div>
     </div>
-  </div>
+  </Container>
 </section>
 ```
 
@@ -307,11 +378,17 @@ Inputs on dark backgrounds use translucent styling:
               focus:border-brand-yellow focus:ring-brand-yellow" />
 ```
 
-### Navigation
+### Header & Navigation
 
-- Header text: Hanken Grotesk Bold, uppercase, tracking-wide, Navy color
-- Links: underline on hover, no background change
-- Header background: `bg-gray-300` with no bottom border
+- **Tool apps**: Header uses `bg-tool-primary text-tool-primary-foreground`. Nav links, language selector, and feedback button all use `text-tool-primary-foreground`. Dropdown items use `text-tool-primary`.
+- **Website**: Header keeps gray background via `bg-border text-foreground` with a scoped CSS variable override `[--tool-primary-foreground:var(--foreground)]`.
+- **Mobile nav**: Sheet uses `bg-tool-surface`, links use `text-tool-primary`.
+- Links: underline on hover, no background change.
+- Header text: Hanken Grotesk Bold, uppercase, tracking-wide.
+
+### Footer
+
+The footer uses `bg-tool-primary text-tool-primary-foreground`, matching each tool's primary color. Links and branding inherit the foreground color. The website footer is green (via `--tool-primary: var(--brand-green)`).
 
 ### Alerts / Callouts
 
@@ -357,7 +434,9 @@ Colors: `bg-brand-yellow` for in-progress, `bg-brand-green` for complete.
 
 ## Color Card Rotation
 
-Category cards, pillar cards, and feature cards cycle through a predefined color sequence. Each entry defines background, text, button, and shape colors:
+Category cards, pillar cards, and feature cards cycle through a predefined color sequence (`getCardColor(index)` in `packages/ui/src/lib/brand-palette.ts`). **Tool cards** on the `/tools` page use `getToolCardColor(toolId)` from `packages/ui/src/lib/tool-colors.ts` instead, so each tool card matches its actual app color scheme.
+
+The generic rotation sequence:
 
 | #  | Background       | Text Color   | Button                    | Shape    |
 | -- | ---------------- | ------------ | ------------------------- | -------- |
@@ -386,23 +465,6 @@ Markdown/MDX content rendered in `.mdx-content` receives specific styles:
 - Italic: Hanken Grotesk SemiBold Italic
 - Blockquotes: left border, italic
 - Horizontal rules: gray border with generous vertical margin (`my-8`)
-
----
-
-## Dark Mode
-
-Dark mode is supported via the `.dark` class. Key overrides:
-
-| Token      | Dark Value  |
-| ---------- | ----------- |
-| Background | `#0f172a`   |
-| Foreground | `#f8fafc`   |
-| Card       | `#1e293b`   |
-| Primary    | `#64a5f6`   |
-| Muted      | `#1e293b`   |
-| Border     | `rgba(255, 255, 255, 0.1)` |
-
-Brand colors (yellow, green, sky, red, pink, navy, sage, orange) do not change between modes.
 
 ---
 

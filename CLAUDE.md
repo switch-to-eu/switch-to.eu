@@ -167,9 +167,10 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Code Style
 
+- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns.
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
-- **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code. The `packages/ui/` (shadcn) may retain dark mode variants from upstream but they are unused — never add new ones in app-level code.
-- Custom fonts: BricolageGrotesque (headings, `--font-bricolage-grotesque`), HankenGrotesk (body, `--font-hanken-grotesk`)
+- **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code.
+- Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (hero display, `--font-anton`)
 - ESLint 9 flat config; unused vars prefixed with `_` are allowed
 - shadcn/ui components live in `packages/ui/src/components/`
