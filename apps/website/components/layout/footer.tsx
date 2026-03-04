@@ -30,10 +30,10 @@ export async function Footer() {
       ]}
       branding={
         <div className="flex flex-col gap-1">
-          <span className="text-lg font-black tracking-wide uppercase text-tool-primary">
+          <span style={{ fontFamily: "var(--font-bonbance)", fontWeight: 400 }} className="text-2xl tracking-wide text-white">
             Switch-to.eu
           </span>
-          <span className="text-sm text-foreground/50">
+          <span className="text-sm text-white/50">
             EU alternatives to global services
           </span>
         </div>

@@ -16,7 +16,7 @@ export function FooterFeedback({ toolId }: FooterFeedbackProps) {
       trigger={
         <button
           type="button"
-          className="text-sm text-foreground/70 transition-colors hover:text-tool-primary cursor-pointer"
+          className="text-sm text-white/70 transition-colors hover:text-white cursor-pointer"
         >
           {t("triggerButton")}
         </button>

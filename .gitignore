@@ -57,3 +57,4 @@ AI/
 # temp files
 tmp/
 docs/inspiration
+.playwright-mcp

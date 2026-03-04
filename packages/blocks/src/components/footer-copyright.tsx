@@ -3,14 +3,14 @@
 import { useTranslations } from "next-intl";
 
 const linkClassName =
-  "text-foreground/70 hover:text-tool-primary transition-colors font-semibold underline";
+  "text-orange-400 hover:text-orange-300 transition-colors font-semibold underline";
 
 export function FooterCopyright() {
   const t = useTranslations("footer");
   const currentYear = new Date().getFullYear();
 
   return (
-    <p className="text-xs text-foreground/40">
+    <p className="text-xs text-white/40">
       &copy;{" "}
       {t.rich("copyright", {
         year: String(currentYear),
