@@ -47,20 +47,30 @@ export async function ServiceCard({
       <div
         className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-lg group-hover:scale-[1.02]`}
       >
-        {/* Decorative shape area */}
-        <div className="relative h-36 sm:h-44 flex items-center justify-center p-8 sm:p-10">
-          {shapeData && (
-            <svg
-              viewBox={shapeData.viewBox}
-              className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
-              style={{
-                animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-                animationDelay: `${(colorIndex % 4) * -1.5}s`,
-              }}
-              aria-hidden="true"
-            >
-              <path d={shapeData.d} fill="currentColor" />
-            </svg>
+        {/* Visual area: screenshot or decorative shape */}
+        <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+          {service.screenshot ? (
+            <img
+              src={service.screenshot}
+              alt={service.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center p-8 sm:p-10">
+              {shapeData && (
+                <svg
+                  viewBox={shapeData.viewBox}
+                  className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+                  style={{
+                    animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+                    animationDelay: `${(colorIndex % 4) * -1.5}s`,
+                  }}
+                  aria-hidden="true"
+                >
+                  <path d={shapeData.d} fill="currentColor" />
+                </svg>
+              )}
+            </div>
           )}
           {/* Region badge floated top-right */}
           <div className="absolute top-3 right-3">
@@ -69,7 +79,12 @@ export async function ServiceCard({
         </div>
 
         {/* Content area */}
-        <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
+        <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
+          {service.featured && (
+            <span className={`${card.text} text-[10px] font-semibold uppercase tracking-widest opacity-60 mb-1`}>
+              Recommended
+            </span>
+          )}
           <h3 className={`${card.text} text-lg sm:text-xl font-bold mb-1`}>
             {service.name}
           </h3>

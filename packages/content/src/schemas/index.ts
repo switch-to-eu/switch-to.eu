@@ -53,6 +53,7 @@ export const ServiceFrontmatterSchema = z.object({
     description: z.string(),
     url: z.string(),
     logo: z.string().optional(),
+    screenshot: z.string().optional(),
     features: z.array(z.string()).optional(),
     tags: z.array(z.string()).optional(),
     featured: z.boolean().optional(),

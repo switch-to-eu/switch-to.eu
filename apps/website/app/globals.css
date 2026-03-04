@@ -6,7 +6,7 @@
 
 :root {
   --background: #e5e7eb;
-  --tool-primary: var(--brand-green);
+  --tool-primary: #2d2d2d;
   --tool-primary-foreground: #ffffff;
   --tool-accent: var(--brand-sky);
   --tool-accent-foreground: #1a1a1a;

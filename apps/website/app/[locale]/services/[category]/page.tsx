@@ -114,46 +114,31 @@ export default async function ServicesCategoryPage({
               { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
             ]}
           >
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12">
-              <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4 lg:mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
+              {/* Left: Title + subtitle */}
+              <div>
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
                   {pageTitle}
                 </h1>
-                <p className="text-brand-sky text-base sm:text-lg max-w-2xl">
+                <p className="text-brand-sky text-base sm:text-lg">
                   {pageDescription}
                 </p>
               </div>
 
-              {/* Stats pill */}
-              <div className="flex-shrink-0">
-                <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-3 border border-white/10">
-                  <span className="text-3xl sm:text-4xl font-bold text-brand-yellow">
-                    {euServices.length}
-                  </span>
-                  <span className="text-brand-sky text-sm sm:text-base leading-tight">
-                    EU
-                    <br />
-                    {t("alternatives", {
-                      category: "",
-                    }).trim()}
-                  </span>
+              {/* Right: Description */}
+              {categoryContent && (
+                <div>
+                  {categoryContent.split("\n\n").map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={`text-white/70 text-sm sm:text-base leading-relaxed ${index > 0 ? "mt-3" : ""}`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
-              </div>
+              )}
             </div>
-
-            {/* Category description */}
-            {categoryContent && (
-              <div className="mt-8 pt-6 border-t border-white/10 max-w-3xl">
-                {categoryContent.split("\n\n").map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className={`text-white/70 text-sm sm:text-base leading-relaxed ${index > 0 ? "mt-3" : ""}`}
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            )}
           </Banner>
         </Container>
       </section>
@@ -162,7 +147,6 @@ export default async function ServicesCategoryPage({
       {featuredServices.length > 0 && (
         <section>
           <Container noPaddingMobile>
-            <SectionHeading>{t("featuredAlternatives")}</SectionHeading>
             <div className="flex flex-col gap-6">
               {featuredServices.map((service) => (
                 <RecommendedAlternative
