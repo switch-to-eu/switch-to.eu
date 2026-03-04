@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <BlocksHeader
-      className="bg-border text-foreground [--tool-primary-foreground:var(--foreground)]"
+      className="bg-border text-foreground [--tool-primary:var(--foreground)] border-b-0"
       logo={
         <Link href={`/`} className="flex items-center">
           <h1

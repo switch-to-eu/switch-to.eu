@@ -28,7 +28,7 @@ export const tools: Tool[] = [
     },
     {
         id: 'listy',
-        name: 'Listy',
+        name: 'Listy',  
         description: 'Shared lists for shopping, potlucks, and more',
         url: isDev ? 'https://list.switch-to.test' : 'https://list.switch-to.eu',
         status: 'coming-soon',

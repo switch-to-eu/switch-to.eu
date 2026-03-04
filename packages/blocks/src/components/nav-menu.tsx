@@ -96,7 +96,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                 href={item.href}
                 onMouseEnter={() => open(id)}
                 onMouseLeave={scheduleClose}
-                className="group flex items-center gap-1 px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="group flex items-center gap-1 px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
               >
                 {item.title}
                 <ChevronDown
@@ -119,7 +119,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                 onMouseEnter={() => open(id)}
                 onMouseLeave={scheduleClose}
                 onClick={() => openId === id ? setOpenId(null) : open(id)}
-                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
               >
                 {item.title}
                 <ChevronDown
@@ -137,7 +137,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="inline-flex h-9 items-center px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="inline-flex h-9 items-center px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}

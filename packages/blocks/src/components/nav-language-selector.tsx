@@ -33,7 +33,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
         onMouseLeave={scheduleClose}
         onClick={toggle}
         className={cn(
-          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
+          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
           className,
         )}
       >

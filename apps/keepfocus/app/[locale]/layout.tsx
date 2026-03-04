@@ -56,7 +56,7 @@ export default async function LocaleLayout({
   const navT = await getTranslations({ locale, namespace: 'layout.nav' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
-  const currentYear = new Date().getFullYear();
+
 
   const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
@@ -84,10 +84,10 @@ export default async function LocaleLayout({
             <Link href="/">
               <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
                 <div className="flex items-center justify-center mt-1">
-                  <Package className="h-4 w-4 text-tool-primary-foreground" />
+                  <Package className="h-4 w-4 text-tool-primary" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-lg font-black text-tool-primary-foreground tracking-wide uppercase sm:text-xl leading-none">KeepFocus</span>
+                  <span className="text-lg font-black text-tool-primary tracking-wide uppercase sm:text-xl leading-none">KeepFocus</span>
                   <BrandIndicator locale={locale} variant="compact" className="-mt-0.5" asSpan />
                 </div>
               </div>
@@ -124,31 +124,9 @@ export default async function LocaleLayout({
               external: true,
             },
           ]}
-          copyright={
-            <>
-              &copy; {footerT('copyright', { year: String(currentYear) })}{' '}
-              <a
-                href="https://www.vinnie.studio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
-              >
-                Studio Vinnie
-              </a>
-              {' & '}
-              <a
-                href="https://www.mvpeters.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
-              >
-                MVPeters
-              </a>
-            </>
-          }
           branding={
             <div className="flex flex-col gap-1">
-              <span className="text-lg font-black tracking-wide uppercase text-tool-primary-foreground">KeepFocus</span>
+              <span className="text-lg font-black tracking-wide uppercase text-tool-primary">KeepFocus</span>
               <BrandIndicator locale={locale} />
             </div>
           }

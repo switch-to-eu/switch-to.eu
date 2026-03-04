@@ -1,9 +1,7 @@
 import { Footer as BlocksFooter } from "@switch-to-eu/blocks/components/footer";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 export async function Footer() {
-  const currentYear = new Date().getFullYear();
   const t = await getTranslations("navigation");
   const footerT = await getTranslations("footer");
   const toolsT = await getTranslations("footerTools");
@@ -32,35 +30,13 @@ export async function Footer() {
       ]}
       branding={
         <div className="flex flex-col gap-1">
-          <span className="text-lg font-black tracking-wide uppercase text-white">
+          <span className="text-lg font-black tracking-wide uppercase text-tool-primary">
             Switch-to.eu
           </span>
-          <span className="text-sm text-white/50">
+          <span className="text-sm text-foreground/50">
             EU alternatives to global services
           </span>
         </div>
-      }
-      copyright={
-        <>
-          &copy; {currentYear} switch-to.eu — a project by{" "}
-          <Link
-            href="https://www.vinnie.studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-yellow hover:text-brand-yellow/80 transition-colors font-semibold"
-          >
-            Studio Vinnie
-          </Link>{" "}
-          &amp;{" "}
-          <Link
-            href="https://www.mvpeters.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-yellow hover:text-brand-yellow/80 transition-colors font-semibold"
-          >
-            MVPeters
-          </Link>
-        </>
       }
     />
   );
