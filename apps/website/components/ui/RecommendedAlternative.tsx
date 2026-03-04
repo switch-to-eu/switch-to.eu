@@ -57,7 +57,7 @@ export async function RecommendedAlternative({
           <span className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2 block">
             Recommended by Switch-to.eu
           </span>
-          <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow mb-4">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-yellow mb-4">
             {service.name}
           </h2>
 
