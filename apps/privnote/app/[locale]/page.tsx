@@ -14,188 +14,170 @@ import {
   Trash2,
   Code,
 } from "lucide-react";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
 
   return (
-    <main>
+    <main className="container max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:gap-16 py-8 sm:py-12 md:px-6 lg:px-8">
+
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="header-bg absolute inset-0" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-tool-accent/20 bg-tool-surface/10 px-4 py-1.5 text-sm font-medium text-tool-primary">
-              <Flame className="h-4 w-4" />
-              {t("hero.floatingBadge")}
-            </div>
-            <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-6xl">
-              {t("hero.title")}{" "}
-              <span className="gradient-primary bg-clip-text text-transparent">
-                {t("hero.subtitle")}
-              </span>
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              {t("hero.description")}
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-4">
-              <Link href="/create">
-                <Button size="lg" className="gradient-primary text-white border-0">
-                  <FileWarning className="mr-2 h-5 w-5" />
-                  <span className="hidden sm:inline">{t("hero.cta")}</span>
-                  <span className="sm:hidden">{t("hero.ctaMobile")}</span>
-                </Button>
-              </Link>
-            </div>
-            <p className="mt-4 text-sm text-muted-foreground">{t("hero.disclaimer")}</p>
-          </div>
+      <Banner
+        color="bg-brand-orange"
+        shapes={[
+          { shape: "spark", className: "-top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.15, duration: "8s" },
+          { shape: "blob", className: "-bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40", opacity: 0.1, duration: "10s", delay: "-3s" },
+          { shape: "cross", className: "top-1/4 left-8 w-16 h-16", opacity: 0.1, duration: "7s", delay: "-1.5s" },
+        ]}
+        contentClassName="text-center max-w-3xl mx-auto"
+      >
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white">
+          <Flame className="h-4 w-4" />
+          {t("hero.floatingBadge")}
         </div>
-      </section>
+        <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white mb-6 leading-tight">
+          {t("hero.title")}{" "}
+          <span className="text-brand-yellow">
+            {t("hero.subtitle")}
+          </span>
+        </h1>
+        <p className="text-white/80 text-lg mb-10">
+          {t("hero.description")}
+        </p>
+        <Link href="/create">
+          <Button size="lg" className="bg-brand-yellow text-white hover:bg-brand-yellow/90 border-0 rounded-full px-8 font-semibold">
+            <FileWarning className="mr-2 h-5 w-5" />
+            <span className="hidden sm:inline">{t("hero.cta")}</span>
+            <span className="sm:hidden">{t("hero.ctaMobile")}</span>
+          </Button>
+        </Link>
+        <p className="mt-4 text-sm text-white/60">{t("hero.disclaimer")}</p>
+      </Banner>
 
       {/* Benefits */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t("benefits.title")}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {t("benefits.description")}
+      <div>
+        <div className="text-center mb-10 sm:mb-12 px-3 md:px-0">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-orange mb-4">
+            {t("benefits.title")}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t("benefits.description")}
+          </p>
+        </div>
+        <div className="grid gap-4 md:gap-6 sm:grid-cols-3 px-3 md:px-0">
+          <div className="bg-white border border-brand-orange/20 rounded-3xl p-6 sm:p-8 flex flex-col gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10">
+              <Flame className="h-6 w-6 text-brand-orange" />
+            </div>
+            <h3 className="font-heading text-2xl uppercase text-brand-orange">
+              {t("benefits.selfDestruct.title")}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {t("benefits.selfDestruct.description")}
             </p>
           </div>
-          <div className="mx-auto mt-12 grid max-w-5xl gap-8 sm:grid-cols-3">
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-destructive/10 p-3">
-                <Flame className="h-6 w-6 text-destructive" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("benefits.selfDestruct.title")}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("benefits.selfDestruct.description")}
-              </p>
+          <div className="bg-white border border-brand-orange/20 rounded-3xl p-6 sm:p-8 flex flex-col gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10">
+              <Shield className="h-6 w-6 text-brand-orange" />
             </div>
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-tool-surface/10 p-3">
-                <Shield className="h-6 w-6 text-tool-primary" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("benefits.encrypted.title")}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("benefits.encrypted.description")}
-              </p>
+            <h3 className="font-heading text-2xl uppercase text-brand-orange">
+              {t("benefits.encrypted.title")}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {t("benefits.encrypted.description")}
+            </p>
+          </div>
+          <div className="bg-white border border-brand-orange/20 rounded-3xl p-6 sm:p-8 flex flex-col gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10">
+              <Timer className="h-6 w-6 text-brand-orange" />
             </div>
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-              <div className="mb-4 inline-flex rounded-lg bg-tool-accent/10 p-3">
-                <Timer className="h-6 w-6 text-tool-accent" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("benefits.timer.title")}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("benefits.timer.description")}
-              </p>
-            </div>
+            <h3 className="font-heading text-2xl uppercase text-brand-orange">
+              {t("benefits.timer.title")}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {t("benefits.timer.description")}
+            </p>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* How It Works */}
-      <section className="bg-card py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t("howItWorks.title")}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {t("howItWorks.description")}
-            </p>
-          </div>
-          <div className="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-3">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
-                1
+      <Banner
+        color="bg-brand-orange"
+        shapes={[
+          { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.1, duration: "9s" },
+          { shape: "pebble", className: "-bottom-8 -left-8 w-28 h-28", opacity: 0.08, duration: "8s", delay: "-2s" },
+        ]}
+        contentClassName="text-center max-w-4xl mx-auto"
+      >
+        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4">
+          {t("howItWorks.title")}
+        </h2>
+        <p className="text-white/80 text-lg mb-12">
+          {t("howItWorks.description")}
+        </p>
+        <div className="grid gap-8 sm:grid-cols-3">
+          {([
+            { step: "1", key: "step1" },
+            { step: "2", key: "step2" },
+            { step: "3", key: "step3" },
+          ] as const).map(({ step, key }) => (
+            <div key={key} className="text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-brand-orange font-bold text-lg">
+                {step}
               </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("howItWorks.step1.title")}
+              <h3 className="font-heading text-lg uppercase text-brand-yellow mb-2">
+                {t(`howItWorks.${key}.title`)}
               </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("howItWorks.step1.description")}
+              <p className="text-white/70 text-sm">
+                {t(`howItWorks.${key}.description`)}
               </p>
             </div>
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("howItWorks.step2.title")}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("howItWorks.step2.description")}
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full gradient-primary text-white font-bold text-lg">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {t("howItWorks.step3.title")}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {t("howItWorks.step3.description")}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </Banner>
 
       {/* Trust Badges */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
-              <Mail className="h-4 w-4 text-muted-foreground" />
-              {t("trust.badges.noEmail")}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
-              <Trash2 className="h-4 w-4 text-muted-foreground" />
-              {t("trust.badges.autoDelete")}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
-              <Lock className="h-4 w-4 text-muted-foreground" />
-              {t("trust.badges.encrypted")}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground">
-              <Code className="h-4 w-4 text-muted-foreground" />
-              {t("trust.badges.european")}
-            </span>
-          </div>
-        </div>
-      </section>
+      <div className="flex flex-wrap items-center justify-center gap-3 px-3 md:px-0">
+        {([
+          { icon: Mail, key: "noEmail" },
+          { icon: Trash2, key: "autoDelete" },
+          { icon: Lock, key: "encrypted" },
+          { icon: Code, key: "european" },
+        ] as const).map(({ icon: Icon, key }) => (
+          <span key={key} className="inline-flex items-center gap-2 rounded-full border border-brand-orange/20 bg-white px-4 py-2 text-sm text-brand-orange font-medium">
+            <Icon className="h-4 w-4 text-brand-orange/60" />
+            {t(`trust.badges.${key}`)}
+          </span>
+        ))}
+      </div>
 
       {/* CTA */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl rounded-2xl gradient-primary p-8 text-center text-white sm:p-12">
-            <h2 className="text-2xl font-bold sm:text-3xl">{t("cta.title")}</h2>
-            <p className="mt-4 text-white/80">{t("cta.description")}</p>
-            <div className="mt-8">
-              <Link href="/create">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-card text-foreground hover:bg-muted"
-                >
-                  <span className="hidden sm:inline">{t("cta.button")}</span>
-                  <span className="sm:hidden">{t("cta.buttonMobile")}</span>
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Banner
+        color="bg-brand-orange"
+        shapes={[
+          { shape: "tulip", className: "-top-6 -right-6 w-36 h-36", opacity: 0.1, duration: "7s" },
+        ]}
+        contentClassName="text-center max-w-2xl mx-auto"
+      >
+        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4">
+          {t("cta.title")}
+        </h2>
+        <p className="text-white/80 text-lg mb-8">
+          {t("cta.description")}
+        </p>
+        <Link href="/create">
+          <Button
+            size="lg"
+            className="bg-brand-yellow text-white hover:bg-brand-yellow/90 border-0 rounded-full px-8 font-semibold"
+          >
+            <span className="hidden sm:inline">{t("cta.button")}</span>
+            <span className="sm:hidden">{t("cta.buttonMobile")}</span>
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+      </Banner>
     </main>
   );
 }

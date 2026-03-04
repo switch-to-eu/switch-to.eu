@@ -85,7 +85,6 @@ export default async function LocaleLayout({
             navigation={
               <>
                 <NavMenu navItems={navItems} />
-                <NavLanguageSelector locale={locale as Locale} />
                 <HeaderFeedback toolId="plotty" />
                 <Link href="/create">
                   <Button size="sm" variant="secondary">
@@ -93,6 +92,7 @@ export default async function LocaleLayout({
                     {t('createPoll')}
                   </Button>
                 </Link>
+                <NavLanguageSelector locale={locale as Locale} />
               </>
             }
             mobileNavigation={

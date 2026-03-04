@@ -91,7 +91,7 @@ export default async function McpPage() {
       <div className="container mx-auto max-w-4xl px-6 py-16">
         {/* Hero */}
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green">
             {t("hero.title")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">{t("hero.subtitle")}</p>
@@ -109,7 +109,7 @@ export default async function McpPage() {
 
         {/* What is MCP */}
         <div className="mb-16">
-          <h2 className="mb-4 text-2xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-2xl sm:text-3xl uppercase text-brand-green">
             {t("whatIsMcp.title")}
           </h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -119,7 +119,7 @@ export default async function McpPage() {
 
         {/* Available Tools */}
         <div className="mb-16">
-          <h2 className="mb-8 text-2xl font-bold text-foreground">
+          <h2 className="mb-8 font-heading text-2xl sm:text-3xl uppercase text-brand-green">
             {t("tools.title")}
           </h2>
           <div className="space-y-4">
@@ -154,7 +154,7 @@ export default async function McpPage() {
 
         {/* Setup Instructions */}
         <div className="mb-16 space-y-10">
-          <h2 className="mb-8 text-2xl font-bold text-foreground">
+          <h2 className="mb-8 font-heading text-2xl sm:text-3xl uppercase text-brand-green">
             {t("setup.title")}
           </h2>
 

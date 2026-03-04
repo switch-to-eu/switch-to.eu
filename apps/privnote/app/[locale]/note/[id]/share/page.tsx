@@ -70,7 +70,7 @@ export default function SharePage() {
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
           <Check className="h-8 w-8 text-success" />
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <h1 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
           {t("title")}
         </h1>
         <p className="mt-3 text-muted-foreground">{t("description")}</p>

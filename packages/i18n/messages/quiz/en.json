@@ -11,7 +11,8 @@
         },
         "nav": {
             "about": "About",
-            "mcp": "MCP"
+            "mcp": "MCP",
+            "tools": "Tools"
         },
         "footer": {
             "about": "About",
@@ -45,6 +46,7 @@
         "hero": {
             "title": "Live Quizzes,",
             "titleHighlight": "No Sign-Up Required",
+            "badge": "Live & Interactive",
             "subtitle": "Create interactive quizzes in seconds. Participants join with a link or QR code. Compete on a real-time leaderboard. All fully encrypted.",
             "createQuiz": "Create a Quiz"
         },
@@ -70,6 +72,18 @@
         "privacy": {
             "title": "Privacy First",
             "description": "All quiz content is end-to-end encrypted. The server never sees your questions or answers. Quizzes auto-expire after the time you choose."
+        },
+        "trust": {
+            "badges": {
+                "encrypted": "End-to-end encrypted",
+                "realtime": "Real-time gameplay",
+                "european": "European hosted"
+            }
+        },
+        "cta": {
+            "title": "Ready to Quiz?",
+            "description": "Create a live quiz in seconds. No sign-up required.",
+            "button": "Create Your Quiz"
         }
     },
     "create": {
@@ -196,14 +210,22 @@
         "title": "About Quiz",
         "description": "Quiz is a free, privacy-first live quiz tool. Create interactive quizzes, share a link, and compete in real-time — all without accounts or tracking.",
         "howItWorks": "How it works",
+        "step1Title": "Create",
         "step1": "Create a quiz with multiple-choice questions",
+        "step2Title": "Share",
         "step2": "Share the link or QR code with participants",
+        "step3Title": "Play",
         "step3": "Control the quiz flow as the presenter",
+        "step4Title": "Results",
         "step4": "Participants answer in real-time and see the leaderboard",
-        "privacy": "Privacy",
-        "privacyText": "All quiz content is end-to-end encrypted. The encryption key is stored in the URL fragment and never sent to our servers. Quizzes automatically expire after the time you choose.",
+        "privacy": "Privacy & Security",
+        "privacyEncryptionTitle": "End-to-End Encrypted",
+        "privacyEncryption": "All quiz content is encrypted in your browser. The server never sees your questions or answers.",
+        "privacyNoTrackingTitle": "No Tracking",
+        "privacyNoTracking": "No cookies, no analytics, no accounts required. Quizzes auto-expire after the time you choose.",
         "openSource": "Open Source",
-        "openSourceText": "Quiz is part of the switch-to.eu platform, helping users find and use EU-based digital tools."
+        "openSourceText": "Quiz is part of the switch-to.eu platform, helping users find and use EU-based digital tools.",
+        "ctaButton": "Create a Quiz"
     },
     "privacy": {
         "title": "Privacy Policy",

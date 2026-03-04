@@ -1,24 +1,25 @@
 import "./styles/globals.css";
 
 import { type Metadata } from "next";
-import { FileWarning, Plus } from "lucide-react";
+import { FileWarning } from "lucide-react";
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { getTranslations } from "next-intl/server";
 
 import { TRPCReactProvider } from "@/lib/trpc-client";
 import { Header } from "@switch-to-eu/blocks/components/header";
 import { Footer } from "@switch-to-eu/blocks/components/footer";
-import { Button } from "@switch-to-eu/ui/components/button";
+
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { MainNavClient } from "../../components/main-nav-client";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import { type MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 
 export async function generateMetadata({
   params,
@@ -47,15 +48,28 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const t = await getTranslations({ locale, namespace: "layout.header" });
   const navT = await getTranslations({ locale, namespace: "layout.nav" });
   const footerT = await getTranslations({ locale, namespace: "layout.footer" });
   const toolsT = await getTranslations({ locale, namespace: "footerTools" });
   const currentYear = new Date().getFullYear();
 
+  const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
-    { title: navT("about"), href: "/about" },
     { title: navT("mcp"), href: "/mcp" },
+    {
+      title: navT("tools"),
+      dropdown: "mega",
+      children: allTools
+        .filter(tool => tool.id !== "privnote")
+        .map(tool => ({
+          title: tool.name,
+          href: tool.url,
+          description: toolsT(tool.id as Parameters<typeof toolsT>[0]),
+          icon: tool.icon,
+          isExternal: true,
+          disabled: tool.status !== "active",
+        })),
+    },
   ];
 
   return (
@@ -87,26 +101,14 @@ export default async function LocaleLayout({
                 }
                 navigation={
                   <>
-                    <NavMenu navItems={navItems} />
-                    <NavLanguageSelector locale={locale as Locale} />
+                    <MainNavClient navItems={navItems} />
                     <HeaderFeedback toolId="privnote" />
-                    <Link href="/create">
-                      <Button size="sm" variant="secondary">
-                        <Plus className="mr-2 h-4 w-4" />
-                        {t("createNote")}
-                      </Button>
-                    </Link>
+                    <NavLanguageSelector locale={locale as Locale} />
                   </>
                 }
                 mobileNavigation={
                   <MobileNav navItems={navItems} locale={locale as Locale}>
                     <HeaderFeedback toolId="privnote" />
-                    <Link href="/create">
-                      <Button size="sm" variant="secondary" className="w-full">
-                        <Plus className="mr-2 h-4 w-4" />
-                        {t("createNote")}
-                      </Button>
-                    </Link>
                   </MobileNav>
                 }
               />
@@ -117,10 +119,6 @@ export default async function LocaleLayout({
                 toolsSectionTitle={toolsT("sectionTitle")}
                 linksSectionTitle={toolsT("linksTitle")}
                 links={[
-                  {
-                    label: footerT("about"),
-                    href: "/about",
-                  },
                   {
                     label: footerT("privacy"),
                     href: "/privacy",

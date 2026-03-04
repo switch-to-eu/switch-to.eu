@@ -11,7 +11,8 @@
         },
         "nav": {
             "about": "Over",
-            "mcp": "MCP"
+            "mcp": "MCP",
+            "tools": "Tools"
         },
         "footer": {
             "about": "Over",
@@ -45,6 +46,7 @@
         "hero": {
             "title": "Live Quizzen,",
             "titleHighlight": "Geen Registratie Nodig",
+            "badge": "Live & Interactief",
             "subtitle": "Maak interactieve quizzen in seconden. Deelnemers doen mee via een link of QR-code. Strijd op een real-time scorebord. Volledig versleuteld.",
             "createQuiz": "Maak een Quiz"
         },
@@ -70,6 +72,18 @@
         "privacy": {
             "title": "Privacy Eerst",
             "description": "Alle quizinhoud is end-to-end versleuteld. De server ziet nooit je vragen of antwoorden. Quizzen verlopen automatisch na de door jou gekozen tijd."
+        },
+        "trust": {
+            "badges": {
+                "encrypted": "End-to-end versleuteld",
+                "realtime": "Real-time gameplay",
+                "european": "Europees gehost"
+            }
+        },
+        "cta": {
+            "title": "Klaar om te Quizzen?",
+            "description": "Maak een live quiz in seconden. Geen registratie nodig.",
+            "button": "Maak Je Quiz"
         }
     },
     "create": {
@@ -196,14 +210,22 @@
         "title": "Over Quiz",
         "description": "Quiz is een gratis, privacy-first live quiztool. Maak interactieve quizzen, deel een link en strijd in real-time — alles zonder accounts of tracking.",
         "howItWorks": "Hoe het werkt",
+        "step1Title": "Maak",
         "step1": "Maak een quiz met meerkeuzevragen",
+        "step2Title": "Deel",
         "step2": "Deel de link of QR-code met deelnemers",
+        "step3Title": "Speel",
         "step3": "Beheer de quizflow als presentator",
+        "step4Title": "Resultaten",
         "step4": "Deelnemers beantwoorden in real-time en zien het scorebord",
-        "privacy": "Privacy",
-        "privacyText": "Alle quizinhoud is end-to-end versleuteld. De encryptiesleutel wordt opgeslagen in het URL-fragment en wordt nooit naar onze servers gestuurd. Quizzen verlopen automatisch na de door jou gekozen tijd.",
+        "privacy": "Privacy & Beveiliging",
+        "privacyEncryptionTitle": "End-to-End Versleuteld",
+        "privacyEncryption": "Alle quizinhoud wordt in je browser versleuteld. De server ziet nooit je vragen of antwoorden.",
+        "privacyNoTrackingTitle": "Geen Tracking",
+        "privacyNoTracking": "Geen cookies, geen analytics, geen accounts nodig. Quizzen verlopen automatisch na de door jou gekozen tijd.",
         "openSource": "Open Source",
-        "openSourceText": "Quiz maakt deel uit van het switch-to.eu-platform, dat gebruikers helpt om EU-gebaseerde digitale tools te vinden en te gebruiken."
+        "openSourceText": "Quiz maakt deel uit van het switch-to.eu-platform, dat gebruikers helpt om EU-gebaseerde digitale tools te vinden en te gebruiken.",
+        "ctaButton": "Maak een Quiz"
     },
     "privacy": {
         "title": "Privacybeleid",

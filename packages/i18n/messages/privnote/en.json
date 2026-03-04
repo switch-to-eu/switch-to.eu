@@ -11,7 +11,8 @@
     },
     "nav": {
       "about": "About",
-      "mcp": "MCP"
+      "mcp": "MCP",
+      "tools": "Tools"
     },
     "footer": {
       "about": "About",
@@ -94,6 +95,7 @@
     "burnAfterReadingDescription": "Note will be permanently deleted immediately after it's opened",
     "passwordLabel": "Password protection (optional)",
     "passwordPlaceholder": "Enter a password",
+    "termsLabel": "I agree to the <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms>",
     "createButton": "Create Note",
     "creatingButton": "Creating..."
   },

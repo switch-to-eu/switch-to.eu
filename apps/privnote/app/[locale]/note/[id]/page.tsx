@@ -153,7 +153,7 @@ export default function ViewNotePage() {
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
             <FileX className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
             {t("notFound")}
           </h1>
           <p className="mt-3 text-muted-foreground">
@@ -180,7 +180,7 @@ export default function ViewNotePage() {
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
             <Eye className="h-8 w-8 text-tool-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
             {t("noteContent")}
           </h1>
         </div>
@@ -236,7 +236,7 @@ export default function ViewNotePage() {
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
           <FileX className="h-8 w-8 text-tool-primary" />
         </div>
-        <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+        <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">{t("title")}</h1>
       </div>
 
       <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">

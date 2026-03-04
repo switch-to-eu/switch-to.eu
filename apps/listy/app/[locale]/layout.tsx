@@ -81,7 +81,6 @@ export default async function LocaleLayout({
                 navigation={
                   <>
                     <NavMenu navItems={navItems} />
-                    <NavLanguageSelector locale={locale as Locale} />
                     <HeaderFeedback toolId="listy" />
                     <Link href="/create">
                       <Button size="sm" variant="secondary">
@@ -89,6 +88,7 @@ export default async function LocaleLayout({
                         {t('createList')}
                       </Button>
                     </Link>
+                    <NavLanguageSelector locale={locale as Locale} />
                   </>
                 }
                 mobileNavigation={

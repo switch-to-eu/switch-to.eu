@@ -11,7 +11,8 @@
     },
     "nav": {
       "about": "Over",
-      "mcp": "MCP"
+      "mcp": "MCP",
+      "tools": "Tools"
     },
     "footer": {
       "about": "Over",
@@ -94,6 +95,7 @@
     "burnAfterReadingDescription": "Notitie wordt permanent verwijderd direct na het openen",
     "passwordLabel": "Wachtwoordbeveiliging (optioneel)",
     "passwordPlaceholder": "Voer een wachtwoord in",
+    "termsLabel": "Ik ga akkoord met het <privacy>Privacybeleid</privacy> en de <terms>Servicevoorwaarden</terms>",
     "createButton": "Notitie Aanmaken",
     "creatingButton": "Aanmaken..."
   },

@@ -23,7 +23,8 @@
     "max": "This value is too high.",
     "arrayMinLength": "Please select at least one option.",
     "futureDate": "Please select a date in the future.",
-    "minQuestions": "Please add at least one question."
+    "minQuestions": "Please add at least one question.",
+    "termsRequired": "You must accept the terms to continue."
   },
   "feedback": {
     "triggerButton": "Feedback",

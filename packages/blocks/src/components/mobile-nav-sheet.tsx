@@ -1,16 +1,18 @@
 "use client";
 
 import { type ReactNode, useState, useEffect, useRef } from "react";
+import { Menu } from "lucide-react";
+import { Button } from "@switch-to-eu/ui/components/button";
 import { Sheet, SheetContent, SheetTrigger } from "@switch-to-eu/ui/components/sheet";
 import { usePathname } from "@switch-to-eu/i18n/navigation";
 
 interface MobileNavSheetProps {
-  trigger: ReactNode;
   children: ReactNode;
   colorClassName?: string;
+  menuLabel?: string;
 }
 
-export function MobileNavSheet({ trigger, children, colorClassName = "text-tool-primary" }: MobileNavSheetProps) {
+export function MobileNavSheet({ children, colorClassName = "text-tool-primary", menuLabel = "Menu" }: MobileNavSheetProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const prevPathname = useRef(pathname);
@@ -26,7 +28,10 @@ export function MobileNavSheet({ trigger, children, colorClassName = "text-tool-
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        {trigger}
+        <Button variant="ghost" size="icon" className="text-tool-primary-foreground hover:bg-tool-primary-foreground/10">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">{menuLabel}</span>
+        </Button>
       </SheetTrigger>
       <SheetContent
         side="right"

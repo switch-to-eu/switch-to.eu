@@ -1,6 +1,5 @@
 import { type ReactNode } from "react";
-import { ExternalLink, Menu } from "lucide-react";
-import { Button } from "@switch-to-eu/ui/components/button";
+import { ExternalLink } from "lucide-react";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { type Locale } from "@switch-to-eu/i18n/routing";
 import { MobileLanguageSelector } from "./mobile-language-selector";
@@ -21,6 +20,14 @@ interface MobileNavProps {
 }
 
 function DefaultDropdownChild({ child }: { child: SubNavItem }) {
+  if (child.disabled) {
+    return (
+      <div className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[15px] font-medium opacity-40 cursor-default">
+        {child.title}
+      </div>
+    );
+  }
+
   return (
     <Link
       href={child.href}
@@ -38,12 +45,7 @@ export function MobileNav({ navItems, locale, menuLabel = "Menu", renderDropdown
   return (
     <MobileNavSheet
       colorClassName={colorClassName}
-      trigger={
-        <Button variant="ghost" size="icon" className="md:hidden text-tool-primary-foreground hover:bg-tool-primary-foreground/10">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">{menuLabel}</span>
-        </Button>
-      }
+      menuLabel={menuLabel}
     >
       <nav className="flex flex-col gap-0 pt-12">
         {navItems.map((item, index) => {

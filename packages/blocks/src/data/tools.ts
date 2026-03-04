@@ -15,7 +15,7 @@ export const tools: Tool[] = [
         name: 'EU-Scan',
         description: 'Scan any website to check its EU compliance and data practices',
         url: isDev ? 'https://scan.switch-to.test' : 'https://scan.switch-to.eu',
-        status: 'coming-soon',
+        status: 'active',
         icon: 'globe'
     },
     {
@@ -47,7 +47,7 @@ export const tools: Tool[] = [
         name: 'PrivNote',
         description: 'Self-destructing encrypted notes for sensitive info',
         url: isDev ? 'https://note.switch-to.test' : 'https://privnote.switch-to.eu',
-        status: 'coming-soon',
+        status: 'active',
         icon: 'file-lock'
     },
     {

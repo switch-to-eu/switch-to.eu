@@ -35,12 +35,14 @@ export function CreateNoteForm() {
     resolver: zodResolver(createNoteSchema({
       required: v("required"),
       maxLength: v("maxLength"),
+      termsRequired: v("termsRequired"),
     })),
     defaultValues: {
       content: "",
       expiry: "24h",
       burnAfterReading: true,
       password: "",
+      termsAccepted: false,
     },
   });
 
@@ -190,6 +192,54 @@ export function CreateNoteForm() {
                 autoComplete="off"
               />
             </FieldContent>
+          </Field>
+        )}
+      />
+
+      {/* Terms acceptance */}
+      <Controller
+        name="termsAccepted"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5">
+                <Checkbox
+                  id={field.name}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={field.name} className="text-sm text-muted-foreground leading-tight cursor-pointer">
+                  {t.rich("termsLabel", {
+                    privacy: (chunks) => (
+                      <a
+                        href="https://switch-to.eu/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-tool-primary hover:underline"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                    terms: (chunks) => (
+                      <a
+                        href="https://switch-to.eu/terms"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-tool-primary hover:underline"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                </label>
+                {fieldState.error && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </div>
+            </div>
           </Field>
         )}
       />

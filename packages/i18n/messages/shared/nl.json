@@ -23,7 +23,8 @@
     "max": "Deze waarde is te hoog.",
     "arrayMinLength": "Selecteer minimaal één optie.",
     "futureDate": "Selecteer een datum in de toekomst.",
-    "minQuestions": "Voeg minimaal één vraag toe."
+    "minQuestions": "Voeg minimaal één vraag toe.",
+    "termsRequired": "U moet de voorwaarden accepteren om door te gaan."
   },
   "feedback": {
     "triggerButton": "Feedback",

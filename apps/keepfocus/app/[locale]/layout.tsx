@@ -66,14 +66,14 @@ export default async function LocaleLayout({
       children: allTools
         .filter(tool => tool.id !== 'keepfocus')
         .map(tool => ({
-          title: tool.status === 'coming-soon' ? `${tool.name}::soon` : tool.name,
+          title: tool.name,
           href: tool.url,
           description: toolsT(tool.id as Parameters<typeof toolsT>[0]),
           icon: tool.icon,
           isExternal: true,
+          disabled: tool.status !== 'active',
         })),
     },
-    { title: navT('about'), href: '/about' },
   ];
 
   return (
@@ -96,8 +96,8 @@ export default async function LocaleLayout({
           navigation={
             <>
               <MainNavClient navItems={navItems} />
-              <NavLanguageSelector locale={locale as Locale} />
               <HeaderFeedback toolId="keepfocus" />
+              <NavLanguageSelector locale={locale as Locale} />
             </>
           }
           mobileNavigation={
@@ -113,10 +113,6 @@ export default async function LocaleLayout({
           toolsSectionTitle={toolsT('sectionTitle')}
           linksSectionTitle={toolsT('linksTitle')}
           links={[
-            {
-              label: footerT('about'),
-              href: '/about',
-            },
             {
               label: footerT('privacy'),
               href: 'https://switch-to.eu/privacy',

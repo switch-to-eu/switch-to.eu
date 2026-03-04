@@ -12,10 +12,11 @@ import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { MainNavClient } from "../../components/main-nav-client";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 
 export async function generateMetadata({
   params,
@@ -60,9 +61,23 @@ export default async function LocaleLayout({
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
   const currentYear = new Date().getFullYear();
 
+  const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
-    { title: navT('about'), href: '/about' },
     { title: navT('mcp'), href: '/mcp' },
+    {
+      title: navT('tools'),
+      dropdown: 'mega',
+      children: allTools
+        .filter(tool => tool.id !== 'quiz')
+        .map(tool => ({
+          title: tool.name,
+          href: tool.url,
+          description: toolsT(tool.id as Parameters<typeof toolsT>[0]),
+          icon: tool.icon,
+          isExternal: true,
+          disabled: tool.status !== 'active',
+        })),
+    },
   ];
 
   return (
@@ -85,7 +100,7 @@ export default async function LocaleLayout({
             }
             navigation={
               <>
-                <NavMenu navItems={navItems} />
+                <MainNavClient navItems={navItems} />
                 
                 <HeaderFeedback toolId="quiz" />
                 
@@ -118,10 +133,6 @@ export default async function LocaleLayout({
             toolsSectionTitle={toolsT('sectionTitle')}
             linksSectionTitle={toolsT('linksTitle')}
             links={[
-              {
-                label: footerT('about'),
-                href: '/about',
-              },
               {
                 label: footerT('privacy'),
                 href: '/privacy',

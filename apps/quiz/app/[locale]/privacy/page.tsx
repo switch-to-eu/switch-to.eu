@@ -13,7 +13,7 @@ export default function PrivacyPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="font-heading text-3xl font-bold mb-4">{t("title")}</h1>
+      <h1 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">{t("title")}</h1>
       <p className="text-muted-foreground mb-8">{t("intro")}</p>
 
       <div className="space-y-8">
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
               </div>
             </div>
             <div>
-              <h2 className="font-semibold mb-2">{t(`${key}.title`)}</h2>
+              <h2 className="font-heading text-lg uppercase text-brand-green mb-2">{t(`${key}.title`)}</h2>
               <p className="text-muted-foreground">{t(`${key}.description`)}</p>
             </div>
           </section>
