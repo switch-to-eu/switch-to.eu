@@ -52,7 +52,7 @@ export default async function LocaleLayout({
     locale,
     namespace: "layout.footer",
   });
-  const currentYear = new Date().getFullYear();
+
 
   const navItems: MainNavItem[] = [];
 
@@ -64,10 +64,10 @@ export default async function LocaleLayout({
           <Link href="/">
             <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
               <div className="flex items-center justify-center mt-1">
-                <Globe className="h-4 w-4 text-tool-primary-foreground" />
+                <Globe className="h-4 w-4 text-tool-primary" />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-black text-tool-primary-foreground tracking-wide uppercase sm:text-xl leading-none">
+                <span className="text-lg font-black text-tool-primary tracking-wide uppercase sm:text-xl leading-none">
                   EU-Scan
                 </span>
                 <BrandIndicator
@@ -108,28 +108,6 @@ export default async function LocaleLayout({
             external: true,
           },
         ]}
-        copyright={
-          <>
-            &copy; {footerT("copyright", { year: String(currentYear) })}{" "}
-            <a
-              href="https://www.vinnie.studio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
-            >
-              Studio Vinnie
-            </a>
-            {" & "}
-            <a
-              href="https://www.mvpeters.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
-            >
-              MVPeters
-            </a>
-          </>
-        }
         branding={
           <BrandIndicator locale={locale} variant="compact" asSpan />
         }

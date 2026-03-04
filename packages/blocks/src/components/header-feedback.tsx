@@ -16,7 +16,7 @@ export function HeaderFeedback({ toolId }: HeaderFeedbackProps) {
       trigger={
         <button
           type="button"
-          className="px-4 py-2 text-sm text-tool-primary-foreground uppercase tracking-wide hover:underline cursor-pointer [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+          className="px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline cursor-pointer [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
         >
           {t("triggerButton")}
         </button>

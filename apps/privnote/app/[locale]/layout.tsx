@@ -51,7 +51,7 @@ export default async function LocaleLayout({
   const navT = await getTranslations({ locale, namespace: "layout.nav" });
   const footerT = await getTranslations({ locale, namespace: "layout.footer" });
   const toolsT = await getTranslations({ locale, namespace: "footerTools" });
-  const currentYear = new Date().getFullYear();
+
 
   const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
@@ -83,10 +83,10 @@ export default async function LocaleLayout({
                   <Link href="/">
                     <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
                       <div className="flex items-center justify-center mt-1">
-                        <FileWarning className="h-4 w-4 text-tool-primary-foreground" />
+                        <FileWarning className="h-4 w-4 text-tool-primary" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-lg font-black text-tool-primary-foreground tracking-wide uppercase sm:text-xl leading-none">
+                        <span className="text-lg font-black text-tool-primary tracking-wide uppercase sm:text-xl leading-none">
                           PrivNote
                         </span>
                         <BrandIndicator
@@ -128,27 +128,9 @@ export default async function LocaleLayout({
                     href: "/mcp",
                   },
                 ]}
-                copyright={
-                  <>
-                    &copy;{" "}
-                    {footerT.rich("copyright", {
-                      year: String(currentYear),
-                      link: (chunks) => (
-                        <a
-                          href="https://switch-to.eu"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-tool-primary-foreground/70 hover:text-brand-yellow transition-colors font-semibold underline"
-                        >
-                          {chunks}
-                        </a>
-                      ),
-                    })}
-                  </>
-                }
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary-foreground">PrivNote</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary">PrivNote</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }

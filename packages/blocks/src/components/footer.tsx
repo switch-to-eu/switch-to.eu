@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import { FooterTools } from "./footer-tools";
 import { FooterFeedback } from "./footer-feedback";
+import { FooterCopyright } from "./footer-copyright";
 
 export interface FooterLink {
   /** Link text or label */
@@ -64,7 +65,7 @@ export function Footer({
       {links.length > 0 && (
         <div>
           {linksSectionTitle && (
-            <h3 className="text-sm font-semibold text-tool-primary-foreground mb-3">
+            <h3 className="text-sm font-semibold text-tool-primary mb-3">
               {linksSectionTitle}
             </h3>
           )}
@@ -73,7 +74,7 @@ export function Footer({
               <li key={index}>
                 <a
                   href={link.href}
-                  className="text-sm text-tool-primary-foreground/60 transition-colors hover:text-brand-yellow"
+                  className="text-sm text-foreground/70 transition-colors hover:text-tool-primary"
                   {...(link.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
@@ -83,6 +84,7 @@ export function Footer({
               </li>
             ))}
           </ul>
+          
           {feedbackToolId && (
             <div className="mt-2">
               <FooterFeedback toolId={feedbackToolId} />
@@ -92,19 +94,19 @@ export function Footer({
       )}
 
       {/* Branding + Copyright Column */}
-      {(branding || copyright) && (
-        <div className="flex flex-col gap-4">
-          {branding}
-          {copyright && (
-            <p className="text-xs text-tool-primary-foreground/40">{copyright}</p>
-          )}
-        </div>
-      )}
+      <div className="flex flex-col gap-4">
+        {branding}
+        {copyright !== undefined ? (
+          copyright && <p className="text-xs text-foreground/40">{copyright}</p>
+        ) : (
+          <FooterCopyright />
+        )}
+      </div>
     </div>
   );
 
   return (
-    <footer className={cn("bg-tool-primary text-tool-primary-foreground py-8 md:py-12", className)}>
+    <footer className={cn("bg-white text-tool-primary border-t-[3px] border-tool-primary py-8 md:py-12", className)}>
       {useContainer ? (
         <div
           className={cn(

@@ -28,7 +28,7 @@ export function MobileNavSheet({ children, colorClassName = "text-tool-primary",
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-tool-primary-foreground hover:bg-tool-primary-foreground/10">
+        <Button variant="ghost" size="icon" className="text-tool-primary hover:bg-tool-primary/10">
           <Menu className="h-5 w-5" />
           <span className="sr-only">{menuLabel}</span>
         </Button>

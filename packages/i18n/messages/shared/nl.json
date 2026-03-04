@@ -3,6 +3,9 @@
     "en": "English",
     "nl": "Nederlands"
   },
+  "footer": {
+    "copyright": "{year} <link>switch-to.eu</link> — een project van"
+  },
   "footerTools": {
     "sectionTitle": "Onze Tools",
     "linksTitle": "Links",
