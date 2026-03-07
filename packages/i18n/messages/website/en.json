@@ -101,7 +101,8 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "contactUs": "Contact Us",
-    "poweredBy": "Powered by"
+    "poweredBy": "Powered by",
+    "copyright": "{year} <link>Switch-to.eu</link>."
   },
   "privacy": {
     "title": "Privacy Policy | Switch-to.EU",
@@ -120,6 +121,9 @@
     "ctaButton": "Request a Service",
     "ctaTitle": "Missing a service? Let us know!",
     "ctaDescription": "Can't find the service you're looking for? Tell us which service you'd like to see and we might add it to our platform.",
+    "suggestCardTitle": "Missing a service?",
+    "suggestCardDescription": "Know an EU alternative that should be listed here? Tell us about it and we'll look into adding it.",
+    "suggestCardButton": "Suggest a service",
     "feedbackModalTitle": "Request a Service",
     "serviceRequestTitle": "Request a New Service",
     "serviceRequestDescription": "Help us expand our catalog by suggesting EU-based services that should be added to Switch-to.eu.",
@@ -457,7 +461,9 @@
         "title": "Recommended Alternative",
         "startingPrice": "Starting Price",
         "migrateFrom": "Migrate {source} To {target}",
-        "viewDetails": "View Service Details"
+        "viewDetails": "View Service Details",
+        "badge": "Recommended by Switch-to.eu",
+        "featured": "Featured"
       }
     }
   },
@@ -632,6 +638,14 @@
       "continueButton": "Continue"
     },
     "unnamedStep": "Unnamed Step {number}"
+  },
+  "landingPages": {
+    "recommendedAlternatives": "Recommended European Alternatives",
+    "whySwitch": "Why Switch?",
+    "readMore": "Read more",
+    "viewAllAlternatives": "View all alternatives",
+    "howToCancel": "How to Cancel",
+    "exploreAlternatives": "Explore alternatives"
   },
   "newsletter": {
     "title": "Subscribe to our newsletter",

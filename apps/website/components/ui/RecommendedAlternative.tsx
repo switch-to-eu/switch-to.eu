@@ -34,7 +34,7 @@ export async function RecommendedAlternative({
                 {service.name.charAt(0)}
               </div>
               <span className="text-white/60 text-xs font-semibold uppercase tracking-widest">
-                Recommended by Switch-to.eu
+                {t("detail.recommendedAlternative.badge")}
               </span>
             </div>
             <DecorativeShape
@@ -55,7 +55,7 @@ export async function RecommendedAlternative({
           />
 
           <span className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2 block">
-            Recommended by Switch-to.eu
+            {t("detail.recommendedAlternative.featured")}
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-yellow mb-4">
             {service.name}
@@ -128,11 +128,25 @@ export async function RecommendedAlternative({
         {/* Right: Screenshot */}
         {service.screenshot && (
           <div className="flex justify-center md:justify-end p-6 md:p-8">
-            <img
-              src={service.screenshot}
-              alt={service.name}
-              className="w-full h-auto object-cover rounded-2xl"
-            />
+            <div className="relative w-full">
+              <img
+                src={service.screenshot}
+                alt={service.name}
+                className="w-full h-auto object-cover rounded-2xl"
+              />
+              <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 flex items-center justify-center">
+                <svg
+                  viewBox="0 0 362.94 366"
+                  className="w-28 h-28 sm:w-32 sm:h-32 text-brand-yellow drop-shadow-lg"
+                  aria-hidden="true"
+                >
+                  <path d="M166.52,360.05c-19.36-8.03-41.21-5.87-62.05-8.18-20.83-2.31-43.84-11.92-49.96-31.97-5.04-16.53,3.15-34.97-2.06-51.44-7.81-24.66-41.25-33.37-50.23-57.63-5.76-15.55.46-33.1,9.58-46.95,9.12-13.85,21.14-25.78,28.87-40.45,9.68-18.35,11.97-39.62,18.8-59.21,6.84-19.59,20.83-39.25,41.35-42.33,16.4-2.46,32.59,6.32,49.17,5.87,18.39-.5,34.31-12.06,50.84-20.14,16.53-8.08,38.34-12.16,51.86.32,10.92,10.08,12.24,27.37,22.51,38.11,10.86,11.35,28.27,12.28,43.85,14.26,15.58,1.98,33.43,7.89,38.23,22.84,3.89,12.1-2.62,24.95-9.81,35.44-7.19,10.48-15.61,21.27-16.03,33.97-.48,14.6,9.66,27.06,18.34,38.81,8.68,11.75,16.7,26.67,11.52,40.33-4.55,12-17.57,18.24-29.7,22.43-12.13,4.19-25.41,8.09-33.15,18.33-7.32,9.68-7.87,22.65-10.36,34.53-2.49,11.88-9.05,24.89-20.98,27.1-9.14,1.69-18.26-3.67-27.54-3.14-9.6.55-17.69,7.25-24.25,14.28-6.56,7.04-12.63,14.95-21.2,19.33-8.56,4.38-17.86-2.34-27.61-4.49" fill="currentColor"/>
+                </svg>
+                <span className="absolute text-brand-green text-[9px] sm:text-[11px] font-bold uppercase leading-tight text-center px-2">
+                  Recommended<br/>by Switch-to.eu
+                </span>
+              </div>
+            </div>
           </div>
         )}
       </div>

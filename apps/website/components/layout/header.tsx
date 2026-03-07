@@ -6,7 +6,6 @@ import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-languag
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { useLocale } from "next-intl";
 import type { Locale } from "@switch-to-eu/i18n/routing";
-
 export function Header() {
   const locale = useLocale() as Locale;
 
@@ -19,7 +18,7 @@ export function Header() {
             style={{ fontFamily: "var(--font-bonbance)", fontWeight: 400 }}
             className="text-2xl md:text-3xl tracking-wide"
           >
-            Switch.to-eu
+            Switch-to.eu
           </h1>
         </Link>
       }

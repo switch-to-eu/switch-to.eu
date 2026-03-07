@@ -6,11 +6,13 @@ import {
   ServiceFrontmatterSchema,
   AlternativesFrontmatterSchema,
   CategoryMetadataSchema,
+  LandingPageFrontmatterSchema,
   ContentSegments,
   GuideFrontmatter,
   ServiceFrontmatter,
   AlternativesFrontmatter,
   CategoryMetadata,
+  LandingPageFrontmatter,
 } from "../schemas";
 import { Locale } from "../types";
 import { getContentRoot } from "../config";
@@ -60,6 +62,15 @@ export function isServiceFrontmatter(
  */
 export function isCategoryMetadata(data: unknown): data is CategoryMetadata {
   return CategoryMetadataSchema.safeParse(data).success;
+}
+
+/**
+ * Type guard for LandingPageFrontmatter
+ */
+export function isLandingPageFrontmatter(
+  data: unknown,
+): data is LandingPageFrontmatter {
+  return LandingPageFrontmatterSchema.safeParse(data).success;
 }
 
 /**

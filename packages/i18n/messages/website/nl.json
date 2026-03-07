@@ -98,7 +98,8 @@
     "privacyPolicy": "Privacybeleid",
     "termsOfService": "Servicevoorwaarden",
     "contactUs": "Neem contact op",
-    "poweredBy": "Mogelijk gemaakt door"
+    "poweredBy": "Mogelijk gemaakt door",
+    "copyright": "{year} <link>Switch-to.eu</link>."
   },
   "privacy": {
     "title": "Privacybeleid | Switch-to.EU",
@@ -114,6 +115,9 @@
     "ctaButton": "Vraag een Dienst Aan",
     "ctaTitle": "Mis je een dienst? Laat het ons weten!",
     "ctaDescription": "Kun je de dienst die je zoekt niet vinden? Vertel ons welke dienst je graag zou willen zien en we voegen deze mogelijk toe aan ons platform.",
+    "suggestCardTitle": "Mis je een dienst?",
+    "suggestCardDescription": "Ken je een EU-alternatief dat hier zou moeten staan? Laat het ons weten en we kijken of we het toe kunnen voegen.",
+    "suggestCardButton": "Stel een dienst voor",
     "feedbackModalTitle": "Vraag een Dienst Aan",
     "serviceRequestTitle": "Vraag een Nieuwe Dienst Aan",
     "serviceRequestDescription": "Help ons onze catalogus uit te breiden door EU-gebaseerde diensten voor te stellen die toegevoegd zouden moeten worden aan Switch-to.eu.",
@@ -451,7 +455,9 @@
         "title": "Aanbevolen alternatief",
         "startingPrice": "Startprijs",
         "migrateFrom": "Migreer van {source} naar {target}",
-        "viewDetails": "Bekijk dienstdetails"
+        "viewDetails": "Bekijk dienstdetails",
+        "badge": "Aanbevolen door Switch-to.eu",
+        "featured": "Uitgelicht"
       }
     }
   },
@@ -626,6 +632,14 @@
       "continueButton": "Doorgaan"
     },
     "unnamedStep": "Naamloze Stap {number}"
+  },
+  "landingPages": {
+    "recommendedAlternatives": "Aanbevolen Europese Alternatieven",
+    "whySwitch": "Waarom overstappen?",
+    "readMore": "Lees meer",
+    "viewAllAlternatives": "Bekijk alle alternatieven",
+    "howToCancel": "Hoe op te zeggen",
+    "exploreAlternatives": "Bekijk alternatieven"
   },
   "newsletter": {
     "title": "Schrijf je in op onze nieuwsbrief",

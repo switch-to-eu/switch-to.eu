@@ -7,8 +7,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
-import { ContributeCta } from "@/components/ContributeCta";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
+import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { Container } from "@/components/layout/container";
 import { PageLayout } from "@/components/layout/page-layout";
 import { getTranslations } from "next-intl/server";
@@ -176,15 +176,13 @@ export default async function ServicesCategoryPage({
                 colorIndex={index}
               />
             ))}
+            <SuggestServiceCard colorIndex={allDisplayServices.length} />
           </div>
         </Container>
       </section>
 
       {/* Newsletter Section */}
       <NewsletterCta />
-
-      {/* CTA Section */}
-      <ContributeCta />
     </PageLayout>
   );
 }

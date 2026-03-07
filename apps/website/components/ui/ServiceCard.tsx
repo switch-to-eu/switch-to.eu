@@ -45,7 +45,7 @@ export async function ServiceCard({
   return (
     <Link href={serviceLink} className="block h-full no-underline group">
       <div
-        className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden transition-all duration-200 group-hover:shadow-lg group-hover:scale-[1.02]`}
+        className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden`}
       >
         {/* Visual area: screenshot or decorative shape */}
         <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
@@ -80,11 +80,6 @@ export async function ServiceCard({
 
         {/* Content area */}
         <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
-          {service.featured && (
-            <span className={`${card.text} text-[10px] font-semibold uppercase tracking-widest opacity-60 mb-1`}>
-              Recommended
-            </span>
-          )}
           <h3 className={`${card.text} text-lg sm:text-xl font-bold mb-1`}>
             {service.name}
           </h3>

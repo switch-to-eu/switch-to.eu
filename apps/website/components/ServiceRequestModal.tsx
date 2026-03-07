@@ -71,11 +71,13 @@ interface ServiceRequestModalProps {
   | "secondary"
   | "search"
   | "cta";
+  className?: string;
 }
 
 export function ServiceRequestModal({
   triggerText,
   variant = "red",
+  className,
 }: ServiceRequestModalProps) {
   const t = useTranslations("contribute");
   const commonT = useTranslations("common");
@@ -137,7 +139,7 @@ export function ServiceRequestModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant}>{triggerText || t("ctaButton")}</Button>
+        <Button variant={variant} className={className}>{triggerText || t("ctaButton")}</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
