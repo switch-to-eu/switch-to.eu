@@ -15,8 +15,8 @@ import { Metadata } from "next";
 import { Locale } from "next-intl";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -120,7 +120,7 @@ export default async function ServiceDetailPage({
     <PageLayout>
       {/* Hero Banner — orange accent for non-EU */}
       <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           <Banner
             color="bg-brand-orange"
             className="py-10 sm:py-14"

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
-import { getToolCardColor } from "@switch-to-eu/ui/lib/tool-colors";
+import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import {
@@ -61,14 +61,14 @@ export default async function ToolsPage() {
   const tools = getAllToolsSorted();
 
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile>
       <section>
         <Container noPaddingMobile>
           <div className="flex flex-col items-center text-center mb-8 sm:mb-12 px-3 md:px-0">
-            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-green mb-4">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-navy mb-4">
               {t("title")}
             </h1>
-            <p className="text-base sm:text-lg text-brand-green/60 max-w-2xl">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
               {t("description")}
             </p>
           </div>
@@ -85,7 +85,9 @@ export default async function ToolsPage() {
                     rel: "noopener noreferrer",
                   }
                 : {};
-              const card = getToolCardColor(tool.id);
+              const scheme = TOOL_SCHEMES[tool.id];
+              const primaryHex = scheme ? BRAND_COLORS[scheme.primary].value : "#0D492C";
+              const accentHex = scheme ? BRAND_COLORS[scheme.accent].value : "#B0D8B0";
               const shapeName = TOOL_SHAPES[index % TOOL_SHAPES.length]!;
               const shapeData = shapes[shapeName];
 
@@ -93,19 +95,21 @@ export default async function ToolsPage() {
                 <Wrapper
                   key={tool.id}
                   {...wrapperProps}
-                  className={`group ${card.bg} md:rounded-3xl overflow-hidden transition-all duration-200 ${
+                  className={`group bg-white md:rounded-3xl overflow-hidden transition-all duration-200 ${
                     isActive
                       ? "hover:shadow-lg hover:scale-[1.02] cursor-pointer"
                       : "opacity-60"
                   }`}
+                  style={{ borderWidth: 1, borderColor: primaryHex }}
                 >
                   {/* Decorative shape area */}
                   <div className="relative h-32 sm:h-36 flex items-center justify-center p-8 sm:p-10">
                     {shapeData && (
                       <svg
                         viewBox={shapeData.viewBox}
-                        className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+                        className="w-full h-full select-none animate-shape-float"
                         style={{
+                          color: accentHex,
                           animationDuration: `${6 + (index % 4) * 1.5}s`,
                           animationDelay: `${(index % 4) * -1.5}s`,
                         }}
@@ -118,7 +122,8 @@ export default async function ToolsPage() {
                     {Icon && (
                       <div className="absolute top-4 left-4">
                         <div
-                          className={`${card.button} w-10 h-10 rounded-full flex items-center justify-center`}
+                          className="text-white w-10 h-10 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: primaryHex }}
                         >
                           <Icon className="w-5 h-5" />
                         </div>
@@ -127,7 +132,8 @@ export default async function ToolsPage() {
                     {!isActive && (
                       <div className="absolute top-4 right-4">
                         <span
-                          className={`${card.text} text-xs font-medium italic opacity-70 bg-white/20 px-3 py-1 rounded-full`}
+                          className="text-xs font-medium italic opacity-70 px-3 py-1 rounded-full"
+                          style={{ color: primaryHex, backgroundColor: `${accentHex}33` }}
                         >
                           {t("comingSoon")}
                         </span>
@@ -140,14 +146,15 @@ export default async function ToolsPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <h2
-                          className={`${card.text} text-xl sm:text-2xl font-bold mb-2`}
+                          className="text-xl sm:text-2xl font-bold mb-2"
+                          style={{ color: primaryHex }}
                         >
                           {t(
                             `items.${i18nKeyMap[tool.id] ?? tool.id}.title`
                           )}
                         </h2>
                         <p
-                          className={`${card.text} text-sm sm:text-base opacity-80 leading-relaxed`}
+                          className="text-muted-foreground text-sm sm:text-base leading-relaxed"
                         >
                           {t(
                             `items.${i18nKeyMap[tool.id] ?? tool.id}.description`
@@ -156,7 +163,8 @@ export default async function ToolsPage() {
                       </div>
                       {isActive && (
                         <ArrowUpRightIcon
-                          className={`${card.text} w-5 h-5 flex-shrink-0 mt-1 opacity-50 group-hover:opacity-100 transition-opacity`}
+                          className="w-5 h-5 flex-shrink-0 mt-1 opacity-50 group-hover:opacity-100 transition-opacity"
+                          style={{ color: primaryHex }}
                         />
                       )}
                     </div>

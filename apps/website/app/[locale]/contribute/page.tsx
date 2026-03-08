@@ -1,5 +1,5 @@
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
@@ -34,7 +34,7 @@ export default async function ContributePage() {
     <PageLayout>
       {/* Hero Section */}
       <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           <Banner
             color="bg-brand-green"
             shapes={[

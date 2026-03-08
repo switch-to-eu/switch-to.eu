@@ -82,7 +82,6 @@ export default async function LocaleLayout({
                   <>
                     <NavMenu navItems={navItems} />
                     <NavLanguageSelector locale={locale as Locale} />
-                    <HeaderFeedback toolId="kanban" />
                     <Link href="/create">
                       <Button size="sm" variant="secondary">
                         <Plus className="mr-2 h-4 w-4" />
@@ -93,7 +92,6 @@ export default async function LocaleLayout({
                 }
                 mobileNavigation={
                   <MobileNav navItems={navItems} locale={locale as Locale}>
-                    <HeaderFeedback toolId="kanban" />
                     <Link href="/create">
                       <Button size="sm" variant="secondary" className="w-full">
                         <Plus className="mr-2 h-4 w-4" />
@@ -105,6 +103,7 @@ export default async function LocaleLayout({
               />
               
               {children}
+              <HeaderFeedback toolId="kanban" />
 
               <Footer
                 currentToolId="kanban"
@@ -123,7 +122,7 @@ export default async function LocaleLayout({
                 ]}
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary">Kanban</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-white">Kanban</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }

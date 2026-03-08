@@ -17,7 +17,7 @@ import {
 
 import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations, useLocale } from "next-intl";
-import { Container } from "@/components/layout/container";
+import { Container } from "@switch-to-eu/blocks/components/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 
 const createFormSchema = (validation: { required: string; invalidEmail: string }) =>

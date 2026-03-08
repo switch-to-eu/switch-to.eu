@@ -16,6 +16,7 @@ import { api } from "@/lib/trpc-client";
 
 import ReactCountryFlag from "react-country-flag";
 import { cn } from "@switch-to-eu/ui/lib/utils";
+import { DomainHeader } from "./DomainHeader";
 
 interface AnalysisClientProps {
   domain: string;
@@ -56,7 +57,12 @@ export function AnalysisClient({
     setDomainExists(true);
     setResults(subscriptionData.results);
 
-    if (subscriptionData.complete) {
+    // Detect completion from either the complete flag or all steps being done
+    const allStepsDone =
+      subscriptionData.results.length > 0 &&
+      subscriptionData.results.every((s: AnalysisStep) => s.status === "complete");
+
+    if (subscriptionData.complete || allStepsDone) {
       setIsComplete(true);
       setIsLoading(false);
       setSubscriptionEnabled(false);
@@ -100,11 +106,13 @@ export function AnalysisClient({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-6">
+      <DomainHeader domain={formattedDomain} results={results} />
+
       {results.length > 0 && (
-        <div className="flex justify-center gap-3">
+        <div className="flex justify-end gap-3">
           <button
-            className="px-5 py-2 border border-brand-sage rounded-full text-brand-green text-sm font-semibold hover:bg-brand-sage/20 transition-colors flex items-center gap-2"
+            className="px-5 py-2 border border-border rounded-full text-foreground text-sm font-semibold hover:bg-muted transition-colors flex items-center gap-2"
             onClick={() => copyToClipboard()}
           >
             <Share2Icon className="w-4 h-4" />
@@ -121,21 +129,21 @@ export function AnalysisClient({
       )}
 
       {isLoading && results.length === 0 && (
-        <div className="w-full max-w-3xl mx-auto bg-card rounded-3xl border border-brand-sage/30 p-8 text-center">
-          <div className="w-8 h-8 rounded-full border-2 border-brand-navy border-t-transparent animate-spin mx-auto mb-4"></div>
-          <h3 className="font-semibold text-lg text-brand-green mb-2">
+        <div className="w-full bg-white rounded-3xl border border-border p-8 text-center">
+          <div className="w-8 h-8 rounded-full border-2 border-brand-green border-t-transparent animate-spin mx-auto mb-4"></div>
+          <h3 className="font-semibold text-lg text-foreground mb-2">
             {t.rich("analyze.analyzing", {
               domain: formattedDomain,
             })}
           </h3>
-          <p className="text-sm text-brand-green/60">
+          <p className="text-sm text-muted-foreground">
             {t("analyze.checkingAspects")}
           </p>
         </div>
       )}
 
       {error && (
-        <div className="w-full max-w-3xl mx-auto bg-brand-red/10 text-brand-red rounded-3xl border border-brand-red/20 p-6 text-center">
+        <div className="w-full bg-brand-red/10 text-brand-red rounded-3xl border border-brand-red/20 p-6 text-center">
           <h3 className="font-semibold text-lg mb-2">{t("error.title")}</h3>
           <p>{error}</p>
           <Link
@@ -148,7 +156,7 @@ export function AnalysisClient({
       )}
 
       {domainExists === false && (
-        <div className="w-full max-w-3xl mx-auto bg-brand-yellow/10 text-brand-green rounded-3xl border border-brand-yellow/30 p-6 text-center">
+        <div className="w-full bg-brand-yellow/10 text-foreground rounded-3xl border border-brand-yellow/30 p-6 text-center">
           <h3 className="font-semibold text-lg mb-2">
             {t("domainNotFound.title")}
           </h3>
@@ -159,23 +167,20 @@ export function AnalysisClient({
       {results.length > 0 && !error && domainExists !== false && (
         <AnalysisResults
           results={results}
-          domain={formattedDomain}
           isComplete={isComplete}
         />
       )}
-    </>
+    </div>
   );
 }
 
 interface AnalysisResultsProps {
   results: AnalysisStep[];
-  domain: string;
   isComplete: boolean;
 }
 
 function AnalysisResults({
   results,
-  domain,
   isComplete,
 }: AnalysisResultsProps) {
   const t = useTranslations("domainAnalyzer");
@@ -209,53 +214,25 @@ function AnalysisResults({
 
   return (
     <div>
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="font-heading text-xl sm:text-2xl uppercase text-brand-green">
-            {t.rich("results.howEuFriendly", { domain })}
-          </h2>
-          {status !== null && (
-            <div className="flex items-center gap-2">
-              <span
-                className={cn(
-                  "w-4 h-4 rounded-full",
-                  status === "green"
-                    ? "bg-brand-sage"
-                    : status === "yellow"
-                      ? "bg-brand-yellow"
-                      : "bg-brand-red"
-                )}
-              />
-              <span className="text-sm text-brand-green/70 font-medium">
-                {status === "green"
-                  ? t("results.statusExcellent")
-                  : status === "yellow"
-                    ? t("results.statusImprovement")
-                    : t("results.statusAttention")}
-              </span>
-            </div>
-          )}
+      {isComplete && status === "green" && (
+        <div className="bg-brand-sage/30 rounded-2xl p-4 mb-4">
+          <p className="text-brand-green flex items-center gap-2">
+            <CheckCircle2Icon className="w-5 h-5" />
+            <span>{t("results.congratulations")}</span>
+          </p>
         </div>
+      )}
 
-        {isComplete && status === "green" && (
-          <div className="bg-brand-sage/30 rounded-2xl p-4 my-4">
-            <p className="text-brand-green flex items-center gap-2">
-              <CheckCircle2Icon className="w-5 h-5" />
-              <span>{t("results.congratulations")}</span>
-            </p>
-          </div>
-        )}
-
-        <div className="space-y-4">
+      <div className="space-y-4">
           {results.map((step) => (
             <div
               key={step.type}
-              className="border border-brand-sage/30 bg-white rounded-2xl p-4 transition-all"
+              className="border border-border bg-white rounded-2xl p-4 transition-all"
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   {step.status === "pending" && (
-                    <Clock className="w-5 h-5 text-brand-green/30" />
+                    <Clock className="w-5 h-5 text-muted-foreground/40" />
                   )}
                   {step.status === "complete" &&
                     (step.isEU === true || step.euFriendly === true) && (
@@ -269,12 +246,12 @@ function AnalysisResults({
                   {step.status === "complete" &&
                     step.isEU === null &&
                     step.euFriendly === null && (
-                      <MinusCircleIcon className="w-5 h-5 text-brand-green/30" />
+                      <MinusCircleIcon className="w-5 h-5 text-muted-foreground/40" />
                     )}
                   {step.status === "processing" && (
-                    <div className="w-5 h-5 rounded-full border-2 border-brand-navy border-t-transparent animate-spin" />
+                    <div className="w-5 h-5 rounded-full border-2 border-brand-green border-t-transparent animate-spin" />
                   )}
-                  <h3 className="font-medium text-brand-green">
+                  <h3 className="font-medium text-foreground">
                     {t(`services.${step.type}`) || step.type}
                   </h3>
                 </div>
@@ -286,7 +263,7 @@ function AnalysisResults({
                         ? "bg-brand-sage/30 text-brand-green"
                         : step.isEU === false
                           ? "bg-brand-red/10 text-brand-red"
-                          : "bg-brand-sage/20 text-brand-green/50"
+                          : "bg-muted text-muted-foreground"
                     )}
                   >
                     {step.isEU === true
@@ -306,7 +283,7 @@ function AnalysisResults({
                     <div className="space-y-2">
                       {step.details.length > 0 ? (
                         <>
-                          <p className="text-sm text-brand-green/60">
+                          <p className="text-sm text-muted-foreground">
                             {t("results.detectedServices")}
                           </p>
                           <ul className="space-y-1">
@@ -318,11 +295,11 @@ function AnalysisResults({
                                 {service.isEU ? (
                                   <CheckCircle2Icon className="w-4 h-4 text-brand-green" />
                                 ) : service.euFriendly ? (
-                                  <CheckCircle2Icon className="w-4 h-4 text-brand-navy" />
+                                  <CheckCircle2Icon className="w-4 h-4 text-brand-green" />
                                 ) : (
                                   <XCircleIcon className="w-4 h-4 text-brand-red" />
                                 )}
-                                <span className="text-brand-green">
+                                <span className="text-foreground">
                                   {service.name}
                                 </span>
                                 <span
@@ -351,7 +328,7 @@ function AnalysisResults({
                     </div>
                   ) : (
                     step.details && (
-                      <p className="text-sm text-brand-green/60">
+                      <p className="text-sm text-muted-foreground">
                         {step.details}
                       </p>
                     )
@@ -360,7 +337,7 @@ function AnalysisResults({
               )}
 
               {step.status === "pending" && (
-                <p className="text-sm text-brand-green/40 mt-2 pl-8">
+                <p className="text-sm text-muted-foreground/50 mt-2 pl-8">
                   {t("results.pending")}
                 </p>
               )}
@@ -370,11 +347,11 @@ function AnalysisResults({
                 step.status === "complete" &&
                 step.isEU === false &&
                 step.euFriendly === false && (
-                  <div className="mt-4 bg-brand-sky/20 rounded-xl p-3 mx-[-4px]">
+                  <div className="mt-4 bg-brand-green/5 border border-brand-green/10 rounded-xl p-3">
                     <div className="flex items-start gap-3">
-                      <LightbulbIcon className="w-5 h-5 text-brand-navy shrink-0 mt-0.5" />
+                      <LightbulbIcon className="w-5 h-5 text-brand-green shrink-0 mt-0.5" />
                       <div>
-                        <div className="text-sm text-brand-green">
+                        <div className="text-sm text-foreground">
                           {getRecommendationText(step.type, t)}
                         </div>
                       </div>
@@ -384,7 +361,6 @@ function AnalysisResults({
             </div>
           ))}
         </div>
-      </div>
     </div>
   );
 }
@@ -403,7 +379,7 @@ function getRecommendationText(
               href="https://proton.me/mail"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="CH"
@@ -417,7 +393,7 @@ function getRecommendationText(
               href="https://mailbox.org/en/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="DE"
@@ -438,7 +414,7 @@ function getRecommendationText(
               href="https://www.gandi.net/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="FR"
@@ -459,7 +435,7 @@ function getRecommendationText(
               href="https://matomo.org/matomo-cloud"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="ZZ"
@@ -473,7 +449,7 @@ function getRecommendationText(
               href="https://plausible.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="EE"
@@ -496,7 +472,7 @@ function getRecommendationText(
               href="https://www.hetzner.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="DE"
@@ -517,7 +493,7 @@ function getRecommendationText(
               href="https://bunny.net/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-navy hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-brand-green underline hover:no-underline font-medium"
             >
               <ReactCountryFlag
                 countryCode="SI"

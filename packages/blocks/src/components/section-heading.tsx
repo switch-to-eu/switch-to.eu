@@ -19,7 +19,7 @@ export function SectionHeading({
   return (
     <Tag
       className={cn(
-        "font-heading text-4xl sm:text-5xl uppercase mb-4 sm:mb-6 px-3 md:px-0",
+        "font-heading text-4xl sm:text-5xl uppercase mb-4 mt-4 md:mt-0 sm:mb-6 px-3 md:px-0",
         color,
         className
       )}

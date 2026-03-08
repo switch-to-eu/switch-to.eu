@@ -7,32 +7,13 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import { useNavDropdown } from "../hooks/use-nav-dropdown";
 import type { MainNavItem, SubNavItem } from "./nav-types";
+import { MegaToolItem } from "./mega-tool-item";
 
 interface NavMenuProps {
   navItems: MainNavItem[];
   className?: string;
-  /** Custom renderer for mega dropdown children. If not provided, renders title + description. */
+  /** Custom renderer for mega dropdown children. If not provided, renders MegaToolItem. */
   renderMegaItem?: (child: SubNavItem, onClose: () => void, parent: MainNavItem) => ReactNode;
-}
-
-function DefaultMegaItem({ child, onClose }: { child: SubNavItem; onClose: () => void }) {
-  return (
-    <Link
-      key={child.href}
-      href={child.href}
-      onClick={onClose}
-      className="group/item flex flex-col gap-0.5 rounded-xl px-4 py-3.5 text-tool-primary hover:bg-white focus:bg-white outline-none"
-    >
-      <span className="text-sm font-semibold leading-tight text-tool-primary">
-        {child.title}
-      </span>
-      {child.description && (
-        <span className="text-xs text-muted-foreground leading-snug line-clamp-2">
-          {child.description}
-        </span>
-      )}
-    </Link>
-  );
 }
 
 export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
@@ -171,7 +152,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                 {item.children.map((child) =>
                   renderMegaItem
                     ? renderMegaItem(child, onClose, item)
-                    : <DefaultMegaItem key={child.href} child={child} onClose={onClose} />
+                    : <MegaToolItem key={child.href} child={child} onClose={onClose} />
                 )}
               </div>
             </div>,

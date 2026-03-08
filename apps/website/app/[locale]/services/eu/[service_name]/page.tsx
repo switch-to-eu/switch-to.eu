@@ -14,8 +14,8 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { ContributeCta } from "@/components/ContributeCta";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
@@ -117,7 +117,7 @@ export default async function ServiceDetailPage({
     <PageLayout>
       {/* Hero */}
       <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           {/* Breadcrumb */}
           <Link
             href={`/services/${frontmatter.category}`}

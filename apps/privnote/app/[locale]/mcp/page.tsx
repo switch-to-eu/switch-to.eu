@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { Bot, Terminal, Settings } from "lucide-react";
+import { Bot, Terminal } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 
 function CodeBlock({ children }: { children: string }) {
@@ -90,19 +90,38 @@ export default async function McpPage() {
             {t("setup.title")}
           </h2>
 
-          {/* Claude Desktop */}
+          {/* Streamable HTTP */}
           <div>
             <div className="mb-4 flex items-center gap-3">
               <Terminal className="h-6 w-6 text-tool-primary" />
               <h3 className="text-xl font-semibold text-foreground">
-                {t("setup.claudeDesktop.title")}
+                {t("setup.streamableHttp.title")}
               </h3>
             </div>
             <p className="mb-4 text-sm text-muted-foreground">
-              {t("setup.claudeDesktop.description")}
+              {t("setup.streamableHttp.description")}
             </p>
-            <CodeBlock>{`// claude_desktop_config.json
-{
+            <CodeBlock>{`{
+  "mcpServers": {
+    "privnote": {
+      "url": "${mcpUrl}"
+    }
+  }
+}`}</CodeBlock>
+          </div>
+
+          {/* Stdio bridge */}
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <Terminal className="h-6 w-6 text-tool-primary" />
+              <h3 className="text-xl font-semibold text-foreground">
+                {t("setup.stdio.title")}
+              </h3>
+            </div>
+            <p className="mb-4 text-sm text-muted-foreground">
+              {t("setup.stdio.description")}
+            </p>
+            <CodeBlock>{`{
   "mcpServers": {
     "privnote": {
       "command": "npx",
@@ -114,51 +133,8 @@ export default async function McpPage() {
   }
 }`}</CodeBlock>
             <p className="mt-3 text-xs text-muted-foreground">
-              {t("setup.claudeDesktop.note")}
+              {t("setup.stdio.note")}
             </p>
-          </div>
-
-          {/* Cursor / Windsurf */}
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <Settings className="h-6 w-6 text-tool-primary" />
-              <h3 className="text-xl font-semibold text-foreground">
-                {t("setup.cursor.title")}
-              </h3>
-            </div>
-            <p className="mb-4 text-sm text-muted-foreground">
-              {t("setup.cursor.description")}
-            </p>
-            <CodeBlock>{`// .cursor/mcp.json or .windsurf/mcp.json
-{
-  "mcpServers": {
-    "privnote": {
-      "url": "${mcpUrl}"
-    }
-  }
-}`}</CodeBlock>
-          </div>
-
-          {/* Claude Code */}
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <Terminal className="h-6 w-6 text-tool-primary" />
-              <h3 className="text-xl font-semibold text-foreground">
-                {t("setup.claudeCode.title")}
-              </h3>
-            </div>
-            <p className="mb-4 text-sm text-muted-foreground">
-              {t("setup.claudeCode.description")}
-            </p>
-            <CodeBlock>{`// .mcp.json
-{
-  "mcpServers": {
-    "privnote": {
-      "type": "url",
-      "url": "${mcpUrl}"
-    }
-  }
-}`}</CodeBlock>
           </div>
         </div>
 

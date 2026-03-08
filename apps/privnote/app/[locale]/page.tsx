@@ -13,6 +13,8 @@ import {
   Mail,
   Trash2,
   Code,
+  Bot,
+  ArrowUpRight,
 } from "lucide-react";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 
@@ -151,6 +153,28 @@ export default function HomePage() {
             {t(`trust.badges.${key}`)}
           </span>
         ))}
+      </div>
+
+      {/* MCP Integration */}
+      <div className="px-3 md:px-0">
+        <Link href="/mcp" className="group block">
+          <div className="flex items-center justify-between gap-4 rounded-3xl border border-brand-orange/20 bg-white p-6 sm:p-8 transition-colors hover:border-brand-orange/40">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-orange/10">
+                <Bot className="h-6 w-6 text-brand-orange" />
+              </div>
+              <div>
+                <h3 className="font-heading text-2xl uppercase text-brand-orange">
+                  {t("mcp.title")}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                  {t("mcp.description")}
+                </p>
+              </div>
+            </div>
+            <ArrowUpRight className="h-5 w-5 shrink-0 text-brand-orange/40 transition-colors group-hover:text-brand-orange" />
+          </div>
+        </Link>
       </div>
 
       {/* CTA */}

@@ -10,7 +10,9 @@
     "header": {
       "home": "Home"
     },
-    "nav": {},
+    "nav": {
+      "tools": "Tools"
+    },
     "footer": {
       "privacy": "Privacy",
       "terms": "Voorwaarden",

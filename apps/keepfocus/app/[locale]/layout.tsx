@@ -10,7 +10,7 @@ import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator"
 import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { MainNavClient } from "../../components/main-nav-client";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
@@ -95,18 +95,16 @@ export default async function LocaleLayout({
           }
           navigation={
             <>
-              <MainNavClient navItems={navItems} />
-              <HeaderFeedback toolId="keepfocus" />
+              <NavMenu navItems={navItems} />
               <NavLanguageSelector locale={locale as Locale} />
             </>
           }
           mobileNavigation={
-            <MobileNav navItems={navItems} locale={locale as Locale}>
-              <HeaderFeedback toolId="keepfocus" />
-            </MobileNav>
+            <MobileNav navItems={navItems} locale={locale as Locale} />
           }
         />
         {children}
+        <HeaderFeedback toolId="keepfocus" />
         <Footer
           currentToolId="keepfocus"
           feedbackToolId="keepfocus"
@@ -126,7 +124,7 @@ export default async function LocaleLayout({
           ]}
           branding={
             <div className="flex flex-col gap-1">
-              <span className="text-lg font-black tracking-wide uppercase text-tool-primary">KeepFocus</span>
+              <span className="text-lg font-black tracking-wide uppercase text-white">KeepFocus</span>
               <BrandIndicator locale={locale} />
             </div>
           }

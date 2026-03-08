@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -136,7 +136,7 @@ export default async function ContributeGuidePage() {
   };
 
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile paddingBottomMobile>
       {/* Hero Section */}
       <section>
         <Container>

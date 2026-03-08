@@ -94,12 +94,12 @@
     "viewAllGuidesButton": "Bekijk Alle Overstapgidsen"
   },
   "footer": {
+    "copyright": "{year} <link>Switch-to.eu</link>.",
     "rightsReserved": "Alle rechten voorbehouden",
     "privacyPolicy": "Privacybeleid",
     "termsOfService": "Servicevoorwaarden",
     "contactUs": "Neem contact op",
-    "poweredBy": "Mogelijk gemaakt door",
-    "copyright": "{year} <link>Switch-to.eu</link>."
+    "poweredBy": "Mogelijk gemaakt door"
   },
   "privacy": {
     "title": "Privacybeleid | Switch-to.EU",

@@ -2,7 +2,7 @@
 
 import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MegaCategoryItem } from "./MegaCategoryItem";
-import { MegaToolItem } from "./MegaToolItem";
+import { MegaToolItem } from "@switch-to-eu/blocks/components/mega-tool-item";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 
 interface MainNavClientProps {

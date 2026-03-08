@@ -71,6 +71,10 @@
         "european": "Open source"
       }
     },
+    "mcp": {
+      "title": "MCP Integration",
+      "description": "Create self-destructing notes directly from AI tools like Claude, Cursor, and Windsurf using the Model Context Protocol."
+    },
     "cta": {
       "title": "Try it now",
       "description": "No signup, no spam, no tracking - just private notes that vanish.",
@@ -218,7 +222,7 @@
   "McpPage": {
     "hero": {
       "title": "MCP Integration",
-      "subtitle": "Create private notes directly from AI assistants like Claude, Cursor, and other MCP-compatible tools.",
+      "subtitle": "Create private notes directly from any MCP-compatible AI assistant or tool.",
       "badges": {
         "aiPowered": "AI-Powered",
         "encrypted": "End-to-End Encrypted",
@@ -243,25 +247,19 @@
     },
     "setup": {
       "title": "Setup Instructions",
-      "claudeDesktop": {
-        "title": "Claude Desktop",
-        "description": "Add the following to your Claude Desktop configuration file. On macOS this is at ~/Library/Application Support/Claude/claude_desktop_config.json",
+      "streamableHttp": {
+        "title": "Streamable HTTP (recommended)",
+        "description": "If your MCP client supports streamable HTTP, add the server URL directly to your MCP configuration file."
+      },
+      "stdio": {
+        "title": "Stdio Bridge",
+        "description": "For MCP clients that only support stdio transport, use the mcp-remote bridge to connect over HTTP.",
         "note": "Requires mcp-remote (installed automatically via npx) to bridge stdio to HTTP."
-      },
-      "cursor": {
-        "title": "Cursor / Windsurf",
-        "description": "Add a .cursor/mcp.json or .windsurf/mcp.json file to your project root. These editors support streamable HTTP natively.",
-        "note": ""
-      },
-      "claudeCode": {
-        "title": "Claude Code",
-        "description": "Add a .mcp.json file to your project root or home directory.",
-        "note": ""
       }
     },
     "security": {
       "title": "Security Note",
-      "description": "When creating notes via MCP, the encryption key is included in the returned share URL. The note content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. However, the encryption key passes through the MCP protocol, so only use this with trusted AI tools and share the resulting URL through secure channels."
+      "description": "When creating notes via MCP, the encryption key is included in the returned share URL. The note content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. However, the encryption key passes through the MCP protocol, so only use this with trusted tools and share the resulting URL through secure channels."
     },
     "cta": "Create a Private Note"
   },

@@ -1,5 +1,6 @@
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Hero } from "@/components/Hero";
 import { getTranslations, getLocale } from "next-intl/server";

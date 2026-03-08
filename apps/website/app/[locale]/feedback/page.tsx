@@ -1,6 +1,6 @@
 import FeedbackForm from "@/components/FeedbackForm";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -21,7 +21,7 @@ export default async function FeedbackPage() {
   const t = await getTranslations("feedback");
 
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile paddingBottomMobile>
       {/* Hero Section */}
       <section>
         <Container>

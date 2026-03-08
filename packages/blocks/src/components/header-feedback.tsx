@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageSquarePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { FeedbackDialog } from "./feedback-dialog";
 
@@ -16,9 +17,10 @@ export function HeaderFeedback({ toolId }: HeaderFeedbackProps) {
       trigger={
         <button
           type="button"
-          className="px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline cursor-pointer [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+          className="fixed bottom-4 right-4 z-50 flex items-center justify-center gap-2 rounded-full bg-tool-primary p-3 sm:px-4 sm:py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 cursor-pointer"
         >
-          {t("triggerButton")}
+          <MessageSquarePlus className="h-5 w-5 sm:h-4 sm:w-4" />
+          <span className="hidden sm:inline">{t("triggerButton")}</span>
         </button>
       }
     />

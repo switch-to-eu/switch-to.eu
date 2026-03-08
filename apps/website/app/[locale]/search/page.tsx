@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { SearchResult } from "@switch-to-eu/content/search";
 import { Skeleton } from "@switch-to-eu/ui/components/skeleton";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import Image from "next/image";
 
@@ -146,7 +146,7 @@ function SearchPageContent() {
   };
 
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile paddingBottomMobile>
       {/* Hero / Search Section */}
       <section>
         <Container>
@@ -279,7 +279,7 @@ function SearchPageContent() {
 // Loading fallback for Suspense
 function SearchPageSkeleton() {
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile paddingBottomMobile>
       <section>
         <Container>
           <div className="bg-brand-navy rounded-3xl">

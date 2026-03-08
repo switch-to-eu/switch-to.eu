@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { ServiceRequestModal } from "@/components/ServiceRequestModal";
-import { Container } from "@/components/layout/container";
+import { Container } from "@switch-to-eu/blocks/components/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 

@@ -97,12 +97,12 @@
     "viewAllGuidesButton": "View All Migration Guides"
   },
   "footer": {
+    "copyright": "{year} <link>Switch-to.eu</link>.",
     "rightsReserved": "All rights reserved",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "contactUs": "Contact Us",
-    "poweredBy": "Powered by",
-    "copyright": "{year} <link>Switch-to.eu</link>."
+    "poweredBy": "Powered by"
   },
   "privacy": {
     "title": "Privacy Policy | Switch-to.EU",

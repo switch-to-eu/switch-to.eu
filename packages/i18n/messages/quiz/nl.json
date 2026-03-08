@@ -250,7 +250,7 @@
     "McpPage": {
         "hero": {
             "title": "MCP Integratie",
-            "subtitle": "Maak en beheer quizzen rechtstreeks vanuit AI-assistenten zoals Claude, Cursor en andere MCP-compatibele tools.",
+            "subtitle": "Maak en beheer quizzen rechtstreeks vanuit elke MCP-compatibele AI-assistent of tool.",
             "badges": {
                 "aiPowered": "AI-Aangedreven",
                 "encrypted": "End-to-End Versleuteld",
@@ -297,29 +297,23 @@
         },
         "adminKey": {
             "title": "Over de Admin-URL",
-            "description": "Wanneer u een quiz aanmaakt via MCP, ontvangt de AI-assistent de admin-URL die zowel de encryptiesleutel als het admin-token bevat. Deze URL wordt niet op de server opgeslagen — hij bestaat alleen in het gespreksgeheugen van de AI. Afhankelijk van welke AI-tool u gebruikt, kan de admin-URL in uw gespreksgeschiedenis bewaard blijven. Maak alleen quizzen aan via vertrouwde AI-tools en behandel de admin-URL als een wachtwoord."
+            "description": "Wanneer u een quiz aanmaakt via MCP, ontvangt de AI-assistent de admin-URL die zowel de encryptiesleutel als het admin-token bevat. Deze URL wordt niet op de server opgeslagen — hij bestaat alleen in het gespreksgeheugen van de AI. Afhankelijk van welke tool u gebruikt, kan de admin-URL in uw gespreksgeschiedenis bewaard blijven. Maak alleen quizzen aan via vertrouwde tools en behandel de admin-URL als een wachtwoord."
         },
         "setup": {
             "title": "Installatie-instructies",
-            "claudeDesktop": {
-                "title": "Claude Desktop",
-                "description": "Voeg het volgende toe aan uw Claude Desktop configuratiebestand. Op macOS is dit ~/Library/Application Support/Claude/claude_desktop_config.json",
+            "streamableHttp": {
+                "title": "Streamable HTTP (aanbevolen)",
+                "description": "Als uw MCP-client streamable HTTP ondersteunt, voeg dan de server-URL rechtstreeks toe aan uw MCP-configuratiebestand."
+            },
+            "stdio": {
+                "title": "Stdio Bridge",
+                "description": "Voor MCP-clients die alleen stdio-transport ondersteunen, gebruik de mcp-remote bridge om via HTTP te verbinden.",
                 "note": "Vereist mcp-remote (automatisch geïnstalleerd via npx) om stdio naar HTTP te bridgen."
-            },
-            "cursor": {
-                "title": "Cursor / Windsurf",
-                "description": "Voeg een .cursor/mcp.json of .windsurf/mcp.json bestand toe aan uw projectroot. Deze editors ondersteunen streamable HTTP native.",
-                "note": ""
-            },
-            "claudeCode": {
-                "title": "Claude Code",
-                "description": "Voeg een .mcp.json bestand toe aan uw projectroot of homedirectory.",
-                "note": ""
             }
         },
         "security": {
             "title": "Beveiligingsopmerking",
-            "description": "Alle quizinhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. Bij het aanmaken of beheren van quizzen via MCP gaan de encryptiesleutel en het admin-token via het MCP-protocol. Gebruik dit alleen met vertrouwde AI-tools en deel deelname-links (geen admin-links) met deelnemers."
+            "description": "Alle quizinhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. Bij het aanmaken of beheren van quizzen via MCP gaan de encryptiesleutel en het admin-token via het MCP-protocol. Gebruik dit alleen met vertrouwde tools en deel deelname-links (geen admin-links) met deelnemers."
         },
         "cta": "Maak een Quiz"
     }

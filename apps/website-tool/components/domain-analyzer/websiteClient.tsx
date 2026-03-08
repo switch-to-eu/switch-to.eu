@@ -4,37 +4,13 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { useRouter } from "@switch-to-eu/i18n/navigation";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
-import { shapes } from "@switch-to-eu/blocks/shapes";
+import { Globe, Search, Shield, Server } from "lucide-react";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
 
-const HOW_IT_WORKS_CARDS = [
-  {
-    bg: "bg-brand-sky",
-    text: "text-brand-green",
-    numberBg: "bg-brand-green",
-    numberText: "text-white",
-    shape: "cloud",
-    shapeColor: "text-brand-green",
-    step: "step1",
-  },
-  {
-    bg: "bg-brand-yellow/20",
-    text: "text-brand-green",
-    numberBg: "bg-brand-orange",
-    numberText: "text-white",
-    shape: "star",
-    shapeColor: "text-brand-green",
-    step: "step2",
-  },
-  {
-    bg: "bg-brand-sage",
-    text: "text-brand-green",
-    numberBg: "bg-brand-navy",
-    numberText: "text-white",
-    shape: "pebble",
-    shapeColor: "text-brand-green",
-    step: "step3",
-  },
+const HOW_IT_WORKS_STEPS = [
+  { step: "step1", icon: Globe },
+  { step: "step2", icon: Search },
+  { step: "step3", icon: Shield },
 ] as const;
 
 export function WebsiteAnalyzerClient() {
@@ -66,174 +42,117 @@ export function WebsiteAnalyzerClient() {
     router.push(`/domain/${encodeURIComponent(domain)}`);
   };
 
-  const sunburstShape = shapes["sunburst"];
-
   return (
-    <main className="flex flex-col gap-8 sm:gap-12 md:gap-20 py-4 sm:py-6 md:py-8">
-      {/* Hero Section */}
-      <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="bg-brand-navy rounded-3xl">
-            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20 overflow-hidden">
-              {/* Decorative shapes */}
-              <DecorativeShape
-                shape="sunburst"
-                className="-top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52"
-                opacity={0.1}
-                duration="8s"
-              />
-              <DecorativeShape
-                shape="blob"
-                className="-bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40"
-                opacity={0.1}
-                duration="10s"
-                delay="1s"
-              />
+    <main className="container max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:gap-16 pb-8 sm:pb-12 md:px-6 lg:px-8">
+      {/* Hero */}
+      <Banner
+      
+        color="bg-brand-green"
+        shapes={[
+          {
+            shape: "sunburst",
+            className: "-top-8 -right-8 w-40 h-40 sm:w-52 sm:h-52",
+            opacity: 0.1,
+            duration: "8s",
+          },
+          {
+            shape: "blob",
+            className: "-bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40",
+            opacity: 0.1,
+            duration: "10s",
+            delay: "-3s",
+          },
+        ]}
+        contentClassName="text-center max-w-2xl mx-auto"
+      >
+        <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8">
+          {t("websiteAnalyzer.pageTitle")}
+        </h1>
 
-              <div className="relative z-10 max-w-2xl mx-auto text-center">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8">
-                  {t("websiteAnalyzer.pageTitle")}
-                </h1>
-
-                {/* Website URL Input */}
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-                    <input
-                      type="text"
-                      value={url}
-                      onChange={(e) => {
-                        setUrl(e.target.value);
-                        setError("");
-                      }}
-                      placeholder={t("websiteAnalyzer.urlInputPlaceholder")}
-                      className="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow/50 text-sm sm:text-base"
-                    />
-                    <button
-                      type="submit"
-                      className="px-8 py-3 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity flex-shrink-0"
-                    >
-                      {t("websiteAnalyzer.checkButton")}
-                    </button>
-                  </div>
-                  {error && (
-                    <p className="text-brand-red text-sm mt-3">{error}</p>
-                  )}
-                </form>
-              </div>
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => {
+                setUrl(e.target.value);
+                setError("");
+              }}
+              placeholder={t("websiteAnalyzer.urlInputPlaceholder")}
+              className="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow/50 text-sm sm:text-base"
+            />
+            <button
+              type="submit"
+              className="px-8 py-3 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity flex-shrink-0"
+            >
+              {t("websiteAnalyzer.checkButton")}
+            </button>
           </div>
-        </div>
-      </section>
+          {error && (
+            <p className="text-brand-red text-sm mt-3">{error}</p>
+          )}
+        </form>
+      </Banner>
 
-      {/* Empty State / Results Placeholder */}
-      <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto rounded-3xl border-2 border-dashed border-brand-sage bg-brand-sage/10 p-10 flex flex-col items-center justify-center text-center min-h-[260px]">
-            <div className="w-20 h-20 mb-4 opacity-30 text-brand-green">
-              {sunburstShape && (
-                <svg
-                  viewBox={sunburstShape.viewBox}
-                  className="w-full h-full select-none animate-shape-float"
-                  style={{ animationDuration: "8s" }}
-                  aria-hidden="true"
-                >
-                  <path d={sunburstShape.d} fill="currentColor" />
-                </svg>
-              )}
-            </div>
-            <h3 className="font-heading text-xl uppercase text-brand-green mb-2">
-              {t("websiteAnalyzer.emptyStateTitle")}
-            </h3>
-            <p className="text-brand-green/60 max-w-md">
-              {t("websiteAnalyzer.emptyStateDescription")}
-            </p>
+      {/* Empty State */}
+      <div className="px-3 md:px-0">
+        <div className="max-w-2xl mx-auto rounded-3xl border-2 border-dashed border-brand-green/20 bg-white p-10 flex flex-col items-center justify-center text-center min-h-[200px]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-green/10 mb-4">
+            <Server className="h-7 w-7 text-brand-green" />
           </div>
+          <h3 className="font-heading text-xl uppercase text-brand-green mb-2">
+            {t("websiteAnalyzer.emptyStateTitle")}
+          </h3>
+          <p className="text-muted-foreground max-w-md">
+            {t("websiteAnalyzer.emptyStateDescription")}
+          </p>
         </div>
-      </section>
+      </div>
 
-      {/* How It Works Section */}
-      <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-8 text-center">
+      {/* How It Works */}
+      <div>
+        <div className="text-center mb-10 sm:mb-12 px-3 md:px-0">
+          <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4">
             {t("websiteAnalyzer.howItWorksTitle")}
           </h2>
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
-            {HOW_IT_WORKS_CARDS.map((card) => {
-              const shapeData = shapes[card.shape];
-              return (
-                <div
-                  key={card.step}
-                  className={`relative overflow-hidden rounded-3xl ${card.bg}`}
-                >
-                  {/* Shape area */}
-                  <div className="relative h-32 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className={`w-20 h-20 opacity-15 ${card.shapeColor}`}>
-                        {shapeData && (
-                          <svg
-                            viewBox={shapeData.viewBox}
-                            className="w-full h-full select-none animate-shape-float"
-                            aria-hidden="true"
-                          >
-                            <path d={shapeData.d} fill="currentColor" />
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                    {/* Step number */}
-                    <div className="absolute top-4 left-4">
-                      <div
-                        className={`w-10 h-10 rounded-full ${card.numberBg} ${card.numberText} flex items-center justify-center font-bold text-lg`}
-                      >
-                        {t(`websiteAnalyzer.${card.step}.number`)}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content area */}
-                  <div className="p-6 pt-2">
-                    <h3 className={`font-semibold text-lg mb-2 ${card.text}`}>
-                      {t(`websiteAnalyzer.${card.step}.title`)}
-                    </h3>
-                    <p className={`${card.text}/70 text-sm leading-relaxed`}>
-                      {t(`websiteAnalyzer.${card.step}.description`)}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section>
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="bg-brand-green rounded-3xl">
-            <div className="relative px-6 sm:px-10 md:px-16 py-12 sm:py-16 overflow-hidden text-center">
-              {/* Decorative shape */}
-              <DecorativeShape
-                shape="spark"
-                className="-top-6 -right-6 w-36 h-36"
-                opacity={0.1}
-                duration="7s"
-              />
-
-              <div className="relative z-10">
-                <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-yellow mb-4">
-                  {t("websiteAnalyzer.ctaTitle")}
-                </h2>
-                <p className="text-white/80 max-w-xl mx-auto mb-6">
-                  {t("websiteAnalyzer.ctaDescription")}
-                </p>
-                <button className="px-8 py-3 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity">
-                  {t("websiteAnalyzer.ctaButton")}
-                </button>
+        <div className="grid gap-4 md:gap-6 sm:grid-cols-3 px-3 md:px-0">
+          {HOW_IT_WORKS_STEPS.map(({ step, icon: Icon }) => (
+            <div
+              key={step}
+              className="bg-white border border-brand-green/20 rounded-3xl p-6 sm:p-8 flex flex-col gap-4"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-green/10">
+                <Icon className="h-6 w-6 text-brand-green" />
               </div>
+              <h3 className="font-heading text-2xl uppercase text-brand-green">
+                {t(`websiteAnalyzer.${step}.title`)}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {t(`websiteAnalyzer.${step}.description`)}
+              </p>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+
+      {/* CTA */}
+      <div className="px-3 md:px-0">
+        <div className="max-w-2xl mx-auto rounded-3xl border border-brand-green/20 bg-white p-8 sm:p-10 text-center">
+          <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
+            {t("websiteAnalyzer.ctaTitle")}
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+            {t("websiteAnalyzer.ctaDescription")}
+          </p>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="px-8 py-3 bg-brand-green text-white rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity"
+          >
+            {t("websiteAnalyzer.ctaButton")}
+          </button>
+        </div>
+      </div>
     </main>
   );
 }

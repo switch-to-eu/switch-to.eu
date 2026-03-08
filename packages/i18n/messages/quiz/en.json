@@ -250,7 +250,7 @@
     "McpPage": {
         "hero": {
             "title": "MCP Integration",
-            "subtitle": "Create and manage quizzes directly from AI assistants like Claude, Cursor, and other MCP-compatible tools.",
+            "subtitle": "Create and manage quizzes directly from any MCP-compatible AI assistant or tool.",
             "badges": {
                 "aiPowered": "AI-Powered",
                 "encrypted": "End-to-End Encrypted",
@@ -297,29 +297,23 @@
         },
         "adminKey": {
             "title": "About the Admin URL",
-            "description": "When you create a quiz via MCP, the AI assistant receives the admin URL which contains both the encryption key and admin token. This URL is not stored on the server — it only exists in the AI's conversation memory. Depending on which AI tool you use, be aware that the admin URL may persist in your conversation history. Only create quizzes through trusted AI tools and treat the admin URL like a password."
+            "description": "When you create a quiz via MCP, the AI assistant receives the admin URL which contains both the encryption key and admin token. This URL is not stored on the server — it only exists in the AI's conversation memory. Depending on which tool you use, be aware that the admin URL may persist in your conversation history. Only create quizzes through trusted tools and treat the admin URL like a password."
         },
         "setup": {
             "title": "Setup Instructions",
-            "claudeDesktop": {
-                "title": "Claude Desktop",
-                "description": "Add the following to your Claude Desktop configuration file. On macOS this is at ~/Library/Application Support/Claude/claude_desktop_config.json",
+            "streamableHttp": {
+                "title": "Streamable HTTP (recommended)",
+                "description": "If your MCP client supports streamable HTTP, add the server URL directly to your MCP configuration file."
+            },
+            "stdio": {
+                "title": "Stdio Bridge",
+                "description": "For MCP clients that only support stdio transport, use the mcp-remote bridge to connect over HTTP.",
                 "note": "Requires mcp-remote (installed automatically via npx) to bridge stdio to HTTP."
-            },
-            "cursor": {
-                "title": "Cursor / Windsurf",
-                "description": "Add a .cursor/mcp.json or .windsurf/mcp.json file to your project root. These editors support streamable HTTP natively.",
-                "note": ""
-            },
-            "claudeCode": {
-                "title": "Claude Code",
-                "description": "Add a .mcp.json file to your project root or home directory.",
-                "note": ""
             }
         },
         "security": {
             "title": "Security Note",
-            "description": "All quiz content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. When creating or managing quizzes via MCP, the encryption key and admin token travel through the MCP protocol. Only use this with trusted AI tools and share quiz join links (not admin links) with participants."
+            "description": "All quiz content is encrypted with AES-256-GCM before storage — the server never sees the plaintext. When creating or managing quizzes via MCP, the encryption key and admin token travel through the MCP protocol. Only use this with trusted tools and share quiz join links (not admin links) with participants."
         },
         "cta": "Create a Quiz"
     }

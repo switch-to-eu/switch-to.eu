@@ -12,7 +12,7 @@ import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { MainNavClient } from "../../components/main-nav-client";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
@@ -101,10 +101,7 @@ export default async function LocaleLayout({
             }
             navigation={
               <>
-                <MainNavClient navItems={navItems} />
-                
-                <HeaderFeedback toolId="quiz" />
-                
+                <NavMenu navItems={navItems} />
                 <Link href="/create">
                   <Button size="sm" variant="secondary">
                     <Plus className="mr-2 h-4 w-4" />
@@ -117,7 +114,6 @@ export default async function LocaleLayout({
             }
             mobileNavigation={
               <MobileNav navItems={navItems} locale={locale as Locale}>
-                <HeaderFeedback toolId="quiz" />
                 <Link href="/create">
                   <Button size="sm" variant="secondary" className="w-full">
                     <Plus className="mr-2 h-4 w-4" />
@@ -128,6 +124,9 @@ export default async function LocaleLayout({
             }
           />
           {children}
+          
+          <HeaderFeedback toolId="quiz" />
+
           <Footer
             currentToolId="quiz"
             feedbackToolId="quiz"
@@ -145,7 +144,7 @@ export default async function LocaleLayout({
             ]}
             branding={
               <div className="flex flex-col gap-1">
-                <span className="text-lg font-black tracking-wide uppercase text-tool-primary">Quiz</span>
+                <span className="text-lg font-black tracking-wide uppercase text-white">Quiz</span>
                 <BrandIndicator locale={locale} />
               </div>
             }

@@ -1,6 +1,6 @@
 "use client";
 
-import { getToolIcon } from "./tool-icons";
+import { getToolIcon } from "@switch-to-eu/blocks/data/tool-icons";
 
 interface MobileToolIconProps {
   iconName: string;

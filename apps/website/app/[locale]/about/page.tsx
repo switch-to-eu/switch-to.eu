@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -42,7 +42,7 @@ export default async function AboutPage() {
     <PageLayout>
       {/* Hero Section */}
       <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           <Banner
             color="bg-brand-navy"
             shapes={[

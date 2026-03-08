@@ -1,21 +1,21 @@
 import "./styles/globals.css";
 
 import { type Metadata } from "next";
-import { FileWarning } from "lucide-react";
+import { FileWarning, Plus } from "lucide-react";
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { getTranslations } from "next-intl/server";
 
 import { TRPCReactProvider } from "@/lib/trpc-client";
 import { Header } from "@switch-to-eu/blocks/components/header";
 import { Footer } from "@switch-to-eu/blocks/components/footer";
-
+import { Button } from "@switch-to-eu/ui/components/button";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
-import { MainNavClient } from "../../components/main-nav-client";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import { type MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
@@ -48,6 +48,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const t = await getTranslations({ locale, namespace: "layout.header" });
   const navT = await getTranslations({ locale, namespace: "layout.nav" });
   const footerT = await getTranslations({ locale, namespace: "layout.footer" });
   const toolsT = await getTranslations({ locale, namespace: "footerTools" });
@@ -55,7 +56,6 @@ export default async function LocaleLayout({
 
   const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
-    { title: navT("mcp"), href: "/mcp" },
     {
       title: navT("tools"),
       dropdown: "mega",
@@ -101,18 +101,30 @@ export default async function LocaleLayout({
                 }
                 navigation={
                   <>
-                    <MainNavClient navItems={navItems} />
-                    <HeaderFeedback toolId="privnote" />
+                    <NavMenu navItems={navItems} />
+                    
                     <NavLanguageSelector locale={locale as Locale} />
+                      <Link href="/create">
+                      <Button size="sm" variant="outline" className="border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
+                        <Plus className="mr-2 h-4 w-4" />
+                        {t("createNote")}
+                      </Button>
+                    </Link>
                   </>
                 }
                 mobileNavigation={
                   <MobileNav navItems={navItems} locale={locale as Locale}>
-                    <HeaderFeedback toolId="privnote" />
+                    <Link href="/create">
+                      <Button size="sm" variant="outline" className="w-full border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
+                        <Plus className="mr-2 h-4 w-4" />
+                        {t("createNote")}
+                      </Button>
+                    </Link>
                   </MobileNav>
                 }
               />
               {children}
+              <HeaderFeedback toolId="privnote" />
               <Footer
                 currentToolId="privnote"
                 feedbackToolId="privnote"
@@ -130,7 +142,7 @@ export default async function LocaleLayout({
                 ]}
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary">PrivNote</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-white">PrivNote</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }

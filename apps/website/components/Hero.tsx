@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { BlobShape, PebbleShape, PuddleShape } from "@switch-to-eu/ui/components/hero-shapes";
-import { Container } from "@/components/layout/container";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 function scrollTo(e: React.MouseEvent<HTMLAnchorElement>) {
   e.preventDefault();
@@ -18,7 +18,7 @@ export function Hero() {
 
   return (
     <section>
-      <Container noPaddingMobile overlapHeader>
+      <Container noPaddingMobile>
         <div className="bg-brand-navy rounded-none md:rounded-3xl">
         <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="relative text-center">

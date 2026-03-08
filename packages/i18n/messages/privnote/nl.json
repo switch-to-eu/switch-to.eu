@@ -71,6 +71,10 @@
         "european": "Open source"
       }
     },
+    "mcp": {
+      "title": "MCP Integratie",
+      "description": "Maak zelfvernietigende notities rechtstreeks vanuit AI-tools zoals Claude, Cursor en Windsurf via het Model Context Protocol."
+    },
     "cta": {
       "title": "Probeer het nu",
       "description": "Geen registratie, geen spam, geen tracking - gewoon privénotities die verdwijnen.",
@@ -218,7 +222,7 @@
   "McpPage": {
     "hero": {
       "title": "MCP Integratie",
-      "subtitle": "Maak privénotities rechtstreeks vanuit AI-assistenten zoals Claude, Cursor en andere MCP-compatibele tools.",
+      "subtitle": "Maak privénotities rechtstreeks vanuit elke MCP-compatibele AI-assistent of tool.",
       "badges": {
         "aiPowered": "AI-Aangedreven",
         "encrypted": "End-to-End Versleuteld",
@@ -243,25 +247,19 @@
     },
     "setup": {
       "title": "Installatie-instructies",
-      "claudeDesktop": {
-        "title": "Claude Desktop",
-        "description": "Voeg het volgende toe aan uw Claude Desktop configuratiebestand. Op macOS is dit ~/Library/Application Support/Claude/claude_desktop_config.json",
+      "streamableHttp": {
+        "title": "Streamable HTTP (aanbevolen)",
+        "description": "Als uw MCP-client streamable HTTP ondersteunt, voeg dan de server-URL rechtstreeks toe aan uw MCP-configuratiebestand."
+      },
+      "stdio": {
+        "title": "Stdio Bridge",
+        "description": "Voor MCP-clients die alleen stdio-transport ondersteunen, gebruik de mcp-remote bridge om via HTTP te verbinden.",
         "note": "Vereist mcp-remote (automatisch geïnstalleerd via npx) om stdio naar HTTP te bridgen."
-      },
-      "cursor": {
-        "title": "Cursor / Windsurf",
-        "description": "Voeg een .cursor/mcp.json of .windsurf/mcp.json bestand toe aan uw projectroot. Deze editors ondersteunen streamable HTTP native.",
-        "note": ""
-      },
-      "claudeCode": {
-        "title": "Claude Code",
-        "description": "Voeg een .mcp.json bestand toe aan uw projectroot of homedirectory.",
-        "note": ""
       }
     },
     "security": {
       "title": "Beveiligingsopmerking",
-      "description": "Bij het aanmaken van notities via MCP wordt de encryptiesleutel opgenomen in de geretourneerde deel-URL. De notitie-inhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. De encryptiesleutel gaat echter wel via het MCP-protocol, dus gebruik dit alleen met vertrouwde AI-tools en deel de resulterende URL via beveiligde kanalen."
+      "description": "Bij het aanmaken van notities via MCP wordt de encryptiesleutel opgenomen in de geretourneerde deel-URL. De notitie-inhoud wordt versleuteld met AES-256-GCM vóór opslag — de server ziet nooit de platte tekst. De encryptiesleutel gaat echter wel via het MCP-protocol, dus gebruik dit alleen met vertrouwde tools en deel de resulterende URL via beveiligde kanalen."
     },
     "cta": "Maak een Privénotitie"
   },

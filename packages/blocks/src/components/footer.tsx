@@ -106,7 +106,7 @@ export function Footer({
   );
 
   return (
-    <footer className={cn("bg-gray-800 text-white border-t-[3px] border-tool-primary py-8 md:py-12", className)}>
+    <footer className={cn("bg-gray-800 text-white py-8 md:py-12", className)}>
       {useContainer ? (
         <div
           className={cn(

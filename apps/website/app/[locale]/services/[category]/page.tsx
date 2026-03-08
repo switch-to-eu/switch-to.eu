@@ -9,8 +9,8 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
 import { NewsletterCta } from "@/components/NewsletterCta";
@@ -104,8 +104,7 @@ export default async function ServicesCategoryPage({
   return (
     <PageLayout>
       {/* Hero — large navy block with title, description, and stats */}
-      <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           <Banner
             color="bg-brand-navy"
             shapes={[
@@ -141,11 +140,9 @@ export default async function ServicesCategoryPage({
             </div>
           </Banner>
         </Container>
-      </section>
 
       {/* Featured services */}
       {featuredServices.length > 0 && (
-        <section>
           <Container noPaddingMobile>
             <div className="flex flex-col gap-6">
               {featuredServices.map((service) => (
@@ -158,15 +155,14 @@ export default async function ServicesCategoryPage({
               ))}
             </div>
           </Container>
-        </section>
       )}
 
       {/* All services — colorful card grid */}
-      <section>
         <Container noPaddingMobile>
           <SectionHeading>
             {t("alternatives", { category: capitalizedCategory })}
           </SectionHeading>
+
           <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {allDisplayServices.map((service, index) => (
               <ServiceCard
@@ -179,7 +175,6 @@ export default async function ServicesCategoryPage({
             <SuggestServiceCard colorIndex={allDisplayServices.length} />
           </div>
         </Container>
-      </section>
 
       {/* Newsletter Section */}
       <NewsletterCta />

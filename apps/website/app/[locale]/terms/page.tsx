@@ -1,5 +1,5 @@
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getPageContent } from "@switch-to-eu/content/services/pages";
 import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -36,7 +36,7 @@ export default async function TermsPage({
   const htmlContent = parseMarkdown(content);
 
   return (
-    <PageLayout>
+    <PageLayout paddingTopMobile paddingBottomMobile>
       <section>
         <Container>
           <div className="max-w-4xl mx-auto">

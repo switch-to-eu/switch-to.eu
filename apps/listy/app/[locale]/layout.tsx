@@ -81,7 +81,6 @@ export default async function LocaleLayout({
                 navigation={
                   <>
                     <NavMenu navItems={navItems} />
-                    <HeaderFeedback toolId="listy" />
                     <Link href="/create">
                       <Button size="sm" variant="secondary">
                         <Plus className="mr-2 h-4 w-4" />
@@ -93,7 +92,6 @@ export default async function LocaleLayout({
                 }
                 mobileNavigation={
                   <MobileNav navItems={navItems} locale={locale as Locale}>
-                    <HeaderFeedback toolId="listy" />
                     <Link href="/create">
                       <Button size="sm" variant="secondary" className="w-full">
                         <Plus className="mr-2 h-4 w-4" />
@@ -104,6 +102,7 @@ export default async function LocaleLayout({
                 }
               />
               {children}
+              <HeaderFeedback toolId="listy" />
               <Footer
                 currentToolId="listy"
                 feedbackToolId="listy"
@@ -121,7 +120,7 @@ export default async function LocaleLayout({
                 ]}
                 branding={
                   <div className="flex flex-col gap-1">
-                    <span className="text-lg font-black tracking-wide uppercase text-tool-primary">Listy</span>
+                    <span className="text-lg font-black tracking-wide uppercase text-white">Listy</span>
                     <BrandIndicator locale={locale} />
                   </div>
                 }
