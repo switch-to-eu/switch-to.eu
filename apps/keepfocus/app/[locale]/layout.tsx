@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import PlausibleProvider from "next-plausible";
 import { Package } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
   ];
 
   return (
+    <PlausibleProvider domain="focus.switch-to.eu">
     <NextIntlClientProvider>
       <div className="min-h-screen bg-muted">
         <Header
@@ -124,5 +126,6 @@ export default async function LocaleLayout({
         />
       </div>
     </NextIntlClientProvider>
+    </PlausibleProvider>
   );
 }

@@ -30,6 +30,7 @@
         "lucide-react": "catalog:",
         "next": "catalog:",
         "next-intl": "catalog:",
+        "next-plausible": "^3.12.5",
         "react": "catalog:",
         "react-dom": "catalog:",
         "react-hook-form": "catalog:",
@@ -40,6 +41,7 @@
     },
     "devDependencies": {
         "@eslint/eslintrc": "catalog:",
+        "@playwright/test": "catalog:",
         "@switch-to-eu/eslint-config": "workspace:*",
         "@switch-to-eu/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "catalog:",
@@ -61,7 +63,6 @@
         "typescript": "catalog:",
         "typescript-eslint": "catalog:",
         "vite-tsconfig-paths": "^6.1.1",
-        "@playwright/test": "catalog:",
         "vitest": "catalog:"
     },
     "ct3aMetadata": {

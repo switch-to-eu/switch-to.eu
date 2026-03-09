@@ -36,6 +36,7 @@
     "nanoid": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
+    "next-plausible": "^3.12.5",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
@@ -47,6 +48,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
@@ -55,12 +57,11 @@
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "postcss": "catalog:",
+    "redis": "catalog:",
     "tailwindcss": "catalog:",
     "tw-animate-css": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
-    "@playwright/test": "catalog:",
-    "redis": "catalog:",
     "vitest": "catalog:"
   }
 }
