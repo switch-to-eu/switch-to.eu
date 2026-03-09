@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles, Shapes, Smile, SwatchBook } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles, Shapes, Smile, SwatchBook, Rows3 } from "lucide-react";
 
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { routing } from "@switch-to-eu/i18n/routing";
@@ -36,6 +36,7 @@ const navItems = [
   { href: "/components", label: "components", icon: Component },
   { href: "/forms", label: "forms", icon: FormInput },
   { href: "/blocks", label: "blocks", icon: LayoutGrid },
+  { href: "/heroes", label: "heroes", icon: Rows3 },
 ] as const;
 
 export default async function LocaleLayout({
