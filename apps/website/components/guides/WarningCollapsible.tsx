@@ -12,6 +12,7 @@ interface WarningCollapsibleProps {
   variant?: 'warning' | 'error' | 'info';
   iconType?: IconType;
   className?: string;
+  defaultOpen?: boolean;
 }
 
 export function WarningCollapsible({
@@ -19,9 +20,10 @@ export function WarningCollapsible({
   title = "Missing Features & Limitations",
   variant = 'warning',
   iconType = 'alert-triangle',
-  className
+  className,
+  defaultOpen = false,
 }: WarningCollapsibleProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   if (!items || items.length === 0) {
     return null;

@@ -341,7 +341,7 @@ export function InlineSearchInput({
 
       {/* Dropdown Results */}
       {showDropdown && (
-        <div className="absolute w-full mt-2 bg-brand-navy/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
+        <div className="absolute w-full mt-2 bg-brand-green/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
           <div className="py-0">
             {/* Dropdown Header */}
             <div className="px-4 py-2 border-b border-brand-pink/10">
