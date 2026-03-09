@@ -28,15 +28,8 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
-    icons: [
-      { rel: "icon", url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { rel: "icon", url: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "shortcut icon", url: "/favicon.ico" },
-      { rel: "apple-touch-icon", url: "/apple-touch-icon.png", sizes: "180x180" },
-    ],
-    manifest: "/site.webmanifest",
-    appleWebApp: {
-      title: t('title'),
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },
   };
 }
