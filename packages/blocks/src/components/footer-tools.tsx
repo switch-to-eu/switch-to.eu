@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { getActiveTools } from "../data/tools";
+import { getAllToolsSorted } from "../data/tools";
 
 interface FooterToolsProps {
   /** Tool ID to exclude from listing (e.g., the current app) */
@@ -13,7 +13,7 @@ interface FooterToolsProps {
 export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
   const t = useTranslations("footerTools");
 
-  const displayTools = getActiveTools().filter(
+  const displayTools = getAllToolsSorted().filter(
     (tool) => tool.id !== excludeToolId
   );
 

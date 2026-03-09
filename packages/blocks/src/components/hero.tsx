@@ -45,8 +45,8 @@ export function Hero({
           className="rounded-none md:rounded-3xl"
           style={{ backgroundColor: colors.bg }}
         >
-          <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24">
-            <div className="relative text-center">
+          <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-24 ">
+            <div className="relative text-center ">
               <BlobShape
                 color={colors.blob1}
                 className="absolute -left-8 md:-left-16 -top-8 md:-top-12 w-32 h-32 md:w-52 md:h-52 opacity-80 -rotate-12 pointer-events-none"
@@ -63,10 +63,10 @@ export function Hero({
                 delay={600}
               />
               <h1
-                className="relative uppercase text-center"
+                className="relative  text-center"
                 style={{
                   fontFamily: titleFont,
-                  fontSize: "clamp(3.5rem, 10vw, 9rem)",
+                  fontSize: "clamp(3.5rem, 10vw, 8rem)",
                   fontWeight: 400,
                   lineHeight: 0.9,
                   letterSpacing: "-0.02em",

@@ -22,6 +22,7 @@ import { Locale } from "next-intl";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 
 export function generateStaticParams() {
   const serviceNames = getServiceSlugs("eu");
@@ -76,7 +77,6 @@ export default async function ServiceDetailPage({
 }) {
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail");
-  const servicesT = await getTranslations("services");
 
   const slug = service_name.replace(/-/g, " ");
   const serviceData = getServiceBySlug(slug, locale);
@@ -116,7 +116,6 @@ export default async function ServiceDetailPage({
   return (
     <PageLayout>
       {/* Hero */}
-      <section>
         <Container noPaddingMobile>
           {/* Breadcrumb */}
           <Link
@@ -199,7 +198,6 @@ export default async function ServiceDetailPage({
                   )}
                 </div>
               </div>
-
               {/* Right: Screenshot */}
               {frontmatter.screenshot && (
                 <div className="flex justify-center md:justify-end">
@@ -229,12 +227,10 @@ export default async function ServiceDetailPage({
             </div>
           </Banner>
         </Container>
-      </section>
 
       {/* Features tags */}
       {frontmatter.features && frontmatter.features.length > 0 && (
-        <section>
-          <Container>
+          <Container className="py-4 md:py-0">
             <div className="flex flex-wrap gap-2.5">
               {frontmatter.features.map((feature) => (
                 <span
@@ -246,7 +242,6 @@ export default async function ServiceDetailPage({
               ))}
             </div>
           </Container>
-        </section>
       )}
 
       {/* Main content area */}
@@ -423,13 +418,15 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
+
+
       {/* Similar Services */}
       {similarServices.length > 0 && (
-        <section>
           <Container noPaddingMobile>
             <SectionHeading>
               {t("similarServices")}
             </SectionHeading>
+
             <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {similarServices.map((service, index) => (
                 <ServiceCard
@@ -439,9 +436,9 @@ export default async function ServiceDetailPage({
                   colorIndex={index}
                 />
               ))}
+              <SuggestServiceCard colorIndex={similarServices.length} />
             </div>
           </Container>
-        </section>
       )}
 
       {/* CTA Section */}
