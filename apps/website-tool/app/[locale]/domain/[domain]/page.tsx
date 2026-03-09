@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Locale } from "next-intl";
 import { api } from "@/server/api/trpc-server";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 function formatDomain(domain: string) {
   return domain.replace(/^(https?:\/\/)?(www\.)?/, "").replace(/\/$/, "");
@@ -59,23 +61,12 @@ export default async function DomainAnalyzerPage({
   const initialResults = await api.domain.getCached({ domain: domainFromUrl });
 
   return (
-    <main>
-      <Container>
-
-      <Link
-        href="/"
-        className="inline-flex items-center text-foreground/50 hover:text-foreground text-sm transition-colors self-start"
-        >
-        <ArrowLeftIcon className="w-4 h-4 mr-1" />
-        Back
-      </Link>
-        </Container>
-
-      <AnalysisClient
-        domain={domainFromUrl}
-        formattedDomain={formattedDomain}
-        initialResults={initialResults}
-      />
-    </main>
+    <PageLayout>
+        <AnalysisClient
+          domain={domainFromUrl}
+          formattedDomain={formattedDomain}
+          initialResults={initialResults}
+        />
+    </PageLayout>
   );
 }

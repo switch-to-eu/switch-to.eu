@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { Globe, Search, Shield, Server } from "lucide-react";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 const HOW_IT_WORKS_STEPS = [
   { step: "step1", icon: Globe },
@@ -43,10 +45,11 @@ export function WebsiteAnalyzerClient() {
   };
 
   return (
-    <main className="container max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:gap-16 pb-8 sm:pb-12 md:px-6 lg:px-8">
+    <PageLayout gapMobile>
       {/* Hero */}
+      <Container noPaddingMobile>
+        
       <Banner
-      
         color="bg-brand-green"
         shapes={[
           {
@@ -93,9 +96,10 @@ export function WebsiteAnalyzerClient() {
           )}
         </form>
       </Banner>
+      </Container>
 
       {/* Empty State */}
-      <div className="px-3 md:px-0">
+      <Container>
         <div className="max-w-2xl mx-auto rounded-3xl border-2 border-dashed border-brand-green/20 bg-white p-10 flex flex-col items-center justify-center text-center min-h-[200px]">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-green/10 mb-4">
             <Server className="h-7 w-7 text-brand-green" />
@@ -107,16 +111,16 @@ export function WebsiteAnalyzerClient() {
             {t("websiteAnalyzer.emptyStateDescription")}
           </p>
         </div>
-      </div>
+      </Container>
 
       {/* How It Works */}
-      <div>
-        <div className="text-center mb-10 sm:mb-12 px-3 md:px-0">
+      <Container>
+        <div className="text-center mb-10 sm:mb-12">
           <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4">
             {t("websiteAnalyzer.howItWorksTitle")}
           </h2>
         </div>
-        <div className="grid gap-4 md:gap-6 sm:grid-cols-3 px-3 md:px-0">
+        <div className="grid gap-4 md:gap-6 sm:grid-cols-3">
           {HOW_IT_WORKS_STEPS.map(({ step, icon: Icon }) => (
             <div
               key={step}
@@ -134,25 +138,8 @@ export function WebsiteAnalyzerClient() {
             </div>
           ))}
         </div>
-      </div>
+      </Container>
 
-      {/* CTA */}
-      <div className="px-3 md:px-0">
-        <div className="max-w-2xl mx-auto rounded-3xl border border-brand-green/20 bg-white p-8 sm:p-10 text-center">
-          <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
-            {t("websiteAnalyzer.ctaTitle")}
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-            {t("websiteAnalyzer.ctaDescription")}
-          </p>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="px-8 py-3 bg-brand-green text-white rounded-full font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity"
-          >
-            {t("websiteAnalyzer.ctaButton")}
-          </button>
-        </div>
-      </div>
-    </main>
+    </PageLayout>
   );
 }

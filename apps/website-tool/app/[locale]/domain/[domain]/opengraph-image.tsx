@@ -212,7 +212,6 @@ export default async function Image({
           <div
             style={{
               fontSize: 24,
-              fontWeight: "bold",
               color: "#1a3c5a",
               display: "flex",
               alignItems: "flex-start",
@@ -242,10 +241,9 @@ export default async function Image({
         <div
           style={{
             fontSize: 48,
-            fontWeight: "bold",
             marginBottom: 24,
             fontFamily: "Hanken Grotesk, sans-serif",
-              fontWeight: 700,
+            fontWeight: 700,
             position: "relative",
             zIndex: 1,
           }}

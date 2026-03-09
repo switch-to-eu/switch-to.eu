@@ -4,7 +4,7 @@
   },
   "layout": {
     "metadata": {
-      "title": "EU-Scan - switch-to.eu",
+      "title": "EU-Scan — Controleer of een Website EU-diensten Gebruikt | switch-to.eu",
       "description": "Analyseer een website om te controleren of deze EU-diensten gebruikt en voldoet aan de GDPR."
     },
     "header": {
@@ -27,32 +27,32 @@
       "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
     },
     "websiteAnalyzer": {
-      "pageTitle": "Gebruikt jouw website EU-vriendelijke diensten? Ontdek het!",
-      "urlInputPlaceholder": "Voer je website-URL in (bijv. jouwwebsite.com)",
+      "pageTitle": "Check hoe EU-vriendelijk je website is",
+      "urlInputPlaceholder": "bijv. jouwwebsite.com",
       "checkButton": "Controleer mijn website",
       "urlError": "Voer een website-URL in",
       "invalidUrlError": "Voer een geldige website-URL in",
-      "emptyStateTitle": "Voer je URL in om te beginnen!",
-      "emptyStateDescription": "We laten je direct zien van welke diensten jouw website gebruikmaakt en of deze voldoen aan de EU-regels.",
+      "emptyStateTitle": "Voer een URL in om te starten",
+      "emptyStateDescription": "Bekijk welke externe diensten je website gebruikt en of ze in de EU gevestigd zijn.",
       "howItWorksTitle": "Hoe het werkt",
       "step1": {
         "number": "1",
         "title": "Voer je website-URL in",
-        "description": "Geef je websiteadres op om te beginnen met het controleren van de diensten die je site momenteel gebruikt."
+        "description": "Typ of plak het domein dat je wilt controleren."
       },
       "step2": {
         "number": "2",
         "title": "Directe domeincontrole",
-        "description": "Onze tool detecteert automatisch de externe diensten van je website en identificeert of deze in de EU zijn gevestigd."
+        "description": "De scan detecteert externe diensten en controleert waar ze gevestigd zijn."
       },
       "step3": {
         "number": "3",
         "title": "Bekijk resultaten",
-        "description": "Zie direct welke diensten je gebruikt, hun EU-nalevingsstatus en ontvang aanbevelingen voor EU-vriendelijke alternatieven."
+        "description": "Zie wat je site gebruikt, waar elke dienst gevestigd is, en welke EU-alternatieven er bestaan."
       },
-      "ctaTitle": "Klaar om de overstap te maken?",
-      "ctaDescription": "Ontdek EU-alternatieven voor alle niet-EU-diensten die op je website zijn gedetecteerd en volg onze stapsgewijze migratiehandleidingen.",
-      "ctaButton": "Verken EU-alternatieven"
+      "ctaTitle": "Niet-EU diensten gevonden?",
+      "ctaDescription": "Bekijk EU-alternatieven en volg stapsgewijze migratiehandleidingen om over te stappen.",
+      "ctaButton": "Bekijk EU-alternatieven"
     }
   },
   "domainAnalyzer": {

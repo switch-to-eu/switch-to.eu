@@ -4,8 +4,8 @@
   },
   "layout": {
     "metadata": {
-      "title": "EU-Scan - switch-to.eu",
-      "description": "Analyze a website to check if it uses EU-based services and is GDPR compliant."
+      "title": "EU-Scan — Check If a Website Uses EU Services | switch-to.eu",
+      "description": "Analyze any website to check if it uses EU-based services and is GDPR compliant."
     },
     "header": {
       "home": "Home"
@@ -27,32 +27,32 @@
       "description": "Analyze a website to check if it's EU-based"
     },
     "websiteAnalyzer": {
-      "pageTitle": "Is Your Website Using EU-Friendly Services? Find Out!",
-      "urlInputPlaceholder": "Enter your website URL (e.g., yourwebsite.com)",
+      "pageTitle": "Check how EU-friendly your website is",
+      "urlInputPlaceholder": "e.g. yourwebsite.com",
       "checkButton": "Check My Website",
       "urlError": "Please enter a website URL",
       "invalidUrlError": "Please enter a valid website URL",
-      "emptyStateTitle": "Enter your URL to get started!",
-      "emptyStateDescription": "We'll instantly show you which services your website relies on and whether they're EU-compliant.",
+      "emptyStateTitle": "Enter a URL to start",
+      "emptyStateDescription": "See which third-party services your website uses and whether they're based in the EU.",
       "howItWorksTitle": "How It Works",
       "step1": {
         "number": "1",
         "title": "Enter Your Website URL",
-        "description": "Provide your website address to start checking the services your site currently uses."
+        "description": "Type or paste the domain you want to check."
       },
       "step2": {
         "number": "2",
         "title": "Instant Domain Check",
-        "description": "Our tool automatically detects your website's third-party services and identifies whether they're EU-based."
+        "description": "The scan detects third-party services and checks where they're based."
       },
       "step3": {
         "number": "3",
         "title": "View Results",
-        "description": "Instantly see which services you're using, their EU compliance status, and receive recommendations for EU-friendly alternatives."
+        "description": "See what your site uses, where each service is based, and what EU alternatives exist."
       },
-      "ctaTitle": "Ready to make the switch?",
-      "ctaDescription": "Discover EU alternatives for any non-EU services detected on your website and follow our step-by-step migration guides.",
-      "ctaButton": "Explore EU Alternatives"
+      "ctaTitle": "Found non-EU services?",
+      "ctaDescription": "Browse EU-based alternatives and follow step-by-step migration guides to switch over.",
+      "ctaButton": "Browse EU alternatives"
     }
   },
   "domainAnalyzer": {
