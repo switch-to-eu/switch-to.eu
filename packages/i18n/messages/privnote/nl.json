@@ -101,7 +101,8 @@
     "passwordPlaceholder": "Voer een wachtwoord in",
     "termsLabel": "Ik ga akkoord met het <privacy>Privacybeleid</privacy> en de <terms>Servicevoorwaarden</terms>",
     "createButton": "Notitie Aanmaken",
-    "creatingButton": "Aanmaken..."
+    "creatingButton": "Aanmaken...",
+    "createError": "Er is iets misgegaan. Probeer het opnieuw."
   },
   "SharePage": {
     "title": "Uw notitie is klaar!",

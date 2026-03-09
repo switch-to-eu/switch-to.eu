@@ -30,6 +30,7 @@ export function CreateNoteForm() {
   const t = useTranslations("CreatePage");
   const v = useTranslations("validation");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { control, handleSubmit, watch } = useForm<CreateNoteFormData>({
     resolver: zodResolver(createNoteSchema({
@@ -49,14 +50,16 @@ export function CreateNoteForm() {
   const contentLength = watch("content").length;
 
   const createNote = api.note.create.useMutation({
-    onError: () => {
+    onError: (err) => {
       setIsSubmitting(false);
+      setError(err.message || t("createError"));
     },
   });
 
   const onSubmit = async (data: CreateNoteFormData) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setError(null);
 
     const encryptionKey = await generateEncryptionKey();
     const encryptedContent = await encryptData(data.content.trim(), encryptionKey);
@@ -243,6 +246,13 @@ export function CreateNoteForm() {
           </Field>
         )}
       />
+
+      {/* Error message */}
+      {error && (
+        <div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+          {error}
+        </div>
+      )}
 
       {/* Submit */}
       <Button

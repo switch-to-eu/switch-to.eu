@@ -101,7 +101,8 @@
     "passwordPlaceholder": "Enter a password",
     "termsLabel": "I agree to the <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms>",
     "createButton": "Create Note",
-    "creatingButton": "Creating..."
+    "creatingButton": "Creating...",
+    "createError": "Something went wrong. Please try again."
   },
   "SharePage": {
     "title": "Your note is ready!",
