@@ -150,9 +150,9 @@ describe("domain router", () => {
         yields.push(JSON.parse(JSON.stringify(value)));
       }
 
-      // Should have multiple yields:
-      // 1 initial (all pending) + 2 per step (processing + complete) × 5 steps + 1 final
-      expect(yields.length).toBe(12);
+      // With parallel execution the exact number of intermediate yields varies,
+      // but we always get at least: 1 initial (all pending) + 1 (all processing) + 1+ intermediate + 1 final
+      expect(yields.length).toBeGreaterThanOrEqual(4);
 
       // First yield: all pending
       const first = yields[0]!;
@@ -210,7 +210,7 @@ describe("domain router", () => {
       }).rejects.toThrow("Domain not found");
     });
 
-    it("calls all detector functions in sequence", async () => {
+    it("calls all detector functions in parallel", async () => {
       const caller = getCaller();
       const subscription = await caller.domain.analyze({
         domain: "detector-test.com",
@@ -235,6 +235,37 @@ describe("domain router", () => {
       );
       expect(detectors.detectCdn).toHaveBeenCalledWith("detector-test.com");
     });
+
+    it("handles detector timeout gracefully", async () => {
+      // Make CDN detector hang forever
+      vi.mocked(detectors.detectCdn).mockImplementationOnce(
+        () => new Promise(() => {}), // never resolves
+      );
+
+      const caller = getCaller();
+      const subscription = await caller.domain.analyze({
+        domain: "timeout-test.com",
+      });
+
+      const yields: Array<{
+        results: AnalysisStep[];
+        complete: boolean;
+      }> = [];
+      for await (const value of subscription) {
+        yields.push(JSON.parse(JSON.stringify(value)));
+      }
+
+      const last = yields[yields.length - 1]!;
+      expect(last.complete).toBe(true);
+      expect(last.results.every((s) => s.status === "complete")).toBe(true);
+
+      // CDN should have null details (timed out)
+      expect(last.results[4]!.details).toBeNull();
+      expect(last.results[4]!.isEU).toBeNull();
+
+      // Other detectors should have real results
+      expect(last.results[0]!.details).toBe("Google Workspace");
+    }, 20_000);
 
     it("sets Redis cache with TTL", async () => {
       const caller = getCaller();
