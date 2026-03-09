@@ -7,6 +7,8 @@ import { TodoList } from '../../components/todo-list';
 import { PomodoroSettingsProvider } from '../../hooks/use-pomodoro-settings';
 import { TasksProvider } from '../../hooks/use-tasks';
 import { Banner } from '@switch-to-eu/blocks/components/banner';
+import { PageLayout } from '@switch-to-eu/blocks/components/page-layout';
+import { Container } from '@switch-to-eu/blocks/components/container';
 
 export default function HomePage() {
   const t = useTranslations();
@@ -14,10 +16,10 @@ export default function HomePage() {
   return (
     <TasksProvider>
       <PomodoroSettingsProvider>
-        <main className="container max-w-7xl mx-auto min-h-screen flex flex-col md:px-6 lg:px-8">
+        <PageLayout className="min-h-screen" gapMobile>
 
           {/* Hero Section */}
-          <div className="py-8 sm:py-12">
+          <Container noPaddingMobile>
             <Banner
               color="bg-brand-navy"
               shapes={[
@@ -34,55 +36,58 @@ export default function HomePage() {
                 {t('homepage.heroDescription')}
               </p>
             </Banner>
-          </div>
+          </Container>
 
           {/* Main Content - Timer + Todo side by side */}
-          <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 px-3 md:px-0">
-            <div className="flex flex-col">
-              <PomodoroTimer />
+          <Container>
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+              <div className="flex flex-col">
+                <PomodoroTimer />
+              </div>
+              <div className="flex flex-col">
+                <TodoList />
+              </div>
             </div>
-            <div className="flex flex-col">
-              <TodoList />
-            </div>
-          </div>
+          </Container>
 
           {/* How Pomodoro Works Section */}
-          <Banner
-            color="bg-brand-navy"
-            className="my-6 sm:my-8 mb-10 sm:mb-14"
-            shapes={[
-              { shape: "spark", className: "-top-3 -right-3 w-20 h-20", opacity: 0.1 },
-            ]}
-            contentClassName="text-center"
-          >
-            <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow mb-6">
-              {t('homepage.howItWorks.title')}
-            </h2>
+          <Container noPaddingMobile>
+            <Banner
+              color="bg-brand-navy"
+              shapes={[
+                { shape: "spark", className: "-top-3 -right-3 w-20 h-20", opacity: 0.1 },
+              ]}
+              contentClassName="text-center"
+            >
+              <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow mb-6">
+                {t('homepage.howItWorks.title')}
+              </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-              {([
-                { icon: Timer, key: 'focus' },
-                { icon: Coffee, key: 'break' },
-                { icon: Repeat, key: 'repeat' },
-              ] as const).map(({ icon: Icon, key }) => (
-                <div key={key} className="flex sm:flex-col items-center sm:text-center gap-3 sm:gap-0">
-                  <div className="flex-shrink-0 sm:mx-auto sm:mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow/20">
-                    <Icon className="h-5 w-5 text-brand-yellow" />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                {([
+                  { icon: Timer, key: 'focus' },
+                  { icon: Coffee, key: 'break' },
+                  { icon: Repeat, key: 'repeat' },
+                ] as const).map(({ icon: Icon, key }) => (
+                  <div key={key} className="flex sm:flex-col items-center sm:text-center gap-3 sm:gap-0">
+                    <div className="flex-shrink-0 sm:mx-auto sm:mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow/20">
+                      <Icon className="h-5 w-5 text-brand-yellow" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading text-base uppercase text-brand-yellow sm:mb-1">
+                        {t(`homepage.howItWorks.${key}.title`)}
+                      </h3>
+                      <p className="text-brand-sky/80 text-xs">
+                        {t(`homepage.howItWorks.${key}.description`)}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-heading text-base uppercase text-brand-yellow sm:mb-1">
-                      {t(`homepage.howItWorks.${key}.title`)}
-                    </h3>
-                    <p className="text-brand-sky/80 text-xs">
-                      {t(`homepage.howItWorks.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Banner>
+                ))}
+              </div>
+            </Banner>
+          </Container>
 
-        </main>
+        </PageLayout>
       </PomodoroSettingsProvider>
     </TasksProvider>
   );
