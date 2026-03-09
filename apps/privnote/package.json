@@ -17,8 +17,8 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "catalog:",
     "@hookform/resolvers": "catalog:",
+    "@modelcontextprotocol/sdk": "catalog:",
     "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
@@ -35,6 +35,7 @@
     "nanoid": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
+    "next-plausible": "^3.12.5",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",

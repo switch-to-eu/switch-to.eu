@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import PlausibleProvider from "next-plausible";
 import { Brain, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -74,6 +75,7 @@ export default async function LocaleLayout({
   ];
 
   return (
+    <PlausibleProvider domain="quiz.switch-to.eu">
     <NextIntlClientProvider>
       <TRPCReactProvider>
         <div className="min-h-screen bg-muted">
@@ -144,5 +146,6 @@ export default async function LocaleLayout({
         </div>
       </TRPCReactProvider>
     </NextIntlClientProvider>
+    </PlausibleProvider>
   );
 }

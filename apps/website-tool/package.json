@@ -32,6 +32,7 @@
         "lucide-react": "catalog:",
         "next": "catalog:",
         "next-intl": "catalog:",
+        "next-plausible": "^3.12.5",
         "react": "catalog:",
         "react-country-flag": "catalog:",
         "react-dom": "catalog:",

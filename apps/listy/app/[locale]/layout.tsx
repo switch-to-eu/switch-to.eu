@@ -1,6 +1,7 @@
 import "./styles/globals.css";
 
 import { type Metadata } from "next";
+import PlausibleProvider from "next-plausible";
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { ListChecks, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={fontVariables}>
       <body>
+        <PlausibleProvider domain="list.switch-to.eu">
         <NextIntlClientProvider>
           <TRPCReactProvider>
             <div className="min-h-screen bg-muted">
@@ -131,6 +133,7 @@ export default async function LocaleLayout({
             </div>
           </TRPCReactProvider>
         </NextIntlClientProvider>
+        </PlausibleProvider>
       </body>
     </html>
   );

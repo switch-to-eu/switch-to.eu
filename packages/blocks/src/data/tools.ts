@@ -22,7 +22,7 @@ export const tools: Tool[] = [
         id: 'plotty',
         name: 'Plotty',
         description: 'Create privacy-friendly polls and vote together',
-        url: isDev ? 'https://poll.switch-to.test' : 'https://plotty.eu',
+        url: isDev ? 'https://poll.switch-to.test' : 'https://poll.switch-to.eu',
         status: 'coming-soon',
         icon: 'calendar'
     },
@@ -38,7 +38,7 @@ export const tools: Tool[] = [
         id: 'keepfocus',
         name: 'KeepFocus',
         description: 'Pomodoro timer and task manager for deep focus',
-        url: isDev ? 'https://focus.switch-to.test' : 'https://keepfocus.eu',
+        url: isDev ? 'https://focus.switch-to.test' : 'https://focus.switch-to.eu',
         status: 'active',
         icon: 'target'
     },
