@@ -316,7 +316,7 @@ export function InlineSearchInput({
           ref={searchInputRef}
           type="text"
           placeholder={currentPlaceholder}
-          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-sky/50 focus:outline-none focus:ring-0 ${className}`}
+          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-cream/50 focus:outline-none focus:ring-0 ${className}`}
           value={query}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
@@ -326,7 +326,7 @@ export function InlineSearchInput({
           }}
         />
         <button
-          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-pink hover:bg-brand-pink/80 text-brand-navy transition-colors"
+          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-yellow hover:bg-brand-orange/80 text-brand-green transition-colors"
           onClick={() => {
             if (query.trim()) {
               void fetchResults(query);

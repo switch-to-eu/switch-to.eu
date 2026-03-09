@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Switch-to.eu",
+    "title": "Switch-to.eu — Find EU Alternatives to Big Tech",
     "description": "A guide to help you switch from non-EU to EU-based digital services and products.",
     "keywords": {
       "euAlternatives": "EU alternatives"
@@ -53,27 +53,25 @@
     "heading": "Moving away from big tech? Make the switch.",
     "subheading": "Find EU alternatives to global services and protect your data under EU law",
     "featuredSection": "Featured Categories",
-    "categoriesSectionTitle": "European Alternatives by Categories",
+    "categoriesSectionTitle": "Browse by Category",
     "viewAll": "View all services",
     "exploreCategory": "Explore",
     "readGuide": "Read guide",
-    "heroTitle": "Moving away from big tech? Make the switch!",
-    "heroLine1": "Moving away from big tech?",
-    "heroLine2": "Make the switch!",
-    "heroSubtitle": "Are you concerned about your privacy and the power abuse by <b>American tech companies</b>? This website helps you switch to <b>European and open-source alternatives</b>.",
+    "heroTitle": "Switch from big tech to EU alternatives",
+    "heroSubtitle": "Find EU-based replacements for the apps you use every day. Compare features, read migration guides, and switch at your own pace.",
     "heroSubtitleShort": "Compare EU alternatives and follow step-by-step migration guides.",
     "heroOr": "or",
     "heroViewCategories": "View Categories",
     "heroWhatWeStandFor": "What we stand for",
-    "heroDescription": "Tell us which <b>digital service</b> you want to change and we'll help you with <b>the transition!</b>",
+    "heroDescription": "Search for a service you want to replace.",
     "exampleLabel": "For example:",
-    "featuredTitle": "What does Switch-to.eu stand for?",
+    "featuredTitle": "What Switch-to.eu does",
     "featuresEuropeanTitle": "European Alternatives",
-    "featuresEuropeanDescription": "Discover a curated collection of EU-based digital services that respect your privacy and align with European values. Each alternative is thoroughly evaluated for functionality, reliability, and compliance with EU regulations.",
+    "featuresEuropeanDescription": "We collect EU-based alternatives for email, cloud storage, messaging, and more. Each listing shows where the service is hosted, what it costs, and how it handles your data.",
     "featuresGuidesTitle": "Step-by-step Guides",
-    "featuresGuidesDescription": "Follow our clear, detailed migration instructions to seamlessly transition from global services to European alternatives. Our guides break down complex processes into manageable steps anyone can follow.",
+    "featuresGuidesDescription": "Step-by-step instructions for moving your data from one service to another. Each guide breaks the process into short, concrete steps.",
     "featuresCommunityTitle": "Community Driven",
-    "featuresCommunityDescription": "Our platform thrives on user participation. Anyone can contribute by adding new services, creating or improving migration guides, and sharing their experiences. This collaborative approach ensures our content stays relevant, accurate, and comprehensive.",
+    "featuresCommunityDescription": "Built and maintained by volunteers. Anyone can add services, write guides, or flag outdated information.",
     "whySwitchTitle": "Why switch to Europe-based services?",
     "whySwitchDescription1": "Use EU-based digital alternatives that comply with GDPR, ensuring your data is processed with transparency and security.",
     "whySwitchDescription2": "Support the local tech ecosystem and contribute to a fairer digital economy.",
@@ -81,17 +79,17 @@
     "migrationGuidesTitle": "Popular Migration Guides",
     "gmailToProton": {
       "title": "Gmail → ProtonMail",
-      "description": "Switch from Gmail to ProtonMail with our step-by-step migration guide.",
+      "description": "Import your emails, contacts, and calendar. Set up forwarding so you don't miss anything.",
       "alt": "Gmail to ProtonMail migration guide"
     },
     "driveToPcloud": {
       "title": "Google Drive → Pcloud",
-      "description": "Migrate your files from Google Drive to Pcloud with this complete guide.",
+      "description": "Move your files and folder structure from Google Drive to Pcloud.",
       "alt": "Google Drive to Pcloud migration guide"
     },
     "whatsappToSignal": {
       "title": "WhatsApp → Signal",
-      "description": "Move your chats and contacts from WhatsApp to Signal with our comprehensive guide.",
+      "description": "Set up Signal and notify your contacts. Covers group chats too.",
       "alt": "WhatsApp to Signal migration guide"
     },
     "viewAllGuidesButton": "View All Migration Guides"
@@ -322,35 +320,32 @@
   "about": {
     "title": "About Switch-to.eu",
     "description": "We help EU citizens find digital services governed by EU law",
-    "heroTitle": "About Switch-to.EU",
-    "heroDescription1": "Switch-to.EU is a community-driven platform that helps users easily switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.",
-    "heroDescription2": "Our goal is to promote digital sovereignty and data privacy by making it easier for users to find and migrate to services hosted within the European Union.",
     "initiative": {
-      "heading": "Moving away from big tech? We help you make the switch.",
-      "intro": "Switch-to.eu is an initiative by Vincent and Simon Peters, digital designers from Antwerp who want to guide people in transitioning from American tech giants to European and open-source alternatives.",
+      "heading": "Who we are",
+      "intro": "Switch-to.eu is built by Vincent and Simon Peters, digital designers from Antwerp. We started this because finding and switching to EU alternatives took more research than it should.",
       "mission": {
-        "title": "Our mission",
-        "description1": "In a world where American tech giants are amassing increasing control over our data and digital lives, Switch-to.eu offers an escape route. We believe everyone should have access to user-friendly, privacy-respecting digital tools developed in Europe.",
-        "description2": "Growing concerns about data privacy and the increasing monopolistic power of American tech companies led us to create this platform. Especially after big tech's shameless capitulation to Donald Trump, interest in European alternatives has only grown."
+        "title": "Why this exists",
+        "description1": "Most popular digital services are run by US companies under US law. That means your data is governed by a legal framework that handles privacy differently than the EU does.",
+        "description2": "We built Switch-to.eu to make it easier to find EU-hosted alternatives and actually switch to them."
       },
       "whatWeDo": {
         "title": "What we do",
-        "description": "Switch-to.eu offers step-by-step guides for replacing everyday digital tools like WhatsApp, Gmail, Chrome, and social media platforms with privacy-focused European alternatives. Our guides are specifically designed to be accessible to everyone - even your grandmother can make the switch with our simplified instructions."
+        "description": "Switch-to.eu has migration guides for replacing everyday tools like WhatsApp, Gmail, Chrome, and social media with EU-based alternatives. The guides are written so anyone can follow them, regardless of technical background."
       },
       "uniqueness": {
-        "title": "What makes us unique",
-        "description1": "Switch-to.eu fills an important gap in the digital world. There was no website that both clearly presents curated choices and consistently opts for European solutions that are actually practical to use.",
-        "description2": "At Switch-to.eu we offer:",
+        "title": "What makes this different",
+        "description1": "Other sites list privacy tools. We focus specifically on services based in the EU, and pair each one with a practical migration guide.",
+        "description2": "What you get:",
         "points": [
-          "Carefully selected European alternatives to popular American apps and services",
-          "Practical solutions that work in everyday life, not just complicated privacy tools for tech nerds",
-          "Simple, step-by-step guides that anyone can follow",
-          "A focus on both privacy and usability"
+          "EU-based alternatives to popular apps and services",
+          "Migration guides written for non-technical users",
+          "Honest comparisons that include trade-offs",
+          "Open source, maintained by volunteers"
         ]
       },
       "callToAction": {
-        "title": "Start today",
-        "description": "Ready to take back control of your digital life? Explore our guides and discover how easy it can be to transition to a more privacy-respecting digital existence with European technology that simply works."
+        "title": "Start here",
+        "description": "Pick a service you want to replace, read the comparison, and follow the guide. Most switches take under an hour."
       }
     },
     "viewServicesButton": "Start making the switch",
@@ -369,40 +364,24 @@
         "description": "This platform is built by the community, for the community. All our guides and service listings are maintained through open collaboration, and we welcome contributions from anyone interested in promoting EU digital services."
       }
     },
-    "whyChooseTitle": "Why Choose EU-Based Digital Services?",
-    "whyChooseDescription": "Choosing EU-based services offers several advantages that align with European values and regulations:",
+    "whyChooseTitle": "Why EU-based services?",
+    "whyChooseDescription": "Not every EU service is automatically better, and not every non-EU service is automatically bad. But there are real differences in how your data is treated.",
     "whyChoosePoints": {
       "point1": {
         "title": "Data Privacy & Protection",
-        "description": "EU-based digital services operate under the stringent General Data Protection Regulation (GDPR), giving you greater control over your personal data. Your information is treated as your property, not a commodity to be sold or shared without your explicit consent."
+        "description": "EU services operate under GDPR. You have the right to access, correct, and delete your data. Companies need your explicit consent before processing personal information."
       },
       "point2": {
-        "title": "Ethical Business Practices",
-        "description": "European digital services often prioritize sustainable and ethical business models that don't rely heavily on surveillance capitalism. Instead of monetizing your attention and personal information, many EU alternatives focus on providing quality services through transparent subscription models."
+        "title": "Data Jurisdiction",
+        "description": "When your data is stored in the EU, it stays under EU jurisdiction. US-based services are subject to laws like the CLOUD Act, which allows US authorities to request data stored abroad."
       },
       "point3": {
-        "title": "Digital Sovereignty",
-        "description": "Using EU-based services helps reduce dependence on big tech monopolies and supports a more diverse digital ecosystem. This contributes to technological independence for Europe and promotes innovation through healthy competition."
+        "title": "Regulation & Enforcement",
+        "description": "EU regulations set stricter rules around algorithmic transparency and data use. Services operating in Europe face real enforcement when they break these rules."
       },
       "point4": {
-        "title": "Consumer Rights",
-        "description": "The EU has established some of the world's strongest consumer protection laws in the digital realm. When using EU-based services, you benefit from clear terms of service, transparent pricing, and robust mechanisms for dispute resolution if something goes wrong."
-      }
-    },
-    "contributionTitle": "Join Our Mission",
-    "contributionDescription": "Digital sovereignty isn't just about where your data is stored—it's about having genuine choice and control in your digital life. By switching to EU-based services, you're taking an important step toward a more balanced, user-respecting digital ecosystem.",
-    "contributionPoints": {
-      "point1": {
-        "description": "Share your migration knowledge by creating detailed, user-friendly guides."
-      },
-      "point2": {
-        "description": "Test existing guides to help identify confusing steps or missing information."
-      },
-      "point3": {
-        "description": "Research and document EU-based alternatives to popular international services."
-      },
-      "point4": {
-        "description": "Contribute code, design, or translations to improve our platform."
+        "title": "Economic Impact",
+        "description": "Choosing EU services puts money into the European tech sector instead of concentrating it in a handful of US companies."
       }
     }
   },

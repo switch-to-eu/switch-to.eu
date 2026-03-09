@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Switch-to.eu",
+    "title": "Switch-to.eu — Vind EU-alternatieven voor Big Tech",
     "subtitle": "EU-alternatieven voor wereldwijde diensten",
     "description": "Een gids om je te helpen overstappen van niet-EU naar EU-gebaseerde digitale diensten en producten.",
     "search": "Zoeken...",
@@ -50,27 +50,25 @@
     "heading": "Weg van big tech? Maak de switch.",
     "subheading": "Vind EU-alternatieven voor wereldwijde diensten en bescherm je gegevens onder EU-wetgeving",
     "featuredSection": "Uitgelichte Categorieën",
-    "categoriesSectionTitle": "Europese Alternatieven per Categorie",
+    "categoriesSectionTitle": "Blader per categorie",
     "viewAll": "Bekijk alle diensten",
     "exploreCategory": "Ontdek",
     "readGuide": "Lees gids",
-    "heroTitle": "Weg van big tech? Maak de switch!",
-    "heroLine1": "Weg van big tech?",
-    "heroLine2": "Maak de switch!",
-    "heroSubtitle": "Maak jij je ook zorgen over je privacy en machtsmisbruik door <b>Amerikaanse techbedrijven</b>? Deze website helpt je om de switch te maken naar <b>Europese en open-source alternatieven</b>.",
+    "heroTitle": "Stap over van big tech naar EU-alternatieven",
+    "heroSubtitle": "Vind EU-vervangers voor de apps die je dagelijks gebruikt. Vergelijk functies, lees overstapgidsen, en switch op je eigen tempo.",
     "heroSubtitleShort": "Vergelijk EU-alternatieven en volg stap-voor-stap migratiegidsen.",
     "heroOr": "of",
     "heroViewCategories": "Bekijk Categorieën",
     "heroWhatWeStandFor": "Waar staan wij voor",
-    "heroDescription": "Vertel ons welke <b>digitale dienst</b> je wil veranderen en wij helpen je bij <b>de overstap!</b>",
+    "heroDescription": "Zoek een dienst die je wilt vervangen.",
     "exampleLabel": "Bijvoorbeeld:",
-    "featuredTitle": "Waar staat Switch-to.eu voor?",
+    "featuredTitle": "Wat Switch-to.eu doet",
     "featuresEuropeanTitle": "Europese Alternatieven",
-    "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
+    "featuresEuropeanDescription": "We verzamelen EU-alternatieven voor e-mail, cloudopslag, messaging, en meer. Elke vermelding toont waar de dienst gehost wordt, wat het kost, en hoe het met je data omgaat.",
     "featuresGuidesTitle": "Stapsgewijze Handleidingen",
-    "featuresGuidesDescription": "Volg onze duidelijke, gedetailleerde migratierichtlijnen om naadloos over te stappen van wereldwijde diensten naar Europese alternatieven. Onze handleidingen vereenvoudigen complexe processen tot behapbare stappen die iedereen kan volgen.",
+    "featuresGuidesDescription": "Stap-voor-stap instructies om je data van de ene dienst naar de andere te verplaatsen. Elke gids splitst het proces op in korte, concrete stappen.",
     "featuresCommunityTitle": "Community Gedreven",
-    "featuresCommunityDescription": "Ons platform gedijt op gebruikersparticipatie. Iedereen kan bijdragen door nieuwe diensten toe te voegen, migratiegidsen te maken of te verbeteren, en ervaringen te delen. Deze samenwerkingsaanpak zorgt ervoor dat onze inhoud relevant, nauwkeurig en volledig blijft.",
+    "featuresCommunityDescription": "Gebouwd en onderhouden door vrijwilligers. Iedereen kan diensten toevoegen, gidsen schrijven, of verouderde informatie melden.",
     "whySwitchTitle": "Waarom overstappen naar Europese diensten?",
     "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan de AVG, zodat uw gegevens transparant en veilig worden verwerkt.",
     "whySwitchDescription2": "Ondersteun het lokale tech-ecosysteem en draag bij aan een eerlijkere digitale economie.",
@@ -78,17 +76,17 @@
     "migrationGuidesTitle": "Populaire Overstapgidsen",
     "gmailToProton": {
       "title": "Gmail → ProtonMail",
-      "description": "Stap over van Gmail naar ProtonMail met onze stap-voor-stap migratiegids.",
+      "description": "Importeer je e-mails, contacten en agenda. Stel forwarding in zodat je niets mist.",
       "alt": "Gmail naar ProtonMail migratiegids"
     },
     "driveToPcloud": {
       "title": "Google Drive → Pcloud",
-      "description": "Migreer je bestanden van Google Drive naar Pcloud met deze complete gids.",
+      "description": "Verplaats je bestanden en mappenstructuur van Google Drive naar Pcloud.",
       "alt": "Google Drive naar Pcloud migratiegids"
     },
     "whatsappToSignal": {
       "title": "WhatsApp → Signal",
-      "description": "Verplaats je chats en contacten van WhatsApp naar Signal met onze uitgebreide gids.",
+      "description": "Stel Signal in en laat je contacten weten dat je overstapt. Behandelt ook groepschats.",
       "alt": "WhatsApp naar Signal migratiegids"
     },
     "viewAllGuidesButton": "Bekijk Alle Overstapgidsen"
@@ -316,35 +314,32 @@
   "about": {
     "title": "Over Switch-to.eu",
     "description": "Wij helpen EU-burgers digitale diensten te vinden die onder EU-wetgeving vallen",
-    "heroTitle": "Over Switch-to.EU",
-    "heroDescription1": "Switch-to.EU is een door de gemeenschap gedreven platform dat gebruikers helpt gemakkelijk over te stappen van niet-EU digitale diensten naar EU-alternatieven door middel van duidelijke, stapsgewijze migratiegidsen.",
-    "heroDescription2": "Ons doel is het bevorderen van digitale soevereiniteit en gegevensprivacy door het voor gebruikers gemakkelijker te maken om diensten te vinden en ernaar te migreren die binnen de Europese Unie worden gehost.",
     "initiative": {
-      "heading": "Weg van big tech? Wij helpen je de switch te maken.",
-      "intro": "Switch-to.eu is een initiatief van Vincent en Simon Peters, digitale ontwerpers uit Antwerpen die mensen wil begeleiden bij de overstap van Amerikaanse techgiganten naar Europese en open-source alternatieven.",
+      "heading": "Wie we zijn",
+      "intro": "Switch-to.eu is gebouwd door Vincent en Simon Peters, digitale ontwerpers uit Antwerpen. We begonnen hiermee omdat het vinden van en overstappen naar EU-alternatieven meer uitzoekwerk vergde dan nodig.",
       "mission": {
-        "title": "Onze missie",
-        "description1": "In een wereld waar Amerikaanse tech-giganten steeds meer macht verzamelen over onze gegevens en digitale levens, biedt Switch-to.eu een uitweg. Wij geloven dat iedereen toegang moet hebben tot gebruiksvriendelijke, privacy-respecterende digitale tools die in Europa ontwikkeld zijn.",
-        "description2": "De toenemende zorgen over gegevensprivacy en de groeiende monopolistische macht van Amerikaanse techbedrijven hebben ons ertoe gebracht dit platform te creëren. Zeker na de schaamteloze knieval van big tech voor Donald Trump is de interesse naar Europese alternatieven alleen maar gegroeid."
+        "title": "Waarom dit bestaat",
+        "description1": "De meeste populaire digitale diensten worden gerund door Amerikaanse bedrijven onder Amerikaans recht. Dat betekent dat je data valt onder een juridisch kader dat anders met privacy omgaat dan de EU.",
+        "description2": "We hebben Switch-to.eu gebouwd om het makkelijker te maken EU-alternatieven te vinden en er daadwerkelijk naar over te stappen."
       },
       "whatWeDo": {
         "title": "Wat we doen",
-        "description": "Switch-to.eu biedt stapsgewijze handleidingen voor het vervangen van dagelijkse digitale tools zoals WhatsApp, Gmail, Chrome en sociale mediaplatforms door privacy-gerichte Europese alternatieven. Onze gidsen zijn specifiek ontworpen om toegankelijk te zijn voor iedereen - zelfs je oma kan de switch maken met onze vereenvoudigde instructies."
+        "description": "Switch-to.eu heeft overstapgidsen voor het vervangen van dagelijkse tools zoals WhatsApp, Gmail, Chrome en sociale media door EU-alternatieven. De gidsen zijn geschreven zodat iedereen ze kan volgen, ongeacht technische achtergrond."
       },
       "uniqueness": {
-        "title": "Wat ons uniek maakt",
-        "description1": "Switch-to.eu vult een belangrijk hiaat in de digitale wereld. Er bestond nog geen website die zowel duidelijk gecureerde keuzes naar voren schuift, alsook consequent kiest voor Europese oplossingen die ook echt praktisch bruikbaar zijn.",
-        "description2": "Bij Switch-to.eu bieden we:",
+        "title": "Wat dit anders maakt",
+        "description1": "Andere sites listen privacy-tools. Wij richten ons specifiek op diensten gevestigd in de EU, en koppelen elke dienst aan een praktische overstapgids.",
+        "description2": "Wat je krijgt:",
         "points": [
-          "Zorgvuldig geselecteerde Europese alternatieven voor populaire Amerikaanse apps en diensten",
-          "Praktische oplossingen die werken in het dagelijks leven, niet alleen ingewikkelde privacy-tools voor tech-nerds",
-          "Eenvoudige, stap-voor-stap handleidingen die iedereen kan volgen",
-          "Een focus op privacy én gebruiksgemak"
+          "EU-alternatieven voor populaire apps en diensten",
+          "Overstapgidsen geschreven voor niet-technische gebruikers",
+          "Eerlijke vergelijkingen inclusief nadelen",
+          "Open source, onderhouden door vrijwilligers"
         ]
       },
       "callToAction": {
-        "title": "Begin vandaag nog",
-        "description": "Klaar om de controle over je digitale leven terug te nemen? Verken onze gidsen en ontdek hoe eenvoudig het kan zijn om de overstap te maken naar een meer privacy-respecterend digitaal bestaan met Europese technologie die gewoon werkt."
+        "title": "Begin hier",
+        "description": "Kies een dienst die je wilt vervangen, lees de vergelijking, en volg de gids. De meeste overstappen duren minder dan een uur."
       }
     },
     "viewServicesButton": "Begin met de overstap",
@@ -363,40 +358,24 @@
         "description": "Switch-to.EU is open-source en afhankelijk van bijdragen vanuit de gemeenschap. Het platform groeit en verbetert dankzij de collectieve kennis van zijn gebruikers, die gidsen, alternatieven en feedback bijdragen."
       }
     },
-    "whyChooseTitle": "Waarom Kiezen voor in de EU Gebaseerde Diensten?",
-    "whyChooseDescription": "Europese diensten bieden verschillende voordelen ten opzichte van niet-EU alternatieven:",
+    "whyChooseTitle": "Waarom EU-diensten?",
+    "whyChooseDescription": "Niet elke EU-dienst is automatisch beter, en niet elke niet-EU dienst is automatisch slecht. Maar er zijn echte verschillen in hoe je data behandeld wordt.",
     "whyChoosePoints": {
       "point1": {
-        "title": "Sterke Gegevensbescherming",
-        "description": "EU-diensten moeten voldoen aan strikte wetten voor gegevensbescherming zoals de AVG (Algemene Verordening Gegevensbescherming), die gebruikers meer controle geeft over hun persoonlijke gegevens en transparantie over hoe hun gegevens worden gebruikt."
+        "title": "Gegevensbescherming",
+        "description": "EU-diensten vallen onder de AVG. Je hebt het recht om je data in te zien, te corrigeren en te verwijderen. Bedrijven hebben je uitdrukkelijke toestemming nodig voor het verwerken van persoonlijke gegevens."
       },
       "point2": {
-        "title": "Digitale Soevereiniteit",
-        "description": "Door diensten te gebruiken die door Europese bedrijven worden beheerd, dragen gebruikers bij aan de technologische onafhankelijkheid van Europa en verminderen de afhankelijkheid van buitenlandse bedrijven en overheden."
+        "title": "Data jurisdictie",
+        "description": "Wanneer je data in de EU opgeslagen wordt, valt het onder EU-jurisdictie. Amerikaanse diensten vallen onder wetten zoals de CLOUD Act, waarmee Amerikaanse autoriteiten data in het buitenland mogen opvragen."
       },
       "point3": {
-        "title": "Ethische Overwegingen",
-        "description": "EU-bedrijven moeten voldoen aan Europese normen voor digitale ethiek, die vaak strengere vereisten hebben met betrekking tot algoritmische transparantie, fairness en non-discriminatie dan in andere rechtsgebieden."
+        "title": "Regulering & handhaving",
+        "description": "EU-regelgeving stelt strengere eisen aan algoritmische transparantie en datagebruik. Diensten in Europa worden daadwerkelijk aangepakt wanneer ze de regels overtreden."
       },
       "point4": {
-        "title": "Lokale Economie",
-        "description": "Door Europese alternatieven te ondersteunen, dragen gebruikers bij aan de groei van de digitale economie van de EU, wat leidt tot innovatie, werkgelegenheid en een meer competitief Europees technologisch ecosysteem."
-      }
-    },
-    "contributionTitle": "Bijdragen aan Switch-to.EU",
-    "contributionDescription": "We moedigen gebruikers aan om bij te dragen aan het platform door:",
-    "contributionPoints": {
-      "point1": {
-        "description": "Nieuwe migratiegidsen toevoegen of bestaande verbeteren"
-      },
-      "point2": {
-        "description": "EU-alternatieven voor populaire diensten voorstellen"
-      },
-      "point3": {
-        "description": "Bugs rapporteren of suggesties doen voor verbeteringen"
-      },
-      "point4": {
-        "description": "Het project delen met anderen die geïnteresseerd zijn in digitale soevereiniteit"
+        "title": "Economische impact",
+        "description": "EU-diensten kiezen betekent dat je geld in de Europese techsector steekt in plaats van het te concentreren bij een handvol Amerikaanse bedrijven."
       }
     }
   },

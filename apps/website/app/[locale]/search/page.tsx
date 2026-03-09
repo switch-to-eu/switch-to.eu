@@ -180,7 +180,7 @@ function SearchPageContent() {
                 <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
                   Search
                 </h1>
-                <p className="text-brand-sky text-base sm:text-lg mb-8">
+                <p className="text-brand-cream text-base sm:text-lg mb-8">
                   Find EU alternatives, migration guides, and service categories.
                 </p>
 

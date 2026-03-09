@@ -7,8 +7,8 @@ import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
-import { Container } from "@/components/layout/container";
-import { PageLayout } from "@/components/layout/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -84,7 +84,7 @@ export default async function LandingPage({
     <PageLayout>
       {/* Hero banner */}
       <section>
-        <Container noPaddingMobile overlapHeader>
+        <Container noPaddingMobile>
           <Banner
             color="bg-brand-navy"
             shapes={[
@@ -97,7 +97,7 @@ export default async function LandingPage({
               <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
                 {frontmatter.title}
               </h1>
-              <p className="text-brand-sky text-base sm:text-lg mb-6">
+              <p className="text-brand-cream text-base sm:text-lg mb-6">
                 {frontmatter.description}
               </p>
               {frontmatter.category && (

@@ -154,7 +154,7 @@ export default async function ServiceDetailPage({
                   </div>
                 </div>
 
-                <p className="text-brand-sky text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
+                <p className="text-brand-cream text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
                   {frontmatter.description}
                 </p>
 
@@ -289,7 +289,7 @@ export default async function ServiceDetailPage({
 
                     {relatedGuides.length > 0 ? (
                       <>
-                        <p className="text-brand-sky/80 mb-4 text-sm">
+                        <p className="text-brand-cream/80 mb-4 text-sm">
                           {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
                         </p>
                         <div className="space-y-3">
@@ -305,14 +305,14 @@ export default async function ServiceDetailPage({
                                 {!guide.frontmatter.sourceService &&
                                   guide.frontmatter.title}
                               </h3>
-                              <p className="text-xs text-brand-sky/70">
+                              <p className="text-xs text-brand-cream/70">
                                 {guide.frontmatter.description}
                               </p>
                             </Link>
                           ))}
                         </div>
                         <div className="mt-6 pt-4 border-t border-white/10">
-                          <p className="text-sm text-brand-sky/60 mb-3 text-center">
+                          <p className="text-sm text-brand-cream/60 mb-3 text-center">
                             {t("anotherServiceHelp")}
                           </p>
                           <div className="flex justify-center">
@@ -327,10 +327,10 @@ export default async function ServiceDetailPage({
                       </>
                     ) : (
                       <>
-                        <p className="text-brand-sky/80 mb-3 text-sm">
+                        <p className="text-brand-cream/80 mb-3 text-sm">
                           {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
                         </p>
-                        <p className="text-brand-sky/60 mb-6 text-sm">
+                        <p className="text-brand-cream/60 mb-6 text-sm">
                           {t("helpOthers")}
                         </p>
                         <div className="flex justify-center">
@@ -366,7 +366,7 @@ export default async function ServiceDetailPage({
                 </h2>
                 {relatedGuides.length > 0 ? (
                   <>
-                    <p className="text-brand-sky/80 mb-4 text-sm">
+                    <p className="text-brand-cream/80 mb-4 text-sm">
                       {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
                     </p>
                     <div className="space-y-3">
@@ -382,7 +382,7 @@ export default async function ServiceDetailPage({
                             {!guide.frontmatter.sourceService &&
                               guide.frontmatter.title}
                           </h3>
-                          <p className="text-xs text-brand-sky/70">
+                          <p className="text-xs text-brand-cream/70">
                             {guide.frontmatter.description}
                           </p>
                         </Link>
@@ -401,10 +401,10 @@ export default async function ServiceDetailPage({
                   </>
                 ) : (
                   <>
-                    <p className="text-brand-sky/80 mb-3 text-sm">
+                    <p className="text-brand-cream/80 mb-3 text-sm">
                       {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
                     </p>
-                    <p className="text-brand-sky/60 mb-6 text-sm">
+                    <p className="text-brand-cream/60 mb-6 text-sm">
                       {t("helpOthers")}
                     </p>
                     <div className="flex justify-center">

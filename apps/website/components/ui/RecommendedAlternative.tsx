@@ -61,7 +61,7 @@ export async function RecommendedAlternative({
             {service.name}
           </h2>
 
-          <p className="text-brand-sky text-base sm:text-lg mb-5 max-w-xl leading-relaxed">
+          <p className="text-brand-cream text-base sm:text-lg mb-5 max-w-xl leading-relaxed">
             {service.description}
           </p>
 

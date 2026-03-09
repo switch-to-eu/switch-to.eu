@@ -231,7 +231,7 @@ export default async function ServiceDetailPage({
                     <h3 className="font-medium mb-1 text-white text-sm">
                       {t("dataSovereignty.title")}
                     </h3>
-                    <p className="text-xs text-brand-sky/80">
+                    <p className="text-xs text-brand-cream/80">
                       {t("dataSovereignty.description")}
                     </p>
                   </div>
@@ -239,7 +239,7 @@ export default async function ServiceDetailPage({
                     <h3 className="font-medium mb-1 text-white text-sm">
                       {t("gdprCompliance.title")}
                     </h3>
-                    <p className="text-xs text-brand-sky/80">
+                    <p className="text-xs text-brand-cream/80">
                       {t("gdprCompliance.description")}
                     </p>
                   </div>
@@ -247,7 +247,7 @@ export default async function ServiceDetailPage({
                     <h3 className="font-medium mb-1 text-white text-sm">
                       {t("legalRecourse.title")}
                     </h3>
-                    <p className="text-xs text-brand-sky/80">
+                    <p className="text-xs text-brand-cream/80">
                       {t("legalRecourse.description")}
                     </p>
                   </div>
@@ -255,7 +255,7 @@ export default async function ServiceDetailPage({
                     <h3 className="font-medium mb-1 text-white text-sm">
                       {t("supportEUDigital.title")}
                     </h3>
-                    <p className="text-xs text-brand-sky/80">
+                    <p className="text-xs text-brand-cream/80">
                       {t("supportEUDigital.description")}
                     </p>
                   </div>

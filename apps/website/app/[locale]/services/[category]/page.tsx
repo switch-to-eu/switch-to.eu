@@ -119,7 +119,7 @@ export default async function ServicesCategoryPage({
                 <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
                   {pageTitle}
                 </h1>
-                <p className="text-brand-sky text-base sm:text-lg">
+                <p className="text-brand-cream text-base sm:text-lg">
                   {pageDescription}
                 </p>
               </div>

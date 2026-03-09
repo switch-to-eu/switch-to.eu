@@ -1,5 +1,5 @@
 import { cn } from "@switch-to-eu/ui/lib/utils";
-import { Container } from "./container";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 export function Section({
   className,

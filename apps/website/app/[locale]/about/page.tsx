@@ -39,9 +39,7 @@ export default async function AboutPage() {
   const starShape = shapes["star"];
 
   return (
-    <PageLayout>
-      {/* Hero Section */}
-      <section>
+    <PageLayout gapMobile>
         <Container noPaddingMobile>
           <Banner
             color="bg-brand-navy"
@@ -55,7 +53,7 @@ export default async function AboutPage() {
                 <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
                   {t("initiative.heading")}
                 </h1>
-                <p className="text-brand-sky text-base sm:text-lg">
+                <p className="text-brand-cream text-base sm:text-lg">
                   {t("initiative.intro")}
                 </p>
               </div>
@@ -84,14 +82,12 @@ export default async function AboutPage() {
             </div>
           </Banner>
         </Container>
-      </section>
 
       {/* Mission & Details */}
-      <section>
         <Container>
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
             <div>
-              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4 mt-4 md:mt-0">
                 {t("initiative.mission.title")}
               </h2>
               <p className="text-base sm:text-lg mb-4">
@@ -158,10 +154,8 @@ export default async function AboutPage() {
             </div>
           </div>
         </Container>
-      </section>
 
       {/* Three Pillars Section */}
-      <section>
         <Container noPaddingMobile>
           <SectionHeading>{t("pillarsTitle")}</SectionHeading>
           <div className="grid gap-0 md:gap-5 auto-rows-fr md:grid-cols-3">
@@ -177,10 +171,8 @@ export default async function AboutPage() {
             ))}
           </div>
         </Container>
-      </section>
 
       {/* Why Choose EU Services Section */}
-      <section>
         <Container noPaddingMobile>
           <SectionHeading>{t("whyChooseTitle")}</SectionHeading>
           <p className="text-base sm:text-lg mb-10 max-w-2xl px-3 md:px-0">
@@ -200,7 +192,6 @@ export default async function AboutPage() {
             ))}
           </div>
         </Container>
-      </section>
     </PageLayout>
   );
 }

@@ -107,7 +107,7 @@ export default async function ContributePage() {
             <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
               {t("whyMatters.title")}
             </h2>
-            <p className="text-brand-sky text-base sm:text-lg">
+            <p className="text-brand-cream text-base sm:text-lg">
               {t("whyMatters.description")}
             </p>
           </Banner>

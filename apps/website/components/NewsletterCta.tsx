@@ -102,7 +102,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
           <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
             {t("title")}
           </h2>
-          <p className="text-brand-sky text-base sm:text-lg mb-8 sm:mb-10">
+          <p className="text-brand-cream text-base sm:text-lg mb-8 sm:mb-10">
             {t("description")}
           </p>
 
@@ -118,7 +118,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                     name="firstname"
                     render={({ field }) => (
                       <FormItem className="text-left">
-                        <FormLabel className="text-brand-sky/80 text-sm">
+                        <FormLabel className="text-brand-cream/80 text-sm">
                           {t("firstNameLabel")}
                         </FormLabel>
                         <FormControl>
@@ -137,7 +137,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                     name="email"
                     render={({ field }) => (
                       <FormItem className="text-left">
-                        <FormLabel className="text-brand-sky/80 text-sm">
+                        <FormLabel className="text-brand-cream/80 text-sm">
                           {t("emailLabel")}
                         </FormLabel>
                         <FormControl>

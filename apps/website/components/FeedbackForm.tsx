@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@switch-to-eu/ui/components/select";
 import { Alert, AlertDescription } from "@switch-to-eu/ui/components/alert";
+import { Button } from "@switch-to-eu/ui/components/button";
 import { useMessages, useTranslations } from "next-intl";
 import { Link } from "@switch-to-eu/i18n/navigation";
 
@@ -129,10 +130,10 @@ export default function FeedbackForm() {
   return (
     <div className="w-full max-w-2xl mx-auto bg-card rounded-3xl border border-brand-sage/30 overflow-hidden">
       <div className="px-6 sm:px-8 pt-8 pb-2">
-        <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
+        <h2 className="font-heading text-2xl sm:text-3xl uppercase text-black">
           {t("form.title")}
         </h2>
-        <p className="text-brand-green/60 mt-2">{t("form.description")}</p>
+        <p className="text-black/60 mt-2">{t("form.description")}</p>
       </div>
       <div className="px-6 sm:px-8 py-6">
         <Form {...form}>
@@ -142,7 +143,7 @@ export default function FeedbackForm() {
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-brand-green font-semibold">
+                  <FormLabel className="text-black font-semibold">
                     {t("form.categoryLabel")}
                   </FormLabel>
                   <Select
@@ -184,7 +185,7 @@ export default function FeedbackForm() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-brand-green font-semibold">
+                  <FormLabel className="text-black font-semibold">
                     {t("form.titleLabel")}
                   </FormLabel>
                   <FormControl>
@@ -204,7 +205,7 @@ export default function FeedbackForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-brand-green font-semibold">
+                  <FormLabel className="text-black font-semibold">
                     {t("form.descriptionLabel")}
                   </FormLabel>
                   <FormControl>
@@ -224,7 +225,7 @@ export default function FeedbackForm() {
               name="contactInfo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-brand-green font-semibold">
+                  <FormLabel className="text-black font-semibold">
                     {t("form.contactInfoLabel")}
                   </FormLabel>
                   <FormControl>
@@ -240,7 +241,7 @@ export default function FeedbackForm() {
             />
 
             {submitStatus === "success" && (
-              <Alert className="bg-brand-sage/30 text-brand-green border-brand-sage rounded-2xl">
+              <Alert className="bg-brand-sage/30 text-black border-brand-sage rounded-2xl">
                 <AlertDescription>
                   {t("form.successMessage")}
                   {issueUrl && (
@@ -265,7 +266,7 @@ export default function FeedbackForm() {
               </Alert>
             )}
 
-            <div className="text-xs text-brand-green/40">
+            <div className="text-xs text-black/40">
               <p>
                 {commonT("privacyNotice")}{" "}
                 <Link
@@ -279,13 +280,14 @@ export default function FeedbackForm() {
             </div>
 
             <div className="flex justify-end">
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-8 py-3 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50 min-w-[140px]"
+                size="lg"
+                className="min-w-[140px] rounded-full"
               >
                 {isSubmitting ? t("form.submitting") : t("form.submitButton")}
-              </button>
+              </Button>
             </div>
           </form>
         </Form>

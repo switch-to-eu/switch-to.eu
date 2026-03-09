@@ -289,7 +289,7 @@ export default async function ContributeGuidePage() {
             <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
               {t("guide.callToAction.title")}
             </h2>
-            <p className="text-brand-sky text-base sm:text-lg mb-8">
+            <p className="text-brand-cream text-base sm:text-lg mb-8">
               {t("guide.callToAction.description")}
             </p>
             <Button
