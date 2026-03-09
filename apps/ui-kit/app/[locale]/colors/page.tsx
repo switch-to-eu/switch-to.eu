@@ -1,3 +1,5 @@
+import { BRAND_CARD_COLORS } from "@switch-to-eu/ui/lib/brand-palette";
+
 function Swatch({ name, value }: { name: string; value: string }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -36,8 +38,9 @@ const coreColors = [
   { name: "accent", value: "#ffffff" },
   { name: "accent-foreground", value: "#1a3c5a" },
   { name: "destructive", value: "#ff4a4a" },
-  { name: "border", value: "#e5e7eb" },
-  { name: "input", value: "#ffffff" },
+  { name: "destructive-foreground", value: "#ffffff" },
+  { name: "border", value: "#d1d5db" },
+  { name: "input", value: "#d1d5db" },
   { name: "ring", value: "#1a3c5a" },
   { name: "card", value: "#ffffff" },
   { name: "card-foreground", value: "#1a3c5a" },
@@ -46,27 +49,30 @@ const coreColors = [
 ];
 
 const semanticColors = [
-  { name: "green", value: "#a2d4a8" },
-  { name: "green-bg", value: "#e8fff5" },
-  { name: "blue", value: "#3ea6e3" },
-  { name: "blue-bg", value: "#cce6f4" },
-  { name: "yellow", value: "#f7df8f" },
+  { name: "success", value: "#16a34a" },
+  { name: "success-foreground", value: "#ffffff" },
+  { name: "warning", value: "#d97706" },
+  { name: "warning-foreground", value: "#ffffff" },
+  { name: "destructive", value: "#ff4a4a" },
+  { name: "destructive-foreground", value: "#ffffff" },
 ];
 
-const featureColors = [
-  { name: "feature-blue-bg", value: "#e9f4fd" },
-  { name: "feature-pink-bg", value: "#ffeae5" },
-  { name: "feature-green-bg", value: "#e8f7ed" },
-  { name: "feature-icon-color", value: "#1b456b" },
-  { name: "cta-button", value: "#feb5a7" },
-  { name: "cta-button-hover", value: "#ff8a74" },
+const brandColors = [
+  { name: "brand-yellow", value: "#FBA616" },
+  { name: "brand-green", value: "#0D492C" },
+  { name: "brand-sky", value: "#9BCDD0" },
+  { name: "brand-red", value: "#E22028" },
+  { name: "brand-pink", value: "#E282B4" },
+  { name: "brand-navy", value: "#1E42B0" },
+  { name: "brand-sage", value: "#B0D8B0" },
+  { name: "brand-orange", value: "#E45229" },
+  { name: "brand-cream", value: "#fefbf9" },
 ];
 
-const popColors = [
-  { name: "pop-1 (blue)", value: "#e9f4fd" },
-  { name: "pop-2 (pink)", value: "#ffeae5" },
-  { name: "pop-3 (green)", value: "#e8f7ed" },
-  { name: "pop-4 (purple)", value: "#f0ebff" },
+const toolColorDefaults = [
+  { name: "tool-primary", value: "var(--primary)" },
+  { name: "tool-accent", value: "var(--brand-sky)" },
+  { name: "tool-surface", value: "var(--muted)" },
 ];
 
 const chartColors = [
@@ -101,13 +107,90 @@ export default function ColorsPage() {
     <div>
       <h1 className="text-4xl mb-2">Colors</h1>
       <p className="text-muted-foreground mb-8">
-        All CSS custom properties defined in the theme. Values shown are light mode defaults.
+        All CSS custom properties defined in the theme. Light-only design system.
       </p>
 
       <ColorGroup title="Core" colors={coreColors} />
-      <ColorGroup title="Semantic" colors={semanticColors} />
-      <ColorGroup title="Feature Cards" colors={featureColors} />
-      <ColorGroup title="Pop (Category Cards)" colors={popColors} />
+
+      {/* Semantic Tokens */}
+      <section className="mb-10">
+        <h2 className="text-2xl mb-4">Semantic Tokens</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          State colors for success, warning, and destructive actions.
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+          {semanticColors.map((color) => (
+            <Swatch key={color.name} {...color} />
+          ))}
+        </div>
+      </section>
+
+      <ColorGroup title="Brand Palette" colors={brandColors} />
+
+      {/* Tool Color Variables */}
+      <section className="mb-10">
+        <h2 className="text-2xl mb-4">Tool Color Variables</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Per-app color scheme variables. Each tool app overrides these in its{" "}
+          <code className="text-sm bg-muted px-1.5 py-0.5 rounded">globals.css</code>{" "}
+          to set its own primary, accent, and surface colors from the brand palette.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {toolColorDefaults.map((token) => (
+            <div key={token.name} className="flex flex-col gap-1.5">
+              <div className="h-16 w-full rounded-lg border border-border bg-muted flex items-center justify-center">
+                <code className="text-xs text-muted-foreground">{token.value}</code>
+              </div>
+              <div className="text-xs font-medium">{token.name}</div>
+              <div className="text-xs text-muted-foreground font-mono">{token.value}</div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground mt-3">
+          Browse all combinations on the{" "}
+          <span className="font-medium">Tool Colors</span> page.
+        </p>
+      </section>
+
+      {/* Brand Card Palette */}
+      <section className="mb-10">
+        <h2 className="text-2xl mb-4">Brand Card Palette</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          8-color card rotation from{" "}
+          <code className="text-sm bg-muted px-1.5 py-0.5 rounded">BRAND_CARD_COLORS</code>.
+          Each card combines a background, text color, and button style.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {BRAND_CARD_COLORS.map((scheme, i) => (
+            <div
+              key={i}
+              className={`${scheme.bg} rounded-xl p-5 flex flex-col gap-3`}
+            >
+              <p className={`text-sm font-mono ${scheme.text}`}>
+                Card {i + 1}
+              </p>
+              <p className={`text-lg font-bold ${scheme.text}`}>
+                {scheme.bg.replace("bg-", "")}
+              </p>
+              <div className={`${scheme.button} rounded-lg px-3 py-1.5 text-sm font-medium w-fit`}>
+                Button
+              </div>
+              <div className="mt-1 space-y-0.5">
+                <p className={`text-xs font-mono ${scheme.text} opacity-70`}>
+                  bg: {scheme.bg}
+                </p>
+                <p className={`text-xs font-mono ${scheme.text} opacity-70`}>
+                  text: {scheme.text}
+                </p>
+                <p className={`text-xs font-mono ${scheme.text} opacity-70`}>
+                  btn: {scheme.button}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <ColorGroup title="Chart" colors={chartColors} />
       <ColorGroup title="Sidebar" colors={sidebarColors} />
 

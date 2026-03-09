@@ -1,12 +1,75 @@
-import Image from "next/image";
-import { Container } from "@/components/layout/container";
-import { InlineSearchInput } from "@/components/InlineSearchInput";
-import { ContributeCta } from "@/components/ContributeCta";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+
 import { NewsletterCta } from "@/components/NewsletterCta";
-import { CategorySection } from "@/components/CategorySection";
+import { Hero } from "@/components/Hero";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
+import { shapes } from "@switch-to-eu/blocks/shapes";
+
+const CATEGORY_SHAPES = [
+  "spark", "cloud", "tulip", "speech",
+  "heart", "sunburst", "flower", "starburst",
+];
+
+const GUIDE_CARDS = [
+  {
+    href: "/guides/messaging/whatsapp-to-signal",
+    image: "/images/guides/whatsapp-signal.png",
+    titleKey: "whatsappToSignal.title",
+    descKey: "whatsappToSignal.description",
+    altKey: "whatsappToSignal.alt",
+    shape: "speech",
+    colorIndex: 0,
+  },
+  {
+    href: "/guides/email/gmail-to-protonmail",
+    image: "/images/guides/gmail-proton.png",
+    titleKey: "gmailToProton.title",
+    descKey: "gmailToProton.description",
+    altKey: "gmailToProton.alt",
+    shape: "cloud",
+    colorIndex: 1,
+  },
+  {
+    href: "/guides/storage/google-drive-to-pcloud",
+    image: "/images/guides/drive-pcloud.png",
+    titleKey: "driveToPcloud.title",
+    descKey: "driveToPcloud.description",
+    altKey: "driveToPcloud.alt",
+    shape: "star",
+    colorIndex: 2,
+  },
+] as const;
+
+const FEATURE_ITEMS = [
+  {
+    titleKey: "featuresEuropeanTitle",
+    descKey: "featuresEuropeanDescription",
+    shapeBg: "bg-brand-sky",
+    shape: "spark",
+    shapeColor: "text-brand-green",
+  },
+  {
+    titleKey: "featuresGuidesTitle",
+    descKey: "featuresGuidesDescription",
+    shapeBg: "bg-brand-pink",
+    shape: "squiggle",
+    shapeColor: "text-white",
+  },
+  {
+    titleKey: "featuresCommunityTitle",
+    descKey: "featuresCommunityDescription",
+    shapeBg: "bg-brand-yellow",
+    shape: "flower",
+    shapeColor: "text-brand-green",
+  },
+] as const;
 
 // Generate metadata with language alternates
 export async function generateMetadata() {
@@ -28,244 +91,105 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const t = await getTranslations("home");
-
-  const imageSize = 120;
+  const locale = await getLocale();
+  const categories = getAllCategoriesMetadata(locale);
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <PageLayout>
       {/* Hero Section */}
-      <section className="relative">
-        <Container className="flex flex-col md:mt-6 md:mb-6 md:flex-row items-center gap-6 sm:gap-8 py-4 sm:py-6">
-          <div className="flex flex-col gap-4 sm:gap-6">
-            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl ">
-              {t("heroTitle")}
-            </h1>
-            <p
-              className="text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
-              dangerouslySetInnerHTML={{
-                __html: t.markup("heroSubtitle", {
-                  b: (chunks) => `<b>${chunks}</b>`,
-                }),
-              }}
-            />
-            <p
-              className="text-base sm:text-lg md:text-xl max-w-[500px]"
-              dangerouslySetInnerHTML={{
-                __html: t.markup("heroDescription", {
-                  b: (chunks) => `<b>${chunks}</b>`,
-                }),
-              }}
-            />
+      <Hero />
 
-            {/* Search CTA */}
-            <div className="w-full ">
-              <InlineSearchInput
-                filterRegion="non-eu"
-                showOnlyServices={true}
+      {/* Categories Section */}
+      <section id="categories">
+        <Container noPaddingMobile>
+          <SectionHeading>{t("categoriesSectionTitle")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {categories.map((category, index) => (
+              <BrandCard
+                key={category.slug}
+                colorIndex={index}
+                title={category.metadata.title}
+                description={category.metadata.description}
+                href={`/services/${category.slug}`}
+                ctaText={t("exploreCategory")}
+                shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}
               />
-            </div>
-
-            <p className="text-base sm:text-lg md:text-xl mb -2 sm:mb-3 max-w-[500px]">
-              {t("exampleLabel")}{" "}
-              <Link
-                href={`/services/non-eu/whatsapp`}
-                className="text-blue underline"
-              >
-                WhatsApp
-              </Link>
-              ,&nbsp;
-              <Link
-                href={`/services/non-eu/gmail`}
-                className="text-blue underline"
-              >
-                Gmail
-              </Link>{" "}
-              or&nbsp;
-              <Link
-                href={`/services/non-eu/google-drive`}
-                className="text-blue underline"
-              >
-                Google Drive
-              </Link>
-            </p>
-          </div>
-
-          <div className="relative w-full max-w-[300px] sm:max-w-[400px] h-[250px] sm:h-[300px] mt-4 sm:mt-0">
-            <Image
-              src="/images/europe.svg"
-              alt="Europe map illustration"
-              fill
-              className="object-contain"
-              priority
-            />
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Migration Guides Section */}
       <section>
-        <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
-            {t("migrationGuidesTitle")}
-          </h2>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link
-                href="/guides/messaging/whatsapp-to-signal"
-                className="block"
-              >
-                <div className="relative w-full h-40">
-                  <Image
-                    src="/images/guides/whatsapp-signal.png"
-                    alt={t("whatsappToSignal.alt")}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {t("whatsappToSignal.title")}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {t("whatsappToSignal.description")}
-                  </p>
-                </div>
-              </Link>
-            </div>
-
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link href="/guides/email/gmail-to-protonmail" className="block">
-                <div className="relative w-full h-40">
-                  <Image
-                    src="/images/guides/gmail-proton.png"
-                    alt={t("gmailToProton.alt")}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {t("gmailToProton.title")}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {t("gmailToProton.description")}
-                  </p>
-                </div>
-              </Link>
-            </div>
-
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <Link
-                href="/guides/storage/google-drive-to-pcloud"
-                className="block"
-              >
-                <div className="relative w-full h-40">
-                  <Image
-                    src="/images/guides/drive-pcloud.png"
-                    alt={t("driveToPcloud.alt")}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {t("driveToPcloud.title")}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {t("driveToPcloud.description")}
-                  </p>
-                </div>
-              </Link>
-            </div>
+        <Container noPaddingMobile>
+          <SectionHeading>{t("migrationGuidesTitle")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+            {GUIDE_CARDS.map((card) => (
+              <BrandCard
+                key={card.href}
+                colorIndex={card.colorIndex}
+                title={t(card.titleKey)}
+                description={t(card.descKey)}
+                href={card.href}
+                ctaText={t("readGuide")}
+                image={card.image}
+                imageAlt={t(card.altKey)}
+                shape={card.shape}
+              />
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Features Section */}
-      <section>
-        <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8">
-            {t("featuredTitle")}
-          </h2>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-            <div className="bg-[var(--pop-1)] p-5 sm:p-8 rounded-xl sm:translate-y-[10px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-01.svg"
-                    alt="Europe map illustration"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("featuresEuropeanTitle")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("featuresEuropeanDescription")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-[var(--pop-2)] p-5 sm:p-8 rounded-xl sm:translate-y-[-20px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-02.svg"
-                    alt="Europe map illustration"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("featuresGuidesTitle")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("featuresGuidesDescription")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-[var(--pop-3)] p-5 sm:p-8 rounded-xl">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-03.svg"
-                    alt="Europe map illustration"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("featuresCommunityTitle")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("featuresCommunityDescription")}
-                </p>
-              </div>
-            </div>
-          </div>
+      <section id="stand-for">
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-green"
+            className="overflow-hidden"
+            shapes={[
+              { shape: "blob", className: "-top-10 -right-10 w-44 h-44 sm:w-64 sm:h-64", opacity: 0.1, duration: "10s" },
+              { shape: "pebble", className: "-bottom-8 -left-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.1, duration: "9s", delay: "-4s" },
+            ]}
+          >
+            <SectionHeading color="text-brand-yellow" className="text-center mb-8 sm:mb-10 px-0">
+              {t("featuredTitle")}
+            </SectionHeading>
+
+            <AlternatingShowcase
+              items={FEATURE_ITEMS.map((item, index) => {
+                const shapeData = shapes[item.shape];
+                return {
+                  visual: (
+                    <div
+                      className={`${item.shapeBg} w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full relative flex items-center justify-center p-5 sm:p-7`}
+                    >
+                      {shapeData && (
+                        <svg
+                          viewBox={shapeData.viewBox}
+                          className={`w-full h-full select-none animate-shape-float ${item.shapeColor}`}
+                          style={{
+                            animationDuration: `${6 + (index % 3) * 1.5}s`,
+                            animationDelay: `${index * -1.5}s`,
+                          }}
+                          aria-hidden="true"
+                        >
+                          <path d={shapeData.d} fill="currentColor" />
+                        </svg>
+                      )}
+                    </div>
+                  ),
+                  title: t(item.titleKey),
+                  description: t(item.descKey),
+                };
+              })}
+            />
+          </Banner>
         </Container>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-8 md:py-12">
-        <Container>
-          <NewsletterCta />
-        </Container>
-      </section>
-
-      {/* Categories Section */}
-      <CategorySection />
-
-      {/* CTA Section */}
-      <section className="py-8 md:py-12">
-        <Container>
-          <ContributeCta />
-        </Container>
-      </section>
-    </div>
+      <NewsletterCta />
+    </PageLayout>
   );
 }

@@ -94,7 +94,7 @@ export function PollLoading({ showAdminActions = false }: PollLoadingProps) {
               <div className="space-y-3">
                 <Skeleton className="h-5 w-24" />
                 {Array.from({ length: 3 }, (_, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg bg-gray-50 p-3 border border-gray-200">
+                  <div key={i} className="flex items-center justify-between rounded-lg bg-muted p-3 border border-border">
                     <div className="flex items-center gap-3">
                       <Skeleton className="h-6 w-6 rounded-full" />
                       <Skeleton className="h-4 w-32" />
@@ -111,7 +111,7 @@ export function PollLoading({ showAdminActions = false }: PollLoadingProps) {
               <div className="space-y-3">
                 <Skeleton className="h-5 w-24" />
                 {Array.from({ length: 2 }, (_, i) => (
-                  <div key={i} className="flex items-center gap-3 rounded-lg bg-gray-50 p-3 border border-gray-200">
+                  <div key={i} className="flex items-center gap-3 rounded-lg bg-muted p-3 border border-border">
                     <Skeleton className="h-10 w-10 rounded-full" />
                     <Skeleton className="h-4 w-24" />
                   </div>

@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
+    "dev:proxy": "sudo caddy run --config Caddyfile",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
@@ -16,7 +17,7 @@
   "devDependencies": {
     "turbo": "^2.8.3"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": "24"
   }

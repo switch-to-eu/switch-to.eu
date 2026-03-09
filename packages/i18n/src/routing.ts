@@ -7,8 +7,8 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale = "en" satisfies Locale;
 
 export const localeNames: Record<Locale, string> = {
-  en: "English",
-  nl: "Nederlands",
+  en: "EN",
+  nl: "NL",
 };
 
 export const routing = defineRouting({

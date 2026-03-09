@@ -37,16 +37,16 @@ export function PollInfo({ poll }: PollInfoProps) {
       />
       <SectionContent className="text-center">
         {poll.location && (
-          <p className="mb-6 text-base text-gray-700">
+          <p className="mb-6 text-base text-foreground">
             📍 {poll.location}
           </p>
         )}
         <div className="flex items-center justify-center gap-6 text-sm">
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-muted-foreground">
             <Users className="h-4 w-4" />
             <span>{poll.participants.length} {t('responses')}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar className="h-4 w-4" />
             {poll.allowHourSelection && poll.selectedStartTimes && poll.fixedDuration && poll.selectedStartTimes.length > 0 ? (
               <span>{poll.dates.length * poll.selectedStartTimes.length} {t('timeSlots')}</span>
@@ -55,7 +55,7 @@ export function PollInfo({ poll }: PollInfoProps) {
             )}
           </div>
           {poll.allowHourSelection && poll.fixedDuration && (
-            <div className="flex items-center gap-2 text-gray-600">
+            <div className="flex items-center gap-2 text-muted-foreground">
               <Clock className="h-4 w-4" />
               <span>{poll.fixedDuration}h {t('duration')}</span>
             </div>
@@ -85,7 +85,7 @@ export function BestTimeHighlight({ poll, bestTime }: BestTimeHighlightProps) {
         })}
       />
       <SectionContent className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900">
+        <h3 className="text-xl font-semibold text-foreground">
           {bestTime.date.includes('T') ? (
             // For timed polls: show date + time range
             <>

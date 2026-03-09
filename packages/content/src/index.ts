@@ -10,6 +10,7 @@ export type {
   AlternativesFrontmatter,
   ServiceFrontmatter,
   CategoryMetadata,
+  LandingPageFrontmatter,
   ContentSegments,
 } from "./schemas";
 
@@ -18,6 +19,7 @@ export {
   AlternativesFrontmatterSchema,
   ServiceFrontmatterSchema,
   CategoryMetadataSchema,
+  LandingPageFrontmatterSchema,
 } from "./schemas";
 
 // Utilities
@@ -27,6 +29,7 @@ export {
   isAlternativesFrontmatter,
   isServiceFrontmatter,
   isCategoryMetadata,
+  isLandingPageFrontmatter,
   extractContentSegments,
   extractServiceIssues,
   extractMigrationSteps,
@@ -54,4 +57,5 @@ export type {
   GuideSearchResult,
   ServiceSearchResult,
   CategorySearchResult,
+  LandingPageSearchResult,
 } from "./search";

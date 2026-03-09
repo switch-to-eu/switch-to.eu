@@ -181,7 +181,7 @@ export function SearchInput({
             <CommandList className="max-h-[350px] overflow-y-auto">
               {/* Debug information - only in development and when explicitly enabled */}
               {process.env.NODE_ENV === "development" && showDebug && (
-                <div className="px-4 py-1 text-xs text-gray-500 border-b">
+                <div className="px-4 py-1 text-xs text-muted-foreground border-b">
                   {debugStateInfo}
                 </div>
               )}
@@ -260,7 +260,7 @@ export function SearchInput({
                       className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                       onClick={handleViewAllResults}
                     >
-                      <span className="text-blue-500 font-medium">
+                      <span className="text-brand-navy font-medium">
                         {t("viewAllResults")}
                       </span>
                     </div>

@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "fuse.js": "^7.1.0",
-    "gray-matter": "^4.0.3",
+    "gray-matter": "catalog:",
     "marked": "^15.0.11",
     "sanitize-html": "^2.17.1",
     "zod": "catalog:"

@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import { api } from "@/lib/trpc-client";
-import { decryptData } from "@/lib/crypto";
+import { decryptData } from "@switch-to-eu/db/crypto";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import type {
   DecryptedPoll,
   EncryptedPollStructure,
@@ -18,7 +18,6 @@ interface BestTime {
 
 interface UseLoadPollOptions {
   pollId: string;
-  onMissingKey?: () => void;
 }
 
 interface UseLoadPollReturn {
@@ -35,17 +34,18 @@ interface UseLoadPollReturn {
 
 export function useLoadPoll({
   pollId,
-  onMissingKey,
 }: UseLoadPollOptions): UseLoadPollReturn {
-  const router = useRouter();
+  const fragment = useFragment();
 
   const [poll, setPoll] = useState<DecryptedPoll | null>(null);
-  const [encryptionKey, setEncryptionKey] = useState<string>("");
   const [isDecrypting, setIsDecrypting] = useState(false);
   const [decryptionError, setDecryptionError] = useState<string | null>(null);
-  const [missingKey, setMissingKey] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [pollQueryError, setPollQueryError] = useState(false);
+
+  // Derive encryption key from fragment — supports both #rawKey (legacy) and #key=xxx
+  const encryptionKey = fragment.params.key || "";
+  const missingKey = fragment.ready && !encryptionKey;
 
   // Use SSE subscription for real-time updates
   const { data: subscriptionData, error: subscriptionError } =
@@ -58,26 +58,6 @@ export function useLoadPoll({
         },
       }
     );
-
-  // Extract encryption key from URL fragment
-  // Supports both formats: #rawKey (poll page) and #token=xxx&key=yyy (admin page)
-  useEffect(() => {
-    const fragment = window.location.hash.substring(1);
-
-    if (fragment) {
-      if (fragment.includes("key=")) {
-        const params = new URLSearchParams(fragment);
-        const key = params.get("key") ?? "";
-        setEncryptionKey(key);
-        setMissingKey(!key);
-      } else {
-        setEncryptionKey(fragment);
-        setMissingKey(false);
-      }
-    } else {
-      setMissingKey(true);
-    }
-  }, [router, onMissingKey]);
 
   // Load and decrypt poll data when subscription data changes
   useEffect(() => {

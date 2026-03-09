@@ -1,83 +1,55 @@
-import { Menu } from "lucide-react";
-import { Button } from "@switch-to-eu/ui/components/button";
-import { Sheet, SheetContent, SheetTrigger } from "@switch-to-eu/ui/components/sheet";
+import { ExternalLink } from "lucide-react";
 import { getNavItems } from "./nav-items";
-import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { MobileNav as BlocksMobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import { SearchInput } from "@/components/SearchInput";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { MobileCategoryIcon } from "./MobileCategoryIcon";
+import { MobileToolIcon } from "./MobileToolIcon";
+import type { Locale } from "@switch-to-eu/i18n/routing";
 
 export async function MobileNav() {
-  const locale = await getLocale();
+  const locale = await getLocale() as Locale;
   const navItems = await getNavItems();
-
   const t = await getTranslations("navigation");
+
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">{t("mobileMenu")}</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="flex flex-col gap-6 pt-10 px-5 overflow-y-auto max-h-screen"
-      >
-        {navItems.map((item) => {
-          // Handle dropdown items (Services)
-          if (item.dropdown && item.children) {
-            return (
-              <div key={item.href} className="flex flex-col gap-2">
-                <p className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1">
-                  {item.title}
-                </p>
-
-                <div className="flex flex-col gap-2 pl-6">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="text-base font-medium text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {child.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          }
-
-          // Regular nav items
+    <BlocksMobileNav
+      navItems={navItems}
+      locale={locale}
+      menuLabel={t("mobileMenu")}
+      colorClassName="text-brand-navy"
+      renderDropdownChild={(child) => {
+        if (child.disabled) {
           return (
-            item.href && (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary pl-1"
-                {...(item.isExternal
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                {item.title}
-              </Link>
-            )
+            <div className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[15px] font-medium text-brand-navy/40 cursor-default">
+              {child.icon && <MobileToolIcon iconName={child.icon} />}
+              {child.title}
+            </div>
           );
-        })}
+        }
 
-        {/* Language Selector */}
-        <div className="mt-4">
-          <LanguageSelector locale={locale} />
-        </div>
-
-        {/* Search Input */}
-        <div className="mb-2">
-          <SearchInput
-            buttonVariant="outline"
-            className="w-full justify-start"
-          />
-        </div>
-      </SheetContent>
-    </Sheet>
+        return (
+          <Link
+            href={child.href}
+            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[15px] font-medium text-brand-navy transition-colors hover:bg-brand-navy/5"
+            {...(child.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {child.icon && (
+              child.isExternal
+                ? <MobileToolIcon iconName={child.icon} />
+                : <MobileCategoryIcon iconName={child.icon} />
+            )}
+            {child.title}
+            {child.isExternal && <ExternalLink className="h-3 w-3 opacity-40" />}
+          </Link>
+        );
+      }}
+    >
+      <SearchInput
+        buttonVariant="ghost"
+        className="w-full justify-start text-brand-navy hover:text-brand-pink hover:bg-brand-yellow/10"
+      />
+    </BlocksMobileNav>
   );
 }

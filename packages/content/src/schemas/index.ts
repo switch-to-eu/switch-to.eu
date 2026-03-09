@@ -53,6 +53,7 @@ export const ServiceFrontmatterSchema = z.object({
     description: z.string(),
     url: z.string(),
     logo: z.string().optional(),
+    screenshot: z.string().optional(),
     features: z.array(z.string()).optional(),
     tags: z.array(z.string()).optional(),
     featured: z.boolean().optional(),
@@ -67,6 +68,23 @@ export const CategoryMetadataSchema = z.object({
     icon: z.string().optional(),
 });
 
+// Schema for SEO landing pages
+export const LandingPageFrontmatterSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    slug: z.string(),
+    date: z.string().optional(),
+    author: z.string().optional(),
+    // SEO fields
+    keywords: z.array(z.string()).optional(),
+    ogTitle: z.string().optional(),
+    ogDescription: z.string().optional(),
+    // Content references
+    category: z.string().optional(),
+    recommendedServices: z.array(z.string()).optional(),
+    relatedService: z.string().optional(),
+});
+
 // Define types from schemas
 export type GuideFrontmatter = z.infer<typeof GuideFrontmatterSchema>;
 export type AlternativesFrontmatter = z.infer<
@@ -74,3 +92,4 @@ export type AlternativesFrontmatter = z.infer<
 >;
 export type ServiceFrontmatter = z.infer<typeof ServiceFrontmatterSchema>;
 export type CategoryMetadata = z.infer<typeof CategoryMetadataSchema>;
+export type LandingPageFrontmatter = z.infer<typeof LandingPageFrontmatterSchema>;

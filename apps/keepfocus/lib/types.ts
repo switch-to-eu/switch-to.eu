@@ -53,7 +53,7 @@ export const PHASE_EMOJIS: Record<TimerPhase, string> = {
 };
 
 export const PHASE_COLORS: Record<TimerPhase, string> = {
-    work: 'bg-blue-500',
-    shortBreak: 'bg-green-500',
-    longBreak: 'bg-purple-500',
+    work: 'bg-tool-accent',
+    shortBreak: 'bg-success',
+    longBreak: 'bg-tool-primary',
 };

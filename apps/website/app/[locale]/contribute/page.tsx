@@ -1,17 +1,21 @@
-import Image from "next/image";
-import { Container } from "@/components/layout/container";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@switch-to-eu/ui/components/card";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
-// Generate metadata with language alternates
+const CONTRIBUTION_CARDS = [
+  { titleKey: "cards.migration.title", descKey: "cards.migration.description", ctaKey: "cards.migration.cta", href: "/contribute/guide", colorIndex: 0, shape: "spark" },
+  { titleKey: "cards.tester.title", descKey: "cards.tester.description", ctaKey: "cards.tester.cta", href: "/feedback", colorIndex: 1, shape: "cloud" },
+  { titleKey: "cards.discover.title", descKey: "cards.discover.description", ctaKey: "cards.discover.cta", href: "/feedback", colorIndex: 2, shape: "tulip" },
+  { titleKey: "cards.technical.title", descKey: "cards.technical.description", ctaKey: "cards.technical.cta", href: "https://github.com/switch-to-eu/switch-to.eu/", external: true, colorIndex: 3, shape: "speech" },
+  { titleKey: "cards.ideas.title", descKey: "cards.ideas.description", ctaKey: "cards.ideas.cta", href: "/feedback", colorIndex: 4, shape: "heart" },
+  { titleKey: "cards.translate.title", descKey: "cards.translate.description", ctaKey: "cards.translate.cta", href: "mailto:hi@switch-to.eu", external: true, colorIndex: 5, shape: "sunburst" },
+] as const;
+
 export async function generateMetadata() {
   const t = await getTranslations("contribute");
   const locale = await getLocale();
@@ -27,236 +31,88 @@ export default async function ContributePage() {
   const t = await getTranslations("contribute");
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <PageLayout>
       {/* Hero Section */}
       <section>
-        <Container>
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-                {t("hero.title")}
-              </h1>
-              <p className="text-base sm:text-lg mb-6">
-                {t("hero.description")}
-              </p>
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-green"
+            shapes={[
+              { shape: "tulip", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
+              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.1, delay: "-3s" },
+            ]}
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="flex-1">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                  {t("hero.title")}
+                </h1>
+                <p className="text-white/90 text-base sm:text-lg">
+                  {t("hero.description")}
+                </p>
+              </div>
+              <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
+                <DecorativeShape
+                  shape="wide-heart"
+                  className="inset-0"
+                  opacity={0.3}
+                  duration="7s"
+                />
+                <DecorativeShape
+                  shape="clover"
+                  className="inset-8"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
+              </div>
             </div>
-            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0">
-              <Image
-                src="/images/contribute.svg"
-                alt="Contribution illustration"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div>
+          </Banner>
         </Container>
       </section>
 
       {/* Contribution Cards Section */}
       <section>
-        <Container>
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">
-            {t("helpSection.title")}
-          </h2>
+        <Container noPaddingMobile>
+          <SectionHeading>{t("helpSection.title")}</SectionHeading>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-1)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-01.svg"
-                      alt={t("cards.migration.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.migration.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">
-                  {t("cards.migration.description")}
-                </p>
-              </CardContent>
-              <CardFooter className="justify-center">
-                <Link
-                  href="/contribute/guide"
-                  className="text-blue hover:underline"
-                >
-                  {t("cards.migration.cta")} →
-                </Link>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-2)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-02.svg"
-                      alt={t("cards.tester.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.tester.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">{t("cards.tester.description")}</p>
-              </CardContent>
-              <CardFooter className="justify-center">
-                <Link
-                  href="/feedback"
-                  className="text-blue hover:underline"
-                >
-                  {t("cards.tester.cta")} →
-                </Link>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-3)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-03.svg"
-                      alt={t("cards.discover.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.discover.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">{t("cards.discover.description")}</p>
-              </CardContent>
-              <CardFooter className="justify-center">
-                <Link
-                  href="/feedback"
-                  className="text-blue hover:underline"
-                >
-                  {t("cards.discover.cta")} →
-                </Link>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-4)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-01.svg"
-                      alt={t("cards.technical.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.technical.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">
-                  {t("cards.technical.description")}
-                </p>
-              </CardContent>
-              <CardFooter className="justify-center">
-                <Link
-                  href="https://github.com/switch-to-eu/switch-to.eu/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue hover:underline"
-                >
-                  {t("cards.technical.cta")} →
-                </Link>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-1)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-02.svg"
-                      alt={t("cards.ideas.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.ideas.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">{t("cards.ideas.description")}</p>
-              </CardContent>
-
-              <CardFooter className="justify-center">
-                <Link href={`/feedback`} className="text-blue hover:underline">
-                  {t("cards.ideas.cta")} →
-                </Link>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="mb-4 flex justify-center">
-                  <div className="bg-[var(--pop-2)] rounded-full p-4">
-                    <Image
-                      src="/images/icon-03.svg"
-                      alt={t("cards.translate.title")}
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                </div>
-                <CardTitle className="text-xl text-center">
-                  {t("cards.translate.title")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center">
-                  {t("cards.translate.description")}
-                </p>
-              </CardContent>
-              <CardFooter className="justify-center">
-                <a
-                  href="mailto:hi@switch-to.eu"
-                  className="text-blue hover:underline"
-                >
-                  {t("cards.translate.cta")} →
-                </a>
-              </CardFooter>
-            </Card>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {CONTRIBUTION_CARDS.map((card) => (
+              <BrandCard
+                key={card.titleKey}
+                colorIndex={card.colorIndex}
+                title={t(card.titleKey)}
+                description={t(card.descKey)}
+                ctaText={t(card.ctaKey)}
+                href={card.href}
+                external={"external" in card ? card.external : undefined}
+                shape={card.shape}
+                contentClassName="text-center"
+              />
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Why Your Contribution Matters Section */}
       <section>
-        <Container>
-          <div className="bg-[#e8fff5] p-6 sm:p-10 rounded-xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-navy"
+            shapes={[
+              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
+            ]}
+            contentClassName="text-center max-w-2xl mx-auto"
+          >
+            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
               {t("whyMatters.title")}
             </h2>
-            <p className="text-base sm:text-lg max-w-[800px] mx-auto mb-6">
+            <p className="text-brand-cream text-base sm:text-lg">
               {t("whyMatters.description")}
             </p>
-          </div>
+          </Banner>
         </Container>
       </section>
-    </div>
+    </PageLayout>
   );
 }

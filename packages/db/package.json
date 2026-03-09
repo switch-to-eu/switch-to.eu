@@ -1,0 +1,42 @@
+{
+    "name": "@switch-to-eu/db",
+    "version": "0.0.0",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "lint": "eslint .",
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "dependencies": {
+        "octokit": "catalog:",
+        "redis": "catalog:",
+        "uuid": "catalog:",
+        "zod": "catalog:"
+    },
+    "peerDependencies": {
+        "next": "catalog:"
+    },
+    "devDependencies": {
+        "@switch-to-eu/eslint-config": "workspace:*",
+        "@switch-to-eu/trpc": "workspace:*",
+        "@switch-to-eu/typescript-config": "workspace:*",
+        "@testcontainers/redis": "catalog:",
+        "@trpc/server": "catalog:",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "superjson": "catalog:",
+        "testcontainers": "catalog:",
+        "typescript": "catalog:",
+        "vitest": "catalog:"
+    },
+    "exports": {
+        "./redis": "./src/redis.ts",
+        "./crypto": "./src/crypto.ts",
+        "./admin": "./src/admin.ts",
+        "./expiration": "./src/expiration.ts",
+        "./mock-redis": "./src/mock-redis.ts",
+        "./test-redis": "./src/test-redis.ts",
+        "./github": "./src/github.ts"
+    }
+}

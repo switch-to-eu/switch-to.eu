@@ -87,7 +87,7 @@ export function TimeSlotsManager<T extends FieldValues>({
     <div className={cn("space-y-4", className)}>
       {label && <Label className="text-base font-medium">{label}</Label>}
       {description && (
-        <p className="text-sm text-gray-500">{description}</p>
+        <p className="text-sm text-muted-foreground">{description}</p>
       )}
 
       {/* Quick Add Buttons */}
@@ -104,8 +104,8 @@ export function TimeSlotsManager<T extends FieldValues>({
               className={cn(
                 "rounded-lg px-3 py-1.5 text-sm font-medium transition-all",
                 isSelected
-                  ? "bg-purple-100 text-purple-700 border border-purple-300"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-tool-surface/20 text-tool-primary border border-tool-accent/30"
+                  : "bg-muted text-muted-foreground hover:bg-muted"
               )}
             >
               {formatTime(slot)}
@@ -120,7 +120,7 @@ export function TimeSlotsManager<T extends FieldValues>({
           {selectedTimes.map((slot, index) => (
             <div
               key={index}
-              className="flex items-center justify-between rounded-lg border bg-white p-3 shadow-sm"
+              className="flex items-center justify-between rounded-lg border bg-card p-3 shadow-sm"
             >
               <span className="text-sm font-medium">
                 {formatTime(slot)} – {formatEndTime(slot)}
@@ -139,7 +139,7 @@ export function TimeSlotsManager<T extends FieldValues>({
       )}
 
       {error && (
-        <p className="text-sm text-red-500">
+        <p className="text-sm text-destructive">
           {Array.isArray(error) ? error[0]?.message : error.message}
         </p>
       )}

@@ -3,71 +3,116 @@ import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { ServiceFrontmatter } from "@switch-to-eu/content";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { shapes } from "@switch-to-eu/blocks/shapes";
+
+const SERVICE_SHAPES = [
+  "spark",
+  "cloud",
+  "tulip",
+  "pebble",
+  "heart",
+  "sunburst",
+  "flower",
+  "starburst",
+  "coral",
+  "diamond-4",
+  "daisy",
+  "star",
+];
 
 export async function ServiceCard({
   service,
   showCategory = true,
+  colorIndex = 0,
 }: {
   service: ServiceFrontmatter;
   showCategory?: boolean;
+  colorIndex?: number;
 }) {
   const t = await getTranslations("services");
   const categoryFormatted =
     service.category.charAt(0).toUpperCase() + service.category.slice(1);
 
-  // Create slug from service name for linking
   const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
-  // Keep original 'eu' path (not 'eu-friendly')
   const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
   const serviceLink = `/services/${regionPath}/${serviceSlug}`;
 
+  const card = getCardColor(colorIndex);
+  const shapeName = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
+  const shapeData = shapes[shapeName];
+
   return (
-    <Link
-      href={serviceLink}
-      className="block h-full transition-transform hover:scale-[1.02] hover:shadow-md"
-    >
+    <Link href={serviceLink} className="block h-full no-underline group">
       <div
-        className={`flex flex-col h-full rounded-lg border border-gray-100 ${service.featured ? "bg-[var(--green-bg)]" : "bg-white"
-          } overflow-hidden transition-colors hover:border-slate-200`}
+        className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden`}
       >
-        <div className="p-6 pb-3">
-          <div className="flex justify-between items-start mb-1">
-            <h3 className="text-xl font-semibold">
-              {service.featured && <span className="mr-1">⭐</span>}
-              {service.name}
-            </h3>
+        {/* Visual area: screenshot or decorative shape */}
+        <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+          {service.screenshot ? (
+            <img
+              src={service.screenshot}
+              alt={service.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center p-8 sm:p-10">
+              {shapeData && (
+                <svg
+                  viewBox={shapeData.viewBox}
+                  className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+                  style={{
+                    animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
+                    animationDelay: `${(colorIndex % 4) * -1.5}s`,
+                  }}
+                  aria-hidden="true"
+                >
+                  <path d={shapeData.d} fill="currentColor" />
+                </svg>
+              )}
+            </div>
+          )}
+          {/* Region badge floated top-right */}
+          <div className="absolute top-3 right-3">
             <RegionBadge region={service.region || "eu"} />
           </div>
+        </div>
+
+        {/* Content area */}
+        <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
+          <h3 className={`${card.text} text-lg sm:text-xl font-bold mb-1`}>
+            {service.name}
+          </h3>
+
           {showCategory && (
-            <p className="text-sm text-muted-foreground">
-              {t("category")}: {categoryFormatted}
+            <p className={`${card.text} text-xs opacity-60 mb-2`}>
+              {categoryFormatted}
             </p>
           )}
-        </div>
-        <div className="px-6 flex-grow pb-6">
-          <div className="mb-3">
-            <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <div className="text-sm flex items-center">
-                <span className="font-medium mr-1">{t("location")}:</span>
-                <span>{service.location}</span>
-              </div>
-              <div className="text-sm flex items-center">
-                <span className="font-medium mr-1">{t("freeOption")}:</span>
-                <span>{service.freeOption ? "✅" : "❌"}</span>
-              </div>
-              {/* Only show premium price if it exists and is a string */}
-              {service.startingPrice &&
-                typeof service.startingPrice === "string" && (
-                  <div className="text-sm flex items-center">
-                    <span className="font-medium mr-1">
-                      {t("detail.startingPrice")}:
-                    </span>
-                    <span>{service.startingPrice}</span>
-                  </div>
-                )}
-            </div>
+
+          {/* Compact meta row */}
+          <div className={`${card.text} flex flex-wrap gap-x-3 gap-y-0.5 text-xs opacity-70 mb-3`}>
+            <span>{service.location}</span>
+            <span>{service.freeOption ? "Free tier" : "Paid"}</span>
+            {service.startingPrice &&
+              typeof service.startingPrice === "string" && (
+                <span>{service.startingPrice}</span>
+              )}
           </div>
-          <p className="text-gray-700">{service.description}</p>
+
+          <p
+            className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-5`}
+          >
+            {service.description}
+          </p>
+
+          <div className="mt-auto">
+            <span
+              className={`${card.button} inline-block px-5 py-2 rounded-full text-sm font-semibold`}
+            >
+              {t("viewDetails")}
+            </span>
+          </div>
         </div>
       </div>
     </Link>

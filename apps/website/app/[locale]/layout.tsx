@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import "../globals.css";
 import PlausibleProvider from "next-plausible";
-
-import { fontVariables } from "@switch-to-eu/ui/fonts";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -20,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t("description");
 
   // Default to localhost if NEXT_PUBLIC_URL is not defined
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:5010";
 
   return {
     metadataBase: new URL(baseUrl),
@@ -82,18 +79,12 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   return (
-    <html lang={locale}>
-      <PlausibleProvider domain="switch-to.eu">
-        <body
-          className={`${fontVariables} antialiased min-h-screen flex flex-col`}
-        >
-          <NextIntlClientProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </NextIntlClientProvider>
-        </body>
-      </PlausibleProvider>
-    </html>
+    <PlausibleProvider domain="switch-to.eu">
+      <NextIntlClientProvider>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </NextIntlClientProvider>
+    </PlausibleProvider>
   );
 }

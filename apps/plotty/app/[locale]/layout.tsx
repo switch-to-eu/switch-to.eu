@@ -1,7 +1,4 @@
-import "./styles/globals.css";
-
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
 import { Calendar, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -11,10 +8,14 @@ import { Footer } from "@switch-to-eu/blocks/components/footer";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { routing } from "@switch-to-eu/i18n/routing";
+import { routing, type Locale } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
+import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
+import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 
 export async function generateMetadata({
   params,
@@ -28,23 +29,11 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
-    icons: [
-      { rel: "icon", url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { rel: "icon", url: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "shortcut icon", url: "/favicon.ico" },
-      { rel: "apple-touch-icon", url: "/apple-touch-icon.png", sizes: "180x180" },
-    ],
-    manifest: "/site.webmanifest",
-    appleWebApp: {
-      title: t('title'),
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },
   };
 }
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
 
 export default async function LocaleLayout({
   children,
@@ -53,112 +42,88 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
   const t = await getTranslations({ locale, namespace: 'layout.header' });
+  const navT = await getTranslations({ locale, namespace: 'layout.nav' });
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
-  const currentYear = new Date().getFullYear();
+  const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
+
+
+  const navItems: MainNavItem[] = [
+    { title: navT('about'), href: '/about' },
+  ];
 
   return (
-    <html lang={locale} className={`${geist.variable}`}>
-      <body>
-        <NextIntlClientProvider>
-          <TRPCReactProvider>
-            <div className="min-h-screen bg-gray-50">
-              <Header
-                logo={
-                  <Link href="/">
-                    <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
-                      <div className="flex items-center justify-center mt-1">
-                        <Calendar className="h-4 w-4 text-primary-color" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-lg font-black text-primary-color tracking-wide uppercase sm:text-xl leading-none">Plotty</span>
-                        <BrandIndicator locale={locale} variant="compact" className="-mt-0.5" asSpan />
-                      </div>
-                    </div>
-                  </Link>
-                }
-                navigation={
-                  <div className="flex items-center gap-2">
-                    <LanguageSelector locale={locale} />
-                    <Link href="/about">
-                      <Button variant="ghost" size="sm">
-                        {t('about')}
-                      </Button>
-                    </Link>
-                    <Link href="/create">
-                      <Button size="sm">
-                        <Plus className="mr-2 h-4 w-4" />
-                        {t('createPoll')}
-                      </Button>
-                    </Link>
+    <NextIntlClientProvider>
+      <TRPCReactProvider>
+        <div className="min-h-screen bg-muted">
+          <Header
+            logo={
+              <Link href="/">
+                <div className="flex items-start gap-2 transition-opacity hover:opacity-80">
+                  <div className="flex items-center justify-center mt-1">
+                    <Calendar className="h-4 w-4 text-tool-primary" />
                   </div>
-                }
-                mobileNavigation={
-                  <Link href="/create">
-                    <Button size="sm">
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                }
-              />
-              {children}
-              <Footer
-                links={[
-                  {
-                    label: footerT('about'),
-                    href: '/about',
-                  },
-                  {
-                    label: footerT('privacy'),
-                    href: '/privacy',
-                  },
-                ]}
-                copyright={
-                  <>
-                    &copy; {footerT.rich('copyright', {
-                      year: String(currentYear),
-                      link: (chunks) => (
-                        <a
-                          href="https://switch-to.eu"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-                        >
-                          {chunks}
-                        </a>
-                      ),
-                    })}{' '}
-                    <a
-                      href="https://www.vinnie.studio"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-                    >
-                      Studio Vinnie
-                    </a>
-                    {' & '}
-                    <a
-                      href="https://www.mvpeters.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-                    >
-                      MVPeters
-                    </a>
-                  </>
-                }
-                branding={<BrandIndicator locale={locale} variant="compact" asSpan />}
-              />
-            </div>
-          </TRPCReactProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-black text-tool-primary tracking-wide uppercase sm:text-xl leading-none">Plotty</span>
+                    <BrandIndicator locale={locale} variant="compact" className="-mt-0.5" asSpan />
+                  </div>
+                </div>
+              </Link>
+            }
+            navigation={
+              <>
+                <NavMenu navItems={navItems} />
+                <Link href="/create">
+                  <Button size="sm" variant="secondary">
+                    <Plus className="mr-2 h-4 w-4" />
+                    {t('createPoll')}
+                  </Button>
+                </Link>
+                <NavLanguageSelector locale={locale as Locale} />
+              </>
+            }
+            mobileNavigation={
+              <MobileNav navItems={navItems} locale={locale as Locale}>
+                <Link href="/create">
+                  <Button size="sm" variant="secondary" className="w-full">
+                    <Plus className="mr-2 h-4 w-4" />
+                    {t('createPoll')}
+                  </Button>
+                </Link>
+              </MobileNav>
+            }
+          />
+          {children}
+          <HeaderFeedback toolId="plotty" />
+          <Footer
+            currentToolId="plotty"
+            feedbackToolId="plotty"
+            toolsSectionTitle={toolsT('sectionTitle')}
+            linksSectionTitle={toolsT('linksTitle')}
+            links={[
+              {
+                label: footerT('about'),
+                href: '/about',
+              },
+              {
+                label: footerT('privacy'),
+                href: '/privacy',
+              },
+            ]}
+            branding={
+              <div className="flex flex-col gap-1">
+                <span className="text-lg font-black tracking-wide uppercase text-white">Plotty</span>
+                <BrandIndicator locale={locale} />
+              </div>
+            }
+          />
+        </div>
+      </TRPCReactProvider>
+    </NextIntlClientProvider>
   );
 }

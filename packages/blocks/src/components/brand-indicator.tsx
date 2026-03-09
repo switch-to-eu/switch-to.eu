@@ -21,7 +21,7 @@ export function BrandIndicator({
   const href = `https://switch-to.eu/${locale}`;
 
   const baseClasses = cn(
-    "inline-flex items-center gap-1 text-xs opacity-60 transition-opacity hover:opacity-100",
+    "inline-flex items-center gap-1 text-xs text-inherit opacity-60 transition-opacity hover:opacity-100",
     variant === "compact" && "gap-0.5 text-[10px]",
     className
   );

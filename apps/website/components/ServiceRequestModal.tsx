@@ -71,11 +71,13 @@ interface ServiceRequestModalProps {
   | "secondary"
   | "search"
   | "cta";
+  className?: string;
 }
 
 export function ServiceRequestModal({
   triggerText,
   variant = "red",
+  className,
 }: ServiceRequestModalProps) {
   const t = useTranslations("contribute");
   const commonT = useTranslations("common");
@@ -137,7 +139,7 @@ export function ServiceRequestModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant}>{triggerText || t("ctaButton")}</Button>
+        <Button variant={variant} className={className}>{triggerText || t("ctaButton")}</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
@@ -202,7 +204,7 @@ export function ServiceRequestModal({
             />
 
             {submitStatus === "success" && (
-              <Alert className="bg-green-50 text-green-800 border-green-200">
+              <Alert className="bg-success/10 text-success border-success/20">
                 <AlertDescription>
                   {t("serviceRequestSuccessMessage")}
                 </AlertDescription>
@@ -217,10 +219,10 @@ export function ServiceRequestModal({
               </Alert>
             )}
 
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-muted-foreground">
               <p>
                 {commonT("privacyNotice")}{" "}
-                <Link href="/privacy" className="text-blue-600 hover:underline">
+                <Link href="/privacy" className="text-brand-navy hover:underline">
                   {commonT("privacyPolicyLink")}
                 </Link>
                 .

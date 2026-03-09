@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Palette, Type, Component, LayoutGrid } from "lucide-react";
+import { Palette, Type, Component, LayoutGrid, FormInput, Sparkles, Shapes, Smile, SwatchBook, Rows3 } from "lucide-react";
 
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { routing } from "@switch-to-eu/i18n/routing";
@@ -29,8 +29,14 @@ const navItems = [
   { href: "/", label: "overview", icon: LayoutGrid },
   { href: "/colors", label: "colors", icon: Palette },
   { href: "/typography", label: "typography", icon: Type },
+  { href: "/shapes", label: "shapes", icon: Sparkles },
+  { href: "/shapes-with-icons", label: "shapesWithIcons", icon: Shapes },
+  { href: "/icons", label: "icons", icon: Smile },
+  { href: "/tool-colors", label: "toolColors", icon: SwatchBook },
   { href: "/components", label: "components", icon: Component },
+  { href: "/forms", label: "forms", icon: FormInput },
   { href: "/blocks", label: "blocks", icon: LayoutGrid },
+  { href: "/heroes", label: "heroes", icon: Rows3 },
 ] as const;
 
 export default async function LocaleLayout({
@@ -46,8 +52,8 @@ export default async function LocaleLayout({
   const t = await getTranslations({ locale, namespace: "layout.nav" });
 
   return (
-    <html lang={locale}>
-      <body className={`${fontVariables} antialiased`}>
+    <html lang={locale} className={fontVariables}>
+      <body className="antialiased">
         <NextIntlClientProvider>
           <div className="flex min-h-screen">
             <aside className="w-64 border-r border-border bg-muted/30 p-6 flex flex-col gap-1">

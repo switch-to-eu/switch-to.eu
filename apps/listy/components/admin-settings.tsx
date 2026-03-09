@@ -1,0 +1,318 @@
+"use client";
+
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { nanoid } from "nanoid";
+import { Plus, Pencil, X, Check, List, ShoppingCart, Users, SlidersHorizontal } from "lucide-react";
+
+import { Switch } from "@switch-to-eu/ui/components/switch";
+import { Label } from "@switch-to-eu/ui/components/label";
+import { Button } from "@switch-to-eu/ui/components/button";
+import { cn } from "@switch-to-eu/ui/lib/utils";
+
+import { getDefaultCategories, SHOPPING_CATEGORIES } from "@/lib/categories";
+import type { DecryptedList } from "@hooks/use-list";
+import type { DecryptedListData, ListSettings, CustomCategory } from "@/lib/types";
+
+interface AdminSettingsProps {
+  list: DecryptedList;
+  settings: ListSettings;
+  onUpdate: (newListData: DecryptedListData) => Promise<void>;
+}
+
+const PRESET_CONFIG = {
+  plain: { enableCategories: false, enableClaims: false },
+  shopping: { enableCategories: true, enableClaims: false },
+  potluck: { enableCategories: false, enableClaims: true },
+} as const;
+
+const CARD_ICONS = {
+  plain: List,
+  shopping: ShoppingCart,
+  potluck: Users,
+  custom: SlidersHorizontal,
+} as const;
+
+export function AdminSettings({ list, settings, onUpdate }: AdminSettingsProps) {
+  const t = useTranslations("ListPage");
+
+  // Determine which preset matches current settings (if any)
+  const matchedPreset = Object.entries(PRESET_CONFIG).find(
+    ([, config]) =>
+      config.enableCategories === settings.enableCategories &&
+      config.enableClaims === settings.enableClaims,
+  )?.[0] as keyof typeof PRESET_CONFIG | undefined;
+
+  const [customMode, setCustomMode] = useState(!matchedPreset);
+
+  const categoryLabels = Object.fromEntries(
+    SHOPPING_CATEGORIES.map((id) => [id, t(`categories.${id}` as Parameters<typeof t>[0])]),
+  );
+
+  const buildListData = (newSettings: ListSettings): DecryptedListData => ({
+    title: list.title,
+    description: list.description,
+    settings: newSettings,
+  });
+
+  const handlePresetClick = (preset: "plain" | "shopping" | "potluck") => {
+    setCustomMode(false);
+    const presetDefaults = PRESET_CONFIG[preset];
+    const newSettings: ListSettings = {
+      ...presetDefaults,
+      categories: presetDefaults.enableCategories
+        ? getDefaultCategories(categoryLabels)
+        : undefined,
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const handleCustomClick = () => {
+    setCustomMode(true);
+  };
+
+  const handleToggleCategories = (enabled: boolean) => {
+    const newSettings: ListSettings = {
+      ...settings,
+      enableCategories: enabled,
+      categories: enabled
+        ? settings.categories ?? getDefaultCategories(categoryLabels)
+        : undefined,
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const handleToggleClaims = (enabled: boolean) => {
+    const newSettings: ListSettings = {
+      ...settings,
+      enableClaims: enabled,
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const handleAddCategory = (label: string) => {
+    const newCategory: CustomCategory = { id: nanoid(8), label };
+    const newSettings: ListSettings = {
+      ...settings,
+      categories: [...(settings.categories ?? []), newCategory],
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const handleRenameCategory = (id: string, newLabel: string) => {
+    const newSettings: ListSettings = {
+      ...settings,
+      categories: (settings.categories ?? []).map((c) =>
+        c.id === id ? { ...c, label: newLabel } : c,
+      ),
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const handleDeleteCategory = (id: string) => {
+    const newSettings: ListSettings = {
+      ...settings,
+      categories: (settings.categories ?? []).filter((c) => c.id !== id),
+    };
+    void onUpdate(buildListData(newSettings));
+  };
+
+  const activeCard = customMode ? "custom" : matchedPreset;
+  const cards = ["plain", "shopping", "potluck", "custom"] as const;
+
+  return (
+    <div className="rounded-lg border bg-muted p-4 space-y-5">
+      <h3 className="text-sm font-semibold text-foreground">
+        {t("settings.title")}
+      </h3>
+
+      {/* Preset quick-select + custom */}
+      <div className="space-y-2">
+        <Label className="text-xs text-muted-foreground">{t("settings.presetLabel")}</Label>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {cards.map((card) => {
+            const Icon = CARD_ICONS[card];
+            const isActive = activeCard === card;
+            return (
+              <button
+                key={card}
+                type="button"
+                onClick={() =>
+                  card === "custom"
+                    ? handleCustomClick()
+                    : handlePresetClick(card)
+                }
+                className={cn(
+                  "flex flex-col items-center gap-1.5 rounded-lg border p-3 text-center transition-all",
+                  isActive
+                    ? "border-tool-primary bg-tool-surface/10 text-tool-primary"
+                    : "border-border bg-card text-muted-foreground hover:border-border",
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                <span className="text-xs font-medium">
+                  {t(`presets.${card}` as Parameters<typeof t>[0])}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Feature toggles — only visible in custom mode */}
+      {customMode && (
+        <>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-categories" className="text-sm text-muted-foreground">
+                {t("settings.enableCategories")}
+              </Label>
+              <Switch
+                id="enable-categories"
+                checked={settings.enableCategories}
+                onCheckedChange={handleToggleCategories}
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-claims" className="text-sm text-muted-foreground">
+                {t("settings.enableClaims")}
+              </Label>
+              <Switch
+                id="enable-claims"
+                checked={settings.enableClaims}
+                onCheckedChange={handleToggleClaims}
+              />
+            </div>
+          </div>
+
+          {/* Category management */}
+          {settings.enableCategories && (
+            <CategoryManager
+              categories={settings.categories ?? []}
+              onAdd={handleAddCategory}
+              onRename={handleRenameCategory}
+              onDelete={handleDeleteCategory}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function CategoryManager({
+  categories,
+  onAdd,
+  onRename,
+  onDelete,
+}: {
+  categories: CustomCategory[];
+  onAdd: (label: string) => void;
+  onRename: (id: string, label: string) => void;
+  onDelete: (id: string) => void;
+}) {
+  const t = useTranslations("ListPage");
+  const [newCategoryText, setNewCategoryText] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState("");
+
+  const handleAddSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCategoryText.trim()) return;
+    onAdd(newCategoryText.trim());
+    setNewCategoryText("");
+  };
+
+  const startEditing = (cat: CustomCategory) => {
+    setEditingId(cat.id);
+    setEditingText(cat.label);
+  };
+
+  const confirmEdit = () => {
+    if (editingId && editingText.trim()) {
+      onRename(editingId, editingText.trim());
+    }
+    setEditingId(null);
+    setEditingText("");
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label className="text-xs text-muted-foreground">{t("settings.categoriesTitle")}</Label>
+      <div className="rounded-lg border bg-card overflow-hidden">
+        {categories.map((cat) => (
+          <div
+            key={cat.id}
+            className="flex items-center gap-2 px-3 py-2 border-b border-border last:border-b-0"
+          >
+            {editingId === cat.id ? (
+              <>
+                <input
+                  value={editingText}
+                  onChange={(e) => setEditingText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && confirmEdit()}
+                  className="flex-1 text-sm bg-transparent outline-none"
+                  autoFocus
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={confirmEdit}
+                  className="h-7 w-7 p-0 text-tool-primary hover:text-tool-primary"
+                >
+                  <Check className="h-3.5 w-3.5" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setEditingId(null)}
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <span className="flex-1 text-sm text-foreground">{cat.label}</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => startEditing(cat)}
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                >
+                  <Pencil className="h-3 w-3" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onDelete(cat.id)}
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </Button>
+              </>
+            )}
+          </div>
+        ))}
+
+        {/* Add category input */}
+        <form
+          onSubmit={handleAddSubmit}
+          className={cn(
+            "flex items-center gap-2 px-3 py-2",
+            categories.length > 0 && "border-t border-border",
+          )}
+        >
+          <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
+          <input
+            value={newCategoryText}
+            onChange={(e) => setNewCategoryText(e.target.value)}
+            placeholder={t("settings.addCategory")}
+            maxLength={100}
+            className="flex-1 text-sm bg-transparent outline-none placeholder:text-muted-foreground"
+          />
+        </form>
+      </div>
+    </div>
+  );
+}

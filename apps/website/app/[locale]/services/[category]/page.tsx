@@ -6,33 +6,34 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
-import { Container } from "@/components/layout/container";
-import { ContributeCta } from "@/components/ContributeCta";
+
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
+import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations } from "next-intl/server";
-import React from "react";
 import { Locale } from "next-intl";
 import { NewsletterCta } from "@/components/NewsletterCta";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 
-// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ category: string; locale: string }>;
 }): Promise<Metadata> {
-  // Await the params
   const { category, locale } = await params;
 
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  // Get category metadata
-  const { metadata: categoryMetadata } = getCategoryContent(category, locale as Locale);
+  const { metadata: categoryMetadata } = getCategoryContent(
+    category,
+    locale as Locale
+  );
 
-  // Use metadata title if available, otherwise fallback to capitalized category
   const pageTitle =
     categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
-  // Use metadata description if available
   const pageDescription =
     categoryMetadata?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
@@ -70,17 +71,14 @@ export default async function ServicesCategoryPage({
 }: {
   params: Promise<{ category: string; locale: Locale }>;
 }) {
-  // Await the params Promise
   const { category, locale } = await params;
 
-  // Get translations
   const t = await getTranslations("services");
-  const commonT = await getTranslations("common");
+
 
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  // Load EU services for this category
   const euServices = getServicesByCategory(category, "eu", locale);
   const { metadata: categoryMetadata, content: categoryContent } =
     getCategoryContent(category, locale);
@@ -89,90 +87,97 @@ export default async function ServicesCategoryPage({
     notFound();
   }
 
-  // Get featured services for this category
   const featuredServices = euServices.filter(
     (service) => service.featured === true
   );
 
-  // Non-featured services
   const regularServices = euServices.filter((service) => !service.featured);
+  const allDisplayServices =
+    regularServices.length > 0 ? regularServices : euServices;
 
-  // Use metadata title if available, otherwise fallback to capitalized category
   const pageTitle =
     categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
-  // Use metadata description if available
   const pageDescription =
     categoryMetadata?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
   return (
-    <main className="flex flex-col gap-12 py-10">
-      <Container>
-        <h1 className="text-3xl font-bold mb-2">{pageTitle}</h1>
-        <p className="text-lg mb-6 text-muted-foreground">{pageDescription}</p>
+    <PageLayout>
+      {/* Hero — large navy block with title, description, and stats */}
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-navy"
+            shapes={[
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
+              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.1, duration: "8s", delay: "-2s" },
+              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
+            ]}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
+              {/* Left: Title + subtitle */}
+              <div>
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
+                  {pageTitle}
+                </h1>
+                <p className="text-brand-cream text-base sm:text-lg">
+                  {pageDescription}
+                </p>
+              </div>
 
-        {categoryContent && (
-          <div className="mb-8 dark:bg-gray-800 rounded-lg">
-            {categoryContent.split("\n\n").map((paragraph, index) => (
-              <p key={index} className={`text-base ${index > 0 ? "mt-4" : ""}`}>
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        )}
+              {/* Right: Description */}
+              {categoryContent && (
+                <div>
+                  {categoryContent.split("\n\n").map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={`text-white/70 text-sm sm:text-base leading-relaxed ${index > 0 ? "mt-3" : ""}`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Banner>
+        </Container>
 
-        {/* Featured services as recommended alternatives */}
-        {featuredServices.length > 0 && (
-          <div className="mb-8">
-            {featuredServices.map((service) => (
-              <React.Suspense
-                key={service.name}
-                fallback={
-                  <div className="mb-10 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg relative">
-                    <p className="text-center">{commonT("loading")}</p>
-                  </div>
-                }
-              >
+      {/* Featured services */}
+      {featuredServices.length > 0 && (
+          <Container noPaddingMobile>
+            <div className="flex flex-col gap-6">
+              {featuredServices.map((service) => (
                 <RecommendedAlternative
+                  key={service.name}
                   service={service}
                   sourceService={service.name}
                   migrationGuides={[]}
                 />
-              </React.Suspense>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          </Container>
+      )}
 
-        {/* Regular services grid */}
-        <h2 className="text-2xl font-bold mb-6">
-          {featuredServices.length > 0
-            ? t("alternatives", { category: capitalizedCategory })
-            : t("alternatives", { category: capitalizedCategory })}
-        </h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-          {(regularServices.length > 0 ? regularServices : euServices).map(
-            (service) => (
+      {/* All services — colorful card grid */}
+        <Container noPaddingMobile>
+          <SectionHeading>
+            {t("alternatives", { category: capitalizedCategory })}
+          </SectionHeading>
+
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {allDisplayServices.map((service, index) => (
               <ServiceCard
                 key={service.name}
                 service={service}
                 showCategory={false}
+                colorIndex={index}
               />
-            )
-          )}
-        </div>
-
-        {/* Newsletter Section */}
-        <section className="py-8">
-          <NewsletterCta />
-        </section>
-
-      </Container>
-      {/* CTA Section */}
-      <section className="">
-        <Container>
-          <ContributeCta />
+            ))}
+            <SuggestServiceCard colorIndex={allDisplayServices.length} />
+          </div>
         </Container>
-      </section>
-    </main>
+
+      {/* Newsletter Section */}
+      <NewsletterCta />
+    </PageLayout>
   );
 }

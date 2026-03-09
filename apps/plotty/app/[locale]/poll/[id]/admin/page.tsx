@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 
 import { PollNotFoundError, DecryptionError } from "@components/error-states";
@@ -14,18 +13,15 @@ import { PollLoading } from "@components/poll-loading";
 
 import { AvailabilityGrid } from "@components/availability-grid";
 import type { ProcessedPollFormData } from "@components/poll-form";
-import { parseAdminFragment } from "@/lib/admin";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 
 export default function AdminPage() {
   const params = useParams();
   const pollId = params.id as string;
 
-  // Parse admin token + encryption key from URL fragment
-  const [adminToken, setAdminToken] = useState<string>("");
-  useEffect(() => {
-    const { token } = parseAdminFragment(window.location.hash);
-    setAdminToken(token);
-  }, []);
+  // Parse admin token from URL fragment
+  const fragment = useFragment();
+  const adminToken = fragment.params.token || "";
 
   // Use the new hook
   const {

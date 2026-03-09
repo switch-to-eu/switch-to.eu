@@ -10,6 +10,14 @@
     "./data/*": {
       "types": "./src/data/*.ts",
       "default": "./src/data/*.ts"
+    },
+    "./hooks/*": {
+      "types": "./src/hooks/*.ts",
+      "default": "./src/hooks/*.ts"
+    },
+    "./shapes": {
+      "types": "./src/shapes/index.ts",
+      "default": "./src/shapes/index.ts"
     }
   },
   "scripts": {
@@ -17,10 +25,13 @@
     "clean": "rm -rf .turbo node_modules"
   },
   "peerDependencies": {
+    "@hookform/resolvers": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-hook-form": "catalog:",
+    "zod": "catalog:"
   },
   "dependencies": {
     "@switch-to-eu/i18n": "workspace:*",

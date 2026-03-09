@@ -1,0 +1,174 @@
+{
+    "layout": {
+        "metadata": {
+            "title": "Listy — Private Shared Lists, No Account Needed | switch-to.eu",
+            "description": "Create and share private lists instantly. Shopping lists, potlucks, and more — encrypted and no sign-up required."
+        },
+        "header": {
+            "createList": "Create List",
+            "about": "About"
+        },
+        "nav": {
+            "about": "About"
+        },
+        "footer": {
+            "about": "About",
+            "privacy": "Privacy Policy",
+            "copyright": "{year} <link>switch-to.eu</link> — a project by"
+        }
+    },
+    "HomePage": {
+        "hero": {
+            "title": "Your lists",
+            "subtitle": "your privacy",
+            "description": "Create shared lists instantly — groceries, potluck, tasks. No account, no tracking, end-to-end encrypted.",
+            "cta": "Create Private List",
+            "disclaimer": "No signup required"
+        },
+        "trust": {
+            "badges": {
+                "noAccount": "No account needed",
+                "encrypted": "End-to-end encrypted",
+                "autoDelete": "Auto-deleted after 30 days",
+                "openSource": "Open source"
+            }
+        },
+        "benefits": {
+            "title": "Why choose Listy",
+            "description": "Simple shared lists that respect your privacy",
+            "privacy": {
+                "title": "Privacy First",
+                "description": "No tracking, no ads, no data mining. Your lists are encrypted in your browser before reaching our servers."
+            },
+            "encrypted": {
+                "title": "End-to-End Encrypted",
+                "description": "Only people with the link can see your list. We can never read your data — not even if we wanted to."
+            }
+        },
+        "cta": {
+            "title": "Try it now",
+            "description": "No signup, no spam, no tracking — just lists that work.",
+            "button": "Create Private List"
+        }
+    },
+    "CreatePage": {
+        "title": "Create a New List",
+        "subtitle": "Pick a type, give it a name, and share the link.",
+        "presetLabel": "What kind of list?",
+        "presets": {
+            "plain": {
+                "title": "Checklist",
+                "description": "A simple list with checkboxes"
+            },
+            "shopping": {
+                "title": "Shopping List",
+                "description": "Groceries and items to buy"
+            },
+            "potluck": {
+                "title": "Who Brings What",
+                "description": "Claim items for a gathering"
+            }
+        },
+        "titleLabel": "List Title",
+        "titlePlaceholder": "e.g. Weekend BBQ, Groceries, Camping trip",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Optional details about this list",
+        "optional": "optional",
+        "expirationLabel": "Auto-delete after",
+        "terms": "I understand that list data is encrypted and the link is the only way to access it. If I lose the link, the list cannot be recovered.",
+        "submit": "Create Private List",
+        "creating": "Creating...",
+        "success": "List created! Share the link with others.",
+        "error": "Failed to create list. Please try again."
+    },
+    "ListPage": {
+        "presets": {
+            "plain": "Checklist",
+            "shopping": "Shopping",
+            "potluck": "Potluck",
+            "custom": "Custom"
+        },
+        "progress": "{completed}/{total} done",
+        "addItemPlaceholder": "Add an item...",
+        "categorySelect": "Category",
+        "categories": {
+            "produce": "Fruits & Vegetables",
+            "bakery": "Bread & Bakery",
+            "dairy": "Dairy & Eggs",
+            "meat": "Meat & Fish",
+            "pantry": "Pantry & Canned",
+            "drinks": "Drinks",
+            "snacks": "Snacks & Sweets",
+            "frozen": "Frozen",
+            "household": "Household & Care",
+            "other": "Other"
+        },
+        "emptyList": "No items yet. Add your first item above!",
+        "claim": "Claim",
+        "claimPlaceholder": "Your name",
+        "claimedBy": "Claimed by {name}",
+        "claimingAs": "Claiming as {name}",
+        "nameDialogTitle": "What's your name?",
+        "nameDialogDescription": "Your name will be shown when you claim items.",
+        "nameDialogConfirm": "Save",
+        "copyShareLink": "Copy Share Link",
+        "deleteList": "Delete List",
+        "deleteConfirmTitle": "Delete this list?",
+        "deleteConfirmDescription": "This will permanently delete the list and all its items. This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirmDelete": "Delete",
+        "linkCopied": "Share link copied to clipboard!",
+        "deleteSuccess": "List deleted successfully.",
+        "missingKey": "Invalid Link",
+        "missingKeyDescription": "This link is missing the encryption key. Please ask the list creator for the correct link.",
+        "errorTitle": "Something went wrong",
+        "addItemError": "Failed to add item.",
+        "toggleError": "Failed to update item.",
+        "removeError": "Failed to remove item.",
+        "claimError": "Failed to claim item.",
+        "unclaimError": "Failed to unclaim item.",
+        "moveError": "Failed to move item.",
+        "deleteError": "Failed to delete list.",
+        "settings": {
+            "title": "Settings",
+            "presetLabel": "List Type",
+            "enableCategories": "Enable categories",
+            "enableClaims": "Enable item claiming",
+            "categoriesTitle": "Categories",
+            "addCategory": "Add category...",
+            "updateError": "Failed to update settings."
+        }
+    },
+    "AdminPage": {
+        "title": "List Admin",
+        "placeholder": "Admin panel coming soon..."
+    },
+    "PrivacyPage": {
+        "title": "Privacy Policy",
+        "placeholder": "Privacy policy coming soon..."
+    },
+    "AboutPage": {
+        "title": "About Listy",
+        "placeholder": "About page coming soon..."
+    },
+    "tools": {
+        "plotty": {
+            "tagline": "Schedule meetings privately",
+            "description": "A privacy-first scheduling tool with end-to-end encryption. No accounts, no tracking, just simple scheduling.",
+            "cta": "Try Plotty"
+        },
+        "listy": {
+            "tagline": "Share lists privately",
+            "description": "End-to-end encrypted shared lists. Groceries, potluck, tasks — no accounts needed, no tracking.",
+            "cta": "Try Listy"
+        },
+        "keepfocus": {
+            "tagline": "Focus with Pomodoro",
+            "description": "A privacy-first Pomodoro timer and task manager that runs entirely in your browser.",
+            "cta": "Try KeepFocus"
+        },
+        "more": {
+            "cta": "Coming soon"
+        }
+    }
+}

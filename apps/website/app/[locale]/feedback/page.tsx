@@ -1,6 +1,8 @@
-import Image from "next/image";
-import { Container } from "@/components/layout/container";
 import FeedbackForm from "@/components/FeedbackForm";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -20,41 +22,51 @@ export default async function FeedbackPage() {
   const t = await getTranslations("feedback");
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
+    <PageLayout gapMobile paddingBottomMobile>
       {/* Hero Section */}
-      <section>
-        <Container>
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-                {t("hero.title")}
-              </h1>
-              <p className="text-base sm:text-lg mb-6">
-                {t("hero.description1")}
-              </p>
-              <p className="text-base sm:text-lg mb-6">
-                {t("hero.description2")}
-              </p>
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-pink"
+            shapes={[
+              { shape: "spark", className: "-top-6 -right-6 w-36 h-36 sm:w-48 sm:h-48", duration: "7s" },
+              { shape: "blob", className: "-bottom-8 -left-8 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.1, duration: "9s", delay: "1.5s" },
+            ]}
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white mb-4">
+                  {t("hero.title")}
+                </h1>
+                <p className="text-white/90 text-base sm:text-lg mb-3">
+                  {t("hero.description1")}
+                </p>
+                <p className="text-white/80 text-base sm:text-lg">
+                  {t("hero.description2")}
+                </p>
+              </div>
+              <div className="w-full max-w-[240px] h-[180px] relative flex-shrink-0">
+                <DecorativeShape
+                  shape="speech"
+                  className="inset-0"
+                  opacity={0.35}
+                  duration="7s"
+                />
+                <DecorativeShape
+                  shape="spark"
+                  className="inset-8"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
+              </div>
             </div>
-            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0">
-              <Image
-                src="/images/contribute.svg"
-                alt={t("hero.imageAlt") || "Feedback illustration"}
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div>
+          </Banner>
         </Container>
-      </section>
 
       {/* Feedback Form Section */}
-      <section>
         <Container>
           <FeedbackForm />
         </Container>
-      </section>
-    </div>
+    </PageLayout>
   );
 }

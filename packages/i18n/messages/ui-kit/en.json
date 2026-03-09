@@ -8,8 +8,14 @@
       "overview": "Overview",
       "colors": "Colors",
       "typography": "Typography",
+      "shapes": "Shapes",
+      "shapesWithIcons": "Shapes + Icons",
+      "icons": "Icons",
       "components": "Components",
-      "blocks": "Blocks"
+      "forms": "Forms",
+      "toolColors": "Tool Colors",
+      "blocks": "Blocks",
+      "heroes": "Heroes"
     }
   }
 }

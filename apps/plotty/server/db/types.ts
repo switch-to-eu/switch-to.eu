@@ -5,7 +5,6 @@ export interface RedisPollHash {
   createdAt: string; // ISO 8601
   expiresAt: string; // ISO 8601
   version: string; // Monotonic counter (Redis stores as string)
-  isDeleted: string; // "true" | "false"
 }
 
 // Stored in Redis hash at poll:{id}:vote:{participantId}

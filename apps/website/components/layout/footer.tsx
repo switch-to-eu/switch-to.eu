@@ -1,14 +1,15 @@
 import { Footer as BlocksFooter } from "@switch-to-eu/blocks/components/footer";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 export async function Footer() {
-  const currentYear = new Date().getFullYear();
   const t = await getTranslations("navigation");
   const footerT = await getTranslations("footer");
+  const toolsT = await getTranslations("footerTools");
 
   return (
     <BlocksFooter
+      toolsSectionTitle={toolsT("sectionTitle")}
+      linksSectionTitle={toolsT("linksTitle")}
       links={[
         {
           label: t("about"),
@@ -27,27 +28,15 @@ export async function Footer() {
           href: `/terms`,
         },
       ]}
-      copyright={
-        <>
-          © {currentYear} switch-to.eu a project by{" "}
-          <Link
-            href="https://www.vinnie.studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-500 transition-colors font-semibold underline"
-          >
-            Studio Vinnie
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="https://www.mvpeters.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-500 transition-colors underline font-semibold"
-          >
-            MVPeters
-          </Link>
-        </>
+      branding={
+        <div className="flex flex-col gap-1">
+          <span style={{ fontFamily: "var(--font-bonbance)", fontWeight: 400 }} className="text-2xl tracking-wide text-white">
+            Switch-to.eu
+          </span>
+          <span className="text-sm text-white/50">
+            EU alternatives to global services
+          </span>
+        </div>
       }
     />
   );

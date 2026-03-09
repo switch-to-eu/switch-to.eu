@@ -1,6 +1,6 @@
 {
   "common": {
-    "title": "Switch-to.eu",
+    "title": "Switch-to.eu — Vind EU-alternatieven voor Big Tech",
     "subtitle": "EU-alternatieven voor wereldwijde diensten",
     "description": "Een gids om je te helpen overstappen van niet-EU naar EU-gebaseerde digitale diensten en producten.",
     "search": "Zoeken...",
@@ -13,7 +13,7 @@
     "noResultsMessage": "Geen resultaten gevonden voor \"{query}\"",
     "noFeaturedServices": "Geen populaire diensten beschikbaar",
     "tryDifferentSearch": "Probeer een andere zoekterm of blader door onze categorieën",
-    "searchNonEuPlaceholder": "Zoek naar niet-EU-diensten die je wilt vervangen...",
+    "searchNonEuPlaceholder": "Zoek naar diensten, gidsen, categorieën...",
     "searchGeneralPlaceholder": "Zoek gidsen, diensten, categorieën...",
     "noResultsFound": "Geen resultaten gevonden.",
     "servicesLabel": "Diensten",
@@ -22,7 +22,7 @@
     "categoriesLabel": "Categorieën",
     "viewAllResults": "Bekijk alle resultaten",
     "searchDialogTitle": "Zoeken",
-    "searchDefaultText": "Zoek een niet-EU dienst om te vervangen",
+    "searchDefaultText": "Zoek diensten, gidsen, categorieën...",
     "searchAnimationExamples": {
       "whatsapp": "WhatsApp",
       "gmail": "Gmail",
@@ -38,10 +38,10 @@
     "services": "Diensten",
     "tools": "Tools",
     "about": "Over",
+    "aboutUs": "Over ons",
     "contribute": "Bijdragen",
     "github": "GitHub",
     "allCategories": "Alle Categorieën",
-    "websiteTool": "Website tool",
     "contributeGuide": "Bijdragerichtlijnen",
     "feedback": "Feedback",
     "mobileMenu": "Menu openen"
@@ -50,19 +50,25 @@
     "heading": "Weg van big tech? Maak de switch.",
     "subheading": "Vind EU-alternatieven voor wereldwijde diensten en bescherm je gegevens onder EU-wetgeving",
     "featuredSection": "Uitgelichte Categorieën",
-    "categoriesSectionTitle": "Europese Alternatieven per Categorie",
+    "categoriesSectionTitle": "Blader per categorie",
     "viewAll": "Bekijk alle diensten",
-    "heroTitle": "Weg van big tech? Maak de switch!",
-    "heroSubtitle": "Maak jij je ook zorgen over je privacy en machtsmisbruik door <b>Amerikaanse techbedrijven</b>? Deze website helpt je om de switch te maken naar <b>Europese en open-source alternatieven</b>.",
-    "heroDescription": "Vertel ons welke <b>digitale dienst</b> je wil veranderen en wij helpen je bij <b>de overstap!</b>",
+    "exploreCategory": "Ontdek",
+    "readGuide": "Lees gids",
+    "heroTitle": "Stap over van big tech naar EU-alternatieven",
+    "heroSubtitle": "Vind EU-vervangers voor de apps die je dagelijks gebruikt. Vergelijk functies, lees overstapgidsen, en switch op je eigen tempo.",
+    "heroSubtitleShort": "Vergelijk EU-alternatieven en volg stap-voor-stap migratiegidsen.",
+    "heroOr": "of",
+    "heroViewCategories": "Bekijk Categorieën",
+    "heroWhatWeStandFor": "Waar staan wij voor",
+    "heroDescription": "Zoek een dienst die je wilt vervangen.",
     "exampleLabel": "Bijvoorbeeld:",
-    "featuredTitle": "Waar staat Switch-to.eu voor?",
+    "featuredTitle": "Wat Switch-to.eu doet",
     "featuresEuropeanTitle": "Europese Alternatieven",
-    "featuresEuropeanDescription": "Ontdek een verzameling EU-gebaseerde digitale diensten die je privacy respecteren en aansluiten bij Europese waarden. Elk alternatief is grondig geëvalueerd op functionaliteit, betrouwbaarheid en naleving van EU-regels.",
+    "featuresEuropeanDescription": "We verzamelen EU-alternatieven voor e-mail, cloudopslag, messaging, en meer. Elke vermelding toont waar de dienst gehost wordt, wat het kost, en hoe het met je data omgaat.",
     "featuresGuidesTitle": "Stapsgewijze Handleidingen",
-    "featuresGuidesDescription": "Volg onze duidelijke, gedetailleerde migratierichtlijnen om naadloos over te stappen van wereldwijde diensten naar Europese alternatieven. Onze handleidingen vereenvoudigen complexe processen tot behapbare stappen die iedereen kan volgen.",
+    "featuresGuidesDescription": "Stap-voor-stap instructies om je data van de ene dienst naar de andere te verplaatsen. Elke gids splitst het proces op in korte, concrete stappen.",
     "featuresCommunityTitle": "Community Gedreven",
-    "featuresCommunityDescription": "Ons platform gedijt op gebruikersparticipatie. Iedereen kan bijdragen door nieuwe diensten toe te voegen, migratiegidsen te maken of te verbeteren, en ervaringen te delen. Deze samenwerkingsaanpak zorgt ervoor dat onze inhoud relevant, nauwkeurig en volledig blijft.",
+    "featuresCommunityDescription": "Gebouwd en onderhouden door vrijwilligers. Iedereen kan diensten toevoegen, gidsen schrijven, of verouderde informatie melden.",
     "whySwitchTitle": "Waarom overstappen naar Europese diensten?",
     "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan de AVG, zodat uw gegevens transparant en veilig worden verwerkt.",
     "whySwitchDescription2": "Ondersteun het lokale tech-ecosysteem en draag bij aan een eerlijkere digitale economie.",
@@ -70,22 +76,23 @@
     "migrationGuidesTitle": "Populaire Overstapgidsen",
     "gmailToProton": {
       "title": "Gmail → ProtonMail",
-      "description": "Stap over van Gmail naar ProtonMail met onze stap-voor-stap migratiegids.",
+      "description": "Importeer je e-mails, contacten en agenda. Stel forwarding in zodat je niets mist.",
       "alt": "Gmail naar ProtonMail migratiegids"
     },
     "driveToPcloud": {
       "title": "Google Drive → Pcloud",
-      "description": "Migreer je bestanden van Google Drive naar Pcloud met deze complete gids.",
+      "description": "Verplaats je bestanden en mappenstructuur van Google Drive naar Pcloud.",
       "alt": "Google Drive naar Pcloud migratiegids"
     },
     "whatsappToSignal": {
       "title": "WhatsApp → Signal",
-      "description": "Verplaats je chats en contacten van WhatsApp naar Signal met onze uitgebreide gids.",
+      "description": "Stel Signal in en laat je contacten weten dat je overstapt. Behandelt ook groepschats.",
       "alt": "WhatsApp naar Signal migratiegids"
     },
     "viewAllGuidesButton": "Bekijk Alle Overstapgidsen"
   },
   "footer": {
+    "copyright": "{year} <link>Switch-to.eu</link>.",
     "rightsReserved": "Alle rechten voorbehouden",
     "privacyPolicy": "Privacybeleid",
     "termsOfService": "Servicevoorwaarden",
@@ -106,6 +113,9 @@
     "ctaButton": "Vraag een Dienst Aan",
     "ctaTitle": "Mis je een dienst? Laat het ons weten!",
     "ctaDescription": "Kun je de dienst die je zoekt niet vinden? Vertel ons welke dienst je graag zou willen zien en we voegen deze mogelijk toe aan ons platform.",
+    "suggestCardTitle": "Mis je een dienst?",
+    "suggestCardDescription": "Ken je een EU-alternatief dat hier zou moeten staan? Laat het ons weten en we kijken of we het toe kunnen voegen.",
+    "suggestCardButton": "Stel een dienst voor",
     "feedbackModalTitle": "Vraag een Dienst Aan",
     "serviceRequestTitle": "Vraag een Nieuwe Dienst Aan",
     "serviceRequestDescription": "Help ons onze catalogus uit te breiden door EU-gebaseerde diensten voor te stellen die toegevoegd zouden moeten worden aan Switch-to.eu.",
@@ -304,37 +314,35 @@
   "about": {
     "title": "Over Switch-to.eu",
     "description": "Wij helpen EU-burgers digitale diensten te vinden die onder EU-wetgeving vallen",
-    "heroTitle": "Over Switch-to.EU",
-    "heroDescription1": "Switch-to.EU is een door de gemeenschap gedreven platform dat gebruikers helpt gemakkelijk over te stappen van niet-EU digitale diensten naar EU-alternatieven door middel van duidelijke, stapsgewijze migratiegidsen.",
-    "heroDescription2": "Ons doel is het bevorderen van digitale soevereiniteit en gegevensprivacy door het voor gebruikers gemakkelijker te maken om diensten te vinden en ernaar te migreren die binnen de Europese Unie worden gehost.",
     "initiative": {
-      "heading": "Weg van big tech? Wij helpen je de switch te maken.",
-      "intro": "Switch-to.eu is een initiatief van Vincent en Simon Peters, digitale ontwerpers uit Antwerpen die mensen wil begeleiden bij de overstap van Amerikaanse techgiganten naar Europese en open-source alternatieven.",
+      "heading": "Wie we zijn",
+      "intro": "Switch-to.eu is gebouwd door Vincent en Simon Peters, digitale ontwerpers uit Antwerpen. We begonnen hiermee omdat het vinden van en overstappen naar EU-alternatieven meer uitzoekwerk vergde dan nodig.",
       "mission": {
-        "title": "Onze missie",
-        "description1": "In een wereld waar Amerikaanse tech-giganten steeds meer macht verzamelen over onze gegevens en digitale levens, biedt Switch-to.eu een uitweg. Wij geloven dat iedereen toegang moet hebben tot gebruiksvriendelijke, privacy-respecterende digitale tools die in Europa ontwikkeld zijn.",
-        "description2": "De toenemende zorgen over gegevensprivacy en de groeiende monopolistische macht van Amerikaanse techbedrijven hebben ons ertoe gebracht dit platform te creëren. Zeker na de schaamteloze knieval van big tech voor Donald Trump is de interesse naar Europese alternatieven alleen maar gegroeid."
+        "title": "Waarom dit bestaat",
+        "description1": "De meeste populaire digitale diensten worden gerund door Amerikaanse bedrijven onder Amerikaans recht. Dat betekent dat je data valt onder een juridisch kader dat anders met privacy omgaat dan de EU.",
+        "description2": "We hebben Switch-to.eu gebouwd om het makkelijker te maken EU-alternatieven te vinden en er daadwerkelijk naar over te stappen."
       },
       "whatWeDo": {
         "title": "Wat we doen",
-        "description": "Switch-to.eu biedt stapsgewijze handleidingen voor het vervangen van dagelijkse digitale tools zoals WhatsApp, Gmail, Chrome en sociale mediaplatforms door privacy-gerichte Europese alternatieven. Onze gidsen zijn specifiek ontworpen om toegankelijk te zijn voor iedereen - zelfs je oma kan de switch maken met onze vereenvoudigde instructies."
+        "description": "Switch-to.eu heeft overstapgidsen voor het vervangen van dagelijkse tools zoals WhatsApp, Gmail, Chrome en sociale media door EU-alternatieven. De gidsen zijn geschreven zodat iedereen ze kan volgen, ongeacht technische achtergrond."
       },
       "uniqueness": {
-        "title": "Wat ons uniek maakt",
-        "description1": "Switch-to.eu vult een belangrijk hiaat in de digitale wereld. Er bestond nog geen website die zowel duidelijk gecureerde keuzes naar voren schuift, alsook consequent kiest voor Europese oplossingen die ook echt praktisch bruikbaar zijn.",
-        "description2": "Bij Switch-to.eu bieden we:",
+        "title": "Wat dit anders maakt",
+        "description1": "Andere sites listen privacy-tools. Wij richten ons specifiek op diensten gevestigd in de EU, en koppelen elke dienst aan een praktische overstapgids.",
+        "description2": "Wat je krijgt:",
         "points": [
-          "Zorgvuldig geselecteerde Europese alternatieven voor populaire Amerikaanse apps en diensten",
-          "Praktische oplossingen die werken in het dagelijks leven, niet alleen ingewikkelde privacy-tools voor tech-nerds",
-          "Eenvoudige, stap-voor-stap handleidingen die iedereen kan volgen",
-          "Een focus op privacy én gebruiksgemak"
+          "EU-alternatieven voor populaire apps en diensten",
+          "Overstapgidsen geschreven voor niet-technische gebruikers",
+          "Eerlijke vergelijkingen inclusief nadelen",
+          "Open source, onderhouden door vrijwilligers"
         ]
       },
       "callToAction": {
-        "title": "Begin vandaag nog",
-        "description": "Klaar om de controle over je digitale leven terug te nemen? Verken onze gidsen en ontdek hoe eenvoudig het kan zijn om de overstap te maken naar een meer privacy-respecterend digitaal bestaan met Europese technologie die gewoon werkt."
+        "title": "Begin hier",
+        "description": "Kies een dienst die je wilt vervangen, lees de vergelijking, en volg de gids. De meeste overstappen duren minder dan een uur."
       }
     },
+    "viewServicesButton": "Begin met de overstap",
     "pillarsTitle": "Onze Drie Pijlers",
     "pillars": {
       "pillar1": {
@@ -350,40 +358,24 @@
         "description": "Switch-to.EU is open-source en afhankelijk van bijdragen vanuit de gemeenschap. Het platform groeit en verbetert dankzij de collectieve kennis van zijn gebruikers, die gidsen, alternatieven en feedback bijdragen."
       }
     },
-    "whyChooseTitle": "Waarom Kiezen voor in de EU Gebaseerde Diensten?",
-    "whyChooseDescription": "Europese diensten bieden verschillende voordelen ten opzichte van niet-EU alternatieven:",
+    "whyChooseTitle": "Waarom EU-diensten?",
+    "whyChooseDescription": "Niet elke EU-dienst is automatisch beter, en niet elke niet-EU dienst is automatisch slecht. Maar er zijn echte verschillen in hoe je data behandeld wordt.",
     "whyChoosePoints": {
       "point1": {
-        "title": "Sterke Gegevensbescherming",
-        "description": "EU-diensten moeten voldoen aan strikte wetten voor gegevensbescherming zoals de AVG (Algemene Verordening Gegevensbescherming), die gebruikers meer controle geeft over hun persoonlijke gegevens en transparantie over hoe hun gegevens worden gebruikt."
+        "title": "Gegevensbescherming",
+        "description": "EU-diensten vallen onder de AVG. Je hebt het recht om je data in te zien, te corrigeren en te verwijderen. Bedrijven hebben je uitdrukkelijke toestemming nodig voor het verwerken van persoonlijke gegevens."
       },
       "point2": {
-        "title": "Digitale Soevereiniteit",
-        "description": "Door diensten te gebruiken die door Europese bedrijven worden beheerd, dragen gebruikers bij aan de technologische onafhankelijkheid van Europa en verminderen de afhankelijkheid van buitenlandse bedrijven en overheden."
+        "title": "Data jurisdictie",
+        "description": "Wanneer je data in de EU opgeslagen wordt, valt het onder EU-jurisdictie. Amerikaanse diensten vallen onder wetten zoals de CLOUD Act, waarmee Amerikaanse autoriteiten data in het buitenland mogen opvragen."
       },
       "point3": {
-        "title": "Ethische Overwegingen",
-        "description": "EU-bedrijven moeten voldoen aan Europese normen voor digitale ethiek, die vaak strengere vereisten hebben met betrekking tot algoritmische transparantie, fairness en non-discriminatie dan in andere rechtsgebieden."
+        "title": "Regulering & handhaving",
+        "description": "EU-regelgeving stelt strengere eisen aan algoritmische transparantie en datagebruik. Diensten in Europa worden daadwerkelijk aangepakt wanneer ze de regels overtreden."
       },
       "point4": {
-        "title": "Lokale Economie",
-        "description": "Door Europese alternatieven te ondersteunen, dragen gebruikers bij aan de groei van de digitale economie van de EU, wat leidt tot innovatie, werkgelegenheid en een meer competitief Europees technologisch ecosysteem."
-      }
-    },
-    "contributionTitle": "Bijdragen aan Switch-to.EU",
-    "contributionDescription": "We moedigen gebruikers aan om bij te dragen aan het platform door:",
-    "contributionPoints": {
-      "point1": {
-        "description": "Nieuwe migratiegidsen toevoegen of bestaande verbeteren"
-      },
-      "point2": {
-        "description": "EU-alternatieven voor populaire diensten voorstellen"
-      },
-      "point3": {
-        "description": "Bugs rapporteren of suggesties doen voor verbeteringen"
-      },
-      "point4": {
-        "description": "Het project delen met anderen die geïnteresseerd zijn in digitale soevereiniteit"
+        "title": "Economische impact",
+        "description": "EU-diensten kiezen betekent dat je geld in de Europese techsector steekt in plaats van het te concentreren bij een handvol Amerikaanse bedrijven."
       }
     }
   },
@@ -442,14 +434,16 @@
         "title": "Aanbevolen alternatief",
         "startingPrice": "Startprijs",
         "migrateFrom": "Migreer van {source} naar {target}",
-        "viewDetails": "Bekijk dienstdetails"
+        "viewDetails": "Bekijk dienstdetails",
+        "badge": "Aanbevolen door Switch-to.eu",
+        "featured": "Uitgelicht"
       }
     }
   },
   "tools": {
     "title": "Tools",
-    "description": "Tools om je te helpen overstappen naar EU-diensten",
-    "availableTools": "Beschikbare Tools",
+    "description": "Privacy-first tools, gebouwd in Europa. Geen tracking, geen accounts — gewoon handige apps die je data respecteren.",
+    "comingSoon": "Binnenkort beschikbaar",
     "whyUseTools": "Waarom Onze Tools Gebruiken",
     "features": {
       "dataSovereignty": {
@@ -461,41 +455,39 @@
         "description": "Alle tools zijn gratis te gebruiken met intuïtieve interfaces en bruikbare resultaten"
       },
       "euAlternatives": {
-        "title": "EU-alternatieven",
-        "description": "Krijg aanbevelingen voor EU-gebaseerde alternatieven voor alle niet-conforme diensten die worden gevonden"
+        "title": "Open Source",
+        "description": "Al onze tools zijn open source en community-driven — bekijk, draag bij en bouw met vertrouwen"
       }
     },
-    "websiteTool": {
-      "title": "Website Tool",
-      "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
-    },
-    "websiteAnalyzer": {
-      "pageTitle": "Gebruikt jouw website EU-vriendelijke diensten? Ontdek het!",
-      "urlInputPlaceholder": "Voer je website-URL in (bijv. jouwwebsite.com)",
-      "checkButton": "Controleer mijn website",
-      "urlError": "Voer een website-URL in",
-      "invalidUrlError": "Voer een geldige website-URL in",
-      "emptyStateTitle": "Voer je URL in om te beginnen!",
-      "emptyStateDescription": "We laten je direct zien van welke diensten jouw website gebruikmaakt en of deze voldoen aan de EU-regels.",
-      "howItWorksTitle": "Hoe het werkt",
-      "step1": {
-        "number": "1",
-        "title": "Voer je website-URL in",
-        "description": "Geef je websiteadres op om te beginnen met het controleren van de diensten die je site momenteel gebruikt."
+    "items": {
+      "euScan": {
+        "title": "EU-Scan",
+        "description": "Analyseer elke website om te controleren of deze EU-gebaseerde diensten gebruikt en AVG-conform is."
       },
-      "step2": {
-        "number": "2",
-        "title": "Directe domeincontrole",
-        "description": "Onze tool detecteert automatisch de externe diensten van je website en identificeert of deze in de EU zijn gevestigd."
+      "keepfocus": {
+        "title": "KeepFocus",
+        "description": "Een privacy-first Pomodoro-timer en taakbeheerder die volledig in je browser draait."
       },
-      "step3": {
-        "number": "3",
-        "title": "Bekijk resultaten",
-        "description": "Zie direct welke diensten je gebruikt, hun EU-nalevingsstatus en ontvang aanbevelingen voor EU-vriendelijke alternatieven."
+      "plotty": {
+        "title": "Plotty",
+        "description": "Maak direct polls — geen registratie, geen e-mail, geen gedoe. Eenvoudige planning die je privacy respecteert."
       },
-      "ctaTitle": "Klaar om de overstap te maken?",
-      "ctaDescription": "Ontdek EU-alternatieven voor alle niet-EU-diensten die op je website zijn gedetecteerd en volg onze stapsgewijze migratiehandleidingen.",
-      "ctaButton": "Verken EU-alternatieven"
+      "listy": {
+        "title": "Listy",
+        "description": "Maak direct gedeelde lijsten — boodschappen, taken, potluck. Geen account nodig, end-to-end versleuteld."
+      },
+      "privnote": {
+        "title": "PrivNote",
+        "description": "Verstuur zelfvernietigende privénotities — end-to-end versleuteld, geen account nodig."
+      },
+      "quiz": {
+        "title": "Quiz",
+        "description": "Organiseer live quizzen voor klassen en teams — geen registratie, end-to-end versleuteld, privacy-first."
+      },
+      "kanban": {
+        "title": "Kanban",
+        "description": "Privé Kanban-borden voor teams — organiseer taken visueel, geen account nodig, end-to-end versleuteld."
+      }
     }
   },
   "language": {
@@ -620,53 +612,13 @@
     },
     "unnamedStep": "Naamloze Stap {number}"
   },
-  "domainAnalyzer": {
-    "results": {
-      "howEuFriendly": "Hoe EU-vriendelijk is {domain}?",
-      "statusExcellent": "Uitstekend",
-      "statusImprovement": "Ruimte voor verbetering",
-      "statusAttention": "Behoeft aandacht",
-      "pending": "Wachten op verwerking...",
-      "complete": "Voltooid",
-      "notFound": "Niet gevonden",
-      "eu": "EU",
-      "euFriendly": "EU-vriendelijk",
-      "nonEu": "Niet-EU",
-      "detectedServices": "Gedetecteerde diensten:",
-      "congratulations": "Gefeliciteerd! Uw website gebruikt 100% EU-vriendelijke diensten."
-    },
-    "domainNotFound": {
-      "title": "Domein Niet Gevonden",
-      "message": "We konden het domein {domain} niet vinden. Controleer of het domein bestaat of probeer een ander.",
-      "tryAgain": "Probeer een ander domein"
-    },
-    "recommendations": {
-      "switchToEu": "Overweeg over te stappen naar een EU-gebaseerd alternatief.",
-      "emailProviders": "Overweeg deze e-mailproviders:",
-      "domainRegistrars": "Overweeg deze domeinregistrars:",
-      "hostingProviders": "Overweeg deze hostingproviders:",
-      "services": "Overweeg deze diensten:",
-      "cdnProviders": "Overweeg deze EU CDN-providers:"
-    },
-    "services": {
-      "mx_records": "E-mail",
-      "domain_registrar": "domein registrar",
-      "hosting": "hosting",
-      "services": "diensten",
-      "cdn": "cdn"
-    },
-    "buttons": {
-      "shareResults": "Resultaten delen",
-      "checkAgain": "Opnieuw controleren"
-    },
-    "analyze": {
-      "analyzing": "Bezig met analyseren van {domain}...",
-      "checkingAspects": "We controleren verschillende aspecten van dit domein. Dit kan even duren."
-    },
-    "error": {
-      "title": "Analysefout",
-      "tryAgain": "Probeer opnieuw"
-    }
+  "landingPages": {
+    "recommendedAlternatives": "Aanbevolen Europese Alternatieven",
+    "whySwitch": "Waarom overstappen?",
+    "readMore": "Lees meer",
+    "viewAllAlternatives": "Bekijk alle alternatieven",
+    "howToCancel": "Hoe op te zeggen",
+    "exploreAlternatives": "Bekijk alternatieven"
   },
   "newsletter": {
     "title": "Schrijf je in op onze nieuwsbrief",

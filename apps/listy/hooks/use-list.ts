@@ -1,0 +1,394 @@
+"use client";
+
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { api } from "@/lib/trpc-client";
+import { encryptData, decryptData } from "@switch-to-eu/db/crypto";
+import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
+import type { DecryptedListData, DecryptedItemData, ListSettings } from "@/lib/types";
+
+export interface DecryptedItem {
+  id: string;
+  text: string;
+  claimedBy?: string;
+  category?: string;
+  completed: boolean;
+  version: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DecryptedList {
+  id: string;
+  title: string;
+  description?: string;
+  settings?: ListSettings;
+  preset: string;
+  createdAt: string;
+  expiresAt: string;
+  version: number;
+  items: DecryptedItem[];
+}
+
+interface UseListOptions {
+  listId: string;
+  adminToken?: string;
+}
+
+export function useList({ listId, adminToken }: UseListOptions) {
+  const fragment = useFragment();
+  const [decryptedList, setDecryptedList] = useState<DecryptedList | null>(null);
+  const [isDecrypting, setIsDecrypting] = useState(false);
+  const [decryptionError, setDecryptionError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [queryError, setQueryError] = useState(false);
+
+  // Derive encryption key from fragment — supports both #rawKey (legacy) and #key=xxx
+  const encryptionKey = fragment.params.key || "";
+  const missingKey = fragment.ready && !encryptionKey;
+
+  // Use SSE subscription for real-time updates
+  const { data: subscriptionData, error: subscriptionError } =
+    api.list.subscribe.useSubscription(
+      { id: listId },
+      {
+        enabled: !!listId,
+        onError: () => {
+          setQueryError(true);
+        },
+      },
+    );
+
+  // Handle subscription errors
+  useEffect(() => {
+    if (subscriptionError) {
+      setQueryError(true);
+      setIsLoading(false);
+    }
+  }, [subscriptionError]);
+
+  // Decrypt data when subscription data or key changes
+  useEffect(() => {
+    if (!subscriptionData || !encryptionKey) return;
+
+    const decrypt = async () => {
+      setIsDecrypting(true);
+      setDecryptionError(null);
+      setQueryError(false);
+
+      try {
+        const listData = await decryptData<DecryptedListData>(
+          subscriptionData.list.encryptedData,
+          encryptionKey,
+        );
+
+        const items: DecryptedItem[] = [];
+        for (const item of subscriptionData.items) {
+          try {
+            const itemData = await decryptData<DecryptedItemData>(
+              item.encryptedItem,
+              encryptionKey,
+            );
+            items.push({
+              id: item.id,
+              text: itemData.text,
+              claimedBy: itemData.claimedBy,
+              category: itemData.category,
+              completed: item.completed,
+              version: item.version,
+              createdAt: item.createdAt,
+              updatedAt: item.updatedAt,
+            });
+          } catch {
+            // Skip items that fail to decrypt
+          }
+        }
+
+        setDecryptedList({
+          id: subscriptionData.list.id,
+          title: listData.title,
+          description: listData.description,
+          settings: listData.settings,
+          preset: subscriptionData.list.preset,
+          createdAt: subscriptionData.list.createdAt,
+          expiresAt: subscriptionData.list.expiresAt,
+          version: subscriptionData.list.version,
+          items,
+        });
+      } catch {
+        setDecryptionError("Failed to decrypt list data. The link may be invalid.");
+      } finally {
+        setIsDecrypting(false);
+        setIsLoading(false);
+      }
+    };
+
+    void decrypt();
+  }, [subscriptionData, encryptionKey]);
+
+  const addItemMutation = api.list.addItem.useMutation();
+  const toggleItemMutation = api.list.toggleItem.useMutation();
+  const removeItemMutation = api.list.removeItem.useMutation();
+  const updateItemMutation = api.list.updateItem.useMutation();
+  const updateListMutation = api.list.updateList.useMutation();
+  const deleteListMutation = api.list.delete.useMutation();
+
+  // --- Optimistic update helpers ---
+  // Pattern: update local decrypted state immediately, fire mutation in background,
+  // SSE subscription naturally replaces local state with server truth on confirmation.
+  // On error: rollback local state and re-throw so the UI can show a toast.
+
+  const updateItem = useCallback(
+    (itemId: string, updater: (item: DecryptedItem) => DecryptedItem) => {
+      setDecryptedList((prev) =>
+        prev
+          ? { ...prev, items: prev.items.map((i) => (i.id === itemId ? updater(i) : i)) }
+          : null,
+      );
+    },
+    [],
+  );
+
+  const addItem = useCallback(
+    async (text: string, category?: string) => {
+      if (!encryptionKey) return;
+
+      // Optimistic: add item with temporary ID
+      const tempId = `temp-${Date.now()}`;
+      const now = new Date().toISOString();
+      setDecryptedList((prev) =>
+        prev
+          ? {
+              ...prev,
+              items: [
+                ...prev.items,
+                { id: tempId, text, category, completed: false, version: 0, createdAt: now, updatedAt: now },
+              ],
+            }
+          : null,
+      );
+
+      try {
+        const itemData: DecryptedItemData = { text, category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await addItemMutation.mutateAsync({ listId, encryptedItem });
+      } catch (error) {
+        // Rollback: remove the temp item
+        setDecryptedList((prev) =>
+          prev ? { ...prev, items: prev.items.filter((i) => i.id !== tempId) } : null,
+        );
+        throw error;
+      }
+    },
+    [encryptionKey, listId, addItemMutation],
+  );
+
+  const toggleItem = useCallback(
+    async (itemId: string, completed: boolean) => {
+      // Optimistic: flip the checkbox immediately
+      updateItem(itemId, (i) => ({ ...i, completed }));
+
+      try {
+        return await toggleItemMutation.mutateAsync({ listId, itemId, completed });
+      } catch (error) {
+        // Rollback: flip it back
+        updateItem(itemId, (i) => ({ ...i, completed: !completed }));
+        throw error;
+      }
+    },
+    [listId, toggleItemMutation, updateItem],
+  );
+
+  const removeItem = useCallback(
+    async (itemId: string) => {
+      // Stash the item for rollback
+      const removedItem = decryptedList?.items.find((i) => i.id === itemId);
+
+      // Optimistic: remove immediately
+      setDecryptedList((prev) =>
+        prev ? { ...prev, items: prev.items.filter((i) => i.id !== itemId) } : null,
+      );
+
+      try {
+        return await removeItemMutation.mutateAsync({ listId, itemId });
+      } catch (error) {
+        // Rollback: restore the item
+        if (removedItem) {
+          setDecryptedList((prev) =>
+            prev ? { ...prev, items: [...prev.items, removedItem] } : null,
+          );
+        }
+        throw error;
+      }
+    },
+    [listId, decryptedList, removeItemMutation],
+  );
+
+  const claimItem = useCallback(
+    async (itemId: string, claimedBy: string) => {
+      if (!encryptionKey || !decryptedList) return;
+      const item = decryptedList.items.find((i) => i.id === itemId);
+      if (!item) return;
+
+      // Optimistic: show claimed name immediately
+      const previousClaimedBy = item.claimedBy;
+      updateItem(itemId, (i) => ({ ...i, claimedBy }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, claimedBy, category: item.category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, claimedBy: previousClaimedBy }));
+        throw error;
+      }
+    },
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
+  );
+
+  const unclaimItem = useCallback(
+    async (itemId: string) => {
+      if (!encryptionKey || !decryptedList) return;
+      const item = decryptedList.items.find((i) => i.id === itemId);
+      if (!item) return;
+
+      // Optimistic: remove claimed name immediately
+      const previousClaimedBy = item.claimedBy;
+      updateItem(itemId, (i) => ({ ...i, claimedBy: undefined }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, category: item.category };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, claimedBy: previousClaimedBy }));
+        throw error;
+      }
+    },
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
+  );
+
+  const moveItemToCategory = useCallback(
+    async (itemId: string, newCategory: string) => {
+      if (!encryptionKey || !decryptedList) return;
+      const item = decryptedList.items.find((i) => i.id === itemId);
+      if (!item) return;
+      if (item.category === newCategory) return;
+
+      // Optimistic: move item to new category immediately
+      const previousCategory = item.category;
+      updateItem(itemId, (i) => ({ ...i, category: newCategory }));
+
+      try {
+        const itemData: DecryptedItemData = { text: item.text, claimedBy: item.claimedBy, category: newCategory };
+        const encryptedItem = await encryptData(itemData, encryptionKey);
+        return await updateItemMutation.mutateAsync({
+          listId,
+          itemId,
+          encryptedItem,
+          expectedVersion: item.version,
+        });
+      } catch (error) {
+        // Rollback
+        updateItem(itemId, (i) => ({ ...i, category: previousCategory }));
+        throw error;
+      }
+    },
+    [encryptionKey, listId, decryptedList, updateItemMutation, updateItem],
+  );
+
+  const updateListData = useCallback(
+    async (newListData: DecryptedListData) => {
+      if (!encryptionKey || !adminToken || !decryptedList) return;
+
+      // Stash previous state for rollback
+      const previousTitle = decryptedList.title;
+      const previousDescription = decryptedList.description;
+      const previousSettings = decryptedList.settings;
+
+      // Optimistic: update local state immediately
+      setDecryptedList((prev) =>
+        prev
+          ? {
+              ...prev,
+              title: newListData.title,
+              description: newListData.description,
+              settings: newListData.settings,
+            }
+          : null,
+      );
+
+      try {
+        const encryptedData = await encryptData(newListData, encryptionKey);
+        return await updateListMutation.mutateAsync({
+          id: listId,
+          adminToken,
+          encryptedData,
+        });
+      } catch (error) {
+        // Rollback
+        setDecryptedList((prev) =>
+          prev
+            ? {
+                ...prev,
+                title: previousTitle,
+                description: previousDescription,
+                settings: previousSettings,
+              }
+            : null,
+        );
+        throw error;
+      }
+    },
+    [encryptionKey, adminToken, listId, decryptedList, updateListMutation],
+  );
+
+  const deleteList = useCallback(
+    async (token: string) => {
+      return deleteListMutation.mutateAsync({ id: listId, adminToken: token });
+    },
+    [listId, deleteListMutation],
+  );
+
+  const isMutating =
+    addItemMutation.isPending ||
+    toggleItemMutation.isPending ||
+    removeItemMutation.isPending ||
+    updateItemMutation.isPending ||
+    updateListMutation.isPending ||
+    deleteListMutation.isPending;
+
+  const error = useMemo(() => {
+    if (queryError) return "Failed to load list.";
+    if (decryptionError) return decryptionError;
+    return null;
+  }, [queryError, decryptionError]);
+
+  return {
+    list: decryptedList,
+    isLoading: isLoading || isDecrypting,
+    isMutating,
+    error,
+    missingKey,
+    encryptionKey,
+    addItem,
+    toggleItem,
+    removeItem,
+    claimItem,
+    unclaimItem,
+    moveItemToCategory,
+    updateListData,
+    deleteList,
+  };
+}

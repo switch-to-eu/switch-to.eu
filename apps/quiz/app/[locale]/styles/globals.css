@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@switch-to-eu/ui/styles/globals.css";
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+:root {
+  --primary: var(--brand-red);
+  --primary-foreground: #ffffff;
+  --ring: var(--brand-red);
+  --tool-primary: var(--brand-red);
+  --tool-primary-foreground: #ffffff;
+  --tool-accent: var(--brand-orange);
+  --tool-accent-foreground: #ffffff;
+  --tool-surface: var(--brand-orange);
+  --tool-surface-foreground: #ffffff;
+}
+
+/* Shared primary button style */
+.gradient-primary {
+  background-color: var(--tool-primary);
+}
+
+.gradient-primary:hover {
+  opacity: 0.9;
+}

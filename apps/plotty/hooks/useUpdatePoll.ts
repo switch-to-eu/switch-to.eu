@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import { api } from "@/lib/trpc-client";
-import { encryptData } from "@/lib/crypto";
+import { encryptData } from "@switch-to-eu/db/crypto";
 import type { DecryptedPoll, EncryptedPollStructure } from "@/lib/interfaces";
 import type { ProcessedPollFormData } from "@components/poll-form";
 

@@ -90,7 +90,7 @@ const staticRoutes = [
   "/en/contribute",
   "/en/contribute/guide",
   "/en/feedback",
-  "/en/tools/website",
+  "/en/tools",
 ];
 
 for (const urlPath of staticRoutes) {

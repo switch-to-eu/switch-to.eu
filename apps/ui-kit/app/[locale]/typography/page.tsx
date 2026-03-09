@@ -12,10 +12,10 @@ export default function TypographyPage() {
         <div className="space-y-6">
           <div className="rounded-xl border border-border p-6">
             <p className="text-xs text-muted-foreground mb-2 font-mono">
-              font-family: var(--font-bricolage-grotesque) &middot; font-heading
+              font-family: var(--font-bonbance) &middot; font-heading
             </p>
             <p className="font-heading text-3xl">
-              BricolageGrotesque ExtraBold — Used for all headings
+              Bonbance Bold Condensed — Default heading font for all apps
             </p>
           </div>
           <div className="rounded-xl border border-border p-6">
@@ -32,6 +32,14 @@ export default function TypographyPage() {
             </p>
             <p className="font-bold text-lg">
               HankenGrotesk Bold — Used for strong/bold text
+            </p>
+          </div>
+          <div className="rounded-xl border border-border p-6">
+            <p className="text-xs text-muted-foreground mb-2 font-mono">
+              font-family: var(--font-anton) &middot; font-anton
+            </p>
+            <p className="font-[family-name:var(--font-anton)] text-4xl uppercase">
+              Anton — Ultra-black condensed display, used in website hero
             </p>
           </div>
         </div>
@@ -136,6 +144,21 @@ export default function TypographyPage() {
           <p className="text-muted-foreground">text-muted-foreground — Muted/secondary text</p>
           <p className="text-destructive">text-destructive — Error/destructive text</p>
           <p className="text-blue">text-blue — Link blue</p>
+        </div>
+      </section>
+
+      {/* Brand Text Colors */}
+      <section className="mb-12">
+        <h2 className="text-2xl mb-4">Brand Text Colors</h2>
+        <div className="space-y-2 rounded-xl border border-border p-6">
+          <p className="text-brand-yellow text-lg font-bold">text-brand-yellow — #FBA616</p>
+          <p className="text-brand-green text-lg font-bold">text-brand-green — #0D492C</p>
+          <p className="text-brand-sky text-lg font-bold">text-brand-sky — #9BCDD0</p>
+          <p className="text-brand-red text-lg font-bold">text-brand-red — #E22028</p>
+          <p className="text-brand-pink text-lg font-bold">text-brand-pink — #E282B4</p>
+          <p className="text-brand-navy text-lg font-bold">text-brand-navy — #1E42B0</p>
+          <p className="text-brand-sage text-lg font-bold">text-brand-sage — #B0D8B0</p>
+          <p className="text-brand-orange text-lg font-bold">text-brand-orange — #E45229</p>
         </div>
       </section>
     </div>

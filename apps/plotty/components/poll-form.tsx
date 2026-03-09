@@ -13,7 +13,7 @@ import { Calendar as CalendarComponent } from "@switch-to-eu/blocks/components/c
 import { SectionCard, SectionHeader, SectionContent } from "@switch-to-eu/blocks/components/section-card";
 import { TimeSelectionToggle } from "@components/ui/time-selection-toggle";
 import { TimeSlotsManager } from "@components/ui/time-slots-manager";
-import { pollSchema, type PollFormData } from "@/lib/schemas";
+import { createPollSchema, type PollFormData } from "@/lib/schemas";
 
 // Type for processed form data that gets sent to the onSubmit handler
 export type ProcessedPollFormData = Omit<PollFormData, 'selectedStartTimes'> & {
@@ -42,9 +42,17 @@ export function PollForm({
   formRef
 }: PollFormProps) {
   const t = useTranslations('PollForm');
+  const v = useTranslations('validation');
 
   const form = useForm<PollFormData>({
-    resolver: zodResolver(pollSchema) as any,
+    resolver: zodResolver(createPollSchema({
+      required: v("required"),
+      maxLength: v("maxLength"),
+      arrayMinLength: v("arrayMinLength"),
+      futureDate: v("futureDate"),
+      min: v("min"),
+      max: v("max"),
+    })) as any,
     defaultValues: {
       title: initialData?.title ?? "",
       description: initialData?.description ?? "",
@@ -146,7 +154,7 @@ export function PollForm({
         />
         <SectionContent>
           {errors.selectedDates && (
-            <p className="mb-4 text-sm text-red-500">
+            <p className="mb-4 text-sm text-destructive">
               {errors.selectedDates.message}
             </p>
           )}
@@ -203,7 +211,7 @@ export function PollForm({
             {/* Right Column: Selected Dates - Scalable */}
             <div className="space-y-4 lg:col-span-2">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900">{t('calendar.selectedDates')}</h3>
+                <h3 className="text-lg font-medium text-foreground">{t('calendar.selectedDates')}</h3>
 
                 {selectedDates && selectedDates.length > 0 ? (
                   <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
@@ -216,24 +224,24 @@ export function PollForm({
                           control={control}
                           render={({ field }) => (
                             <div
-                              className="group flex aspect-square cursor-pointer flex-col items-center justify-center rounded-lg border-primary p-3 shadow-card hover:shadow-card-hover bg-white transition-all hover:scale-105"
+                              className="group flex aspect-square cursor-pointer flex-col items-center justify-center rounded-lg border-primary p-3 shadow-card hover:shadow-card-hover bg-card transition-all hover:scale-105"
                               onClick={() => {
                                 field.onChange(
                                   field.value.filter((_, i) => i !== index),
                                 );
                               }}
                             >
-                              <div className="text-center text-xs font-medium tracking-wide uppercase text-primary-color group-hover:text-purple-700">
+                              <div className="text-center text-xs font-medium tracking-wide uppercase text-primary-color group-hover:text-tool-primary">
                                 {date
                                   .toLocaleDateString("en-US", {
                                     month: "short",
                                   })
                                   .toUpperCase()}
                               </div>
-                              <div className="text-xl leading-none font-bold text-purple-800 group-hover:text-purple-900">
+                              <div className="text-xl leading-none font-bold text-tool-primary group-hover:text-tool-primary">
                                 {date.getDate()}
                               </div>
-                              <div className="text-xs font-medium text-primary-color group-hover:text-purple-700">
+                              <div className="text-xs font-medium text-primary-color group-hover:text-tool-primary">
                                 {date
                                   .toLocaleDateString("en-US", {
                                     weekday: "short",
@@ -246,12 +254,12 @@ export function PollForm({
                       ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8 px-4 rounded-lg bg-purple-50 border-2 border-dashed border-purple-300">
-                    <Calendar className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+                  <div className="text-center py-8 px-4 rounded-lg bg-tool-surface/10 border-2 border-dashed border-tool-accent/30">
+                    <Calendar className="h-8 w-8 text-tool-accent mx-auto mb-2" />
                     <p className="text-sm text-primary-color font-medium">
                       {t('calendar.noDatesSelected')}
                     </p>
-                    <p className="text-xs text-purple-500 mt-1">
+                    <p className="text-xs text-tool-accent mt-1">
                       {t('calendar.chooseDates')}
                     </p>
                   </div>

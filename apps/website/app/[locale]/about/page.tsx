@@ -1,8 +1,27 @@
 import { Metadata } from "next";
-import Image from "next/image";
-import { Container } from "@/components/layout/container";
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+import { shapes } from "@switch-to-eu/blocks/shapes";
+
+const PILLAR_CARDS = [
+  { titleKey: "pillars.pillar1.title", descKey: "pillars.pillar1.description", colorIndex: 0, shape: "spark" },
+  { titleKey: "pillars.pillar2.title", descKey: "pillars.pillar2.description", colorIndex: 4, shape: "heart" },
+  { titleKey: "pillars.pillar3.title", descKey: "pillars.pillar3.description", colorIndex: 6, shape: "flower" },
+] as const;
+
+const WHY_CHOOSE_CARDS = [
+  { titleKey: "whyChoosePoints.point1.title", descKey: "whyChoosePoints.point1.description", colorIndex: 2, shape: "sunburst" },
+  { titleKey: "whyChoosePoints.point2.title", descKey: "whyChoosePoints.point2.description", colorIndex: 0, shape: "cloud" },
+  { titleKey: "whyChoosePoints.point3.title", descKey: "whyChoosePoints.point3.description", colorIndex: 1, shape: "tulip" },
+  { titleKey: "whyChoosePoints.point4.title", descKey: "whyChoosePoints.point4.description", colorIndex: 3, shape: "speech" },
+] as const;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("about");
@@ -17,191 +36,162 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
-  const imageSize = 120;
+  const starShape = shapes["star"];
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 py-6 md:gap-20 md:py-12">
-      {/* Hero Section */}
-      <section>
-        <Container>
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                {t("initiative.heading")}
-              </h2>
-              <p className="mb-4 text-base sm:text-lg">
-                {t("initiative.intro")}
-              </p>
+    <PageLayout gapMobile>
+        <Container noPaddingMobile>
+          <Banner
+            color="bg-brand-navy"
+            shapes={[
+              { shape: "blob", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.2 },
+              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s" },
+            ]}
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="flex-1">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                  {t("initiative.heading")}
+                </h1>
+                <p className="text-brand-cream text-base sm:text-lg">
+                  {t("initiative.intro")}
+                </p>
+              </div>
+              <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
+                <DecorativeShape
+                  shape="circle"
+                  className="inset-0"
+                  opacity={0.25}
+                  duration="8s"
+                />
+                <DecorativeShape
+                  shape="star"
+                  className="inset-6"
+                  opacity={0.5}
+                  duration="6s"
+                  delay="-2s"
+                />
+                <DecorativeShape
+                  shape="fleur"
+                  className="bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20"
+                  opacity={0.35}
+                  duration="7s"
+                  delay="-4s"
+                />
+              </div>
+            </div>
+          </Banner>
+        </Container>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+      {/* Mission & Details */}
+        <Container>
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4 mt-4 md:mt-0">
                 {t("initiative.mission.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg mb-4">
                 {t("initiative.mission.description1")}
               </p>
-              <p className="mb-4 text-base sm:text-lg">
+              <p className="text-base sm:text-lg">
                 {t("initiative.mission.description2")}
               </p>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.whatWeDo.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg">
                 {t("initiative.whatWeDo.description")}
               </p>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.uniqueness.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg mb-4">
                 {t("initiative.uniqueness.description1")}
               </p>
-              <p className="mb-4 text-base sm:text-lg">
+              <p className="text-base sm:text-lg mb-6">
                 {t("initiative.uniqueness.description2")}
               </p>
-              <ul className="list-disc pl-6 space-y-2 mb-8 text-base sm:text-lg">
+              <ul className="space-y-3">
                 {(t.raw("initiative.uniqueness.points") as Array<string>).map(
                   (point: string, index: number) => (
-                    <li key={index}>{point}</li>
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 text-base sm:text-lg"
+                    >
+                      <span className="inline-block w-6 h-6 mt-0.5 flex-shrink-0 text-brand-green">
+                        {starShape && (
+                          <svg viewBox={starShape.viewBox} aria-hidden="true">
+                            <path d={starShape.d} fill="currentColor" />
+                          </svg>
+                        )}
+                      </span>
+                      {point}
+                    </li>
                   )
                 )}
               </ul>
+            </div>
 
-              <h3 className="text-2xl font-bold mt-8 mb-4">
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-4">
                 {t("initiative.callToAction.title")}
-              </h3>
-              <p className="mb-4 text-base sm:text-lg">
+              </h2>
+              <p className="text-base sm:text-lg mb-6">
                 {t("initiative.callToAction.description")}
               </p>
-            </div>
-            <div className="w-full max-w-[300px] h-[200px] relative flex-shrink-0 self-start mt-6 md:mt-0">
-              <Image
-                src="/images/europe.svg"
-                alt="Europe map illustration"
-                fill
-                className="object-contain object-top"
-                priority
-              />
+              <Link
+                href="/#categories"
+                className="inline-block px-6 sm:px-8 py-3 bg-brand-green text-white font-medium rounded-full hover:opacity-90 transition-colors text-sm sm:text-base"
+              >
+                {t("viewServicesButton")}
+              </Link>
             </div>
           </div>
         </Container>
-      </section>
 
       {/* Three Pillars Section */}
-      <section>
-        <Container>
-          <h2 className="mb-8 text-center font-bold text-3xl">
-            {t("pillarsTitle")}
-          </h2>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-            <div className="bg-[var(--pop-1)] p-5 sm:p-8 rounded-xl sm:translate-y-[10px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-01.svg"
-                    alt="European Alternatives icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar1.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar1.description")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-[var(--pop-2)] p-5 sm:p-8 rounded-xl sm:translate-y-[-20px]">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-02.svg"
-                    alt="Step-by-step Guides icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar2.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar2.description")}
-                </p>
-              </div>
-            </div>
-            <div className="bg-[var(--pop-3)] p-5 sm:p-8 rounded-xl">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-3 sm:mb-4">
-                  <Image
-                    src="/images/icon-03.svg"
-                    alt="Community Driven icon"
-                    width={imageSize}
-                    height={imageSize}
-                    priority
-                  />
-                </div>
-                <h3 className="mb-2 font-bold text-xl">
-                  {t("pillars.pillar3.title")}
-                </h3>
-                <p className="text-sm sm:text-base">
-                  {t("pillars.pillar3.description")}
-                </p>
-              </div>
-            </div>
+        <Container noPaddingMobile>
+          <SectionHeading>{t("pillarsTitle")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr md:grid-cols-3">
+            {PILLAR_CARDS.map((card) => (
+              <BrandCard
+                key={card.titleKey}
+                colorIndex={card.colorIndex}
+                title={t(card.titleKey)}
+                description={t(card.descKey)}
+                shape={card.shape}
+                contentClassName="text-center"
+              />
+            ))}
           </div>
         </Container>
-      </section>
 
       {/* Why Choose EU Services Section */}
-      <section>
-        <Container>
-          <h2 className="mb-8 text-center font-bold text-3xl">
-            {t("whyChooseTitle")}
-          </h2>
-          <p className="text-center mb-6">{t("whyChooseDescription")}</p>
+        <Container noPaddingMobile>
+          <SectionHeading>{t("whyChooseTitle")}</SectionHeading>
+          <p className="text-base sm:text-lg mb-10 max-w-2xl px-3 md:px-0">
+            {t("whyChooseDescription")}
+          </p>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-            <div className="bg-[var(--pop-4)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point1.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point1.description")}
-              </p>
-            </div>
-
-            <div className="bg-[var(--pop-1)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point2.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point2.description")}
-              </p>
-            </div>
-
-            <div className="bg-[var(--pop-2)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point3.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point3.description")}
-              </p>
-            </div>
-
-            <div className="bg-[var(--pop-3)] p-5 rounded-xl">
-              <h3 className="mb-3 font-bold text-xl text-center">
-                {t("whyChoosePoints.point4.title")}
-              </h3>
-              <p className="text-sm sm:text-base">
-                {t("whyChoosePoints.point4.description")}
-              </p>
-            </div>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr md:grid-cols-2">
+            {WHY_CHOOSE_CARDS.map((card) => (
+              <BrandCard
+                key={card.titleKey}
+                colorIndex={card.colorIndex}
+                title={t(card.titleKey)}
+                description={t(card.descKey)}
+                shape={card.shape}
+                shapePosition="accent"
+              />
+            ))}
           </div>
         </Container>
-      </section>
-    </div>
+    </PageLayout>
   );
 }

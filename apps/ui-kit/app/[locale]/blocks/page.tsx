@@ -1,19 +1,34 @@
 "use client";
 
-import { Globe, Package } from "lucide-react";
+import { Globe, Package, Plus } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 
 import { Header } from "@switch-to-eu/blocks/components/header";
 import { Footer } from "@switch-to-eu/blocks/components/footer";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
 import { Container } from "@switch-to-eu/blocks/components/container";
-import { LanguageSelector } from "@switch-to-eu/blocks/components/language-selector";
+import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
+import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
+import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 import {
   SectionCard,
   SectionHeader,
   SectionContent,
   SectionFooter,
 } from "@switch-to-eu/blocks/components/section-card";
+import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
+
+const demoNavItems: MainNavItem[] = [
+  { title: "About", href: "/about" },
+  {
+    title: "More",
+    dropdown: "simple",
+    children: [
+      { title: "Privacy", href: "/privacy" },
+      { title: "Terms", href: "/terms" },
+    ],
+  },
+];
 
 function Section({
   title,
@@ -54,11 +69,15 @@ export default function BlocksPage() {
             </div>
           }
           navigation={
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm">Home</Button>
-              <Button variant="ghost" size="sm">About</Button>
-              <Button size="sm">Get Started</Button>
-            </div>
+            <>
+              <NavMenu navItems={demoNavItems} />
+              <NavLanguageSelector locale="en" />
+              <HeaderFeedback toolId="ui-kit" />
+              <Button size="sm">
+                <Plus className="mr-2 h-4 w-4" />
+                Create
+              </Button>
+            </>
           }
         />
       </Section>
@@ -108,14 +127,25 @@ export default function BlocksPage() {
         </div>
       </section>
 
-      {/* LanguageSelector */}
+      {/* NavMenu */}
       <section className="mb-12">
-        <h2 className="text-2xl mb-4">LanguageSelector</h2>
+        <h2 className="text-2xl mb-4">NavMenu</h2>
         <div className="rounded-xl border border-border p-6">
           <p className="text-xs text-muted-foreground mb-3 font-mono">
-            Dropdown locale switcher (en/nl)
+            Desktop navigation with dropdown support
           </p>
-          <LanguageSelector locale="en" />
+          <NavMenu navItems={demoNavItems} />
+        </div>
+      </section>
+
+      {/* NavLanguageSelector */}
+      <section className="mb-12">
+        <h2 className="text-2xl mb-4">NavLanguageSelector</h2>
+        <div className="rounded-xl border border-border p-6">
+          <p className="text-xs text-muted-foreground mb-3 font-mono">
+            Portal-based locale switcher (en/nl)
+          </p>
+          <NavLanguageSelector locale="en" />
         </div>
       </section>
 

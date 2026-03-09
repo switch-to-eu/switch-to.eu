@@ -15,6 +15,7 @@ export function createTRPCInit<
 >(createTRPCContext: TCreateTRPCContext) {
   return initTRPC.context<TCreateTRPCContext>().create({
     transformer: superjson,
+    isDev: process.env.NODE_ENV === "development",
     errorFormatter({ shape, error }) {
       return {
         ...shape,

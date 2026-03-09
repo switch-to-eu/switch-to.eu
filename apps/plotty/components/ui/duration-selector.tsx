@@ -28,7 +28,7 @@ export function DurationSelector<T extends FieldValues>({
     <div className={cn("space-y-3", className)}>
       {label && <Label>{label}</Label>}
       {description && (
-        <p className="text-sm text-gray-500">{description}</p>
+        <p className="text-sm text-muted-foreground">{description}</p>
       )}
       <Controller
         name={name}
@@ -43,8 +43,8 @@ export function DurationSelector<T extends FieldValues>({
                 className={cn(
                   "rounded-lg px-4 py-2 text-sm font-medium transition-all",
                   field.value === duration
-                    ? "bg-purple-600 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-tool-primary text-white shadow-sm"
+                    : "bg-muted text-muted-foreground hover:bg-muted"
                 )}
               >
                 {duration}h
@@ -54,7 +54,7 @@ export function DurationSelector<T extends FieldValues>({
         )}
       />
       {error && (
-        <p className="text-sm text-red-500">{error.message}</p>
+        <p className="text-sm text-destructive">{error.message}</p>
       )}
     </div>
   );

@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "@switch-to-eu/ui/styles/globals.css";
+
+@source '../../../node_modules/@switch-to-eu/ui/src';
+@source '../../../node_modules/@switch-to-eu/blocks/src';
+
+:root {
+  --primary: var(--brand-navy);
+  --primary-foreground: #ffffff;
+  --ring: var(--brand-navy);
+  --tool-primary: var(--brand-navy);
+  --tool-primary-foreground: #ffffff;
+  --tool-accent: var(--brand-sage);
+  --tool-accent-foreground: #1a1a1a;
+  --tool-surface: var(--brand-sage);
+  --tool-surface-foreground: #1a1a1a;
+}
+
+/* Kanban-specific color overrides */
+.gradient-primary {
+  background: linear-gradient(to right, var(--tool-primary), var(--tool-accent));
+}
+
+.header-bg {
+  background: linear-gradient(to bottom right, oklch(from var(--tool-primary) l c h / 0.1), transparent);
+}
+
+.text-primary-color {
+  color: var(--tool-primary);
+}
+
+.focus-ring-accent {
+  @apply focus-visible:ring-[2px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.3);
+}
+
+.focus-ring-accent-strong {
+  @apply focus-visible:ring-[3px];
+  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.5);
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { TimerPhase, PomodoroSettings, PHASE_EMOJIS } from '../lib/types';
 import { formatTime as formatTimeUtil, getPhaseEmoji as getPhaseEmojiUtil } from '../lib/timer-utils';
 import { useNotifications } from './use-notifications';
@@ -55,6 +56,7 @@ export const usePomodoroTimer = ({
   const workerRef = useRef<Worker | null>(null);
   const originalTitle = useRef<string>('');
   const { showNotification, playNotificationSound, requestPermission } = useNotifications();
+  const t = useTranslations('pomodoro.notifications');
 
   // Calculate timer durations from settings (memoized to prevent unnecessary effect reruns)
   const TIMER_DURATIONS = useMemo(() => ({
@@ -125,8 +127,8 @@ export const usePomodoroTimer = ({
       // Show notification
       if (settings.desktopNotifications) {
         await showNotification({
-          title: 'Pomodoro Complete! 🍅',
-          body: `Time for a ${isLongBreak ? 'long' : 'short'} break.`,
+          title: t('workCompleteTitle'),
+          body: isLongBreak ? t('longBreakStart') : t('shortBreakStart'),
           tag: 'pomodoro-complete',
         });
       }
@@ -148,8 +150,8 @@ export const usePomodoroTimer = ({
       // Show notification
       if (settings.desktopNotifications) {
         await showNotification({
-          title: 'Break Complete! ⏰',
-          body: 'Time to get back to work.',
+          title: t('breakCompleteTitle'),
+          body: t('breakComplete'),
           tag: 'break-complete',
         });
       }
@@ -168,6 +170,7 @@ export const usePomodoroTimer = ({
     playNotificationSound,
     showNotification,
     TIMER_DURATIONS,
+    t,
   ]);
 
   // Handle phase completion with current state (no stale closure issues)

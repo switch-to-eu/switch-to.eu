@@ -192,12 +192,12 @@ export function AvailabilityGrid({
   // Helper function to get avatar color
   const getAvatarColor = (index: number) => {
     const colors = [
-      'bg-blue-500 text-white',
-      'bg-pink-500 text-white',
-      'bg-purple-500 text-white',
-      'bg-green-500 text-white',
+      'bg-tool-primary text-white',
+      'bg-tool-accent text-white',
+      'bg-tool-accent text-white',
+      'bg-success text-white',
       'bg-yellow-500 text-black',
-      'bg-red-500 text-white',
+      'bg-destructive text-white',
     ];
     return colors[index % colors.length];
   };
@@ -208,20 +208,20 @@ export function AvailabilityGrid({
       return (
         <button
           onClick={onClick}
-          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 hover:border-gray-400 hover:shadow-sm transition-all duration-150 bg-white"
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-border hover:border-border hover:shadow-sm transition-all duration-150 bg-card"
         >
           {status === 'available' && (
-            <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-5 w-5 text-success" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
           )}
           {status === 'unavailable' && (
-            <svg className="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-4 w-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           )}
           {status === 'unknown' && (
-            <svg className="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-4 w-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
             </svg>
           )}
@@ -233,21 +233,21 @@ export function AvailabilityGrid({
     return (
       <div className="flex h-8 w-8 items-center justify-center">
         {status === 'available' && (
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500 shadow-sm">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success/100 shadow-sm">
             <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
           </div>
         )}
         {status === 'unavailable' && (
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 shadow-sm">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-muted-foreground shadow-sm">
             <svg className="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </div>
         )}
         {status === 'unknown' && (
-          <div className="h-6 w-6 rounded-full border-2 border-gray-300 bg-white"></div>
+          <div className="h-6 w-6 rounded-full border-2 border-border bg-card"></div>
         )}
       </div>
     );
@@ -256,14 +256,14 @@ export function AvailabilityGrid({
   const isEditingName = currentUserName && showNameDialog;
 
   return (
-    <div className="mx-auto max-w-7xl border border-primary-color bg-white shadow-sm overflow-hidden sm:rounded-lg">
+    <div className="mx-auto max-w-7xl border border-primary-color bg-card shadow-sm overflow-hidden sm:rounded-lg">
       {/* Header */}
       <div className="flex items-center border-primary-color gradient-bg-purple-blue justify-between border-b px-6 py-4">
-        <h2 className="text-lg font-semibold text-gray-900">
-          {t('participants')} <span className="text-gray-500">{transformedData.participants.length + 1}</span>
+        <h2 className="text-lg font-semibold text-foreground">
+          {t('participants')} <span className="text-muted-foreground">{transformedData.participants.length + 1}</span>
         </h2>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-muted-foreground">
             {transformedData.eventOptionsCount} {t('options')}
           </span>
         </div>
@@ -272,24 +272,24 @@ export function AvailabilityGrid({
       {/* Table Layout */}
       <div className="flex">
         {/* Sticky Participant Names Column */}
-        <div className="w-30 sm:w-56 flex-shrink-0 border-r border-primary-color bg-white">
+        <div className="w-30 sm:w-56 flex-shrink-0 border-r border-primary-color bg-card">
           {/* Header for names column */}
-          <div className="border-b border-primary-color   bg-gray-50 px-4 py-4 h-[120px] flex items-end">
-            <div className="text-sm font-medium text-gray-600">{t('participants')}</div>
+          <div className="border-b border-primary-color   bg-muted px-4 py-4 h-[120px] flex items-end">
+            <div className="text-sm font-medium text-muted-foreground">{t('participants')}</div>
           </div>
 
           {/* Current User Row */}
-          <div className="px-4 py-4 h-[72px] flex items-center border-b border-primary-color bg-blue-50">
+          <div className="px-4 py-4 h-[72px] flex items-center border-b border-primary-color bg-tool-primary/10">
             <div className="flex items-center gap-3 w-full">
-              <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 text-white">
+              <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-muted-foreground text-white">
                 <User className="h-5 w-5" />
               </div>
               <div className="flex-1 flex items-center gap-2">
-                <span className="truncate text-sm font-medium text-gray-900">
+                <span className="truncate text-sm font-medium text-foreground">
                   {currentUserName || t('you')}
                 </span>
                 {currentUserName && (
-                  <span className="hidden sm:inline text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                  <span className="hidden sm:inline text-xs bg-tool-primary/20 text-tool-primary px-2 py-1 rounded-full font-medium">
                     {t('you_label')}
                   </span>
                 )}
@@ -299,7 +299,7 @@ export function AvailabilityGrid({
                       setNameInput(currentUserName);
                       setShowNameDialog(true);
                     }}
-                    className="text-primary-color hover:text-blue-800 ml-1 p-1 hover:bg-blue-100 rounded transition-colors"
+                    className="text-primary-color hover:text-tool-primary ml-1 p-1 hover:bg-tool-primary/20 rounded transition-colors"
                   >
                     <Edit className="h-3 w-3" />
                   </button>
@@ -312,12 +312,12 @@ export function AvailabilityGrid({
           {transformedData.participants.map((participant, index) => {
             const isLastRow = index === transformedData.participants.length - 1;
             return (
-              <div key={participant.id} className={`px-4 py-4 h-[72px] flex items-center ${isLastRow ? '' : 'border-b border-primary-color'} hover:bg-gray-50`}>
+              <div key={participant.id} className={`px-4 py-4 h-[72px] flex items-center ${isLastRow ? '' : 'border-b border-primary-color'} hover:bg-muted`}>
                 <div className="flex items-center gap-3 w-full">
                   <div className={`hidden sm:flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium ${getAvatarColor(index)}`}>
                     <span className="text-sm font-bold uppercase">{participant.name.charAt(0)}</span>
                   </div>
-                  <span className="flex-1 truncate text-sm font-medium text-gray-900">
+                  <span className="flex-1 truncate text-sm font-medium text-foreground">
                     {participant.name}
                   </span>
                 </div>
@@ -330,7 +330,7 @@ export function AvailabilityGrid({
         <div className="flex-1 overflow-x-auto">
           <div className="min-w-max">
             {/* Date/Time Headers */}
-            <div className="flex border-b border-primary-color bg-gray-50 h-[120px]">
+            <div className="flex border-b border-primary-color bg-muted h-[120px]">
               {transformedData.timeSlots.map((slot) => {
                 const availableCount = transformedData.availabilityData.filter(
                   item => item.timeSlotId === slot.id && item.status === 'available'
@@ -340,45 +340,45 @@ export function AvailabilityGrid({
                 const isTimedPoll = poll.allowHourSelection && poll.selectedStartTimes && poll.fixedDuration;
 
                 return (
-                  <div key={slot.id} className={`w-24 sm:w-28 flex-shrink-0 border-r border-primary-color px-2 py-4 text-center flex flex-col justify-end ${isMostPopular ? 'bg-green-50 border-green-200' : ''
+                  <div key={slot.id} className={`w-24 sm:w-28 flex-shrink-0 border-r border-primary-color px-2 py-4 text-center flex flex-col justify-end ${isMostPopular ? 'bg-success/10 border-success/20' : ''
                     }`}>
                     {isTimedPoll && 'startTime' in slot && 'duration' in slot ? (
                       // Time range display for timed polls
                       <>
-                        <div className="text-xs text-gray-600 mb-1">
+                        <div className="text-xs text-muted-foreground mb-1">
                           {new Date(slot.date).toLocaleDateString('en-US', { weekday: 'short' })}
                         </div>
-                        <div className={`text-xs font-semibold mb-1 ${isMostPopular ? 'text-green-800' : 'text-gray-900'
+                        <div className={`text-xs font-semibold mb-1 ${isMostPopular ? 'text-success' : 'text-foreground'
                           }`}>
                           {new Date(slot.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </div>
-                        <div className="text-xs text-gray-700 mb-2 font-medium">
+                        <div className="text-xs text-foreground mb-2 font-medium">
                           {formatTimeSlotRange(slot.startTime as string, slot.duration as number)}
                         </div>
                       </>
                     ) : (
                       // All-day display for date-only polls
                       <>
-                        <div className="text-xs text-gray-600 mb-1">
+                        <div className="text-xs text-muted-foreground mb-1">
                           {new Date(slot.date).toLocaleDateString('en-US', { weekday: 'short' })}
                         </div>
-                        <div className={`text-sm font-semibold mb-1 ${isMostPopular ? 'text-green-800' : 'text-gray-900'
+                        <div className={`text-sm font-semibold mb-1 ${isMostPopular ? 'text-success' : 'text-foreground'
                           }`}>
                           {new Date(slot.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </div>
-                        <div className="text-xs text-gray-500 mb-2">{t('allDay')}</div>
+                        <div className="text-xs text-muted-foreground mb-2">{t('allDay')}</div>
                       </>
                     )}
                     <div className="flex items-center justify-center gap-1 text-xs">
                       {isMostPopular && (
-                        <svg className="h-3 w-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="h-3 w-3 text-success" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       )}
-                      <svg className="h-3 w-3 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="h-3 w-3 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                       </svg>
-                      <span className={`font-medium ${isMostPopular ? 'text-green-700' : 'text-gray-500'
+                      <span className={`font-medium ${isMostPopular ? 'text-success' : 'text-muted-foreground'
                         }`}>{availableCount}</span>
                     </div>
                   </div>
@@ -387,7 +387,7 @@ export function AvailabilityGrid({
             </div>
 
             {/* Current User Availability Row */}
-            <div className="flex h-[72px] border-b border-primary-color bg-blue-50 hover:bg-blue-100">
+            <div className="flex h-[72px] border-b border-primary-color bg-tool-primary/10 hover:bg-tool-primary/20">
               {transformedData.timeSlots.map((slot) => {
                 const isAvailable = currentUserSelections[slot.id] ?? false;
                 const status: AvailabilityStatus = isAvailable ? 'available' : 'unavailable';
@@ -396,7 +396,7 @@ export function AvailabilityGrid({
                 return (
                   <div
                     key={slot.id}
-                    className={`flex w-24 sm:w-28 flex-shrink-0 items-center justify-center border-r border-gray-200 ${isMostPopular ? 'bg-green-50' : ''
+                    className={`flex w-24 sm:w-28 flex-shrink-0 items-center justify-center border-r border-border ${isMostPopular ? 'bg-success/10' : ''
                       }`}
                   >
                     {renderAvailabilityIcon(status, true, () => {
@@ -411,7 +411,7 @@ export function AvailabilityGrid({
             {transformedData.participants.map((participant, index) => {
               const isLastRow = index === transformedData.participants.length - 1;
               return (
-                <div key={participant.id} className={`flex h-[72px] ${isLastRow ? '' : 'border-b border-primary-color'} hover:bg-gray-50`}>
+                <div key={participant.id} className={`flex h-[72px] ${isLastRow ? '' : 'border-b border-primary-color'} hover:bg-muted`}>
                   {transformedData.timeSlots.map((slot) => {
                     const availability = transformedData.availabilityData.find(
                       item => item.participantId === participant.id && item.timeSlotId === slot.id
@@ -422,7 +422,7 @@ export function AvailabilityGrid({
                     return (
                       <div
                         key={slot.id}
-                        className={`flex w-24 sm:w-28 flex-shrink-0 items-center justify-center border-r border-gray-200 ${isMostPopular ? 'bg-green-50' : ''
+                        className={`flex w-24 sm:w-28 flex-shrink-0 items-center justify-center border-r border-border ${isMostPopular ? 'bg-success/10' : ''
                           }`}
                       >
                         {renderAvailabilityIcon(status, false)}
@@ -441,7 +441,7 @@ export function AvailabilityGrid({
         <Button
           variant="secondary"
           onClick={handleClear}
-          className="bg-white hover:bg-red-50 hover:border-red-300 hover:text-red-700"
+          className="bg-card hover:bg-destructive/10 hover:border-destructive/20 hover:text-destructive"
         >
           {t('clearAll')}
         </Button>
@@ -455,7 +455,7 @@ export function AvailabilityGrid({
           <LoadingButton
             onClick={handleSave}
             loading={isSaving}
-            className="bg-blue-600 hover:bg-blue-700 px-8"
+            className="bg-tool-primary hover:bg-tool-primary/90 px-8"
           >
             {t('save')}
           </LoadingButton>
@@ -464,7 +464,7 @@ export function AvailabilityGrid({
 
       {/* Name Dialog */}
       <Dialog open={showNameDialog} onOpenChange={setShowNameDialog}>
-        <DialogContent className="sm:max-w-[425px] bg-white">
+        <DialogContent className="sm:max-w-[425px] bg-card">
           <DialogHeader>
             <DialogTitle>{isEditingName ? t('nameDialog.titleEdit') : t('nameDialog.titleNew')}</DialogTitle>
             <DialogDescription>

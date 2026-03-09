@@ -18,15 +18,11 @@ export function GuideSidebar({
   stepsToCompleteText = 'Steps to complete',
   guideId
 }: GuideSidebarProps) {
-  // Helper function to create section navigation links
-
-
   return (
     <div className={className}>
       <div className="overflow-hidden p-6 pt-0">
-
         {steps.length > 0 && (
-          <div className="bg-[var(--pop-3)] rounded-lg p-4">
+          <div className="bg-brand-sky/20 rounded-3xl p-5 border border-brand-sky/30">
             <StepsSummary
               steps={steps}
               stepsToCompleteText={stepsToCompleteText}

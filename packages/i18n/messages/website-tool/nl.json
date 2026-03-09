@@ -1,0 +1,110 @@
+{
+  "common": {
+    "loading": "Laden..."
+  },
+  "layout": {
+    "metadata": {
+      "title": "EU-Scan — Controleer of een Website EU-diensten Gebruikt | switch-to.eu",
+      "description": "Analyseer een website om te controleren of deze EU-diensten gebruikt en voldoet aan de GDPR."
+    },
+    "header": {
+      "home": "Home"
+    },
+    "nav": {
+      "tools": "Tools"
+    },
+    "footer": {
+      "privacy": "Privacy",
+      "terms": "Voorwaarden",
+      "copyright": "{year} switch-to.eu. Alle rechten voorbehouden."
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "description": "Tools om je te helpen overstappen naar EU-diensten",
+    "euScan": {
+      "title": "EU-Scan",
+      "description": "Analyseer een website om te controleren of deze in de EU is gevestigd"
+    },
+    "websiteAnalyzer": {
+      "pageTitle": "Check hoe EU-vriendelijk je website is",
+      "urlInputPlaceholder": "bijv. jouwwebsite.com",
+      "checkButton": "Controleer mijn website",
+      "urlError": "Voer een website-URL in",
+      "invalidUrlError": "Voer een geldige website-URL in",
+      "emptyStateTitle": "Voer een URL in om te starten",
+      "emptyStateDescription": "Bekijk welke externe diensten je website gebruikt en of ze in de EU gevestigd zijn.",
+      "howItWorksTitle": "Hoe het werkt",
+      "step1": {
+        "number": "1",
+        "title": "Voer je website-URL in",
+        "description": "Typ of plak het domein dat je wilt controleren."
+      },
+      "step2": {
+        "number": "2",
+        "title": "Directe domeincontrole",
+        "description": "De scan detecteert externe diensten en controleert waar ze gevestigd zijn."
+      },
+      "step3": {
+        "number": "3",
+        "title": "Bekijk resultaten",
+        "description": "Zie wat je site gebruikt, waar elke dienst gevestigd is, en welke EU-alternatieven er bestaan."
+      },
+      "ctaTitle": "Niet-EU diensten gevonden?",
+      "ctaDescription": "Bekijk EU-alternatieven en volg stapsgewijze migratiehandleidingen om over te stappen.",
+      "ctaButton": "Bekijk EU-alternatieven"
+    }
+  },
+  "domainAnalyzer": {
+    "results": {
+      "howEuFriendly": "Hoe EU-vriendelijk is {domain}?",
+      "statusExcellent": "Uitstekend",
+      "statusImprovement": "Ruimte voor verbetering",
+      "statusAttention": "Behoeft aandacht",
+      "pending": "Wachten op verwerking...",
+      "complete": "Voltooid",
+      "notFound": "Niet gevonden",
+      "eu": "EU",
+      "euFriendly": "EU-vriendelijk",
+      "nonEu": "Niet-EU",
+      "detectedServices": "Gedetecteerde diensten:",
+      "congratulations": "Gefeliciteerd! Uw website gebruikt 100% EU-vriendelijke diensten."
+    },
+    "domainNotFound": {
+      "title": "Domein Niet Gevonden",
+      "message": "We konden het domein {domain} niet vinden. Controleer of het domein bestaat of probeer een ander.",
+      "tryAgain": "Probeer een ander domein"
+    },
+    "recommendations": {
+      "switchToEu": "Overweeg over te stappen naar een EU-gebaseerd alternatief.",
+      "emailProviders": "Overweeg deze e-mailproviders:",
+      "domainRegistrars": "Overweeg deze domeinregistrars:",
+      "hostingProviders": "Overweeg deze hostingproviders:",
+      "services": "Overweeg deze diensten:",
+      "cdnProviders": "Overweeg deze EU CDN-providers:",
+      "analyticsProviders": "Overweeg deze EU-analysetools:",
+      "fontProviders": "Overweeg deze EU-lettertype-providers:",
+      "selfHosting": "of host je lettertypen zelf",
+      "checkAlternatives": "Bekijk onze EU-alternatieven voor meer opties."
+    },
+    "services": {
+      "mx_records": "E-mail",
+      "domain_registrar": "Domein registrar",
+      "hosting": "Hosting",
+      "services": "Diensten",
+      "cdn": "CDN"
+    },
+    "buttons": {
+      "shareResults": "Resultaten delen",
+      "checkAgain": "Opnieuw controleren"
+    },
+    "analyze": {
+      "analyzing": "Bezig met analyseren van {domain}...",
+      "checkingAspects": "We controleren verschillende aspecten van dit domein. Dit kan even duren."
+    },
+    "error": {
+      "title": "Analysefout",
+      "tryAgain": "Probeer opnieuw"
+    }
+  }
+}

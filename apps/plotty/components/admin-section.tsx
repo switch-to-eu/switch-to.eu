@@ -16,7 +16,7 @@ import { Label } from "@switch-to-eu/ui/components/label";
 import { toast } from "sonner";
 import { PollForm, type ProcessedPollFormData } from "./poll-form";
 import type { DecryptedPoll } from "@/lib/interfaces";
-import { generateAdminUrl } from "@/lib/admin";
+import { generateAdminUrl } from "@switch-to-eu/db/admin";
 import { SectionCard, SectionHeader, SectionContent } from "@switch-to-eu/blocks/components/section-card";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { useLocale } from "next-intl";
@@ -60,7 +60,7 @@ export function AdminSection({
   }, [pollId, encryptionKey, copyToClipboard]);
 
   const copyAdminLink = useCallback(() => {
-    const adminUrl = generateAdminUrl(pollId, adminToken, encryptionKey);
+    const adminUrl = generateAdminUrl(`${window.location.origin}/poll`, pollId, adminToken, encryptionKey);
     copyToClipboard(adminUrl, "Admin link");
   }, [pollId, adminToken, encryptionKey, copyToClipboard]);
 
@@ -116,7 +116,7 @@ export function AdminSection({
                 )}
                 Copy Poll Link
               </Button>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Share this link so people can vote on your poll
               </p>
             </div>
@@ -138,7 +138,7 @@ export function AdminSection({
                 )}
                 Copy Admin Link
               </Button>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Keep this link safe - it gives full control over the poll
               </p>
             </div>

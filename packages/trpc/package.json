@@ -13,7 +13,7 @@
         "@trpc/react-query": "catalog:",
         "@trpc/server": "catalog:",
         "react": "catalog:",
-        "server-only": "^0.0.1",
+        "server-only": "catalog:",
         "superjson": "catalog:",
         "zod": "catalog:"
     },
@@ -34,6 +34,7 @@
         "./middleware": "./src/middleware.ts",
         "./init": "./src/init.ts",
         "./react": "./src/react.tsx",
-        "./query-client": "./src/query-client.ts"
+        "./query-client": "./src/query-client.ts",
+        "./mcp-base-url": "./src/mcp-base-url.ts"
     }
 }

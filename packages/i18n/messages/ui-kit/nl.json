@@ -8,8 +8,14 @@
       "overview": "Overzicht",
       "colors": "Kleuren",
       "typography": "Typografie",
+      "shapes": "Vormen",
+      "shapesWithIcons": "Vormen + Iconen",
+      "icons": "Iconen",
       "components": "Componenten",
-      "blocks": "Blokken"
+      "forms": "Formulieren",
+      "toolColors": "Tool Kleuren",
+      "blocks": "Blokken",
+      "heroes": "Heroes"
     }
   }
 }

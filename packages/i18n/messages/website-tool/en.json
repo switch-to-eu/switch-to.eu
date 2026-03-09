@@ -1,0 +1,110 @@
+{
+  "common": {
+    "loading": "Loading..."
+  },
+  "layout": {
+    "metadata": {
+      "title": "EU-Scan — Check If a Website Uses EU Services | switch-to.eu",
+      "description": "Analyze any website to check if it uses EU-based services and is GDPR compliant."
+    },
+    "header": {
+      "home": "Home"
+    },
+    "nav": {
+      "tools": "Tools"
+    },
+    "footer": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "copyright": "{year} switch-to.eu. All rights reserved."
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "description": "Tools to help you switch to EU services",
+    "euScan": {
+      "title": "EU-Scan",
+      "description": "Analyze a website to check if it's EU-based"
+    },
+    "websiteAnalyzer": {
+      "pageTitle": "Check how EU-friendly your website is",
+      "urlInputPlaceholder": "e.g. yourwebsite.com",
+      "checkButton": "Check My Website",
+      "urlError": "Please enter a website URL",
+      "invalidUrlError": "Please enter a valid website URL",
+      "emptyStateTitle": "Enter a URL to start",
+      "emptyStateDescription": "See which third-party services your website uses and whether they're based in the EU.",
+      "howItWorksTitle": "How It Works",
+      "step1": {
+        "number": "1",
+        "title": "Enter Your Website URL",
+        "description": "Type or paste the domain you want to check."
+      },
+      "step2": {
+        "number": "2",
+        "title": "Instant Domain Check",
+        "description": "The scan detects third-party services and checks where they're based."
+      },
+      "step3": {
+        "number": "3",
+        "title": "View Results",
+        "description": "See what your site uses, where each service is based, and what EU alternatives exist."
+      },
+      "ctaTitle": "Found non-EU services?",
+      "ctaDescription": "Browse EU-based alternatives and follow step-by-step migration guides to switch over.",
+      "ctaButton": "Browse EU alternatives"
+    }
+  },
+  "domainAnalyzer": {
+    "results": {
+      "howEuFriendly": "How EU-friendly is {domain}?",
+      "statusExcellent": "Excellent",
+      "statusImprovement": "Room for improvement",
+      "statusAttention": "Needs attention",
+      "pending": "Waiting to process...",
+      "complete": "Complete",
+      "notFound": "Not Found",
+      "eu": "EU",
+      "euFriendly": "EU-friendly",
+      "nonEu": "Non-EU",
+      "detectedServices": "Detected services:",
+      "congratulations": "Congratulations! Your website is using 100% EU-based services."
+    },
+    "domainNotFound": {
+      "title": "Domain Not Found",
+      "message": "We couldn't find the domain {domain}. Please check if the domain exists or try another one.",
+      "tryAgain": "Try another domain"
+    },
+    "recommendations": {
+      "switchToEu": "Consider switching to an EU-based alternative.",
+      "emailProviders": "Consider these email providers:",
+      "domainRegistrars": "Consider these domain registrars:",
+      "hostingProviders": "Consider these hosting providers:",
+      "services": "Consider these services:",
+      "cdnProviders": "Consider these EU CDN providers:",
+      "analyticsProviders": "Consider these EU analytics providers:",
+      "fontProviders": "Consider these EU font providers:",
+      "selfHosting": "or self-host your fonts",
+      "checkAlternatives": "Check our EU alternatives directory for options."
+    },
+    "services": {
+      "mx_records": "Email",
+      "domain_registrar": "Domain Registrar",
+      "hosting": "Hosting",
+      "services": "Services",
+      "cdn": "CDN"
+    },
+    "buttons": {
+      "shareResults": "Share Results",
+      "checkAgain": "Check again"
+    },
+    "analyze": {
+      "analyzing": "Analyzing {domain}...",
+      "checkingAspects": "We're checking various aspects of this domain. This might take a moment."
+    },
+    "error": {
+      "title": "Analysis Error",
+      "tryAgain": "Try Again"
+    }
+  }
+}

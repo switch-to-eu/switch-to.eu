@@ -61,6 +61,11 @@ export function InlineSearchInput({
     let isDeleting = false;
     let isTypingDefault = false;
     const typingSpeed = 100;
+    let cancelled = false;
+
+    const schedule = (fn: () => void, delay: number) => {
+      if (!cancelled) setTimeout(() => { if (!cancelled) fn(); }, delay);
+    };
 
     const animatePlaceholderText = () => {
       const currentExample = examples[currentIndex];
@@ -72,7 +77,7 @@ export function InlineSearchInput({
         showingDefault = false;
         isTyping = true;
         currentText = "";
-        setTimeout(animatePlaceholderText, typingSpeed);
+        schedule(animatePlaceholderText, typingSpeed);
         return;
       }
 
@@ -82,12 +87,10 @@ export function InlineSearchInput({
         setCurrentPlaceholder(currentText);
 
         if (currentText === currentExample) {
-          // Finished typing the service name
           isTyping = false;
-          setTimeout(animatePlaceholderText, pauseDuration);
+          schedule(animatePlaceholderText, pauseDuration);
         } else {
-          // Continue typing
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         }
         return;
       }
@@ -95,24 +98,22 @@ export function InlineSearchInput({
       // Start deleting the service name
       if (!isTyping && !isDeleting && !isTypingDefault && !showingDefault) {
         isDeleting = true;
-        setTimeout(animatePlaceholderText, typingSpeed);
+        schedule(animatePlaceholderText, typingSpeed);
         return;
       }
 
       // Deleting effect for service name
       if (isDeleting) {
         currentText = currentText.substring(0, currentText.length - 1);
-        setCurrentPlaceholder(currentText || " "); // Ensure placeholder isn't empty
+        setCurrentPlaceholder(currentText || " ");
 
         if (currentText === "") {
-          // Finished deleting, start typing default text
           isDeleting = false;
           isTypingDefault = true;
           currentText = "";
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         } else {
-          // Continue deleting
-          setTimeout(animatePlaceholderText, typingSpeed / 2);
+          schedule(animatePlaceholderText, typingSpeed / 2);
         }
         return;
       }
@@ -123,18 +124,15 @@ export function InlineSearchInput({
         setCurrentPlaceholder(currentText);
 
         if (currentText === defaultText) {
-          // Finished typing default text
           isTypingDefault = false;
           showingDefault = true;
 
-          // Setup for next service
-          setTimeout(() => {
+          schedule(() => {
             currentIndex = (currentIndex + 1) % examples.length;
-            setTimeout(animatePlaceholderText, 500);
+            schedule(animatePlaceholderText, 500);
           }, 1500);
         } else {
-          // Continue typing default text
-          setTimeout(animatePlaceholderText, typingSpeed);
+          schedule(animatePlaceholderText, typingSpeed);
         }
         return;
       }
@@ -142,12 +140,10 @@ export function InlineSearchInput({
 
     // Start with default text initially
     setCurrentPlaceholder(defaultText);
-    const initialTimeout = setTimeout(() => {
-      animatePlaceholderText();
-    }, 2000);
+    schedule(animatePlaceholderText, 2000);
 
     return () => {
-      clearTimeout(initialTimeout);
+      cancelled = true;
     };
   }, [animatePlaceholder, query, placeholder, t]);
 
@@ -177,14 +173,15 @@ export function InlineSearchInput({
     void fetchFeaturedServices();
   }, [showOnlyServices, fetchFeaturedServices]);
 
+  const MIN_QUERY_LENGTH = 3;
+
   // Function to fetch search results from API
   const fetchResults = async (searchQuery: string) => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() || searchQuery.trim().length < MIN_QUERY_LENGTH) {
       setResults([]);
+      setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
 
     try {
       // Add region filter to the API call if provided
@@ -220,6 +217,16 @@ export function InlineSearchInput({
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
+
+    // Below minimum length — clear results, no loading
+    if (value.trim().length < MIN_QUERY_LENGTH) {
+      setResults([]);
+      setIsLoading(false);
+      return;
+    }
+
+    // Mark loading immediately so the dropdown never flashes "no results"
+    setIsLoading(true);
 
     // Set a new timer
     debounceTimerRef.current = setTimeout(() => {
@@ -272,7 +279,7 @@ export function InlineSearchInput({
     // Enter
     else if (e.key === "Enter") {
       e.preventDefault();
-      const currentResults = query.trim() ? results : featuredServices;
+      const currentResults = isSearchQuery ? results : featuredServices;
       const selectedResult = currentResults[focusedIndex];
       if (focusedIndex >= 0 && focusedIndex < currentResults.length && selectedResult) {
         handleSelect(selectedResult);
@@ -292,23 +299,24 @@ export function InlineSearchInput({
   };
 
   // Determine which results to show in the dropdown
-  const displayResults = query.trim() ? results : featuredServices;
-  const dropdownTitle = query.trim()
+  const isSearchQuery = query.trim().length >= MIN_QUERY_LENGTH;
+  const displayResults = isSearchQuery ? results : featuredServices;
+  const dropdownTitle = isSearchQuery
     ? t("dropdownSearchResults")
     : t("dropdownPopularServices");
 
-  const noResultsMessage = query.trim()
+  const noResultsMessage = isSearchQuery
     ? t("noResultsMessage", { query })
     : t("noFeaturedServices");
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="flex flex-col sm:flex-row rounded-xl overflow-hidden gap-2 sm:gap-0 shadow-sm border border-[#e5e7eb] ">
+      <div className="flex items-center rounded-full border border-brand-pink/30 bg-white/10 backdrop-blur-sm pr-1.5 sm:pr-2">
         <input
           ref={searchInputRef}
           type="text"
           placeholder={currentPlaceholder}
-          className={`flex-grow py-3 sm:py-4 px-4 sm:px-6 text-base sm:text-lg bg-white focus:outline-none focus:ring-0 rounded-xl sm:rounded-none ${className}`}
+          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-cream/50 focus:outline-none focus:ring-0 ${className}`}
           value={query}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
@@ -318,7 +326,7 @@ export function InlineSearchInput({
           }}
         />
         <button
-          className="hidden sm:block px-6 sm:px-8  py-3 sm:py-4 bg-[#ff9d8a] hover:bg-[#ff8a74] text-black font-medium rounded-xl sm:rounded-none"
+          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-yellow hover:bg-brand-orange/80 text-brand-green transition-colors"
           onClick={() => {
             if (query.trim()) {
               void fetchResults(query);
@@ -333,28 +341,39 @@ export function InlineSearchInput({
 
       {/* Dropdown Results */}
       {showDropdown && (
-        <div className="absolute w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-10 max-h-[350px] overflow-y-auto">
+        <div className="absolute w-full mt-2 bg-brand-green/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
           <div className="py-0">
             {/* Dropdown Header */}
-            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-              <h3 className="text-sm font-medium text-gray-700">
+            <div className="px-4 py-2 border-b border-brand-pink/10">
+              <h3 className="text-sm font-medium text-brand-sky/70">
                 {dropdownTitle}
               </h3>
             </div>
 
-            {displayResults.length > 0 ? (
+            {isLoading && isSearchQuery ? (
+              <div className="px-4 py-3 space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse flex items-center gap-3">
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-white/10 rounded w-1/3" />
+                      <div className="h-3 bg-white/10 rounded w-2/3" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : displayResults.length > 0 ? (
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${focusedIndex === index ? "bg-gray-100" : ""
+                  className={`px-4 py-2 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-pink/10" : "hover:bg-white/5"
                     }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="font-medium">{result.title}</div>
-                      <div className="text-sm text-gray-500 mr-2">
+                      <div className="font-medium text-white">{result.title}</div>
+                      <div className="text-sm text-brand-sky/60 mr-2">
                         {result.description}
                       </div>
                     </div>
@@ -368,8 +387,8 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-gray-500">{noResultsMessage}</p>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-brand-sky/70">{noResultsMessage}</p>
+                <p className="text-sm text-brand-sky/40 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>
@@ -378,12 +397,6 @@ export function InlineSearchInput({
         </div>
       )}
 
-      {/* Loading indicator */}
-      {isLoading && (
-        <div className="absolute right-14 top-1/2 transform -translate-y-1/2">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
-        </div>
-      )}
     </div>
   );
 }

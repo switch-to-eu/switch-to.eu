@@ -3,11 +3,12 @@ import {
   getAllGuides,
   getAllServices,
   getAllCategoriesMetadata,
+  getAllLandingPages,
 } from "./services";
 import { Locale } from "./types";
 
 // Define types for search results
-export type SearchResultType = "guide" | "service" | "category";
+export type SearchResultType = "guide" | "service" | "category" | "landing-page";
 
 export interface BaseSearchResult {
   id: string;
@@ -36,10 +37,15 @@ export interface CategorySearchResult extends BaseSearchResult {
   type: "category";
 }
 
+export interface LandingPageSearchResult extends BaseSearchResult {
+  type: "landing-page";
+}
+
 export type SearchResult =
   | GuideSearchResult
   | ServiceSearchResult
-  | CategorySearchResult;
+  | CategorySearchResult
+  | LandingPageSearchResult;
 
 // In-memory cache for search index (keyed by language)
 const searchIndexes: Record<
@@ -124,6 +130,20 @@ export function buildSearchIndex(
         title: category.metadata.title,
         description: category.metadata.description,
         url: `/services/${category.slug}`,
+      });
+    }
+
+    // Get and index all landing pages
+    const landingPages = getAllLandingPages(lang);
+    console.log(`Indexing ${landingPages.length} landing pages for language: ${lang}`);
+
+    for (const page of landingPages) {
+      searchResults.push({
+        id: `landing-page-${page.slug}`,
+        type: "landing-page",
+        title: page.frontmatter.title,
+        description: page.frontmatter.description,
+        url: `/pages/${page.slug}`,
       });
     }
 

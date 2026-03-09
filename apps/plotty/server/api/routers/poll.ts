@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { randomBytes, randomInt, timingSafeEqual, createHash } from "crypto";
-import type { RedisClientType } from "redis";
+import { randomInt } from "crypto";
+import type { RedisClientType } from "@switch-to-eu/db/redis";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { getRedisSubscriber } from "@/server/db/redis";
+import { getRedisSubscriber } from "@switch-to-eu/db/redis";
+import { generateAdminToken, hashAdminToken, verifyAdminToken } from "@switch-to-eu/db/admin";
+import { calculateTTLSeconds } from "@switch-to-eu/db/expiration";
 import type {
   RedisPollHash,
   RedisVoteHash,
@@ -20,30 +22,7 @@ function generatePollId(): string {
   return Array.from({ length: 10 }, () => chars[randomInt(chars.length)]!).join("");
 }
 
-function generateAdminToken(): string {
-  return randomBytes(48).toString("base64url");
-}
-
-/** Hash an admin token for storage (never store plain text) */
-function hashAdminToken(token: string): string {
-  return createHash("sha256").update(token).digest("hex");
-}
-
-/** Constant-time comparison of admin tokens */
-function verifyAdminToken(inputToken: string, storedHash: string): boolean {
-  const inputHash = hashAdminToken(inputToken);
-  if (inputHash.length !== storedHash.length) return false;
-  return timingSafeEqual(Buffer.from(inputHash), Buffer.from(storedHash));
-}
-
-/** Calculate TTL in seconds from expiresAt + 7-day grace period */
-function calculateTTLSeconds(expiresAt: string): number {
-  const gracePeriodMs = 7 * 24 * 60 * 60 * 1000;
-  const expiryMs = new Date(expiresAt).getTime() + gracePeriodMs;
-  return Math.max(0, Math.floor((expiryMs - Date.now()) / 1000));
-}
-
-/** Fetch and validate a poll is not deleted/expired */
+/** Fetch and validate a poll exists and is not expired */
 async function getValidPoll(
   redis: RedisClientType,
   id: string
@@ -51,10 +30,6 @@ async function getValidPoll(
   const poll = (await redis.hGetAll(`poll:${id}`)) as unknown as RedisPollHash;
 
   if (!poll || !poll.encryptedData) {
-    throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
-  }
-
-  if (poll.isDeleted === "true") {
     throw new TRPCError({ code: "NOT_FOUND", message: "Poll not found" });
   }
 
@@ -169,7 +144,6 @@ export const pollRouter = createTRPCRouter({
           createdAt: now,
           expiresAt,
           version: "1",
-          isDeleted: "false",
         } satisfies RedisPollHash);
         await ctx.redis.expireAt(
           `poll:${pollId}`,
@@ -465,6 +439,13 @@ export const pollRouter = createTRPCRouter({
               resolveNext = resolve;
             }
           });
+
+          if (signal?.aborted) break;
+
+          // Debounce: wait briefly and drain any additional queued messages
+          // so rapid-fire updates (e.g. many votes at once) trigger only one fetch
+          await new Promise((r) => setTimeout(r, 150));
+          messageQueue.length = 0;
 
           if (signal?.aborted) break;
 
