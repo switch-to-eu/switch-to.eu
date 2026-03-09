@@ -22,21 +22,22 @@ function AnimatedShape({
   }, [delay]);
 
   const floatIndex = (index % 3) + 1;
-  const duration = 12 + (index % 3) * 4; // 12s, 16s, 20s
+  const duration = 12 + (index % 3) * 4;
 
   return (
     <div
       className={`
         select-none
         transition-all duration-700 ease-out
-        ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"}
+        ${isVisible ? "scale-100" : "scale-50"}
         ${className}
       `}
-      style={
-        isVisible
+      style={{
+        opacity: isVisible ? undefined : 0,
+        ...(isVisible
           ? { animation: `hero-float-${floatIndex} ${duration}s ease-in-out infinite` }
-          : undefined
-      }
+          : undefined),
+      }}
     >
       {children}
     </div>
