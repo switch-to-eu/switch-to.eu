@@ -6,6 +6,8 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Check, Copy, Flame, Plus, AlertTriangle } from "lucide-react";
 import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 export default function SharePage() {
   const t = useTranslations("SharePage");
@@ -56,21 +58,24 @@ export default function SharePage() {
 
   if (!fragmentParams) {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
         <div className="flex items-center justify-center py-20">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-tool-accent/20 border-t-tool-primary" />
         </div>
-      </main>
+      </Container>
+    </PageLayout>
     );
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
       <div className="text-center">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
           <Check className="h-8 w-8 text-success" />
         </div>
-        <h1 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+        <h1 className="font-heading text-3xl sm:text-4xl uppercase text-foreground">
           {t("title")}
         </h1>
         <p className="mt-3 text-muted-foreground">{t("description")}</p>
@@ -82,7 +87,7 @@ export default function SharePage() {
           <label className="mb-2 block text-sm font-medium text-foreground">
             {t("linkLabel")}
           </label>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               readOnly
@@ -141,6 +146,7 @@ export default function SharePage() {
           </Button>
         </Link>
       </div>
-    </main>
+    </Container>
+    </PageLayout>
   );
 }

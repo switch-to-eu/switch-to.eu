@@ -1,8 +1,8 @@
 {
   "layout": {
     "metadata": {
-      "title": "PrivNote",
-      "description": "Zelfvernietigende privénotities"
+      "title": "PrivNote — Zelfvernietigende Versleutelde Notities | switch-to.eu",
+      "description": "Verstuur privénotities die zichzelf vernietigen na het lezen. End-to-end versleuteld, geen account nodig."
     },
     "header": {
       "createNote": "Nieuwe Notitie",
@@ -25,15 +25,15 @@
     "hero": {
       "title": "Stuur notities die",
       "subtitle": "zichzelf vernietigen",
-      "description": "Maak versleutelde, zelfvernietigende notities. Eenmaal gelezen, voor altijd verdwenen. Geen accounts, geen tracking, gewoon privécommunicatie.",
+      "description": "Maak versleutelde, zelfvernietigende notities. Eenmaal gelezen, verwijderd van de server. Geen account nodig.",
       "cta": "Maak Privénotitie",
       "ctaMobile": "Nieuwe Notitie",
       "disclaimer": "Geen registratie nodig",
       "floatingBadge": "Eenmaal lezen, dan weg"
     },
     "benefits": {
-      "title": "Waarom PrivNote?",
-      "description": "Eenvoudig, privé, vergankelijke berichten",
+      "title": "Hoe je notities privé blijven",
+      "description": "",
       "selfDestruct": {
         "title": "Zelfvernietigend",
         "description": "Notities worden permanent verwijderd na het lezen of wanneer de timer afloopt. Geen sporen achtergelaten."
@@ -48,7 +48,7 @@
       }
     },
     "howItWorks": {
-      "title": "Simpel als 1-2-3",
+      "title": "Hoe het werkt",
       "description": "Geen ingewikkelde setup, geen account nodig",
       "step1": {
         "title": "Schrijf",
@@ -73,11 +73,11 @@
     },
     "mcp": {
       "title": "MCP Integratie",
-      "description": "Maak zelfvernietigende notities rechtstreeks vanuit AI-tools zoals Claude, Cursor en Windsurf via het Model Context Protocol."
+      "description": "Maak zelfvernietigende notities vanuit elke AI-assistent die het Model Context Protocol ondersteunt. Geen browser nodig."
     },
     "cta": {
       "title": "Probeer het nu",
-      "description": "Geen registratie, geen spam, geen tracking - gewoon privénotities die verdwijnen.",
+      "description": "Schrijf een notitie, deel de link. De notitie verdwijnt na het lezen.",
       "button": "Maak Privénotitie",
       "buttonMobile": "Aan de slag"
     }

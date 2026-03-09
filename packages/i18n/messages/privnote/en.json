@@ -1,8 +1,8 @@
 {
   "layout": {
     "metadata": {
-      "title": "PrivNote",
-      "description": "Self-destructing private notes"
+      "title": "PrivNote — Self-Destructing Encrypted Notes | switch-to.eu",
+      "description": "Send private notes that self-destruct after reading. End-to-end encrypted, no account needed."
     },
     "header": {
       "createNote": "New Note",
@@ -25,15 +25,15 @@
     "hero": {
       "title": "Send notes that",
       "subtitle": "self-destruct",
-      "description": "Create encrypted, self-destructing notes. Once read, they're gone forever. No accounts, no tracking, just private communication.",
+      "description": "Create encrypted, self-destructing notes. Once read, they're deleted from the server. No account needed.",
       "cta": "Create Private Note",
       "ctaMobile": "New Note",
       "disclaimer": "No signup required",
       "floatingBadge": "Read once, then gone"
     },
     "benefits": {
-      "title": "Why PrivNote?",
-      "description": "Simple, private, ephemeral messaging",
+      "title": "How your notes stay private",
+      "description": "",
       "selfDestruct": {
         "title": "Self-Destructing",
         "description": "Notes are permanently deleted after being read or when their timer expires. No traces left behind."
@@ -48,7 +48,7 @@
       }
     },
     "howItWorks": {
-      "title": "Simple as 1-2-3",
+      "title": "How it works",
       "description": "No complicated setup, no account needed",
       "step1": {
         "title": "Write",
@@ -73,11 +73,11 @@
     },
     "mcp": {
       "title": "MCP Integration",
-      "description": "Create self-destructing notes directly from AI tools like Claude, Cursor, and Windsurf using the Model Context Protocol."
+      "description": "Create self-destructing notes from any AI assistant that supports the Model Context Protocol. No browser needed."
     },
     "cta": {
       "title": "Try it now",
-      "description": "No signup, no spam, no tracking - just private notes that vanish.",
+      "description": "Write a note, share the link. The note disappears after reading.",
       "button": "Create Private Note",
       "buttonMobile": "Get Started"
     }

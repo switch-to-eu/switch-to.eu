@@ -17,14 +17,17 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
 
   return (
-    <main className="container max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:gap-16 py-8 sm:py-12 md:px-6 lg:px-8">
+    <PageLayout gapMobile>
 
       {/* Hero */}
+      <Container noPaddingMobile>
       <Banner
         color="bg-brand-orange"
         shapes={[
@@ -40,7 +43,7 @@ export default function HomePage() {
         </div>
         <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white mb-6 leading-tight">
           {t("hero.title")}{" "}
-          <span className="text-brand-yellow">
+          <span className="text-white/80">
             {t("hero.subtitle")}
           </span>
         </h1>
@@ -56,10 +59,11 @@ export default function HomePage() {
         </Link>
         <p className="mt-4 text-sm text-white/60">{t("hero.disclaimer")}</p>
       </Banner>
+      </Container>
 
       {/* Benefits */}
-      <div>
-        <div className="text-center mb-10 sm:mb-12 px-3 md:px-0">
+      <Container>
+        <div className="text-center mb-10 sm:mb-12">
           <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-orange mb-4">
             {t("benefits.title")}
           </h2>
@@ -67,7 +71,7 @@ export default function HomePage() {
             {t("benefits.description")}
           </p>
         </div>
-        <div className="grid gap-4 md:gap-6 sm:grid-cols-3 px-3 md:px-0">
+        <div className="grid gap-4 md:gap-6 sm:grid-cols-3">
           <div className="bg-white border border-brand-orange/20 rounded-3xl p-6 sm:p-8 flex flex-col gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/10">
               <Flame className="h-6 w-6 text-brand-orange" />
@@ -102,9 +106,10 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* How It Works */}
+      <Container noPaddingMobile>
       <Banner
         color="bg-brand-orange"
         shapes={[
@@ -113,7 +118,7 @@ export default function HomePage() {
         ]}
         contentClassName="text-center max-w-4xl mx-auto"
       >
-        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4">
+        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-white mb-4">
           {t("howItWorks.title")}
         </h2>
         <p className="text-white/80 text-lg mb-12">
@@ -126,10 +131,10 @@ export default function HomePage() {
             { step: "3", key: "step3" },
           ] as const).map(({ step, key }) => (
             <div key={key} className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-brand-orange font-bold text-lg">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-orange font-bold text-lg">
                 {step}
               </div>
-              <h3 className="font-heading text-lg uppercase text-brand-yellow mb-2">
+              <h3 className="font-heading text-lg uppercase text-white mb-2">
                 {t(`howItWorks.${key}.title`)}
               </h3>
               <p className="text-white/70 text-sm">
@@ -139,9 +144,11 @@ export default function HomePage() {
           ))}
         </div>
       </Banner>
+      </Container>
 
       {/* Trust Badges */}
-      <div className="flex flex-wrap items-center justify-center gap-3 px-3 md:px-0">
+      <Container>
+      <div className="flex flex-wrap items-center justify-center gap-3">
         {([
           { icon: Mail, key: "noEmail" },
           { icon: Trash2, key: "autoDelete" },
@@ -154,9 +161,10 @@ export default function HomePage() {
           </span>
         ))}
       </div>
+      </Container>
 
       {/* MCP Integration */}
-      <div className="px-3 md:px-0">
+      <Container>
         <Link href="/mcp" className="group block">
           <div className="flex items-center justify-between gap-4 rounded-3xl border border-brand-orange/20 bg-white p-6 sm:p-8 transition-colors hover:border-brand-orange/40">
             <div className="flex items-start gap-4">
@@ -175,9 +183,10 @@ export default function HomePage() {
             <ArrowUpRight className="h-5 w-5 shrink-0 text-brand-orange/40 transition-colors group-hover:text-brand-orange" />
           </div>
         </Link>
-      </div>
+      </Container>
 
       {/* CTA */}
+      <Container noPaddingMobile>
       <Banner
         color="bg-brand-orange"
         shapes={[
@@ -185,7 +194,7 @@ export default function HomePage() {
         ]}
         contentClassName="text-center max-w-2xl mx-auto"
       >
-        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4">
+        <h2 className="font-heading text-4xl sm:text-5xl uppercase text-white mb-4">
           {t("cta.title")}
         </h2>
         <p className="text-white/80 text-lg mb-8">
@@ -202,6 +211,7 @@ export default function HomePage() {
           </Button>
         </Link>
       </Banner>
-    </main>
+      </Container>
+    </PageLayout>
   );
 }

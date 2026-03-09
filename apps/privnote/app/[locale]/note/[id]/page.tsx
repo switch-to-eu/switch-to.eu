@@ -19,6 +19,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { Container } from "@switch-to-eu/blocks/components/container";
 import { api } from "@/lib/trpc-client";
 import { hashPassword } from "@/lib/crypto";
 
@@ -137,23 +139,26 @@ export default function ViewNotePage() {
   // Loading state
   if (state.type === "loading") {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
         <div className="flex items-center justify-center py-20">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-tool-accent/20 border-t-tool-primary" />
         </div>
-      </main>
+      </Container>
+    </PageLayout>
     );
   }
 
   // Not found or decrypt error
   if (state.type === "not_found" || state.type === "decrypt_error") {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
         <div className="text-center">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
             <FileX className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
+          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-foreground">
             {t("notFound")}
           </h1>
           <p className="mt-3 text-muted-foreground">
@@ -168,19 +173,21 @@ export default function ViewNotePage() {
             </Link>
           </div>
         </div>
-      </main>
+      </Container>
+    </PageLayout>
     );
   }
 
   // Revealed note
   if (state.type === "revealed") {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
         <div className="text-center">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
             <Eye className="h-8 w-8 text-tool-primary" />
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">
+          <h1 className="font-heading text-2xl sm:text-3xl uppercase text-foreground">
             {t("noteContent")}
           </h1>
         </div>
@@ -225,18 +232,20 @@ export default function ViewNotePage() {
             </Button>
           </Link>
         </div>
-      </main>
+      </Container>
+    </PageLayout>
     );
   }
 
   // Ready to reveal (with optional password)
   return (
-    <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <PageLayout paddingTopMobile paddingBottomMobile>
+      <Container className="max-w-2xl">
       <div className="text-center">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tool-surface/10">
           <FileX className="h-8 w-8 text-tool-primary" />
         </div>
-        <h1 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green">{t("title")}</h1>
+        <h1 className="font-heading text-2xl sm:text-3xl uppercase text-foreground">{t("title")}</h1>
       </div>
 
       <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
@@ -287,6 +296,7 @@ export default function ViewNotePage() {
           )}
         </Button>
       </div>
-    </main>
+    </Container>
+    </PageLayout>
   );
 }
