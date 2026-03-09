@@ -10,14 +10,7 @@ import type { FieldErrors } from "react-hook-form";
 import type { DecryptedQuestion } from "@/lib/interfaces";
 import type { QuestionFormData } from "@/lib/schemas";
 
-const OPTION_COLORS = [
-  "border-destructive/30 focus-within:border-destructive",
-  "border-tool-primary/30 focus-within:border-tool-primary",
-  "border-warning/30 focus-within:border-warning",
-  "border-success/30 focus-within:border-success",
-  "border-brand-navy/30 focus-within:border-brand-navy",
-  "border-tool-accent/30 focus-within:border-tool-accent",
-];
+const OPTION_COLOR = "border-tool-primary/20 focus-within:border-tool-primary";
 
 const MAX_OPTIONS = 6;
 const MIN_OPTIONS = 2;
@@ -135,7 +128,7 @@ export function QuestionEditor({
           return (
             <div key={i}>
               <div
-                className={`relative flex items-center gap-2 rounded-lg border-2 px-3 py-2 transition-colors ${OPTION_COLORS[i % OPTION_COLORS.length]} ${
+                className={`relative flex items-center gap-2 rounded-lg border-2 px-3 py-2 transition-colors ${OPTION_COLOR} ${
                   question.correctIndex === i
                     ? "bg-success/10 border-success ring-2 ring-success/20"
                     : ""

@@ -11,8 +11,8 @@ interface LeaderboardProps {
 }
 
 const RANK_COLORS = [
-  "text-warning", // 1st
-  "text-muted-foreground",   // 2nd
+  "text-tool-primary", // 1st
+  "text-tool-primary/70",   // 2nd
   "text-tool-accent",  // 3rd
 ];
 
@@ -23,7 +23,7 @@ export function Leaderboard({ entries, currentSessionId, maxEntries = 10 }: Lead
   return (
     <div className="rounded-lg border bg-card overflow-hidden">
       <div className="flex items-center gap-2 p-4 border-b bg-muted">
-        <Trophy className="h-4 w-4 text-primary-color" />
+        <Trophy className="h-4 w-4 text-tool-primary" />
         <h3 className="font-semibold">{t("title")}</h3>
       </div>
       <div className="divide-y">

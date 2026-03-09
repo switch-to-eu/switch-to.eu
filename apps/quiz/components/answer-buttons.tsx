@@ -1,14 +1,5 @@
 "use client";
 
-const BUTTON_STYLES = [
-  "bg-destructive hover:bg-destructive/90 active:bg-destructive/80",
-  "bg-tool-primary hover:bg-tool-primary/90 active:bg-tool-primary/80",
-  "bg-warning hover:bg-warning/90 active:bg-warning/80",
-  "bg-success hover:bg-success/90 active:bg-success/80",
-  "bg-brand-navy hover:bg-brand-navy/90 active:bg-brand-navy/80",
-  "bg-tool-accent hover:bg-tool-accent/90 active:bg-tool-accent/80",
-];
-
 function getOptionLabel(index: number): string {
   return String.fromCharCode(65 + index);
 }
@@ -37,17 +28,19 @@ export function AnswerButtons({
             key={i}
             onClick={() => onSelect(i)}
             disabled={disabled}
-            className={`flex items-center gap-3 rounded-xl p-4 text-left text-white font-medium transition-all ${
-              BUTTON_STYLES[i % BUTTON_STYLES.length]
-            } ${
-              isSelected ? "ring-4 ring-white/50 scale-[0.98]" : ""
+            className={`flex items-center gap-3 rounded-xl p-4 text-left font-medium transition-all ${
+              isSelected
+                ? "bg-tool-primary text-white ring-4 ring-tool-primary/30 scale-[0.98]"
+                : "bg-white border-2 border-tool-primary/20 text-foreground hover:border-tool-primary/40 hover:bg-tool-surface/10"
             } ${
               disabled && !isSelected ? "opacity-50 cursor-not-allowed" : ""
             } ${
               disabled && isSelected ? "opacity-90" : ""
             }`}
           >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-sm font-bold">
+            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+              isSelected ? "bg-white/20 text-white" : "bg-tool-primary/10 text-tool-primary"
+            }`}>
               {getOptionLabel(i)}
             </span>
             <span className="flex-1">{option}</span>

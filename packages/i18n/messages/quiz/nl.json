@@ -80,6 +80,10 @@
                 "european": "Europees gehost"
             }
         },
+        "mcp": {
+            "title": "MCP Integratie",
+            "description": "Maak en beheer quizzen programmatisch met AI-assistenten via het Model Context Protocol."
+        },
         "cta": {
             "title": "Klaar om te Quizzen?",
             "description": "Maak een live quiz in seconden. Geen registratie nodig.",

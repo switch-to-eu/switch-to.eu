@@ -80,6 +80,10 @@
                 "european": "European hosted"
             }
         },
+        "mcp": {
+            "title": "MCP Integration",
+            "description": "Create and manage quizzes programmatically with AI assistants using the Model Context Protocol."
+        },
         "cta": {
             "title": "Ready to Quiz?",
             "description": "Create a live quiz in seconds. No sign-up required.",

@@ -2,15 +2,6 @@
 
 import { Check, X } from "lucide-react";
 
-const BAR_COLORS = [
-  "bg-destructive",
-  "bg-tool-primary",
-  "bg-warning",
-  "bg-success",
-  "bg-brand-navy",
-  "bg-tool-accent",
-];
-
 function getOptionLabel(index: number): string {
   return String.fromCharCode(65 + index);
 }
@@ -34,12 +25,13 @@ export function AnswerDistribution({
         const count = distribution[i] ?? 0;
         const pct = total > 0 ? (count / total) * 100 : 0;
         const isCorrect = i === correctIndex;
-        const barColor = BAR_COLORS[i % BAR_COLORS.length];
 
         return (
           <div key={i} className="flex items-center gap-3">
             <span
-              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${barColor}`}
+              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                isCorrect ? "bg-success text-white" : "bg-tool-primary/10 text-tool-primary"
+              }`}
             >
               {getOptionLabel(i)}
             </span>
@@ -55,7 +47,7 @@ export function AnswerDistribution({
               <div className="h-3 w-full rounded-full bg-muted overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
-                    isCorrect ? "bg-success" : barColor
+                    isCorrect ? "bg-success" : "bg-tool-primary"
                   }`}
                   style={{ width: `${pct}%` }}
                 />

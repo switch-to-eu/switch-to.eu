@@ -8,25 +8,3 @@ declare module "next-intl" {
     Messages: typeof messages & typeof sharedMessages;
   }
 }
-
-// Color scheme constants
-export const colors = {
-  gradients: {
-    primary: "gradient-rose-orange",
-    primaryExtended: "gradient-rose-orange-yellow",
-    secondary: "gradient-orange-yellow",
-    accent: "gradient-rose-pink",
-    heroBg: "gradient-bg-rose-orange",
-  },
-  backgrounds: {
-    light: "bg-gradient-to-br from-neutral-50 to-rose-50/30",
-    soft: "bg-gradient-to-r from-rose-50 to-orange-50",
-    subtle: "bg-gradient-to-br from-orange-50/30 to-neutral-50",
-  },
-  text: {
-    primary: "text-primary-color",
-    success: "text-green-600",
-    danger: "text-red-600",
-    warning: "text-orange-600",
-  }
-};

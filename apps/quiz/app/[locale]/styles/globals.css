@@ -16,25 +16,11 @@
   --tool-surface-foreground: #ffffff;
 }
 
-/* Quiz-specific color overrides */
+/* Shared primary button style */
 .gradient-primary {
-  background: linear-gradient(to right, var(--tool-primary), var(--tool-accent));
+  background-color: var(--tool-primary);
 }
 
-.header-bg {
-  background: linear-gradient(to bottom right, oklch(from var(--tool-primary) l c h / 0.1), transparent);
-}
-
-.text-primary-color {
-  color: var(--tool-primary);
-}
-
-.focus-ring-accent {
-  @apply focus-visible:ring-[2px];
-  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.3);
-}
-
-.focus-ring-accent-strong {
-  @apply focus-visible:ring-[3px];
-  --tw-ring-color: oklch(from var(--tool-primary) l c h / 0.5);
+.gradient-primary:hover {
+  opacity: 0.9;
 }

@@ -10,9 +10,9 @@ interface PodiumProps {
 
 const PODIUM_HEIGHTS = ["h-28", "h-20", "h-16"];
 const PODIUM_COLORS = [
-  "bg-gradient-to-t from-yellow-400 to-yellow-300",
-  "bg-gradient-to-t from-gray-300 to-gray-200",
-  "bg-gradient-to-t from-amber-500 to-amber-400",
+  "bg-gradient-to-t from-tool-primary to-tool-primary/80",
+  "bg-gradient-to-t from-tool-primary/60 to-tool-primary/40",
+  "bg-gradient-to-t from-tool-accent to-tool-accent/80",
 ];
 const PODIUM_ORDER = [1, 0, 2]; // Display: 2nd, 1st, 3rd
 
@@ -37,7 +37,7 @@ export function Podium({ entries }: PodiumProps) {
             <div key={entry.sessionId} className="flex flex-col items-center gap-2">
               <div className="text-center">
                 {entry.rank === 1 && (
-                  <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-1" />
+                  <Trophy className="h-8 w-8 text-tool-primary mx-auto mb-1" />
                 )}
                 <p className="font-semibold text-sm">{entry.nickname}</p>
                 <p className="text-xs text-muted-foreground">

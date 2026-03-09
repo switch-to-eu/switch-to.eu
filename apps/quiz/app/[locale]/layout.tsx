@@ -57,7 +57,6 @@ export default async function LocaleLayout({
   const allTools = getAllToolsSorted();
   
   const navItems: MainNavItem[] = [
-    { title: navT('mcp'), href: '/mcp' },
     {
       title: navT('tools'),
       dropdown: 'mega',
@@ -95,20 +94,20 @@ export default async function LocaleLayout({
             navigation={
               <>
                 <NavMenu navItems={navItems} />
+
+                <NavLanguageSelector locale={locale as Locale} />
                 <Link href="/create">
-                  <Button size="sm" variant="secondary">
+                  <Button size="sm" variant="outline" className="border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
                     <Plus className="mr-2 h-4 w-4" />
                     {t('createQuiz')}
                   </Button>
                 </Link>
-
-                <NavLanguageSelector locale={locale as Locale} />
               </>
             }
             mobileNavigation={
               <MobileNav navItems={navItems} locale={locale as Locale}>
                 <Link href="/create">
-                  <Button size="sm" variant="secondary" className="w-full">
+                  <Button size="sm" variant="outline" className="w-full border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
                     <Plus className="mr-2 h-4 w-4" />
                     {t('createQuiz')}
                   </Button>
