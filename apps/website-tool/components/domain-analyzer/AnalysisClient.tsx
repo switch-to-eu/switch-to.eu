@@ -447,7 +447,7 @@ function RecommendationTip({
       <div className="flex items-start gap-3">
         <LightbulbIcon className="w-5 h-5 text-brand-green shrink-0 mt-0.5" />
         <div className="space-y-1.5">
-          <div className="text-sm text-foreground">{t(rec.label)}</div>
+          <div className="text-sm text-foreground">{t(rec.label as Parameters<typeof t>[0])}</div>
           <div className="flex flex-wrap gap-2">
             {rec.links.map((link) => (
               <a
