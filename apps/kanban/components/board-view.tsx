@@ -12,7 +12,9 @@ import {
   Lock,
   Trash2,
   X,
-  Settings,
+  Share2,
+  MoreVertical,
+  Pencil,
 } from "lucide-react";
 import { Kanban } from "react-kanban-kit";
 import type { BoardItem } from "react-kanban-kit";
@@ -29,6 +31,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@switch-to-eu/ui/components/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@switch-to-eu/ui/components/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@switch-to-eu/ui/components/dropdown-menu";
 import { useBoard } from "@hooks/use-board";
 import { useFragment } from "@switch-to-eu/blocks/hooks/use-fragment";
 import { toBoardData } from "@/lib/board-helpers";
@@ -74,7 +89,7 @@ function EditableColumnTitle({
   if (!editing) {
     return (
       <h3
-        className="font-semibold text-sm cursor-pointer hover:bg-muted rounded px-1 -mx-1"
+        className="font-semibold text-sm cursor-pointer hover:bg-white/10 rounded px-1 -mx-1"
         onClick={() => setEditing(true)}
       >
         {title}
@@ -105,17 +120,26 @@ function EditableColumnTitle({
 function QuickAddCard({
   onAdd,
   placeholder,
+  autoFocus,
 }: {
   onAdd: (title: string) => void;
   placeholder: string;
+  autoFocus?: boolean;
 }) {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(autoFocus ?? false);
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (active) inputRef.current?.focus();
   }, [active]);
+
+  // Handle autoFocus prop changes (when a card is added, re-focus)
+  useEffect(() => {
+    if (autoFocus) {
+      setActive(true);
+    }
+  }, [autoFocus]);
 
   const submit = () => {
     const trimmed = value.trim();
@@ -135,7 +159,7 @@ function QuickAddCard({
     return (
       <button
         type="button"
-        className="flex items-center gap-1 w-full rounded-lg px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+        className="flex items-center gap-1 w-full rounded-lg px-2 py-1.5 text-sm text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors"
         onClick={() => setActive(true)}
       >
         <Plus className="h-4 w-4" />
@@ -214,6 +238,9 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [confirmDeleteColumn, setConfirmDeleteColumn] = useState<string | null>(null);
   const [confirmDeleteBoard, setConfirmDeleteBoard] = useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  // Track which column just had a card added (to auto-focus its input)
+  const [lastAddedColumn, setLastAddedColumn] = useState<string | null>(null);
   const addColumnInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -253,6 +280,10 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
     async (columnId: string, title: string) => {
       try {
         await addCard(columnId, { title });
+        // Signal this column to keep its input focused
+        setLastAddedColumn(columnId);
+        // Reset after a tick so it can retrigger
+        setTimeout(() => setLastAddedColumn(null), 50);
       } catch {
         toast.error(t("addCardError"));
       }
@@ -425,7 +456,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
     <div className="min-h-[calc(100vh-12rem)]">
       {/* Board header */}
       <div className="border-b bg-card">
-        <div className="container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 flex items-center justify-between">
+        <div className="mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">{board.title}</h1>
             {board.description && (
@@ -433,30 +464,31 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
             )}
           </div>
           <div className="flex items-center gap-2">
-            {isAdmin && (
-              <Button variant="outline" size="sm" onClick={copyAdminLink}>
-                <Settings className="mr-2 h-4 w-4" />
-                {tAdmin("shareAdminLink")}
-              </Button>
-            )}
-            <Button variant="outline" size="sm" onClick={copyShareLink}>
-              <Copy className="mr-2 h-4 w-4" />
-              {t("copyShareLink")}
+            <Button variant="outline" size="sm" onClick={() => setShareDialogOpen(true)}>
+              <Share2 className="mr-2 h-4 w-4" />
+              {t("share")}
             </Button>
             {isAdmin && (
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => setConfirmDeleteBoard(true)}
-                disabled={isDeleting}
-              >
-                {isDeleting ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <Trash2 className="mr-2 h-4 w-4" />
-                )}
-                {tAdmin("deleteBoard")}
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => router.push(window.location.pathname.replace("/admin", "") + "/admin" + window.location.hash)}>
+                    <Pencil className="mr-2 h-4 w-4" />
+                    {tAdmin("manageColumns")}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-destructive focus:text-destructive"
+                    onClick={() => setConfirmDeleteBoard(true)}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    {tAdmin("deleteBoard")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>
@@ -468,6 +500,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
           dataSource={boardData}
           configMap={configMap}
           onCardMove={handleCardMove}
+          columnWrapperClassName={() => "rounded-xl bg-black/[0.04]"}
           renderColumnHeader={(column) => {
             const col = board.columns.find((c) => c.id === column.id);
             return (
@@ -485,7 +518,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
                       {col?.title || column.title}
                     </h3>
                   )}
-                  <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-0.5">
+                  <span className="text-xs text-muted-foreground bg-white/50 rounded-full px-2 py-0.5">
                     {column.children.length}
                   </span>
                 </div>
@@ -507,6 +540,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
               <QuickAddCard
                 onAdd={(title) => handleQuickAdd(column.id, title)}
                 placeholder={t("addCard")}
+                autoFocus={lastAddedColumn === column.id}
               />
             </div>
           )}
@@ -570,6 +604,36 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
           </div>
         )}
       </div>
+
+      {/* Share dialog */}
+      <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("shareDialog.title")}</DialogTitle>
+            <DialogDescription>{t("shareDialog.description")}</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 pt-2">
+            <div className="rounded-lg border p-4 space-y-2">
+              <div className="font-medium text-sm">{t("shareDialog.viewLinkTitle")}</div>
+              <p className="text-sm text-muted-foreground">{t("shareDialog.viewLinkDescription")}</p>
+              <Button variant="outline" size="sm" onClick={copyShareLink} className="w-full">
+                <Copy className="mr-2 h-4 w-4" />
+                {t("copyShareLink")}
+              </Button>
+            </div>
+            {isAdmin && (
+              <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 space-y-2">
+                <div className="font-medium text-sm">{t("shareDialog.adminLinkTitle")}</div>
+                <p className="text-sm text-muted-foreground">{t("shareDialog.adminLinkDescription")}</p>
+                <Button variant="outline" size="sm" onClick={copyAdminLink} className="w-full">
+                  <Copy className="mr-2 h-4 w-4" />
+                  {tAdmin("shareAdminLink")}
+                </Button>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Card detail modal (edit/view) — only when clicking an existing card */}
       {editingCard && (

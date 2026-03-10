@@ -16,15 +16,6 @@
   --tool-surface-foreground: #1a1a1a;
 }
 
-/* Kanban-specific color overrides */
-.gradient-primary {
-  background: linear-gradient(to right, var(--tool-primary), var(--tool-accent));
-}
-
-.header-bg {
-  background: linear-gradient(to bottom right, oklch(from var(--tool-primary) l c h / 0.1), transparent);
-}
-
 .text-primary-color {
   color: var(--tool-primary);
 }

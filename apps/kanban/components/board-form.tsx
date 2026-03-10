@@ -105,6 +105,7 @@ export function BoardForm() {
       );
 
       toast.success(t("success"));
+      window.scrollTo(0, 0);
       router.push(adminUrl);
     } catch {
       toast.error(t("error"));
@@ -221,7 +222,20 @@ export function BoardForm() {
                 htmlFor={field.name}
                 className="text-sm text-muted-foreground leading-relaxed cursor-pointer font-normal"
               >
-                {t("terms")}
+                <span>
+                  {t.rich("terms", {
+                    terms: (chunks) => (
+                      <a href="https://switch-to.eu/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
+                        {chunks}
+                      </a>
+                    ),
+                    privacy: (chunks) => (
+                      <a href="https://switch-to.eu/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                </span>
               </FieldLabel>
               {fieldState.invalid && (
                 <FieldError errors={[fieldState.error]} />
@@ -237,7 +251,7 @@ export function BoardForm() {
         loading={createMutation.isPending}
         loadingText={t("creating")}
         disabled={!formState.isValid}
-        className="w-full"
+        className="w-full rounded-full bg-tool-primary hover:bg-tool-primary/90 text-white"
         size="lg"
       >
         {t("submit")}
