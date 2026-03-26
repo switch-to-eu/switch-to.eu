@@ -13,7 +13,7 @@ export const Pages: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag("pages", "default");
+        try { revalidateTag("pages", "default"); } catch { /* no-op outside Next.js */ }
         return doc;
       },
     ],

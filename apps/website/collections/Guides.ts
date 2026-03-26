@@ -13,7 +13,7 @@ export const Guides: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag("guides", "default");
+        try { revalidateTag("guides", "default"); } catch { /* no-op outside Next.js */ }
         return doc;
       },
     ],

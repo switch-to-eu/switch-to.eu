@@ -13,8 +13,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "seed": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx seed/index.ts",
-    "seed:reset": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx seed/index.ts --reset",
+    "seed": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts",
+    "seed:reset": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts --reset",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload generate:types"
   },

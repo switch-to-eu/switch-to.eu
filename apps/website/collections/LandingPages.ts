@@ -13,7 +13,7 @@ export const LandingPages: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag("landing-pages", "default");
+        try { revalidateTag("landing-pages", "default"); } catch { /* no-op outside Next.js */ }
         return doc;
       },
     ],

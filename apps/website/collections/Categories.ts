@@ -13,7 +13,7 @@ export const Categories: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag("categories", "default");
+        try { revalidateTag("categories", "default"); } catch { /* no-op outside Next.js */ }
         return doc;
       },
     ],

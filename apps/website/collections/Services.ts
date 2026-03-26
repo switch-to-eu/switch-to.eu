@@ -13,7 +13,7 @@ export const Services: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag("services", "default");
+        try { revalidateTag("services", "default"); } catch { /* no-op outside Next.js */ }
         return doc;
       },
     ],
