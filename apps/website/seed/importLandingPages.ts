@@ -1,28 +1,23 @@
 /**
- * Seed script — import landing pages from the file-based content system into Payload CMS.
- *
- * Reads all landing pages via @switch-to-eu/content, converts markdown content
- * to Lexical editor JSON, resolves category/service relationships, and creates
- * Payload documents in both English and Dutch locales.
+ * Seed importer for landing pages.
  */
 
 import type { Payload } from "payload";
-import { getAllLandingPages, getLandingPage } from "@switch-to-eu/content";
-import { markdownToLexical } from "./markdownToLexical";
-
-// NOTE: getAllLandingPages() returns Array<{ frontmatter, slug }>, NOT string[].
+import {
+  getAllLandingPages,
+  getLandingPage,
+} from "./content.js";
+import { markdownToLexical } from "./markdownToLexical.js";
 
 export async function importLandingPages(
-  payload: Payload,
+  payload: Payload | null,
   categoryMap: Map<string, number>,
   serviceMap: Map<string, number>,
+  dryRun = false,
 ): Promise<void> {
   const pages = getAllLandingPages("en");
 
   for (const { slug } of pages) {
-    console.log(`Importing landing page: ${slug}`);
-
-    // getLandingPage is synchronous
     const enPage = getLandingPage(slug, "en");
     const nlPage = getLandingPage(slug, "nl");
 
@@ -33,7 +28,6 @@ export async function importLandingPages(
       ? await markdownToLexical(enPage.content)
       : undefined;
 
-    // Resolve relationships
     const categoryId = enFm.category
       ? categoryMap.get(enFm.category)
       : undefined;
@@ -44,7 +38,12 @@ export async function importLandingPages(
       ? serviceMap.get(enFm.relatedService)
       : undefined;
 
-    const created = await payload.create({
+    if (dryRun) {
+      console.log(`  [dry-run] Landing page: ${slug} — "${enFm.title}" (recommended: ${recommendedServiceIds?.length ?? 0}, related: ${enFm.relatedService ?? "none"}, nl: ${nlPage ? "yes" : "no"})`);
+      continue;
+    }
+
+    const created = await payload!.create({
       collection: "landing-pages",
       locale: "en",
       data: {
@@ -64,7 +63,7 @@ export async function importLandingPages(
 
     if (nlPage) {
       const nlFm = nlPage.frontmatter;
-      await payload.update({
+      await payload!.update({
         collection: "landing-pages",
         id: created.id,
         locale: "nl",
@@ -81,5 +80,5 @@ export async function importLandingPages(
     }
   }
 
-  console.log(`Imported ${pages.length} landing pages`);
+  console.log(`  Imported ${pages.length} landing pages`);
 }

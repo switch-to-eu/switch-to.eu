@@ -1,53 +1,39 @@
 /**
  * Seed importer for categories.
- *
- * Reads all category Markdown files from the content package (both EN and NL
- * locales), converts body content to Lexical JSON, and creates corresponding
- * Payload CMS documents.
- *
- * Returns a Map<slug, payloadId> so downstream importers can resolve
- * category relationships.
  */
 
 import type { Payload } from "payload";
 import {
   getAllCategoriesMetadata,
   getCategoryContent,
-} from "@switch-to-eu/content";
-import type { Locale } from "@switch-to-eu/content";
+} from "./content.js";
 import { markdownToLexical } from "./markdownToLexical.js";
 
-/**
- * Import all categories into Payload CMS.
- *
- * @param payload - Payload instance
- * @returns Map of category slug to Payload document ID
- */
 export async function importCategories(
-  payload: Payload,
+  payload: Payload | null,
+  dryRun = false,
 ): Promise<Map<string, number>> {
   const categoryMap = new Map<string, number>();
 
-  // getAllCategoriesMetadata is synchronous (reads filesystem)
-  // Returns Array<{ slug: string; metadata: { title, description, icon? } }>
-  const categories = getAllCategoriesMetadata("en" as Locale);
+  const categories = getAllCategoriesMetadata("en");
 
   for (const cat of categories) {
-    console.log(`  Importing category: ${cat.slug}`);
+    const enContent = getCategoryContent(cat.slug, "en");
+    const nlContent = getCategoryContent(cat.slug, "nl");
 
-    // getCategoryContent is synchronous
-    // Returns { metadata: CategoryMetadata | null; content: string | null; segments: ContentSegments | null }
-    const enContent = getCategoryContent(cat.slug, "en" as Locale);
-    const nlContent = getCategoryContent(cat.slug, "nl" as Locale);
-
-    // Convert markdown body to Lexical JSON for Payload's richText field
     const enLexical =
       enContent.content ? await markdownToLexical(enContent.content) : undefined;
     const nlLexical =
       nlContent.content ? await markdownToLexical(nlContent.content) : undefined;
 
-    // Create the document with English locale first
-    const created = await payload.create({
+    if (dryRun) {
+      const fakeId = categoryMap.size + 1;
+      categoryMap.set(cat.slug, fakeId);
+      console.log(`  [dry-run] Category: ${cat.slug} — "${cat.metadata.title}" (en lexical: ${enLexical ? "yes" : "no"}, nl lexical: ${nlLexical ? "yes" : "no"})`);
+      continue;
+    }
+
+    const created = await payload!.create({
       collection: "categories",
       locale: "en",
       data: {
@@ -59,9 +45,8 @@ export async function importCategories(
       },
     });
 
-    // Update with Dutch locale if available
     if (nlContent.metadata) {
-      await payload.update({
+      await payload!.update({
         collection: "categories",
         id: created.id,
         locale: "nl",
@@ -73,7 +58,7 @@ export async function importCategories(
       });
     }
 
-    categoryMap.set(cat.slug, created.id);
+    categoryMap.set(cat.slug, created.id as number);
   }
 
   console.log(`  Imported ${categoryMap.size} categories`);

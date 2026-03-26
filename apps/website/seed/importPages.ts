@@ -1,26 +1,20 @@
 /**
- * Seed script — import static pages (privacy, terms) from the file-based
- * content system into Payload CMS.
- *
- * Reads page content via @switch-to-eu/content's getPageContent(), converts
- * markdown to Lexical editor JSON, and creates Payload documents in both
- * English and Dutch locales.
+ * Seed importer for static pages (privacy, terms).
  */
 
 import type { Payload } from "payload";
-import { getPageContent } from "@switch-to-eu/content";
-import type { Locale } from "@switch-to-eu/content";
-import { markdownToLexical } from "./markdownToLexical";
+import { getPageContent } from "./content.js";
+import { markdownToLexical } from "./markdownToLexical.js";
 
 const STATIC_PAGES = ["privacy", "terms"];
 
-export async function importPages(payload: Payload): Promise<void> {
+export async function importPages(
+  payload: Payload | null,
+  dryRun = false,
+): Promise<void> {
   for (const pageSlug of STATIC_PAGES) {
-    console.log(`Importing page: ${pageSlug}`);
-
-    // getPageContent is synchronous
-    const enContent = getPageContent(pageSlug, "en" as Locale);
-    const nlContent = getPageContent(pageSlug, "nl" as Locale);
+    const enContent = getPageContent(pageSlug, "en");
+    const nlContent = getPageContent(pageSlug, "nl");
 
     const enLexical = enContent?.content
       ? await markdownToLexical(enContent.content)
@@ -29,7 +23,12 @@ export async function importPages(payload: Payload): Promise<void> {
       ? await markdownToLexical(nlContent.content)
       : undefined;
 
-    const created = await payload.create({
+    if (dryRun) {
+      console.log(`  [dry-run] Page: ${pageSlug} (en: ${enLexical ? "yes" : "no"}, nl: ${nlLexical ? "yes" : "no"})`);
+      continue;
+    }
+
+    const created = await payload!.create({
       collection: "pages",
       locale: "en",
       data: {
@@ -40,7 +39,7 @@ export async function importPages(payload: Payload): Promise<void> {
     });
 
     if (nlLexical) {
-      await payload.update({
+      await payload!.update({
         collection: "pages",
         id: created.id,
         locale: "nl",
@@ -52,5 +51,5 @@ export async function importPages(payload: Payload): Promise<void> {
     }
   }
 
-  console.log(`Imported ${STATIC_PAGES.length} static pages`);
+  console.log(`  Imported ${STATIC_PAGES.length} static pages`);
 }

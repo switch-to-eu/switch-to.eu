@@ -1,82 +1,53 @@
 /**
  * Seed importer for services.
- *
- * Reads all service Markdown files (EU + non-EU) from the content package,
- * converts body content to Lexical JSON, and creates corresponding Payload
- * CMS documents.  A second pass resolves `recommendedAlternative` relationships
- * after all services have been created.
- *
- * Returns a Map<slug, payloadId> so downstream importers (guides, landing
- * pages) can resolve service relationships.
  */
 
 import type { Payload } from "payload";
-import { getServiceSlugs, getServiceBySlug } from "@switch-to-eu/content";
-import type { Locale } from "@switch-to-eu/content";
+import {
+  getServiceSlugs,
+  getServiceBySlug,
+} from "./content.js";
 import { markdownToLexical } from "./markdownToLexical.js";
 
-/**
- * Import all services into Payload CMS.
- *
- * @param payload     - Payload instance
- * @param categoryMap - Map of category slug to Payload category ID
- * @returns Map of service slug to Payload document ID
- */
 export async function importServices(
-  payload: Payload,
+  payload: Payload | null,
   categoryMap: Map<string, number>,
+  dryRun = false,
 ): Promise<Map<string, number>> {
   const serviceMap = new Map<string, number>();
 
-  // getServiceSlugs is synchronous (reads filesystem via getAllServices)
-  // NOTE: getEUServices()/getNonEUServices() return flat ServiceFrontmatter[]
-  // without slugs or content. We use getServiceSlugs() + getServiceBySlug()
-  // to get the full data including the content body.
-  const euSlugs = getServiceSlugs("eu", "en" as Locale);
-  const nonEuSlugs = getServiceSlugs("non-eu", "en" as Locale);
+  const euSlugs = getServiceSlugs("eu", "en");
+  const nonEuSlugs = getServiceSlugs("non-eu", "en");
   const allSlugs = [...euSlugs, ...nonEuSlugs];
 
-  // --- First pass: create all services ---
-
   for (const slug of allSlugs) {
-    // getServiceBySlug is synchronous
-    // Returns { frontmatter: ServiceFrontmatter; content: string; segments: ContentSegments } | null
-    const enService = getServiceBySlug(slug, "en" as Locale);
+    const enService = getServiceBySlug(slug, "en");
     if (!enService) {
       console.warn(`  Skipping service "${slug}" — not found for locale en`);
       continue;
     }
 
     const enData = enService.frontmatter;
-    console.log(`  Importing service: ${slug} (${enData.region ?? "unknown"})`);
-
-    // Convert markdown body to Lexical JSON
     const enLexical = enService.content
       ? await markdownToLexical(enService.content)
       : undefined;
 
-    // Try to get Dutch version (may not exist)
     let nlService: ReturnType<typeof getServiceBySlug> = null;
     try {
-      nlService = getServiceBySlug(slug, "nl" as Locale);
+      nlService = getServiceBySlug(slug, "nl");
     } catch {
-      // Dutch version may not exist — that's fine
+      // Dutch version may not exist
     }
 
     const nlLexical = nlService?.content
       ? await markdownToLexical(nlService.content)
       : undefined;
 
-    // Resolve category slug to Payload category ID
     const categorySlug = enData.category.toLowerCase();
-    const categoryId = categoryMap.get(categorySlug);
-    if (!categoryId) {
-      console.warn(
-        `  Warning: category "${enData.category}" not found in categoryMap for service "${slug}"`,
-      );
-    }
+    const categoryId = categoryMap.get(categorySlug)
+      ?? categoryMap.get(categorySlug + "s")  // "browser" -> "browsers"
+      ?? categoryMap.get(categorySlug.replace(/s$/, ""));  // "browsers" -> "browser"
 
-    // Map array fields to Payload's array format: [{ fieldName: "value" }]
     const features =
       enData.features?.map((f: string) => ({ feature: f })) ?? [];
     const tags = enData.tags?.map((t: string) => ({ tag: t })) ?? [];
@@ -85,7 +56,14 @@ export async function importServices(
         ? enData.issues.map((i: string) => ({ issue: i }))
         : [];
 
-    const created = await payload.create({
+    if (dryRun) {
+      const fakeId = serviceMap.size + 1;
+      serviceMap.set(slug, fakeId);
+      console.log(`  [dry-run] Service: ${slug} — "${enData.name}" (${enData.region}, category: ${categorySlug}${categoryId ? "" : " NOT FOUND"}, features: ${features.length}, nl: ${nlService ? "yes" : "no"})`);
+      continue;
+    }
+
+    const created = await payload!.create({
       collection: "services",
       locale: "en",
       data: {
@@ -108,21 +86,12 @@ export async function importServices(
         tags,
         content: enLexical,
         issues,
-        // recommendedAlternative is resolved in the second pass below
       },
     });
 
-    // Update with Dutch locale if available
     if (nlService) {
       const nlData = nlService.frontmatter;
-      const nlFeatures =
-        nlData.features?.map((f: string) => ({ feature: f })) ?? [];
-      const nlIssues =
-        nlData.region === "non-eu" && nlData.issues
-          ? nlData.issues.map((i: string) => ({ issue: i }))
-          : [];
-
-      await payload.update({
+      await payload!.update({
         collection: "services",
         id: created.id,
         locale: "nl",
@@ -135,49 +104,43 @@ export async function importServices(
               : nlData.startingPrice
                 ? String(nlData.startingPrice)
                 : "",
-          features: nlFeatures,
+          features:
+            nlData.features?.map((f: string) => ({ feature: f })) ?? [],
           content: nlLexical,
-          issues: nlIssues,
+          issues:
+            nlData.region === "non-eu" && nlData.issues
+              ? nlData.issues.map((i: string) => ({ issue: i }))
+              : [],
         },
       });
     }
 
-    serviceMap.set(slug, created.id);
+    serviceMap.set(slug, created.id as number);
   }
 
-  // --- Second pass: resolve recommendedAlternative relationships ---
-
-  console.log("  Resolving recommendedAlternative relationships...");
-  let resolvedCount = 0;
-
-  for (const slug of allSlugs) {
-    const enService = getServiceBySlug(slug, "en" as Locale);
-    if (!enService) continue;
-
-    const fm = enService.frontmatter;
-    if (fm.region !== "non-eu" || !fm.recommendedAlternative) continue;
-
-    // The recommendedAlternative in frontmatter is a slug referencing an EU service
-    const altSlug = fm.recommendedAlternative;
-    const altId = serviceMap.get(altSlug);
-    const serviceId = serviceMap.get(slug);
-
-    if (altId && serviceId) {
-      await payload.update({
-        collection: "services",
-        id: serviceId,
-        data: { recommendedAlternative: altId },
-      });
-      resolvedCount++;
-    } else if (serviceId && !altId) {
-      console.warn(
-        `  Warning: recommendedAlternative "${altSlug}" not found for service "${slug}"`,
-      );
+  // Second pass: resolve recommendedAlternative
+  if (!dryRun) {
+    console.log("  Resolving recommendedAlternative relationships...");
+    let resolvedCount = 0;
+    for (const slug of allSlugs) {
+      const enService = getServiceBySlug(slug, "en");
+      if (!enService) continue;
+      const fm = enService.frontmatter;
+      if (fm.region !== "non-eu" || !fm.recommendedAlternative) continue;
+      const altId = serviceMap.get(fm.recommendedAlternative);
+      const serviceId = serviceMap.get(slug);
+      if (altId && serviceId) {
+        await payload!.update({
+          collection: "services",
+          id: serviceId,
+          data: { recommendedAlternative: altId },
+        });
+        resolvedCount++;
+      }
     }
+    console.log(`  Resolved ${resolvedCount} recommendedAlternative links`);
   }
 
-  console.log(
-    `  Imported ${serviceMap.size} services (${resolvedCount} with recommendedAlternative)`,
-  );
+  console.log(`  Imported ${serviceMap.size} services`);
   return serviceMap;
 }

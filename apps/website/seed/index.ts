@@ -11,58 +11,57 @@
  *   5. Pages       (no dependencies)
  *
  * Usage:
- *   pnpm --filter website seed           # Import all content
- *   pnpm --filter website seed --reset   # Clear all collections first, then import
- *
- * Run from the monorepo root:
- *   npx tsx apps/website/seed/index.ts [--reset]
+ *   pnpm --filter website seed              # Import all content
+ *   pnpm --filter website seed --reset      # Clear all collections first, then import
+ *   pnpm --filter website seed --dry-run    # Test content reading without DB writes
  */
 
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { importCategories } from "./importCategories.js";
 import { importServices } from "./importServices.js";
 import { importGuides } from "./importGuides.js";
 import { importLandingPages } from "./importLandingPages.js";
 import { importPages } from "./importPages.js";
 
+const dryRun = process.argv.includes("--dry-run");
+
 async function seed() {
-  const payload = await getPayload({ config });
-  const reset = process.argv.includes("--reset");
+  let payload: any = null;
 
-  if (reset) {
-    console.log("Resetting database...");
-    // Delete in reverse dependency order to avoid foreign-key issues
-    // Use { id: { exists: true } } as a where clause to match all documents
-    const deleteAll = { id: { exists: true } } as never;
+  if (!dryRun) {
+    const { getPayload } = await import("payload");
+    const { default: config } = await import("@payload-config");
+    payload = await getPayload({ config });
 
-    // Guides and landing pages depend on services and categories
-    await payload.delete({ collection: "guides", where: deleteAll });
-    await payload.delete({ collection: "landing-pages", where: deleteAll });
-    await payload.delete({ collection: "pages", where: deleteAll });
-    await payload.delete({ collection: "services", where: deleteAll });
-    await payload.delete({ collection: "categories", where: deleteAll });
-    await payload.delete({ collection: "media", where: deleteAll });
-
-    console.log("Database cleared.");
+    const reset = process.argv.includes("--reset");
+    if (reset) {
+      console.log("Resetting database...");
+      const deleteAll = { id: { exists: true } } as never;
+      await payload.delete({ collection: "guides", where: deleteAll });
+      await payload.delete({ collection: "landing-pages", where: deleteAll });
+      await payload.delete({ collection: "pages", where: deleteAll });
+      await payload.delete({ collection: "services", where: deleteAll });
+      await payload.delete({ collection: "categories", where: deleteAll });
+      await payload.delete({ collection: "media", where: deleteAll });
+      console.log("Database cleared.");
+    }
+  } else {
+    console.log("🏃 DRY RUN — reading content only, no database writes\n");
   }
 
-  // --- Import in dependency order ---
-
   console.log("\n--- Importing categories ---");
-  const categoryMap = await importCategories(payload);
+  const categoryMap = await importCategories(payload, dryRun);
 
   console.log("\n--- Importing services ---");
-  const serviceMap = await importServices(payload, categoryMap);
+  const serviceMap = await importServices(payload, categoryMap, dryRun);
 
   console.log("\n--- Importing guides ---");
-  await importGuides(payload, categoryMap, serviceMap);
+  await importGuides(payload, categoryMap, serviceMap, dryRun);
 
   console.log("\n--- Importing landing pages ---");
-  await importLandingPages(payload, categoryMap, serviceMap);
+  await importLandingPages(payload, categoryMap, serviceMap, dryRun);
 
   console.log("\n--- Importing pages ---");
-  await importPages(payload);
+  await importPages(payload, dryRun);
 
   console.log("\nSeed complete!");
   process.exit(0);

@@ -1,9 +1,5 @@
 /**
- * Seed script — import guides from the file-based content system into Payload CMS.
- *
- * Reads all guides via @switch-to-eu/content, converts markdown sections to
- * Lexical editor JSON, resolves service/category relationships, and creates
- * Payload documents in both English and Dutch locales.
+ * Seed importer for guides.
  */
 
 import type { Payload } from "payload";
@@ -11,25 +7,22 @@ import {
   getAllGuides,
   getGuide,
   extractStepsWithMeta,
-} from "@switch-to-eu/content";
-import type { Locale } from "@switch-to-eu/content";
-import { markdownToLexical } from "./markdownToLexical";
+} from "./content.js";
+import { markdownToLexical } from "./markdownToLexical.js";
 
 export async function importGuides(
-  payload: Payload,
+  payload: Payload | null,
   categoryMap: Map<string, number>,
   serviceMap: Map<string, number>,
+  dryRun = false,
 ): Promise<void> {
-  const guides = getAllGuides({ lang: "en" as Locale });
+  const guides = getAllGuides({ lang: "en" });
 
   for (const guide of guides) {
-    console.log(`Importing guide: ${guide.slug}`);
-
-    // Get full guide data for each locale (getGuide is synchronous)
-    const enGuide = getGuide(guide.category, guide.slug, "en" as Locale);
+    const enGuide = getGuide(guide.category, guide.slug, "en");
     let nlGuide = null;
     try {
-      nlGuide = getGuide(guide.category, guide.slug, "nl" as Locale);
+      nlGuide = getGuide(guide.category, guide.slug, "nl");
     } catch {
       // Dutch version may not exist
     }
@@ -37,7 +30,6 @@ export async function importGuides(
     if (!enGuide) continue;
 
     const enFm = enGuide.frontmatter;
-    // getGuide already extracts segments — use them directly
     const enSegments = enGuide.segments;
     const enSteps = enSegments.steps
       ? extractStepsWithMeta(enSegments.steps)
@@ -57,7 +49,6 @@ export async function importGuides(
       ? await markdownToLexical(enSegments.outro)
       : undefined;
 
-    // Convert steps
     const enStepData = await Promise.all(
       enSteps.map(async (step) => ({
         title: step.title ?? "",
@@ -70,33 +61,46 @@ export async function importGuides(
       })),
     );
 
-    // Find category ID
     const categoryId = categoryMap.get(guide.category);
 
-    // Source/target service lookup — match by name in the service map.
-    // The frontmatter has service names (e.g. "Google Maps"), we need to find
-    // matching slugs (e.g. "google-maps") in the service map.
+    // Match service names to slugs — normalize both sides for comparison
+    function normalizeForMatch(name: string): string {
+      return name.toLowerCase().replace(/\s+/g, "-").replace(/[()]/g, "");
+    }
+
+    const sourceNorm = enFm.sourceService ? normalizeForMatch(enFm.sourceService) : "";
+    const targetNorm = enFm.targetService ? normalizeForMatch(enFm.targetService) : "";
+
+    // Also compare without hyphens (protonmail vs proton-mail)
+    function stripped(s: string): string {
+      return s.replace(/-/g, "");
+    }
+
     let sourceServiceId: number | undefined;
     let targetServiceId: number | undefined;
-    const sourceSlug = enFm.sourceService
-      ?.toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[()]/g, "");
-    const targetSlug = enFm.targetService
-      ?.toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[()]/g, "");
-
     for (const [slug, id] of serviceMap) {
-      if (sourceSlug && slug.includes(sourceSlug)) {
-        sourceServiceId = id;
+      const slugNorm = normalizeForMatch(slug);
+      const slugStripped = stripped(slugNorm);
+      if (sourceNorm && !sourceServiceId) {
+        const srcStripped = stripped(sourceNorm);
+        if (slugNorm === sourceNorm || slugStripped === srcStripped || slugStripped.includes(srcStripped) || srcStripped.includes(slugStripped)) {
+          sourceServiceId = id;
+        }
       }
-      if (targetSlug && slug.includes(targetSlug)) {
-        targetServiceId = id;
+      if (targetNorm && !targetServiceId) {
+        const tgtStripped = stripped(targetNorm);
+        if (slugNorm === targetNorm || slugStripped === tgtStripped || slugStripped.includes(tgtStripped) || tgtStripped.includes(slugStripped)) {
+          targetServiceId = id;
+        }
       }
     }
 
-    const created = await payload.create({
+    if (dryRun) {
+      console.log(`  [dry-run] Guide: ${guide.slug} — "${enFm.title}" (steps: ${enSteps.length}, source: ${sourceNorm}${sourceServiceId ? "" : " NOT FOUND"}, target: ${targetNorm}${targetServiceId ? "" : " NOT FOUND"}, nl: ${nlGuide ? "yes" : "no"})`);
+      continue;
+    }
+
+    const created = await payload!.create({
       collection: "guides",
       locale: "en",
       data: {
@@ -120,7 +124,6 @@ export async function importGuides(
       },
     });
 
-    // Dutch locale
     if (nlGuide) {
       const nlFm = nlGuide.frontmatter;
       const nlSegments = nlGuide.segments;
@@ -140,7 +143,7 @@ export async function importGuides(
         })),
       );
 
-      await payload.update({
+      await payload!.update({
         collection: "guides",
         id: created.id,
         locale: "nl",
@@ -167,5 +170,5 @@ export async function importGuides(
     }
   }
 
-  console.log(`Imported ${guides.length} guides`);
+  console.log(`  Imported ${guides.length} guides`);
 }
