@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateTag } from "next/cache";
 
 export const Guides: CollectionConfig = {
   slug: "guides",
@@ -8,6 +9,14 @@ export const Guides: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidateTag("guides", "default");
+        return doc;
+      },
+    ],
   },
   fields: [
     {

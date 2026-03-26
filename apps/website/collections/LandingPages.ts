@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateTag } from "next/cache";
 
 export const LandingPages: CollectionConfig = {
   slug: "landing-pages",
@@ -8,6 +9,14 @@ export const LandingPages: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidateTag("landing-pages", "default");
+        return doc;
+      },
+    ],
   },
   fields: [
     {

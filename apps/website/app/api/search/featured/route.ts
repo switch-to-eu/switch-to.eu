@@ -1,109 +1,85 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SearchResultType, ServiceSearchResult } from "@switch-to-eu/content/search";
-import { getFeaturedServices } from "@switch-to-eu/content/services/services";
+import { getPayload } from "@/lib/payload";
+import type { Service, Category } from "@/payload-types";
+import type { SearchResult } from "@/lib/types";
 import { routing } from "@switch-to-eu/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
 
-export function GET(request: NextRequest) {
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export async function GET(request: NextRequest) {
   try {
-    // Get filter parameters from URL
     const { searchParams } = new URL(request.url);
 
-    // Parse limit parameter
     const limitParam = searchParams.get("limit");
     const limit = limitParam ? parseInt(limitParam, 10) : 10;
 
-    // Parse types parameter (comma-separated list)
-    const typesParam = searchParams.get("types");
-    const types = typesParam
-      ? (typesParam.split(",") as SearchResultType[])
+    const regionParam = searchParams.get("region");
+    const region = regionParam
+      ? (regionParam as "eu" | "non-eu")
       : undefined;
 
-    // Get region parameter for filtering
-    const regionParam = searchParams.get("region");
-    const region = regionParam ? (regionParam as "eu" | "non-eu") : undefined;
-
-    // Get language parameter
     const langParam = searchParams.get("lang");
     const lang = (langParam as Locale) || "en";
 
-    // Get all featured services from markdown files, passing the language parameter
-    const featuredServicesData = getFeaturedServices(lang, region);
+    const payload = await getPayload();
 
-    // Transform the data to match the ServiceSearchResult interface
-    const featuredServices: ServiceSearchResult[] = featuredServicesData.map(
-      ({ service }) => ({
-        id: service.name.toLowerCase().replace(/\s+/g, "-"),
+    const { docs } = await payload.find({
+      collection: "services",
+      locale: lang,
+      limit,
+      where: {
+        and: [
+          { featured: { equals: true } },
+          ...(region ? [{ region: { equals: region } }] : []),
+        ],
+      },
+      depth: 1, // populate category relationship
+    });
+
+    const results: SearchResult[] = docs.map((service: Service) => {
+      const categorySlug =
+        typeof service.category === "object"
+          ? (service.category as Category).slug
+          : undefined;
+
+      return {
+        id: String(service.id),
+        type: "service" as const,
         title: service.name,
         description: service.description,
-        url: `/services/${service.region || "non-eu"}/${service.name
-          .toLowerCase()
-          .replace(/\s+/g, "-")}`,
-        type: "service",
+        url:
+          service.region === "eu"
+            ? `/services/${service.slug}`
+            : `/services/${service.region}/${service.slug}`,
+        region: service.region,
+        category: categorySlug,
         location: service.location,
-        category: service.category,
-        freeOption: service.freeOption,
-        region: service.region || "non-eu", // Default to non-eu if not specified
-      })
-    );
-
-    // Apply type filter if specified
-    let filteredResults = featuredServices;
-    if (types && types.length > 0) {
-      filteredResults = filteredResults.filter((item) =>
-        types.includes(item.type as SearchResultType)
-      );
-    }
-
-    // Note: We already applied region filter in getFeaturedServices to benefit from more efficient filtering
-
-    // Apply limit
-    const limitedResults = filteredResults.slice(0, limit);
+        freeOption: service.freeOption ?? undefined,
+      };
+    });
 
     console.log(
-      `Featured API: Returning ${limitedResults.length} featured services`
+      `Featured API: Returning ${results.length} featured services`
     );
 
-    // Return featured results
-    return NextResponse.json(
-      { results: limitedResults },
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      }
-    );
+    return NextResponse.json({ results }, { headers: CORS_HEADERS });
   } catch (error) {
     console.error("Featured API error:", error);
 
-    // Return error response
     return NextResponse.json(
       { message: "An error occurred", error: String(error) },
-      {
-        status: 500,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
 
 // Handle OPTIONS requests for CORS preflight
 export function OPTIONS() {
-  return NextResponse.json(
-    {},
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    }
-  );
+  return NextResponse.json({}, { headers: CORS_HEADERS });
 }

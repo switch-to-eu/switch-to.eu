@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
-import { getAllGuides } from "@switch-to-eu/content/services/guides";
-import { getAllServices } from "@switch-to-eu/content/services/services";
+import { getPayload } from "@/lib/payload";
+import type { Service, Guide, Category } from "@/payload-types";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
+
 const baseUrl = process.env.NEXT_PUBLIC_URL!;
 
 export const dynamic = "force-dynamic";
@@ -11,9 +11,10 @@ export const dynamic = "force-dynamic";
 // Define your static routes
 const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   noStore();
   const defaultLocale = routing.defaultLocale;
+  const payload = await getPayload();
 
   const localeEntries = [
     {
@@ -34,54 +35,64 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  const categories = getAllCategoriesMetadata(defaultLocale);
+  // Fetch all content in parallel
+  const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
+    payload.find({
+      collection: "categories",
+      locale: defaultLocale,
+      limit: 0, // 0 = no limit in Payload
+      pagination: false,
+    }),
+    payload.find({
+      collection: "services",
+      locale: defaultLocale,
+      limit: 0,
+      pagination: false,
+    }),
+    payload.find({
+      collection: "guides",
+      locale: defaultLocale,
+      limit: 0,
+      pagination: false,
+      depth: 1, // populate category relationship
+    }),
+  ]);
 
-  const categoriesEntries = categories.map((category) => {
-    const url = `/services/${category.slug}`;
+  const categoriesEntries = categoriesResult.docs.map((category: Category) => ({
+    url: `${baseUrl}/${defaultLocale}/services/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
 
-    return {
-      url: `${baseUrl}/${defaultLocale}${url}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    };
-  });
-
-  const services = getAllServices(defaultLocale);
-
-  const servicesEntries = services.map((service) => {
-    const url = (name: string, region?: string) => {
-      const serviceSlug = name.toLowerCase().replace(/\s+/g, "-");
-
-      if (region === "eu") {
-        return `/services/${serviceSlug}`;
-      }
-
-      return `/services/${region}/${serviceSlug}`;
-    };
-
-    return {
-      url: `${baseUrl}/${defaultLocale}${url(service.name, service.region)}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    };
-  });
-
-  const guides = getAllGuides({ lang: defaultLocale });
-
-  const guidesEntries = guides.map((guide) => {
-    const url = `/guides/${guide.category}/${guide.slug}`;
+  const servicesEntries = servicesResult.docs.map((service: Service) => {
+    const serviceUrl =
+      service.region === "eu"
+        ? `/services/${service.slug}`
+        : `/services/${service.region}/${service.slug}`;
 
     return {
-      url: `${baseUrl}/${defaultLocale}${url}`,
+      url: `${baseUrl}/${defaultLocale}${serviceUrl}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     };
   });
 
-  // Flatten all entries
+  const guidesEntries = guidesResult.docs.map((guide: Guide) => {
+    const categorySlug =
+      typeof guide.category === "object"
+        ? (guide.category as Category).slug
+        : "uncategorized";
+
+    return {
+      url: `${baseUrl}/${defaultLocale}/guides/${categorySlug}/${guide.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    };
+  });
+
   return [
     ...staticRouteEntries,
     ...localeEntries,

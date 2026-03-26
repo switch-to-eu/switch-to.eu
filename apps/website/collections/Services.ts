@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateTag } from "next/cache";
 
 export const Services: CollectionConfig = {
   slug: "services",
@@ -8,6 +9,14 @@ export const Services: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidateTag("services", "default");
+        return doc;
+      },
+    ],
   },
   fields: [
     {
