@@ -1,10 +1,28 @@
 import React from "react";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
-import { ServiceFrontmatter } from "@switch-to-eu/content";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { shapes } from "@switch-to-eu/blocks/shapes";
+
+/**
+ * Service data shape compatible with Payload CMS Service documents.
+ * Accepts both resolved relationship objects and raw values.
+ */
+export interface ServiceCardData {
+  name: string;
+  slug?: string;
+  category: string | { slug: string; title?: string };
+  region?: "eu" | "non-eu" | "eu-friendly" | null;
+  location: string;
+  freeOption?: boolean | null;
+  startingPrice?: string | null;
+  description: string;
+  url: string;
+  screenshot?: string | { url?: string | null } | null;
+  features?: Array<{ feature: string }> | string[] | null;
+  tags?: Array<{ tag: string }> | string[] | null;
+}
 
 const SERVICE_SHAPES = [
   "spark",
@@ -26,17 +44,28 @@ export async function ServiceCard({
   showCategory = true,
   colorIndex = 0,
 }: {
-  service: ServiceFrontmatter;
+  service: ServiceCardData;
   showCategory?: boolean;
   colorIndex?: number;
 }) {
   const t = await getTranslations("services");
-  const categoryFormatted =
-    service.category.charAt(0).toUpperCase() + service.category.slice(1);
 
-  const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
+  const categorySlug =
+    typeof service.category === "object"
+      ? service.category.slug
+      : service.category;
+  const categoryFormatted =
+    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
+
+  const serviceSlug = service.slug ?? service.name.toLowerCase().replace(/\s+/g, "-");
   const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
   const serviceLink = `/services/${regionPath}/${serviceSlug}`;
+
+  // Resolve screenshot URL (Payload Media object or plain string)
+  const screenshotUrl =
+    typeof service.screenshot === "object" && service.screenshot !== null
+      ? service.screenshot.url ?? undefined
+      : service.screenshot ?? undefined;
 
   const card = getCardColor(colorIndex);
   const shapeName = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
@@ -49,9 +78,9 @@ export async function ServiceCard({
       >
         {/* Visual area: screenshot or decorative shape */}
         <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
-          {service.screenshot ? (
+          {screenshotUrl ? (
             <img
-              src={service.screenshot}
+              src={screenshotUrl}
               alt={service.name}
               className="w-full h-full object-cover"
             />

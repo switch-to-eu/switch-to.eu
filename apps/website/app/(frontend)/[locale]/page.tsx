@@ -9,8 +9,9 @@ import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
+import { getPayload } from "@/lib/payload";
 import { shapes } from "@switch-to-eu/blocks/shapes";
+import type { Category } from "@/payload-types";
 
 const CATEGORY_SHAPES = [
   "spark", "cloud", "tulip", "speech",
@@ -92,7 +93,13 @@ export async function generateMetadata() {
 export default async function Home() {
   const t = await getTranslations("home");
   const locale = await getLocale();
-  const categories = getAllCategoriesMetadata(locale);
+  const payload = await getPayload();
+  const { docs: categories } = await payload.find({
+    collection: "categories",
+    locale: locale as 'en' | 'nl',
+    limit: 100,
+    sort: "title",
+  }) as { docs: Category[] };
 
   return (
     <PageLayout>
@@ -108,8 +115,8 @@ export default async function Home() {
               <BrandCard
                 key={category.slug}
                 colorIndex={index}
-                title={category.metadata.title}
-                description={category.metadata.description}
+                title={category.title}
+                description={category.description}
                 href={`/services/${category.slug}`}
                 ctaText={t("exploreCategory")}
                 shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}

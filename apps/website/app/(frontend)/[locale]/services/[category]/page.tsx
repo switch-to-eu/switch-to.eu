@@ -1,8 +1,4 @@
-import { getServicesByCategory } from "@switch-to-eu/content/services/services";
-import {
-  getCategoryContent,
-  getAllCategoriesMetadata,
-} from "@switch-to-eu/content/services/categories";
+import { getPayload } from "@/lib/payload";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -16,6 +12,8 @@ import { Locale } from "next-intl";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import type { Category, Service } from "@/payload-types";
 
 export async function generateMetadata({
   params,
@@ -27,15 +25,19 @@ export async function generateMetadata({
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  const { metadata: categoryMetadata } = getCategoryContent(
-    category,
-    locale as Locale
-  );
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "categories",
+    where: { slug: { equals: category } },
+    locale: locale as 'en' | 'nl',
+    limit: 1,
+  });
+  const categoryData = docs[0] as Category | undefined;
 
   const pageTitle =
-    categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
+    categoryData?.title || `${capitalizedCategory} Service Alternatives`;
   const pageDescription =
-    categoryMetadata?.description ||
+    categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
   return {
@@ -58,12 +60,13 @@ export async function generateMetadata({
   };
 }
 
-export function generateStaticParams() {
-  const categories = getAllCategoriesMetadata();
-
-  return categories.map((category) => ({
-    category: category.slug,
-  }));
+export async function generateStaticParams() {
+  const payload = await getPayload();
+  const { docs } = await payload.find({ collection: "categories", limit: 100 });
+  const locales = ["en", "nl"];
+  return locales.flatMap((locale) =>
+    docs.map((cat) => ({ locale, category: cat.slug }))
+  );
 }
 
 export default async function ServicesCategoryPage({
@@ -75,30 +78,69 @@ export default async function ServicesCategoryPage({
 
   const t = await getTranslations("services");
 
+  const payload = await getPayload();
 
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  const euServices = getServicesByCategory(category, "eu", locale);
-  const { metadata: categoryMetadata, content: categoryContent } =
-    getCategoryContent(category, locale);
+  // Fetch category data
+  const { docs: categoryDocs } = await payload.find({
+    collection: "categories",
+    where: { slug: { equals: category } },
+    locale: locale as 'en' | 'nl',
+    limit: 1,
+  });
+  const categoryData = categoryDocs[0] as Category | undefined;
+
+  if (!categoryData) {
+    notFound();
+  }
+
+  // Fetch EU services for this category
+  const { docs: euServices } = await payload.find({
+    collection: "services",
+    where: {
+      category: { equals: categoryData.id },
+      region: { in: ["eu", "eu-friendly"] },
+    },
+    locale: locale as 'en' | 'nl',
+    limit: 100,
+  }) as { docs: Service[] };
 
   if (euServices.length === 0) {
     notFound();
   }
 
-  const featuredServices = euServices.filter(
+  // Map Payload services to match ServiceFrontmatter shape for existing components
+  const mappedServices = euServices.map((service) => ({
+    ...service,
+    category: category,
+    freeOption: service.freeOption ?? false,
+    featured: service.featured ?? false,
+    screenshot:
+      typeof service.screenshot === "object" && service.screenshot
+        ? service.screenshot.url ?? undefined
+        : undefined,
+    features: Array.isArray(service.features)
+      ? service.features.map((f) => f.feature)
+      : [],
+    tags: Array.isArray(service.tags)
+      ? service.tags.map((t) => t.tag)
+      : [],
+  }));
+
+  const featuredServices = mappedServices.filter(
     (service) => service.featured === true
   );
 
-  const regularServices = euServices.filter((service) => !service.featured);
+  const regularServices = mappedServices.filter((service) => !service.featured);
   const allDisplayServices =
-    regularServices.length > 0 ? regularServices : euServices;
+    regularServices.length > 0 ? regularServices : mappedServices;
 
   const pageTitle =
-    categoryMetadata?.title || `${capitalizedCategory} Service Alternatives`;
+    categoryData?.title || `${capitalizedCategory} Service Alternatives`;
   const pageDescription =
-    categoryMetadata?.description ||
+    categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
   return (
@@ -125,16 +167,9 @@ export default async function ServicesCategoryPage({
               </div>
 
               {/* Right: Description */}
-              {categoryContent && (
-                <div>
-                  {categoryContent.split("\n\n").map((paragraph, index) => (
-                    <p
-                      key={index}
-                      className={`text-white/70 text-sm sm:text-base leading-relaxed ${index > 0 ? "mt-3" : ""}`}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
+              {categoryData.content && (
+                <div className="text-white/70 text-sm sm:text-base leading-relaxed [&>p+p]:mt-3">
+                  <RichText data={categoryData.content} />
                 </div>
               )}
             </div>

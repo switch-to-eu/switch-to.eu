@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { StepCompletionButton } from "./guide-progress/step-completion-button";
-import { parseMarkdown } from "@switch-to-eu/content/markdown";
 
 interface StepProps {
   guideId: string;
@@ -10,9 +9,10 @@ interface StepProps {
     title: string;
     id: string;
     complete?: boolean;
-    video?: string;
-    videooriantation?: string;
-    content: string;
+    video?: string | null;
+    videoOrientation?: string | null;
+    /** Pre-rendered HTML string (converted from Lexical JSON on the server) */
+    contentHtml: string;
   };
   stepNumber: number;
   category: string;
@@ -71,10 +71,8 @@ export function GuideStep({
   category,
   slug,
 }: StepProps) {
-  // Process the step content with the centralized markdown parser
-  const processedContent = parseMarkdown(step.content);
   const { targetRef, videoRef } = useVideoIntersection();
-  const isLandscapeVideo = step.videooriantation === "landscape";
+  const isLandscapeVideo = step.videoOrientation === "landscape";
 
   // github url: https://github.com/switch-to-eu/content/raw/refs/heads/main/nl/guides/email/gmail-to-protonmail/media/
 
@@ -109,7 +107,7 @@ export function GuideStep({
       {/* Step content */}
       <div
         className="step-content prose max-w-none mb-6"
-        dangerouslySetInnerHTML={{ __html: processedContent }}
+        dangerouslySetInnerHTML={{ __html: step.contentHtml }}
       />
 
       {/* Completion button */}

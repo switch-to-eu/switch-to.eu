@@ -1,19 +1,12 @@
-import {
-  getServiceBySlug,
-  getServicesByCategory,
-  getServiceSlugs,
-} from "@switch-to-eu/content/services/services";
-
-import { getGuidesByTargetService } from "@switch-to-eu/content/services/guides";
+import { getPayload } from "@/lib/payload";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import { notFound } from "next/navigation";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { parseMarkdown } from "@switch-to-eu/content/markdown";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { ContributeCta } from "@/components/ContributeCta";
-import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
@@ -23,13 +16,19 @@ import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
+import type { Service, Guide } from "@/payload-types";
 
-export function generateStaticParams() {
-  const serviceNames = getServiceSlugs("eu");
-
-  return serviceNames.map((service_name) => ({
-    service_name,
-  }));
+export async function generateStaticParams() {
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: { region: { in: ["eu", "eu-friendly"] } },
+    limit: 100,
+  });
+  const locales = ["en", "nl"];
+  return locales.flatMap((locale) =>
+    docs.map((s) => ({ locale, service_name: s.slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -38,27 +37,40 @@ export async function generateMetadata({
   params: Promise<{ locale: string; service_name: string }>;
 }): Promise<Metadata> {
   const { service_name, locale } = await params;
-  const slug = service_name.replace(/-/g, " ");
-  const serviceData = getServiceBySlug(slug, locale as Locale);
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: {
+      slug: { equals: service_name },
+      region: { in: ["eu", "eu-friendly"] },
+    },
+    locale: locale as 'en' | 'nl',
+    depth: 1,
+    limit: 1,
+  });
+  const service = docs[0] as Service | undefined;
 
-  if (!serviceData) {
+  if (!service) {
     return {
       title: "Service Not Found",
     };
   }
 
-  const { frontmatter } = serviceData;
+  const categorySlug =
+    typeof service.category === "object"
+      ? service.category.slug
+      : String(service.category);
 
   return {
-    title: `${frontmatter.name} | EU Service | switch-to.eu`,
-    description: frontmatter.description,
+    title: `${service.name} | EU Service | switch-to.eu`,
+    description: service.description,
     keywords: [
-      frontmatter.name,
-      frontmatter.category,
+      service.name,
+      categorySlug,
       "EU service",
       "privacy-focused",
       "GDPR compliant",
-      ...(frontmatter.tags || []),
+      ...(service.tags?.map((t) => t.tag) || []),
     ],
     alternates: {
       canonical: `https://switch-to.eu/${locale}/services/eu/${service_name}`,
@@ -78,23 +90,55 @@ export default async function ServiceDetailPage({
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail");
 
-  const slug = service_name.replace(/-/g, " ");
-  const serviceData = getServiceBySlug(slug, locale);
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: {
+      slug: { equals: service_name },
+      region: { in: ["eu", "eu-friendly"] },
+    },
+    locale: locale as 'en' | 'nl',
+    depth: 1,
+    limit: 1,
+  });
+  const service = docs[0] as Service | undefined;
 
-  if (!serviceData) {
+  if (!service) {
     notFound();
   }
 
-  const { frontmatter, content } = serviceData;
+  // Resolve category (populated object at depth 1)
+  const categoryObj =
+    typeof service.category === "object" ? service.category : null;
+  const categoryId =
+    typeof service.category === "object"
+      ? service.category.id
+      : service.category;
+  const categorySlug = categoryObj?.slug ?? "";
 
-  const relatedGuides = getGuidesByTargetService(frontmatter.name, locale);
+  // Fetch related guides (guides targeting this service)
+  const { docs: relatedGuides } = await payload.find({
+    collection: "guides",
+    where: { targetService: { equals: service.id } },
+    locale: locale as 'en' | 'nl',
+    depth: 1,
+    limit: 10,
+  }) as { docs: Guide[] };
 
-  const similarServices = getServicesByCategory(
-    frontmatter.category,
-    "eu",
-    locale
-  )
-    .filter((service) => service.name !== frontmatter.name)
+  // Fetch similar services (same category, excluding current, EU/EU-friendly)
+  const { docs: similarDocs } = await payload.find({
+    collection: "services",
+    where: {
+      category: { equals: categoryId },
+      id: { not_equals: service.id },
+      region: { in: ["eu", "eu-friendly"] },
+    },
+    locale: locale as 'en' | 'nl',
+    limit: 6,
+  }) as { docs: Service[] };
+
+  // Sort similar services: featured first, then limit to 4
+  const similarServices = similarDocs
     .sort((a, b) => {
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
@@ -102,16 +146,33 @@ export default async function ServiceDetailPage({
     })
     .slice(0, 4);
 
-  const recommendedService = !frontmatter.featured
-    ? getServicesByCategory(frontmatter.category, "eu", locale).find(
-        (s) => s.featured && s.name !== frontmatter.name
-      )
-    : null;
+  // Map Payload services to ServiceFrontmatter shape for ServiceCard compatibility
+  const similarServicesForCard = similarServices.map((s) => ({
+    name: s.name,
+    category: typeof s.category === "object" ? s.category.slug : categorySlug,
+    location: s.location,
+    region: s.region as "eu" | "non-eu" | "eu-friendly",
+    freeOption: s.freeOption ?? false,
+    startingPrice: s.startingPrice ?? undefined,
+    description: s.description,
+    url: s.url,
+    screenshot:
+      typeof s.screenshot === "object" && s.screenshot
+        ? s.screenshot.url ?? undefined
+        : undefined,
+    features: s.features?.map((f) => f.feature) ?? [],
+    tags: s.tags?.map((t) => t.tag) ?? [],
+    featured: s.featured ?? false,
+  }));
 
-  const htmlContent = content ? parseMarkdown(content) : "";
+  // Resolve screenshot URL from Media object
+  const screenshotUrl =
+    typeof service.screenshot === "object" && service.screenshot
+      ? service.screenshot.url
+      : undefined;
+
   const categoryFormatted =
-    frontmatter.category.charAt(0).toUpperCase() +
-    frontmatter.category.slice(1);
+    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
   return (
     <PageLayout>
@@ -119,7 +180,7 @@ export default async function ServiceDetailPage({
         <Container noPaddingMobile>
           {/* Breadcrumb */}
           <Link
-            href={`/services/${frontmatter.category}`}
+            href={`/services/${categorySlug}`}
             className="inline-flex items-center gap-1.5 text-brand-green/60 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
           >
             <span>&larr;</span>
@@ -139,12 +200,12 @@ export default async function ServiceDetailPage({
               <div>
                 <div className="flex items-start gap-3 mb-3">
                   <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
-                    {frontmatter.name}
+                    {service.name}
                   </h1>
                   <div className="flex-shrink-0 mt-2">
                     <RegionBadge
                       region={
-                        (frontmatter.region as
+                        (service.region as
                           | "eu"
                           | "non-eu"
                           | "eu-friendly") || "eu"
@@ -154,26 +215,26 @@ export default async function ServiceDetailPage({
                 </div>
 
                 <p className="text-brand-cream text-base sm:text-lg mb-6 max-w-2xl leading-relaxed">
-                  {frontmatter.description}
+                  {service.description}
                 </p>
 
                 {/* Meta info as pills */}
                 <div className="flex flex-wrap gap-3 mb-6">
                   <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
                     <span className="text-brand-yellow">&#9679;</span>
-                    {frontmatter.location}
+                    {service.location}
                   </span>
                   <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
                     <span className="text-brand-yellow">&#9679;</span>
                     {t("freeOption")}:{" "}
-                    {frontmatter.freeOption
+                    {service.freeOption
                       ? t("freeOptionYes")
                       : t("freeOptionNo")}
                   </span>
-                  {frontmatter.startingPrice && (
+                  {service.startingPrice && (
                     <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-sm">
                       <span className="text-brand-yellow">&#9679;</span>
-                      {t("startingPrice")}: {frontmatter.startingPrice}
+                      {t("startingPrice")}: {service.startingPrice}
                     </span>
                   )}
                 </div>
@@ -181,7 +242,7 @@ export default async function ServiceDetailPage({
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={frontmatter.url}
+                    href={service.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base no-underline"
@@ -199,15 +260,15 @@ export default async function ServiceDetailPage({
                 </div>
               </div>
               {/* Right: Screenshot */}
-              {frontmatter.screenshot && (
+              {screenshotUrl && (
                 <div className="flex justify-center md:justify-end">
                   <div className="relative w-full">
                     <img
-                      src={frontmatter.screenshot}
-                      alt={frontmatter.name}
+                      src={screenshotUrl}
+                      alt={service.name}
                       className="w-full h-auto object-cover rounded-2xl"
                     />
-                    {frontmatter.featured && (
+                    {service.featured && (
                       <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 flex items-center justify-center">
                         <svg
                           viewBox="0 0 362.94 366"
@@ -229,15 +290,15 @@ export default async function ServiceDetailPage({
         </Container>
 
       {/* Features tags */}
-      {frontmatter.features && frontmatter.features.length > 0 && (
+      {service.features && service.features.length > 0 && (
           <Container className="py-4 md:py-0">
             <div className="flex flex-wrap gap-2.5">
-              {frontmatter.features.map((feature) => (
+              {service.features.map((f) => (
                 <span
-                  key={feature}
+                  key={f.feature}
                   className="inline-block bg-brand-sky/20 text-brand-green px-4 py-2 rounded-full text-sm font-medium"
                 >
-                  {feature}
+                  {f.feature}
                 </span>
               ))}
             </div>
@@ -250,9 +311,9 @@ export default async function ServiceDetailPage({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Main content */}
             <div className="lg:col-span-2">
-              {htmlContent && (
+              {service.content && (
                 <div className="mdx-content prose prose-sm sm:prose max-w-none">
-                  <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                  <RichText data={service.content} />
                 </div>
               )}
             </div>
@@ -285,26 +346,35 @@ export default async function ServiceDetailPage({
                     {relatedGuides.length > 0 ? (
                       <>
                         <p className="text-brand-cream/80 mb-4 text-sm">
-                          {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
+                          {t("migrateHelp")} <b className="text-white">{service.name}</b>
                         </p>
                         <div className="space-y-3">
-                          {relatedGuides.map((guide) => (
-                            <Link
-                              key={`${guide.category}-${guide.slug}`}
-                              href={`/guides/${guide.category}/${guide.slug}`}
-                              className="block rounded-2xl bg-white/10 p-3 no-underline transition-colors hover:bg-white/20 border border-white/5"
-                            >
-                              <h3 className="text-base mb-1 text-white font-semibold">
-                                {guide.frontmatter.sourceService &&
-                                  `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                                {!guide.frontmatter.sourceService &&
-                                  guide.frontmatter.title}
-                              </h3>
-                              <p className="text-xs text-brand-cream/70">
-                                {guide.frontmatter.description}
-                              </p>
-                            </Link>
-                          ))}
+                          {relatedGuides.map((guide) => {
+                            const guideCategorySlug =
+                              typeof guide.category === "object"
+                                ? guide.category.slug
+                                : guide.category;
+                            const sourceServiceName =
+                              typeof guide.sourceService === "object"
+                                ? guide.sourceService.name
+                                : null;
+                            return (
+                              <Link
+                                key={`${guideCategorySlug}-${guide.slug}`}
+                                href={`/guides/${guideCategorySlug}/${guide.slug}`}
+                                className="block rounded-2xl bg-white/10 p-3 no-underline transition-colors hover:bg-white/20 border border-white/5"
+                              >
+                                <h3 className="text-base mb-1 text-white font-semibold">
+                                  {sourceServiceName
+                                    ? `${sourceServiceName} → ${service.name}`
+                                    : guide.title}
+                                </h3>
+                                <p className="text-xs text-brand-cream/70">
+                                  {guide.description}
+                                </p>
+                              </Link>
+                            );
+                          })}
                         </div>
                         <div className="mt-6 pt-4 border-t border-white/10">
                           <p className="text-sm text-brand-cream/60 mb-3 text-center">
@@ -323,7 +393,7 @@ export default async function ServiceDetailPage({
                     ) : (
                       <>
                         <p className="text-brand-cream/80 mb-3 text-sm">
-                          {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
+                          {t("noGuides")} <b className="text-white">{service.name}</b>.
                         </p>
                         <p className="text-brand-cream/60 mb-6 text-sm">
                           {t("helpOthers")}
@@ -362,26 +432,35 @@ export default async function ServiceDetailPage({
                 {relatedGuides.length > 0 ? (
                   <>
                     <p className="text-brand-cream/80 mb-4 text-sm">
-                      {t("migrateHelp")} <b className="text-white">{frontmatter.name}</b>
+                      {t("migrateHelp")} <b className="text-white">{service.name}</b>
                     </p>
                     <div className="space-y-3">
-                      {relatedGuides.map((guide) => (
-                        <Link
-                          key={`${guide.category}-${guide.slug}`}
-                          href={`/guides/${guide.category}/${guide.slug}`}
-                          className="block rounded-2xl bg-white/10 p-4 no-underline transition-colors hover:bg-white/20 border border-white/5"
-                        >
-                          <h3 className="text-lg mb-1 text-white font-semibold">
-                            {guide.frontmatter.sourceService &&
-                              `${guide.frontmatter.sourceService} → ${frontmatter.name}`}
-                            {!guide.frontmatter.sourceService &&
-                              guide.frontmatter.title}
-                          </h3>
-                          <p className="text-xs text-brand-cream/70">
-                            {guide.frontmatter.description}
-                          </p>
-                        </Link>
-                      ))}
+                      {relatedGuides.map((guide) => {
+                        const guideCategorySlug =
+                          typeof guide.category === "object"
+                            ? guide.category.slug
+                            : guide.category;
+                        const sourceServiceName =
+                          typeof guide.sourceService === "object"
+                            ? guide.sourceService.name
+                            : null;
+                        return (
+                          <Link
+                            key={`${guideCategorySlug}-${guide.slug}`}
+                            href={`/guides/${guideCategorySlug}/${guide.slug}`}
+                            className="block rounded-2xl bg-white/10 p-4 no-underline transition-colors hover:bg-white/20 border border-white/5"
+                          >
+                            <h3 className="text-lg mb-1 text-white font-semibold">
+                              {sourceServiceName
+                                ? `${sourceServiceName} → ${service.name}`
+                                : guide.title}
+                            </h3>
+                            <p className="text-xs text-brand-cream/70">
+                              {guide.description}
+                            </p>
+                          </Link>
+                        );
+                      })}
                     </div>
                     <div className="mt-6 pt-4 border-t border-white/10">
                       <div className="flex justify-center">
@@ -397,7 +476,7 @@ export default async function ServiceDetailPage({
                 ) : (
                   <>
                     <p className="text-brand-cream/80 mb-3 text-sm">
-                      {t("noGuides")} <b className="text-white">{frontmatter.name}</b>.
+                      {t("noGuides")} <b className="text-white">{service.name}</b>.
                     </p>
                     <p className="text-brand-cream/60 mb-6 text-sm">
                       {t("helpOthers")}
@@ -421,22 +500,22 @@ export default async function ServiceDetailPage({
 
 
       {/* Similar Services */}
-      {similarServices.length > 0 && (
+      {similarServicesForCard.length > 0 && (
           <Container noPaddingMobile>
             <SectionHeading>
               {t("similarServices")}
             </SectionHeading>
 
             <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {similarServices.map((service, index) => (
+              {similarServicesForCard.map((s, index) => (
                 <ServiceCard
-                  key={service.name}
-                  service={service}
+                  key={s.name}
+                  service={s}
                   showCategory={false}
                   colorIndex={index}
                 />
               ))}
-              <SuggestServiceCard colorIndex={similarServices.length} />
+              <SuggestServiceCard colorIndex={similarServicesForCard.length} />
             </div>
           </Container>
       )}

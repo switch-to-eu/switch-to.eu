@@ -1,12 +1,9 @@
+import { getPayload } from "@/lib/payload";
 import {
-  getServiceBySlug,
-  getServicesByCategory,
-  getRecommendedAlternative,
-  getServiceSlugs,
-} from "@switch-to-eu/content/services/services";
+  convertLexicalToHTML,
+  defaultHTMLConverters,
+} from "@payloadcms/richtext-lexical/html";
 import { notFound, redirect } from "next/navigation";
-import { parseMarkdown } from "@switch-to-eu/content/markdown";
-import { getAllGuides } from "@switch-to-eu/content/services/guides";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
@@ -21,12 +18,20 @@ import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
+import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import type { Service, Category, Guide } from "@/payload-types";
 
-export function generateStaticParams() {
-  const serviceNames = getServiceSlugs("non-eu");
+export async function generateStaticParams() {
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: { region: { equals: "non-eu" } },
+    depth: 0,
+    limit: 200,
+  });
 
-  return serviceNames.map((service_name) => ({
-    service_name,
+  return docs.map((service) => ({
+    service_name: service.slug,
   }));
 }
 
@@ -36,27 +41,40 @@ export async function generateMetadata({
   params: Promise<{ locale: string; service_name: string }>;
 }): Promise<Metadata> {
   const { service_name, locale } = await params;
-  const slug = service_name.replace(/-/g, " ");
-  const serviceData = getServiceBySlug(slug, locale as Locale);
 
-  if (!serviceData) {
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: { slug: { equals: service_name } },
+    locale: locale as 'en' | 'nl',
+    depth: 1,
+    limit: 1,
+  });
+  const service = docs[0] as Service | undefined;
+
+  if (!service) {
     return {
       title: "Service Not Found",
     };
   }
 
-  const { frontmatter } = serviceData;
+  const categorySlug =
+    typeof service.category === "object" && service.category !== null
+      ? service.category.slug
+      : String(service.category ?? "");
+
+  const tags = (service.tags ?? []).map((t) => t.tag);
 
   return {
-    title: `${frontmatter.name} | Non-EU Service | switch-to.eu`,
-    description: frontmatter.description,
+    title: `${service.name} | Non-EU Service | switch-to.eu`,
+    description: service.description,
     keywords: [
-      frontmatter.name,
-      frontmatter.category,
+      service.name,
+      categorySlug,
       "non-EU service",
       "service migration",
       "EU alternatives",
-      ...(frontmatter.tags || []),
+      ...tags,
     ],
     alternates: {
       canonical: `https://switch-to.eu/${locale}/services/non-eu/${service_name}`,
@@ -76,40 +94,142 @@ export default async function ServiceDetailPage({
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail.nonEu");
 
-  const originalSlug = service_name;
-  const slug = service_name.replace(/-/g, " ");
-  const serviceData = getServiceBySlug(slug, locale);
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: { slug: { equals: service_name } },
+    locale: locale as 'en' | 'nl',
+    depth: 2,
+    limit: 1,
+  });
+  const service = docs[0] as Service | undefined;
 
-  if (!serviceData) {
+  if (!service) {
     notFound();
   }
 
-  const { frontmatter, content } = serviceData;
-
-  if (frontmatter.region !== "non-eu") {
-    redirect(`/${locale}/services/eu/${originalSlug}`);
+  if (service.region !== "non-eu") {
+    redirect(`/${locale}/services/eu/${service_name}`);
   }
 
-  const recommendedAlternativeData = frontmatter.recommendedAlternative
-    ? getRecommendedAlternative(slug, locale)
+  // Convert rich text content to HTML
+  const htmlContent = service.content
+    ? convertLexicalToHTML({
+        converters: defaultHTMLConverters,
+        data: service.content as SerializedEditorState,
+        disableContainer: true,
+      })
+    : "";
+
+  // Extract issues from the structured array
+  const issues = (service.issues ?? []).map((i) => i.issue);
+
+  // Resolve recommended alternative (already populated via depth: 2)
+  const resolvedAlternative =
+    typeof service.recommendedAlternative === "object" &&
+    service.recommendedAlternative !== null
+      ? (service.recommendedAlternative as Service)
+      : null;
+  const recommendedAlternativeData = resolvedAlternative
+    ? {
+        name: resolvedAlternative.name,
+        slug: resolvedAlternative.slug,
+        region: resolvedAlternative.region,
+        location: resolvedAlternative.location,
+        freeOption: resolvedAlternative.freeOption,
+        startingPrice: resolvedAlternative.startingPrice,
+        description: resolvedAlternative.description,
+        url: resolvedAlternative.url,
+        screenshot:
+          typeof resolvedAlternative.screenshot === "object" && resolvedAlternative.screenshot
+            ? (resolvedAlternative.screenshot as { url?: string | null })
+            : null,
+      }
     : null;
 
-  const migrationGuides =
-    frontmatter.recommendedAlternative && recommendedAlternativeData
-      ? getAllGuides({
-          sourceService: frontmatter.name,
-          targetService: recommendedAlternativeData.name,
-          lang: locale,
-        })
-      : [];
+  // Find migration guides between this service and its recommended alternative
+  let migrationGuides: Array<{ category: string; slug: string }> = [];
+  if (recommendedAlternativeData) {
+    const { docs: guideDocs } = await payload.find({
+      collection: "guides",
+      where: {
+        sourceService: { equals: service.id },
+        targetService: {
+          equals:
+            typeof service.recommendedAlternative === "object" &&
+            service.recommendedAlternative !== null
+              ? (service.recommendedAlternative as Service).id
+              : service.recommendedAlternative,
+        },
+      },
+      locale: locale as 'en' | 'nl',
+      depth: 1,
+      limit: 10,
+    }) as { docs: Guide[] };
+    migrationGuides = guideDocs.map((g) => ({
+      category:
+        typeof g.category === "object" && g.category !== null
+          ? g.category.slug
+          : "",
+      slug: g.slug,
+    }));
+  }
 
-  const htmlContent = content ? parseMarkdown(content) : "";
+  // Get the category slug for fetching EU alternatives
+  const categorySlug =
+    typeof service.category === "object" && service.category !== null
+      ? service.category.slug
+      : "";
 
-  const euAlternatives = getServicesByCategory(
-    frontmatter.category,
-    "eu",
-    locale
-  );
+  // Fetch EU alternatives in the same category
+  const { docs: categoryDocs } = await payload.find({
+    collection: "categories",
+    where: { slug: { equals: categorySlug } },
+    depth: 0,
+    limit: 1,
+  });
+  const categoryDoc = categoryDocs[0] as Category | undefined;
+
+  let euAlternatives: Array<{
+    name: string;
+    slug: string;
+    category: string | { slug: string; title?: string };
+    region?: "eu" | "non-eu" | "eu-friendly" | null;
+    location: string;
+    freeOption?: boolean | null;
+    startingPrice?: string | null;
+    description: string;
+    url: string;
+    screenshot?: string | { url?: string | null } | null;
+  }> = [];
+
+  if (categoryDoc) {
+    const { docs: euDocs } = await payload.find({
+      collection: "services",
+      where: {
+        category: { equals: categoryDoc.id },
+        region: { equals: "eu" },
+      },
+      locale: locale as 'en' | 'nl',
+      depth: 1,
+      limit: 50,
+    }) as { docs: Service[] };
+    euAlternatives = euDocs.map((s) => ({
+      name: s.name,
+      slug: s.slug,
+      category:
+        typeof s.category === "object" && s.category !== null
+          ? { slug: s.category.slug, title: s.category.title }
+          : String(s.category ?? ""),
+      region: s.region as "eu" | "non-eu" | "eu-friendly" | null,
+      location: s.location,
+      freeOption: s.freeOption,
+      startingPrice: s.startingPrice,
+      description: s.description,
+      url: s.url,
+      screenshot: s.screenshot as { url?: string | null } | null,
+    }));
+  }
 
   const otherAlternatives = recommendedAlternativeData
     ? euAlternatives.filter(
@@ -119,25 +239,29 @@ export default async function ServiceDetailPage({
 
   return (
     <PageLayout>
-        <Container noPaddingMobile>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <Container noPaddingMobile>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Banner — orange accent for non-EU */}
+            {/* Banner -- orange accent for non-EU */}
             <Banner
               color="bg-brand-orange"
               className="py-10 sm:py-14"
               shapes={[
-                { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
+                {
+                  shape: "starburst",
+                  className:
+                    "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44",
+                },
               ]}
             >
               <div className="flex justify-between items-start mb-4">
                 <h1 className="font-heading text-4xl sm:text-5xl uppercase text-white">
-                  {frontmatter.name}
+                  {service.name}
                 </h1>
                 <RegionBadge
                   region={
-                    (frontmatter.region as
+                    (service.region as
                       | "eu"
                       | "non-eu"
                       | "eu-friendly") || "non-eu"
@@ -145,16 +269,16 @@ export default async function ServiceDetailPage({
                 />
               </div>
               <p className="text-white/90 text-base sm:text-lg max-w-2xl">
-                {frontmatter.description}
+                {service.description}
               </p>
             </Banner>
 
             {/* Mobile Service Issues Section */}
-            {frontmatter.issues && frontmatter.issues.length > 0 && (
+            {issues.length > 0 && (
               <div className="lg:hidden">
                 <WarningCollapsible
-                  items={frontmatter.issues}
-                  title={t("whyProblematic", { service: frontmatter.name })}
+                  items={issues}
+                  title={t("whyProblematic", { service: service.name })}
                   variant="error"
                   iconType="alert-triangle"
                   defaultOpen
@@ -168,17 +292,15 @@ export default async function ServiceDetailPage({
                 <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
               </div>
             )}
-
-            
           </div>
 
           {/* Sidebar */}
           <div className="lg:col-span-1 relative">
-            {frontmatter.issues && frontmatter.issues.length > 0 ? (
+            {issues.length > 0 ? (
               <div className="hidden lg:block sticky top-0">
                 <WarningCollapsible
-                  items={frontmatter.issues}
-                  title={t("whyProblematic", { service: frontmatter.name })}
+                  items={issues}
+                  title={t("whyProblematic", { service: service.name })}
                   variant="error"
                   iconType="alert-triangle"
                   defaultOpen
@@ -234,39 +356,35 @@ export default async function ServiceDetailPage({
       </Container>
 
       <Container noPaddingMobile>
-        {/* Recommended Alternative — below body text */}
-            {recommendedAlternativeData && (
-              <RecommendedAlternative
-                service={recommendedAlternativeData}
-                sourceService={frontmatter.name}
-                migrationGuides={migrationGuides}
-              />
-            )}
+        {/* Recommended Alternative -- below body text */}
+        {recommendedAlternativeData && (
+          <RecommendedAlternative
+            service={recommendedAlternativeData}
+            sourceService={service.name}
+            migrationGuides={migrationGuides}
+          />
+        )}
+      </Container>
 
-              
-            </Container>
-  
-            <Container noPaddingMobile>
-            {/* Other EU Alternatives Section */}
-            {otherAlternatives.length > 0 && (
-              <div>
-                <SectionHeading>
-                  {t("otherAlternatives")}
-                </SectionHeading>
+      <Container noPaddingMobile>
+        {/* Other EU Alternatives Section */}
+        {otherAlternatives.length > 0 && (
+          <div>
+            <SectionHeading>{t("otherAlternatives")}</SectionHeading>
 
-                <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-4">
-                  {otherAlternatives.map((service, index) => (
-                    <ServiceCard
-                      key={service.name}
-                      service={service}
-                      showCategory={false}
-                      colorIndex={index}
-                    />
-                  ))}
-                  <SuggestServiceCard colorIndex={otherAlternatives.length} />
-                </div>
-              </div>
-            )}
+            <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-4">
+              {otherAlternatives.map((alt, index) => (
+                <ServiceCard
+                  key={alt.name}
+                  service={alt}
+                  showCategory={false}
+                  colorIndex={index}
+                />
+              ))}
+              <SuggestServiceCard colorIndex={otherAlternatives.length} />
+            </div>
+          </div>
+        )}
       </Container>
     </PageLayout>
   );

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Search } from "lucide-react";
-import { SearchResult } from "@switch-to-eu/content/search";
+import { SearchResult } from "@/lib/types";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
@@ -377,9 +377,9 @@ export function InlineSearchInput({
                         {result.description}
                       </div>
                     </div>
-                    {result.type === "service" && "region" in result && (
+                    {result.type === "service" && "region" in result && result.region && (
                       <RegionBadge
-                        region={result.region}
+                        region={result.region as "eu" | "non-eu" | "eu-friendly"}
                       />
                     )}
                   </div>
