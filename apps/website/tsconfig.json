@@ -8,6 +8,9 @@
       ],
       "@switch-to-eu/ui/*": [
         "../../packages/ui/src/*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
       ]
     }
   },
