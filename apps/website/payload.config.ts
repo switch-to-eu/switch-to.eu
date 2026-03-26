@@ -6,13 +6,14 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { en } from "@payloadcms/translations/languages/en";
 import { nl } from "@payloadcms/translations/languages/nl";
-import { Categories, Media } from "./collections";
-
-// Collections to add in later phases:
-// import { Services } from "./collections/Services"
-// import { Guides } from "./collections/Guides"
-// import { LandingPages } from "./collections/LandingPages"
-// import { Pages } from "./collections/Pages"
+import {
+  Categories,
+  Guides,
+  LandingPages,
+  Media,
+  Pages,
+  Services,
+} from "./collections";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,7 +39,7 @@ export default buildConfig({
     supportedLanguages: { en, nl },
     fallbackLanguage: "en",
   },
-  collections: [Categories, Media],
+  collections: [Categories, Guides, LandingPages, Media, Pages, Services],
   plugins: [
     ...(process.env.BLOB_READ_WRITE_TOKEN
       ? [
