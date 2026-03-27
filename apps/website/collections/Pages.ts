@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
+import { seoFields } from "../fields/seo";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -13,32 +14,48 @@ export const Pages: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        try { revalidateTag("pages", "default"); } catch { /* no-op outside Next.js */ }
+        try {
+          revalidateTag("pages");
+        } catch {
+          /* no-op outside Next.js */
+        }
         return doc;
       },
     ],
   },
   fields: [
     {
-      name: "title",
-      type: "text",
-      required: true,
-      localized: true,
-    },
-    {
       name: "slug",
       type: "text",
       required: true,
       unique: true,
-      admin: {
-        position: "sidebar",
-      },
+      admin: { position: "sidebar" },
     },
     {
-      name: "content",
-      type: "richText",
-      required: true,
-      localized: true,
+      type: "tabs",
+      tabs: [
+        {
+          label: "Content",
+          fields: [
+            {
+              name: "title",
+              type: "text",
+              required: true,
+              localized: true,
+            },
+            {
+              name: "content",
+              type: "richText",
+              required: true,
+              localized: true,
+            },
+          ],
+        },
+        {
+          label: "SEO",
+          fields: seoFields,
+        },
+      ],
     },
   ],
 };
