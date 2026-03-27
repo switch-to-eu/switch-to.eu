@@ -15,7 +15,7 @@ export const Categories: CollectionConfig = {
     afterChange: [
       ({ doc }) => {
         try {
-          revalidateTag("categories");
+          revalidateTag("categories", "default");
         } catch {
           /* no-op outside Next.js */
         }

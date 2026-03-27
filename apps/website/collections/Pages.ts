@@ -11,11 +11,14 @@ export const Pages: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       ({ doc }) => {
         try {
-          revalidateTag("pages");
+          revalidateTag("pages", "default");
         } catch {
           /* no-op outside Next.js */
         }

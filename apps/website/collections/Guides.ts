@@ -11,11 +11,14 @@ export const Guides: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       ({ doc }) => {
         try {
-          revalidateTag("guides");
+          revalidateTag("guides", "default");
         } catch {
           /* no-op outside Next.js */
         }

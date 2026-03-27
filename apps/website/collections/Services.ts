@@ -12,11 +12,14 @@ export const Services: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       ({ doc }) => {
         try {
-          revalidateTag("services");
+          revalidateTag("services", "default");
         } catch {
           /* no-op outside Next.js */
         }

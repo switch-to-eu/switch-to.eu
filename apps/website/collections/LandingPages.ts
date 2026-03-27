@@ -10,11 +10,14 @@ export const LandingPages: CollectionConfig = {
   access: {
     read: () => true,
   },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       ({ doc }) => {
         try {
-          revalidateTag("landing-pages");
+          revalidateTag("landing-pages", "default");
         } catch {
           /* no-op outside Next.js */
         }

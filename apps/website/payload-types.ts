@@ -424,6 +424,7 @@ export interface Guide {
   lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -636,6 +637,7 @@ export interface Service {
   lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -710,6 +712,7 @@ export interface LandingPage {
   lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -777,6 +780,7 @@ export interface Page {
   lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1112,6 +1116,7 @@ export interface GuidesSelect<T extends boolean = true> {
   lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1141,6 +1146,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
   lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1184,6 +1190,7 @@ export interface PagesSelect<T extends boolean = true> {
   lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1271,6 +1278,7 @@ export interface ServicesSelect<T extends boolean = true> {
   lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
