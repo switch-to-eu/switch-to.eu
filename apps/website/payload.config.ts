@@ -3,6 +3,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { mcpPlugin } from "@payloadcms/plugin-mcp";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { en } from "@payloadcms/translations/languages/en";
 import { nl } from "@payloadcms/translations/languages/nl";
@@ -41,6 +42,23 @@ export default buildConfig({
   },
   collections: [Categories, Guides, LandingPages, Media, Pages, Services],
   plugins: [
+    mcpPlugin({
+      collections: {
+        services: { enabled: true },
+        categories: { enabled: true },
+        guides: { enabled: true },
+        "landing-pages": { enabled: true },
+        pages: { enabled: true },
+        media: {
+          enabled: {
+            find: true,
+            create: false,
+            update: false,
+            delete: false,
+          },
+        },
+      },
+    }),
     ...(process.env.BLOB_READ_WRITE_TOKEN
       ? [
           vercelBlobStorage({
