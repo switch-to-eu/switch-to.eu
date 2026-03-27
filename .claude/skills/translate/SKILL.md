@@ -29,7 +29,7 @@ Translate all localized fields. Follow these rules:
 **General:**
 - Translate meaning, not words. The Dutch version should read naturally in Dutch.
 - Keep the same tone as the English: direct, practical, slightly opinionated.
-- Do NOT translate: brand names, service names, technical terms (API, GDPR, URL, etc.)
+- Do NOT translate: brand names, service names, technical terms (API, GDPR, URL, etc.). Keep GDPR as GDPR, not AVG.
 - Keep the same structure and paragraph breaks.
 - Match the informational-copy tone rules in Dutch too: no marketing fluff, no vague claims.
 
