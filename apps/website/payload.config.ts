@@ -14,6 +14,7 @@ import {
   Media,
   Pages,
   Services,
+  Users,
 } from "./collections";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -40,7 +41,7 @@ export default buildConfig({
     supportedLanguages: { en, nl },
     fallbackLanguage: "en",
   },
-  collections: [Categories, Guides, LandingPages, Media, Pages, Services],
+  collections: [Categories, Guides, LandingPages, Media, Pages, Services, Users],
   plugins: [
     mcpPlugin({
       collections: {

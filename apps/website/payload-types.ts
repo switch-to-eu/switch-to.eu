@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
@@ -73,8 +74,9 @@ export interface Config {
     media: Media;
     pages: Page;
     services: Service;
-    'payload-kv': PayloadKv;
     users: User;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
+    'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,8 +89,9 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -103,7 +106,7 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -127,19 +130,37 @@ export interface UserAuthOperations {
     password: string;
   };
 }
+export interface PayloadMcpApiKeyAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
   id: number;
+  slug: string;
   title: string;
   description: string;
   /**
    * Lucide icon name (e.g. mail, folder, search)
    */
   icon: string;
-  slug: string;
   /**
    * Category body text shown on the category page
    */
@@ -158,8 +179,68 @@ export interface Category {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  /**
+   * Target SEO keywords (localized — different keywords per market)
+   */
+  keywords?:
+    | {
+        keyword: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Open Graph title for social sharing
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description for social sharing
+   */
+  ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -167,15 +248,16 @@ export interface Category {
  */
 export interface Guide {
   id: number;
-  title: string;
   slug: string;
-  category: number | Category;
-  description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   /**
    * e.g. "45 minutes"
    */
   timeRequired: string;
+  date?: string | null;
+  title: string;
+  category: number | Category;
+  description: string;
   /**
    * The non-EU service being migrated from
    */
@@ -184,7 +266,6 @@ export interface Guide {
    * The EU service being migrated to
    */
   targetService: number | Service;
-  date?: string | null;
   author?: string | null;
   /**
    * Features missing in the target service compared to the source
@@ -258,7 +339,7 @@ export interface Guide {
         video?: string | null;
         videoOrientation?: ('landscape' | 'portrait') | null;
         /**
-         * Whether this step is fully written (used for progress tracking)
+         * Whether this step is fully written (progress tracking)
          */
         complete?: boolean | null;
         id?: string | null;
@@ -300,6 +381,47 @@ export interface Guide {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  /**
+   * Target SEO keywords (localized — different keywords per market)
+   */
+  keywords?:
+    | {
+        keyword: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Open Graph title for social sharing
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description for social sharing
+   */
+  ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -309,10 +431,11 @@ export interface Guide {
  */
 export interface Service {
   id: number;
-  name: string;
   slug: string;
-  category: number | Category;
   region: 'eu' | 'non-eu' | 'eu-friendly';
+  featured?: boolean | null;
+  name: string;
+  category: number | Category;
   /**
    * Country where the service is based
    */
@@ -329,7 +452,6 @@ export interface Service {
   url: string;
   screenshot?: (number | null) | Media;
   logo?: (number | null) | Media;
-  featured?: boolean | null;
   features?:
     | {
         feature: string;
@@ -373,37 +495,115 @@ export interface Service {
    * Recommended EU alternative (non-EU services only)
    */
   recommendedAlternative?: (number | null) | Service;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "landing-pages".
- */
-export interface LandingPage {
-  id: number;
-  title: string;
-  slug: string;
-  description: string;
+  /**
+   * Current status of research for this service
+   */
+  researchStatus?: ('not-started' | 'in-progress' | 'needs-update' | 'complete') | null;
+  /**
+   * When this service was last researched
+   */
+  lastResearchedAt?: string | null;
+  /**
+   * GDPR compliance status
+   */
+  gdprCompliance?: ('compliant' | 'partial' | 'non-compliant' | 'unknown') | null;
+  /**
+   * Details about GDPR stance, DPA availability, data processing practices
+   */
+  gdprNotes?: string | null;
+  /**
+   * Link to the service's privacy policy
+   */
+  privacyPolicyUrl?: string | null;
+  /**
+   * Detailed pricing breakdown (tiers, limits, enterprise pricing)
+   */
+  pricingDetails?: string | null;
+  /**
+   * Link to the service's pricing page
+   */
+  pricingUrl?: string | null;
+  /**
+   * More specific than the "location" field — include city (e.g. "Berlin, Germany")
+   */
+  headquarters?: string | null;
+  /**
+   * Parent company or organization, if applicable
+   */
+  parentCompany?: string | null;
+  /**
+   * Year the service was founded
+   */
+  foundedYear?: number | null;
+  /**
+   * Approximate employee count or range (e.g. "50-200")
+   */
+  employeeCount?: string | null;
+  /**
+   * Countries/regions where user data is stored
+   */
+  dataStorageLocations?:
+    | {
+        location: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Security certifications (ISO 27001, SOC 2, HIPAA, etc.)
+   */
+  certifications?:
+    | {
+        certification: string;
+        id?: string | null;
+      }[]
+    | null;
+  openSource?: boolean | null;
+  /**
+   * Link to source code repository (if open source)
+   */
+  sourceCodeUrl?: string | null;
+  /**
+   * General research notes, competitive analysis, AI-generated summaries
+   */
+  researchNotes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * URLs used as sources for research
+   */
+  sourceUrls?:
+    | {
+        url: string;
+        /**
+         * Source description (e.g. "Official blog post")
+         */
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  /**
+   * Target SEO keywords (localized — different keywords per market)
+   */
   keywords?:
     | {
         keyword: string;
@@ -418,6 +618,34 @@ export interface LandingPage {
    * Open Graph description for social sharing
    */
   ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-pages".
+ */
+export interface LandingPage {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
   category?: (number | null) | Category;
   /**
    * EU services to recommend on this page
@@ -442,6 +670,44 @@ export interface LandingPage {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  keywords?:
+    | {
+        keyword: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Open Graph title for social sharing
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description for social sharing
+   */
+  ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -451,8 +717,8 @@ export interface LandingPage {
  */
 export interface Page {
   id: number;
-  title: string;
   slug: string;
+  title: string;
   content: {
     root: {
       type: string;
@@ -468,25 +734,49 @@ export interface Page {
     };
     [k: string]: unknown;
   };
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  /**
+   * Target SEO keywords (localized — different keywords per market)
+   */
+  keywords?:
+    | {
+        keyword: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Open Graph title for social sharing
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description for social sharing
+   */
+  ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv".
- */
-export interface PayloadKv {
-  id: number;
-  key: string;
-  data:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -512,6 +802,146 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: number;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: number | User;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  services?: {
+    /**
+     * Allow clients to find services.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create services.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update services.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete services.
+     */
+    delete?: boolean | null;
+  };
+  categories?: {
+    /**
+     * Allow clients to find categories.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create categories.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update categories.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete categories.
+     */
+    delete?: boolean | null;
+  };
+  guides?: {
+    /**
+     * Allow clients to find guides.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create guides.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update guides.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete guides.
+     */
+    delete?: boolean | null;
+  };
+  landingPages?: {
+    /**
+     * Allow clients to find landing-pages.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create landing-pages.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update landing-pages.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete landing-pages.
+     */
+    delete?: boolean | null;
+  };
+  pages?: {
+    /**
+     * Allow clients to find pages.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create pages.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update pages.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete pages.
+     */
+    delete?: boolean | null;
+  };
+  media?: {
+    /**
+     * Allow clients to find media.
+     */
+    find?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -547,12 +977,21 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -562,10 +1001,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -595,11 +1039,25 @@ export interface PayloadMigration {
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
+  slug?: T;
   title?: T;
   description?: T;
   icon?: T;
-  slug?: T;
   content?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
+  ogTitle?: T;
+  ogDescription?: T;
+  ogImage?: T;
+  seoScore?: T;
+  seoNotes?: T;
+  lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -608,15 +1066,15 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "guides_select".
  */
 export interface GuidesSelect<T extends boolean = true> {
-  title?: T;
   slug?: T;
-  category?: T;
-  description?: T;
   difficulty?: T;
   timeRequired?: T;
+  date?: T;
+  title?: T;
+  category?: T;
+  description?: T;
   sourceService?: T;
   targetService?: T;
-  date?: T;
   author?: T;
   missingFeatures?:
     | T
@@ -638,17 +1096,8 @@ export interface GuidesSelect<T extends boolean = true> {
       };
   troubleshooting?: T;
   outro?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "landing-pages_select".
- */
-export interface LandingPagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  description?: T;
+  metaTitle?: T;
+  metaDescription?: T;
   keywords?:
     | T
     | {
@@ -657,10 +1106,39 @@ export interface LandingPagesSelect<T extends boolean = true> {
       };
   ogTitle?: T;
   ogDescription?: T;
+  ogImage?: T;
+  seoScore?: T;
+  seoNotes?: T;
+  lastSeoReviewAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-pages_select".
+ */
+export interface LandingPagesSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  description?: T;
   category?: T;
   recommendedServices?: T;
   relatedService?: T;
   content?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
+  ogTitle?: T;
+  ogDescription?: T;
+  ogImage?: T;
+  seoScore?: T;
+  seoNotes?: T;
+  lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -687,9 +1165,23 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  title?: T;
   slug?: T;
+  title?: T;
   content?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
+  ogTitle?: T;
+  ogDescription?: T;
+  ogImage?: T;
+  seoScore?: T;
+  seoNotes?: T;
+  lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -698,10 +1190,11 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
-  name?: T;
   slug?: T;
-  category?: T;
   region?: T;
+  featured?: T;
+  name?: T;
+  category?: T;
   location?: T;
   freeOption?: T;
   startingPrice?: T;
@@ -709,7 +1202,6 @@ export interface ServicesSelect<T extends boolean = true> {
   url?: T;
   screenshot?: T;
   logo?: T;
-  featured?: T;
   features?:
     | T
     | {
@@ -730,16 +1222,55 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   recommendedAlternative?: T;
+  researchStatus?: T;
+  lastResearchedAt?: T;
+  gdprCompliance?: T;
+  gdprNotes?: T;
+  privacyPolicyUrl?: T;
+  pricingDetails?: T;
+  pricingUrl?: T;
+  headquarters?: T;
+  parentCompany?: T;
+  foundedYear?: T;
+  employeeCount?: T;
+  dataStorageLocations?:
+    | T
+    | {
+        location?: T;
+        id?: T;
+      };
+  certifications?:
+    | T
+    | {
+        certification?: T;
+        id?: T;
+      };
+  openSource?: T;
+  sourceCodeUrl?: T;
+  researchNotes?: T;
+  sourceUrls?:
+    | T
+    | {
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
+  ogTitle?: T;
+  ogDescription?: T;
+  ogImage?: T;
+  seoScore?: T;
+  seoNotes?: T;
+  lastSeoReviewAt?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv_select".
- */
-export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -762,6 +1293,73 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  services?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  categories?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  guides?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  landingPages?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  pages?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  media?:
+    | T
+    | {
+        find?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
