@@ -142,6 +142,55 @@ Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`.
 
 Search uses Fuse.js with in-memory caching (5-min TTL, keyed by locale).
 
+## Content Workflow (AI-Assisted)
+
+The site uses custom Claude Code skills wired to Payload CMS via MCP for a research-to-publish pipeline. All content enters as draft and requires human review before publishing.
+
+### Pipeline
+
+```
+/research "ServiceName"     → Fills Research tab on service via MCP
+/write service "ServiceName" → Writes listing from research data, saves as draft
+/humanize service "ServiceName" → Strips AI writing patterns
+/seo-check service "ServiceName" → 10-point audit, stores score in SEO tab
+→ Editor reviews in /admin, publishes
+/translate service "ServiceName" nl → Translates to Dutch locale
+→ Editor reviews Dutch version, publishes
+```
+
+For guides:
+```
+/write guide "Gmail" to "ProtonMail" → Creates migration guide from research
+/humanize guide "gmail-to-protonmail"
+/seo-check guide "gmail-to-protonmail"
+→ Review + publish
+/translate guide "gmail-to-protonmail" nl
+→ Review Dutch + publish
+```
+
+### Skills (`.claude/skills/`)
+
+| Skill | Type | Purpose |
+|-------|------|---------|
+| `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
+| `research` | `/research` | Web research → Payload Research tab via MCP |
+| `write` | `/write` | Content generation from research data |
+| `humanize` | `/humanize` | Strip AI writing patterns |
+| `seo-check` | `/seo-check` | SEO audit with scoring |
+| `translate` | `/translate` | Localization to other EU languages |
+
+### Tone rules (from informational-copy)
+
+- Write like a knowledgeable friend, not a marketing team
+- Back every claim with specifics (numbers, features, prices)
+- Always acknowledge trade-offs ("Worth knowing:" section is mandatory)
+- No em dashes, no semicolons, no banned words (see skill for full list)
+- Active voice, short sentences, varied paragraph length
+
+### Draft/Publish workflow
+
+All content collections have `versions: { drafts: true }`. New content from AI skills enters as draft (`_status: "draft"`). Editors review in the Payload admin panel and click "Publish" to make content live. Nothing publishes automatically.
+
 ## tRPC + Redis Apps (Plotty, Listy, Privnote)
 
 All three apps follow the same architecture: tRPC v11 + Redis, E2E encryption (key in URL fragment, never sent to server), shared rate-limiting middleware.

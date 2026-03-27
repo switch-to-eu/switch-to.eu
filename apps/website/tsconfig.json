@@ -24,6 +24,7 @@
     "node_modules",
     "playwright.config.ts",
     "e2e",
-    "seed"
+    "seed",
+    "app/(payload)/admin/importMap.js"
   ]
 }

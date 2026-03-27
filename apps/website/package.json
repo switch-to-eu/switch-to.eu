@@ -74,6 +74,7 @@
     "eslint": "catalog:",
     "gray-matter": "catalog:",
     "jsdom": "^26.1.0",
+    "sass": "^1.98.0",
     "tailwindcss": "catalog:",
     "tsx": "^4.21.0",
     "typescript": "catalog:",
