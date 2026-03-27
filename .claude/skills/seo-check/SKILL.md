@@ -1,0 +1,119 @@
+---
+name: seo-check
+description: Run an SEO audit on content in Payload CMS and store the score. Use when asked to "check SEO", "audit SEO", "review SEO", "score this page", or "run SEO check". Reads content via MCP, runs a 10-point checklist, stores seoScore and seoNotes.
+argument-hint: "'service <name>' or 'guide <slug>' or 'page <slug>'"
+---
+
+# SEO Check Skill
+
+Audit content in Payload CMS against a 10-point SEO checklist. Store score and notes via MCP.
+
+## Process
+
+### Step 1: Fetch the content
+
+Determine collection from the argument:
+- "service X" → `mcp__payload__findServices` by name
+- "guide X" → `mcp__payload__findGuides` by slug
+- "page X" → `mcp__payload__findPages` by slug
+- "landing X" → `mcp__payload__findLandingPages` by slug
+
+Get all fields including SEO tab fields (metaTitle, metaDescription, keywords, ogTitle, ogDescription).
+
+### Step 2: Run the 10-point checklist
+
+Score each item: PASS (10 pts), PARTIAL (5 pts), FAIL (0 pts).
+
+**1. Meta Title** (field: `metaTitle`)
+- PASS: Present, 40-60 characters, contains a target keyword
+- PARTIAL: Present but wrong length or missing keyword
+- FAIL: Empty
+
+**2. Meta Description** (field: `metaDescription`)
+- PASS: Present, 150-160 characters, contains value proposition, not keyword-stuffed
+- PARTIAL: Present but wrong length or generic
+- FAIL: Empty
+
+**3. Keywords** (field: `keywords`)
+- PASS: 3-8 keywords defined, relevant to content
+- PARTIAL: 1-2 keywords or some seem irrelevant
+- FAIL: Empty
+
+**4. Heading Structure** (analyze `content` or guide sections)
+- PASS: Single H1 (or title field), H2s for sections, no skipped levels, keyword in at least one H2
+- PARTIAL: Minor issues (skipped level, no keyword in headings)
+- FAIL: No headings or broken hierarchy
+
+**5. Content Length**
+- For services: PASS if description 50-200 chars AND content body 300+ words
+- For guides: PASS if intro + steps + troubleshooting total 500+ words
+- PARTIAL: Close to thresholds
+- FAIL: Significantly short
+
+**6. Internal Context** (for services)
+- PASS: `category` set, `features` has 3+ items, `tags` has 2+ items
+- PARTIAL: Some missing
+- FAIL: Category missing
+
+**7. Open Graph** (fields: `ogTitle`, `ogDescription`)
+- PASS: Both present, ogTitle under 70 chars, ogDescription under 200 chars
+- PARTIAL: One present
+- FAIL: Both empty
+
+**8. Image** (service: `screenshot` or `logo`; pages: `ogImage`)
+- PASS: At least one image present
+- PARTIAL: N/A (no image required for this content type)
+- FAIL: No images on a page that should have one
+
+**9. Readability** (analyze content text)
+- PASS: Paragraphs 1-4 sentences, no paragraph over 150 words, active voice predominant, Flesch Reading Ease estimate 60+
+- PARTIAL: Some long paragraphs or passive voice
+- FAIL: Wall of text, heavy jargon, passive voice dominant
+
+**10. Freshness signals**
+- PASS: `lastSeoReviewAt` within 90 days OR content recently updated
+- PARTIAL: Review older than 90 days
+- FAIL: Never reviewed
+
+### Step 3: Calculate score
+
+Score = sum of all items. Maximum 100.
+
+Rating:
+- 90-100: Excellent
+- 70-89: Good
+- 50-69: Needs work
+- Below 50: Major issues
+
+### Step 4: Generate notes
+
+Write `seoNotes` as a concise summary:
+```
+Score: [X]/100 ([Rating])
+Checked: [date]
+
+PASS: [list items that passed]
+ISSUES:
+- [Item]: [specific problem + fix recommendation]
+- [Item]: [specific problem + fix recommendation]
+
+Suggested metaTitle: "[if missing or bad, suggest one]"
+Suggested metaDescription: "[if missing or bad, suggest one]"
+```
+
+### Step 5: Store in Payload
+
+Use `mcp__payload__updateServices` (or the appropriate collection's update tool):
+- `seoScore`: the number (0-100)
+- `seoNotes`: the summary text
+- `lastSeoReviewAt`: today's date in ISO format
+
+If `metaTitle` or `metaDescription` are empty, also populate them with suggested values.
+
+### Step 6: Report
+
+Show the user:
+- Score and rating
+- Table of all 10 checks with status
+- Top 3 priority fixes
+- Any fields that were auto-populated
