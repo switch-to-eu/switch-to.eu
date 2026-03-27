@@ -74,7 +74,7 @@ Use `mcp__payload__updateServices` with the service ID. Map findings to these fi
 | Certifications | `certifications` (array of `{certification: "name"}`) |
 | Is open source? | `openSource` |
 | Repo URL | `sourceCodeUrl` |
-| Research summary | `researchNotes` (use plain text, not richText JSON) |
+| Research summary | `researchNotes` (Lexical richText JSON, see format below) |
 | Source URLs used | `sourceUrls` (array of `{url: "...", label: "..."}`) |
 | Status | `researchStatus`: "complete" |
 | Date | `lastResearchedAt`: today's date (ISO format) |
@@ -93,10 +93,27 @@ After saving, report to the user:
 - Fields that were updated
 - Any gaps that need manual follow-up
 
+## Lexical richText JSON format
+
+The `researchNotes` field is richText and requires Lexical JSON. Wrap content in:
+
+```json
+{
+  "root": {
+    "type": "root", "direction": "ltr", "format": "", "indent": 0, "version": 1,
+    "children": [ ...paragraph and heading nodes... ]
+  }
+}
+```
+
+**Paragraph:** `{"type": "paragraph", "format": "", "indent": 0, "version": 1, "direction": "ltr", "children": [{"type": "text", "text": "...", "mode": "normal", "style": "", "detail": 0, "format": 0, "version": 1}]}`
+
+**Heading:** Same as paragraph but `"type": "heading", "tag": "h2"`.
+
 ## Important notes
 
 - Always cite your sources. Every claim in researchNotes should reference a sourceUrl.
 - If you can't verify something, say "unverified" rather than guessing.
 - For GDPR compliance, look for: DPA availability, data processing location, privacy shield/adequacy decisions. Default to "unknown" if unclear.
-- The `researchNotes` field accepts plain text. Do not try to construct Lexical richText JSON. Just write clear, factual paragraphs.
+- Write `researchNotes` as Lexical richText JSON (see format above). Use paragraphs and h2 headings.
 - Set `researchStatus` to "in-progress" at the start, "complete" when done.

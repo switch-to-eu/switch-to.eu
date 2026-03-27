@@ -53,7 +53,69 @@ Template: "[Name] is a [country]-based [type]. [One differentiating fact with a 
 **For non-EU services also write:**
 - `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."
 
-**Do NOT write `content` as Lexical richText JSON.** Write it as plain markdown text. The Payload admin can convert it. If the MCP rejects plain text in the richText field, note this to the user and provide the content for manual paste.
+**Write `content` as Lexical richText JSON.** Payload's richText fields require Lexical editor JSON, not markdown. Use this reference to construct it.
+
+### Lexical JSON reference
+
+The `content` field (and all richText fields like `intro`, `beforeYouStart`, `steps[].content`, `troubleshooting`, `outro`, `researchNotes`) must be wrapped in:
+
+```json
+{
+  "root": {
+    "type": "root",
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1,
+    "children": [ ...nodes here... ]
+  }
+}
+```
+
+**Paragraph node:**
+```json
+{
+  "type": "paragraph",
+  "format": "",
+  "indent": 0,
+  "version": 1,
+  "direction": "ltr",
+  "children": [
+    {"type": "text", "text": "Your paragraph text here.", "mode": "normal", "style": "", "detail": 0, "format": 0, "version": 1}
+  ]
+}
+```
+
+**Heading node (h2, h3):**
+```json
+{
+  "type": "heading",
+  "tag": "h2",
+  "format": "",
+  "indent": 0,
+  "version": 1,
+  "direction": "ltr",
+  "children": [
+    {"type": "text", "text": "Heading text", "mode": "normal", "style": "", "detail": 0, "format": 0, "version": 1}
+  ]
+}
+```
+
+**Bold text** — set `"format": 1` on the text node. **Italic** — `"format": 2`. **Bold+italic** — `"format": 3`.
+
+**Multiple text formats in one paragraph** — use multiple text children:
+```json
+{
+  "type": "paragraph",
+  "children": [
+    {"type": "text", "text": "Normal text then ", "format": 0, ...},
+    {"type": "text", "text": "bold text", "format": 1, ...},
+    {"type": "text", "text": " then normal again.", "format": 0, ...}
+  ]
+}
+```
+
+Construct the full JSON for every richText field. This is the only way to write content via MCP.
 
 ### Step 3: Save as draft
 
@@ -90,9 +152,9 @@ Use `mcp__payload__findGuides` to see if a guide already exists for this pair:
 
 **`timeRequired`**: Realistic estimate (e.g. "30 minutes" or "1-2 hours").
 
-**`intro`** (richText): Why someone would switch. State facts, not opinions. Reference specific differences from the research. 100-150 words.
+**`intro`** (richText, Lexical JSON): Why someone would switch. State facts, not opinions. Reference specific differences from the research. 100-150 words.
 
-**`beforeYouStart`** (richText): The thing people wish they'd known. Data that won't transfer, accounts to update first, preparation needed. 50-100 words.
+**`beforeYouStart`** (richText, Lexical JSON): The thing people wish they'd known. Data that won't transfer, accounts to update first, preparation needed. 50-100 words.
 
 **`steps`** array: 4-8 ordered steps. Each step has:
 - `title`: Action-first (e.g. "Create your ProtonMail account")
@@ -106,9 +168,11 @@ Step writing rules:
 - Note time estimates for longer steps
 - Tips and warnings in separate sentences
 
-**`troubleshooting`** (richText): 3-5 common issues as Q&A pairs. Pull from Reddit sentiment in the research data. 100-200 words.
+**`troubleshooting`** (richText, Lexical JSON): 3-5 common issues as Q&A pairs. Pull from Reddit sentiment in the research data. 100-200 words.
 
-**`outro`** (richText): What to do after switching. Update email on important accounts, tell contacts, etc. 50-100 words.
+**`outro`** (richText, Lexical JSON): What to do after switching. Update email on important accounts, tell contacts, etc. 50-100 words.
+
+**`steps[].content`** is also richText. Each step's content must be Lexical JSON too.
 
 **`missingFeatures`** array: Features the source has that the target doesn't. Be honest.
 
