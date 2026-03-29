@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /**
  * Markdown-to-Lexical converter for Payload CMS seed scripts.
  *
@@ -67,6 +68,7 @@ class HorizontalRuleNode extends DecoratorNode<null> {
     return new HorizontalRuleNode(node.__key);
   }
 
+  // eslint-disable-next-line no-unused-vars
   static importJSON(
     _serializedNode: SerializedHorizontalRuleNode,
   ): HorizontalRuleNode {
@@ -95,6 +97,7 @@ function $createHorizontalRuleNode(): HorizontalRuleNode {
 }
 
 function $isHorizontalRuleNode(
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   node: LexicalNode | null | undefined,
 ): node is HorizontalRuleNode {
   return node instanceof HorizontalRuleNode;
@@ -111,7 +114,7 @@ const LinkMarkdownTransformer: Transformer = {
   dependencies: [LinkNode],
   export: (
     _node: LexicalNode,
-    exportChildren: (node: LexicalNode) => string,
+    exportChildren: (_node: LexicalNode) => string,
   ) => {
     if (!$isLinkNode(_node)) {
       return null;
@@ -139,7 +142,7 @@ const LinkMarkdownTransformer: Transformer = {
     });
     const tn = textNode as unknown as {
       getFormat: () => number;
-      replace: (node: LexicalNode) => void;
+      replace: (_node: LexicalNode) => void;
     };
     const linkTextNode = $createTextNode(linkText);
     linkTextNode.setFormat(tn.getFormat());
@@ -167,7 +170,7 @@ const HorizontalRuleMarkdownTransformer: Transformer = {
   replace: (parentNode: LexicalNode) => {
     const node = $createHorizontalRuleNode();
     const pn = parentNode as unknown as {
-      replace: (node: LexicalNode) => void;
+      replace: (_node: LexicalNode) => void;
     };
     pn.replace(node);
   },
@@ -217,6 +220,7 @@ const ALL_TRANSFORMERS: Transformer[] = [
  * @param markdown - The Markdown string to convert
  * @returns SerializedEditorState compatible with Payload's richText field
  */
+// eslint-disable-next-line @typescript-eslint/require-await
 export async function markdownToLexical(
   markdown: string,
 ): Promise<SerializedEditorState> {
