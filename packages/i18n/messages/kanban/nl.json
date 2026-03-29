@@ -5,15 +5,14 @@
             "description": "Maak direct privé Kanban-borden. Organiseer taken visueel — versleuteld en zonder registratie."
         },
         "header": {
-            "createBoard": "Maak Bord",
-            "about": "Over"
+            "createBoard": "Maak Bord"
         },
         "nav": {
-            "about": "Over"
+            "tools": "Tools"
         },
         "footer": {
-            "about": "Over",
             "privacy": "Privacybeleid",
+            "terms": "Algemene Voorwaarden",
             "copyright": "{year} <link>switch-to.eu</link> — een project van"
         }
     },
@@ -60,7 +59,7 @@
         "descriptionPlaceholder": "Optionele details over dit bord",
         "optional": "optioneel",
         "expirationLabel": "Automatisch verwijderen na",
-        "terms": "Ik begrijp dat de bordgegevens versleuteld zijn en de link de enige manier is om toegang te krijgen. Als ik de link kwijtraak, kan het bord niet worden hersteld.",
+        "terms": "Ik begrijp dat de bordgegevens versleuteld zijn en de link de enige manier is om toegang te krijgen. Als ik de link kwijtraak, kan het bord niet worden hersteld. Ik ga akkoord met de <terms>Algemene Voorwaarden</terms> en het <privacy>Privacybeleid</privacy>.",
         "submit": "Maak Privé Bord",
         "creating": "Aanmaken...",
         "success": "Bord aangemaakt! Deel de link met anderen.",
@@ -72,8 +71,17 @@
         "emptyColumn": "Nog geen kaarten",
         "emptyBoard": "Dit bord heeft nog geen kolommen.",
         "cardCount": "{count} {count, plural, one {kaart} other {kaarten}}",
+        "share": "Delen",
         "copyShareLink": "Kopieer Deellink",
         "linkCopied": "Deellink gekopieerd naar klembord!",
+        "shareDialog": {
+            "title": "Deel dit bord",
+            "description": "Kies welke link je wilt delen. Wees voorzichtig met beheerderstoegang.",
+            "viewLinkTitle": "Alleen-lezen link",
+            "viewLinkDescription": "Iedereen met deze link kan het bord bekijken en kaarten toevoegen, maar kan het bord niet verwijderen of kolommen beheren.",
+            "adminLinkTitle": "Beheerlink",
+            "adminLinkDescription": "Iedereen met deze link heeft volledige controle: bord verwijderen, kolommen beheren en alle bewerkingsrechten. Deel met zorg."
+        },
         "missingKey": "Ongeldige Link",
         "missingKeyDescription": "Deze link mist de versleutelingssleutel. Vraag de bordmaker om de juiste link.",
         "errorTitle": "Er ging iets mis",
@@ -130,14 +138,6 @@
         "removeColumnError": "Kolom verwijderen mislukt.",
         "shareAdminLink": "Kopieer Beheerlink",
         "adminLinkCopied": "Beheerlink gekopieerd naar klembord!"
-    },
-    "PrivacyPage": {
-        "title": "Privacybeleid",
-        "placeholder": "Privacybeleid komt binnenkort..."
-    },
-    "AboutPage": {
-        "title": "Over Kanban",
-        "placeholder": "Over pagina komt binnenkort..."
     },
     "tools": {
         "plotty": {

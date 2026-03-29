@@ -20,6 +20,7 @@ import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import { type MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
+import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 
 export async function generateMetadata({
   params,
@@ -33,6 +34,9 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    },
   };
 }
 
@@ -54,9 +58,22 @@ export default async function LocaleLayout({
   const footerT = await getTranslations({ locale, namespace: 'layout.footer' });
   const toolsT = await getTranslations({ locale, namespace: 'footerTools' });
 
-
+  const allTools = getAllToolsSorted();
   const navItems: MainNavItem[] = [
-    { title: navT('about'), href: '/about' },
+    {
+      title: navT('tools'),
+      dropdown: 'mega',
+      children: allTools
+        .filter(tool => tool.id !== 'kanban')
+        .map(tool => ({
+          title: tool.name,
+          href: tool.url,
+          description: toolsT(tool.id as Parameters<typeof toolsT>[0]),
+          icon: tool.icon,
+          isExternal: true,
+          disabled: tool.status !== 'active',
+        })),
+    },
   ];
 
   return (
@@ -85,7 +102,7 @@ export default async function LocaleLayout({
                     <NavMenu navItems={navItems} />
                     <NavLanguageSelector locale={locale as Locale} />
                     <Link href="/create">
-                      <Button size="sm" variant="secondary">
+                      <Button size="sm" variant="outline" className="border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
                         <Plus className="mr-2 h-4 w-4" />
                         {t('createBoard')}
                       </Button>
@@ -95,7 +112,7 @@ export default async function LocaleLayout({
                 mobileNavigation={
                   <MobileNav navItems={navItems} locale={locale as Locale}>
                     <Link href="/create">
-                      <Button size="sm" variant="secondary" className="w-full">
+                      <Button size="sm" variant="outline" className="w-full border-tool-primary text-tool-primary hover:bg-tool-primary/10 hover:text-tool-primary">
                         <Plus className="mr-2 h-4 w-4" />
                         {t('createBoard')}
                       </Button>
@@ -103,7 +120,7 @@ export default async function LocaleLayout({
                   </MobileNav>
                 }
               />
-              
+
               {children}
               <HeaderFeedback toolId="kanban" />
 
@@ -114,12 +131,14 @@ export default async function LocaleLayout({
                 linksSectionTitle={toolsT('linksTitle')}
                 links={[
                   {
-                    label: footerT('about'),
-                    href: '/about',
+                    label: footerT('privacy'),
+                    href: 'https://switch-to.eu/privacy',
+                    external: true,
                   },
                   {
-                    label: footerT('privacy'),
-                    href: '/privacy',
+                    label: footerT('terms'),
+                    href: 'https://switch-to.eu/terms',
+                    external: true,
                   },
                 ]}
                 branding={

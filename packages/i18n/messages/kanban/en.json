@@ -5,15 +5,14 @@
             "description": "Create private Kanban boards instantly. Organize tasks visually — encrypted and no sign-up required."
         },
         "header": {
-            "createBoard": "Create Board",
-            "about": "About"
+            "createBoard": "Create Board"
         },
         "nav": {
-            "about": "About"
+            "tools": "Tools"
         },
         "footer": {
-            "about": "About",
             "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
             "copyright": "{year} <link>switch-to.eu</link> — a project by"
         }
     },
@@ -60,7 +59,7 @@
         "descriptionPlaceholder": "Optional details about this board",
         "optional": "optional",
         "expirationLabel": "Auto-delete after",
-        "terms": "I understand that board data is encrypted and the link is the only way to access it. If I lose the link, the board cannot be recovered.",
+        "terms": "I understand that board data is encrypted and the link is the only way to access it. If I lose the link, the board cannot be recovered. I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
         "submit": "Create Private Board",
         "creating": "Creating...",
         "success": "Board created! Share the link with others.",
@@ -72,8 +71,17 @@
         "emptyColumn": "No cards yet",
         "emptyBoard": "This board has no columns yet.",
         "cardCount": "{count} {count, plural, one {card} other {cards}}",
+        "share": "Share",
         "copyShareLink": "Copy Share Link",
         "linkCopied": "Share link copied to clipboard!",
+        "shareDialog": {
+            "title": "Share this board",
+            "description": "Choose which link to share. Be careful who you give admin access to.",
+            "viewLinkTitle": "View-only link",
+            "viewLinkDescription": "Anyone with this link can view and add cards, but cannot delete the board or manage columns.",
+            "adminLinkTitle": "Admin link",
+            "adminLinkDescription": "Anyone with this link has full control: delete the board, manage columns, and all edit permissions. Share with care."
+        },
         "missingKey": "Invalid Link",
         "missingKeyDescription": "This link is missing the encryption key. Please ask the board creator for the correct link.",
         "errorTitle": "Something went wrong",
@@ -130,14 +138,6 @@
         "removeColumnError": "Failed to remove column.",
         "shareAdminLink": "Copy Admin Link",
         "adminLinkCopied": "Admin link copied to clipboard!"
-    },
-    "PrivacyPage": {
-        "title": "Privacy Policy",
-        "placeholder": "Privacy policy coming soon..."
-    },
-    "AboutPage": {
-        "title": "About Kanban",
-        "placeholder": "About page coming soon..."
     },
     "tools": {
         "plotty": {
