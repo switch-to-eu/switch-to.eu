@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
   ],
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // LLM-friendly .md URLs → API route handlers
+        { source: "/services/:slug.md", destination: "/api/llm/services/:slug" },
+        { source: "/guides/:slug.md", destination: "/api/llm/guides/:slug" },
+      ],
+    };
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
