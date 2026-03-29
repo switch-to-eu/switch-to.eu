@@ -1,13 +1,12 @@
 import { getPayload } from "@/lib/payload";
 import { notFound } from "next/navigation";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { Metadata } from "next";
 
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import type { Locale } from "next-intl";
 import type { Service, Guide } from "@/payload-types";
 import { getServiceBySlug } from "@/lib/services";
 

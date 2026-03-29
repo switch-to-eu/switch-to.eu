@@ -5,7 +5,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import type { Locale } from "next-intl";
 
 import {
   getAllEuServiceSlugs,
