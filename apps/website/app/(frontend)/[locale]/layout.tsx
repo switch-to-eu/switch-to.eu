@@ -42,14 +42,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: generateLanguageAlternates("", locale),
     openGraph: {
-      images: [
-        {
-          url: "/images/share.png",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
       type: "website",
       siteName: title,
       description,
@@ -57,7 +49,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      images: ["/images/share.png"],
       title,
       description,
     },
