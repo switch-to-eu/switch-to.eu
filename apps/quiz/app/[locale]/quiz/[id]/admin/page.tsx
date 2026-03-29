@@ -222,7 +222,7 @@ export default function QuizAdminPage() {
   }
 
   const state = latestUpdate.quiz.state;
-  const { scoringEnabled, leaderboardEnabled } = latestUpdate.quiz;
+  const { scoringEnabled: _scoringEnabled, leaderboardEnabled } = latestUpdate.quiz;
   const isLastQuestion = latestUpdate.quiz.currentQuestion >= latestUpdate.quiz.questionCount - 1;
 
   // Build share URL for participant page

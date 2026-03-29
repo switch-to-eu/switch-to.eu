@@ -7,16 +7,10 @@ import { formatTime as formatTimeUtil, getPhaseEmoji as getPhaseEmojiUtil } from
 import { useNotifications } from './use-notifications';
 import type { TimerMessage, TickMessage } from './timer-worker';
 
-interface TimerState {
-  phase: TimerPhase;
-  timeLeft: number;
-  isRunning: boolean;
-  completedPomodoros: number;
-}
-
 interface UsePomodoroTimerProps {
   settings: PomodoroSettings;
   onPomodoroComplete?: () => void;
+  // eslint-disable-next-line no-unused-vars
   onPhaseChange?: (phase: TimerPhase) => void;
 }
 
@@ -29,13 +23,15 @@ interface UsePomodoroTimerReturn {
   progress: number;
 
   // Timer controls
-  start: () => void;
+  start: () => Promise<void>;
   pause: () => void;
   reset: () => void;
   skip: () => void;
 
   // Utility functions
+  // eslint-disable-next-line no-unused-vars
   formatTime: (seconds: number) => string;
+  // eslint-disable-next-line no-unused-vars
   getPhaseEmoji: (phase: TimerPhase) => string;
 }
 
@@ -94,7 +90,7 @@ export const usePomodoroTimer = ({
 
   // We'll initialize the worker after handlePhaseComplete is defined
 
-  const handlePhaseComplete = useCallback(async () => {
+  const handlePhaseComplete = useCallback(() => {
     setIsRunning(false);
 
     // Play sound notification if enabled
@@ -126,7 +122,7 @@ export const usePomodoroTimer = ({
 
       // Show notification
       if (settings.desktopNotifications) {
-        await showNotification({
+        showNotification({
           title: t('workCompleteTitle'),
           body: isLongBreak ? t('longBreakStart') : t('shortBreakStart'),
           tag: 'pomodoro-complete',
@@ -149,7 +145,7 @@ export const usePomodoroTimer = ({
 
       // Show notification
       if (settings.desktopNotifications) {
-        await showNotification({
+        showNotification({
           title: t('breakCompleteTitle'),
           body: t('breakComplete'),
           tag: 'break-complete',

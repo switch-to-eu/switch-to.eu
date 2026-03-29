@@ -11,7 +11,7 @@ const mockRedis = new MockRedis();
 
 // Mock the redis module so getRedis() returns our mock
 vi.mock("@switch-to-eu/db/redis", () => ({
-  getRedis: async () => mockRedis,
+  getRedis: () => Promise.resolve(mockRedis),
 }));
 
 // Import after mocks are set up

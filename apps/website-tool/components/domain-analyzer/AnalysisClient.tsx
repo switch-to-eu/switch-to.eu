@@ -152,7 +152,6 @@ export function AnalysisClient({
 }: AnalysisClientProps) {
   const { results, phase, rescan } = useDomainAnalysis(domain, initialResults);
   const t = useTranslations("domainAnalyzer");
-  const commonT = useTranslations("common");
 
   const scanning = phase === "scanning";
   const done = phase === "done";

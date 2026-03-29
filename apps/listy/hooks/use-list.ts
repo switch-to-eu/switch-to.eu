@@ -138,6 +138,7 @@ export function useList({ listId, adminToken }: UseListOptions) {
   // On error: rollback local state and re-throw so the UI can show a toast.
 
   const updateItem = useCallback(
+    // eslint-disable-next-line no-unused-vars
     (itemId: string, updater: (item: DecryptedItem) => DecryptedItem) => {
       setDecryptedList((prev) =>
         prev

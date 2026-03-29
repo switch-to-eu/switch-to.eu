@@ -17,6 +17,7 @@ import type { DecryptedListData, ListSettings, CustomCategory } from "@/lib/type
 interface AdminSettingsProps {
   list: DecryptedList;
   settings: ListSettings;
+  // eslint-disable-next-line no-unused-vars
   onUpdate: (newListData: DecryptedListData) => Promise<void>;
 }
 
@@ -207,8 +208,11 @@ function CategoryManager({
   onDelete,
 }: {
   categories: CustomCategory[];
+  // eslint-disable-next-line no-unused-vars
   onAdd: (label: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onRename: (id: string, label: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onDelete: (id: string) => void;
 }) {
   const t = useTranslations("ListPage");

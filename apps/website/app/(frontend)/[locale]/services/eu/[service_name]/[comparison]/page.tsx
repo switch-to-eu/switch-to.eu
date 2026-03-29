@@ -1,13 +1,12 @@
 import { getPayload } from "@/lib/payload";
 import { notFound } from "next/navigation";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { Metadata } from "next";
 
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import type { Locale } from "next-intl";
 import type { Service, Guide } from "@/payload-types";
 import { getServiceBySlug } from "@/lib/services";
 
@@ -159,10 +158,6 @@ export default async function ComparisonPage({
   })) as { docs: Guide[] };
 
   const guide = guides[0];
-  const guideCategorySlug =
-    guide && typeof guide.category === "object"
-      ? guide.category.slug
-      : undefined;
 
   return (
     <PageLayout>
@@ -277,7 +272,7 @@ export default async function ComparisonPage({
                 Worth knowing
               </h3>
               <p className="text-sm text-gray-600 mb-3">
-                Features in {nonEuService.name} that {euService.name} doesn't
+                Features in {nonEuService.name} that {euService.name} doesn&apos;t
                 have:
               </p>
               <ul className="space-y-1.5">

@@ -5,7 +5,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
-import { Locale } from "next-intl";
+import type { Locale } from "next-intl";
 
 import {
   getAllEuServiceSlugs,
@@ -59,7 +59,7 @@ export default async function SecurityPage({
             {service.name} {t("security.title")}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            How {service.name} handles your data, where it's stored, and what
+            How {service.name} handles your data, where it&apos;s stored, and what
             certifications back their claims.
           </p>
         </div>

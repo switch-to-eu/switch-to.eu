@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { TasksProvider, useTasks } from "../../hooks/use-tasks";
 import type { ReactNode } from "react";
@@ -530,6 +530,7 @@ describe("useTasks", () => {
         result.current.addTask("Saved task");
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "keepfocus-tasks",
         expect.stringContaining("Saved task"),
@@ -548,6 +549,7 @@ describe("useTasks", () => {
         result.current.setActiveTask(id);
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "keepfocus-active-task",
         id,
@@ -569,6 +571,7 @@ describe("useTasks", () => {
         result.current.setActiveTask(null);
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(localStorage.removeItem).toHaveBeenCalledWith(
         "keepfocus-active-task",
       );

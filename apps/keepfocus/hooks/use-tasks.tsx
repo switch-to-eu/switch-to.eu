@@ -7,12 +7,19 @@ interface TasksContextType {
   tasks: Task[];
   activeTaskId: string | null;
   isLoading: boolean;
+  // eslint-disable-next-line no-unused-vars
   addTask: (description: string) => void;
+  // eslint-disable-next-line no-unused-vars
   updateTask: (id: string, description: string) => void;
+  // eslint-disable-next-line no-unused-vars
   toggleTask: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
   deleteTask: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
   setActiveTask: (id: string | null) => void;
+  // eslint-disable-next-line no-unused-vars
   incrementTaskPomodoros: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
   reorderTasks: (startIndex: number, endIndex: number) => void;
   clearCompleted: () => void;
 }
@@ -34,8 +41,8 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
         // Load tasks
         const savedTasks = localStorage.getItem(TASKS_STORAGE_KEY);
         if (savedTasks) {
-          const parsed = JSON.parse(savedTasks);
-          const tasksWithDates = parsed.map((task: any) => ({
+          const parsed = JSON.parse(savedTasks) as Array<Omit<Task, 'createdAt'> & { createdAt: string }>;
+          const tasksWithDates: Task[] = parsed.map((task) => ({
             ...task,
             createdAt: new Date(task.createdAt),
           }));

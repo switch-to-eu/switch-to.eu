@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Loader2, Plus, Pencil, Check } from "lucide-react";
 import { decryptData, encryptData } from "@switch-to-eu/db/crypto";

@@ -1,6 +1,5 @@
 "use client";
 
-import { Label } from "@switch-to-eu/ui/components/label";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import type { Control, FieldError, FieldValues, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";

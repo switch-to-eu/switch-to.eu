@@ -30,6 +30,7 @@ const LABEL_COLORS: Record<string, string> = {
 
 interface CardDetailDialogProps {
   data: DecryptedCardData;
+  // eslint-disable-next-line no-unused-vars
   onSave: (data: Omit<DecryptedCardData, "id">) => void;
   onClose: () => void;
   onDelete: () => void;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/require-await
 export async function generateEncryptionKey(): Promise<string> {
   // Generate a random 256-bit key for AES-GCM
   const key = crypto.getRandomValues(new Uint8Array(32));

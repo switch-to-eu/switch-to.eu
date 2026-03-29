@@ -5,6 +5,7 @@ import { PomodoroSettings, DEFAULT_SETTINGS } from '../lib/types';
 
 interface SettingsContextType {
   settings: PomodoroSettings;
+  // eslint-disable-next-line no-unused-vars
   updateSettings: (newSettings: Partial<PomodoroSettings>) => void;
   resetSettings: () => void;
   isLoading: boolean;
@@ -24,7 +25,7 @@ export const PomodoroSettingsProvider = ({ children }: { children: ReactNode }) 
       try {
         const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
         if (savedSettings) {
-          const parsed = JSON.parse(savedSettings);
+          const parsed = JSON.parse(savedSettings) as Partial<PomodoroSettings>;
           // Merge with defaults to handle missing properties in saved settings
           setSettings({ ...DEFAULT_SETTINGS, ...parsed });
         }

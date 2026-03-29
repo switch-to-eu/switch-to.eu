@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Label } from "@switch-to-eu/ui/components/label";
 import { cn } from "@switch-to-eu/ui/lib/utils";
@@ -38,7 +38,7 @@ const QUICK_TIMES: TimeSlot[] = [
 ];
 
 export function TimeSlotsManager<T extends FieldValues>({
-  name,
+  name: _name, // eslint-disable-line no-unused-vars
   setValue,
   watch,
   error,
@@ -58,6 +58,7 @@ export function TimeSlotsManager<T extends FieldValues>({
     if (!exists) {
       setValue(
         selectedTimesFieldName as Path<T>,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
         [...selectedTimes, slot].sort((a, b) => a.hour * 60 + a.minutes - (b.hour * 60 + b.minutes)) as any
       );
     }
@@ -66,6 +67,7 @@ export function TimeSlotsManager<T extends FieldValues>({
   const removeTime = (index: number) => {
     setValue(
       selectedTimesFieldName as Path<T>,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
       selectedTimes.filter((_, i) => i !== index) as any
     );
   };

@@ -12,7 +12,7 @@ import { ZodError } from "zod";
 export function createTRPCInit<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TCreateTRPCContext extends (...args: any[]) => any,
->(createTRPCContext: TCreateTRPCContext) {
+>(_createTRPCContext: TCreateTRPCContext) {
   return initTRPC.context<TCreateTRPCContext>().create({
     transformer: superjson,
     isDev: process.env.NODE_ENV === "development",

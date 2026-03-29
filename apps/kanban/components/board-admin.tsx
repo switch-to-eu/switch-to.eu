@@ -8,7 +8,6 @@ import { Loader2, Trash2, Plus, Copy, AlertTriangle, Lock } from "lucide-react";
 
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Input } from "@switch-to-eu/ui/components/input";
-import { Label } from "@switch-to-eu/ui/components/label";
 import {
   Card,
   CardContent,
@@ -38,7 +37,6 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
     isLoading,
     error,
     addColumn,
-    updateColumn,
     removeColumn,
     deleteBoard,
   } = useBoard({ boardId, adminToken });
@@ -92,7 +90,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
 
   const copyAdminLink = useCallback(() => {
     const url = `${window.location.origin}${window.location.pathname}#token=${adminToken}&key=${encryptionKey}`;
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     toast.success(t("adminLinkCopied"));
   }, [adminToken, encryptionKey, t]);
 
@@ -100,7 +98,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
     const baseUrl = window.location.origin;
     const boardPath = window.location.pathname.replace("/admin", "");
     const url = `${baseUrl}${boardPath}#key=${encryptionKey}`;
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     toast.success(t("adminLinkCopied"));
   }, [encryptionKey, t]);
 
@@ -190,7 +188,7 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
-                    handleAddColumn();
+                    void handleAddColumn();
                   }
                 }}
               />

@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
-export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_services_research_status" AS ENUM('not-started', 'in-progress', 'needs-update', 'complete');
   CREATE TYPE "public"."enum_services_gdpr_compliance" AS ENUM('compliant', 'partial', 'non-compliant', 'unknown');
@@ -190,7 +190,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_preferences_rels_payload_mcp_api_keys_id_idx" ON "payload_preferences_rels" USING btree ("payload_mcp_api_keys_id");`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "categories_keywords" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "guides_keywords" DISABLE ROW LEVEL SECURITY;

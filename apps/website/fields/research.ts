@@ -143,6 +143,7 @@ export const researchFields: Field[] = [
     type: "text",
     admin: {
       description: "Link to source code repository (if open source)",
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       condition: (data) => data?.openSource,
     },
   },

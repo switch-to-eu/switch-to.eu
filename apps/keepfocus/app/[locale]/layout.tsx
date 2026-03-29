@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@switch-to-eu/blocks/components/header";
 import { Footer } from "@switch-to-eu/blocks/components/footer";
 import { BrandIndicator } from "@switch-to-eu/blocks/components/brand-indicator";
-import { routing, type Locale } from "@switch-to-eu/i18n/routing";
+import { routing } from "@switch-to-eu/i18n/routing";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
 import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
@@ -91,11 +91,11 @@ export default async function LocaleLayout({
           navigation={
             <>
               <NavMenu navItems={navItems} />
-              <NavLanguageSelector locale={locale as Locale} />
+              <NavLanguageSelector locale={locale} />
             </>
           }
           mobileNavigation={
-            <MobileNav navItems={navItems} locale={locale as Locale} />
+            <MobileNav navItems={navItems} locale={locale} />
           }
         />
         {children}

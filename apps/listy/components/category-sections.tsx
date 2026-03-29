@@ -25,11 +25,17 @@ interface CategorySectionsProps {
   items: DecryptedItem[];
   categories: CustomCategory[];
   preset: string;
+  // eslint-disable-next-line no-unused-vars
   onToggle: (itemId: string, completed: boolean) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onRemove: (itemId: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onAdd: (text: string, category: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onMoveToCategory: (itemId: string, newCategory: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onClaim?: (itemId: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onUnclaim?: (itemId: string) => Promise<void>;
   enableClaims?: boolean;
   isMutating: boolean;
@@ -154,10 +160,15 @@ function CategoryCard({
   label: string;
   items: DecryptedItem[];
   preset: string;
+  // eslint-disable-next-line no-unused-vars
   onToggle: (itemId: string, completed: boolean) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onRemove: (itemId: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onAdd: (text: string, category: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onClaim?: (itemId: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onUnclaim?: (itemId: string) => Promise<void>;
   isMutating: boolean;
 }) {
@@ -227,10 +238,12 @@ function DraggableItem({
   item: DecryptedItem;
   category: string;
   children: (
+    // eslint-disable-next-line no-unused-vars
     dragHandleProps: {
       attributes: DraggableAttributes;
       listeners: DraggableSyntheticListeners;
     },
+    // eslint-disable-next-line no-unused-vars
     isDragging: boolean,
   ) => React.ReactNode;
 }) {
@@ -255,6 +268,7 @@ function InlineAddInput({
   hasItems,
 }: {
   category: string;
+  // eslint-disable-next-line no-unused-vars
   onAdd: (text: string, category: string) => Promise<void>;
   isMutating: boolean;
   placeholder: string;

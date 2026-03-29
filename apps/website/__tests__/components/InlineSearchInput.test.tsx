@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await, @typescript-eslint/no-misused-promises */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
@@ -47,7 +48,8 @@ beforeEach(() => {
 describe("InlineSearchInput", () => {
   it("should NOT show 'no results' message while search is loading", async () => {
     // Make the search fetch hang (never resolve) to simulate loading
-    let resolveSearch!: (value: unknown) => void;
+    // eslint-disable-next-line no-unused-vars
+    let resolveSearch!: (_value: unknown) => void;
     fetchMock.mockImplementation((url: string) => {
       if (url.includes("/api/search?")) {
         return new Promise((resolve) => {
