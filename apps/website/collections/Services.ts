@@ -54,6 +54,24 @@ export const Services: CollectionConfig = {
       defaultValue: false,
       admin: { position: "sidebar" },
     },
+    {
+      name: "contentPipelineStatus",
+      type: "select",
+      options: [
+        { label: "Not Started", value: "not-started" },
+        { label: "In Progress", value: "in-progress" },
+        { label: "Written", value: "written" },
+        { label: "Humanized", value: "humanized" },
+        { label: "SEO Checked", value: "seo-checked" },
+        { label: "Translated", value: "translated" },
+        { label: "Complete", value: "complete" },
+      ],
+      defaultValue: "not-started",
+      admin: {
+        position: "sidebar",
+        description: "Tracks progress through the content pipeline (write → humanize → SEO → translate)",
+      },
+    },
     // Main content area — tabs
     {
       type: "tabs",
