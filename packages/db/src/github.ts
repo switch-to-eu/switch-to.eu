@@ -10,7 +10,7 @@ const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
 const MAX_REQUESTS = 5; // 5 requests per window
 
 /** Get client IP address from request headers */
-export function getClientIp(req: NextRequest): string {
+export function getClientIp(req: Request): string {
   const forwardedFor = req.headers.get("x-forwarded-for");
   if (forwardedFor) {
     return forwardedFor.split(",")[0]?.trim() ?? "unknown-ip";
