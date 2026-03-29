@@ -37,7 +37,6 @@ export function BoardAdmin({ boardId }: BoardAdminProps) {
     isLoading,
     error,
     addColumn,
-    updateColumn: _updateColumn,
     removeColumn,
     deleteBoard,
   } = useBoard({ boardId, adminToken });

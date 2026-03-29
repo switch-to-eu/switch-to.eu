@@ -117,7 +117,7 @@ export function formatTimeSlotRange(startTime: string, durationHours: number): s
  * @returns True if no duplicate start times exist
  */
 // eslint-disable-next-line no-unused-vars
-export function validateStartTimesWithDuration(startTimes: string[], duration: number): boolean {
+export function validateStartTimesWithDuration(startTimes: string[], _duration: number): boolean {
   // Only check for duplicates - overlaps and past-midnight are now allowed
   const uniqueTimes = new Set(startTimes);
   return uniqueTimes.size === startTimes.length;

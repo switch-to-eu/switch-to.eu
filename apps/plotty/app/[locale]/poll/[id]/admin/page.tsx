@@ -27,8 +27,7 @@ export default function AdminPage() {
   const {
     poll,
     isLoading,
-    // eslint-disable-next-line no-unused-vars
-    isDecrypting,
+    isDecrypting: _isDecrypting, // eslint-disable-line no-unused-vars
     encryptionKey,
     decryptionError,
     pollQueryError,

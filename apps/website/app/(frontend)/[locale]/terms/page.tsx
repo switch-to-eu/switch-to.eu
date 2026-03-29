@@ -5,7 +5,7 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Locale } from "next-intl";
+
 import { notFound } from "next/navigation";
 import type { Page } from "@/payload-types";
 

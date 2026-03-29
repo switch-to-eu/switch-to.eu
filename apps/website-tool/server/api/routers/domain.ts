@@ -36,6 +36,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 
 type DetectorConfig = {
   index: number;
+  // eslint-disable-next-line no-unused-vars
   run: (domain: string) => Promise<void>;
 };
 
@@ -153,7 +154,7 @@ export const domainRouter = createTRPCRouter({
 
       // Launch all detectors in parallel
       for (const detector of detectors) {
-        detector
+        void detector
           .run(domain)
           .catch((err) => {
             // On timeout or error, mark as complete with unknown result

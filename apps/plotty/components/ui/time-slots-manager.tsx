@@ -38,8 +38,7 @@ const QUICK_TIMES: TimeSlot[] = [
 ];
 
 export function TimeSlotsManager<T extends FieldValues>({
-  // eslint-disable-next-line no-unused-vars
-  name,
+  name: _name, // eslint-disable-line no-unused-vars
   setValue,
   watch,
   error,
