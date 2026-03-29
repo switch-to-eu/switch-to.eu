@@ -46,7 +46,7 @@ export function PollForm({
   const v = useTranslations('validation');
 
   const form = useForm<PollFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     resolver: zodResolver(createPollSchema({
       required: v("required"),
       maxLength: v("maxLength"),
@@ -54,6 +54,7 @@ export function PollForm({
       futureDate: v("futureDate"),
       min: v("min"),
       max: v("max"),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     })) as any,
     defaultValues: {
       title: initialData?.title ?? "",

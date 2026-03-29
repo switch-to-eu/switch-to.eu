@@ -105,7 +105,7 @@ describe("useNotifications", () => {
       );
     });
 
-    it("does nothing when permission is not granted", async () => {
+    it("does nothing when permission is not granted", () => {
       // Permission is "default" (not granted)
       const { result } = renderHook(() => useNotifications());
 

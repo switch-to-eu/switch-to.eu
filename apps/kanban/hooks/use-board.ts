@@ -355,18 +355,14 @@ export function useBoard({ boardId, adminToken }: UseBoardOptions) {
     async (columnMeta: DecryptedColumnMeta) => {
       if (!encryptionKey || !adminToken) return;
 
-      try {
-        const encryptedMeta = await encryptData(columnMeta, encryptionKey);
-        const encryptedCards = await encryptData([] as DecryptedCardData[], encryptionKey);
-        return await addColumnMutation.mutateAsync({
-          boardId,
-          adminToken,
-          encryptedMeta,
-          encryptedCards,
-        });
-      } catch (error) {
-        throw error;
-      }
+      const encryptedMeta = await encryptData(columnMeta, encryptionKey);
+      const encryptedCards = await encryptData([] as DecryptedCardData[], encryptionKey);
+      return await addColumnMutation.mutateAsync({
+        boardId,
+        adminToken,
+        encryptedMeta,
+        encryptedCards,
+      });
     },
     [encryptionKey, adminToken, boardId, addColumnMutation],
   );
@@ -375,17 +371,13 @@ export function useBoard({ boardId, adminToken }: UseBoardOptions) {
     async (columnId: string, columnMeta: DecryptedColumnMeta) => {
       if (!encryptionKey || !adminToken) return;
 
-      try {
-        const encryptedMeta = await encryptData(columnMeta, encryptionKey);
-        return await updateColumnMutation.mutateAsync({
-          boardId,
-          columnId,
-          adminToken,
-          encryptedMeta,
-        });
-      } catch (error) {
-        throw error;
-      }
+      const encryptedMeta = await encryptData(columnMeta, encryptionKey);
+      return await updateColumnMutation.mutateAsync({
+        boardId,
+        columnId,
+        adminToken,
+        encryptedMeta,
+      });
     },
     [encryptionKey, adminToken, boardId, updateColumnMutation],
   );
@@ -394,15 +386,11 @@ export function useBoard({ boardId, adminToken }: UseBoardOptions) {
     async (columnId: string) => {
       if (!adminToken) return;
 
-      try {
-        return await removeColumnMutation.mutateAsync({
-          boardId,
-          columnId,
-          adminToken,
-        });
-      } catch (error) {
-        throw error;
-      }
+      return await removeColumnMutation.mutateAsync({
+        boardId,
+        columnId,
+        adminToken,
+      });
     },
     [adminToken, boardId, removeColumnMutation],
   );

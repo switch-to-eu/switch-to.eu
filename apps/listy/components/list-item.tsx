@@ -31,7 +31,8 @@ interface ListItemProps {
 
 export function ListItem({
   item,
-  preset: _preset,
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  preset,
   compact = false,
   onToggle,
   onRemove,

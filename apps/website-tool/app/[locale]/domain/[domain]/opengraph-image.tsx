@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { AnalysisStep } from "@/lib/types";
 import { api } from "@/server/api/trpc-server";
 
 export const alt = "Domain EU Compliance Analysis";

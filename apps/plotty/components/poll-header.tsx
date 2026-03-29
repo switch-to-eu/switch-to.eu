@@ -20,11 +20,6 @@ interface BestTimeHighlightProps {
   bestTime?: BestTime | null;
 }
 
-interface _PollHeaderProps {
-  poll: DecryptedPoll;
-  bestTime?: BestTime | null;
-}
-
 export function PollInfo({ poll }: PollInfoProps) {
   const t = useTranslations('PollHeader');
 
