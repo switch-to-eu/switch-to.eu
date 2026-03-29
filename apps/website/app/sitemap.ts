@@ -9,7 +9,15 @@ const baseUrl = process.env.NEXT_PUBLIC_URL!;
 export const dynamic = "force-dynamic";
 
 // Define your static routes
-const staticRoutes = ["/", "/about", "/services", "/contact", "/tools/website"];
+const staticRoutes = [
+  "/",
+  "/about",
+  "/contribute",
+  "/tools",
+  "/privacy",
+  "/terms",
+  "/feedback",
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   noStore();
@@ -66,10 +74,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const servicesEntries = servicesResult.docs.map((service: Service) => {
-    const serviceUrl =
-      service.region === "eu"
-        ? `/services/${service.slug}`
-        : `/services/${service.region}/${service.slug}`;
+    const regionPath =
+      service.region === "non-eu" ? "non-eu" : "eu";
+    const serviceUrl = `/services/${regionPath}/${service.slug}`;
 
     return {
       url: `${baseUrl}/${defaultLocale}${serviceUrl}`,
