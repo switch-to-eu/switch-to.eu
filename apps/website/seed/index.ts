@@ -22,6 +22,7 @@ import { importServices } from "./importServices.js";
 import { importGuides } from "./importGuides.js";
 import { importLandingPages } from "./importLandingPages.js";
 import { importPages } from "./importPages.js";
+import { clearMediaCache } from "./importMedia.js";
 
 const dryRun = process.argv.includes("--dry-run");
 
@@ -43,6 +44,7 @@ async function seed() {
       await payload.delete({ collection: "services", where: deleteAll });
       await payload.delete({ collection: "categories", where: deleteAll });
       await payload.delete({ collection: "media", where: deleteAll });
+      clearMediaCache();
       console.log("Database cleared.");
     }
   } else {
