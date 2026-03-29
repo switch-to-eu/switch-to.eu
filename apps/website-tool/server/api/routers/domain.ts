@@ -24,12 +24,12 @@ const domainInput = z.object({
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(
-      () => reject(new Error("Detector timed out")),
+      () => { reject(new Error("Detector timed out")); },
       ms,
     );
     promise.then(
       (v) => { clearTimeout(timer); resolve(v); },
-      (e) => { clearTimeout(timer); reject(e); },
+      (e: unknown) => { clearTimeout(timer); reject(e instanceof Error ? e : new Error(String(e))); },
     );
   });
 }
