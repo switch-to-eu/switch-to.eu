@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await, no-unused-vars */
 /**
  * Lightweight in-memory mock for the `redis` v4 package.
  * Implements the subset of RedisClientType methods used by our tRPC routers.

@@ -29,11 +29,11 @@ export function createCustomRenderer() {
 
     if (typeof href === "object" && href !== null) {
       // New API - first parameter is an object with href, title, and tokens
-      finalHref = (href as LinkToken).href || "";
-      finalTitle = (href as LinkToken).title || "";
+      finalHref = href.href || "";
+      finalTitle = href.title || "";
       // For text, we'll use either the provided text parameter or get it from tokens
       finalText = text || "";
-      const hrefToken = href as LinkToken;
+      const hrefToken = href;
       if (!finalText && hrefToken.tokens && hrefToken.tokens.length) {
         // Try to extract text from tokens if available
         finalText = hrefToken.tokens

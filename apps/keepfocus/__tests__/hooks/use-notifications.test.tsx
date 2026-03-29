@@ -46,6 +46,7 @@ describe("useNotifications", () => {
         permission = await result.current.requestPermission();
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(Notification.requestPermission).toHaveBeenCalled();
       expect(permission).toBe("granted");
     });
@@ -136,6 +137,7 @@ describe("useNotifications", () => {
 
     it("falls back to visual flash when play() rejects", async () => {
       const mockPlay = vi.fn().mockRejectedValue(new Error("play failed"));
+      // eslint-disable-next-line no-unused-vars
       globalThis.Audio = vi.fn(function (this: Record<string, unknown>) {
         this.play = mockPlay;
         this.volume = 0.3;

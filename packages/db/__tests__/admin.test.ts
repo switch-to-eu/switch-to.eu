@@ -97,7 +97,7 @@ describe("admin", () => {
       const token = generateAdminToken();
       const key = "base64key+/=";
       const url = generateAdminUrl("/app", "id1", token, key);
-      const fragment = url.split("#")[1]!;
+      const fragment = url.split("#")[1];
       const parsed = parseAdminFragment(fragment);
       expect(parsed.token).toBe(token);
       expect(parsed.key).toBe(key);

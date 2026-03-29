@@ -15,6 +15,7 @@ interface TaskItemProps {
   pomodoros?: number;
   isActive?: boolean;
   onToggleComplete: () => void;
+  // eslint-disable-next-line no-unused-vars
   onUpdate: (description: string) => void;
   onDelete: () => void;
   onSetActive?: () => void;

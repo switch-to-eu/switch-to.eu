@@ -56,6 +56,7 @@ afterEach(() => {
 });
 
 // Mock Notification API (configurable so tests can redefine it)
+// eslint-disable-next-line no-unused-vars
 const MockNotification = vi.fn(function (
   this: { close: () => void; onclick: (() => void) | null },
 ) {
@@ -82,6 +83,7 @@ Object.defineProperty(globalThis, "Notification", {
 
 // Mock Audio API (must use function, not arrow, to support `new Audio()`)
 const mockAudioPlay = vi.fn().mockResolvedValue(undefined);
+// eslint-disable-next-line no-unused-vars
 globalThis.Audio = vi.fn(function (this: Record<string, unknown>) {
   this.play = mockAudioPlay;
   this.volume = 0.3;

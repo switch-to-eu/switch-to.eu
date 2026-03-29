@@ -91,11 +91,11 @@ export default async function LocaleLayout({
           navigation={
             <>
               <NavMenu navItems={navItems} />
-              <NavLanguageSelector locale={locale as Locale} />
+              <NavLanguageSelector locale={locale} />
             </>
           }
           mobileNavigation={
-            <MobileNav navItems={navItems} locale={locale as Locale} />
+            <MobileNav navItems={navItems} locale={locale} />
           }
         />
         {children}
