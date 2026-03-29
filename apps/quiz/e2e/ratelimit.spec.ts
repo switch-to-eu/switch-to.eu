@@ -75,7 +75,7 @@ async function mcpCreateQuiz(
   const raw = await res.text();
   const dataLine = raw.split("\n").find((l) => l.startsWith("data: "));
   if (!dataLine) return raw;
-  const json = JSON.parse(dataLine.slice(6));
+  const json = JSON.parse(dataLine.slice(6)) as { result?: { content?: { text?: string }[] } };
   return json?.result?.content?.[0]?.text ?? "";
 }
 

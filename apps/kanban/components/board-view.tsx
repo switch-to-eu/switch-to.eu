@@ -47,6 +47,7 @@ function EditableColumnTitle({
   onSave,
 }: {
   title: string;
+  // eslint-disable-next-line no-unused-vars
   onSave: (newTitle: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
@@ -106,6 +107,7 @@ function QuickAddCard({
   onAdd,
   placeholder,
 }: {
+  // eslint-disable-next-line no-unused-vars
   onAdd: (title: string) => void;
   placeholder: string;
 }) {

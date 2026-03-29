@@ -7,12 +7,15 @@ const mockRedis = new MockRedis();
 
 // Mock the redis module so getRedis() returns our mock
 vi.mock("@switch-to-eu/db/redis", () => ({
+  // eslint-disable-next-line @typescript-eslint/require-await
   getRedis: async () => mockRedis,
+  // eslint-disable-next-line @typescript-eslint/require-await
   getRedisSubscriber: async () => mockRedis,
 }));
 
 // Mock detector functions to avoid real DNS/WHOIS/HTTP lookups
 vi.mock("@/server/lib/detectors", () => ({
+  // eslint-disable-next-line @typescript-eslint/require-await
   checkDomainExists: vi.fn(async () => true),
   createAnalysisTemplate: vi.fn(
     (): AnalysisStep[] => [
@@ -53,21 +56,25 @@ vi.mock("@/server/lib/detectors", () => ({
       },
     ],
   ),
+  // eslint-disable-next-line @typescript-eslint/require-await
   detectEmailProvider: vi.fn(async () => ({
     provider: "Google Workspace",
     isEU: false,
     euFriendly: false,
   })),
+  // eslint-disable-next-line @typescript-eslint/require-await
   detectDomainRegistrar: vi.fn(async () => ({
     provider: { name: "Gandi", url: "https://gandi.net" },
     isEU: true,
     euFriendly: false,
   })),
+  // eslint-disable-next-line @typescript-eslint/require-await
   detectHostingProvider: vi.fn(async () => ({
     provider: "Hetzner",
     isEU: true,
     euFriendly: false,
   })),
+  // eslint-disable-next-line @typescript-eslint/require-await
   detectThirdPartyServices: vi.fn(async () => ({
     services: [
       { name: "Google Analytics", isEU: false, euFriendly: false },
@@ -76,6 +83,7 @@ vi.mock("@/server/lib/detectors", () => ({
     isEU: false,
     euFriendly: false,
   })),
+  // eslint-disable-next-line @typescript-eslint/require-await
   detectCdn: vi.fn(async () => ({
     provider: "Cloudflare",
     isEU: false,
@@ -147,7 +155,7 @@ describe("domain router", () => {
         complete: boolean;
       }> = [];
       for await (const value of subscription) {
-        yields.push(JSON.parse(JSON.stringify(value)));
+        yields.push(JSON.parse(JSON.stringify(value)) as { results: AnalysisStep[]; complete: boolean });
       }
 
       // With parallel execution the exact number of intermediate yields varies,
@@ -204,6 +212,7 @@ describe("domain router", () => {
           domain: "nonexistent.invalid",
         });
         // Must iterate to trigger the generator body
+        // eslint-disable-next-line no-unused-vars
         for await (const _value of subscription) {
           // should not reach here
         }

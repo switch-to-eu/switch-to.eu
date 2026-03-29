@@ -18,7 +18,7 @@ import {
 
 import type { DecryptedPoll } from "@/lib/interfaces";
 import { LoadingButton } from "@switch-to-eu/ui/components/loading-button";
-import { generateTimeSlotsFromStartTimes, formatTimeSlotRange } from "@/lib/time-utils";
+import { formatTimeSlotRange } from "@/lib/time-utils";
 
 type AvailabilityStatus = 'available' | 'unavailable' | 'unknown';
 
@@ -26,6 +26,7 @@ interface AvailabilityGridProps {
   poll: DecryptedPoll;
   currentParticipantId: string | null;
   isSaving: boolean;
+  // eslint-disable-next-line no-unused-vars
   onSave?: (name: string, availability: Record<string, boolean | string[]>) => void;
 }
 

@@ -18,7 +18,6 @@ import { PollForm, type ProcessedPollFormData } from "./poll-form";
 import type { DecryptedPoll } from "@/lib/interfaces";
 import { generateAdminUrl } from "@switch-to-eu/db/admin";
 import { SectionCard, SectionHeader, SectionContent } from "@switch-to-eu/blocks/components/section-card";
-import { useRouter } from "@switch-to-eu/i18n/navigation";
 import { useLocale } from "next-intl";
 
 interface AdminSectionProps {
@@ -26,6 +25,7 @@ interface AdminSectionProps {
   pollId: string;
   adminToken: string;
   encryptionKey: string;
+  // eslint-disable-next-line no-unused-vars
   onUpdatePoll: (formData: ProcessedPollFormData) => Promise<void>;
   onDeletePoll: () => Promise<void>;
   isUpdating?: boolean;

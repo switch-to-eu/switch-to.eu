@@ -1,4 +1,4 @@
-import { Lock, AlertTriangle, XCircle, FileQuestion } from "lucide-react";
+import { AlertTriangle, XCircle, FileQuestion } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { Card, CardContent } from "@switch-to-eu/ui/components/card";

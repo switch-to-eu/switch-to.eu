@@ -78,7 +78,7 @@ describe("list router (integration — real Redis)", () => {
       const read = await caller.list.get({ id: created.list.id });
       const decrypted = JSON.parse(
         await decryptData<string>(read.list.encryptedData, key),
-      );
+      ) as { title: string; description: string };
       expect(decrypted.title).toBe("My Shopping List");
       expect(decrypted.description).toBe("Weekly groceries");
     });
@@ -165,7 +165,7 @@ describe("list router (integration — real Redis)", () => {
       expect(read.items).toHaveLength(1);
       const decryptedItem = JSON.parse(
         await decryptData<string>(read.items[0]!.encryptedItem, key),
-      );
+      ) as { text: string };
       expect(decryptedItem.text).toBe("Milk");
     });
 
@@ -458,7 +458,7 @@ describe("list router (integration — real Redis)", () => {
       // Decrypt list data
       const decryptedList = JSON.parse(
         await decryptData<string>(read.list.encryptedData, key),
-      );
+      ) as { title: string };
       expect(decryptedList.title).toBe("Boodschappen");
 
       // Decrypt and verify items
@@ -466,7 +466,7 @@ describe("list router (integration — real Redis)", () => {
       const decryptedItems = await Promise.all(
         read.items.map(async (item) => ({
           ...item,
-          data: JSON.parse(await decryptData<string>(item.encryptedItem, key)),
+          data: JSON.parse(await decryptData<string>(item.encryptedItem, key)) as { text: string },
         })),
       );
 

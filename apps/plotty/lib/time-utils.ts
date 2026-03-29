@@ -116,7 +116,7 @@ export function formatTimeSlotRange(startTime: string, durationHours: number): s
  * @param duration - Duration in hours (unused but kept for compatibility)
  * @returns True if no duplicate start times exist
  */
-export function validateStartTimesWithDuration(startTimes: string[], duration: number): boolean {
+export function validateStartTimesWithDuration(startTimes: string[], _duration: number): boolean {
   // Only check for duplicates - overlaps and past-midnight are now allowed
   const uniqueTimes = new Set(startTimes);
   return uniqueTimes.size === startTimes.length;
@@ -144,7 +144,7 @@ export function getAvailableStartTimes(): string[] {
  * @param time - Time in HH:MM format
  * @returns Total minutes from 00:00
  */
-function timeToMinutes(time: string): number {
+function _timeToMinutes(time: string): number {
   const [hours, minutes] = time.split(':').map(Number);
   return (hours || 0) * 60 + (minutes || 0);
 }

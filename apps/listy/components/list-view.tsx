@@ -203,7 +203,7 @@ export function ListView({ listId, isAdmin }: ListViewProps) {
 
   const handleCopyShareLink = () => {
     const url = `${window.location.origin}${window.location.pathname.replace("/admin", "")}#${encryptionKey}`;
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     toast.success(t("linkCopied"));
   };
 

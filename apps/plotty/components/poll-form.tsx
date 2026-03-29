@@ -21,6 +21,7 @@ export type ProcessedPollFormData = Omit<PollFormData, 'selectedStartTimes'> & {
 };
 
 interface PollFormProps {
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (data: ProcessedPollFormData) => Promise<void>;
   onCancel?: () => void;
   isLoading?: boolean;
@@ -45,6 +46,7 @@ export function PollForm({
   const v = useTranslations('validation');
 
   const form = useForm<PollFormData>({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
     resolver: zodResolver(createPollSchema({
       required: v("required"),
       maxLength: v("maxLength"),
@@ -293,6 +295,7 @@ export function PollForm({
                 name="selectedStartTimes"
                 setValue={setValue}
                 watch={watch}
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
                 error={errors.selectedStartTimes as any}
                 label={t('sections.timeSlots.title')}
                 description={t('sections.timeSlots.startTimesDescription')}

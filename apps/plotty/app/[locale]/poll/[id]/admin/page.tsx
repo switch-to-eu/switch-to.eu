@@ -27,7 +27,7 @@ export default function AdminPage() {
   const {
     poll,
     isLoading,
-    isDecrypting,
+    isDecrypting: _isDecrypting,
     encryptionKey,
     decryptionError,
     pollQueryError,

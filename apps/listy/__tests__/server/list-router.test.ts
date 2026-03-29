@@ -7,7 +7,9 @@ const mockRedis = new MockRedis();
 
 // Mock the redis module so getRedis() returns our mock
 vi.mock("@switch-to-eu/db/redis", () => ({
+  // eslint-disable-next-line @typescript-eslint/require-await
   getRedis: async () => mockRedis,
+  // eslint-disable-next-line @typescript-eslint/require-await
   getRedisSubscriber: async () => mockRedis,
 }));
 

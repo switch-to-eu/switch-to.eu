@@ -4,8 +4,8 @@ import { MockRedis } from "@switch-to-eu/db/mock-redis";
 const mockRedis = new MockRedis();
 
 vi.mock("@switch-to-eu/db/redis", () => ({
-  getRedis: async () => mockRedis,
-  getRedisSubscriber: async () => mockRedis,
+  getRedis: () => mockRedis,
+  getRedisSubscriber: () => mockRedis,
 }));
 
 const { createCaller } = await import("@/server/api/root");

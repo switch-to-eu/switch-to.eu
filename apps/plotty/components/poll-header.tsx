@@ -20,7 +20,7 @@ interface BestTimeHighlightProps {
   bestTime?: BestTime | null;
 }
 
-interface PollHeaderProps {
+interface _PollHeaderProps {
   poll: DecryptedPoll;
   bestTime?: BestTime | null;
 }

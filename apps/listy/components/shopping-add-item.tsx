@@ -19,6 +19,7 @@ import {
 } from "@/lib/categories";
 
 interface ShoppingAddItemProps {
+  // eslint-disable-next-line no-unused-vars
   onAdd: (text: string, category: string) => Promise<void>;
   isMutating: boolean;
 }
