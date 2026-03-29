@@ -398,6 +398,8 @@
       "freeOptionNo": "❌",
       "startingPrice": "Premium",
       "visitWebsite": "Bezoek website",
+      "tryService": "Probeer {service}",
+      "switchFrom": "Overstappen van {service}",
       "similarServices": "Vergelijkbare diensten",
       "migrationGuides": "Migratiegidsen",
       "migrateHelp": "Hier zijn enkele gidsen om je te helpen migreren naar",
@@ -406,6 +408,49 @@
       "writeMigrationGuide": "Schrijf een migratiegids",
       "anotherServiceHelp": "Ken je een andere dienst om van te migreren? Help een gids te schrijven!",
       "writeAnotherGuide": "Schrijf nog een gids",
+      "tabs": {
+        "overview": "Overzicht",
+        "pricing": "Prijzen",
+        "security": "Beveiliging",
+        "compare": "{service} vs {other}"
+      },
+      "pricing": {
+        "title": "Prijzen",
+        "freePlan": "Gratis abonnement",
+        "paidPlans": "Betaalde abonnementen",
+        "perMonth": "/maand",
+        "features": "Wat zit erbij",
+        "viewFullPricing": "Bekijk volledige prijzen op"
+      },
+      "security": {
+        "title": "Beveiliging & Privacy",
+        "encryption": "Versleuteling",
+        "compliance": "Compliance & Certificeringen",
+        "dataStorage": "Gegevensopslaglocaties",
+        "openSource": "Open source",
+        "privacyPolicy": "Privacybeleid",
+        "jurisdiction": "Juridische jurisdictie",
+        "yes": "Ja",
+        "no": "Nee",
+        "viewSource": "Bekijk broncode",
+        "viewPolicy": "Bekijk privacybeleid"
+      },
+      "compare": {
+        "title": "{service} vs {other}",
+        "feature": "Functie",
+        "verdict": "Ons oordeel",
+        "switchCta": "Klaar om te wisselen?",
+        "switchCtaDescription": "Volg onze stap-voor-stap handleiding om de overstap te maken.",
+        "viewGuide": "Bekijk migratiehandleiding"
+      },
+      "cta": {
+        "title": "Klaar om {service} te proberen?",
+        "description": "Probeer het gratis of volg onze stap-voor-stap migratiehandleiding.",
+        "button": "Aan de slag",
+        "affiliateNote": "Deze link kan een affiliate link zijn. Waarom?",
+        "affiliateTitle": "Over affiliate links",
+        "affiliateBody": "Sommige links op deze site zijn affiliate links. Dit betekent dat we een kleine commissie kunnen ontvangen als je je aanmeldt via onze link, zonder extra kosten voor jou. Dit helpt ons om switch-to.eu draaiende en gratis te houden. We bevelen alleen diensten aan waar we echt in geloven. Affiliate samenwerkingen hebben nooit invloed op onze reviews of aanbevelingen."
+      },
       "nonEu": {
         "moreInfo": "Meer informatie over",
         "otherAlternatives": "Andere alternatieven",

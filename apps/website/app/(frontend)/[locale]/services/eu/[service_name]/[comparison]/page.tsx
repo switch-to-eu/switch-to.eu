@@ -1,0 +1,303 @@
+import { getPayload } from "@/lib/payload";
+import { notFound } from "next/navigation";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { Metadata } from "next";
+
+import { Container } from "@switch-to-eu/blocks/components/container";
+import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+
+import { getTranslations } from "next-intl/server";
+import { Locale } from "next-intl";
+import type { Service, Guide } from "@/payload-types";
+import { getServiceBySlug } from "@/lib/services";
+
+export async function generateStaticParams() {
+  const payload = await getPayload();
+  const { docs: guides } = await payload.find({
+    collection: "guides",
+    depth: 1,
+    limit: 100,
+  });
+  const locales = ["en", "nl"];
+
+  return locales.flatMap((locale) =>
+    guides
+      .filter(
+        (g) =>
+          typeof g.targetService === "object" &&
+          typeof g.sourceService === "object" &&
+          g.targetService.region !== "non-eu"
+      )
+      .map((g) => ({
+        locale,
+        service_name: (g.targetService as Service).slug,
+        comparison: `vs-${(g.sourceService as Service).slug}`,
+      }))
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; service_name: string; comparison: string }>;
+}): Promise<Metadata> {
+  const { service_name, comparison, locale } = await params;
+  const slug = comparison.replace(/^vs-/, "");
+  if (!comparison.startsWith("vs-")) notFound();
+
+  const payload = await getPayload();
+  const [euService, nonEuDocs] = await Promise.all([
+    getServiceBySlug(service_name, locale),
+    payload.find({
+      collection: "services",
+      where: { slug: { equals: slug } },
+      locale: locale as "en" | "nl",
+      limit: 1,
+    }),
+  ]);
+
+  const nonEuService = nonEuDocs.docs[0] as Service | undefined;
+
+  if (!euService || !nonEuService) return { title: "Not Found" };
+
+  return {
+    title: `${euService.name} vs ${nonEuService.name} | switch-to.eu`,
+    description: `Compare ${euService.name} and ${nonEuService.name}. See how the EU alternative stacks up on privacy, pricing, and features.`,
+    alternates: {
+      canonical: `https://switch-to.eu/${locale}/services/eu/${service_name}/vs-${slug}`,
+      languages: {
+        en: `https://switch-to.eu/en/services/eu/${service_name}/vs-${slug}`,
+        nl: `https://switch-to.eu/nl/services/eu/${service_name}/vs-${slug}`,
+      },
+    },
+  };
+}
+
+// Comparison row component
+function CompareRow({
+  label,
+  euValue,
+  nonEuValue,
+  highlight,
+  clampNonEu,
+}: {
+  label: string;
+  euValue: string;
+  nonEuValue: string;
+  highlight?: "eu" | "non-eu" | "neutral";
+  clampNonEu?: boolean;
+}) {
+  return (
+    <div className={`grid grid-cols-3 gap-4 py-4 border-b border-gray-100 last:border-0${highlight === "eu" ? " bg-brand-green/[0.03]" : ""}`}>
+      <div className="text-sm font-medium text-gray-500">{label}</div>
+      <div
+        className={`text-sm ${
+          highlight === "non-eu"
+            ? "text-gray-500"
+            : highlight === "eu"
+              ? "text-brand-green font-medium"
+              : "text-gray-700"
+        }`}
+      >
+        {euValue}
+      </div>
+      <div
+        className={`text-sm ${
+          highlight === "eu"
+            ? "text-gray-500"
+            : highlight === "non-eu"
+              ? "text-brand-green font-medium"
+              : "text-gray-700"
+        }${clampNonEu ? " line-clamp-2" : ""}`}
+      >
+        {nonEuValue}
+      </div>
+    </div>
+  );
+}
+
+export default async function ComparisonPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale; service_name: string; comparison: string }>;
+}) {
+  const { service_name, comparison, locale } = await params;
+  const slug = comparison.replace(/^vs-/, "");
+  if (!comparison.startsWith("vs-")) notFound();
+  const t = await getTranslations("services.detail");
+
+  const payload = await getPayload();
+
+  // Fetch both services in parallel
+  const [euService, nonEuResult] = await Promise.all([
+    getServiceBySlug(service_name, locale),
+    payload.find({
+      collection: "services",
+      where: { slug: { equals: slug } },
+      locale: locale as "en" | "nl",
+      depth: 1,
+      limit: 1,
+    }),
+  ]);
+
+  const nonEuService = nonEuResult.docs[0] as Service | undefined;
+
+  if (!euService || !nonEuService) {
+    notFound();
+  }
+
+  // Find the migration guide between these two
+  const { docs: guides } = (await payload.find({
+    collection: "guides",
+    where: {
+      targetService: { equals: euService.id },
+      sourceService: { equals: nonEuService.id },
+    },
+    locale: locale as "en" | "nl",
+    depth: 1,
+    limit: 1,
+  })) as { docs: Guide[] };
+
+  const guide = guides[0];
+  const guideCategorySlug =
+    guide && typeof guide.category === "object"
+      ? guide.category.slug
+      : undefined;
+
+  return (
+    <PageLayout>
+      <Container>
+        {/* Page header */}
+        <div className="max-w-4xl pb-8">
+          <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+            {euService.name} vs {nonEuService.name}
+          </h2>
+          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+            How does {euService.name} compare to {nonEuService.name}? Here is a
+            side-by-side look at the key differences.
+          </p>
+        </div>
+
+        {/* Comparison table */}
+        <div className="max-w-4xl pb-12">
+          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            {/* Table header */}
+            <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100">
+              <div className="text-sm font-bold text-gray-400 uppercase">
+                {t("compare.feature")}
+              </div>
+              <div className="text-sm font-bold text-brand-green">
+                {euService.name}
+              </div>
+              <div className="text-sm font-bold text-gray-700">
+                {nonEuService.name}
+              </div>
+            </div>
+
+            <div className="px-6">
+              <CompareRow
+                label="Based in"
+                euValue={euService.location}
+                nonEuValue={nonEuService.location}
+                highlight="eu"
+              />
+              <CompareRow
+                label="Free plan"
+                euValue={euService.freeOption ? "Yes" : "No"}
+                nonEuValue={nonEuService.freeOption ? "Yes" : "No"}
+                highlight="neutral"
+              />
+              <CompareRow
+                label="Starting price"
+                euValue={euService.startingPrice || "Free"}
+                nonEuValue={nonEuService.startingPrice || "Free"}
+                highlight="neutral"
+              />
+              <CompareRow
+                label="GDPR"
+                euValue={
+                  euService.gdprCompliance === "compliant"
+                    ? "Compliant"
+                    : euService.gdprCompliance || "Unknown"
+                }
+                nonEuValue={
+                  nonEuService.gdprCompliance === "compliant"
+                    ? "Compliant"
+                    : nonEuService.gdprCompliance === "partial"
+                      ? "Partial"
+                      : nonEuService.gdprCompliance || "Unknown"
+                }
+                highlight={
+                  euService.gdprCompliance === "compliant" ? "eu" : "neutral"
+                }
+              />
+              <CompareRow
+                label="Open source"
+                euValue={euService.openSource ? "Yes" : "No"}
+                nonEuValue={nonEuService.openSource ? "Yes" : "No"}
+                highlight={
+                  euService.openSource && !nonEuService.openSource
+                    ? "eu"
+                    : "neutral"
+                }
+              />
+              <CompareRow
+                label="Data storage"
+                euValue={
+                  euService.dataStorageLocations
+                    ?.map((l) => l.location)
+                    .join(", ") || "Not disclosed"
+                }
+                nonEuValue={
+                  nonEuService.dataStorageLocations
+                    ?.map((l) => l.location)
+                    .join(", ") || "Not disclosed"
+                }
+                highlight="eu"
+              />
+              {/* Show issues from non-EU service */}
+              {nonEuService.issues && nonEuService.issues.length > 0 && (
+                <CompareRow
+                  label="Known concerns"
+                  euValue="—"
+                  nonEuValue={nonEuService.issues
+                    .map((i) => i.issue)
+                    .join(". ")}
+                  highlight="eu"
+                  clampNonEu
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Missing features */}
+          {guide?.missingFeatures && guide.missingFeatures.length > 0 && (
+            <div className="mt-8 bg-brand-yellow/5 rounded-2xl p-6 border border-brand-yellow/20">
+              <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                Worth knowing
+              </h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Features in {nonEuService.name} that {euService.name} doesn't
+                have:
+              </p>
+              <ul className="space-y-1.5">
+                {guide.missingFeatures.map((f) => (
+                  <li
+                    key={f.feature}
+                    className="flex items-start gap-2 text-sm text-gray-600"
+                  >
+                    <span className="text-brand-orange mt-0.5 flex-shrink-0">
+                      &bull;
+                    </span>
+                    {f.feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+      </Container>
+    </PageLayout>
+  );
+}

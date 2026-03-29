@@ -10,48 +10,63 @@ Write switch-to.eu content using research data from Payload CMS.
 
 ## Voice
 
-Write like a knowledgeable friend who's done the research and is saving someone time. Not a marketing team. Not a Wikipedia editor. Not an AI assistant hedging every statement.
+Write like a knowledgeable friend explaining something to someone who just wants their email to work and their data to stay private. Not a marketing team. Not a sysadmin. Not an AI assistant hedging every statement.
 
-Credibility comes from specificity + honesty about limitations. Every time you acknowledge a limitation, every positive claim becomes more believable.
+The reader is a regular person, not a developer. They don't care about AES-256 or zero-access encryption as concepts. They care about whether someone can read their emails.
 
 ### Rules
 
 - Clear, simple language. Short sentences. Active voice.
 - Address the reader with "you" and "your."
-- Support claims with data, numbers, or concrete examples from the research tab.
+- Translate technical concepts into human outcomes: "even the company can't read your emails" not "zero-access encryption."
 - Put the action or key fact first in every sentence.
 - No em dashes. Use periods, commas, or colons.
 - No semicolons. Split into two sentences.
 - No exclamation marks.
 - No metaphors, cliches, or setup language ("in conclusion," "it's worth noting").
+- No jargon without explanation. If you must use a term like "end-to-end encrypted," follow it with what that means for the reader.
+
+### Consumer-friendly rewrites
+
+| Technical | Consumer-friendly |
+|-----------|-------------------|
+| "zero-access encryption" | "even the company can't read your emails" |
+| "AES-256 encryption at rest" | "your data is scrambled so only you can read it" |
+| "ISO 27001 certified" | "passed independent security audits" |
+| "GDPR compliant" | "follows EU privacy rules" |
+| "open-source clients" | "the code is public, so anyone can check for problems" |
+| "end-to-end encrypted" | "only you and your recipient can read the message" |
+| "data stored in Swiss jurisdiction" | "your data is stored in Switzerland, outside US legal reach" |
 
 ### Sentence rhythm
 
 Vary paragraph length. Short statement. Then a longer sentence with context and a specific example. Then short again. This keeps people reading.
 
-What kills rhythm: same-length paragraphs, same opening words, long blocks without punchy lines, all short fragments with no breathing room.
-
 ### Honesty patterns
 
 Always acknowledge trade-offs. The "Worth knowing" section is not optional.
 
-- "Signal is widely considered the most private messaging app available. The trade-off is a smaller user base."
 - Instead of "blazing fast," write "pages load in under 200ms."
-- Instead of "trusted by many," write "used by 1.2 million accounts."
+- Instead of "trusted by many," write "used by 100 million people."
 - Instead of "easy to set up," write "setup takes about 5 minutes."
 
 Use neutral framing for comparisons:
-- Instead of "Gmail spies on your data," write "Gmail scans email content to power features like Smart Reply and targeted advertising."
+- Instead of "Gmail spies on your data," write "Gmail scans your emails to show you targeted ads."
 
-### What to write instead of vague claims
+---
 
-| Don't write | Write instead |
-|-------------|---------------|
-| "comprehensive solution" | "covers email, calendar, contacts, and file storage" |
-| "seamless migration" | "migration takes about 20 minutes and imports your existing data automatically" |
-| "robust privacy features" | "blocks trackers by default and doesn't collect browsing history" |
-| "cutting-edge encryption" | "uses end-to-end encryption. Even the service provider can't read your data." |
-| "trusted by thousands" | "used by 1.2 million accounts across Europe" |
+## Page Structure Awareness
+
+The service detail page has multiple tabs. Each tab has its own content source. The `/write` skill populates the fields that feed these tabs:
+
+| Tab | Content source | What /write populates |
+|-----|---------------|----------------------|
+| **Overview** | `features` (tags) + `content` (richText) + auto-generated pricing/security snippets | `features`, `content` |
+| **Pricing** | `pricingTiers` (structured array) | `pricingTiers` |
+| **Security** | Research fields (gdprCompliance, certifications, dataStorageLocations, etc.) | Nothing (populated by `/research`) |
+| **Comparison** | Auto-generated from both services + guide data | Nothing (auto-generated) |
+
+The overview page auto-generates compact pricing and security snippet cards that link to the Pricing and Security tabs. These pull from `pricingTiers` and research fields. No separate content needed.
 
 ---
 
@@ -70,40 +85,49 @@ If `researchStatus` is "not-started", tell the user to run `/research SERVICE_NA
 
 ### Step 2: Write the content
 
-**`description`** (required, localized): 1-2 sentences. What it is, where it's based, what makes it different. Under 200 characters.
+**`description`** (required, localized): 1-2 sentences. What it is, where it's based, what makes it different. Under 200 characters. Write for a person, not a search engine.
 
-Template: "[Name] is a [country]-based [type]. [One differentiating fact with a number or specific detail.]"
+Template: "[Name] keeps your [type] private. Based in [country], [one thing that matters to a normal person]."
 
-**`features`** array: 4-6 concrete features. Each one specific, not vague.
-- Bad: "Strong privacy features"
-- Good: "End-to-end encryption for all emails. Even Proton can't read them."
+**`features`** array: 4-6 short tags. 2-4 words each. These show as pills on the overview page.
+- Bad: "End-to-end encryption between Proton users. Zero-access encryption for all stored mail."
+- Good: "End-to-end encrypted"
+- Good: "Free tier available"
+- Good: "Open source"
+- Good: "GDPR compliant"
 
-**`content`** (richText, Lexical JSON): 300-500 words following this structure:
+**`content`** (richText, Lexical JSON): 150-250 words. Consumer-friendly overview:
 
-1. Opening paragraph: What it does and who it's for. Reference the country and a specific capability.
-2. "What stands out" (h2): 3-4 specific features with numbers/details from the research.
-3. "Worth knowing" (h2): 2-3 honest limitations or trade-offs. This section is mandatory.
-4. "Pricing" (h2): Specific tiers and prices from the research data.
-5. Closing paragraph: One sentence on who this is best for.
+1. Opening paragraph: What it does, who made it, why you'd trust it. Reference the country. Written for someone who uses email, not someone who builds email servers.
+2. Second paragraph: What makes it different, in plain language. Focus on outcomes ("no one can read your emails") not mechanisms ("AES-256 with zero-access architecture").
+3. Optional third paragraph: What else comes with it (calendar, storage, etc.) if applicable.
+4. "Worth knowing" (h2): 1-2 paragraphs of honest trade-offs written for everyday users. Not technical caveats. Think: "search is slower than Gmail" not "full-text search requires client-side index decryption."
 
-**Service description formula:**
+Do NOT include:
+- "What stands out" section (features tags handle that)
+- "Pricing" section (pricing tab handles that)
+- Technical compliance details (security tab handles that)
 
-> [Service Name] is a [country]-based [type of service] built for [who it's for].
->
-> [1-2 sentences positioning it vs the well-known service it replaces.]
->
-> What stands out:
-> - [Specific feature, with numbers]
-> - [Specific feature]
->
-> Worth knowing:
-> - [Honest limitation]
-> - [Honest limitation or pricing context]
->
-> Based in: [Country]. Free tier: [Yes/No + details]. Platforms: [list].
+**`pricingTiers`** array: Structured pricing data extracted from research. Each tier:
+```json
+{
+  "name": "Mail Plus",
+  "price": "€3.99/month",
+  "billingNote": "billed annually",
+  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}],
+  "highlighted": true
+}
+```
+- Set `highlighted: true` on the most popular/recommended tier (usually the mid-range paid plan)
+- Use the free tier name as "Free" with price "Free"
+- Keep feature descriptions short (under 6 words)
 
 **For non-EU services also write:**
 - `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."
+
+### Step 3: Save
+
+Use `mcp__payload__updateServices` (existing) or `mcp__payload__createServices` (new). Set `_status: "draft"`.
 
 ---
 
@@ -134,14 +158,6 @@ Use `mcp__payload__findGuides`:
 
 **`intro`** (richText, Lexical JSON): 100-150 words. Why someone would switch. State facts, not opinions.
 
-**Guide intro formula:**
-
-> [1 sentence: what the target service does and why someone might choose it]
->
-> [Time estimate for the technical switch + what the real challenge is]
->
-> Before you start: [The one thing people wish they'd known. Data that won't transfer, preparation needed.]
-
 **`beforeYouStart`** (richText, Lexical JSON): 50-100 words. The thing people wish they'd known before starting.
 
 **`steps`** array: 4-8 ordered steps. Each step has:
@@ -154,11 +170,10 @@ Step writing rules:
 - One action per step
 - Include specific UI paths ("Go to Settings > Import/Export")
 - Note time estimates for longer steps
-- Tips and warnings in separate sentences
 
-**`troubleshooting`** (richText, Lexical JSON): 3-5 common issues as Q&A pairs. Pull from Reddit sentiment in the research data. 100-200 words.
+**`troubleshooting`** (richText, Lexical JSON): 3-5 common issues as Q&A pairs. 100-200 words.
 
-**`outro`** (richText, Lexical JSON): What to do after switching. Update email on important accounts, tell contacts, etc. 50-100 words.
+**`outro`** (richText, Lexical JSON): What to do after switching. 50-100 words.
 
 **`missingFeatures`** array: Features the source has that the target doesn't. Be honest.
 
@@ -170,7 +185,7 @@ Use `mcp__payload__createGuides` (new) or `mcp__payload__updateGuides` (existing
 
 ## Lexical JSON reference
 
-All richText fields (`content`, `intro`, `beforeYouStart`, `steps[].content`, `troubleshooting`, `outro`) require Lexical JSON:
+All richText fields require Lexical JSON:
 
 ```json
 {
@@ -191,9 +206,11 @@ All richText fields (`content`, `intro`, `beforeYouStart`, `steps[].content`, `t
 
 ## Self-check before saving
 
-1. Any vague claims without numbers? Add specifics from research data.
-2. Did you acknowledge at least one trade-off? If not, add a "Worth knowing" item.
-3. Does it sound like a person or a website? Rewrite if it sounds like marketing.
-4. Does every paragraph vary in length? Break up any uniform blocks.
+1. Would your non-technical friend understand every sentence? If not, simplify.
+2. Any vague claims without numbers? Add specifics from research data.
+3. Did you include "Worth knowing" with at least one honest trade-off?
+4. Are features 2-4 word tags, not sentences?
+5. Did you populate `pricingTiers` with structured data?
+6. Does the content include pricing or security details that belong on their own tabs? Remove them.
 
 Note: detailed AI pattern detection (banned words, em dashes, parallel openings) happens in `/humanize`, which runs after `/write`.

@@ -459,6 +459,24 @@ export interface Service {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Structured pricing plans for the pricing subpage
+   */
+  pricingTiers?:
+    | {
+        name: string;
+        price: string;
+        billingNote?: string | null;
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        highlighted?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   tags?:
     | {
         tag: string;
@@ -1213,6 +1231,21 @@ export interface ServicesSelect<T extends boolean = true> {
     | T
     | {
         feature?: T;
+        id?: T;
+      };
+  pricingTiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        billingNote?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        highlighted?: T;
         id?: T;
       };
   tags?:

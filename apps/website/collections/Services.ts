@@ -125,6 +125,30 @@ export const Services: CollectionConfig = {
               ],
             },
             {
+              name: "pricingTiers",
+              type: "array",
+              admin: {
+                description: "Structured pricing plans for the pricing subpage",
+              },
+              fields: [
+                { name: "name", type: "text", required: true },
+                { name: "price", type: "text", required: true },
+                { name: "billingNote", type: "text" },
+                {
+                  name: "features",
+                  type: "array",
+                  fields: [
+                    { name: "feature", type: "text", required: true },
+                  ],
+                },
+                {
+                  name: "highlighted",
+                  type: "checkbox",
+                  defaultValue: false,
+                },
+              ],
+            },
+            {
               name: "tags",
               type: "array",
               fields: [{ name: "tag", type: "text", required: true }],

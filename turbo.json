@@ -18,7 +18,24 @@
         "NEXT_PUBLIC_URL",
         "NODE_ENV",
         "NOTIFICATION_EMAIL",
-        "REDIS_URL"
+        "REDIS_URL",
+        "DATABASE_URL",
+        "DATABASE_URL_UNPOOLED",
+        "POSTGRES_URL",
+        "POSTGRES_URL_NON_POOLING",
+        "POSTGRES_URL_NO_SSL",
+        "POSTGRES_PRISMA_URL",
+        "POSTGRES_HOST",
+        "POSTGRES_DATABASE",
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "PGHOST",
+        "PGHOST_UNPOOLED",
+        "PGDATABASE",
+        "PGUSER",
+        "PGPASSWORD",
+        "NEON_PROJECT_ID",
+        "PAYLOAD_SECRET"
       ]
     },
     "dev": {
