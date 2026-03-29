@@ -90,8 +90,8 @@ describe("useNotifications", () => {
         Notification as unknown as ReturnType<typeof vi.fn>;
       constructorMock.mockClear();
 
-      await act(async () => {
-        await result.current.showNotification({
+      act(() => {
+        result.current.showNotification({
           title: "Test",
           body: "Test body",
         });
@@ -113,8 +113,8 @@ describe("useNotifications", () => {
         Notification as unknown as ReturnType<typeof vi.fn>;
       constructorMock.mockClear();
 
-      await act(async () => {
-        await result.current.showNotification({
+      act(() => {
+        result.current.showNotification({
           title: "Test",
           body: "Test body",
         });

@@ -350,14 +350,14 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   const copyShareLink = useCallback(() => {
     const boardPath = window.location.pathname.replace("/admin", "");
     const url = `${window.location.origin}${boardPath}#key=${encryptionKey}`;
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     toast.success(t("linkCopied"));
   }, [encryptionKey, t]);
 
   const copyAdminLink = useCallback(() => {
     const boardPath = window.location.pathname.replace("/admin", "");
     const url = `${window.location.origin}${boardPath}/admin#token=${adminToken}&key=${encryptionKey}`;
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     toast.success(tAdmin("adminLinkCopied"));
   }, [adminToken, encryptionKey, tAdmin]);
 
@@ -528,7 +528,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
-                      handleAddColumn();
+                      void handleAddColumn();
                     }
                     if (e.key === "Escape") {
                       setNewColumnTitle("");
@@ -595,7 +595,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
             <AlertDialogAction
               className="bg-destructive hover:bg-destructive/90"
               onClick={() => {
-                if (confirmDeleteColumn) handleRemoveColumn(confirmDeleteColumn);
+                if (confirmDeleteColumn) void handleRemoveColumn(confirmDeleteColumn);
                 setConfirmDeleteColumn(null);
               }}
             >

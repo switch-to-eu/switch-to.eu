@@ -119,8 +119,8 @@ describe("usePomodoroTimer", () => {
         }),
       );
 
-      act(() => {
-        result.current.start();
+      await act(async () => {
+        await result.current.start();
       });
 
       // Should post a reset message with current timeLeft
@@ -148,8 +148,8 @@ describe("usePomodoroTimer", () => {
         }),
       );
 
-      act(() => {
-        result.current.start();
+      await act(async () => {
+        await result.current.start();
       });
       mockWorkerPostMessage.mockClear();
 

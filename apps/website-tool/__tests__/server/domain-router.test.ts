@@ -226,6 +226,7 @@ describe("domain router", () => {
       });
 
       // Consume the full subscription
+      // eslint-disable-next-line no-unused-vars
       for await (const _value of subscription) {
         // drain
       }
@@ -261,7 +262,7 @@ describe("domain router", () => {
         complete: boolean;
       }> = [];
       for await (const value of subscription) {
-        yields.push(JSON.parse(JSON.stringify(value)));
+        yields.push(JSON.parse(JSON.stringify(value)) as { results: AnalysisStep[]; complete: boolean });
       }
 
       const last = yields[yields.length - 1]!;
@@ -281,6 +282,7 @@ describe("domain router", () => {
       const subscription = await caller.domain.analyze({
         domain: "ttl-test.com",
       });
+      // eslint-disable-next-line no-unused-vars
       for await (const _value of subscription) {
         // drain
       }
