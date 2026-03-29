@@ -68,8 +68,8 @@ class HorizontalRuleNode extends DecoratorNode<null> {
     return new HorizontalRuleNode(node.__key);
   }
 
-  // eslint-disable-next-line no-unused-vars
   static importJSON(
+    // eslint-disable-next-line no-unused-vars
     _serializedNode: SerializedHorizontalRuleNode,
   ): HorizontalRuleNode {
     return $createHorizontalRuleNode();
@@ -114,6 +114,7 @@ const LinkMarkdownTransformer: Transformer = {
   dependencies: [LinkNode],
   export: (
     _node: LexicalNode,
+    // eslint-disable-next-line no-unused-vars
     exportChildren: (_node: LexicalNode) => string,
   ) => {
     if (!$isLinkNode(_node)) {
@@ -140,10 +141,8 @@ const LinkMarkdownTransformer: Transformer = {
         url: linkUrl,
       },
     });
-    const tn = textNode as unknown as {
-      getFormat: () => number;
-      replace: (_node: LexicalNode) => void;
-    };
+    // eslint-disable-next-line no-unused-vars
+    const tn = textNode as unknown as { getFormat: () => number; replace: (_node: LexicalNode) => void };
     const linkTextNode = $createTextNode(linkText);
     linkTextNode.setFormat(tn.getFormat());
     linkNode.append(linkTextNode);
@@ -169,9 +168,8 @@ const HorizontalRuleMarkdownTransformer: Transformer = {
   regExp: /^---\s*$/,
   replace: (parentNode: LexicalNode) => {
     const node = $createHorizontalRuleNode();
-    const pn = parentNode as unknown as {
-      replace: (_node: LexicalNode) => void;
-    };
+    // eslint-disable-next-line no-unused-vars
+    const pn = parentNode as unknown as { replace: (_node: LexicalNode) => void };
     pn.replace(node);
   },
 };

@@ -158,10 +158,6 @@ export default async function ComparisonPage({
   })) as { docs: Guide[] };
 
   const guide = guides[0];
-  const guideCategorySlug =
-    guide && typeof guide.category === "object"
-      ? guide.category.slug
-      : undefined;
 
   return (
     <PageLayout>
@@ -276,7 +272,7 @@ export default async function ComparisonPage({
                 Worth knowing
               </h3>
               <p className="text-sm text-gray-600 mb-3">
-                Features in {nonEuService.name} that {euService.name} doesn't
+                Features in {nonEuService.name} that {euService.name} doesn&apos;t
                 have:
               </p>
               <ul className="space-y-1.5">

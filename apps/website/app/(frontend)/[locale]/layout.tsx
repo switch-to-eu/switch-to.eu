@@ -67,7 +67,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const { locale: _locale } = await params;
+  await params;
 
   return (
     <PlausibleProvider domain="switch-to.eu">

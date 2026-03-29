@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { Service } from "@/payload-types";
 import { getServiceBySlug, getCategorySlug } from "@/lib/services";
 
 export async function generateServiceMetadata({

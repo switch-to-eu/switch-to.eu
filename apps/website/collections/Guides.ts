@@ -22,6 +22,7 @@ export const Guides: CollectionConfig = {
         } catch {
           /* no-op outside Next.js */
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
       },
     ],

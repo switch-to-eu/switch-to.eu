@@ -59,7 +59,7 @@ export default async function SecurityPage({
             {service.name} {t("security.title")}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            How {service.name} handles your data, where it's stored, and what
+            How {service.name} handles your data, where it&apos;s stored, and what
             certifications back their claims.
           </p>
         </div>
