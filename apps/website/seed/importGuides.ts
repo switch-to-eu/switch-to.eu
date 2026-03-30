@@ -3,6 +3,7 @@
  * Seed importer for guides.
  */
 
+import path from "node:path";
 import type { Payload } from "payload";
 import {
   getAllGuides,
@@ -11,6 +12,20 @@ import {
 } from "./content.js";
 import { markdownToLexical } from "./markdownToLexical.js";
 import { uploadMedia } from "./importMedia.js";
+
+/**
+ * Resolve a video path relative to the guide directory to a content-root-relative path.
+ * e.g., "media/proton-desktop1.mp4" for guide at en/guides/email/gmail-to-protonmail
+ * becomes "en/guides/email/gmail-to-protonmail/media/proton-desktop1.mp4"
+ */
+function resolveGuideMediaPath(
+  videoPath: string,
+  category: string,
+  slug: string,
+  lang: string,
+): string {
+  return path.join(lang, "guides", category, slug, videoPath);
+}
 
 export async function importGuides(
   payload: Payload | null,
@@ -55,7 +70,8 @@ export async function importGuides(
       enSteps.map(async (step) => {
         let videoId: number | undefined;
         if (!dryRun && step.video && payload) {
-          videoId = await uploadMedia(payload, step.video, `${enFm.title} — ${step.title ?? "step"}`);
+          const videoPath = resolveGuideMediaPath(step.video, guide.category, guide.slug, "en");
+          videoId = await uploadMedia(payload, videoPath, `${enFm.title} — ${step.title ?? "step"}`);
         }
         return {
           title: step.title ?? "",
@@ -143,7 +159,10 @@ export async function importGuides(
         nlSteps.map(async (step) => {
           let videoId: number | undefined;
           if (step.video && payload) {
-            videoId = await uploadMedia(payload, step.video, `${nlFm.title} — ${step.title ?? "step"}`);
+            const videoPath = resolveGuideMediaPath(step.video, guide.category, guide.slug, "nl");
+            const enVideoPath = resolveGuideMediaPath(step.video, guide.category, guide.slug, "en");
+            videoId = await uploadMedia(payload, videoPath, `${nlFm.title} — ${step.title ?? "step"}`)
+              ?? await uploadMedia(payload, enVideoPath, `${nlFm.title} — ${step.title ?? "step"}`);
           }
           return {
             title: step.title ?? "",
