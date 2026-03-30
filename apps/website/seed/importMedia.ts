@@ -17,6 +17,11 @@ const CONTENT_ROOT = path.resolve(
   "../../packages/content/content",
 );
 
+const PUBLIC_ROOT = path.resolve(
+  process.cwd(),
+  "public",
+);
+
 /** Map from source path/URL to Payload media document ID */
 const mediaCache = new Map<string, number>();
 
@@ -69,8 +74,12 @@ async function resolveMedia(
     }
   }
 
-  // Local file path — resolve relative to content root
-  const filePath = path.resolve(CONTENT_ROOT, source);
+  // Local file path
+  // Paths starting with /images/ or /videos/ are relative to the public directory
+  // Other paths are relative to the content root
+  const filePath = source.startsWith("/images/") || source.startsWith("/videos/")
+    ? path.join(PUBLIC_ROOT, source)
+    : path.resolve(CONTENT_ROOT, source);
   if (!fs.existsSync(filePath)) {
     console.warn(`    Media file not found: ${filePath}`);
     return null;
