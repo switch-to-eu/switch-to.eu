@@ -63,7 +63,11 @@ export default buildConfig({
     ...(process.env.BLOB_READ_WRITE_TOKEN
       ? [
           vercelBlobStorage({
-            collections: { media: true },
+            collections: {
+              media: {
+                prefix: process.env.VERCEL_ENV ?? "local",
+              },
+            },
             token: process.env.BLOB_READ_WRITE_TOKEN,
           }),
         ]
