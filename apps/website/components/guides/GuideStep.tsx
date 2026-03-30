@@ -15,8 +15,6 @@ interface StepProps {
     contentHtml: string;
   };
   stepNumber: number;
-  category: string;
-  slug: string;
 }
 
 // Custom hook to determine if an element is visible in the viewport
@@ -68,31 +66,11 @@ export function GuideStep({
   guideId,
   step,
   stepNumber,
-  category,
-  slug,
 }: StepProps) {
   const { targetRef, videoRef } = useVideoIntersection();
   const isLandscapeVideo = step.videoOrientation === "landscape";
 
-  // github url: https://github.com/switch-to-eu/content/raw/refs/heads/main/nl/guides/email/gmail-to-protonmail/media/
-
-  // Format video URL to use the API route with full path
-  const getVideoUrl = (videoPath: string) => {
-    if (!videoPath) return "";
-
-    // If it's already an absolute URL, return as is
-    if (videoPath.startsWith("http")) {
-      return videoPath;
-    }
-
-    // If the video path already includes the guide path, use it as is
-    if (videoPath.includes(`guides/${category}/${slug}`)) {
-      return `https://github.com/switch-to-eu/content/raw/refs/heads/main/${videoPath}`;
-    }
-
-    // Otherwise, construct the full path including the guide location
-    return `https://github.com/switch-to-eu/content/raw/refs/heads/main/nl/guides/${category}/${slug}/${videoPath}`;
-  };
+  // Video URL comes directly from the media upload (Vercel Blob or local filesystem)
 
   // Render the step content
   const renderContent = () => (
@@ -133,7 +111,7 @@ export function GuideStep({
         loop
         controls
         className="w-full"
-        src={getVideoUrl(step.video as string)}
+        src={step.video as string}
         title={`Video guide for ${step.title}`}
       />
     </div>

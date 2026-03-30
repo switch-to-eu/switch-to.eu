@@ -9,6 +9,7 @@ import {
   getServiceBySlug,
 } from "./content.js";
 import { markdownToLexical } from "./markdownToLexical.js";
+import { uploadMedia } from "./importMedia.js";
 
 export async function importServices(
   payload: Payload | null,
@@ -60,8 +61,23 @@ export async function importServices(
     if (dryRun) {
       const fakeId = serviceMap.size + 1;
       serviceMap.set(slug, fakeId);
-      console.log(`  [dry-run] Service: ${slug} — "${enData.name}" (${enData.region}, category: ${categorySlug}${categoryId ? "" : " NOT FOUND"}, features: ${features.length}, nl: ${nlService ? "yes" : "no"})`);
+      console.log(`  [dry-run] Service: ${slug} — "${enData.name}" (${enData.region}, category: ${categorySlug}${categoryId ? "" : " NOT FOUND"}, features: ${features.length}, logo: ${enData.logo ? "yes" : "no"}, screenshot: ${enData.screenshot ? "yes" : "no"}, nl: ${nlService ? "yes" : "no"})`);
       continue;
+    }
+
+    // Upload logo and screenshot if present in frontmatter
+    let logoId: number | undefined;
+    let screenshotId: number | undefined;
+
+    if (enData.logo) {
+      logoId = await uploadMedia(payload!, enData.logo, `${enData.name} logo`);
+    }
+    if (enData.screenshot) {
+      screenshotId = await uploadMedia(
+        payload!,
+        enData.screenshot,
+        `${enData.name} screenshot`,
+      );
     }
 
     const created = await payload!.create({
@@ -87,6 +103,8 @@ export async function importServices(
         tags,
         content: enLexical,
         issues,
+        ...(logoId ? { logo: logoId } : {}),
+        ...(screenshotId ? { screenshot: screenshotId } : {}),
       },
     });
 

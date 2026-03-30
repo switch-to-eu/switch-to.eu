@@ -10,6 +10,7 @@ import {
   extractStepsWithMeta,
 } from "./content.js";
 import { markdownToLexical } from "./markdownToLexical.js";
+import { uploadMedia } from "./importMedia.js";
 
 export async function importGuides(
   payload: Payload | null,
@@ -51,15 +52,21 @@ export async function importGuides(
       : undefined;
 
     const enStepData = await Promise.all(
-      enSteps.map(async (step) => ({
-        title: step.title ?? "",
-        content: step.content
-          ? await markdownToLexical(step.content)
-          : undefined,
-        video: step.video ?? "",
-        videoOrientation: step.videooriantation ?? "landscape",
-        complete: step.complete ?? false,
-      })),
+      enSteps.map(async (step) => {
+        let videoId: number | undefined;
+        if (!dryRun && step.video && payload) {
+          videoId = await uploadMedia(payload, step.video, `${enFm.title} — ${step.title ?? "step"}`);
+        }
+        return {
+          title: step.title ?? "",
+          content: step.content
+            ? await markdownToLexical(step.content)
+            : undefined,
+          ...(videoId ? { video: videoId } : {}),
+          videoOrientation: step.videooriantation ?? "landscape",
+          complete: step.complete ?? false,
+        };
+      }),
     );
 
     const categoryId = categoryMap.get(guide.category);
@@ -133,15 +140,21 @@ export async function importGuides(
         : [];
 
       const nlStepData = await Promise.all(
-        nlSteps.map(async (step) => ({
-          title: step.title ?? "",
-          content: step.content
-            ? await markdownToLexical(step.content)
-            : undefined,
-          video: step.video ?? "",
-          videoOrientation: step.videooriantation ?? "landscape",
-          complete: step.complete ?? false,
-        })),
+        nlSteps.map(async (step) => {
+          let videoId: number | undefined;
+          if (step.video && payload) {
+            videoId = await uploadMedia(payload, step.video, `${nlFm.title} — ${step.title ?? "step"}`);
+          }
+          return {
+            title: step.title ?? "",
+            content: step.content
+              ? await markdownToLexical(step.content)
+              : undefined,
+            ...(videoId ? { video: videoId } : {}),
+            videoOrientation: step.videooriantation ?? "landscape",
+            complete: step.complete ?? false,
+          };
+        }),
       );
 
       await payload!.update({

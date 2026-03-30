@@ -180,9 +180,10 @@ export const Guides: CollectionConfig = {
                 },
                 {
                   name: "video",
-                  type: "text",
+                  type: "upload",
+                  relationTo: "media",
                   admin: {
-                    description: "Optional video URL for this step",
+                    description: "Optional video for this step",
                   },
                 },
                 {

@@ -147,7 +147,7 @@ export default async function GuideServicePage({
   const guideSteps = (guide.steps ?? []) as Array<{
     title: string;
     content: SerializedEditorState | null;
-    video?: string | null;
+    video?: { url?: string | null } | number | null;
     videoOrientation?: string | null;
     complete?: boolean | null;
     id?: string | null;
@@ -161,14 +161,22 @@ export default async function GuideServicePage({
   // Pre-render step content from Lexical JSON to HTML on the server.
   // This is necessary because GuideStep is a client component and cannot
   // use the server-only <RichText> component from Payload.
-  const stepsWithHtml = guideSteps.map((step, index) => ({
-    title: step.title,
-    id: sidebarSteps[index]!.id,
-    complete: step.complete ?? false,
-    video: step.video ?? null,
-    videoOrientation: step.videoOrientation ?? null,
-    contentHtml: lexicalToHtml(step.content),
-  }));
+  const stepsWithHtml = guideSteps.map((step, index) => {
+    // Resolve video URL from the media upload relationship
+    const videoUrl =
+      step.video && typeof step.video === "object" && "url" in step.video
+        ? (step.video.url ?? null)
+        : null;
+
+    return {
+      title: step.title,
+      id: sidebarSteps[index]!.id,
+      complete: step.complete ?? false,
+      video: videoUrl,
+      videoOrientation: step.videoOrientation ?? null,
+      contentHtml: lexicalToHtml(step.content),
+    };
+  });
 
   // Count steps that have the "complete" flag for progress tracking
   const completableStepCount = guideSteps.filter((s) => s.complete).length;
@@ -262,8 +270,6 @@ export default async function GuideServicePage({
                           guideId={guideId}
                           step={step}
                           stepNumber={index + 1}
-                          category={category}
-                          slug={service}
                         />
                       ))}
                     </div>
