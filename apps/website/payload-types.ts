@@ -230,6 +230,7 @@ export interface Category {
 export interface Media {
   id: number;
   alt?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -255,6 +256,12 @@ export interface Guide {
    */
   timeRequired: string;
   date?: string | null;
+  /**
+   * Tracks progress through the content pipeline
+   */
+  contentPipelineStatus?:
+    | ('not-started' | 'in-progress' | 'written' | 'humanized' | 'seo-checked' | 'translated' | 'complete')
+    | null;
   title: string;
   category: number | Category;
   description: string;
@@ -334,9 +341,9 @@ export interface Guide {
           [k: string]: unknown;
         };
         /**
-         * Optional video URL for this step
+         * Optional video for this step
          */
-        video?: string | null;
+        video?: (number | null) | Media;
         videoOrientation?: ('landscape' | 'portrait') | null;
         /**
          * Whether this step is fully written (progress tracking)
@@ -435,6 +442,12 @@ export interface Service {
   slug: string;
   region: 'eu' | 'non-eu' | 'eu-friendly';
   featured?: boolean | null;
+  /**
+   * Tracks progress through the content pipeline (write → humanize → SEO → translate)
+   */
+  contentPipelineStatus?:
+    | ('not-started' | 'in-progress' | 'written' | 'humanized' | 'seo-checked' | 'translated' | 'complete')
+    | null;
   name: string;
   category: number | Category;
   /**
@@ -941,6 +954,12 @@ export interface PayloadMcpApiKey {
      */
     find?: boolean | null;
   };
+  'payload-mcp-tool'?: {
+    /**
+     * Wipe all text content from services or guides while preserving media (logo, screenshot, videos), slugs, relationships, and structural fields. Use before re-running research/write pipeline to test from a clean slate. Resets contentPipelineStatus to not-started.
+     */
+    wipeContent?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -1092,6 +1111,7 @@ export interface GuidesSelect<T extends boolean = true> {
   difficulty?: T;
   timeRequired?: T;
   date?: T;
+  contentPipelineStatus?: T;
   title?: T;
   category?: T;
   description?: T;
@@ -1172,6 +1192,7 @@ export interface LandingPagesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1218,6 +1239,7 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   region?: T;
   featured?: T;
+  contentPipelineStatus?: T;
   name?: T;
   category?: T;
   location?: T;
@@ -1387,6 +1409,11 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | T
     | {
         find?: T;
+      };
+  'payload-mcp-tool'?:
+    | T
+    | {
+        wipeContent?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -16,6 +16,7 @@ import {
   Services,
   Users,
 } from "./collections";
+import { wipeContentTool } from "./mcp/wipeContentTool";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -58,6 +59,9 @@ export default buildConfig({
             delete: false,
           },
         },
+      },
+      mcp: {
+        tools: [wipeContentTool],
       },
     }),
     ...(process.env.BLOB_READ_WRITE_TOKEN

@@ -35,7 +35,9 @@
         "PGUSER",
         "PGPASSWORD",
         "NEON_PROJECT_ID",
-        "PAYLOAD_SECRET"
+        "PAYLOAD_SECRET",
+        "BLOB_READ_WRITE_TOKEN",
+        "VERCEL_ENV"
       ]
     },
     "dev": {
