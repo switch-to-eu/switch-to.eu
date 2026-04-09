@@ -1,11 +1,8 @@
-import { ArrowLeftIcon } from "lucide-react";
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
 import { Metadata } from "next";
-import { Link } from "@switch-to-eu/i18n/navigation";
 import { Locale } from "next-intl";
 import { api } from "@/server/api/trpc-server";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { Container } from "@switch-to-eu/blocks/components/container";
 
 function formatDomain(domain: string) {
   return domain.replace(/^(https?:\/\/)?(www\.)?/, "").replace(/\/$/, "");

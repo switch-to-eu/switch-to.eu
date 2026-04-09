@@ -1,7 +1,21 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { ServiceFrontmatter } from "@switch-to-eu/content/schemas";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+
+/**
+ * Service data shape compatible with Payload CMS Service documents.
+ */
+export interface RecommendedAlternativeServiceData {
+  name: string;
+  slug?: string;
+  region?: "eu" | "non-eu" | "eu-friendly" | null;
+  location?: string | null;
+  freeOption?: boolean | null;
+  startingPrice?: string | null;
+  description: string;
+  url?: string | null;
+  screenshot?: string | { url?: string | null } | null;
+}
 
 interface MigrationGuide {
   category: string;
@@ -13,21 +27,27 @@ export async function RecommendedAlternative({
   sourceService,
   migrationGuides = [],
 }: {
-  service: ServiceFrontmatter;
+  service: RecommendedAlternativeServiceData;
   sourceService: string;
   migrationGuides: MigrationGuide[];
 }) {
   if (!service) return null;
   const t = await getTranslations("services");
 
-  const serviceSlug = service.name.toLowerCase().replace(/\s+/g, "-");
+  const serviceSlug = service.slug ?? service.name.toLowerCase().replace(/\s+/g, "-");
   const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
+
+  // Resolve screenshot URL (Payload Media object or plain string)
+  const screenshotUrl =
+    typeof service.screenshot === "object" && service.screenshot !== null
+      ? service.screenshot.url ?? undefined
+      : service.screenshot ?? undefined;
 
   return (
     <div className="bg-brand-green md:rounded-3xl relative overflow-hidden">
-      <div className={`grid grid-cols-1 ${service.screenshot ? "md:grid-cols-2" : "md:grid-cols-[auto_1fr]"} items-center`}>
+      <div className={`grid grid-cols-1 ${screenshotUrl ? "md:grid-cols-2" : "md:grid-cols-[auto_1fr]"} items-center`}>
         {/* Left: content (always first) */}
-        {!service.screenshot && (
+        {!screenshotUrl && (
           <div className="relative w-full md:w-72 lg:w-80 flex-shrink-0 flex items-center justify-center py-10 md:py-0">
             <div className="relative z-10 flex flex-col items-center gap-3">
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-yellow flex items-center justify-center text-brand-green text-3xl sm:text-4xl font-bold shadow-lg">
@@ -126,11 +146,11 @@ export async function RecommendedAlternative({
         </div>
 
         {/* Right: Screenshot */}
-        {service.screenshot && (
+        {screenshotUrl && (
           <div className="flex justify-center md:justify-end p-6 md:p-8">
             <div className="relative w-full">
               <img
-                src={service.screenshot}
+                src={screenshotUrl}
                 alt={service.name}
                 className="w-full h-auto object-cover rounded-2xl"
               />

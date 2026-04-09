@@ -54,15 +54,18 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
           </div>
 
           <p className="text-base font-medium text-tool-primary mb-2">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {t(`${tool.id}.tagline` as any)}
           </p>
 
           <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {t(`${tool.id}.description` as any)}
           </p>
 
           {isActive ? (
             <button className="inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium text-white bg-tool-primary hover:opacity-90 transition-opacity text-sm">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(`${tool.id}.cta` as any)}
               <ArrowRight className="h-3 w-3" />
             </button>

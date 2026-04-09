@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 let postMessageMock: ReturnType<typeof vi.fn>;
-let messageHandler: (event: MessageEvent) => void;
+// eslint-disable-next-line no-unused-vars
+let messageHandler: (_event: MessageEvent) => void;
 let fakeNow: number;
 let intervalCallbacks: Map<number, () => void>;
 let nextIntervalId: number;
@@ -18,7 +19,8 @@ beforeEach(async () => {
   vi.stubGlobal("self", {
     postMessage: postMessageMock,
     addEventListener: vi.fn(
-      (_event: string, handler: (event: MessageEvent) => void) => {
+      // eslint-disable-next-line no-unused-vars
+      (_event: string, handler: (_event: MessageEvent) => void) => {
         messageHandler = handler;
       },
     ),
@@ -32,7 +34,8 @@ beforeEach(async () => {
   // Mock setInterval/clearInterval to manually control ticks
   vi.stubGlobal(
     "setInterval",
-    vi.fn((callback: () => void, _ms: number) => {
+    // eslint-disable-next-line no-unused-vars
+    vi.fn((callback: () => void, _interval: number) => {
       const id = nextIntervalId++;
       intervalCallbacks.set(id, callback);
       return id;

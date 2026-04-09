@@ -25,7 +25,7 @@ export default function PrivacyPage() {
             {t('summary.title')}
           </h2>
           <ul className="space-y-2">
-            {t.raw('summary.points').map((point: string, index: number) => (
+            {(t.raw('summary.points') as string[]).map((point: string, index: number) => (
               <li key={index} className="text-foreground">• {point}</li>
             ))}
           </ul>

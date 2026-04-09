@@ -96,6 +96,7 @@ describe("usePomodoroSettings", () => {
       result.current.updateSettings({ workDuration: 42 });
     });
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(localStorage.setItem).toHaveBeenCalledWith(
       "keepfocus-pomodoro-settings",
       expect.stringContaining('"workDuration":42'),

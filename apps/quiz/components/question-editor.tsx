@@ -124,7 +124,7 @@ export function QuestionEditor({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {question.options.map((option, i) => {
-          const optionError = Array.isArray(optionErrors) ? optionErrors[i] : undefined;
+          const optionError = Array.isArray(optionErrors) ? (optionErrors[i] as string | undefined) : undefined;
           return (
             <div key={i}>
               <div

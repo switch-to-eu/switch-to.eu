@@ -66,7 +66,7 @@ function startTimer(): void {
 
   // Start the tick interval - using 1000ms like minimal timer
   intervalId = setInterval(tick, 1000);
-  console.log(`[Worker] Started interval with ID: ${intervalId}`);
+  console.log(`[Worker] Started interval with ID: ${String(intervalId)}`);
 
   // Send immediate tick to sync state
   tick();

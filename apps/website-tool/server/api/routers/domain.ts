@@ -24,18 +24,19 @@ const domainInput = z.object({
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(
-      () => reject(new Error("Detector timed out")),
+      () => { reject(new Error("Detector timed out")); },
       ms,
     );
     promise.then(
       (v) => { clearTimeout(timer); resolve(v); },
-      (e) => { clearTimeout(timer); reject(e); },
+      (e: unknown) => { clearTimeout(timer); reject(e instanceof Error ? e : new Error(String(e))); },
     );
   });
 }
 
 type DetectorConfig = {
   index: number;
+  // eslint-disable-next-line no-unused-vars
   run: (domain: string) => Promise<void>;
 };
 
@@ -153,7 +154,7 @@ export const domainRouter = createTRPCRouter({
 
       // Launch all detectors in parallel
       for (const detector of detectors) {
-        detector
+        void detector
           .run(domain)
           .catch((err) => {
             // On timeout or error, mark as complete with unknown result

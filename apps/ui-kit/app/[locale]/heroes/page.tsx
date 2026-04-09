@@ -24,6 +24,7 @@ function ColorInput({
 }: {
   label: string;
   value: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (v: string) => void;
 }) {
   return (
@@ -52,7 +53,7 @@ function CustomHeroEditor() {
   };
 
   const loadPreset = (name: string) => {
-    setColors(HERO_PRESETS[name as keyof typeof HERO_PRESETS]!);
+    setColors(HERO_PRESETS[name as keyof typeof HERO_PRESETS]);
     setActivePreset(name);
   };
 
@@ -143,7 +144,7 @@ export default function HeroesPage() {
             <Hero
               title="Switch to European Alternatives"
               subtitle="Discover privacy-respecting services built in the EU"
-              colors={HERO_PRESETS[name as keyof typeof HERO_PRESETS]!}
+              colors={HERO_PRESETS[name as keyof typeof HERO_PRESETS]}
               buttons={demoButtons}
             />
           </div>

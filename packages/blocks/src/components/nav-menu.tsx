@@ -13,6 +13,7 @@ interface NavMenuProps {
   navItems: MainNavItem[];
   className?: string;
   /** Custom renderer for mega dropdown children. If not provided, renders MegaToolItem. */
+  // eslint-disable-next-line no-unused-vars
   renderMegaItem?: (child: SubNavItem, onClose: () => void, parent: MainNavItem) => ReactNode;
 }
 

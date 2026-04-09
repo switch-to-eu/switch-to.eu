@@ -46,6 +46,7 @@ describe("useNotifications", () => {
         permission = await result.current.requestPermission();
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(Notification.requestPermission).toHaveBeenCalled();
       expect(permission).toBe("granted");
     });
@@ -89,8 +90,8 @@ describe("useNotifications", () => {
         Notification as unknown as ReturnType<typeof vi.fn>;
       constructorMock.mockClear();
 
-      await act(async () => {
-        await result.current.showNotification({
+      act(() => {
+        result.current.showNotification({
           title: "Test",
           body: "Test body",
         });
@@ -104,7 +105,7 @@ describe("useNotifications", () => {
       );
     });
 
-    it("does nothing when permission is not granted", async () => {
+    it("does nothing when permission is not granted", () => {
       // Permission is "default" (not granted)
       const { result } = renderHook(() => useNotifications());
 
@@ -112,8 +113,8 @@ describe("useNotifications", () => {
         Notification as unknown as ReturnType<typeof vi.fn>;
       constructorMock.mockClear();
 
-      await act(async () => {
-        await result.current.showNotification({
+      act(() => {
+        result.current.showNotification({
           title: "Test",
           body: "Test body",
         });
@@ -136,6 +137,7 @@ describe("useNotifications", () => {
 
     it("falls back to visual flash when play() rejects", async () => {
       const mockPlay = vi.fn().mockRejectedValue(new Error("play failed"));
+      // eslint-disable-next-line no-unused-vars
       globalThis.Audio = vi.fn(function (this: Record<string, unknown>) {
         this.play = mockPlay;
         this.volume = 0.3;

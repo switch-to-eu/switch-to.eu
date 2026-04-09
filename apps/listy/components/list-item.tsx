@@ -14,9 +14,13 @@ interface ListItemProps {
   item: DecryptedItem;
   preset: string;
   compact?: boolean;
+  // eslint-disable-next-line no-unused-vars
   onToggle: (itemId: string, completed: boolean) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onRemove: (itemId: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
   onClaim?: (itemId: string) => void;
+  // eslint-disable-next-line no-unused-vars
   onUnclaim?: (itemId: string) => Promise<void>;
   dragHandleProps?: {
     attributes: DraggableAttributes;
@@ -27,6 +31,7 @@ interface ListItemProps {
 
 export function ListItem({
   item,
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   preset,
   compact = false,
   onToggle,

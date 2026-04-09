@@ -1,47 +1,41 @@
 import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
+import { withPayload } from "@payloadcms/next/withPayload";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withMDX = createMDX({
-  // Add markdown plugins here, if needed
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  },
-});
-
 const nextConfig: NextConfig = {
-  output: "standalone",
-  transpilePackages: ["@switch-to-eu/ui", "@switch-to-eu/i18n", "@switch-to-eu/blocks", "@switch-to-eu/content"],
-  /* config options here */
+  transpilePackages: [
+    "@switch-to-eu/ui",
+    "@switch-to-eu/i18n",
+    "@switch-to-eu/blocks",
+    "@switch-to-eu/content",
+  ],
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-
-  // Configure static file serving from the content submodule
-  rewrites() {
+  async redirects() {
     return [
+      // Renamed slug: tutanota → tuta
       {
-        source: "/content/:path*",
-        destination: "/api/content/:path*",
+        source: "/:locale/services/eu/tutanota",
+        destination: "/:locale/services/eu/tuta",
+        permanent: true,
+      },
+      {
+        source: "/:locale/services/eu/tutanota/:path*",
+        destination: "/:locale/services/eu/tuta/:path*",
+        permanent: true,
       },
     ];
   },
-
-  // Add CORS headers for content files
-  headers() {
-    return [
-      {
-        source: "/api/content/:path*",
-        headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET" },
-          { key: "Cache-Control", value: "public, max-age=86400" },
-        ],
-      },
-    ];
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // LLM-friendly .md URLs → API route handlers
+        { source: "/services/:slug.md", destination: "/api/llm/services/:slug" },
+        { source: "/guides/:slug.md", destination: "/api/llm/guides/:slug" },
+      ],
+    };
   },
 };
 
 const withNextIntl = createNextIntlPlugin();
-// Merge MDX config with Next.js config
-export default withMDX(withNextIntl(nextConfig));
+export default withPayload(withNextIntl(nextConfig));

@@ -1,0 +1,14 @@
+{
+    "mcpServers": {
+        "Payload": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-remote",
+                "http://localhost:5010/api/mcp",
+                "--header",
+                "Authorization: Bearer fe92273f-c5b2-4943-aeda-ade07dfce824"
+            ]
+        }
+    }
+}

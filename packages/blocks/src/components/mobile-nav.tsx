@@ -12,6 +12,7 @@ interface MobileNavProps {
   /** Label for the menu button (sr-only). Defaults to "Menu". */
   menuLabel?: string;
   /** Custom renderer for dropdown children in mobile view */
+  // eslint-disable-next-line no-unused-vars
   renderDropdownChild?: (child: SubNavItem) => ReactNode;
   /** Extra content at the bottom of the mobile nav (e.g. SearchInput, HeaderFeedback, Create button) */
   children?: ReactNode;

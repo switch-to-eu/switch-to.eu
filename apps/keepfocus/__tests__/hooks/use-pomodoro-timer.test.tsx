@@ -5,7 +5,8 @@ import { DEFAULT_SETTINGS } from "../../lib/types";
 // Mock Worker constructor
 let mockWorkerPostMessage: ReturnType<typeof vi.fn>;
 let mockWorkerTerminate: ReturnType<typeof vi.fn>;
-let workerOnMessage: ((event: MessageEvent) => void) | null = null;
+// eslint-disable-next-line no-unused-vars
+let workerOnMessage: ((_event: MessageEvent) => void) | null = null;
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -15,6 +16,7 @@ beforeEach(() => {
   workerOnMessage = null;
 
   // Must use function (not arrow) so it can be called with `new`
+  // eslint-disable-next-line no-unused-vars
   const MockWorker = vi.fn(function (this: Record<string, unknown>) {
     this.postMessage = mockWorkerPostMessage;
     this.terminate = mockWorkerTerminate;
@@ -22,7 +24,8 @@ beforeEach(() => {
       get() {
         return workerOnMessage;
       },
-      set(handler: (event: MessageEvent) => void) {
+      // eslint-disable-next-line no-unused-vars
+      set(handler: (_event: MessageEvent) => void) {
         workerOnMessage = handler;
       },
       configurable: true,
@@ -117,7 +120,7 @@ describe("usePomodoroTimer", () => {
       );
 
       await act(async () => {
-        result.current.start();
+        await result.current.start();
       });
 
       // Should post a reset message with current timeLeft
@@ -146,7 +149,7 @@ describe("usePomodoroTimer", () => {
       );
 
       await act(async () => {
-        result.current.start();
+        await result.current.start();
       });
       mockWorkerPostMessage.mockClear();
 

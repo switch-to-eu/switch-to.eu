@@ -13,7 +13,8 @@ interface UseNotificationsReturn {
   permission: NotificationPermission;
   isSupported: boolean;
   requestPermission: () => Promise<NotificationPermission>;
-  showNotification: (options: NotificationOptions) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  showNotification: (options: NotificationOptions) => void;
   playNotificationSound: () => void;
 }
 
@@ -46,7 +47,7 @@ export const useNotifications = (): UseNotificationsReturn => {
     }
   }, [isSupported]);
 
-  const showNotification = useCallback(async (options: NotificationOptions): Promise<void> => {
+  const showNotification = useCallback((options: NotificationOptions): void => {
     if (!isSupported) {
       console.warn('Notifications are not supported in this browser');
       return;

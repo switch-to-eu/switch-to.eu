@@ -2,6 +2,7 @@
   "name": "website",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --port 5010",
     "build": "next build",
@@ -11,7 +12,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "seed": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts",
+    "seed:reset": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts --reset",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload",
+    "generate:types": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload generate:types"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -19,6 +24,12 @@
     "@mdx-js/mdx": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "16.1.6",
+    "@payloadcms/db-postgres": "^3.80.0",
+    "@payloadcms/next": "^3.80.0",
+    "@payloadcms/plugin-mcp": "^3.80.0",
+    "@payloadcms/richtext-lexical": "^3.80.0",
+    "@payloadcms/storage-vercel-blob": "^3.80.0",
+    "@payloadcms/translations": "^3.80.0",
     "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/content": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
@@ -35,6 +46,7 @@
     "next-intl": "catalog:",
     "next-plausible": "^3.12.4",
     "octokit": "catalog:",
+    "payload": "^3.80.0",
     "react": "catalog:",
     "react-confetti": "^6.4.0",
     "react-dom": "catalog:",
@@ -46,22 +58,25 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@vitejs/plugin-react": "^5.1.4",
-    "jsdom": "^26.1.0",
     "@playwright/test": "catalog:",
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/negotiator": "^0.6.3",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "^5.1.4",
+    "cross-env": "^10.1.0",
     "eslint": "catalog:",
     "gray-matter": "catalog:",
+    "jsdom": "^26.1.0",
+    "sass": "^1.98.0",
     "tailwindcss": "catalog:",
+    "tsx": "^4.21.0",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "catalog:"
@@ -71,6 +86,7 @@
   },
   "overrides": {
     "@types/react": "19.2.13",
-    "@types/react-dom": "19.2.3"
+    "@types/react-dom": "19.2.3",
+    "next": "$next"
   }
 }

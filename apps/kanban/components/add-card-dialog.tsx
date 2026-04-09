@@ -23,6 +23,7 @@ const LABEL_COLORS: Record<string, string> = {
 
 interface AddCardDialogProps {
   initialData?: DecryptedCardData;
+  // eslint-disable-next-line no-unused-vars
   onSave: (data: Omit<DecryptedCardData, "id">) => void;
   onCancel: () => void;
   onDelete?: () => void;

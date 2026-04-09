@@ -1,18 +1,26 @@
-import { getAllCategoriesMetadata } from "@switch-to-eu/content/services/categories";
+import { getPayload } from "@/lib/payload";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
 import { getTranslations } from "next-intl/server";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
+import type { Category } from "@/payload-types";
 
 const i18nKeyMap: Record<string, string> = {
   "eu-scan": "euScan",
 };
 
 export async function getNavItems(): Promise<MainNavItem[]> {
-  const categories = getAllCategoriesMetadata().map((category) => ({
-    title: category.metadata.title,
+  const payload = await getPayload();
+  const { docs: categoryDocs } = await payload.find({
+    collection: "categories",
+    locale: "en",
+    limit: 100,
+    sort: "title",
+  }) as { docs: Category[] };
+  const categories = categoryDocs.map((category) => ({
+    title: category.title,
     href: `/services/${category.slug}`,
-    description: category.metadata.description,
-    icon: category.metadata.icon,
+    description: category.description,
+    icon: category.icon,
   }));
 
   const t = await getTranslations("navigation");

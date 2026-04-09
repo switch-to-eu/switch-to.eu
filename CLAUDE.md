@@ -142,6 +142,78 @@ Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`.
 
 Search uses Fuse.js with in-memory caching (5-min TTL, keyed by locale).
 
+## Content Workflow (AI-Assisted)
+
+The site uses custom Claude Code skills wired to Payload CMS via MCP for a research-to-publish pipeline. All content enters as draft and requires human review before publishing.
+
+### Single-Item Pipeline
+
+```
+/research "ServiceName"     → Fills Research tab on service via MCP
+/write service "ServiceName" → Writes listing from research data, saves as draft
+/humanize service "ServiceName" → Strips AI writing patterns
+/seo-check service "ServiceName" → 10-point audit, stores score in SEO tab
+→ Editor reviews in /admin, publishes
+/translate service "ServiceName" nl → Translates to Dutch locale
+→ Editor reviews Dutch version, publishes
+```
+
+For guides:
+```
+/write guide "Gmail" to "ProtonMail" → Creates migration guide from research
+/humanize guide "gmail-to-protonmail"
+/seo-check guide "gmail-to-protonmail"
+→ Review + publish
+/translate guide "gmail-to-protonmail" nl
+→ Review Dutch + publish
+```
+
+### Bulk Pipeline (Parallel Agents)
+
+```
+/bulk-research all                      → Research all unresearched services in parallel
+/bulk-write service all                 → Write content for all researched services in parallel
+/bulk-humanize service all              → Humanize all services with content in parallel
+/bulk-seo-check service all             → SEO audit all services in parallel
+/bulk-translate service all nl          → Translate all services to Dutch in parallel
+/pipeline service all                   → Run write→humanize→seo-check per service (parallel across items)
+```
+
+Bulk skills accept: specific names (comma-separated), `all`, `unresearched`/`unwritten`/`unchecked`, `category <name>`. Each dispatches one subagent per item using the Agent tool with `run_in_background: true`. Max 10 parallel agents per batch.
+
+### Content Pipeline Status
+
+Services and Guides have a `contentPipelineStatus` sidebar field tracking progress: `not-started` → `in-progress` → `written` → `humanized` → `seo-checked` → `translated` → `complete`. The `/pipeline` skill updates this automatically. Useful for filtering items that need the next step.
+
+### Skills (`.claude/skills/`)
+
+| Skill | Type | Purpose |
+|-------|------|---------|
+| `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
+| `research` | `/research` | Web research → Payload Research tab via MCP |
+| `write` | `/write` | Content generation from research data |
+| `humanize` | `/humanize` | Strip AI writing patterns |
+| `seo-check` | `/seo-check` | SEO audit with scoring |
+| `translate` | `/translate` | Localization to other EU languages |
+| `bulk-research` | `/bulk-research` | Parallel research via subagents |
+| `bulk-write` | `/bulk-write` | Parallel content writing via subagents |
+| `bulk-humanize` | `/bulk-humanize` | Parallel humanization via subagents |
+| `bulk-seo-check` | `/bulk-seo-check` | Parallel SEO audits via subagents |
+| `bulk-translate` | `/bulk-translate` | Parallel translation via subagents |
+| `pipeline` | `/pipeline` | Combined write→humanize→seo-check (sequential per item, parallel across items) |
+
+### Tone rules (from informational-copy)
+
+- Write like a knowledgeable friend, not a marketing team
+- Back every claim with specifics (numbers, features, prices)
+- Always acknowledge trade-offs ("Worth knowing:" section is mandatory)
+- No em dashes, no semicolons, no banned words (see skill for full list)
+- Active voice, short sentences, varied paragraph length
+
+### Draft/Publish workflow
+
+All content collections have `versions: { drafts: true }`. New content from AI skills enters as draft (`_status: "draft"`). Editors review in the Payload admin panel and click "Publish" to make content live. Nothing publishes automatically.
+
 ## tRPC + Redis Apps (Plotty, Listy, Privnote)
 
 All three apps follow the same architecture: tRPC v11 + Redis, E2E encryption (key in URL fragment, never sent to server), shared rate-limiting middleware.
