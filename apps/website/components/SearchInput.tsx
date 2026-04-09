@@ -124,18 +124,13 @@ export function SearchInput({
   // Handle selecting a search result
   const handleSelect = (result: SearchResult) => {
     setOpen(false);
-    // Update URLs to include language
-    const url =
-      result.url.startsWith("/") && !result.url.startsWith(`/${locale}`)
-        ? `/${locale}${result.url}`
-        : result.url;
-    router.push(url);
+    router.push(result.url);
   };
 
   // Navigate to search page for full results
   const handleViewAllResults = () => {
     setOpen(false);
-    router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
+    router.push(`/search?q=${encodeURIComponent(query)}`);
   };
 
   // Filtered results by type
