@@ -13,8 +13,8 @@ export async function getOgFonts() {
   );
 
   const [hankenBold, bonbance] = await Promise.all([
-    readFile(join(fontsDir, "HankenGrotesk-Bold.woff2")),
-    readFile(join(fontsDir, "Bonbance-BoldCondensed.woff2")),
+    readFile(join(fontsDir, "HankenGrotesk-Bold.ttf")),
+    readFile(join(fontsDir, "Bonbance-BoldCondensed.ttf")),
   ]);
 
   cachedFonts = {
