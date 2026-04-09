@@ -78,13 +78,11 @@ function CompareRow({
   euValue,
   nonEuValue,
   highlight,
-  clampNonEu,
 }: {
   label: string;
   euValue: string;
   nonEuValue: string;
   highlight?: "eu" | "non-eu" | "neutral";
-  clampNonEu?: boolean;
 }) {
   return (
     <div className={`grid grid-cols-3 gap-4 py-4 border-b border-gray-100 last:border-0${highlight === "eu" ? " bg-brand-green/[0.03]" : ""}`}>
@@ -107,7 +105,7 @@ function CompareRow({
             : highlight === "non-eu"
               ? "text-brand-green font-medium"
               : "text-gray-700"
-        }${clampNonEu ? " line-clamp-2" : ""}`}
+        }`}
       >
         {nonEuValue}
       </div>
@@ -168,8 +166,7 @@ export default async function ComparisonPage({
             {euService.name} vs {nonEuService.name}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            How does {euService.name} compare to {nonEuService.name}? Here is a
-            side-by-side look at the key differences.
+            {t("compare.intro", { service: euService.name, other: nonEuService.name })}
           </p>
         </div>
 
@@ -191,45 +188,45 @@ export default async function ComparisonPage({
 
             <div className="px-6">
               <CompareRow
-                label="Based in"
+                label={t("compare.basedIn")}
                 euValue={euService.location}
                 nonEuValue={nonEuService.location}
                 highlight="eu"
               />
               <CompareRow
-                label="Free plan"
-                euValue={euService.freeOption ? "Yes" : "No"}
-                nonEuValue={nonEuService.freeOption ? "Yes" : "No"}
+                label={t("compare.freePlan")}
+                euValue={euService.freeOption ? t("compare.yes") : t("compare.no")}
+                nonEuValue={nonEuService.freeOption ? t("compare.yes") : t("compare.no")}
                 highlight="neutral"
               />
               <CompareRow
-                label="Starting price"
-                euValue={euService.startingPrice || "Free"}
-                nonEuValue={nonEuService.startingPrice || "Free"}
+                label={t("compare.startingPrice")}
+                euValue={euService.startingPrice || t("compare.free")}
+                nonEuValue={nonEuService.startingPrice || t("compare.free")}
                 highlight="neutral"
               />
               <CompareRow
                 label="GDPR"
                 euValue={
                   euService.gdprCompliance === "compliant"
-                    ? "Compliant"
-                    : euService.gdprCompliance || "Unknown"
+                    ? t("gdprCompliant")
+                    : euService.gdprCompliance || t("compare.unknown")
                 }
                 nonEuValue={
                   nonEuService.gdprCompliance === "compliant"
-                    ? "Compliant"
+                    ? t("gdprCompliant")
                     : nonEuService.gdprCompliance === "partial"
-                      ? "Partial"
-                      : nonEuService.gdprCompliance || "Unknown"
+                      ? t("gdprPartial")
+                      : nonEuService.gdprCompliance || t("compare.unknown")
                 }
                 highlight={
                   euService.gdprCompliance === "compliant" ? "eu" : "neutral"
                 }
               />
               <CompareRow
-                label="Open source"
-                euValue={euService.openSource ? "Yes" : "No"}
-                nonEuValue={nonEuService.openSource ? "Yes" : "No"}
+                label={t("compare.openSource")}
+                euValue={euService.openSource ? t("compare.yes") : t("compare.no")}
+                nonEuValue={nonEuService.openSource ? t("compare.yes") : t("compare.no")}
                 highlight={
                   euService.openSource && !nonEuService.openSource
                     ? "eu"
@@ -237,43 +234,52 @@ export default async function ComparisonPage({
                 }
               />
               <CompareRow
-                label="Data storage"
+                label={t("compare.dataStorage")}
                 euValue={
                   euService.dataStorageLocations
                     ?.map((l) => l.location)
-                    .join(", ") || "Not disclosed"
+                    .join(", ") || t("compare.notDisclosed")
                 }
                 nonEuValue={
                   nonEuService.dataStorageLocations
                     ?.map((l) => l.location)
-                    .join(", ") || "Not disclosed"
+                    .join(", ") || t("compare.notDisclosed")
                 }
                 highlight="eu"
               />
-              {/* Show issues from non-EU service */}
-              {nonEuService.issues && nonEuService.issues.length > 0 && (
-                <CompareRow
-                  label="Known concerns"
-                  euValue="—"
-                  nonEuValue={nonEuService.issues
-                    .map((i) => i.issue)
-                    .join(". ")}
-                  highlight="eu"
-                  clampNonEu
-                />
-              )}
             </div>
           </div>
+
+          {/* Known concerns about non-EU service */}
+          {nonEuService.issues && nonEuService.issues.length > 0 && (
+            <div className="mt-8">
+              <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                {t("compare.knownConcerns", { service: nonEuService.name })}
+              </h3>
+              <ul className="space-y-2">
+                {nonEuService.issues.map((issue) => (
+                  <li
+                    key={issue.issue}
+                    className="flex items-start gap-2 text-sm text-gray-600 leading-relaxed"
+                  >
+                    <span className="text-brand-orange mt-0.5 flex-shrink-0">
+                      &bull;
+                    </span>
+                    {issue.issue}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Missing features */}
           {guide?.missingFeatures && guide.missingFeatures.length > 0 && (
             <div className="mt-8 bg-brand-yellow/5 rounded-2xl p-6 border border-brand-yellow/20">
               <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
-                Worth knowing
+                {t("compare.worthKnowing")}
               </h3>
               <p className="text-sm text-gray-600 mb-3">
-                Features in {nonEuService.name} that {euService.name} doesn&apos;t
-                have:
+                {t("compare.missingFeatures", { service: euService.name, other: nonEuService.name })}
               </p>
               <ul className="space-y-1.5">
                 {guide.missingFeatures.map((f) => (

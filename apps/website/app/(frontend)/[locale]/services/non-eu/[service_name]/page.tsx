@@ -139,7 +139,7 @@ export default async function ServiceDetailPage({
         freeOption: resolvedAlternative.freeOption,
         startingPrice: resolvedAlternative.startingPrice,
         description: resolvedAlternative.description,
-        url: resolvedAlternative.url,
+        url: resolvedAlternative.affiliateUrl || resolvedAlternative.url,
         screenshot:
           typeof resolvedAlternative.screenshot === "object" && resolvedAlternative.screenshot
             ? (resolvedAlternative.screenshot as { url?: string | null })

@@ -14,7 +14,6 @@ import {
   getAllEuServiceSlugs,
   hasPricingData,
   hasSecurityData,
-  getGdprLabel,
 } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
 
@@ -55,9 +54,18 @@ export default async function ServiceDetailPage({
   const freeTier = service.pricingTiers?.find(
     (t) => t.price === "Free" || t.price === "free" || t.price === "€0"
   );
-  const highlightedTier = service.pricingTiers?.find((t) => t.highlighted);
+  const cheapestPaid = service.pricingTiers
+    ?.filter((t) => t.price !== "Free" && t.price !== "free" && t.price !== "€0")
+    ?.[0];
 
-  const gdprLabel = getGdprLabel(service.gdprCompliance);
+  const gdprLabel =
+    service.gdprCompliance === "compliant"
+      ? t("gdprCompliant")
+      : service.gdprCompliance === "partial"
+        ? t("gdprPartial")
+        : service.gdprCompliance === "non-compliant"
+          ? t("gdprNonCompliant")
+          : null;
 
   return (
     <PageLayout className="md:gap-8 md:pt-0 md:pb-8">
@@ -99,19 +107,19 @@ export default async function ServiceDetailPage({
       {(hasPricing || hasSecurity) && (
         <section>
           <Container>
-            <div className="flex gap-4 sm:gap-8 mb-4">
+            <div className="flex gap-4 sm:gap-6 mb-4">
               {hasPricing && (
                 <Link
                   href={`${basePath}/pricing`}
-                  className="group no-underline sm:p-4 sm:rounded-xl sm:border sm:border-gray-200 sm:hover:border-brand-green/30 sm:transition-all"
+                  className="group no-underline sm:bg-white sm:p-5 sm:rounded-xl sm:border sm:border-gray-200 sm:shadow-sm sm:hover:shadow-md sm:hover:border-brand-green/30 sm:transition-all"
                 >
-                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1">{t("tabs.pricing")}</span>
+                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1.5">{t("tabs.pricing")}</span>
                   <span className="text-sm sm:text-base font-semibold text-brand-navy group-hover:text-brand-green transition-colors whitespace-nowrap">
-                    {freeTier && highlightedTier
-                      ? `Free \u2013 ${highlightedTier.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
+                    {freeTier && cheapestPaid
+                      ? `${t("snippetFree")} \u2013 ${cheapestPaid.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
                       : freeTier
-                        ? "Free"
-                        : service.startingPrice || "View plans"}
+                        ? t("snippetFree")
+                        : service.startingPrice || t("snippetViewPlans")}
                     {" "}<span className="text-xs sm:text-sm">&rarr;</span>
                   </span>
                 </Link>
@@ -120,11 +128,11 @@ export default async function ServiceDetailPage({
               {hasSecurity && (
                 <Link
                   href={`${basePath}/security`}
-                  className="group no-underline sm:p-4 sm:rounded-xl sm:border sm:border-gray-200 sm:hover:border-brand-green/30 sm:transition-all"
+                  className="group no-underline sm:bg-white sm:p-5 sm:rounded-xl sm:border sm:border-gray-200 sm:shadow-sm sm:hover:shadow-md sm:hover:border-brand-green/30 sm:transition-all"
                 >
-                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1">{t("tabs.security")}</span>
+                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1.5">{t("tabs.security")}</span>
                   <span className="text-sm sm:text-base font-semibold text-brand-navy group-hover:text-brand-green transition-colors whitespace-nowrap">
-                    {gdprLabel || "View details"} <span className="text-xs sm:text-sm">&rarr;</span>
+                    {gdprLabel || t("snippetViewDetails")} <span className="text-xs sm:text-sm">&rarr;</span>
                   </span>
                 </Link>
               )}

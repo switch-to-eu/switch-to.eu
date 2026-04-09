@@ -63,7 +63,7 @@ The service detail page has multiple tabs. Each tab has its own content source. 
 |-----|---------------|----------------------|
 | **Overview** | `features` (tags) + `content` (richText) + auto-generated pricing/security snippets | `features`, `content` |
 | **Pricing** | `pricingTiers` (structured array) | `pricingTiers` |
-| **Security** | Research fields (gdprCompliance, certifications, dataStorageLocations, etc.) | Nothing (populated by `/research`) |
+| **Security** | Research fields (gdprCompliance, certifications, dataStorageLocations, etc.) + `gdprNotes` | `gdprNotes` (rewritten from research into consumer-friendly text) |
 | **Comparison** | Auto-generated from both services + guide data | Nothing (auto-generated) |
 
 The overview page auto-generates compact pricing and security snippet cards that link to the Pricing and Security tabs. These pull from `pricingTiers` and research fields. No separate content needed.
@@ -85,9 +85,14 @@ If `researchStatus` is "not-started", tell the user to run `/research SERVICE_NA
 
 ### Step 2: Write the content
 
-**`description`** (required, localized): 1-2 sentences. What it is, where it's based, what makes it different. Under 200 characters. Write for a person, not a search engine.
+**`description`** (required, localized): 1-2 sentences. Under 200 characters. Lead with the reader benefit, not company facts.
 
-Template: "[Name] keeps your [type] private. Based in [country], [one thing that matters to a normal person]."
+The description answers: "Why would I use this instead of what I have now?" Start with what makes this service meaningfully different from mainstream alternatives. That's usually a privacy/ownership angle, but could be simplicity, openness, or something else entirely. Mention the country only if it reinforces the point (e.g. EU data protection).
+
+- Bad: "Swiss encrypted email from Proton AG. Founded by CERN scientists, owned by a non-profit." (Wikipedia intro, reader doesn't care about founders)
+- Bad: "Secure email service based in Switzerland with end-to-end encryption." (generic, could be any service)
+- Good: "Email where only you can read your inbox. Based in Switzerland, outside US and EU data requests." (leads with benefit, location reinforces it)
+- Good: "A search engine that plants trees with its ad revenue. Based in Berlin, no tracking." (benefit first, location supports it)
 
 **`features`** array: 4-6 short tags. 2-4 words each. These show as pills on the overview page.
 - Bad: "End-to-end encryption between Proton users. Zero-access encryption for all stored mail."
@@ -107,6 +112,8 @@ Do NOT include:
 - "What stands out" section (features tags handle that)
 - "Pricing" section (pricing tab handles that)
 - Technical compliance details (security tab handles that)
+- License names (GPLv3, AGPL, MIT, etc.) — say "open source" or "the code is public." Specific licenses belong in the security tab's certifications, not in consumer-facing content.
+- Certificate names (ISO 27001, SOC 2, etc.) — say "passed independent security audits." Details belong in the security tab.
 
 **`pricingTiers`** array: Structured pricing data extracted from research. Each tier:
 ```json
@@ -114,13 +121,15 @@ Do NOT include:
   "name": "Mail Plus",
   "price": "€3.99/month",
   "billingNote": "billed annually",
-  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}],
-  "highlighted": true
+  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}]
 }
 ```
-- Set `highlighted: true` on the most popular/recommended tier (usually the mid-range paid plan)
 - Use the free tier name as "Free" with price "Free"
 - Keep feature descriptions short (under 6 words)
+
+**`gdprNotes`** (localized text): Rewrite the research `gdprNotes` into 2-4 consumer-friendly sentences. This shows on the Security tab. Don't copy the research text verbatim. Translate technical/legal language into plain outcomes.
+- Bad: "Fully GDPR compliant. Provides a Data Processing Agreement (DPA) for business customers as required by GDPR. EU representative is X sàrl in Luxembourg."
+- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. The company doesn't log your IP address by default, so it holds very little data about you. Your email content, subject lines, contacts, and calendar are all encrypted so nobody can read them."
 
 **For non-EU services also write:**
 - `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."

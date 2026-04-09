@@ -19,7 +19,7 @@ Translate content from English to another locale in Payload CMS.
 
 Use the appropriate find tool with `locale: "en"` to get the English version.
 
-For services: `mcp__payload__findServices` — get name, description, startingPrice, features, content, issues
+For services: `mcp__payload__findServices` — get name, description, startingPrice, features, content, issues, gdprNotes
 For guides: `mcp__payload__findGuides` — get title, description, intro, beforeYouStart, steps, troubleshooting, outro, missingFeatures
 
 ### Step 2: Translate

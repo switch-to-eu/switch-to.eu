@@ -11,6 +11,21 @@ const nextConfig: NextConfig = {
   ],
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  async redirects() {
+    return [
+      // Renamed slug: tutanota → tuta
+      {
+        source: "/:locale/services/eu/tutanota",
+        destination: "/:locale/services/eu/tuta",
+        permanent: true,
+      },
+      {
+        source: "/:locale/services/eu/tutanota/:path*",
+        destination: "/:locale/services/eu/tuta/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [

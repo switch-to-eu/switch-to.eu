@@ -126,6 +126,14 @@ export const Services: CollectionConfig = {
               admin: { description: "Service website URL" },
             },
             {
+              name: "affiliateUrl",
+              type: "text",
+              admin: {
+                description:
+                  "Affiliate/referral link. When set, outbound buttons use this instead of the direct URL.",
+              },
+            },
+            {
               name: "screenshot",
               type: "upload",
               relationTo: "media",
@@ -159,11 +167,6 @@ export const Services: CollectionConfig = {
                   fields: [
                     { name: "feature", type: "text", required: true },
                   ],
-                },
-                {
-                  name: "highlighted",
-                  type: "checkbox",
-                  defaultValue: false,
                 },
               ],
             },

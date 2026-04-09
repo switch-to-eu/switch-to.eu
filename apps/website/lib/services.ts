@@ -173,6 +173,13 @@ export function hasSecurityData(service: Service): boolean {
 }
 
 /**
+ * Returns the affiliate URL if set, otherwise the direct service URL.
+ */
+export function getOutboundUrl(service: Service): string {
+  return service.affiliateUrl || service.url;
+}
+
+/**
  * Maps a `Service` document to the flat shape expected by `ServiceCard`.
  *
  * @param service - The full Payload Service document (depth 1).

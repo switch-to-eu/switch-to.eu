@@ -10,7 +10,6 @@ import type { Locale } from "next-intl";
 import {
   getAllEuServiceSlugs,
   getServiceBySlug,
-  getGdprLabel,
   hasSecurityData,
 } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
@@ -42,7 +41,14 @@ export default async function SecurityPage({
     notFound();
   }
 
-  const gdprLabel = getGdprLabel(service.gdprCompliance);
+  const gdprLabel =
+    service.gdprCompliance === "compliant"
+      ? t("gdprCompliant")
+      : service.gdprCompliance === "partial"
+        ? t("gdprPartial")
+        : service.gdprCompliance === "non-compliant"
+          ? t("gdprNonCompliant")
+          : null;
 
   const gdprColor =
     service.gdprCompliance === "compliant"
@@ -59,45 +65,84 @@ export default async function SecurityPage({
             {service.name} {t("security.title")}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-            How {service.name} handles your data, where it&apos;s stored, and what
-            certifications back their claims.
+            {t("security.intro", { service: service.name })}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl pb-12">
-          {/* GDPR Compliance */}
-          {service.gdprCompliance && (
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="font-heading text-lg uppercase text-brand-green mb-4">
-                GDPR {t("security.compliance")}
-              </h3>
-              <div
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium mb-4 ${gdprColor}`}
-              >
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    service.gdprCompliance === "compliant"
-                      ? "bg-brand-green"
-                      : service.gdprCompliance === "partial"
-                        ? "bg-brand-orange"
-                        : "bg-gray-400"
-                  }`}
-                />
-                {gdprLabel}
+        <div className="max-w-3xl space-y-8 pb-12">
+          {/* GDPR + Jurisdiction row */}
+          <div className="flex flex-col gap-6">
+            {service.gdprCompliance && (
+              <div>
+                <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                  GDPR
+                </h3>
+                <div
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${gdprColor}`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      service.gdprCompliance === "compliant"
+                        ? "bg-brand-green"
+                        : service.gdprCompliance === "partial"
+                          ? "bg-brand-orange"
+                          : "bg-gray-400"
+                    }`}
+                  />
+                  {gdprLabel}
+                </div>
               </div>
-              {service.gdprNotes && (
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {service.gdprNotes}
-                </p>
+            )}
+
+            <div>
+              <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                {t("security.jurisdiction")}
+              </h3>
+              <p className="text-sm text-gray-700">
+                {service.location}
+                {service.headquarters ? ` (HQ: ${service.headquarters})` : ""}
+                {service.parentCompany ? ` / ${service.parentCompany}` : ""}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                {t("security.openSource")}
+              </h3>
+              <span
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
+                  service.openSource
+                    ? "bg-brand-green/10 text-brand-green"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                {service.openSource ? t("security.yes") : t("security.no")}
+              </span>
+              {service.openSource && service.sourceCodeUrl && (
+                <a
+                  href={service.sourceCodeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-brand-navy text-xs font-medium hover:underline mt-1"
+                >
+                  {t("security.viewSource")} &rarr;
+                </a>
               )}
             </div>
+          </div>
+
+          {/* GDPR notes */}
+          {service.gdprNotes && (
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {service.gdprNotes}
+            </p>
           )}
 
-          {/* Data Storage */}
+          {/* Data Storage Locations */}
           {service.dataStorageLocations &&
             service.dataStorageLocations.length > 0 && (
-              <div className="bg-white rounded-2xl p-6 border border-gray-100">
-                <h3 className="font-heading text-lg uppercase text-brand-green mb-4">
+              <div>
+                <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-3">
                   {t("security.dataStorage")}
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -116,8 +161,8 @@ export default async function SecurityPage({
 
           {/* Certifications */}
           {service.certifications && service.certifications.length > 0 && (
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="font-heading text-lg uppercase text-brand-green mb-4">
+            <div>
+              <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-3">
                 {t("security.compliance")}
               </h3>
               <ul className="space-y-2">
@@ -135,65 +180,7 @@ export default async function SecurityPage({
               </ul>
             </div>
           )}
-
-          {/* Open Source */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-100">
-            <h3 className="font-heading text-lg uppercase text-brand-green mb-4">
-              {t("security.openSource")}
-            </h3>
-            <div className="flex items-center gap-3 mb-3">
-              <span
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
-                  service.openSource
-                    ? "bg-brand-green/10 text-brand-green"
-                    : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                {service.openSource ? t("security.yes") : t("security.no")}
-              </span>
-            </div>
-            {service.openSource && service.sourceCodeUrl && (
-              <a
-                href={service.sourceCodeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-navy text-sm font-medium hover:underline"
-              >
-                {t("security.viewSource")} &rarr;
-              </a>
-            )}
-          </div>
-
-          {/* Jurisdiction */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-100">
-            <h3 className="font-heading text-lg uppercase text-brand-green mb-4">
-              {t("security.jurisdiction")}
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {service.name} is based in {service.location}
-              {service.headquarters
-                ? `, headquartered in ${service.headquarters}`
-                : ""}
-              .
-              {service.parentCompany &&
-                ` Parent company: ${service.parentCompany}.`}
-            </p>
-          </div>
-
         </div>
-
-        {service.privacyPolicyUrl && (
-          <div className="max-w-5xl pb-12">
-            <a
-              href={service.privacyPolicyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-brand-navy text-sm font-medium hover:underline"
-            >
-              {t("security.viewPolicy")} &rarr;
-            </a>
-          </div>
-        )}
       </Container>
     </PageLayout>
   );

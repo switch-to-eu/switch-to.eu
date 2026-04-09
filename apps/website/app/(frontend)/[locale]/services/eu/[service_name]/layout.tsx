@@ -18,6 +18,7 @@ import {
   getCategorySlug,
   getCategoryId,
   getScreenshotUrl,
+  getOutboundUrl,
   toServiceCard,
 } from "@/lib/services";
 
@@ -191,19 +192,19 @@ export default async function ServiceLayout({
                 </span>
                 {service.freeOption && (
                   <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
-                    Free plan
+                    {t("freePlanPill")}
                   </span>
                 )}
                 {service.startingPrice && (
                   <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
-                    From {service.startingPrice}
+                    {t("fromPrice", { price: service.startingPrice })}
                   </span>
                 )}
               </div>
 
               <div className="flex flex-row gap-2">
                 <a
-                  href={service.url}
+                  href={getOutboundUrl(service)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
@@ -242,9 +243,9 @@ export default async function ServiceLayout({
                         />
                       </svg>
                       <span className="absolute text-white text-[9px] sm:text-[11px] font-bold uppercase leading-tight text-center px-2">
-                        Recommended
+                        {t("recommended")}
                         <br />
-                        by Switch-to.eu
+                        {t("recommendedBy")}
                       </span>
                     </div>
                   )}
@@ -268,7 +269,7 @@ export default async function ServiceLayout({
       {/* Shared CTA - appears on every subpage */}
       <ServiceCta
         serviceName={service.name}
-        serviceUrl={service.url}
+        serviceUrl={getOutboundUrl(service)}
         guideHref={
           firstGuide && firstGuideCategory
             ? `/guides/${firstGuideCategory}/${firstGuide.slug}`

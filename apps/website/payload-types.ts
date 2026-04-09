@@ -464,6 +464,10 @@ export interface Service {
    * Service website URL
    */
   url: string;
+  /**
+   * Affiliate/referral link. When set, outbound buttons use this instead of the direct URL.
+   */
+  affiliateUrl?: string | null;
   screenshot?: (number | null) | Media;
   logo?: (number | null) | Media;
   features?:
@@ -486,7 +490,6 @@ export interface Service {
               id?: string | null;
             }[]
           | null;
-        highlighted?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -540,7 +543,7 @@ export interface Service {
    */
   gdprCompliance?: ('compliant' | 'partial' | 'non-compliant' | 'unknown') | null;
   /**
-   * Details about GDPR stance, DPA availability, data processing practices
+   * Consumer-friendly summary of GDPR stance and data practices (localized, rewritten by /write skill)
    */
   gdprNotes?: string | null;
   /**
@@ -1247,6 +1250,7 @@ export interface ServicesSelect<T extends boolean = true> {
   startingPrice?: T;
   description?: T;
   url?: T;
+  affiliateUrl?: T;
   screenshot?: T;
   logo?: T;
   features?:
@@ -1267,7 +1271,6 @@ export interface ServicesSelect<T extends boolean = true> {
               feature?: T;
               id?: T;
             };
-        highlighted?: T;
         id?: T;
       };
   tags?:

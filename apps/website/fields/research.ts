@@ -46,9 +46,10 @@ export const researchFields: Field[] = [
   {
     name: "gdprNotes",
     type: "textarea",
+    localized: true,
     admin: {
       description:
-        "Details about GDPR stance, DPA availability, data processing practices",
+        "Consumer-friendly summary of GDPR stance and data practices (localized, rewritten by /write skill)",
     },
   },
   {

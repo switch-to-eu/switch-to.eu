@@ -73,18 +73,65 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const servicesEntries = servicesResult.docs.map((service: Service) => {
+  const servicesEntries = servicesResult.docs.flatMap((service: Service) => {
     const regionPath =
       service.region === "non-eu" ? "non-eu" : "eu";
     const serviceUrl = `/services/${regionPath}/${service.slug}`;
 
-    return {
-      url: `${baseUrl}/${defaultLocale}${serviceUrl}`,
+    const entries = [
+      {
+        url: `${baseUrl}/${defaultLocale}${serviceUrl}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      },
+    ];
+
+    // Add pricing subpage if service has pricing data
+    if (regionPath === "eu" && (
+      (service.pricingTiers && service.pricingTiers.length > 0) ||
+      service.pricingDetails ||
+      service.startingPrice
+    )) {
+      entries.push({
+        url: `${baseUrl}/${defaultLocale}${serviceUrl}/pricing`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+      });
+    }
+
+    // Add security subpage if service has security data
+    if (regionPath === "eu" && (
+      service.gdprCompliance ||
+      (service.certifications && service.certifications.length > 0) ||
+      (service.dataStorageLocations && service.dataStorageLocations.length > 0)
+    )) {
+      entries.push({
+        url: `${baseUrl}/${defaultLocale}${serviceUrl}/security`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+      });
+    }
+
+    return entries;
+  });
+
+  // Comparison pages (eu-service/vs-non-eu-service) from guides
+  const comparisonEntries = guidesResult.docs
+    .filter(
+      (g: Guide) =>
+        typeof g.targetService === "object" &&
+        typeof g.sourceService === "object" &&
+        (g.targetService as Service).region !== "non-eu",
+    )
+    .map((g: Guide) => ({
+      url: `${baseUrl}/${defaultLocale}/services/eu/${(g.targetService as Service).slug}/vs-${(g.sourceService as Service).slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: 0.6,
-    };
-  });
+      priority: 0.5,
+    }));
 
   const guidesEntries = guidesResult.docs.map((guide: Guide) => {
     const categorySlug =
@@ -105,6 +152,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localeEntries,
     ...categoriesEntries,
     ...servicesEntries,
+    ...comparisonEntries,
     ...guidesEntries,
   ];
 }

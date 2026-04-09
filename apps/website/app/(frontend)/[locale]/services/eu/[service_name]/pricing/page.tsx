@@ -48,10 +48,10 @@ export default async function PricingPage({
           </h2>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
             {service.freeOption
-              ? `${service.name} offers a free plan alongside paid tiers.`
-              : `${service.name} is a paid service.`}
+              ? t("pricing.freeIntro", { service: service.name })
+              : t("pricing.paidIntro", { service: service.name })}
             {service.startingPrice &&
-              ` Paid plans start at ${service.startingPrice}.`}
+              ` ${t("pricing.startingAt", { price: service.startingPrice })}`}
           </p>
         </div>
 
@@ -60,39 +60,16 @@ export default async function PricingPage({
             {tiers.map((tier, index) => (
               <div
                 key={tier.name || index}
-                className={`rounded-2xl p-6 border-2 ${
-                  tier.highlighted
-                    ? "bg-brand-navy border-brand-navy shadow-lg relative"
-                    : "bg-white border-gray-100"
-                }`}
+                className="rounded-2xl p-6 border-2 bg-white border-gray-100"
               >
-                {tier.highlighted && (
-                  <span className="absolute -top-3 left-6 bg-brand-yellow text-brand-navy text-xs font-bold px-3 py-1 rounded-full uppercase">
-                    Popular
-                  </span>
-                )}
-                <h3
-                  className={`font-heading text-lg uppercase mb-1 ${
-                    tier.highlighted ? "text-brand-yellow" : "text-brand-green"
-                  }`}
-                >
+                <h3 className="font-heading text-lg uppercase mb-1 text-brand-green">
                   {tier.name}
                 </h3>
-                <div
-                  className={`text-3xl font-bold mb-1 ${
-                    tier.highlighted ? "text-white" : "text-brand-navy"
-                  }`}
-                >
+                <div className="text-3xl font-bold mb-1 text-brand-navy">
                   {tier.price}
                 </div>
                 {tier.billingNote && (
-                  <p
-                    className={`text-xs mb-4 ${
-                      tier.highlighted
-                        ? "text-brand-cream/60"
-                        : "text-gray-400"
-                    }`}
-                  >
+                  <p className="text-xs mb-4 text-gray-400">
                     {tier.billingNote}
                   </p>
                 )}
@@ -102,19 +79,9 @@ export default async function PricingPage({
                     {tier.features.map((f) => (
                       <li
                         key={f.feature}
-                        className={`flex items-start gap-2 text-sm leading-relaxed ${
-                          tier.highlighted
-                            ? "text-brand-cream/80"
-                            : "text-gray-600"
-                        }`}
+                        className="flex items-start gap-2 text-sm leading-relaxed text-gray-600"
                       >
-                        <span
-                          className={`mt-0.5 flex-shrink-0 ${
-                            tier.highlighted
-                              ? "text-brand-yellow"
-                              : "text-brand-green"
-                          }`}
-                        >
+                        <span className="mt-0.5 flex-shrink-0 text-brand-green">
                           &#10003;
                         </span>
                         {f.feature}
@@ -135,18 +102,6 @@ export default async function PricingPage({
           </div>
         ) : null}
 
-        {service.pricingUrl && (
-          <div className="pb-12">
-            <a
-              href={service.pricingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-brand-navy font-medium hover:underline"
-            >
-              {t("pricing.viewFullPricing")} {service.name} &rarr;
-            </a>
-          </div>
-        )}
       </Container>
     </PageLayout>
   );

@@ -135,7 +135,7 @@ export const wipeContentTool = {
           collection,
           id: doc.id,
           locale,
-          data: fields as never,
+          data: { ...fields, _status: "published" } as never,
         });
       }
       wiped.push(
