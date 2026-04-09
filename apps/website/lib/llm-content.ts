@@ -154,7 +154,7 @@ export function guideToMarkdown(guide: Guide): string {
     lines.push("## Steps");
     lines.push("");
     for (let i = 0; i < guide.steps.length; i++) {
-      const step = guide.steps[i];
+      const step = guide.steps[i]!;
       lines.push(`### Step ${i + 1}: ${step.title}`);
       lines.push("");
       const stepContent = lexicalToMarkdown(step.content as Parameters<typeof lexicalToMarkdown>[0]);

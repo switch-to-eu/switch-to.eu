@@ -21,6 +21,8 @@ import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { Service, Category, Guide } from "@/payload-types";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs } = await payload.find({

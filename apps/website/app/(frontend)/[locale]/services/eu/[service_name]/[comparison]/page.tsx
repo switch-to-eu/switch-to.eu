@@ -10,6 +10,8 @@ import type { Locale } from "next-intl";
 import type { Service, Guide } from "@/payload-types";
 import { getServiceBySlug } from "@/lib/services";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs: guides } = await payload.find({

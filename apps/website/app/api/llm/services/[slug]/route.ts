@@ -21,8 +21,9 @@ export async function GET(
         depth: 1,
         limit: 1,
       });
-      if (docs.length === 0) return null;
-      return serviceToMarkdown(docs[0]);
+      const doc = docs[0];
+      if (!doc) return null;
+      return serviceToMarkdown(doc);
     },
     [`llm-service-${slug}`],
     { tags: ["services"] }

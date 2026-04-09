@@ -1,4 +1,4 @@
-import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import type { Service, Guide } from "@/payload-types";
 import { getPayload } from "@/lib/payload";
 
@@ -11,80 +11,97 @@ export const LOCALES = ["en", "nl"] as const;
 
 // ---------------------------------------------------------------------------
 // Cached queries
+//
+// All queries use `unstable_cache` with collection-level tags so results are
+// persisted across requests. The cache is invalidated when content is
+// published in Payload admin via `revalidateTag()` in afterChange hooks.
+// This means zero DB hits at runtime unless revalidation is triggered.
 // ---------------------------------------------------------------------------
 
 /**
- * Fetch a single EU service by slug. Results are cached per request via
- * React's `cache()` so multiple callers in the same render tree share one
- * database round-trip.
+ * Fetch a single EU service by slug.
  */
-export const getServiceBySlug = cache(
-  async (slug: string, locale: string): Promise<Service | null> => {
-    const payload = await getPayload();
-    const { docs } = await payload.find({
-      collection: "services",
-      where: {
-        slug: { equals: slug },
-        region: { in: EU_REGIONS },
-      },
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit: 1,
-    });
-    return (docs[0] as Service | undefined) ?? null;
-  }
-);
+export const getServiceBySlug = (
+  slug: string,
+  locale: string
+): Promise<Service | null> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload();
+      const { docs } = await payload.find({
+        collection: "services",
+        where: {
+          slug: { equals: slug },
+          region: { in: EU_REGIONS },
+        },
+        locale: locale as "en" | "nl",
+        depth: 1,
+        limit: 1,
+      });
+      return (docs[0] as Service | undefined) ?? null;
+    },
+    [`service-${slug}-${locale}`],
+    { tags: ["services"] }
+  )();
 
 /**
  * Fetch guides that target a given service (i.e. migration guides *to* that
- * service). Cached per request.
+ * service).
  */
-export const getRelatedGuides = cache(
-  async (serviceId: number, locale: string): Promise<Guide[]> => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "guides",
-      where: { targetService: { equals: serviceId } },
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit: 10,
-    })) as { docs: Guide[] };
-    return docs;
-  }
-);
+export const getRelatedGuides = (
+  serviceId: number,
+  locale: string
+): Promise<Guide[]> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload();
+      const { docs } = (await payload.find({
+        collection: "guides",
+        where: { targetService: { equals: serviceId } },
+        locale: locale as "en" | "nl",
+        depth: 1,
+        limit: 10,
+      })) as { docs: Guide[] };
+      return docs;
+    },
+    [`guides-for-${serviceId}-${locale}`],
+    { tags: ["guides", "services"] }
+  )();
 
 /**
  * Fetch services in the same category, excluding the current service.
  * Returns up to 4 results with featured services sorted first.
- * Cached per request.
  */
-export const getSimilarServices = cache(
-  async (
-    categoryId: number,
-    excludeId: number,
-    locale: string
-  ): Promise<Service[]> => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "services",
-      where: {
-        category: { equals: categoryId },
-        id: { not_equals: excludeId },
-        region: { in: EU_REGIONS },
-      },
-      locale: locale as "en" | "nl",
-      limit: 5,
-    })) as { docs: Service[] };
+export const getSimilarServices = (
+  categoryId: number,
+  excludeId: number,
+  locale: string
+): Promise<Service[]> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload();
+      const { docs } = (await payload.find({
+        collection: "services",
+        where: {
+          category: { equals: categoryId },
+          id: { not_equals: excludeId },
+          region: { in: EU_REGIONS },
+        },
+        locale: locale as "en" | "nl",
+        limit: 5,
+      })) as { docs: Service[] };
 
-    return docs
-      .sort((a, b) => {
-        if (a.featured && !b.featured) return -1;
-        if (!a.featured && b.featured) return 1;
-        return 0;
-      })
-      .slice(0, 4);
-  }
-);
+      return docs
+        .sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return 0;
+        })
+        .slice(0, 4);
+    },
+    [`similar-${categoryId}-${excludeId}-${locale}`],
+    { tags: ["services"] }
+  )();
 
 // ---------------------------------------------------------------------------
 // Static params helper

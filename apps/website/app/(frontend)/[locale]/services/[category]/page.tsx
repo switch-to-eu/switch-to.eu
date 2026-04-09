@@ -60,6 +60,8 @@ export async function generateMetadata({
   };
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs } = await payload.find({ collection: "categories", limit: 100 });

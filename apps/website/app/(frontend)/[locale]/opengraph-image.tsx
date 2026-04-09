@@ -4,15 +4,15 @@ export const alt = "Switch-to.eu";
 export const size = ogSize;
 export const contentType = ogContentType;
 
-const subtitles: Record<string, string> = {
+const subtitles = {
   en: "Find EU alternatives to Big Tech services",
   nl: "Vind EU-alternatieven voor Big Tech diensten",
-};
+} as const;
 
-const titles: Record<string, string> = {
+const titles = {
   en: "Take Control of Your Digital Services",
   nl: "Neem Controle Over Je Digitale Diensten",
-};
+} as const;
 
 export default async function Image({
   params,
@@ -21,8 +21,10 @@ export default async function Image({
 }) {
   const { locale } = await params;
 
+  const loc = locale as keyof typeof titles;
+
   return generateOgImage({
-    title: titles[locale] ?? titles.en,
-    subtitle: subtitles[locale] ?? subtitles.en,
+    title: titles[loc],
+    subtitle: subtitles[loc],
   });
 }

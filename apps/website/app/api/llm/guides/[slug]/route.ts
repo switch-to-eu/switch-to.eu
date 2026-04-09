@@ -21,8 +21,9 @@ export async function GET(
         depth: 2,
         limit: 1,
       });
-      if (docs.length === 0) return null;
-      return guideToMarkdown(docs[0]);
+      const doc = docs[0];
+      if (!doc) return null;
+      return guideToMarkdown(doc);
     },
     [`llm-guide-${slug}`],
     { tags: ["guides"] }
