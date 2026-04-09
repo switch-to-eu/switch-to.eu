@@ -53,10 +53,7 @@ export async function GET(request: NextRequest) {
         type: "service" as const,
         title: service.name,
         description: service.description,
-        url:
-          service.region === "eu"
-            ? `/services/${service.slug}`
-            : `/services/${service.region}/${service.slug}`,
+        url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
         region: service.region,
         category: categorySlug,
         location: service.location,
