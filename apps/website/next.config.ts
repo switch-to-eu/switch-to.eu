@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
         destination: "/:locale/services/eu/tuta/:path*",
         permanent: true,
       },
+      // /llm.txt → /llms.txt (common alternative URL)
+      {
+        source: "/llm.txt",
+        destination: "/llms.txt",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
