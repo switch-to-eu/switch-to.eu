@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getPayload } from "@/lib/payload";
-import type { Service, Guide, Category, LandingPage } from "@/payload-types";
+import type { Service, Guide, Category } from "@/payload-types";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -21,7 +21,7 @@ const staticRoutes = [
 
 /**
  * Build hreflang alternates for a given path.
- * Each locale gets its own entry pointing to all locale variants.
+ * Each locale gets its own entry plus x-default pointing to EN.
  */
 function localeAlternates(path: string) {
   return {
@@ -59,36 +59,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
   );
 
-  // Fetch all content in parallel
-  // NOTE: Do NOT pass limit: 0 — Payload v3.80+ treats it as "return 0 docs".
-  // pagination: false alone returns every document in the collection.
-  const [categoriesResult, servicesResult, guidesResult, landingPagesResult] =
-    await Promise.all([
-      payload.find({
-        collection: "categories",
-        locale: "all",
-        pagination: false,
-      }),
-      payload.find({
-        collection: "services",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        pagination: false,
-      }),
-      payload.find({
-        collection: "guides",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        pagination: false,
-        depth: 1,
-      }),
-      payload.find({
-        collection: "landing-pages",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        pagination: false,
-      }),
-    ]);
+  // Fetch all content in parallel.
+  // No _status filter — the Local API returns all docs regardless, and
+  // filtering by _status silently returns 0 when rows pre-date the drafts
+  // migration (missing column value).
+  const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
+    payload.find({
+      collection: "categories",
+      locale: "all",
+      limit: 0,
+      pagination: false,
+    }),
+    payload.find({
+      collection: "services",
+      locale: "all",
+      limit: 0,
+      pagination: false,
+    }),
+    payload.find({
+      collection: "guides",
+      locale: "all",
+      limit: 0,
+      pagination: false,
+      depth: 1,
+    }),
+  ]);
 
   // Categories — one entry per locale
   const categoriesEntries: MetadataRoute.Sitemap =
@@ -199,19 +194,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   );
 
-  // Landing pages — one entry per locale
-  const landingPageEntries: MetadataRoute.Sitemap =
-    landingPagesResult.docs.flatMap((page: LandingPage) => {
-      const path = `/pages/${page.slug}`;
-      return locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${path}`,
-        lastModified: new Date(page.updatedAt),
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-        alternates: localeAlternates(path),
-      }));
-    });
-
   return [
     ...homeEntries,
     ...staticRouteEntries,
@@ -219,6 +201,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...servicesEntries,
     ...comparisonEntries,
     ...guidesEntries,
-    ...landingPageEntries,
   ];
 }
