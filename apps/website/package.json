@@ -52,6 +52,7 @@
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
     "redis": "catalog:",
+    "sharp": "catalog:",
     "tw-animate-css": "catalog:",
     "uuid": "catalog:",
     "zod": "catalog:",

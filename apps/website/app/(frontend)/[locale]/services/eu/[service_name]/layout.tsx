@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -225,9 +226,13 @@ export default async function ServiceLayout({
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
                 <div className="relative w-full">
-                  <img
+                  <Image
                     src={screenshotUrl}
                     alt={service.name}
+                    width={960}
+                    height={540}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
                     className="w-full h-auto object-cover rounded-2xl"
                   />
                   {service.featured && (

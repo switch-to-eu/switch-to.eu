@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
@@ -149,9 +150,12 @@ export async function RecommendedAlternative({
         {screenshotUrl && (
           <div className="flex justify-center md:justify-end p-6 md:p-8">
             <div className="relative w-full">
-              <img
+              <Image
                 src={screenshotUrl}
                 alt={service.name}
+                width={960}
+                height={540}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-auto object-cover rounded-2xl"
               />
               <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 flex items-center justify-center">

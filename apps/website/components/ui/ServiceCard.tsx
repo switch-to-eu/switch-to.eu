@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -79,9 +80,12 @@ export async function ServiceCard({
         {/* Visual area: screenshot or decorative shape */}
         <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
           {screenshotUrl ? (
-            <img
+            <Image
               src={screenshotUrl}
               alt={service.name}
+              width={480}
+              height={320}
+              sizes="(max-width: 768px) 50vw, 400px"
               className="w-full h-full object-cover"
             />
           ) : (
