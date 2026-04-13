@@ -9,20 +9,21 @@ const getCachedIndex = unstable_cache(
       payload.find({
         collection: "categories",
         locale: "en",
+        limit: 0,
         pagination: false,
         depth: 0,
       }),
       payload.find({
         collection: "services",
-        where: { _status: { equals: "published" } },
         locale: "en",
+        limit: 0,
         pagination: false,
         depth: 1,
       }),
       payload.find({
         collection: "guides",
-        where: { _status: { equals: "published" } },
         locale: "en",
+        limit: 0,
         pagination: false,
         depth: 1,
       }),
