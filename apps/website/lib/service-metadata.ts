@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getServiceBySlug, getCategorySlug } from "@/lib/services";
 
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+
 export async function generateServiceMetadata({
   serviceName,
   locale,
@@ -20,7 +22,7 @@ export async function generateServiceMetadata({
 
   const name = service.name;
 
-  // Build title
+  // Build title — prefer Payload metaTitle for overview pages
   let title: string;
   switch (section) {
     case "pricing":
@@ -34,11 +36,11 @@ export async function generateServiceMetadata({
       break;
     case "overview":
     default:
-      title = `${name} | EU Service | switch-to.eu`;
+      title = service.metaTitle || `${name} | switch-to.eu`;
       break;
   }
 
-  // Build description — use real data when available
+  // Build description — prefer Payload metaDescription for overview pages
   let description: string;
   switch (section) {
     case "pricing": {
@@ -69,7 +71,7 @@ export async function generateServiceMetadata({
       break;
     case "overview":
     default:
-      description = service.description;
+      description = service.metaDescription || service.description;
       break;
   }
 
@@ -119,16 +121,30 @@ export async function generateServiceMetadata({
 
   const basePath = `/services/eu/${serviceName}${pathSuffix}`;
 
+  // Resolve OG image URL from Payload media
+  let ogImageUrl: string | undefined;
+  if (typeof service.ogImage === "object" && service.ogImage?.url) {
+    ogImageUrl = service.ogImage.url.startsWith("http")
+      ? service.ogImage.url
+      : `${siteUrl}${service.ogImage.url}`;
+  }
+
   return {
     title,
     description,
     ...(keywords ? { keywords } : {}),
     alternates: {
-      canonical: `https://switch-to.eu/${locale}${basePath}`,
+      canonical: `${siteUrl}/${locale}${basePath}`,
       languages: {
-        en: `https://switch-to.eu/en${basePath}`,
-        nl: `https://switch-to.eu/nl${basePath}`,
+        "x-default": `${siteUrl}/en${basePath}`,
+        en: `${siteUrl}/en${basePath}`,
+        nl: `${siteUrl}/nl${basePath}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      ...(ogImageUrl ? { images: [{ url: ogImageUrl }] } : {}),
     },
   };
 }

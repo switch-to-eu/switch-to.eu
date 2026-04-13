@@ -8,7 +8,7 @@ export interface I18nMiddlewareOptions {
 export function createI18nMiddleware(options?: I18nMiddlewareOptions) {
   return createMiddleware({
     ...routing,
-    localeDetection: options?.localeDetection ?? true,
+    localeDetection: options?.localeDetection ?? false,
   });
 }
 

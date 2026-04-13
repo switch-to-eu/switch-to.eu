@@ -40,9 +40,14 @@ export async function generateMetadata({
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const path = `/services/${category}`;
+  const title = categoryData?.metaTitle || `${pageTitle} | switch-to.eu`;
+  const description = categoryData?.metaDescription || pageDescription;
+
   return {
-    title: `${pageTitle} | switch-to.eu`,
-    description: pageDescription,
+    title,
+    description,
     keywords: [
       capitalizedCategory,
       "EU alternatives",
@@ -51,11 +56,16 @@ export async function generateMetadata({
       category,
     ],
     alternates: {
-      canonical: `https://switch-to.eu/${locale}/services/${category}`,
+      canonical: `${siteUrl}/${locale}${path}`,
       languages: {
-        en: `https://switch-to.eu/en/services/${category}`,
-        nl: `https://switch-to.eu/nl/services/${category}`,
+        "x-default": `${siteUrl}/en${path}`,
+        en: `${siteUrl}/en${path}`,
+        nl: `${siteUrl}/nl${path}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
     },
   };
 }

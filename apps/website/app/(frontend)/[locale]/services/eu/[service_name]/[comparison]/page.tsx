@@ -61,15 +61,25 @@ export async function generateMetadata({
 
   if (!euService || !nonEuService) return { title: "Not Found" };
 
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const path = `/services/eu/${service_name}/vs-${slug}`;
+  const title = `${euService.name} vs ${nonEuService.name} | switch-to.eu`;
+  const description = `Compare ${euService.name} and ${nonEuService.name}. See how the EU alternative stacks up on privacy, pricing, and features.`;
+
   return {
-    title: `${euService.name} vs ${nonEuService.name} | switch-to.eu`,
-    description: `Compare ${euService.name} and ${nonEuService.name}. See how the EU alternative stacks up on privacy, pricing, and features.`,
+    title,
+    description,
     alternates: {
-      canonical: `https://switch-to.eu/${locale}/services/eu/${service_name}/vs-${slug}`,
+      canonical: `${siteUrl}/${locale}${path}`,
       languages: {
-        en: `https://switch-to.eu/en/services/eu/${service_name}/vs-${slug}`,
-        nl: `https://switch-to.eu/nl/services/eu/${service_name}/vs-${slug}`,
+        "x-default": `${siteUrl}/en${path}`,
+        en: `${siteUrl}/en${path}`,
+        nl: `${siteUrl}/nl${path}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
     },
   };
 }

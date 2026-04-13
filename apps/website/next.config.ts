@@ -13,6 +13,54 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   async redirects() {
     return [
+      // Non-prefixed content URLs → default locale (308 permanent).
+      // Prevents Accept-Language-based 307 redirects that fragment SEO.
+      // These fire before the middleware.
+      {
+        source: "/services/:path*",
+        destination: "/en/services/:path*",
+        permanent: true,
+      },
+      {
+        source: "/guides/:path*",
+        destination: "/en/guides/:path*",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/en/about",
+        permanent: true,
+      },
+      {
+        source: "/tools",
+        destination: "/en/tools",
+        permanent: true,
+      },
+      {
+        source: "/contribute",
+        destination: "/en/contribute",
+        permanent: true,
+      },
+      {
+        source: "/privacy",
+        destination: "/en/privacy",
+        permanent: true,
+      },
+      {
+        source: "/terms",
+        destination: "/en/terms",
+        permanent: true,
+      },
+      {
+        source: "/feedback",
+        destination: "/en/feedback",
+        permanent: true,
+      },
+      {
+        source: "/search",
+        destination: "/en/search",
+        permanent: true,
+      },
       // Renamed slug: tutanota → tuta
       {
         source: "/:locale/services/eu/tutanota",
