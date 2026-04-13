@@ -61,7 +61,7 @@ export async function generateMetadata({
 
   if (!euService || !nonEuService) return { title: "Not Found" };
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
   const path = `/services/eu/${service_name}/vs-${slug}`;
   const title = `${euService.name} vs ${nonEuService.name} | switch-to.eu`;
   const description = `Compare ${euService.name} and ${nonEuService.name}. See how the EU alternative stacks up on privacy, pricing, and features.`;

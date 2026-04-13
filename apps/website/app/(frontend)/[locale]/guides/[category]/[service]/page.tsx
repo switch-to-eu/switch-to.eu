@@ -88,7 +88,7 @@ export async function generateMetadata({
       ? guide.targetService.name
       : String(guide.targetService ?? "");
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
   const path = `/guides/${category}/${service}`;
   const title = guide.metaTitle || t("title", { title: guide.title });
   const description = guide.metaDescription || guide.description;
@@ -202,7 +202,7 @@ export default async function GuideServicePage({
   const outroHtml = lexicalToHtml(guide.outro as SerializedEditorState | null);
 
   // HowTo JSON-LD structured data
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
   const howToJsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",

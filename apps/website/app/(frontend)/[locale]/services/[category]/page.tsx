@@ -40,7 +40,7 @@ export async function generateMetadata({
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
   const path = `/services/${category}`;
   const title = categoryData?.metaTitle || `${pageTitle} | switch-to.eu`;
   const description = categoryData?.metaDescription || pageDescription;

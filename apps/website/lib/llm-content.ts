@@ -7,7 +7,7 @@ import type { Service, Guide, Category } from "@/payload-types";
 import { lexicalToMarkdown } from "./lexical-to-markdown";
 import { getGdprLabel } from "./services";
 
-const BASE_URL = process.env.NEXT_PUBLIC_URL ?? "https://switch-to.eu";
+const BASE_URL = process.env.NEXT_PUBLIC_URL ?? "https://www.switch-to.eu";
 
 // ---------------------------------------------------------------------------
 // Service → Markdown

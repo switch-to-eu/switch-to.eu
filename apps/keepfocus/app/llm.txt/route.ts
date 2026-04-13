@@ -6,7 +6,7 @@ export async function GET() {
 KeepFocus helps you stay productive using the Pomodoro Technique: 25-minute work sessions followed by 5-minute breaks. All data stays in your browser.
 
 - **URL**: https://focus.switch-to.eu
-- **Part of**: [switch-to.eu](https://switch-to.eu) — European alternatives to Big Tech
+- **Part of**: [switch-to.eu](https://www.switch-to.eu) — European alternatives to Big Tech
 - **Privacy**: No accounts, no tracking, no server-side data storage. Everything runs locally in the browser.
 - **Locales**: English (en), Dutch (nl)
 

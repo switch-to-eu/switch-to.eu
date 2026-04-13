@@ -16,7 +16,7 @@ export function FooterCopyright() {
         year: String(currentYear),
         link: (chunks) => (
           <a
-            href="https://switch-to.eu"
+            href="https://www.switch-to.eu"
             target="_blank"
             rel="noopener noreferrer"
             className={linkClassName}

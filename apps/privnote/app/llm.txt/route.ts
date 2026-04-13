@@ -6,7 +6,7 @@ export async function GET() {
 PrivNote lets you send private notes that self-destruct after reading. Notes are end-to-end encrypted — the server never sees your content in plain text.
 
 - **URL**: https://privnote.switch-to.eu
-- **Part of**: [switch-to.eu](https://switch-to.eu) — European alternatives to Big Tech
+- **Part of**: [switch-to.eu](https://www.switch-to.eu) — European alternatives to Big Tech
 - **Privacy**: End-to-end encrypted. Encryption key stays in the URL fragment (never sent to the server). No accounts, no tracking.
 - **Data storage**: Redis with configurable TTL (5 minutes to 30 days). All note data is encrypted at rest.
 - **Locales**: English (en), Dutch (nl)

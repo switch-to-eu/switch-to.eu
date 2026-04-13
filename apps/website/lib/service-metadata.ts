@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getServiceBySlug, getCategorySlug } from "@/lib/services";
 
-const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
 export async function generateServiceMetadata({
   serviceName,

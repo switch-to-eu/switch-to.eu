@@ -4,6 +4,7 @@ function isAllowedHost(hostname: string): boolean {
   return (
     hostname === "localhost" ||
     hostname === "switch-to.eu" ||
+    hostname === "www.switch-to.eu" ||
     hostname.endsWith(".switch-to.eu") ||
     hostname === "switch-to.test" ||
     hostname.endsWith(".switch-to.test") ||

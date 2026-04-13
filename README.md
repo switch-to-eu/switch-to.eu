@@ -2,7 +2,7 @@
 
 A community-driven platform helping users switch from non-EU digital services to EU alternatives through clear, step-by-step migration guides.
 
-**Live Site**: [switch-to.eu](https://switch-to.eu)
+**Live Site**: [switch-to.eu](https://www.switch-to.eu)
 
 ## About
 

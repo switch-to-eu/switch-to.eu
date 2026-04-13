@@ -218,7 +218,7 @@ export function CreateNoteForm() {
                   {t.rich("termsLabel", {
                     privacy: (chunks) => (
                       <a
-                        href="https://switch-to.eu/privacy"
+                        href="https://www.switch-to.eu/privacy"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-tool-primary hover:underline"
@@ -228,7 +228,7 @@ export function CreateNoteForm() {
                     ),
                     terms: (chunks) => (
                       <a
-                        href="https://switch-to.eu/terms"
+                        href="https://www.switch-to.eu/terms"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-tool-primary hover:underline"
