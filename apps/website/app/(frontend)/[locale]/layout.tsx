@@ -69,9 +69,47 @@ export default async function LocaleLayout({
 }>) {
   await params;
 
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "switch-to.eu",
+    url: siteUrl,
+    logo: `${siteUrl}/favicon/favicon.svg`,
+    sameAs: ["https://github.com/switch-to-eu"],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "switch-to.eu",
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/en/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <PlausibleProvider domain="switch-to.eu">
       <NextIntlClientProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

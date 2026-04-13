@@ -13,11 +13,14 @@ export function generateLanguageAlternates(path: string, locale: Locale) {
   return {
     canonical: `${siteUrl}/${locale}/${path}`,
     languages: routing.locales.reduce(
-      (acc, locale) => ({
+      (acc, l) => ({
         ...acc,
-        [locale]: `${siteUrl}/${locale}/${path}`,
+        [l]: `${siteUrl}/${l}/${path}`,
       }),
-      {},
+      { "x-default": `${siteUrl}/${routing.defaultLocale}/${path}` } as Record<
+        string,
+        string
+      >,
     ),
   };
 }

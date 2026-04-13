@@ -88,9 +88,14 @@ export async function generateMetadata({
       ? guide.targetService.name
       : String(guide.targetService ?? "");
 
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const path = `/guides/${category}/${service}`;
+  const title = guide.metaTitle || t("title", { title: guide.title });
+  const description = guide.metaDescription || guide.description;
+
   return {
-    title: t("title", { title: guide.title }),
-    description: guide.description,
+    title,
+    description,
     keywords: [
       sourceServiceName,
       targetServiceName,
@@ -100,11 +105,16 @@ export async function generateMetadata({
     ],
     authors: guide.author ? [{ name: guide.author }] : undefined,
     alternates: {
-      canonical: `https://switch-to.eu/${locale}/guides/${category}/${service}`,
+      canonical: `${siteUrl}/${locale}${path}`,
       languages: {
-        en: `https://switch-to.eu/en/guides/${category}/${service}`,
-        nl: `https://switch-to.eu/nl/guides/${category}/${service}`,
+        "x-default": `${siteUrl}/en${path}`,
+        en: `${siteUrl}/en${path}`,
+        nl: `${siteUrl}/nl${path}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
     },
   };
 }
@@ -191,8 +201,33 @@ export default async function GuideServicePage({
   );
   const outroHtml = lexicalToHtml(guide.outro as SerializedEditorState | null);
 
+  // HowTo JSON-LD structured data
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: guide.title,
+    description: guide.description,
+    totalTime: guide.timeRequired,
+    ...(guide.difficulty === "beginner"
+      ? { educationalLevel: "Beginner" }
+      : guide.difficulty === "intermediate"
+        ? { educationalLevel: "Intermediate" }
+        : { educationalLevel: "Advanced" }),
+    step: stepsWithHtml.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.title,
+      url: `${siteUrl}/${locale}/guides/${category}/${service}#${step.id}`,
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
       {/* Mobile sidebar drawer - Only visible on mobile */}
       <MobileGuideSidebar
         steps={sidebarSteps}

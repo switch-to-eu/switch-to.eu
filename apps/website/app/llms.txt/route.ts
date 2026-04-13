@@ -5,14 +5,21 @@ import { buildLlmsIndex } from "@/lib/llm-content";
 const getCachedIndex = unstable_cache(
   async () => {
     const payload = await getPayload();
-    const [services, guides] = await Promise.all([
+    const [categories, services, guides] = await Promise.all([
+      payload.find({
+        collection: "categories",
+        locale: "en",
+        limit: 0,
+        pagination: false,
+        depth: 0,
+      }),
       payload.find({
         collection: "services",
         where: { _status: { equals: "published" } },
         locale: "en",
         limit: 0,
         pagination: false,
-        depth: 0,
+        depth: 1,
       }),
       payload.find({
         collection: "guides",
@@ -20,13 +27,13 @@ const getCachedIndex = unstable_cache(
         locale: "en",
         limit: 0,
         pagination: false,
-        depth: 0,
+        depth: 1,
       }),
     ]);
-    return buildLlmsIndex(services.docs, guides.docs);
+    return buildLlmsIndex(categories.docs, services.docs, guides.docs);
   },
   ["llm-index"],
-  { tags: ["services", "guides"] }
+  { tags: ["categories", "services", "guides"] }
 );
 
 export async function GET() {

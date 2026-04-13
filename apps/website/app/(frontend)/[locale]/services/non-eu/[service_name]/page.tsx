@@ -67,9 +67,14 @@ export async function generateMetadata({
 
   const tags = (service.tags ?? []).map((t) => t.tag);
 
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const path = `/services/non-eu/${service_name}`;
+  const title = service.metaTitle || `${service.name} | switch-to.eu`;
+  const description = service.metaDescription || service.description;
+
   return {
-    title: `${service.name} | Non-EU Service | switch-to.eu`,
-    description: service.description,
+    title,
+    description,
     keywords: [
       service.name,
       categorySlug,
@@ -79,11 +84,16 @@ export async function generateMetadata({
       ...tags,
     ],
     alternates: {
-      canonical: `https://switch-to.eu/${locale}/services/non-eu/${service_name}`,
+      canonical: `${siteUrl}/${locale}${path}`,
       languages: {
-        en: `https://switch-to.eu/en/services/non-eu/${service_name}`,
-        nl: `https://switch-to.eu/nl/services/non-eu/${service_name}`,
+        "x-default": `${siteUrl}/en${path}`,
+        en: `${siteUrl}/en${path}`,
+        nl: `${siteUrl}/nl${path}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
     },
   };
 }

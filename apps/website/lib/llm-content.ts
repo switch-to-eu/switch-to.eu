@@ -1,9 +1,9 @@
 /**
  * Shared helpers for generating LLM-friendly markdown from Payload CMS content.
- * Used by /llms.txt, /llms-full.txt, and individual .md route handlers.
+ * Used by /llms.txt and individual .md route handlers.
  */
 
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide, Category } from "@/payload-types";
 import { lexicalToMarkdown } from "./lexical-to-markdown";
 import { getGdprLabel } from "./services";
 
@@ -202,6 +202,7 @@ export function guideToMarkdown(guide: Guide): string {
 // ---------------------------------------------------------------------------
 
 export function buildLlmsIndex(
+  categories: Category[],
   services: Service[],
   guides: Guide[]
 ): string {
@@ -218,50 +219,141 @@ export function buildLlmsIndex(
   );
   lines.push("");
 
-  // Split by region
+  // Key pages
+  lines.push("## Pages");
+  lines.push("");
+  lines.push(`- [Home](${BASE_URL}/en)`);
+  lines.push(`- [About](${BASE_URL}/en/about)`);
+  lines.push(`- [Tools](${BASE_URL}/en/tools): Free privacy-focused tools built in the EU`);
+  lines.push(`- [Contribute](${BASE_URL}/en/contribute): Help improve switch-to.eu`);
+  lines.push(`- [Search](${BASE_URL}/en/search): Search all services and guides`);
+  lines.push(`- [Feedback](${BASE_URL}/en/feedback)`);
+  lines.push(`- [Privacy policy](${BASE_URL}/en/privacy)`);
+  lines.push(`- [Terms](${BASE_URL}/en/terms)`);
+  lines.push("");
+
+  // Categories
+  if (categories.length > 0) {
+    lines.push("## Categories");
+    lines.push("");
+    for (const c of categories) {
+      lines.push(`- [${c.title}](${BASE_URL}/en/services/${c.slug}): ${c.description}`);
+    }
+    lines.push("");
+  }
+
+  // EU & EU-friendly services grouped by category
   const eu = services.filter(
     (s) => s.region === "eu" || s.region === "eu-friendly"
   );
   const nonEu = services.filter((s) => s.region === "non-eu");
 
   if (eu.length > 0) {
-    lines.push("## EU Services");
+    lines.push("## EU & EU-Friendly Services");
     lines.push("");
-    for (const s of eu) {
-      lines.push(
-        `- [${s.name}](${BASE_URL}/services/${s.slug}.md): ${s.description}`
-      );
+    const grouped = groupByCategory(eu);
+    for (const [categoryName, items] of grouped) {
+      lines.push(`### ${categoryName}`);
+      lines.push("");
+      for (const s of items) {
+        const gdpr = getGdprLabel(s.gdprCompliance);
+        const meta: string[] = [];
+        if (s.location) meta.push(s.location);
+        if (gdpr) meta.push(`GDPR: ${gdpr}`);
+        if (s.freeOption) meta.push("free tier available");
+        const suffix = meta.length > 0 ? ` (${meta.join(", ")})` : "";
+        lines.push(
+          `- [${s.name}](${BASE_URL}/en/services/eu/${s.slug}): ${s.description}${suffix}`
+        );
+        if (s.startingPrice) {
+          lines.push(`  - [Pricing](${BASE_URL}/en/services/eu/${s.slug}/pricing)`);
+        }
+        if (s.gdprCompliance || (s.certifications && s.certifications.length > 0)) {
+          lines.push(`  - [Security & privacy](${BASE_URL}/en/services/eu/${s.slug}/security)`);
+        }
+        lines.push(`  - [Full details (markdown)](${BASE_URL}/services/${s.slug}.md)`);
+      }
+      lines.push("");
     }
-    lines.push("");
   }
 
   if (nonEu.length > 0) {
     lines.push("## Non-EU Services");
     lines.push("");
-    for (const s of nonEu) {
-      lines.push(
-        `- [${s.name}](${BASE_URL}/services/${s.slug}.md): ${s.description}`
-      );
+    const grouped = groupByCategory(nonEu);
+    for (const [categoryName, items] of grouped) {
+      lines.push(`### ${categoryName}`);
+      lines.push("");
+      for (const s of items) {
+        lines.push(
+          `- [${s.name}](${BASE_URL}/en/services/non-eu/${s.slug}): ${s.description}`
+        );
+        lines.push(`  - [Full details (markdown)](${BASE_URL}/services/${s.slug}.md)`);
+      }
+      lines.push("");
     }
-    lines.push("");
   }
 
+  // Migration guides grouped by category
   if (guides.length > 0) {
     lines.push("## Migration Guides");
     lines.push("");
-    for (const g of guides) {
-      lines.push(
-        `- [${g.title}](${BASE_URL}/guides/${g.slug}.md): ${g.description}`
-      );
+    const grouped = groupGuidesByCategory(guides);
+    for (const [categoryName, items] of grouped) {
+      lines.push(`### ${categoryName}`);
+      lines.push("");
+      for (const g of items) {
+        const source =
+          typeof g.sourceService === "object" ? g.sourceService.name : null;
+        const target =
+          typeof g.targetService === "object" ? g.targetService.name : null;
+        const catSlug =
+          typeof g.category === "object" ? g.category.slug : "uncategorized";
+        const meta = [`${g.difficulty}`, g.timeRequired].join(", ");
+        const label = source && target ? `${source} → ${target}` : g.title;
+        lines.push(
+          `- [${label}](${BASE_URL}/en/guides/${catSlug}/${g.slug}): ${g.description} (${meta})`
+        );
+        lines.push(`  - [Full details (markdown)](${BASE_URL}/guides/${g.slug}.md)`);
+
+        // Comparison page link
+        if (
+          typeof g.targetService === "object" &&
+          typeof g.sourceService === "object" &&
+          g.targetService.region !== "non-eu"
+        ) {
+          lines.push(
+            `  - [Comparison: ${g.targetService.name} vs ${g.sourceService.name}](${BASE_URL}/en/services/eu/${g.targetService.slug}/vs-${g.sourceService.slug})`
+          );
+        }
+      }
+      lines.push("");
     }
-    lines.push("");
   }
 
-  lines.push("## Full Content");
-  lines.push("");
-  lines.push(
-    `- [All content in one file](${BASE_URL}/llms-full.txt)`
-  );
-
   return lines.join("\n").trim();
+}
+
+function groupByCategory(services: Service[]): [string, Service[]][] {
+  const map = new Map<string, Service[]>();
+  for (const s of services) {
+    const name =
+      typeof s.category === "object" ? s.category.title : "Other";
+    const list = map.get(name) ?? [];
+    list.push(s);
+    map.set(name, list);
+  }
+  return [...map.entries()];
+}
+
+function groupGuidesByCategory(guides: Guide[]): [string, Guide[]][] {
+  const map = new Map<string, Guide[]>();
+  for (const g of guides) {
+    const name =
+      typeof g.category === "object" ? g.category.title : "Other";
+    const list = map.get(name) ?? [];
+    list.push(g);
+    map.set(name, list);
+  }
+  return [...map.entries()];
 }
