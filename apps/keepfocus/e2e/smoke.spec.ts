@@ -24,4 +24,4 @@ for (const locale of locales) {
   });
 }
 
-// Privacy page redirects to external https://switch-to.eu/privacy — skip smoke test
+// Privacy page redirects to external https://www.switch-to.eu/privacy — skip smoke test

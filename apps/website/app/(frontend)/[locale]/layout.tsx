@@ -69,7 +69,7 @@ export default async function LocaleLayout({
 }>) {
   await params;
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
   const organizationJsonLd = {
     "@context": "https://schema.org",
@@ -96,7 +96,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <PlausibleProvider domain="switch-to.eu">
+    <PlausibleProvider domain="www.switch-to.eu">
       <NextIntlClientProvider>
         <script
           type="application/ld+json"

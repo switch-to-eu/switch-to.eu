@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { getPayload } from "@/lib/payload";
-import type { Service, Guide, Category } from "@/payload-types";
+import type { Service, Guide, Category, LandingPage } from "@/payload-types";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
 
-const baseUrl = process.env.NEXT_PUBLIC_URL!;
+const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 const { locales } = routing;
 
 export const dynamic = "force-dynamic";
@@ -25,9 +25,12 @@ const staticRoutes = [
  */
 function localeAlternates(path: string) {
   return {
-    languages: Object.fromEntries(
-      locales.map((l) => [l, `${baseUrl}/${l}${path}`])
-    ),
+    languages: {
+      "x-default": `${baseUrl}/en${path}`,
+      ...Object.fromEntries(
+        locales.map((l) => [l, `${baseUrl}/${l}${path}`])
+      ),
+    },
   };
 }
 
@@ -57,43 +60,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   // Fetch all content in parallel
-  const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
-    payload.find({
-      collection: "categories",
-      locale: "all",
-      limit: 0,
-      pagination: false,
-    }),
-    payload.find({
-      collection: "services",
-      where: { _status: { equals: "published" } },
-      locale: "all",
-      limit: 0,
-      pagination: false,
-    }),
-    payload.find({
-      collection: "guides",
-      where: { _status: { equals: "published" } },
-      locale: "all",
-      limit: 0,
-      pagination: false,
-      depth: 1,
-    }),
-  ]);
+  // NOTE: Do NOT pass limit: 0 — Payload v3.80+ treats it as "return 0 docs".
+  // pagination: false alone returns every document in the collection.
+  const [categoriesResult, servicesResult, guidesResult, landingPagesResult] =
+    await Promise.all([
+      payload.find({
+        collection: "categories",
+        locale: "all",
+        pagination: false,
+      }),
+      payload.find({
+        collection: "services",
+        where: { _status: { equals: "published" } },
+        locale: "all",
+        pagination: false,
+      }),
+      payload.find({
+        collection: "guides",
+        where: { _status: { equals: "published" } },
+        locale: "all",
+        pagination: false,
+        depth: 1,
+      }),
+      payload.find({
+        collection: "landing-pages",
+        where: { _status: { equals: "published" } },
+        locale: "all",
+        pagination: false,
+      }),
+    ]);
 
   // Categories — one entry per locale
-  const categoriesEntries: MetadataRoute.Sitemap = categoriesResult.docs.flatMap(
-    (category: Category) => {
+  const categoriesEntries: MetadataRoute.Sitemap =
+    categoriesResult.docs.flatMap((category: Category) => {
       const path = `/services/${category.slug}`;
       return locales.map((locale) => ({
         url: `${baseUrl}/${locale}${path}`,
         lastModified: new Date(category.updatedAt),
         changeFrequency: "weekly" as const,
-        priority: 0.7,
+        priority: 0.8,
         alternates: localeAlternates(path),
       }));
-    }
-  );
+    });
 
   // Services — one entry per locale, plus pricing/security subpages
   const servicesEntries: MetadataRoute.Sitemap = servicesResult.docs.flatMap(
@@ -106,11 +114,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}/${locale}${serviceUrl}`,
         lastModified: lastMod,
         changeFrequency: "monthly" as const,
-        priority: 0.6,
+        priority: 0.7,
         alternates: localeAlternates(serviceUrl),
       }));
 
-      // Pricing subpage
+      // Pricing subpage (EU services only)
       if (
         regionPath === "eu" &&
         ((service.pricingTiers && service.pricingTiers.length > 0) ||
@@ -129,7 +137,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         );
       }
 
-      // Security subpage
+      // Security subpage (EU services only)
       if (
         regionPath === "eu" &&
         (service.gdprCompliance ||
@@ -185,11 +193,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}/${locale}${path}`,
         lastModified: new Date(guide.updatedAt),
         changeFrequency: "monthly" as const,
-        priority: 0.6,
+        priority: 0.9,
         alternates: localeAlternates(path),
       }));
     }
   );
+
+  // Landing pages — one entry per locale
+  const landingPageEntries: MetadataRoute.Sitemap =
+    landingPagesResult.docs.flatMap((page: LandingPage) => {
+      const path = `/pages/${page.slug}`;
+      return locales.map((locale) => ({
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: new Date(page.updatedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: localeAlternates(path),
+      }));
+    });
 
   return [
     ...homeEntries,
@@ -198,5 +219,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...servicesEntries,
     ...comparisonEntries,
     ...guidesEntries,
+    ...landingPageEntries,
   ];
 }

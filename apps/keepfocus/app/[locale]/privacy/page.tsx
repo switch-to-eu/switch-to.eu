@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function PrivacyPage() {
-  redirect("https://switch-to.eu/privacy");
+  redirect("https://www.switch-to.eu/privacy");
 }

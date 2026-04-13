@@ -225,12 +225,12 @@ export function BoardForm() {
                 <span>
                   {t.rich("terms", {
                     terms: (chunks) => (
-                      <a href="https://switch-to.eu/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
+                      <a href="https://www.switch-to.eu/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
                         {chunks}
                       </a>
                     ),
                     privacy: (chunks) => (
-                      <a href="https://switch-to.eu/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
+                      <a href="https://www.switch-to.eu/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:text-tool-primary">
                         {chunks}
                       </a>
                     ),

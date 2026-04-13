@@ -132,12 +132,12 @@ export default async function LocaleLayout({
                 links={[
                   {
                     label: footerT('privacy'),
-                    href: 'https://switch-to.eu/privacy',
+                    href: 'https://www.switch-to.eu/privacy',
                     external: true,
                   },
                   {
                     label: footerT('terms'),
-                    href: 'https://switch-to.eu/terms',
+                    href: 'https://www.switch-to.eu/terms',
                     external: true,
                   },
                 ]}

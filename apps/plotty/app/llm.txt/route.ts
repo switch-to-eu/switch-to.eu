@@ -6,7 +6,7 @@ export async function GET() {
 Plotty lets you create polls and find the best time to meet. Poll data is encrypted — the server never sees your content in plain text.
 
 - **URL**: https://poll.switch-to.eu
-- **Part of**: [switch-to.eu](https://switch-to.eu) — European alternatives to Big Tech
+- **Part of**: [switch-to.eu](https://www.switch-to.eu) — European alternatives to Big Tech
 - **Privacy**: End-to-end encrypted. Encryption key stays in the URL fragment (never sent to the server). No accounts, no tracking.
 - **Data storage**: Redis with configurable expiration. All poll data is encrypted at rest.
 - **Locales**: English (en), Dutch (nl)

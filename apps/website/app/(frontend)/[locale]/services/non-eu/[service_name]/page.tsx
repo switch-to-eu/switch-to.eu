@@ -67,7 +67,7 @@ export async function generateMetadata({
 
   const tags = (service.tags ?? []).map((t) => t.tag);
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://switch-to.eu";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
   const path = `/services/non-eu/${service_name}`;
   const title = service.metaTitle || `${service.name} | switch-to.eu`;
   const description = service.metaDescription || service.description;
