@@ -3,15 +3,6 @@
   "fluid": true,
   "headers": [
     {
-      "source": "/sitemap.xml",
-      "headers": [
-        { "key": "Content-Type", "value": "application/xml" },
-        { "key": "Content-Encoding", "value": "identity" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Cache-Control", "value": "no-cache" }
-      ]
-    },
-    {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },

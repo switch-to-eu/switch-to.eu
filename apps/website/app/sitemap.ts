@@ -36,7 +36,6 @@ function localeAlternates(path: string) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   noStore();
-  const payload = await getPayload();
 
   // Home page — one entry per locale, no trailing slash
   const homeEntries: MetadataRoute.Sitemap = locales.map((locale) => ({
@@ -59,35 +58,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
   );
 
-  // Fetch all content in parallel.
-  // No _status filter — the Local API returns all docs regardless, and
-  // filtering by _status silently returns 0 when rows pre-date the drafts
-  // migration (missing column value).
-  const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
-    payload.find({
-      collection: "categories",
-      locale: "all",
-      limit: 0,
-      pagination: false,
-    }),
-    payload.find({
-      collection: "services",
-      locale: "all",
-      limit: 0,
-      pagination: false,
-    }),
-    payload.find({
-      collection: "guides",
-      locale: "all",
-      limit: 0,
-      pagination: false,
-      depth: 1,
-    }),
-  ]);
+  // Fetch all published content in parallel.
+  // If Payload is unavailable, return static entries only so the sitemap
+  // never 500s and Google can always read it.
+  let categoriesEntries: MetadataRoute.Sitemap = [];
+  let servicesEntries: MetadataRoute.Sitemap = [];
+  let comparisonEntries: MetadataRoute.Sitemap = [];
+  let guidesEntries: MetadataRoute.Sitemap = [];
 
-  // Categories — one entry per locale
-  const categoriesEntries: MetadataRoute.Sitemap =
-    categoriesResult.docs.flatMap((category: Category) => {
+  try {
+    const payload = await getPayload();
+
+    const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
+      payload.find({
+        collection: "categories",
+        locale: "all",
+        limit: 0,
+        pagination: false,
+      }),
+      payload.find({
+        collection: "services",
+        locale: "all",
+        limit: 0,
+        pagination: false,
+      }),
+      payload.find({
+        collection: "guides",
+        locale: "all",
+        limit: 0,
+        pagination: false,
+        depth: 1,
+      }),
+    ]);
+
+    // Categories — one entry per locale
+    categoriesEntries = categoriesResult.docs.flatMap((category: Category) => {
       const path = `/services/${category.slug}`;
       return locales.map((locale) => ({
         url: `${baseUrl}/${locale}${path}`,
@@ -98,9 +103,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }));
     });
 
-  // Services — one entry per locale, plus pricing/security subpages
-  const servicesEntries: MetadataRoute.Sitemap = servicesResult.docs.flatMap(
-    (service: Service) => {
+    // Services — one entry per locale, plus pricing/security subpages
+    servicesEntries = servicesResult.docs.flatMap((service: Service) => {
       const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
       const serviceUrl = `/services/${regionPath}/${service.slug}`;
       const lastMod = new Date(service.updatedAt);
@@ -153,31 +157,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
 
       return entries;
-    }
-  );
-
-  // Comparison pages (eu-service vs non-eu-service) from guides
-  const comparisonEntries: MetadataRoute.Sitemap = guidesResult.docs
-    .filter(
-      (g: Guide) =>
-        typeof g.targetService === "object" &&
-        typeof g.sourceService === "object" &&
-        (g.targetService as Service).region !== "non-eu"
-    )
-    .flatMap((g: Guide) => {
-      const path = `/services/eu/${(g.targetService as Service).slug}/vs-${(g.sourceService as Service).slug}`;
-      return locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${path}`,
-        lastModified: new Date(g.updatedAt),
-        changeFrequency: "monthly" as const,
-        priority: 0.5,
-        alternates: localeAlternates(path),
-      }));
     });
 
-  // Guides — one entry per locale
-  const guidesEntries: MetadataRoute.Sitemap = guidesResult.docs.flatMap(
-    (guide: Guide) => {
+    // Comparison pages (eu-service vs non-eu-service) from guides
+    comparisonEntries = guidesResult.docs
+      .filter(
+        (g: Guide) =>
+          typeof g.targetService === "object" &&
+          typeof g.sourceService === "object" &&
+          (g.targetService as Service).region !== "non-eu"
+      )
+      .flatMap((g: Guide) => {
+        const path = `/services/eu/${(g.targetService as Service).slug}/vs-${(g.sourceService as Service).slug}`;
+        return locales.map((locale) => ({
+          url: `${baseUrl}/${locale}${path}`,
+          lastModified: new Date(g.updatedAt),
+          changeFrequency: "monthly" as const,
+          priority: 0.5,
+          alternates: localeAlternates(path),
+        }));
+      });
+
+    // Guides — one entry per locale
+    guidesEntries = guidesResult.docs.flatMap((guide: Guide) => {
       const categorySlug =
         typeof guide.category === "object"
           ? (guide.category as Category).slug
@@ -191,8 +193,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
         alternates: localeAlternates(path),
       }));
-    }
-  );
+    });
+  } catch (error) {
+    console.error("[sitemap] Failed to fetch content from Payload:", error);
+  }
 
   return [
     ...homeEntries,
