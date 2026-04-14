@@ -1,4 +1,3 @@
-import type { MetadataRoute } from "next";
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
 import { routing } from "@switch-to-eu/i18n/routing";
@@ -9,62 +8,83 @@ const { locales } = routing;
 
 export const dynamic = "force-dynamic";
 
-// Static routes (excluding "/" which is the home page handled separately)
-const staticRoutes = [
-  "/about",
-  "/contribute",
-  "/tools",
-  "/privacy",
-  "/terms",
-  "/feedback",
-];
+interface SitemapEntry {
+  url: string;
+  lastModified: Date;
+  changeFrequency: string;
+  priority: number;
+  alternates: Record<string, string>;
+}
 
-/**
- * Build hreflang alternates for a given path.
- * Each locale gets its own entry plus x-default pointing to EN.
- */
-function localeAlternates(path: string) {
+function localeAlternates(path: string): Record<string, string> {
   return {
-    languages: {
-      "x-default": `${baseUrl}/en${path}`,
-      ...Object.fromEntries(
-        locales.map((l) => [l, `${baseUrl}/${l}${path}`])
-      ),
-    },
+    "x-default": `${baseUrl}/en${path}`,
+    ...Object.fromEntries(
+      locales.map((l) => [l, `${baseUrl}/${l}${path}`])
+    ),
   };
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  noStore();
+function toXml(entries: SitemapEntry[]): string {
+  const urls = entries
+    .map((entry) => {
+      const alternateLinks = Object.entries(entry.alternates)
+        .map(
+          ([lang, href]) =>
+            `    <xhtml:link rel="alternate" hreflang="${lang}" href="${href}" />`
+        )
+        .join("\n");
 
-  // Home page — one entry per locale, no trailing slash
-  const homeEntries: MetadataRoute.Sitemap = locales.map((locale) => ({
+      return `  <url>
+    <loc>${entry.url}</loc>
+    <lastmod>${entry.lastModified.toISOString()}</lastmod>
+    <changefreq>${entry.changeFrequency}</changefreq>
+    <priority>${entry.priority}</priority>
+${alternateLinks}
+  </url>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls}
+</urlset>`;
+}
+
+async function buildEntries(): Promise<SitemapEntry[]> {
+  const now = new Date();
+
+  const homeEntries: SitemapEntry[] = locales.map((locale) => ({
     url: `${baseUrl}/${locale}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "weekly",
     priority: 1.0,
     alternates: localeAlternates(""),
   }));
 
-  // Static routes — one entry per locale per route
-  const staticRouteEntries: MetadataRoute.Sitemap = staticRoutes.flatMap(
-    (route) =>
-      locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${route}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.5,
-        alternates: localeAlternates(route),
-      }))
+  const staticRoutes = [
+    "/about",
+    "/contribute",
+    "/tools",
+    "/privacy",
+    "/terms",
+    "/feedback",
+  ];
+
+  const staticEntries: SitemapEntry[] = staticRoutes.flatMap((route) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${route}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+      alternates: localeAlternates(route),
+    }))
   );
 
-  // Fetch all published content in parallel.
-  // If Payload is unavailable, return static entries only so the sitemap
-  // never 500s and Google can always read it.
-  let categoriesEntries: MetadataRoute.Sitemap = [];
-  let servicesEntries: MetadataRoute.Sitemap = [];
-  let comparisonEntries: MetadataRoute.Sitemap = [];
-  let guidesEntries: MetadataRoute.Sitemap = [];
+  let categoriesEntries: SitemapEntry[] = [];
+  let servicesEntries: SitemapEntry[] = [];
+  let comparisonEntries: SitemapEntry[] = [];
+  let guidesEntries: SitemapEntry[] = [];
 
   try {
     const payload = await getPayload();
@@ -91,33 +111,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     ]);
 
-    // Categories — one entry per locale
     categoriesEntries = categoriesResult.docs.flatMap((category: Category) => {
       const path = `/services/${category.slug}`;
       return locales.map((locale) => ({
         url: `${baseUrl}/${locale}${path}`,
         lastModified: new Date(category.updatedAt),
-        changeFrequency: "weekly" as const,
+        changeFrequency: "weekly",
         priority: 0.8,
         alternates: localeAlternates(path),
       }));
     });
 
-    // Services — one entry per locale, plus pricing/security subpages
     servicesEntries = servicesResult.docs.flatMap((service: Service) => {
       const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
       const serviceUrl = `/services/${regionPath}/${service.slug}`;
       const lastMod = new Date(service.updatedAt);
 
-      const entries: MetadataRoute.Sitemap = locales.map((locale) => ({
+      const entries: SitemapEntry[] = locales.map((locale) => ({
         url: `${baseUrl}/${locale}${serviceUrl}`,
         lastModified: lastMod,
-        changeFrequency: "monthly" as const,
+        changeFrequency: "monthly",
         priority: 0.7,
         alternates: localeAlternates(serviceUrl),
       }));
 
-      // Pricing subpage (EU services only)
       if (
         regionPath === "eu" &&
         ((service.pricingTiers && service.pricingTiers.length > 0) ||
@@ -129,14 +146,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           ...locales.map((locale) => ({
             url: `${baseUrl}/${locale}${pricingUrl}`,
             lastModified: lastMod,
-            changeFrequency: "monthly" as const,
+            changeFrequency: "monthly",
             priority: 0.5,
             alternates: localeAlternates(pricingUrl),
           }))
         );
       }
 
-      // Security subpage (EU services only)
       if (
         regionPath === "eu" &&
         (service.gdprCompliance ||
@@ -149,7 +165,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           ...locales.map((locale) => ({
             url: `${baseUrl}/${locale}${securityUrl}`,
             lastModified: lastMod,
-            changeFrequency: "monthly" as const,
+            changeFrequency: "monthly",
             priority: 0.5,
             alternates: localeAlternates(securityUrl),
           }))
@@ -159,7 +175,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return entries;
     });
 
-    // Comparison pages (eu-service vs non-eu-service) from guides
     comparisonEntries = guidesResult.docs
       .filter(
         (g: Guide) =>
@@ -172,13 +187,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return locales.map((locale) => ({
           url: `${baseUrl}/${locale}${path}`,
           lastModified: new Date(g.updatedAt),
-          changeFrequency: "monthly" as const,
+          changeFrequency: "monthly",
           priority: 0.5,
           alternates: localeAlternates(path),
         }));
       });
 
-    // Guides — one entry per locale
     guidesEntries = guidesResult.docs.flatMap((guide: Guide) => {
       const categorySlug =
         typeof guide.category === "object"
@@ -189,7 +203,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return locales.map((locale) => ({
         url: `${baseUrl}/${locale}${path}`,
         lastModified: new Date(guide.updatedAt),
-        changeFrequency: "monthly" as const,
+        changeFrequency: "monthly",
         priority: 0.9,
         alternates: localeAlternates(path),
       }));
@@ -200,10 +214,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...homeEntries,
-    ...staticRouteEntries,
+    ...staticEntries,
     ...categoriesEntries,
     ...servicesEntries,
     ...comparisonEntries,
     ...guidesEntries,
   ];
+}
+
+export async function GET() {
+  noStore();
+
+  const entries = await buildEntries();
+  const xml = toXml(entries);
+
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
+  });
 }
