@@ -17,9 +17,12 @@ interface SitemapEntry {
 }
 
 function localeAlternates(path: string): Record<string, string> {
-  return Object.fromEntries(
-    locales.map((l) => [l, `${baseUrl}/${l}${path}`])
-  );
+  return {
+    "x-default": `${baseUrl}/en${path}`,
+    ...Object.fromEntries(
+      locales.map((l) => [l, `${baseUrl}/${l}${path}`])
+    ),
+  };
 }
 
 function toXml(entries: SitemapEntry[]): string {
