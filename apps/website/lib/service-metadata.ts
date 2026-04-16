@@ -136,7 +136,6 @@ export async function generateServiceMetadata({
     alternates: {
       canonical: `${siteUrl}/${locale}${basePath}`,
       languages: {
-        "x-default": `${siteUrl}/en${basePath}`,
         en: `${siteUrl}/en${basePath}`,
         nl: `${siteUrl}/nl${basePath}`,
       },
