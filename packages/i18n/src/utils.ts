@@ -12,15 +12,8 @@ export function generateLanguageAlternates(path: string, locale: Locale) {
 
   return {
     canonical: `${siteUrl}/${locale}/${path}`,
-    languages: routing.locales.reduce(
-      (acc, l) => ({
-        ...acc,
-        [l]: `${siteUrl}/${l}/${path}`,
-      }),
-      { "x-default": `${siteUrl}/${routing.defaultLocale}/${path}` } as Record<
-        string,
-        string
-      >,
+    languages: Object.fromEntries(
+      routing.locales.map((l) => [l, `${siteUrl}/${l}/${path}`]),
     ),
   };
 }

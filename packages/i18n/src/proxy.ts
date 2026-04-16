@@ -9,6 +9,7 @@ export function createI18nMiddleware(options?: I18nMiddlewareOptions) {
   return createMiddleware({
     ...routing,
     localeDetection: options?.localeDetection ?? false,
+    alternateLinks: false,
   });
 }
 
