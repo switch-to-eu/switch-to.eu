@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
@@ -10,12 +10,11 @@ import type { Locale } from "next-intl";
 import type { Service, Guide } from "@/payload-types";
 import { getServiceBySlug } from "@/lib/services";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs: guides } = await payload.find({
     collection: "guides",
+    where: { _status: { equals: "published" } },
     depth: 1,
     limit: 100,
   });
@@ -47,11 +46,13 @@ export async function generateMetadata({
   if (!comparison.startsWith("vs-")) notFound();
 
   const payload = await getPayload();
+  const preview = await isPreview();
   const [euService, nonEuDocs] = await Promise.all([
     getServiceBySlug(service_name, locale),
     payload.find({
       collection: "services",
-      where: { slug: { equals: slug } },
+      where: await publishedWhere({ slug: { equals: slug } }),
+      draft: preview,
       locale: locale as "en" | "nl",
       limit: 1,
     }),
@@ -135,13 +136,15 @@ export default async function ComparisonPage({
   const t = await getTranslations("services.detail");
 
   const payload = await getPayload();
+  const preview = await isPreview();
 
   // Fetch both services in parallel
   const [euService, nonEuResult] = await Promise.all([
     getServiceBySlug(service_name, locale),
     payload.find({
       collection: "services",
-      where: { slug: { equals: slug } },
+      where: await publishedWhere({ slug: { equals: slug } }),
+      draft: preview,
       locale: locale as "en" | "nl",
       depth: 1,
       limit: 1,
@@ -157,10 +160,11 @@ export default async function ComparisonPage({
   // Find the migration guide between these two
   const { docs: guides } = (await payload.find({
     collection: "guides",
-    where: {
+    where: await publishedWhere({
       targetService: { equals: euService.id },
       sourceService: { equals: nonEuService.id },
-    },
+    }),
+    draft: preview,
     locale: locale as "en" | "nl",
     depth: 1,
     limit: 1,

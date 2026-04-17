@@ -2,12 +2,44 @@ import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
 import { researchFields } from "../fields/research";
 import { seoFields } from "../fields/seo";
+import {
+  buildPreviewUrl,
+  pingIndexNowIfPublished,
+} from "../lib/collection-hooks";
+import { submitToIndexNow, localizedUrls } from "../lib/indexnow";
+
+function servicePaths(doc: {
+  slug?: string | null;
+  region?: string | null;
+  category?: unknown;
+}): string[] {
+  const paths: string[] = [];
+  if (!doc.slug) return paths;
+  if (doc.region === "non-eu") {
+    paths.push(`/services/non-eu/${doc.slug}`);
+  }
+  const categorySlug =
+    typeof doc.category === "object" && doc.category !== null
+      ? (doc.category as { slug?: string }).slug
+      : undefined;
+  if (categorySlug) paths.push(`/services/${categorySlug}`);
+  return paths;
+}
 
 export const Services: CollectionConfig = {
   slug: "services",
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "slug", "region", "category", "featured"],
+    preview: (doc) => {
+      const typed = doc as {
+        slug?: string;
+        region?: string;
+        category?: unknown;
+      };
+      const paths = servicePaths(typed);
+      return buildPreviewUrl(paths[0] ? `/en${paths[0]}` : "/");
+    },
   },
   access: {
     read: () => true,
@@ -17,14 +49,32 @@ export const Services: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ doc }) => {
+      async ({ doc }) => {
         try {
           revalidateTag("services", "default");
         } catch {
           /* no-op outside Next.js */
         }
+        const typed = doc as {
+          _status?: string | null;
+          slug?: string | null;
+          region?: string | null;
+          category?: unknown;
+        };
+        await pingIndexNowIfPublished(typed._status, servicePaths(typed));
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        const typed = doc as {
+          slug?: string | null;
+          region?: string | null;
+          category?: unknown;
+        };
+        const urls = servicePaths(typed).flatMap((p) => localizedUrls(p));
+        await submitToIndexNow(urls);
       },
     ],
   },

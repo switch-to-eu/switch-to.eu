@@ -95,12 +95,14 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       }),
       payload.find({
         collection: "services",
+        where: { _status: { equals: "published" } },
         locale: "all",
         limit: 0,
         pagination: false,
       }),
       payload.find({
         collection: "guides",
+        where: { _status: { equals: "published" } },
         locale: "all",
         limit: 0,
         pagination: false,

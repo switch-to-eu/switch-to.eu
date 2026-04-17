@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import {
   convertLexicalToHTML,
   defaultHTMLConverters,
@@ -21,13 +21,16 @@ import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { Service, Category, Guide } from "@/payload-types";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "services",
-    where: { region: { equals: "non-eu" } },
+    where: {
+      and: [
+        { _status: { equals: "published" } },
+        { region: { equals: "non-eu" } },
+      ],
+    },
     depth: 0,
     limit: 200,
   });
@@ -47,7 +50,8 @@ export async function generateMetadata({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "services",
-    where: { slug: { equals: service_name } },
+    where: await publishedWhere({ slug: { equals: service_name } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     depth: 1,
     limit: 1,
@@ -108,7 +112,8 @@ export default async function ServiceDetailPage({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "services",
-    where: { slug: { equals: service_name } },
+    where: await publishedWhere({ slug: { equals: service_name } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     depth: 2,
     limit: 1,
@@ -163,7 +168,7 @@ export default async function ServiceDetailPage({
   if (recommendedAlternativeData) {
     const { docs: guideDocs } = await payload.find({
       collection: "guides",
-      where: {
+      where: await publishedWhere({
         sourceService: { equals: service.id },
         targetService: {
           equals:
@@ -172,7 +177,8 @@ export default async function ServiceDetailPage({
               ? (service.recommendedAlternative as Service).id
               : service.recommendedAlternative,
         },
-      },
+      }),
+      draft: await isPreview(),
       locale: locale as 'en' | 'nl',
       depth: 1,
       limit: 10,
@@ -217,10 +223,11 @@ export default async function ServiceDetailPage({
   if (categoryDoc) {
     const { docs: euDocs } = await payload.find({
       collection: "services",
-      where: {
+      where: await publishedWhere({
         category: { equals: categoryDoc.id },
         region: { equals: "eu" },
-      },
+      }),
+      draft: await isPreview(),
       locale: locale as 'en' | 'nl',
       depth: 1,
       limit: 50,

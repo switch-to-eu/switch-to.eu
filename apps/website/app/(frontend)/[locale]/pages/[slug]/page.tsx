@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -24,7 +24,8 @@ export async function generateMetadata({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "landing-pages",
-    where: { slug: { equals: slug } },
+    where: await publishedWhere({ slug: { equals: slug } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     depth: 1,
     limit: 1,
@@ -59,7 +60,8 @@ export default async function LandingPage({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "landing-pages",
-    where: { slug: { equals: slug } },
+    where: await publishedWhere({ slug: { equals: slug } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     depth: 1,
     limit: 1,

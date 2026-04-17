@@ -21,7 +21,12 @@ export default async function Image({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "services",
-    where: { slug: { equals: service_name } },
+    where: {
+      and: [
+        { _status: { equals: "published" } },
+        { slug: { equals: service_name } },
+      ],
+    },
     locale: locale as "en" | "nl",
     depth: 0,
     limit: 1,

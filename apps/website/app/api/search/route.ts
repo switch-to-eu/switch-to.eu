@@ -62,6 +62,7 @@ export async function GET(request: NextRequest) {
           limit,
           where: {
             and: [
+              { _status: { equals: "published" } },
               {
                 or: [
                   { name: { contains: query } },
@@ -103,9 +104,14 @@ export async function GET(request: NextRequest) {
           locale: lang,
           limit,
           where: {
-            or: [
-              { title: { contains: query } },
-              { description: { contains: query } },
+            and: [
+              { _status: { equals: "published" } },
+              {
+                or: [
+                  { title: { contains: query } },
+                  { description: { contains: query } },
+                ],
+              },
             ],
           },
           depth: 1, // populate category + source/target service
