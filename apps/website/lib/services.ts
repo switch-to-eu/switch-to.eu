@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import type { Service, Guide } from "@/payload-types";
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -16,92 +16,115 @@ export const LOCALES = ["en", "nl"] as const;
 // persisted across requests. The cache is invalidated when content is
 // published in Payload admin via `revalidateTag()` in afterChange hooks.
 // This means zero DB hits at runtime unless revalidation is triggered.
+// In draft preview mode the cache is skipped so edits show immediately.
 // ---------------------------------------------------------------------------
 
 /**
  * Fetch a single EU service by slug.
  */
-export const getServiceBySlug = (
+export const getServiceBySlug = async (
   slug: string,
   locale: string
-): Promise<Service | null> =>
-  unstable_cache(
-    async () => {
-      const payload = await getPayload();
-      const { docs } = await payload.find({
-        collection: "services",
-        where: {
-          slug: { equals: slug },
-          region: { in: EU_REGIONS },
-        },
-        locale: locale as "en" | "nl",
-        depth: 1,
-        limit: 1,
-      });
-      return (docs[0] as Service | undefined) ?? null;
-    },
-    [`service-${slug}-${locale}`],
-    { tags: ["services"] }
-  )();
+): Promise<Service | null> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({
+    slug: { equals: slug },
+    region: { in: EU_REGIONS },
+  });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = await payload.find({
+      collection: "services",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 1,
+      limit: 1,
+    });
+    return (docs[0] as Service | undefined) ?? null;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(fetcher, [`service-${slug}-${locale}`], {
+    tags: ["services"],
+  })();
+};
 
 /**
  * Fetch guides that target a given service (i.e. migration guides *to* that
  * service).
  */
-export const getRelatedGuides = (
+export const getRelatedGuides = async (
   serviceId: number,
   locale: string
-): Promise<Guide[]> =>
-  unstable_cache(
-    async () => {
-      const payload = await getPayload();
-      const { docs } = (await payload.find({
-        collection: "guides",
-        where: { targetService: { equals: serviceId } },
-        locale: locale as "en" | "nl",
-        depth: 1,
-        limit: 10,
-      })) as { docs: Guide[] };
-      return docs;
-    },
-    [`guides-for-${serviceId}-${locale}`],
-    { tags: ["guides", "services"] }
-  )();
+): Promise<Guide[]> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({
+    targetService: { equals: serviceId },
+  });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = (await payload.find({
+      collection: "guides",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 1,
+      limit: 10,
+    })) as { docs: Guide[] };
+    return docs;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(fetcher, [`guides-for-${serviceId}-${locale}`], {
+    tags: ["guides", "services"],
+  })();
+};
 
 /**
  * Fetch services in the same category, excluding the current service.
  * Returns up to 4 results with featured services sorted first.
  */
-export const getSimilarServices = (
+export const getSimilarServices = async (
   categoryId: number,
   excludeId: number,
   locale: string
-): Promise<Service[]> =>
-  unstable_cache(
-    async () => {
-      const payload = await getPayload();
-      const { docs } = (await payload.find({
-        collection: "services",
-        where: {
-          category: { equals: categoryId },
-          id: { not_equals: excludeId },
-          region: { in: EU_REGIONS },
-        },
-        locale: locale as "en" | "nl",
-        limit: 5,
-      })) as { docs: Service[] };
+): Promise<Service[]> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({
+    category: { equals: categoryId },
+    id: { not_equals: excludeId },
+    region: { in: EU_REGIONS },
+  });
 
-      return docs
-        .sort((a, b) => {
-          if (a.featured && !b.featured) return -1;
-          if (!a.featured && b.featured) return 1;
-          return 0;
-        })
-        .slice(0, 4);
-    },
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = (await payload.find({
+      collection: "services",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      limit: 5,
+    })) as { docs: Service[] };
+
+    return docs
+      .sort((a, b) => {
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        return 0;
+      })
+      .slice(0, 4);
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(
+    fetcher,
     [`similar-${categoryId}-${excludeId}-${locale}`],
     { tags: ["services"] }
   )();
+};
 
 // ---------------------------------------------------------------------------
 // Static params helper
@@ -109,13 +132,19 @@ export const getSimilarServices = (
 
 /**
  * Returns all locale + slug combinations for EU services, used in
- * `generateStaticParams` across service detail pages.
+ * `generateStaticParams` across service detail pages. Only includes
+ * published services — drafts are rendered on demand when draft mode is on.
  */
 export async function getAllEuServiceSlugs() {
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "services",
-    where: { region: { in: EU_REGIONS } },
+    where: {
+      and: [
+        { _status: { equals: "published" } },
+        { region: { in: EU_REGIONS } },
+      ],
+    },
     limit: 100,
   });
   return LOCALES.flatMap((locale) =>

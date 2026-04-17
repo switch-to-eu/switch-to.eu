@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import {
   convertLexicalToHTML,
   defaultHTMLConverters,
@@ -43,6 +43,7 @@ export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "guides",
+    where: { _status: { equals: "published" } },
     depth: 1,
     limit: 100,
   });
@@ -69,7 +70,8 @@ export async function generateMetadata({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "guides",
-    where: { slug: { equals: service } },
+    where: await publishedWhere({ slug: { equals: service } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     depth: 2,
     limit: 1,
@@ -122,7 +124,8 @@ export default async function GuideServicePage({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "guides",
-    where: { slug: { equals: service } },
+    where: await publishedWhere({ slug: { equals: service } }),
+    draft: await isPreview(),
     locale,
     depth: 2,
     limit: 1,

@@ -1,12 +1,34 @@
 import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
 import { seoFields } from "../fields/seo";
+import {
+  buildPreviewUrl,
+  pingIndexNowIfPublished,
+} from "../lib/collection-hooks";
+import { submitToIndexNow, localizedUrls } from "../lib/indexnow";
+
+function guidePaths(doc: {
+  slug?: string | null;
+  category?: unknown;
+}): string[] {
+  if (!doc.slug) return [];
+  const categorySlug =
+    typeof doc.category === "object" && doc.category !== null
+      ? (doc.category as { slug?: string }).slug
+      : undefined;
+  return [`/guides/${categorySlug ?? "uncategorized"}/${doc.slug}`];
+}
 
 export const Guides: CollectionConfig = {
   slug: "guides",
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "difficulty", "category"],
+    preview: (doc) => {
+      const typed = doc as { slug?: string; category?: unknown };
+      const paths = guidePaths(typed);
+      return buildPreviewUrl(paths[0] ? `/en${paths[0]}` : "/");
+    },
   },
   access: {
     read: () => true,
@@ -16,14 +38,27 @@ export const Guides: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ doc }) => {
+      async ({ doc }) => {
         try {
           revalidateTag("guides", "default");
         } catch {
           /* no-op outside Next.js */
         }
+        const typed = doc as {
+          _status?: string | null;
+          slug?: string | null;
+          category?: unknown;
+        };
+        await pingIndexNowIfPublished(typed._status, guidePaths(typed));
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        const typed = doc as { slug?: string | null; category?: unknown };
+        const urls = guidePaths(typed).flatMap((p) => localizedUrls(p));
+        await submitToIndexNow(urls);
       },
     ],
   },

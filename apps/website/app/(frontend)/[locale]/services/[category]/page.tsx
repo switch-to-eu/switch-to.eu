@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -104,10 +104,11 @@ export default async function ServicesCategoryPage({
   // Fetch EU services for this category
   const { docs: euServices } = await payload.find({
     collection: "services",
-    where: {
+    where: await publishedWhere({
       category: { equals: categoryData.id },
       region: { in: ["eu", "eu-friendly"] },
-    },
+    }),
+    draft: await isPreview(),
     locale,
     depth: 1,
     limit: 100,

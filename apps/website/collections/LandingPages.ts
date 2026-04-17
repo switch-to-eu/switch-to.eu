@@ -1,11 +1,25 @@
 import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
+import {
+  buildPreviewUrl,
+  pingIndexNowIfPublished,
+} from "../lib/collection-hooks";
+import { submitToIndexNow, localizedUrls } from "../lib/indexnow";
+
+function landingPagePaths(doc: { slug?: string | null }): string[] {
+  return doc.slug ? [`/pages/${doc.slug}`] : [];
+}
 
 export const LandingPages: CollectionConfig = {
   slug: "landing-pages",
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "category"],
+    preview: (doc) => {
+      const typed = doc as { slug?: string };
+      const paths = landingPagePaths(typed);
+      return buildPreviewUrl(paths[0] ? `/en${paths[0]}` : "/");
+    },
   },
   access: {
     read: () => true,
@@ -15,14 +29,29 @@ export const LandingPages: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ doc }) => {
+      async ({ doc }) => {
         try {
           revalidateTag("landing-pages", "default");
         } catch {
           /* no-op outside Next.js */
         }
+        const typed = doc as {
+          _status?: string | null;
+          slug?: string | null;
+        };
+        await pingIndexNowIfPublished(
+          typed._status,
+          landingPagePaths(typed)
+        );
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        const typed = doc as { slug?: string | null };
+        const urls = landingPagePaths(typed).flatMap((p) => localizedUrls(p));
+        await submitToIndexNow(urls);
       },
     ],
   },
