@@ -1,12 +1,17 @@
 import { unstable_cache } from "next/cache";
+import { locales, type Locale } from "@switch-to-eu/i18n/routing";
 import { getPayload } from "@/lib/payload";
 import { guideToMarkdown } from "@/lib/llm-content";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ locale: string; slug: string }> }
 ) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+
+  if (!locales.includes(locale as Locale)) {
+    return new Response("Not found", { status: 404 });
+  }
 
   const getGuide = unstable_cache(
     async () => {
@@ -17,7 +22,7 @@ export async function GET(
           slug: { equals: slug },
           _status: { equals: "published" },
         },
-        locale: "en",
+        locale: locale as Locale,
         depth: 2,
         limit: 1,
       });
@@ -25,7 +30,7 @@ export async function GET(
       if (!doc) return null;
       return guideToMarkdown(doc);
     },
-    [`llm-guide-${slug}`],
+    [`llm-guide-${locale}-${slug}`],
     { tags: ["guides"] }
   );
 

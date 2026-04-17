@@ -153,8 +153,9 @@ export function SearchInput({
         size={size === "lg" ? "lg" : "sm"}
         className={className}
         onClick={() => setOpen(true)}
+        aria-label={t("searchDialogTitle")}
       >
-        <Search className={`${size === "lg" ? "h-5 w-5" : "h-4 w-4"} mr-2`} />
+        <Search className={size === "lg" ? "h-5 w-5" : "h-4 w-4"} />
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
