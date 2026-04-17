@@ -83,9 +83,17 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        // LLM-friendly .md URLs → API route handlers
-        { source: "/services/:slug.md", destination: "/api/llm/services/:slug" },
-        { source: "/guides/:slug.md", destination: "/api/llm/guides/:slug" },
+        // LLM-friendly .md URLs → API route handlers.
+        // Locale-prefixed so the /services/:path* → /en/services/:path* locale
+        // redirect doesn't clobber these before the rewrite fires.
+        {
+          source: "/:locale(en|nl)/services/:slug.md",
+          destination: "/api/llm/:locale/services/:slug",
+        },
+        {
+          source: "/:locale(en|nl)/guides/:slug.md",
+          destination: "/api/llm/:locale/guides/:slug",
+        },
       ],
     };
   },
