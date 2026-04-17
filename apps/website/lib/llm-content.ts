@@ -209,7 +209,6 @@ export function buildLlmsIndex(
   const lines: string[] = [];
 
   lines.push("# switch-to.eu");
-  lines.push("");
   lines.push(
     "> European alternatives to Big Tech services. Honest reviews, privacy research, GDPR compliance checks, and step-by-step migration guides."
   );
@@ -219,22 +218,19 @@ export function buildLlmsIndex(
   );
   lines.push("");
 
-  // Key pages
-  lines.push("## Pages");
+  // Core pages
+  lines.push("## Core pages");
   lines.push("");
-  lines.push(`- [Home](${BASE_URL}/en)`);
-  lines.push(`- [About](${BASE_URL}/en/about)`);
+  lines.push(`- [Home](${BASE_URL}/en): Browse EU alternatives and migration guides`);
+  lines.push(`- [About](${BASE_URL}/en/about): Mission and story behind switch-to.eu`);
   lines.push(`- [Tools](${BASE_URL}/en/tools): Free privacy-focused tools built in the EU`);
-  lines.push(`- [Contribute](${BASE_URL}/en/contribute): Help improve switch-to.eu`);
   lines.push(`- [Search](${BASE_URL}/en/search): Search all services and guides`);
-  lines.push(`- [Feedback](${BASE_URL}/en/feedback)`);
-  lines.push(`- [Privacy policy](${BASE_URL}/en/privacy)`);
-  lines.push(`- [Terms](${BASE_URL}/en/terms)`);
+  lines.push(`- [Contribute](${BASE_URL}/en/contribute): Help improve switch-to.eu`);
   lines.push("");
 
-  // Categories
+  // Categories (top-level landing pages for each service category)
   if (categories.length > 0) {
-    lines.push("## Categories");
+    lines.push("## Service categories");
     lines.push("");
     for (const c of categories) {
       lines.push(`- [${c.title}](${BASE_URL}/en/services/${c.slug}): ${c.description}`);
@@ -242,14 +238,13 @@ export function buildLlmsIndex(
     lines.push("");
   }
 
-  // EU & EU-friendly services grouped by category
+  // EU & EU-friendly services (one link each, no sub-links)
   const eu = services.filter(
     (s) => s.region === "eu" || s.region === "eu-friendly"
   );
-  const nonEu = services.filter((s) => s.region === "non-eu");
 
   if (eu.length > 0) {
-    lines.push("## EU & EU-Friendly Services");
+    lines.push("## EU services");
     lines.push("");
     const grouped = groupByCategory(eu);
     for (const [categoryName, items] of grouped) {
@@ -265,38 +260,14 @@ export function buildLlmsIndex(
         lines.push(
           `- [${s.name}](${BASE_URL}/en/services/eu/${s.slug}): ${s.description}${suffix}`
         );
-        if (s.startingPrice) {
-          lines.push(`  - [Pricing](${BASE_URL}/en/services/eu/${s.slug}/pricing)`);
-        }
-        if (s.gdprCompliance || (s.certifications && s.certifications.length > 0)) {
-          lines.push(`  - [Security & privacy](${BASE_URL}/en/services/eu/${s.slug}/security)`);
-        }
-        lines.push(`  - [Full details (markdown)](${BASE_URL}/services/${s.slug}.md)`);
       }
       lines.push("");
     }
   }
 
-  if (nonEu.length > 0) {
-    lines.push("## Non-EU Services");
-    lines.push("");
-    const grouped = groupByCategory(nonEu);
-    for (const [categoryName, items] of grouped) {
-      lines.push(`### ${categoryName}`);
-      lines.push("");
-      for (const s of items) {
-        lines.push(
-          `- [${s.name}](${BASE_URL}/en/services/non-eu/${s.slug}): ${s.description}`
-        );
-        lines.push(`  - [Full details (markdown)](${BASE_URL}/services/${s.slug}.md)`);
-      }
-      lines.push("");
-    }
-  }
-
-  // Migration guides grouped by category
+  // Migration guides (one link each, no sub-links)
   if (guides.length > 0) {
-    lines.push("## Migration Guides");
+    lines.push("## Migration guides");
     lines.push("");
     const grouped = groupGuidesByCategory(guides);
     for (const [categoryName, items] of grouped) {
@@ -314,18 +285,6 @@ export function buildLlmsIndex(
         lines.push(
           `- [${label}](${BASE_URL}/en/guides/${catSlug}/${g.slug}): ${g.description} (${meta})`
         );
-        lines.push(`  - [Full details (markdown)](${BASE_URL}/guides/${g.slug}.md)`);
-
-        // Comparison page link
-        if (
-          typeof g.targetService === "object" &&
-          typeof g.sourceService === "object" &&
-          g.targetService.region !== "non-eu"
-        ) {
-          lines.push(
-            `  - [Comparison: ${g.targetService.name} vs ${g.sourceService.name}](${BASE_URL}/en/services/eu/${g.targetService.slug}/vs-${g.sourceService.slug})`
-          );
-        }
       }
       lines.push("");
     }
