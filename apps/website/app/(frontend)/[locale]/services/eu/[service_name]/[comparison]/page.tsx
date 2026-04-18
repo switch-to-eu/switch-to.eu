@@ -7,6 +7,8 @@ import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "next-intl";
+import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import type { Service, Guide } from "@/payload-types";
 import { getServiceBySlug } from "@/lib/services";
 
@@ -61,21 +63,13 @@ export async function generateMetadata({
 
   if (!euService || !nonEuService) return { title: "Not Found" };
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
-  const path = `/services/eu/${service_name}/vs-${slug}`;
   const title = `${euService.name} vs ${nonEuService.name} | switch-to.eu`;
   const description = `Compare ${euService.name} and ${nonEuService.name}. See how the EU alternative stacks up on privacy, pricing, and features.`;
 
   return {
     title,
     description,
-    alternates: {
-      canonical: `${siteUrl}/${locale}${path}`,
-      languages: {
-        en: `${siteUrl}/en${path}`,
-        nl: `${siteUrl}/nl${path}`,
-      },
-    },
+    alternates: generateLanguageAlternates(`services/eu/${service_name}/vs-${slug}`, locale as AppLocale),
     openGraph: {
       title,
       description,

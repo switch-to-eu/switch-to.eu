@@ -9,6 +9,8 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
+import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -40,8 +42,6 @@ export async function generateMetadata({
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
-  const path = `/services/${category}`;
   const title = categoryData?.metaTitle || `${pageTitle} | switch-to.eu`;
   const description = categoryData?.metaDescription || pageDescription;
 
@@ -55,13 +55,7 @@ export async function generateMetadata({
       "GDPR compliant",
       category,
     ],
-    alternates: {
-      canonical: `${siteUrl}/${locale}${path}`,
-      languages: {
-        en: `${siteUrl}/en${path}`,
-        nl: `${siteUrl}/nl${path}`,
-      },
-    },
+    alternates: generateLanguageAlternates(`services/${category}`, locale as AppLocale),
     openGraph: {
       title,
       description,

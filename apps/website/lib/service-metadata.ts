@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import type { Locale } from "@switch-to-eu/i18n/routing";
 import { getServiceBySlug, getCategorySlug } from "@/lib/services";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -133,13 +135,7 @@ export async function generateServiceMetadata({
     title,
     description,
     ...(keywords ? { keywords } : {}),
-    alternates: {
-      canonical: `${siteUrl}/${locale}${basePath}`,
-      languages: {
-        en: `${siteUrl}/en${basePath}`,
-        nl: `${siteUrl}/nl${basePath}`,
-      },
-    },
+    alternates: generateLanguageAlternates(basePath.slice(1), locale as Locale),
     openGraph: {
       title,
       description,
