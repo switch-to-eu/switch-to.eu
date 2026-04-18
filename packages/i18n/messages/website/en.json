@@ -704,5 +704,11 @@
     "emailLabel": "Email address",
     "submitLabel": "Subscribe",
     "successMessage": "Thank you for subscribing! You will receive our next update in your inbox."
+  },
+  "notFound": {
+    "title": "Page not found | switch-to.eu",
+    "heading": "404",
+    "message": "Page not found",
+    "cta": "Go home"
   }
 }
