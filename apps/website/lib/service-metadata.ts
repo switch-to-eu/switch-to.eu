@@ -138,6 +138,7 @@ export async function generateServiceMetadata({
       languages: {
         en: `${siteUrl}/en${basePath}`,
         nl: `${siteUrl}/nl${basePath}`,
+        "x-default": `${siteUrl}/en${basePath}`,
       },
     },
     openGraph: {

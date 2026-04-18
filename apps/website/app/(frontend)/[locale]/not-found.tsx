@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 export const metadata: Metadata = {
   title: "Page not found | switch-to.eu",
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: null },
 };
 
-export default function NotFound() {
+export default function LocaleNotFound() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center py-20">
       <h1 className="text-4xl font-bold mb-4">404</h1>

@@ -1,6 +1,6 @@
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
-import { routing } from "@switch-to-eu/i18n/routing";
+import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -17,9 +17,12 @@ interface SitemapEntry {
 }
 
 function localeAlternates(path: string): Record<string, string> {
-  return Object.fromEntries(
-    locales.map((l) => [l, `${baseUrl}/${l}${path}`])
-  );
+  return {
+    ...Object.fromEntries(
+      locales.map((l) => [l, `${baseUrl}/${l}${path}`])
+    ),
+    "x-default": `${baseUrl}/${defaultLocale}${path}`,
+  };
 }
 
 function toXml(entries: SitemapEntry[]): string {
