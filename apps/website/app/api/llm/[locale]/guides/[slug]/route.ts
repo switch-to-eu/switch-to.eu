@@ -20,7 +20,6 @@ export async function GET(
         collection: "guides",
         where: {
           slug: { equals: slug },
-          _status: { equals: "published" },
         },
         locale: locale as Locale,
         depth: 2,
