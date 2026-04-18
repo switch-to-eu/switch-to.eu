@@ -11,6 +11,8 @@ import { getTranslations } from "next-intl/server";
 import { GuideProgressWithI18n as GuideProgress } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
+import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { notFound } from "next/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
@@ -88,8 +90,6 @@ export async function generateMetadata({
       ? guide.targetService.name
       : String(guide.targetService ?? "");
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
-  const path = `/guides/${category}/${service}`;
   const title = guide.metaTitle || t("title", { title: guide.title });
   const description = guide.metaDescription || guide.description;
 
@@ -104,14 +104,7 @@ export async function generateMetadata({
       category,
     ],
     authors: guide.author ? [{ name: guide.author }] : undefined,
-    alternates: {
-      canonical: `${siteUrl}/${locale}${path}`,
-      languages: {
-        en: `${siteUrl}/en${path}`,
-        nl: `${siteUrl}/nl${path}`,
-        "x-default": `${siteUrl}/en${path}`,
-      },
-    },
+    alternates: generateLanguageAlternates(`guides/${category}/${service}`, locale as AppLocale),
     openGraph: {
       title,
       description,

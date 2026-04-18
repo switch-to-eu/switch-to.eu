@@ -10,6 +10,8 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import { Locale } from "next-intl";
+import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
 import { Container } from "@switch-to-eu/blocks/components/container";
@@ -67,8 +69,6 @@ export async function generateMetadata({
 
   const tags = (service.tags ?? []).map((t) => t.tag);
 
-  const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
-  const path = `/services/non-eu/${service_name}`;
   const title = service.metaTitle || `${service.name} | switch-to.eu`;
   const description = service.metaDescription || service.description;
 
@@ -83,14 +83,7 @@ export async function generateMetadata({
       "EU alternatives",
       ...tags,
     ],
-    alternates: {
-      canonical: `${siteUrl}/${locale}${path}`,
-      languages: {
-        en: `${siteUrl}/en${path}`,
-        nl: `${siteUrl}/nl${path}`,
-        "x-default": `${siteUrl}/en${path}`,
-      },
-    },
+    alternates: generateLanguageAlternates(`services/non-eu/${service_name}`, locale as AppLocale),
     openGraph: {
       title,
       description,
