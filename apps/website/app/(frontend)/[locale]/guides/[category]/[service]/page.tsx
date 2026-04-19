@@ -19,6 +19,11 @@ import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { Guide } from "@/payload-types";
+import {
+  getCategorySlug,
+  getGuideSourceService,
+  getGuideTargetService,
+} from "@/lib/services";
 
 /**
  * Convert a Payload Lexical rich text field value to an HTML string.
@@ -45,10 +50,7 @@ export async function generateStaticParams() {
   return locales.flatMap((locale) =>
     docs.map((g: Guide) => ({
       locale,
-      category:
-        typeof g.category === "object" && g.category !== null
-          ? g.category.slug
-          : "",
+      category: getCategorySlug(g.category),
       service: g.slug,
     }))
   );
@@ -80,15 +82,9 @@ export async function generateMetadata({
     };
   }
 
-  // Resolve service names from relationships
-  const sourceServiceName =
-    typeof guide.sourceService === "object" && guide.sourceService !== null
-      ? guide.sourceService.name
-      : String(guide.sourceService ?? "");
-  const targetServiceName =
-    typeof guide.targetService === "object" && guide.targetService !== null
-      ? guide.targetService.name
-      : String(guide.targetService ?? "");
+  // Resolve service names from relationships (depth: 2 guarantees population)
+  const sourceServiceName = getGuideSourceService(guide)?.name ?? "";
+  const targetServiceName = getGuideTargetService(guide)?.name ?? "";
 
   const title = guide.metaTitle || t("title", { title: guide.title });
   const description = guide.metaDescription || guide.description;
@@ -146,38 +142,30 @@ export default async function GuideServicePage({
   );
 
   // Build steps data for the sidebar and progress tracking.
-  // Each step gets a stable ID based on its index and title.
-  const guideSteps = (guide.steps ?? []) as Array<{
-    title: string;
-    content: SerializedEditorState | null;
-    video?: { url?: string | null } | number | null;
-    videoOrientation?: string | null;
-    complete?: boolean | null;
-    id?: string | null;
-  }>;
+  // Payload guarantees a stable `id` for every saved array row.
+  const guideSteps = guide.steps ?? [];
 
-  const sidebarSteps = guideSteps.map((step, index) => ({
+  const sidebarSteps = guideSteps.map((step) => ({
     title: step.title,
-    id: step.id ?? `step-${index + 1}-${step.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 30)}`,
+    id: step.id!,
   }));
 
   // Pre-render step content from Lexical JSON to HTML on the server.
   // This is necessary because GuideStep is a client component and cannot
   // use the server-only <RichText> component from Payload.
-  const stepsWithHtml = guideSteps.map((step, index) => {
-    // Resolve video URL from the media upload relationship
+  const stepsWithHtml = guideSteps.map((step) => {
     const videoUrl =
-      step.video && typeof step.video === "object" && "url" in step.video
+      step.video && typeof step.video === "object"
         ? (step.video.url ?? null)
         : null;
 
     return {
       title: step.title,
-      id: sidebarSteps[index]!.id,
+      id: step.id!,
       complete: step.complete ?? false,
       video: videoUrl,
       videoOrientation: step.videoOrientation ?? null,
-      contentHtml: lexicalToHtml(step.content),
+      contentHtml: lexicalToHtml(step.content as SerializedEditorState | null),
     };
   });
 

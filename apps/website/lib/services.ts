@@ -127,14 +127,47 @@ export async function getAllEuServiceSlugs() {
 // Pure helper functions
 // ---------------------------------------------------------------------------
 
-/** Resolve the slug string from a Service's category field. */
-export function getCategorySlug(category: Service["category"]): string {
-  return typeof category === "object" ? category.slug : String(category);
+/**
+ * Resolve a Payload relationship field to its populated object, or `null`
+ * when the relationship is a bare id / missing / not populated via `depth`.
+ */
+export function getResolvedRelation<T extends { id: number }>(
+  relation: number | T | null | undefined
+): T | null {
+  return typeof relation === "object" && relation !== null ? relation : null;
 }
 
-/** Resolve the numeric id from a Service's category field. */
+type CategoryRelation = Service["category"] | null | undefined;
+
+/** Resolve the slug string from a Service/Guide/LandingPage category field. */
+export function getCategorySlug(category: CategoryRelation): string {
+  if (typeof category === "object" && category !== null) return category.slug;
+  return typeof category === "number" ? String(category) : "";
+}
+
+/** Resolve the numeric id from a Service/Guide category field. */
 export function getCategoryId(category: Service["category"]): number {
   return typeof category === "object" ? category.id : category;
+}
+
+/** Resolve the localized title from a category field, populated or not. */
+export function getCategoryTitle(
+  category: CategoryRelation,
+  fallback = "Other"
+): string {
+  return typeof category === "object" && category !== null
+    ? category.title
+    : fallback;
+}
+
+/** Resolve the populated source service from a guide, or `null`. */
+export function getGuideSourceService(guide: Guide): Service | null {
+  return getResolvedRelation<Service>(guide.sourceService);
+}
+
+/** Resolve the populated target service from a guide, or `null`. */
+export function getGuideTargetService(guide: Guide): Service | null {
+  return getResolvedRelation<Service>(guide.targetService);
 }
 
 /** Resolve the screenshot URL from a Service's screenshot field. */

@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
 import type { SearchResult } from "@/lib/types";
+import {
+  getCategorySlug,
+  getGuideSourceService,
+  getGuideTargetService,
+} from "@/lib/services";
 import { routing } from "@switch-to-eu/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
@@ -74,24 +79,17 @@ export async function GET(request: NextRequest) {
           depth: 1, // populate category relationship
         })
         .then(({ docs }) =>
-          docs.map((service: Service): SearchResult => {
-            const categorySlug =
-              typeof service.category === "object"
-                ? (service.category as Category).slug
-                : undefined;
-
-            return {
-              id: String(service.id),
-              type: "service",
-              title: service.name,
-              description: service.description,
-              url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
-              region: service.region,
-              category: categorySlug,
-              location: service.location,
-              freeOption: service.freeOption ?? undefined,
-            };
-          })
+          docs.map((service: Service): SearchResult => ({
+            id: String(service.id),
+            type: "service",
+            title: service.name,
+            description: service.description,
+            url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
+            region: service.region,
+            category: getCategorySlug(service.category),
+            location: service.location,
+            freeOption: service.freeOption ?? undefined,
+          }))
         );
       queries.push(serviceQuery);
     }
@@ -112,28 +110,16 @@ export async function GET(request: NextRequest) {
         })
         .then(({ docs }) =>
           docs.map((guide: Guide): SearchResult => {
-            const categorySlug =
-              typeof guide.category === "object"
-                ? (guide.category as Category).slug
-                : undefined;
-            const sourceName =
-              typeof guide.sourceService === "object"
-                ? (guide.sourceService as Service).name
-                : undefined;
-            const targetName =
-              typeof guide.targetService === "object"
-                ? (guide.targetService as Service).name
-                : undefined;
-
+            const categorySlug = getCategorySlug(guide.category);
             return {
               id: String(guide.id),
               type: "guide",
               title: guide.title,
               description: guide.description,
-              url: `/guides/${categorySlug ?? "uncategorized"}/${guide.slug}`,
+              url: `/guides/${categorySlug || "uncategorized"}/${guide.slug}`,
               category: categorySlug,
-              sourceService: sourceName,
-              targetService: targetName,
+              sourceService: getGuideSourceService(guide)?.name,
+              targetService: getGuideTargetService(guide)?.name,
             };
           })
         );

@@ -6,14 +6,10 @@ import { cn } from "@switch-to-eu/ui/lib/utils";
 import { usePathname } from "next/navigation";
 import { useGuideProgressStore } from "@/lib/store/guide-progress";
 import { Link } from "@switch-to-eu/i18n/navigation";
-
-interface Step {
-  title: string;
-  id: string;
-}
+import type { GuideStepSummary } from "@/lib/types";
 
 interface StepsSummaryProps {
-  steps: Step[];
+  steps: GuideStepSummary[];
   title?: string;
   lang?: string;
   stepsToCompleteText?: string;
@@ -69,7 +65,7 @@ export function StepsSummary({
 
   // Function to find the element by step title or ID - wrap in useCallback
   const findElementByStep = useCallback(
-    (step: Step): HTMLElement | null => {
+    (step: GuideStepSummary): HTMLElement | null => {
       if (!isBrowser || !step) return null;
 
       try {

@@ -17,6 +17,7 @@ import {
   getSimilarServices,
   getCategorySlug,
   getCategoryId,
+  getGuideSourceService,
   getScreenshotUrl,
   getOutboundUrl,
 } from "@/lib/services";
@@ -57,8 +58,7 @@ function getAvailableTabs(
   }
 
   for (const guide of guides) {
-    const sourceService =
-      typeof guide.sourceService === "object" ? guide.sourceService : null;
+    const sourceService = getGuideSourceService(guide);
     if (sourceService) {
       tabs.push({
         key: `vs-${sourceService.slug}`,
@@ -99,14 +99,12 @@ export default async function ServiceLayout({
 
   // Get first guide for hero CTA
   const firstGuide = relatedGuides[0] ?? null;
-  const firstGuideCategory =
-    firstGuide && typeof firstGuide.category === "object"
-      ? firstGuide.category.slug
-      : null;
-  const firstSourceName =
-    firstGuide && typeof firstGuide.sourceService === "object"
-      ? firstGuide.sourceService.name
-      : null;
+  const firstGuideCategory = firstGuide
+    ? getCategorySlug(firstGuide.category) || null
+    : null;
+  const firstSourceName = firstGuide
+    ? (getGuideSourceService(firstGuide)?.name ?? null)
+    : null;
 
   // Fetch similar services
   const categoryId = getCategoryId(service.category);
@@ -172,12 +170,7 @@ export default async function ServiceLayout({
                   {service.name}
                 </h1>
                 <div className="flex-shrink-0 mt-2">
-                  <RegionBadge
-                    region={
-                      (service.region as "eu" | "non-eu" | "eu-friendly") ||
-                      "eu"
-                    }
-                  />
+                  <RegionBadge region={service.region} />
                 </div>
               </div>
 

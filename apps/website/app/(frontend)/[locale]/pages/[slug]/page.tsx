@@ -13,6 +13,7 @@ import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import type { LandingPage as LandingPageType, Service } from "@/payload-types";
+import { getCategorySlug, getResolvedRelation } from "@/lib/services";
 
 export async function generateMetadata({
   params,
@@ -71,22 +72,14 @@ export default async function LandingPage({
   }
 
   // With depth: 1, relationships are resolved objects
-  const categorySlug =
-    typeof page.category === "object" && page.category !== null
-      ? page.category.slug
-      : null;
+  const categorySlug = getCategorySlug(page.category) || null;
 
-  const recommendedServices = Array.isArray(page.recommendedServices)
-    ? page.recommendedServices.filter(
-        (s): s is Service => typeof s === "object" && s !== null
-      )
-    : [];
+  const recommendedServices = (page.recommendedServices ?? [])
+    .map((s) => getResolvedRelation<Service>(s))
+    .filter((s): s is Service => s !== null);
 
   // Resolve the related non-EU service
-  const relatedService =
-    typeof page.relatedService === "object" && page.relatedService !== null
-      ? (page.relatedService as Service)
-      : null;
+  const relatedService = getResolvedRelation<Service>(page.relatedService);
 
   // Extract issues from the related service (Payload stores as {issue: string}[])
   const relatedServiceIssues = relatedService?.issues?.map((i) => i.issue) ?? [];
@@ -176,7 +169,6 @@ export default async function LandingPage({
                   key={service.name}
                   service={service}
                   sourceService={relatedServiceName}
-                  migrationGuides={[]}
                 />
               ))}
             </div>

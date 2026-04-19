@@ -5,7 +5,13 @@
 
 import type { Service, Guide, Category } from "@/payload-types";
 import { lexicalToMarkdown } from "./lexical-to-markdown";
-import { getGdprLabel } from "./services";
+import {
+  getCategorySlug,
+  getCategoryTitle,
+  getGdprLabel,
+  getGuideSourceService,
+  getGuideTargetService,
+} from "./services";
 
 const BASE_URL = process.env.NEXT_PUBLIC_URL ?? "https://www.switch-to.eu";
 
@@ -61,7 +67,7 @@ export function serviceToMarkdown(service: Service): string {
   }
 
   // Main content
-  const content = lexicalToMarkdown(service.content as Parameters<typeof lexicalToMarkdown>[0]);
+  const content = lexicalToMarkdown(service.content);
   if (content) {
     lines.push("## About");
     lines.push("");
@@ -118,21 +124,15 @@ export function guideToMarkdown(guide: Guide): string {
   lines.push(`- **Difficulty**: ${guide.difficulty}`);
   lines.push(`- **Time required**: ${guide.timeRequired}`);
 
-  const source =
-    typeof guide.sourceService === "object"
-      ? guide.sourceService.name
-      : null;
-  const target =
-    typeof guide.targetService === "object"
-      ? guide.targetService.name
-      : null;
+  const source = getGuideSourceService(guide)?.name ?? null;
+  const target = getGuideTargetService(guide)?.name ?? null;
   if (source) lines.push(`- **From**: ${source}`);
   if (target) lines.push(`- **To**: ${target}`);
 
   lines.push("");
 
   // Intro
-  const intro = lexicalToMarkdown(guide.intro as Parameters<typeof lexicalToMarkdown>[0]);
+  const intro = lexicalToMarkdown(guide.intro);
   if (intro) {
     lines.push("## Why switch?");
     lines.push("");
@@ -141,7 +141,7 @@ export function guideToMarkdown(guide: Guide): string {
   }
 
   // Before you start
-  const before = lexicalToMarkdown(guide.beforeYouStart as Parameters<typeof lexicalToMarkdown>[0]);
+  const before = lexicalToMarkdown(guide.beforeYouStart);
   if (before) {
     lines.push("## Before you start");
     lines.push("");
@@ -157,7 +157,7 @@ export function guideToMarkdown(guide: Guide): string {
       const step = guide.steps[i]!;
       lines.push(`### Step ${i + 1}: ${step.title}`);
       lines.push("");
-      const stepContent = lexicalToMarkdown(step.content as Parameters<typeof lexicalToMarkdown>[0]);
+      const stepContent = lexicalToMarkdown(step.content);
       if (stepContent) {
         lines.push(stepContent);
         lines.push("");
@@ -176,8 +176,7 @@ export function guideToMarkdown(guide: Guide): string {
   }
 
   // Troubleshooting
-  const troubleshooting = lexicalToMarkdown(
-    guide.troubleshooting   );
+  const troubleshooting = lexicalToMarkdown(guide.troubleshooting);
   if (troubleshooting) {
     lines.push("## Troubleshooting");
     lines.push("");
@@ -186,7 +185,7 @@ export function guideToMarkdown(guide: Guide): string {
   }
 
   // Outro
-  const outro = lexicalToMarkdown(guide.outro as Parameters<typeof lexicalToMarkdown>[0]);
+  const outro = lexicalToMarkdown(guide.outro);
   if (outro) {
     lines.push("## Next steps");
     lines.push("");
@@ -269,17 +268,14 @@ export function buildLlmsIndex(
   if (guides.length > 0) {
     lines.push("## Migration guides");
     lines.push("");
-    const grouped = groupGuidesByCategory(guides);
+    const grouped = groupByCategory(guides);
     for (const [categoryName, items] of grouped) {
       lines.push(`### ${categoryName}`);
       lines.push("");
       for (const g of items) {
-        const source =
-          typeof g.sourceService === "object" ? g.sourceService.name : null;
-        const target =
-          typeof g.targetService === "object" ? g.targetService.name : null;
-        const catSlug =
-          typeof g.category === "object" ? g.category.slug : "uncategorized";
+        const source = getGuideSourceService(g)?.name ?? null;
+        const target = getGuideTargetService(g)?.name ?? null;
+        const catSlug = getCategorySlug(g.category) || "uncategorized";
         const meta = [`${g.difficulty}`, g.timeRequired].join(", ");
         const label = source && target ? `${source} → ${target}` : g.title;
         lines.push(
@@ -293,25 +289,12 @@ export function buildLlmsIndex(
   return lines.join("\n").trim();
 }
 
-function groupByCategory(services: Service[]): [string, Service[]][] {
-  const map = new Map<string, Service[]>();
-  for (const s of services) {
-    const name =
-      typeof s.category === "object" ? s.category.title : "Other";
+function groupByCategory<T extends Service | Guide>(docs: T[]): [string, T[]][] {
+  const map = new Map<string, T[]>();
+  for (const doc of docs) {
+    const name = getCategoryTitle(doc.category);
     const list = map.get(name) ?? [];
-    list.push(s);
-    map.set(name, list);
-  }
-  return [...map.entries()];
-}
-
-function groupGuidesByCategory(guides: Guide[]): [string, Guide[]][] {
-  const map = new Map<string, Guide[]>();
-  for (const g of guides) {
-    const name =
-      typeof g.category === "object" ? g.category.title : "Other";
-    const list = map.get(name) ?? [];
-    list.push(g);
+    list.push(doc);
     map.set(name, list);
   }
   return [...map.entries()];

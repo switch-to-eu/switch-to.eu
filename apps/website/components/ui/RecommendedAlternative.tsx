@@ -2,8 +2,12 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
-import { getOutboundUrl, getScreenshotUrl } from "@/lib/services";
-import type { Service } from "@/payload-types";
+import {
+  getCategorySlug,
+  getOutboundUrl,
+  getScreenshotUrl,
+} from "@/lib/services";
+import type { Guide, Service } from "@/payload-types";
 
 export type RecommendedAlternativeService = Pick<
   Service,
@@ -19,10 +23,7 @@ export type RecommendedAlternativeService = Pick<
   | "screenshot"
 >;
 
-interface MigrationGuide {
-  category: string;
-  slug: string;
-}
+export type RecommendedAlternativeGuide = Pick<Guide, "slug" | "category">;
 
 export async function RecommendedAlternative({
   service,
@@ -31,7 +32,7 @@ export async function RecommendedAlternative({
 }: {
   service: RecommendedAlternativeService;
   sourceService: string;
-  migrationGuides: MigrationGuide[];
+  migrationGuides?: RecommendedAlternativeGuide[];
 }) {
   const t = await getTranslations("services");
 
@@ -126,18 +127,21 @@ export async function RecommendedAlternative({
 
             {sourceService &&
               migrationGuides.length > 0 &&
-              migrationGuides.map((guide) => (
-                <Link
-                  key={`${guide.category}-${guide.slug}`}
-                  href={`/guides/${guide.category}/${guide.slug}`}
-                  className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
-                >
-                  {t("detail.recommendedAlternative.migrateFrom", {
-                    source: sourceService,
-                    target: service.name,
-                  })}
-                </Link>
-              ))}
+              migrationGuides.map((guide) => {
+                const categorySlug = getCategorySlug(guide.category);
+                return (
+                  <Link
+                    key={`${categorySlug}-${guide.slug}`}
+                    href={`/guides/${categorySlug}/${guide.slug}`}
+                    className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
+                  >
+                    {t("detail.recommendedAlternative.migrateFrom", {
+                      source: sourceService,
+                      target: service.name,
+                    })}
+                  </Link>
+                );
+              })}
           </div>
 
           {outboundUrl && service.affiliateUrl && (

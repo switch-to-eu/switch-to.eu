@@ -168,7 +168,6 @@ export default async function ServicesCategoryPage({
                   key={service.name}
                   service={service}
                   sourceService={service.name}
-                  migrationGuides={[]}
                 />
               ))}
             </div>

@@ -6,14 +6,10 @@ import { Button } from '@switch-to-eu/ui/components/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@switch-to-eu/ui/components/sheet';
 import { GuideSidebar } from './GuideSidebar';
 import { usePathname } from 'next/navigation';
-
-interface Step {
-  title: string;
-  id: string;
-}
+import type { GuideStepSummary } from '@/lib/types';
 
 interface MobileGuideSidebarProps {
-  steps: Step[];
+  steps: GuideStepSummary[];
   lang?: string;
   stepsToCompleteText?: string;
   guideId?: string;

@@ -10,7 +10,11 @@ import type { Locale } from "next-intl";
 import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import type { Service, Guide } from "@/payload-types";
-import { getServiceBySlug } from "@/lib/services";
+import {
+  getGuideSourceService,
+  getGuideTargetService,
+  getServiceBySlug,
+} from "@/lib/services";
 
 export const dynamicParams = false;
 
@@ -24,18 +28,18 @@ export async function generateStaticParams() {
   const locales = ["en", "nl"];
 
   return locales.flatMap((locale) =>
-    guides
-      .filter(
-        (g) =>
-          typeof g.targetService === "object" &&
-          typeof g.sourceService === "object" &&
-          g.targetService.region !== "non-eu"
-      )
-      .map((g) => ({
-        locale,
-        service_name: (g.targetService as Service).slug,
-        comparison: `vs-${(g.sourceService as Service).slug}`,
-      }))
+    guides.flatMap((g) => {
+      const target = getGuideTargetService(g);
+      const source = getGuideSourceService(g);
+      if (!target || !source || target.region === "non-eu") return [];
+      return [
+        {
+          locale,
+          service_name: target.slug,
+          comparison: `vs-${source.slug}`,
+        },
+      ];
+    })
   );
 }
 

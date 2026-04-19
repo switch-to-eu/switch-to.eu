@@ -1,5 +1,10 @@
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
+import {
+  getCategorySlug,
+  getGuideSourceService,
+  getGuideTargetService,
+} from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -175,29 +180,23 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       return entries;
     });
 
-    comparisonEntries = guidesResult.docs
-      .filter(
-        (g: Guide) =>
-          typeof g.targetService === "object" &&
-          typeof g.sourceService === "object" &&
-          (g.targetService as Service).region !== "non-eu"
-      )
-      .flatMap((g: Guide) => {
-        const path = `/services/eu/${(g.targetService as Service).slug}/vs-${(g.sourceService as Service).slug}`;
-        return locales.map((locale) => ({
-          url: `${baseUrl}/${locale}${path}`,
-          lastModified: new Date(g.updatedAt),
-          changeFrequency: "monthly",
-          priority: 0.5,
-          alternates: localeAlternates(path),
-        }));
-      });
+    comparisonEntries = guidesResult.docs.flatMap((g: Guide) => {
+      const target = getGuideTargetService(g);
+      const source = getGuideSourceService(g);
+      if (!target || !source || target.region === "non-eu") return [];
+
+      const path = `/services/eu/${target.slug}/vs-${source.slug}`;
+      return locales.map((locale) => ({
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: new Date(g.updatedAt),
+        changeFrequency: "monthly",
+        priority: 0.5,
+        alternates: localeAlternates(path),
+      }));
+    });
 
     guidesEntries = guidesResult.docs.flatMap((guide: Guide) => {
-      const categorySlug =
-        typeof guide.category === "object"
-          ? (guide.category as Category).slug
-          : "uncategorized";
+      const categorySlug = getCategorySlug(guide.category) || "uncategorized";
       const path = `/guides/${categorySlug}/${guide.slug}`;
 
       return locales.map((locale) => ({
