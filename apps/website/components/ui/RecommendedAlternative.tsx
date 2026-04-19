@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
+import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
 
 /**
  * Service data shape compatible with Payload CMS Service documents.
@@ -14,6 +15,7 @@ export interface RecommendedAlternativeServiceData {
   startingPrice?: string | null;
   description: string;
   url?: string | null;
+  affiliateUrl?: string | null;
   screenshot?: string | { url?: string | null } | null;
 }
 
@@ -36,6 +38,7 @@ export async function RecommendedAlternative({
 
   const serviceSlug = service.slug ?? service.name.toLowerCase().replace(/\s+/g, "-");
   const regionPath = service.region?.includes("eu") ? "eu" : "non-eu";
+  const outboundUrl = service.affiliateUrl || service.url;
 
   // Resolve screenshot URL (Payload Media object or plain string)
   const screenshotUrl =
@@ -110,13 +113,31 @@ export async function RecommendedAlternative({
 
           {/* Actions */}
           <div className="flex flex-wrap gap-3">
+            {outboundUrl && (
+              <a
+                href={outboundUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+              >
+                {t("detail.tryService", { service: service.name })} &rarr;
+              </a>
+            )}
+
+            <Link
+              href={`/services/${regionPath}/${serviceSlug}`}
+              className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
+            >
+              {t("detail.recommendedAlternative.learnMore")}
+            </Link>
+
             {sourceService &&
               migrationGuides.length > 0 &&
               migrationGuides.map((guide) => (
                 <Link
                   key={`${guide.category}-${guide.slug}`}
                   href={`/guides/${guide.category}/${guide.slug}`}
-                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                  className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
                 >
                   {t("detail.recommendedAlternative.migrateFrom", {
                     source: sourceService,
@@ -124,25 +145,11 @@ export async function RecommendedAlternative({
                   })}
                 </Link>
               ))}
-
-            <Link
-              href={`/services/${regionPath}/${serviceSlug}`}
-              className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
-            >
-              {t("detail.recommendedAlternative.viewDetails")}
-            </Link>
-
-            {service.url && (
-              <a
-                href={service.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block py-2.5 px-6 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
-              >
-                {t("detail.visitWebsite")} &rarr;
-              </a>
-            )}
           </div>
+
+          {outboundUrl && service.affiliateUrl && (
+            <AffiliateDisclosure className="mt-3 text-brand-cream/40 hover:text-brand-cream/60 decoration-brand-cream/30" />
+          )}
         </div>
 
         {/* Right: Screenshot */}

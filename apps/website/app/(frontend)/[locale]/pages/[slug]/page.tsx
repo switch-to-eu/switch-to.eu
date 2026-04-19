@@ -89,6 +89,7 @@ export default async function LandingPage({
           startingPrice: service.startingPrice ?? undefined,
           description: service.description,
           url: service.url,
+          affiliateUrl: service.affiliateUrl,
           screenshot: typeof service.screenshot === "object" && service.screenshot !== null ? service.screenshot.url ?? undefined : undefined,
           features: service.features?.map((f) => f.feature) ?? undefined,
           tags: service.tags?.map((t) => t.tag) ?? undefined,

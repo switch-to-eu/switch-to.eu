@@ -144,7 +144,8 @@ export default async function ServiceDetailPage({
         freeOption: resolvedAlternative.freeOption,
         startingPrice: resolvedAlternative.startingPrice,
         description: resolvedAlternative.description,
-        url: resolvedAlternative.affiliateUrl || resolvedAlternative.url,
+        url: resolvedAlternative.url,
+        affiliateUrl: resolvedAlternative.affiliateUrl,
         screenshot:
           typeof resolvedAlternative.screenshot === "object" && resolvedAlternative.screenshot
             ? (resolvedAlternative.screenshot as { url?: string | null })
