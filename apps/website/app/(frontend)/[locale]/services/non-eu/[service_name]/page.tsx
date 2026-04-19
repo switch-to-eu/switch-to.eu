@@ -135,27 +135,10 @@ export default async function ServiceDetailPage({
     service.recommendedAlternative !== null
       ? (service.recommendedAlternative as Service)
       : null;
-  const recommendedAlternativeData = resolvedAlternative
-    ? {
-        name: resolvedAlternative.name,
-        slug: resolvedAlternative.slug,
-        region: resolvedAlternative.region,
-        location: resolvedAlternative.location,
-        freeOption: resolvedAlternative.freeOption,
-        startingPrice: resolvedAlternative.startingPrice,
-        description: resolvedAlternative.description,
-        url: resolvedAlternative.url,
-        affiliateUrl: resolvedAlternative.affiliateUrl,
-        screenshot:
-          typeof resolvedAlternative.screenshot === "object" && resolvedAlternative.screenshot
-            ? (resolvedAlternative.screenshot as { url?: string | null })
-            : null,
-      }
-    : null;
 
   // Find migration guides between this service and its recommended alternative
   let migrationGuides: Array<{ category: string; slug: string }> = [];
-  if (recommendedAlternativeData) {
+  if (resolvedAlternative) {
     const { docs: guideDocs } = await payload.find({
       collection: "guides",
       where: {
@@ -196,18 +179,7 @@ export default async function ServiceDetailPage({
   });
   const categoryDoc = categoryDocs[0] as Category | undefined;
 
-  let euAlternatives: Array<{
-    name: string;
-    slug: string;
-    category: string | { slug: string; title?: string };
-    region?: "eu" | "non-eu" | "eu-friendly" | null;
-    location: string;
-    freeOption?: boolean | null;
-    startingPrice?: string | null;
-    description: string;
-    url: string;
-    screenshot?: string | { url?: string | null } | null;
-  }> = [];
+  let euAlternatives: Service[] = [];
 
   if (categoryDoc) {
     const { docs: euDocs } = await payload.find({
@@ -220,27 +192,11 @@ export default async function ServiceDetailPage({
       depth: 1,
       limit: 50,
     }) as { docs: Service[] };
-    euAlternatives = euDocs.map((s) => ({
-      name: s.name,
-      slug: s.slug,
-      category:
-        typeof s.category === "object" && s.category !== null
-          ? { slug: s.category.slug, title: s.category.title }
-          : String(s.category ?? ""),
-      region: s.region as "eu" | "non-eu" | "eu-friendly" | null,
-      location: s.location,
-      freeOption: s.freeOption,
-      startingPrice: s.startingPrice,
-      description: s.description,
-      url: s.url,
-      screenshot: s.screenshot as { url?: string | null } | null,
-    }));
+    euAlternatives = euDocs;
   }
 
-  const otherAlternatives = recommendedAlternativeData
-    ? euAlternatives.filter(
-        (alt) => alt.name !== recommendedAlternativeData.name
-      )
+  const otherAlternatives = resolvedAlternative
+    ? euAlternatives.filter((alt) => alt.id !== resolvedAlternative.id)
     : euAlternatives;
 
   return (
@@ -363,9 +319,9 @@ export default async function ServiceDetailPage({
 
       <Container noPaddingMobile>
         {/* Recommended Alternative -- below body text */}
-        {recommendedAlternativeData && (
+        {resolvedAlternative && (
           <RecommendedAlternative
-            service={recommendedAlternativeData}
+            service={resolvedAlternative}
             sourceService={service.name}
             migrationGuides={migrationGuides}
           />

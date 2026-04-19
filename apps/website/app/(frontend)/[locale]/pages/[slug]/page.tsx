@@ -76,25 +76,10 @@ export default async function LandingPage({
       ? page.category.slug
       : null;
 
-  // Map resolved services to ServiceFrontmatter shape for RecommendedAlternative
   const recommendedServices = Array.isArray(page.recommendedServices)
-    ? page.recommendedServices
-        .filter((s): s is Service => typeof s === "object" && s !== null)
-        .map((service) => ({
-          name: service.name,
-          category: typeof service.category === "object" && service.category !== null ? service.category.slug : "",
-          location: service.location,
-          region: service.region as "eu" | "non-eu" | "eu-friendly" | undefined,
-          freeOption: service.freeOption ?? false,
-          startingPrice: service.startingPrice ?? undefined,
-          description: service.description,
-          url: service.url,
-          affiliateUrl: service.affiliateUrl,
-          screenshot: typeof service.screenshot === "object" && service.screenshot !== null ? service.screenshot.url ?? undefined : undefined,
-          features: service.features?.map((f) => f.feature) ?? undefined,
-          tags: service.tags?.map((t) => t.tag) ?? undefined,
-          featured: service.featured ?? undefined,
-        }))
+    ? page.recommendedServices.filter(
+        (s): s is Service => typeof s === "object" && s !== null
+      )
     : [];
 
   // Resolve the related non-EU service

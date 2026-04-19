@@ -4,25 +4,21 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { shapes } from "@switch-to-eu/blocks/shapes";
+import { getCategorySlug, getScreenshotUrl } from "@/lib/services";
+import type { Service } from "@/payload-types";
 
-/**
- * Service data shape compatible with Payload CMS Service documents.
- * Accepts both resolved relationship objects and raw values.
- */
-export interface ServiceCardData {
-  name: string;
-  slug?: string;
-  category: string | { slug: string; title?: string };
-  region?: "eu" | "non-eu" | "eu-friendly" | null;
-  location: string;
-  freeOption?: boolean | null;
-  startingPrice?: string | null;
-  description: string;
-  url: string;
-  screenshot?: string | { url?: string | null } | null;
-  features?: Array<{ feature: string }> | string[] | null;
-  tags?: Array<{ tag: string }> | string[] | null;
-}
+export type ServiceCardService = Pick<
+  Service,
+  | "name"
+  | "slug"
+  | "category"
+  | "region"
+  | "location"
+  | "freeOption"
+  | "startingPrice"
+  | "description"
+  | "screenshot"
+>;
 
 const SERVICE_SHAPES = [
   "spark",
@@ -44,28 +40,19 @@ export async function ServiceCard({
   showCategory = true,
   colorIndex = 0,
 }: {
-  service: ServiceCardData;
+  service: ServiceCardService;
   showCategory?: boolean;
   colorIndex?: number;
 }) {
   const t = await getTranslations("services");
 
-  const categorySlug =
-    typeof service.category === "object"
-      ? service.category.slug
-      : service.category;
+  const categorySlug = getCategorySlug(service.category);
   const categoryFormatted =
     categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
-  const serviceSlug = service.slug ?? service.name.toLowerCase().replace(/\s+/g, "-");
   const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
-  const serviceLink = `/services/${regionPath}/${serviceSlug}`;
-
-  // Resolve screenshot URL (Payload Media object or plain string)
-  const screenshotUrl =
-    typeof service.screenshot === "object" && service.screenshot !== null
-      ? service.screenshot.url ?? undefined
-      : service.screenshot ?? undefined;
+  const serviceLink = `/services/${regionPath}/${service.slug}`;
+  const screenshotUrl = getScreenshotUrl(service.screenshot);
 
   const card = getCardColor(colorIndex);
   const shapeName = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
@@ -103,7 +90,7 @@ export async function ServiceCard({
           )}
           {/* Region badge floated top-right */}
           <div className="absolute top-3 right-3">
-            <RegionBadge region={service.region || "eu"} />
+            <RegionBadge region={service.region} />
           </div>
         </div>
 
