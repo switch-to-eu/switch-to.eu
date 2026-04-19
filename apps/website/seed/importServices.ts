@@ -134,7 +134,7 @@ export async function importServices(
       });
     }
 
-    serviceMap.set(slug, created.id as number);
+    serviceMap.set(slug, created.id);
   }
 
   // Second pass: resolve recommendedAlternative

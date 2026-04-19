@@ -61,11 +61,11 @@ export default async function LandingPage({
   const { docs } = await payload.find({
     collection: "landing-pages",
     where: { slug: { equals: slug } },
-    locale: locale as 'en' | 'nl',
+    locale,
     depth: 1,
     limit: 1,
   });
-  const page = docs[0] as LandingPageType | undefined;
+  const page = docs[0];
 
   if (!page) {
     notFound();

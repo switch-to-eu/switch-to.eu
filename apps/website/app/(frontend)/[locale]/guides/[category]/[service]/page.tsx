@@ -123,11 +123,11 @@ export default async function GuideServicePage({
   const { docs } = await payload.find({
     collection: "guides",
     where: { slug: { equals: service } },
-    locale: locale as 'en' | 'nl',
+    locale,
     depth: 2,
     limit: 1,
   });
-  const guide = docs[0] as Guide | undefined;
+  const guide = docs[0];
 
   if (!guide) {
     return notFound();

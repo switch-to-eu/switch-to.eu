@@ -140,13 +140,13 @@ export default async function ComparisonPage({
     payload.find({
       collection: "services",
       where: { slug: { equals: slug } },
-      locale: locale as "en" | "nl",
+      locale,
       depth: 1,
       limit: 1,
     }),
   ]);
 
-  const nonEuService = nonEuResult.docs[0] as Service | undefined;
+  const nonEuService = nonEuResult.docs[0];
 
   if (!euService || !nonEuService) {
     notFound();
@@ -159,7 +159,7 @@ export default async function ComparisonPage({
       targetService: { equals: euService.id },
       sourceService: { equals: nonEuService.id },
     },
-    locale: locale as "en" | "nl",
+    locale,
     depth: 1,
     limit: 1,
   })) as { docs: Guide[] };

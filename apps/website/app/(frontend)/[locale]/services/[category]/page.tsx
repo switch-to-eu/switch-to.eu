@@ -15,7 +15,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { RichText } from "@payloadcms/richtext-lexical/react";
-import type { Category, Service } from "@/payload-types";
+import type { Category } from "@/payload-types";
 
 export async function generateMetadata({
   params,
@@ -92,10 +92,10 @@ export default async function ServicesCategoryPage({
   const { docs: categoryDocs } = await payload.find({
     collection: "categories",
     where: { slug: { equals: category } },
-    locale: locale as 'en' | 'nl',
+    locale,
     limit: 1,
   });
-  const categoryData = categoryDocs[0] as Category | undefined;
+  const categoryData = categoryDocs[0];
 
   if (!categoryData) {
     notFound();
@@ -108,10 +108,10 @@ export default async function ServicesCategoryPage({
       category: { equals: categoryData.id },
       region: { in: ["eu", "eu-friendly"] },
     },
-    locale: locale as 'en' | 'nl',
+    locale,
     depth: 1,
     limit: 100,
-  }) as { docs: Service[] };
+  });
 
   if (euServices.length === 0) {
     notFound();

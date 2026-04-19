@@ -6,10 +6,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { MobileCategoryIcon } from "./MobileCategoryIcon";
 import { MobileToolIcon } from "./MobileToolIcon";
-import type { Locale } from "@switch-to-eu/i18n/routing";
 
 export async function MobileNav() {
-  const locale = await getLocale() as Locale;
+  const locale = await getLocale();
   const navItems = await getNavItems();
   const t = await getTranslations("navigation");
 

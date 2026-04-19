@@ -1,4 +1,3 @@
-// @ts-nocheck — generic collection parameter creates union types TS can't narrow
 import { z } from "zod";
 import type { PayloadRequest } from "payload";
 

@@ -104,11 +104,11 @@ export default async function ServiceDetailPage({
   const { docs } = await payload.find({
     collection: "services",
     where: { slug: { equals: service_name } },
-    locale: locale as 'en' | 'nl',
+    locale,
     depth: 2,
     limit: 1,
   });
-  const service = docs[0] as Service | undefined;
+  const service = docs[0];
 
   if (!service) {
     notFound();
@@ -144,7 +144,7 @@ export default async function ServiceDetailPage({
         sourceService: { equals: service.id },
         targetService: { equals: resolvedAlternative.id },
       },
-      locale: locale as 'en' | 'nl',
+      locale,
       depth: 1,
       limit: 10,
     }) as { docs: Guide[] };
@@ -172,10 +172,10 @@ export default async function ServiceDetailPage({
         category: { equals: categoryDoc.id },
         region: { equals: "eu" },
       },
-      locale: locale as 'en' | 'nl',
+      locale,
       depth: 1,
       limit: 50,
-    }) as { docs: Service[] };
+    });
     euAlternatives = euDocs;
   }
 

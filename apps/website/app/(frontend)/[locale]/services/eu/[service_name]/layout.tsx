@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -122,7 +123,7 @@ export default async function ServiceLayout({
     href: tab.href,
     label: tab.isComparison
       ? `${service.name} vs ${tab.compareName}`
-      : (t(`tabs.${tab.label}` as Parameters<typeof t>[0]) as string),
+      : t(`tabs.${tab.label}`),
   }));
 
   const hasSubpages = translatedTabs.length > 1;
@@ -217,9 +218,13 @@ export default async function ServiceLayout({
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
                 <div className="relative w-full">
-                  <img
+                  <Image
                     src={screenshotUrl}
                     alt={service.name}
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
                     className="w-full h-auto object-cover rounded-2xl"
                   />
                   {service.featured && (

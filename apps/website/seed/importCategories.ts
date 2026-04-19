@@ -59,7 +59,7 @@ export async function importCategories(
       });
     }
 
-    categoryMap.set(cat.slug, created.id as number);
+    categoryMap.set(cat.slug, created.id);
   }
 
   console.log(`  Imported ${categoryMap.size} categories`);
