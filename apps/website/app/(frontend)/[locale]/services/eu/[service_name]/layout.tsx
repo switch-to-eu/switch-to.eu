@@ -19,7 +19,6 @@ import {
   getCategoryId,
   getScreenshotUrl,
   getOutboundUrl,
-  toServiceCard,
 } from "@/lib/services";
 
 function getAvailableTabs(
@@ -111,10 +110,10 @@ export default async function ServiceLayout({
 
   // Fetch similar services
   const categoryId = getCategoryId(service.category);
-  const similarDocs = await getSimilarServices(categoryId, service.id, locale);
-
-  const similarServices = similarDocs.map((s) =>
-    toServiceCard(s, categorySlug)
+  const similarServices = await getSimilarServices(
+    categoryId,
+    service.id,
+    locale
   );
 
   const basePath = `/services/eu/${service_name}`;

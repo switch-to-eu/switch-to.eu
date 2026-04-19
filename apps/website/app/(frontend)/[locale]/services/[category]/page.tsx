@@ -109,6 +109,7 @@ export default async function ServicesCategoryPage({
       region: { in: ["eu", "eu-friendly"] },
     },
     locale: locale as 'en' | 'nl',
+    depth: 1,
     limit: 100,
   }) as { docs: Service[] };
 
@@ -116,31 +117,8 @@ export default async function ServicesCategoryPage({
     notFound();
   }
 
-  // Map Payload services to match ServiceFrontmatter shape for existing components
-  const mappedServices = euServices.map((service) => ({
-    ...service,
-    category: category,
-    freeOption: service.freeOption ?? false,
-    featured: service.featured ?? false,
-    screenshot:
-      typeof service.screenshot === "object" && service.screenshot
-        ? service.screenshot.url ?? undefined
-        : undefined,
-    features: Array.isArray(service.features)
-      ? service.features.map((f) => f.feature)
-      : [],
-    tags: Array.isArray(service.tags)
-      ? service.tags.map((t) => t.tag)
-      : [],
-  }));
-
-  const featuredServices = mappedServices.filter(
-    (service) => service.featured === true
-  );
-
-  const regularServices = mappedServices.filter((service) => !service.featured);
-  const allDisplayServices =
-    regularServices.length > 0 ? regularServices : mappedServices;
+  const featuredServices = euServices.filter((s) => s.featured === true);
+  const regularServices = euServices.filter((s) => !s.featured);
 
   const pageTitle =
     categoryData?.title || `${capitalizedCategory} Service Alternatives`;
@@ -204,7 +182,7 @@ export default async function ServicesCategoryPage({
           </SectionHeading>
 
           <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {allDisplayServices.map((service, index) => (
+            {regularServices.map((service, index) => (
               <ServiceCard
                 key={service.name}
                 service={service}
@@ -212,7 +190,7 @@ export default async function ServicesCategoryPage({
                 colorIndex={index}
               />
             ))}
-            <SuggestServiceCard colorIndex={allDisplayServices.length} />
+            <SuggestServiceCard colorIndex={regularServices.length} />
           </div>
         </Container>
 

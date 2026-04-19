@@ -505,7 +505,7 @@
         "title": "Aanbevolen alternatief",
         "startingPrice": "Startprijs",
         "migrateFrom": "Migreer van {source} naar {target}",
-        "viewDetails": "Bekijk dienstdetails",
+        "learnMore": "Meer info",
         "badge": "Aanbevolen door Switch-to.eu",
         "featured": "Uitgelicht"
       }
