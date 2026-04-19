@@ -511,7 +511,7 @@
         "title": "Recommended Alternative",
         "startingPrice": "Starting Price",
         "migrateFrom": "Migrate {source} To {target}",
-        "viewDetails": "View Service Details",
+        "learnMore": "Learn more",
         "badge": "Recommended by Switch-to.eu",
         "featured": "Featured"
       }

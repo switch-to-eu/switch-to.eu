@@ -109,6 +109,7 @@ export default async function ServicesCategoryPage({
       region: { in: ["eu", "eu-friendly"] },
     },
     locale: locale as 'en' | 'nl',
+    depth: 1,
     limit: 100,
   }) as { docs: Service[] };
 
@@ -116,31 +117,10 @@ export default async function ServicesCategoryPage({
     notFound();
   }
 
-  // Map Payload services to match ServiceFrontmatter shape for existing components
-  const mappedServices = euServices.map((service) => ({
-    ...service,
-    category: category,
-    freeOption: service.freeOption ?? false,
-    featured: service.featured ?? false,
-    screenshot:
-      typeof service.screenshot === "object" && service.screenshot
-        ? service.screenshot.url ?? undefined
-        : undefined,
-    features: Array.isArray(service.features)
-      ? service.features.map((f) => f.feature)
-      : [],
-    tags: Array.isArray(service.tags)
-      ? service.tags.map((t) => t.tag)
-      : [],
-  }));
-
-  const featuredServices = mappedServices.filter(
-    (service) => service.featured === true
-  );
-
-  const regularServices = mappedServices.filter((service) => !service.featured);
+  const featuredServices = euServices.filter((s) => s.featured === true);
+  const regularServices = euServices.filter((s) => !s.featured);
   const allDisplayServices =
-    regularServices.length > 0 ? regularServices : mappedServices;
+    regularServices.length > 0 ? regularServices : euServices;
 
   const pageTitle =
     categoryData?.title || `${capitalizedCategory} Service Alternatives`;

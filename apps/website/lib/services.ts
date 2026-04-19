@@ -192,37 +192,8 @@ export function hasSecurityData(service: Service): boolean {
 /**
  * Returns the affiliate URL if set, otherwise the direct service URL.
  */
-export function getOutboundUrl(service: Service): string {
+export function getOutboundUrl(
+  service: Pick<Service, "url" | "affiliateUrl">
+): string {
   return service.affiliateUrl || service.url;
-}
-
-/**
- * Maps a `Service` document to the flat shape expected by `ServiceCard`.
- *
- * @param service - The full Payload Service document (depth 1).
- * @param fallbackCategorySlug - Used when the category relation is not
- *   populated (depth 0 / numeric id).
- */
-export function toServiceCard(
-  service: Service,
-  fallbackCategorySlug: string
-) {
-  return {
-    name: service.name,
-    slug: service.slug,
-    category:
-      typeof service.category === "object"
-        ? service.category.slug
-        : fallbackCategorySlug,
-    location: service.location,
-    region: service.region as "eu" | "non-eu" | "eu-friendly",
-    freeOption: service.freeOption ?? false,
-    startingPrice: service.startingPrice ?? undefined,
-    description: service.description,
-    url: service.url,
-    screenshot: getScreenshotUrl(service.screenshot),
-    features: service.features?.map((f) => f.feature) ?? [],
-    tags: service.tags?.map((t) => t.tag) ?? [],
-    featured: service.featured ?? false,
-  };
 }
