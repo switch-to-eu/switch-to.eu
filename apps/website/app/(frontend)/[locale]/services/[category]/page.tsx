@@ -119,8 +119,6 @@ export default async function ServicesCategoryPage({
 
   const featuredServices = euServices.filter((s) => s.featured === true);
   const regularServices = euServices.filter((s) => !s.featured);
-  const allDisplayServices =
-    regularServices.length > 0 ? regularServices : euServices;
 
   const pageTitle =
     categoryData?.title || `${capitalizedCategory} Service Alternatives`;
@@ -184,7 +182,7 @@ export default async function ServicesCategoryPage({
           </SectionHeading>
 
           <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {allDisplayServices.map((service, index) => (
+            {regularServices.map((service, index) => (
               <ServiceCard
                 key={service.name}
                 service={service}
@@ -192,7 +190,7 @@ export default async function ServicesCategoryPage({
                 colorIndex={index}
               />
             ))}
-            <SuggestServiceCard colorIndex={allDisplayServices.length} />
+            <SuggestServiceCard colorIndex={regularServices.length} />
           </div>
         </Container>
 
