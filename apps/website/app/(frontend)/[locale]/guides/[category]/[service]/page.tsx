@@ -142,12 +142,15 @@ export default async function GuideServicePage({
   );
 
   // Build steps data for the sidebar and progress tracking.
-  // Payload guarantees a stable `id` for every saved array row.
-  const guideSteps = guide.steps ?? [];
+  // Filter out any rows Payload hasn't assigned a stable id to yet so
+  // downstream code can rely on a non-null anchor id.
+  const guideSteps = (guide.steps ?? []).filter(
+    (s): s is typeof s & { id: string } => typeof s.id === "string" && s.id.length > 0
+  );
 
   const sidebarSteps = guideSteps.map((step) => ({
     title: step.title,
-    id: step.id!,
+    id: step.id,
   }));
 
   // Pre-render step content from Lexical JSON to HTML on the server.
@@ -161,7 +164,7 @@ export default async function GuideServicePage({
 
     return {
       title: step.title,
-      id: step.id!,
+      id: step.id,
       complete: step.complete ?? false,
       video: videoUrl,
       videoOrientation: step.videoOrientation ?? null,

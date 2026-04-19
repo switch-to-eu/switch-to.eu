@@ -139,10 +139,13 @@ export function getResolvedRelation<T extends { id: number }>(
 
 type CategoryRelation = Service["category"] | null | undefined;
 
-/** Resolve the slug string from a Service/Guide/LandingPage category field. */
+/**
+ * Resolve the slug from a populated category. Returns `""` when the
+ * relationship hasn't been populated (bare id / null / undefined) — callers
+ * should treat that as "unresolved" and handle it explicitly.
+ */
 export function getCategorySlug(category: CategoryRelation): string {
-  if (typeof category === "object" && category !== null) return category.slug;
-  return typeof category === "number" ? String(category) : "";
+  return typeof category === "object" && category !== null ? category.slug : "";
 }
 
 /** Resolve the numeric id from a Service/Guide category field. */

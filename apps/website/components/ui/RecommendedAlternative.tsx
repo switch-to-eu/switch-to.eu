@@ -126,9 +126,9 @@ export async function RecommendedAlternative({
             </Link>
 
             {sourceService &&
-              migrationGuides.length > 0 &&
               migrationGuides.map((guide) => {
                 const categorySlug = getCategorySlug(guide.category);
+                if (!categorySlug) return null;
                 return (
                   <Link
                     key={`${categorySlug}-${guide.slug}`}
