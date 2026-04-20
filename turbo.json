@@ -37,7 +37,9 @@
         "NEON_PROJECT_ID",
         "PAYLOAD_SECRET",
         "BLOB_READ_WRITE_TOKEN",
-        "VERCEL_ENV"
+        "VERCEL_ENV",
+        "VERCEL_URL",
+        "PORT"
       ]
     },
     "dev": {

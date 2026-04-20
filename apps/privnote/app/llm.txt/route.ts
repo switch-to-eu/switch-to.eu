@@ -1,4 +1,4 @@
-export async function GET() {
+export function GET() {
   const markdown = `# PrivNote
 
 > Self-destructing encrypted notes by switch-to.eu. No account needed, end-to-end encrypted.

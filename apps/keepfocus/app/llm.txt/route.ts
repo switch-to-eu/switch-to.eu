@@ -1,4 +1,4 @@
-export async function GET() {
+export function GET() {
   const markdown = `# KeepFocus
 
 > Pomodoro timer and focus tracker by switch-to.eu. No account needed, no data stored on servers.
