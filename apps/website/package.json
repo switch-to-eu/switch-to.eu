@@ -15,6 +15,7 @@
     "test:e2e:ui": "playwright test --ui",
     "seed": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts",
     "seed:reset": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env seed/index.ts --reset",
+    "publish-all": "PAYLOAD_CONFIG_PATH=./payload.config.ts tsx --env-file=.env.local --env-file=../../.env scripts/publishAll.ts",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload generate:types"
   },
@@ -38,6 +39,7 @@
     "@tailwindcss/typography": "catalog:",
     "@types/uuid": "^10.0.0",
     "@upstash/redis": "^1.34.8",
+    "@vercel/analytics": "^2.0.1",
     "canvas-confetti": "^1.9.3",
     "framer-motion": "^12.9.2",
     "lucide-react": "catalog:",
