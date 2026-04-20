@@ -3,6 +3,11 @@
     "en": "English",
     "nl": "Nederlands"
   },
+  "languageBanner": {
+    "message": "Deze pagina is ook beschikbaar in het {language}.",
+    "switch": "Schakel over naar {language}",
+    "dismiss": "Sluiten"
+  },
   "footer": {
     "copyright": "{year} <link>switch-to.eu</link> — een project van"
   },
