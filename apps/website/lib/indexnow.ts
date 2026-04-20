@@ -16,6 +16,8 @@ function siteHost(): string {
 export async function submitToIndexNow(
   urls: string | string[]
 ): Promise<void> {
+  if (process.env.VERCEL_ENV !== "production") return;
+
   const key = process.env.INDEXNOW_KEY;
   if (!key) return;
 
