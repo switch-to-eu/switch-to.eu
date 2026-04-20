@@ -1,12 +1,12 @@
 ---
 name: bulk-humanize
-description: Strip AI writing patterns from multiple services or guides in parallel. Use when asked to "humanize all", "bulk humanize", "de-AI all content", or clean up writing across many items at once.
-argument-hint: "'service <name1>, <name2>, ...' or 'service all' or 'guide all'"
+description: Strip AI writing patterns from multiple services, guides, or categories in parallel. Use when asked to "humanize all", "bulk humanize", "de-AI all content", "humanize all categories", or clean up writing across many items at once.
+argument-hint: "'service all' or 'guide all' or 'category all' or 'service <name1>, <name2>' or 'category <slug1>, <slug2>'"
 ---
 
 # Bulk Humanize Skill
 
-Humanize content for multiple services or guides in parallel by dispatching one subagent per item.
+Humanize content for multiple services, guides, or categories in parallel by dispatching one subagent per item. Routes to the appropriate per-type skill: `/humanize-service`, `/humanize-guide`, or `/humanize-category`.
 
 ## Argument parsing
 
@@ -14,8 +14,11 @@ Humanize content for multiple services or guides in parallel by dispatching one 
 |----------|---------|
 | `service ProtonMail, Tutanota` | Humanize these specific services |
 | `service all` | Humanize all services that have content |
+| `service category Email` | Humanize all services in the Email category |
 | `guide all` | Humanize all guides that have content |
 | `guide gmail-to-protonmail, outlook-to-tutanota` | Humanize specific guides by slug |
+| `category all` | Humanize all categories that have content |
+| `category social-media, email` | Humanize these specific categories |
 
 ## Process
 
