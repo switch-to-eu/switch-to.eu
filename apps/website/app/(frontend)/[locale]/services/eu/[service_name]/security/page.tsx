@@ -14,8 +14,6 @@ import {
 } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return getAllEuServiceSlugs();
 }

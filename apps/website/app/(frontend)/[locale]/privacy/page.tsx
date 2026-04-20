@@ -1,6 +1,6 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getPayload } from "@/lib/payload";
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
@@ -30,7 +30,8 @@ export default async function PrivacyPage({
   const payload = await getPayload();
   const { docs } = await payload.find({
     collection: "pages",
-    where: { slug: { equals: "privacy" } },
+    where: await publishedWhere({ slug: { equals: "privacy" } }),
+    draft: await isPreview(),
     locale: locale as 'en' | 'nl',
     limit: 1,
   });

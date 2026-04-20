@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
       limit,
       where: {
         and: [
+          { _status: { equals: "published" } },
           { featured: { equals: true } },
           ...(region ? [{ region: { equals: region } }] : []),
         ],

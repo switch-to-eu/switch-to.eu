@@ -1,4 +1,4 @@
-export async function GET() {
+export function GET() {
   const markdown = `# Listy
 
 > Private shared lists by switch-to.eu. No account needed, end-to-end encrypted.

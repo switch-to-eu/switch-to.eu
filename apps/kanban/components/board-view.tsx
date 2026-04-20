@@ -237,7 +237,7 @@ export function BoardView({ boardId, isAdmin = false }: BoardViewProps) {
   } | null>(null);
   const [newColumnTitle, setNewColumnTitle] = useState("");
   const [addingColumn, setAddingColumn] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [, setIsDeleting] = useState(false);
   const [confirmDeleteColumn, setConfirmDeleteColumn] = useState<string | null>(null);
   const [confirmDeleteBoard, setConfirmDeleteBoard] = useState(false);
   const [shareDialogOpen, setShareDialogOpen] = useState(false);

@@ -15,6 +15,7 @@ const getCachedIndex = unstable_cache(
       }),
       payload.find({
         collection: "services",
+        where: { _status: { equals: "published" } },
         locale: "en",
         limit: 0,
         pagination: false,
@@ -22,6 +23,7 @@ const getCachedIndex = unstable_cache(
       }),
       payload.find({
         collection: "guides",
+        where: { _status: { equals: "published" } },
         locale: "en",
         limit: 0,
         pagination: false,

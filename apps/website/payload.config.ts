@@ -25,6 +25,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(__dirname),
     },
+    components: {
+      beforeDashboard: ["/components/admin/IndexNowButton"],
+    },
   },
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL! },

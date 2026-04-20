@@ -1,12 +1,26 @@
 import type { CollectionConfig } from "payload";
 import { revalidateTag } from "next/cache";
 import { seoFields } from "../fields/seo";
+import {
+  buildPreviewUrl,
+  pingIndexNowIfPublished,
+} from "../lib/collection-hooks";
+import { submitToIndexNow, localizedUrls } from "../lib/indexnow";
+
+function pagePaths(doc: { slug?: string | null }): string[] {
+  return doc.slug ? [`/${doc.slug}`] : [];
+}
 
 export const Pages: CollectionConfig = {
   slug: "pages",
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug"],
+    preview: (doc) => {
+      const typed = doc as { slug?: string };
+      const paths = pagePaths(typed);
+      return buildPreviewUrl(paths[0] ? `/en${paths[0]}` : "/");
+    },
   },
   access: {
     read: () => true,
@@ -16,14 +30,41 @@ export const Pages: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ doc }) => {
+      async ({ doc, previousDoc }) => {
         try {
           revalidateTag("pages", "default");
         } catch {
           /* no-op outside Next.js */
         }
+        const typed = doc as {
+          _status?: string | null;
+          slug?: string | null;
+        };
+        await pingIndexNowIfPublished(typed._status, pagePaths(typed));
+
+        // If the previously published page's slug or status changed,
+        // ping the old URL so search engines re-crawl and discover
+        // it now 404s.
+        const prev = previousDoc as
+          | { _status?: string | null; slug?: string | null }
+          | undefined;
+        if (prev && prev._status === "published") {
+          const slugChanged = prev.slug !== typed.slug;
+          const statusChanged = prev._status !== typed._status;
+          if (slugChanged || statusChanged) {
+            const staleUrls = pagePaths(prev).flatMap((p) => localizedUrls(p));
+            if (staleUrls.length > 0) await submitToIndexNow(staleUrls);
+          }
+        }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        const typed = doc as { slug?: string | null };
+        const urls = pagePaths(typed).flatMap((p) => localizedUrls(p));
+        await submitToIndexNow(urls);
       },
     ],
   },

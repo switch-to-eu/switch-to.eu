@@ -1,12 +1,12 @@
 ---
 name: bulk-write
-description: Write content for multiple services or guides in parallel using subagents. Use when asked to "write all services", "bulk write", "write content for these services", or need to populate Content tabs for many services at once.
-argument-hint: "'service <name1>, <name2>, ...' or 'service all' or 'service unwritten' or 'guide all'"
+description: Write content for multiple services, guides, or categories in parallel using subagents. Use when asked to "write all services", "bulk write", "write content for these services", "write all categories", or need to populate Content tabs for many items at once.
+argument-hint: "'service all' or 'guide all' or 'category all' or 'service <name1>, <name2>' or 'category <slug1>, <slug2>'"
 ---
 
 # Bulk Write Skill
 
-Write content for multiple services or guides in parallel by dispatching one subagent per item.
+Write content for multiple services, guides, or categories in parallel by dispatching one subagent per item. Routes to the appropriate per-type skill: `/write-service`, `/write-guide`, or `/write-category`.
 
 ## Argument parsing
 
@@ -17,6 +17,8 @@ Write content for multiple services or guides in parallel by dispatching one sub
 | `service unwritten` | Write content for services with research done but no content yet |
 | `service category Email` | Write content for all services in the Email category |
 | `guide all` | Write all guides that have both source and target services researched |
+| `category all` | Write content for all categories |
+| `category social-media, email` | Write content for these specific categories |
 
 ## Process
 

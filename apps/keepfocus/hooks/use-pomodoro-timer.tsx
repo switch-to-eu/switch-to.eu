@@ -222,7 +222,9 @@ export const usePomodoroTimer = ({
     };
     workerRef.current.postMessage(message);
     setTimeLeft(TIMER_DURATIONS[phase]);
-  }, [phase, TIMER_DURATIONS]); // Removed isRunning from dependencies
+    // isRunning intentionally omitted — we only want to reset on phase change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, TIMER_DURATIONS]);
 
   const start = useCallback(async () => {
     if (settings.desktopNotifications) {

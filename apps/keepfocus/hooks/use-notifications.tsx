@@ -81,6 +81,22 @@ export const useNotifications = (): UseNotificationsReturn => {
     }
   }, [isSupported, permission]);
 
+  // Visual flash fallback when sound fails
+  const visualFlash = useCallback(() => {
+    const originalBackground = document.body.style.background;
+    const originalTransition = document.body.style.transition;
+
+    document.body.style.transition = 'background-color 0.1s ease';
+    document.body.style.background = '#ef4444';
+
+    setTimeout(() => {
+      document.body.style.background = originalBackground;
+      setTimeout(() => {
+        document.body.style.transition = originalTransition;
+      }, 100);
+    }, 200);
+  }, []);
+
   const playNotificationSound = useCallback(() => {
     try {
       // Short beep sound encoded as base64 data URL
@@ -101,23 +117,7 @@ export const useNotifications = (): UseNotificationsReturn => {
       // Fallback: visual notification
       visualFlash();
     }
-  }, []);
-
-  // Visual flash fallback when sound fails
-  const visualFlash = useCallback(() => {
-    const originalBackground = document.body.style.background;
-    const originalTransition = document.body.style.transition;
-
-    document.body.style.transition = 'background-color 0.1s ease';
-    document.body.style.background = '#ef4444';
-
-    setTimeout(() => {
-      document.body.style.background = originalBackground;
-      setTimeout(() => {
-        document.body.style.transition = originalTransition;
-      }, 100);
-    }, 200);
-  }, []);
+  }, [visualFlash]);
 
   return {
     permission,

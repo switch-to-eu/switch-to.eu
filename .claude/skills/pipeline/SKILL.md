@@ -1,7 +1,7 @@
 ---
 name: pipeline
-description: Run the full content pipeline (write + humanize + SEO check) on one or more services or guides. Use when asked to "run the pipeline", "write and polish", "full content workflow", or "write + humanize + SEO". Runs steps sequentially per item, items in parallel.
-argument-hint: "'service <name>' or 'service <name1>, <name2>, ...' or 'service all' or 'guide <source> to <target>'"
+description: Run the full content pipeline (write + humanize + SEO check) on one or more services, guides, or categories. Use when asked to "run the pipeline", "write and polish", "full content workflow", or "write + humanize + SEO". Runs steps sequentially per item, items in parallel.
+argument-hint: "'service <name>' or 'service all' or 'guide all' or 'category all' or 'category <slug1>, <slug2>'"
 ---
 
 # Content Pipeline Skill
@@ -11,9 +11,9 @@ Run write → humanize → seo-check in sequence on one or more items. When proc
 ## What it does
 
 For each item, the pipeline runs three steps **in order**:
-1. **Write** — Generate content from research data (`/write`)
-2. **Humanize** — Strip AI patterns from the written content (`/humanize`)
-3. **Seo-check** — Audit and score the final content (`/seo-check`)
+1. **Write** — Generate content from research data (`/write-service`, `/write-guide`, or `/write-category`)
+2. **Humanize** — Strip AI patterns from the written content (`/humanize-service`, `/humanize-guide`, or `/humanize-category`)
+3. **Seo-check** — Audit and score the final content (`/seo-check-service`, `/seo-check-guide`, or `/seo-check-category`)
 
 Each step depends on the previous one completing. But different items are independent and run in parallel.
 
@@ -25,8 +25,11 @@ Each step depends on the previous one completing. But different items are indepe
 | `service ProtonMail, Tutanota, Mailbox.org` | Full pipeline for these services in parallel |
 | `service all` | Full pipeline for all services with completed research |
 | `service unwritten` | Pipeline for researched services that have no content yet |
+| `service category Email` | Pipeline for all services in the Email category |
 | `guide Gmail to ProtonMail` | Full pipeline for one guide |
 | `guide all` | Full pipeline for all guides |
+| `category all` | Full pipeline for all categories |
+| `category social-media, email` | Full pipeline for these categories |
 
 ## Process
 

@@ -1,7 +1,7 @@
 ---
 name: bulk-seo-check
-description: Run SEO audits on multiple services, guides, or pages in parallel. Use when asked to "SEO check all", "bulk SEO", "audit all services", or score SEO across many items at once.
-argument-hint: "'service all' or 'guide all' or 'service <name1>, <name2>, ...' or 'below <score>'"
+description: Run SEO audits on multiple services, guides, categories, or pages in parallel. Use when asked to "SEO check all", "bulk SEO", "audit all services", "SEO check all categories", or score SEO across many items at once.
+argument-hint: "'service all' or 'guide all' or 'category all' or 'service <name1>, <name2>' or 'below <score>'"
 ---
 
 # Bulk SEO Check Skill
@@ -14,10 +14,13 @@ Run SEO audits on multiple items in parallel by dispatching one subagent per ite
 |----------|---------|
 | `service ProtonMail, Tutanota` | SEO check these specific services |
 | `service all` | SEO check all services |
+| `service category Email` | SEO check all services in the Email category |
 | `guide all` | SEO check all guides |
 | `service below 70` | Re-check services with seoScore below 70 |
-| `service unchecked` | Check services that have never been SEO-reviewed |
-| `all` | Check everything (services + guides + pages) |
+| `service unchecked` | Check services never SEO-reviewed |
+| `category all` | SEO check all categories |
+| `category social-media, email` | SEO check these specific categories |
+| `all` | Check everything (services + guides + categories + pages) |
 
 ## Process
 
