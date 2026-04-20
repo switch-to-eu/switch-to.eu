@@ -10,8 +10,6 @@ import { Locale } from "next-intl";
 import { getAllEuServiceSlugs, getServiceBySlug, hasPricingData } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return getAllEuServiceSlugs();
 }
