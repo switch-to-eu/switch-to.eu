@@ -19,8 +19,12 @@ async function main() {
     let published = 0;
     let skipped = 0;
     let failed = 0;
-    let page = 1;
 
+    // Phase 1: collect all unpublished ids without mutating. Paginating
+    // while also updating _status would shift the filtered set forward
+    // and skip 100 docs per published page.
+    const ids: (string | number)[] = [];
+    let page = 1;
     while (true) {
       const { docs, hasNextPage } = await payload.find({
         collection,
@@ -33,28 +37,30 @@ async function main() {
       });
 
       if (docs.length === 0) break;
-
       for (const doc of docs) {
-        const id = (doc as { id: string | number }).id;
-        try {
-          for (const locale of locales) {
-            await payload.update({
-              collection,
-              id,
-              locale,
-              draft: false,
-              data: { _status: "published" } as never,
-            });
-          }
-          published++;
-        } catch (err) {
-          failed++;
-          console.error(`  ✗ ${collection}#${id}:`, (err as Error).message);
-        }
+        ids.push((doc as { id: string | number }).id);
       }
-
       if (!hasNextPage) break;
       page++;
+    }
+
+    // Phase 2: publish each collected id across all locales.
+    for (const id of ids) {
+      try {
+        for (const locale of locales) {
+          await payload.update({
+            collection,
+            id,
+            locale,
+            draft: false,
+            data: { _status: "published" } as never,
+          });
+        }
+        published++;
+      } catch (err) {
+        failed++;
+        console.error(`  ✗ ${collection}#${id}:`, (err as Error).message);
+      }
     }
 
     // Count docs that were already published (for reporting)

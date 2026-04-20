@@ -30,7 +30,7 @@ export const Pages: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      async ({ doc }) => {
+      async ({ doc, previousDoc }) => {
         try {
           revalidateTag("pages", "default");
         } catch {
@@ -41,6 +41,21 @@ export const Pages: CollectionConfig = {
           slug?: string | null;
         };
         await pingIndexNowIfPublished(typed._status, pagePaths(typed));
+
+        // If the previously published page's slug or status changed,
+        // ping the old URL so search engines re-crawl and discover
+        // it now 404s.
+        const prev = previousDoc as
+          | { _status?: string | null; slug?: string | null }
+          | undefined;
+        if (prev && prev._status === "published") {
+          const slugChanged = prev.slug !== typed.slug;
+          const statusChanged = prev._status !== typed._status;
+          if (slugChanged || statusChanged) {
+            const staleUrls = pagePaths(prev).flatMap((p) => localizedUrls(p));
+            if (staleUrls.length > 0) await submitToIndexNow(staleUrls);
+          }
+        }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return doc;
       },
