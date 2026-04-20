@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { createTranslator, useLocale } from "next-intl";
 import { Link, usePathname } from "@switch-to-eu/i18n/navigation";
 import { locales, type Locale } from "@switch-to-eu/i18n/routing";
 import { cn } from "@switch-to-eu/ui/lib/utils";
+import enMessages from "@switch-to-eu/i18n/messages/shared/en.json";
+import nlMessages from "@switch-to-eu/i18n/messages/shared/nl.json";
 
 const DISMISS_KEY = "switch-to-eu:language-banner-dismissed";
+
+const messagesByLocale: Record<Locale, typeof enMessages> = {
+  en: enMessages,
+  nl: nlMessages,
+};
 
 function detectBrowserLocale(
   current: Locale,
@@ -36,9 +43,25 @@ export interface LanguageSwitchBannerProps {
 export function LanguageSwitchBanner({ className }: LanguageSwitchBannerProps) {
   const currentLocale = useLocale() as Locale;
   const pathname = usePathname();
-  const t = useTranslations("languageBanner");
-  const tLang = useTranslations("language");
   const [suggested, setSuggested] = useState<Locale | null>(null);
+
+  const t = useMemo(() => {
+    if (!suggested) return null;
+    return createTranslator({
+      locale: suggested,
+      messages: messagesByLocale[suggested],
+      namespace: "languageBanner",
+    });
+  }, [suggested]);
+
+  const tLang = useMemo(() => {
+    if (!suggested) return null;
+    return createTranslator({
+      locale: suggested,
+      messages: messagesByLocale[suggested],
+      namespace: "language",
+    });
+  }, [suggested]);
 
   useEffect(() => {
     const detected = detectBrowserLocale(currentLocale, locales);
@@ -51,7 +74,7 @@ export function LanguageSwitchBanner({ className }: LanguageSwitchBannerProps) {
     setSuggested(detected);
   }, [currentLocale]);
 
-  if (!suggested) return null;
+  if (!suggested || !t || !tLang) return null;
 
   const dismiss = () => {
     try {
