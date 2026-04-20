@@ -96,7 +96,7 @@ export default async function Home() {
   const payload = await getPayload();
   const { docs: categories } = await payload.find({
     collection: "categories",
-    locale: locale as 'en' | 'nl',
+    locale,
     limit: 100,
     sort: "title",
   }) as { docs: Category[] };

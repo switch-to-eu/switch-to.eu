@@ -11,7 +11,15 @@ const nextConfig: NextConfig = {
   ],
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  async redirects() {
+  images: {
+    // Payload media is served from Vercel Blob when BLOB_READ_WRITE_TOKEN
+    // is set (see payload.config.ts), otherwise from /api/media/file/* on
+    // the same origin.
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
+  },
+  redirects() {
     return [
       // Non-prefixed content URLs → default locale (308 permanent).
       // Prevents Accept-Language-based 307 redirects that fragment SEO.
@@ -80,7 +88,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  async rewrites() {
+  rewrites() {
     return {
       beforeFiles: [
         // LLM-friendly .md URLs → API route handlers.

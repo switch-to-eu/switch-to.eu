@@ -1,12 +1,8 @@
 import { StepsSummary } from './StepsSummary';
-
-interface Step {
-  title: string;
-  id: string;
-}
+import type { GuideStepSummary } from '@/lib/types';
 
 interface GuideSidebarProps {
-  steps: Step[];
+  steps: GuideStepSummary[];
   className?: string;
   stepsToCompleteText?: string;
   guideId?: string;

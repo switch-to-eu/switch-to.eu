@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "@/lib/payload";
-import type { Service, Category } from "@/payload-types";
+import type { Service } from "@/payload-types";
 import type { SearchResult } from "@/lib/types";
+import { getCategorySlug } from "@/lib/services";
 import { routing } from "@switch-to-eu/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
@@ -42,24 +43,17 @@ export async function GET(request: NextRequest) {
       depth: 1, // populate category relationship
     });
 
-    const results: SearchResult[] = docs.map((service: Service) => {
-      const categorySlug =
-        typeof service.category === "object"
-          ? (service.category as Category).slug
-          : undefined;
-
-      return {
-        id: String(service.id),
-        type: "service" as const,
-        title: service.name,
-        description: service.description,
-        url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
-        region: service.region,
-        category: categorySlug,
-        location: service.location,
-        freeOption: service.freeOption ?? undefined,
-      };
-    });
+    const results: SearchResult[] = docs.map((service: Service) => ({
+      id: String(service.id),
+      type: "service" as const,
+      title: service.name,
+      description: service.description,
+      url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
+      region: service.region,
+      category: getCategorySlug(service.category),
+      location: service.location,
+      freeOption: service.freeOption ?? undefined,
+    }));
 
     console.log(
       `Featured API: Returning ${results.length} featured services`

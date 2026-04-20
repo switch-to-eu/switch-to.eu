@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
@@ -17,6 +18,7 @@ import {
   getSimilarServices,
   getCategorySlug,
   getCategoryId,
+  getGuideSourceService,
   getScreenshotUrl,
   getOutboundUrl,
 } from "@/lib/services";
@@ -57,8 +59,7 @@ function getAvailableTabs(
   }
 
   for (const guide of guides) {
-    const sourceService =
-      typeof guide.sourceService === "object" ? guide.sourceService : null;
+    const sourceService = getGuideSourceService(guide);
     if (sourceService) {
       tabs.push({
         key: `vs-${sourceService.slug}`,
@@ -99,14 +100,12 @@ export default async function ServiceLayout({
 
   // Get first guide for hero CTA
   const firstGuide = relatedGuides[0] ?? null;
-  const firstGuideCategory =
-    firstGuide && typeof firstGuide.category === "object"
-      ? firstGuide.category.slug
-      : null;
-  const firstSourceName =
-    firstGuide && typeof firstGuide.sourceService === "object"
-      ? firstGuide.sourceService.name
-      : null;
+  const firstGuideCategory = firstGuide
+    ? getCategorySlug(firstGuide.category) || null
+    : null;
+  const firstSourceName = firstGuide
+    ? (getGuideSourceService(firstGuide)?.name ?? null)
+    : null;
 
   // Fetch similar services
   const categoryId = getCategoryId(service.category);
@@ -124,7 +123,7 @@ export default async function ServiceLayout({
     href: tab.href,
     label: tab.isComparison
       ? `${service.name} vs ${tab.compareName}`
-      : (t(`tabs.${tab.label}` as Parameters<typeof t>[0]) as string),
+      : t(`tabs.${tab.label}`),
   }));
 
   const hasSubpages = translatedTabs.length > 1;
@@ -172,12 +171,7 @@ export default async function ServiceLayout({
                   {service.name}
                 </h1>
                 <div className="flex-shrink-0 mt-2">
-                  <RegionBadge
-                    region={
-                      (service.region as "eu" | "non-eu" | "eu-friendly") ||
-                      "eu"
-                    }
-                  />
+                  <RegionBadge region={service.region} />
                 </div>
               </div>
 
@@ -224,9 +218,13 @@ export default async function ServiceLayout({
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
                 <div className="relative w-full">
-                  <img
+                  <Image
                     src={screenshotUrl}
                     alt={service.name}
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
                     className="w-full h-auto object-cover rounded-2xl"
                   />
                   {service.featured && (

@@ -22,6 +22,10 @@ import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading"
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { Service, Category, Guide } from "@/payload-types";
+import {
+  getCategorySlug,
+  getResolvedRelation,
+} from "@/lib/services";
 
 export const dynamicParams = false;
 
@@ -62,10 +66,7 @@ export async function generateMetadata({
     };
   }
 
-  const categorySlug =
-    typeof service.category === "object" && service.category !== null
-      ? service.category.slug
-      : String(service.category ?? "");
+  const categorySlug = getCategorySlug(service.category);
 
   const tags = (service.tags ?? []).map((t) => t.tag);
 
@@ -103,11 +104,11 @@ export default async function ServiceDetailPage({
   const { docs } = await payload.find({
     collection: "services",
     where: { slug: { equals: service_name } },
-    locale: locale as 'en' | 'nl',
+    locale,
     depth: 2,
     limit: 1,
   });
-  const service = docs[0] as Service | undefined;
+  const service = docs[0];
 
   if (!service) {
     notFound();
@@ -130,45 +131,28 @@ export default async function ServiceDetailPage({
   const issues = (service.issues ?? []).map((i) => i.issue);
 
   // Resolve recommended alternative (already populated via depth: 2)
-  const resolvedAlternative =
-    typeof service.recommendedAlternative === "object" &&
-    service.recommendedAlternative !== null
-      ? (service.recommendedAlternative as Service)
-      : null;
+  const resolvedAlternative = getResolvedRelation<Service>(
+    service.recommendedAlternative
+  );
 
   // Find migration guides between this service and its recommended alternative
-  let migrationGuides: Array<{ category: string; slug: string }> = [];
+  let migrationGuides: Guide[] = [];
   if (resolvedAlternative) {
     const { docs: guideDocs } = await payload.find({
       collection: "guides",
       where: {
         sourceService: { equals: service.id },
-        targetService: {
-          equals:
-            typeof service.recommendedAlternative === "object" &&
-            service.recommendedAlternative !== null
-              ? (service.recommendedAlternative as Service).id
-              : service.recommendedAlternative,
-        },
+        targetService: { equals: resolvedAlternative.id },
       },
-      locale: locale as 'en' | 'nl',
+      locale,
       depth: 1,
       limit: 10,
     }) as { docs: Guide[] };
-    migrationGuides = guideDocs.map((g) => ({
-      category:
-        typeof g.category === "object" && g.category !== null
-          ? g.category.slug
-          : "",
-      slug: g.slug,
-    }));
+    migrationGuides = guideDocs;
   }
 
   // Get the category slug for fetching EU alternatives
-  const categorySlug =
-    typeof service.category === "object" && service.category !== null
-      ? service.category.slug
-      : "";
+  const categorySlug = getCategorySlug(service.category);
 
   // Fetch EU alternatives in the same category
   const { docs: categoryDocs } = await payload.find({
@@ -188,10 +172,10 @@ export default async function ServiceDetailPage({
         category: { equals: categoryDoc.id },
         region: { equals: "eu" },
       },
-      locale: locale as 'en' | 'nl',
+      locale,
       depth: 1,
       limit: 50,
-    }) as { docs: Service[] };
+    });
     euAlternatives = euDocs;
   }
 
@@ -221,14 +205,7 @@ export default async function ServiceDetailPage({
                 <h1 className="font-heading text-4xl sm:text-5xl uppercase text-white">
                   {service.name}
                 </h1>
-                <RegionBadge
-                  region={
-                    (service.region as
-                      | "eu"
-                      | "non-eu"
-                      | "eu-friendly") || "non-eu"
-                  }
-                />
+                <RegionBadge region={service.region} />
               </div>
               <p className="text-white/90 text-base sm:text-lg max-w-2xl">
                 {service.description}

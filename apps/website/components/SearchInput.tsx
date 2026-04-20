@@ -289,7 +289,7 @@ function SearchResultItem({
           <span className="font-medium">{result.title}</span>
           {result.type === "service" && "region" in result && result.region && (
             <RegionBadge
-              region={result.region as "eu" | "non-eu" | "eu-friendly"}
+              region={result.region}
               showTooltip={true}
               className="text-xs py-0 h-5 "
             />

@@ -5,9 +5,9 @@ import { Header as BlocksHeader } from "@switch-to-eu/blocks/components/header";
 import { NavLanguageSelector } from "@switch-to-eu/blocks/components/nav-language-selector";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { useLocale } from "next-intl";
-import type { Locale } from "@switch-to-eu/i18n/routing";
+
 export function Header() {
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
 
   return (
     <BlocksHeader

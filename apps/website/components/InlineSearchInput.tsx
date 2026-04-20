@@ -379,7 +379,7 @@ export function InlineSearchInput({
                     </div>
                     {result.type === "service" && "region" in result && result.region && (
                       <RegionBadge
-                        region={result.region as "eu" | "non-eu" | "eu-friendly"}
+                        region={result.region}
                       />
                     )}
                   </div>
