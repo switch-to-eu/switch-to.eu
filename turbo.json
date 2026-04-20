@@ -39,7 +39,9 @@
         "BLOB_READ_WRITE_TOKEN",
         "VERCEL_ENV",
         "VERCEL_URL",
-        "PORT"
+        "PORT",
+        "INDEXNOW_KEY",
+        "PREVIEW_SECRET"
       ]
     },
     "dev": {

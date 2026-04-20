@@ -1,12 +1,16 @@
-export async function GET(
-  _request: Request,
-  { params }: { params: Promise<{ key: string }> }
-) {
-  const { key } = await params;
+export function GET(request: Request) {
   const expected = process.env.INDEXNOW_KEY;
-  if (!expected || key !== expected) {
+  if (!expected) {
     return new Response("Not Found", { status: 404 });
   }
+
+  const { pathname } = new URL(request.url);
+  const key = pathname.replace(/^\//, "").replace(/\.txt$/, "");
+
+  if (key !== expected) {
+    return new Response("Not Found", { status: 404 });
+  }
+
   return new Response(expected, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
