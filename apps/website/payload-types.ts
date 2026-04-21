@@ -762,15 +762,9 @@ export interface LandingPage {
  */
 export interface PageAudit {
   id: number;
-  page:
-    | {
-        relationTo: 'services';
-        value: number | Service;
-      }
-    | {
-        relationTo: 'guides';
-        value: number | Guide;
-      };
+  pageType: 'service' | 'guide';
+  service?: (number | null) | Service;
+  guide?: (number | null) | Guide;
   priority: 'high' | 'medium' | 'low';
   status: 'new' | 'reviewed' | 'applied' | 'rejected';
   auditedAt: string;
@@ -1363,7 +1357,9 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pageAudits_select".
  */
 export interface PageAuditsSelect<T extends boolean = true> {
-  page?: T;
+  pageType?: T;
+  service?: T;
+  guide?: T;
   priority?: T;
   status?: T;
   auditedAt?: T;

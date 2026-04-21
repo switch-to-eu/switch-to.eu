@@ -10,7 +10,9 @@ Minimal required fields:
 
 ```json
 {
-  "page": { "relationTo": "services", "value": "<service-id>" },
+  "pageType": "service" | "guide",
+  "service": "<service-id>",    // required when pageType === "service"
+  "guide": "<guide-id>",         // required when pageType === "guide"
   "priority": "high" | "medium" | "low",
   "status": "new",
   "auditedAt": "YYYY-MM-DD",
@@ -18,7 +20,7 @@ Minimal required fields:
 }
 ```
 
-`page` is a polymorphic relationship. The `relationTo` must be `"services"` or `"guides"`. Always pass the real collection slug (kebab-case), not the camelCase name.
+Set the discriminator (`pageType`) and populate only the matching relation field — `service` OR `guide`, not both. `@payloadcms/plugin-mcp` doesn't support Payload's polymorphic relations, so this discriminator + two single-target relations is the idiomatic pattern for this project.
 
 Optional groups and arrays can be added progressively; nothing else is required.
 
@@ -86,18 +88,24 @@ When the expanded `research` skill re-runs on a service that already has data:
 - `userSentiment`, `redditMentions`, `recentNews`: always replace with fresh data (time-sensitive).
 - `researchNotes`: always regenerate.
 
-## Polymorphic relation query shape
+## Querying audits/opportunities by their target page
 
-When querying Payload for documents linked to a specific page:
+Because we use a discriminator + two single-target relations (not a polymorphic relation), queries target the specific relation field:
 
 ```json
+// find all audits of a specific service
 {
   "where": {
     "and": [
-      { "page.relationTo": { "equals": "services" } },
-      { "page.value": { "equals": "<service-id>" } }
+      { "pageType": { "equals": "service" } },
+      { "service": { "equals": "<service-id>" } }
     ]
   }
+}
+
+// find all audits of guides
+{
+  "where": { "pageType": { "equals": "guide" } }
 }
 ```
 

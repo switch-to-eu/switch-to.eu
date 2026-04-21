@@ -72,7 +72,9 @@ For each resolved page, run the following in order:
 9. **Build narrative richText** for `competitorAnalysis` (2–3 paragraphs: what the top 3 competitors have in common, what our page does differently) and `summary` (3–5 sentences opening with the priority rationale + top 3 specific fixes).
 
 10. **Write to Payload** via `mcp__Payload__createPageAudits`.
-    - `page: { relationTo: "services"|"guides", value: <id> }`
+    - Discriminator + single-target relation (the plugin doesn't support polymorphic relations):
+      - For a service: `pageType: "service"`, `service: <service-id>`
+      - For a guide: `pageType: "guide"`, `guide: <guide-id>`
     - `priority`, `status: "new"`, `auditedAt: <today>`, `summaryTitle: "<slug>-<today>"`
     - all fields populated from steps 2–9.
     - Skip the write entirely if `--dry-run`; print what would be written instead.

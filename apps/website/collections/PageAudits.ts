@@ -4,7 +4,7 @@ export const PageAudits: CollectionConfig = {
   slug: "pageAudits",
   admin: {
     useAsTitle: "summaryTitle",
-    defaultColumns: ["page", "priority", "status", "currentMetrics_clicks", "auditedAt"],
+    defaultColumns: ["pageType", "priority", "status", "auditedAt"],
     description:
       "Post-publish SEO audits. One row per audit run; multiple rows per page over time form history. Operational data — no drafts.",
   },
@@ -12,13 +12,38 @@ export const PageAudits: CollectionConfig = {
     read: () => true,
   },
   fields: [
-    // Sidebar
+    // Sidebar — the page being audited. Discriminator + two single-target
+    // relations rather than a polymorphic relation, because
+    // @payloadcms/plugin-mcp can't convert polymorphic relations to MCP
+    // tool schemas (the resulting JSON schema is undefined and the plugin
+    // crashes with "undefined is not valid JSON").
     {
-      name: "page",
-      type: "relationship",
-      relationTo: ["services", "guides"],
+      name: "pageType",
+      type: "select",
       required: true,
+      options: [
+        { label: "Service", value: "service" },
+        { label: "Guide", value: "guide" },
+      ],
       admin: { position: "sidebar" },
+    },
+    {
+      name: "service",
+      type: "relationship",
+      relationTo: "services",
+      admin: {
+        position: "sidebar",
+        condition: (data) => data?.pageType === "service",
+      },
+    },
+    {
+      name: "guide",
+      type: "relationship",
+      relationTo: "guides",
+      admin: {
+        position: "sidebar",
+        condition: (data) => data?.pageType === "guide",
+      },
     },
     {
       name: "priority",
