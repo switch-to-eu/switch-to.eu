@@ -59,3 +59,8 @@ AI/
 tmp/
 docs/inspiration
 .playwright-mcp
+
+# git worktrees
+.worktrees/
+
+gsc-oath-secrets.json
