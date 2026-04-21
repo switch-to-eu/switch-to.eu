@@ -12,6 +12,7 @@ import {
   Guides,
   LandingPages,
   Media,
+  PageAudits,
   Pages,
   Services,
   Users,
@@ -45,7 +46,7 @@ export default buildConfig({
     supportedLanguages: { en, nl },
     fallbackLanguage: "en",
   },
-  collections: [Categories, Guides, LandingPages, Media, Pages, Services, Users],
+  collections: [Categories, Guides, LandingPages, Media, PageAudits, Pages, Services, Users],
   plugins: [
     mcpPlugin({
       collections: {
@@ -54,6 +55,7 @@ export default buildConfig({
         guides: { enabled: true },
         "landing-pages": { enabled: true },
         pages: { enabled: true },
+        "page-audits": { enabled: true },
         media: {
           enabled: {
             find: true,
