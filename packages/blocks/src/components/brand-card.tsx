@@ -21,6 +21,8 @@ export interface BrandCardProps {
   className?: string;
   /** Extra classes on the content area (e.g. "text-center") */
   contentClassName?: string;
+  /** Pre-translated label shown between description and CTA (e.g. "Start with Mastodon"). A decorative arrow is appended. */
+  recommendationLabel?: string;
 }
 
 function ShapeSvg({ name, color, colorIndex }: { name: string; color: string; colorIndex: number }) {
@@ -54,6 +56,7 @@ export function BrandCard({
   imageAlt,
   className,
   contentClassName,
+  recommendationLabel,
 }: BrandCardProps) {
   const card = getCardColor(colorIndex);
 
@@ -108,11 +111,22 @@ export function BrandCard({
         <p
           className={cn(
             `${card.text} text-sm sm:text-base opacity-80 leading-relaxed`,
-            ctaText && "line-clamp-3 mb-5"
+            (ctaText || recommendationLabel) && "line-clamp-3 mb-4"
           )}
         >
           {description}
         </p>
+        {recommendationLabel && (
+          <p
+            className={cn(
+              card.text,
+              "text-xs sm:text-sm font-semibold mb-5 flex items-center gap-1.5"
+            )}
+          >
+            <span>{recommendationLabel}</span>
+            <span aria-hidden="true" className="opacity-70">→</span>
+          </p>
+        )}
         {ctaText && (
           <div className="mt-auto">
             <span

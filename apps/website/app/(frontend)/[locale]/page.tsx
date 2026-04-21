@@ -1,52 +1,24 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-
-import { NewsletterCta } from "@/components/NewsletterCta";
-import { Hero } from "@/components/Hero";
-import { getTranslations, getLocale } from "next-intl/server";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-import { getPayload } from "@/lib/payload";
 import { shapes } from "@switch-to-eu/blocks/shapes";
-import type { Category } from "@/payload-types";
+import { getTranslations, getLocale } from "next-intl/server";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+
+import { ArticlesSection } from "@/components/ArticlesSection";
+import { CantFindIt } from "@/components/CantFindIt";
+import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
+import { NewsletterCta } from "@/components/NewsletterCta";
+import { getPayload } from "@/lib/payload";
+import type { Category, Guide } from "@/payload-types";
 
 const CATEGORY_SHAPES = [
   "spark", "cloud", "tulip", "speech",
   "heart", "sunburst", "flower", "starburst",
 ];
-
-const GUIDE_CARDS = [
-  {
-    href: "/guides/messaging/whatsapp-to-signal",
-    image: "/images/guides/whatsapp-signal.png",
-    titleKey: "whatsappToSignal.title",
-    descKey: "whatsappToSignal.description",
-    altKey: "whatsappToSignal.alt",
-    shape: "speech",
-    colorIndex: 0,
-  },
-  {
-    href: "/guides/email/gmail-to-protonmail",
-    image: "/images/guides/gmail-proton.png",
-    titleKey: "gmailToProton.title",
-    descKey: "gmailToProton.description",
-    altKey: "gmailToProton.alt",
-    shape: "cloud",
-    colorIndex: 1,
-  },
-  {
-    href: "/guides/storage/google-drive-to-pcloud",
-    image: "/images/guides/drive-pcloud.png",
-    titleKey: "driveToPcloud.title",
-    descKey: "driveToPcloud.description",
-    altKey: "driveToPcloud.alt",
-    shape: "star",
-    colorIndex: 2,
-  },
-] as const;
 
 const FEATURE_ITEMS = [
   {
@@ -72,7 +44,6 @@ const FEATURE_ITEMS = [
   },
 ] as const;
 
-// Generate metadata with language alternates
 export async function generateMetadata() {
   const t = await getTranslations("common");
   const locale = await getLocale();
@@ -90,66 +61,123 @@ export async function generateMetadata() {
   };
 }
 
+type Locale = "en" | "nl";
+
+async function loadFeaturedGuide(locale: Locale): Promise<Guide | null> {
+  const payload = await getPayload();
+
+  const flagged = await payload.find({
+    collection: "guides",
+    where: { featuredOnHomepage: { equals: true } },
+    depth: 1,
+    limit: 1,
+    locale,
+  });
+  if (flagged.docs[0]) return flagged.docs[0];
+
+  const recent = await payload.find({
+    collection: "guides",
+    sort: "-date",
+    depth: 1,
+    limit: 1,
+    locale,
+  });
+  return recent.docs[0] ?? null;
+}
+
+async function loadRecommendedServiceByCategory(
+  categoryIds: (string | number)[],
+  locale: Locale
+): Promise<Map<string, string>> {
+  if (categoryIds.length === 0) return new Map();
+
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "services",
+    where: {
+      and: [
+        { featured: { equals: true } },
+        { region: { equals: "eu" } },
+        { category: { in: categoryIds } },
+      ],
+    },
+    sort: "-createdAt",
+    depth: 0,
+    limit: 100,
+    locale,
+  });
+
+  const map = new Map<string, string>();
+  for (const doc of docs) {
+    const categoryId =
+      typeof doc.category === "object" && doc.category !== null
+        ? String(doc.category.id)
+        : String(doc.category);
+    if (!map.has(categoryId) && doc.name) {
+      map.set(categoryId, doc.name);
+    }
+  }
+  return map;
+}
+
 export default async function Home() {
   const t = await getTranslations("home");
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
   const payload = await getPayload();
-  const { docs: categories } = await payload.find({
-    collection: "categories",
-    locale,
-    limit: 100,
-    sort: "title",
-  }) as { docs: Category[] };
+
+  const [guide, categoriesResult] = await Promise.all([
+    loadFeaturedGuide(locale),
+    payload.find({
+      collection: "categories",
+      locale,
+      limit: 100,
+      sort: "title",
+    }),
+  ]);
+  const categories = categoriesResult.docs as Category[];
+
+  const categoryIds = categories.map((c) => c.id);
+  const recommendedByCategory = await loadRecommendedServiceByCategory(
+    categoryIds,
+    locale
+  );
 
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <Hero />
+      <FeaturedGuideHero guide={guide} />
 
-      {/* Categories Section */}
       <section id="categories">
         <Container noPaddingMobile>
           <SectionHeading>{t("categoriesSectionTitle")}</SectionHeading>
           <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {categories.map((category, index) => (
-              <BrandCard
-                key={category.slug}
-                colorIndex={index}
-                title={category.title}
-                description={category.description}
-                href={`/services/${category.slug}`}
-                ctaText={t("exploreCategory")}
-                shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}
-              />
-            ))}
+            {categories.map((category, index) => {
+              const recommendedName = recommendedByCategory.get(String(category.id));
+              return (
+                <BrandCard
+                  key={category.slug}
+                  colorIndex={index}
+                  title={category.title}
+                  description={category.description}
+                  href={`/services/${category.slug}`}
+                  ctaText={t("exploreCategory")}
+                  shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}
+                  recommendationLabel={
+                    recommendedName
+                      ? t("categoryRecommends", { name: recommendedName })
+                      : undefined
+                  }
+                />
+              );
+            })}
           </div>
         </Container>
       </section>
 
-      {/* Migration Guides Section */}
+      <ArticlesSection />
+
+      <CantFindIt />
+
       <section>
-        <Container noPaddingMobile>
-          <SectionHeading>{t("migrationGuidesTitle")}</SectionHeading>
-          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {GUIDE_CARDS.map((card) => (
-              <BrandCard
-                key={card.href}
-                colorIndex={card.colorIndex}
-                title={t(card.titleKey)}
-                description={t(card.descKey)}
-                href={card.href}
-                ctaText={t("readGuide")}
-                image={card.image}
-                imageAlt={t(card.altKey)}
-                shape={card.shape}
-              />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Features Section */}
-      <section id="stand-for">
         <Container noPaddingMobile>
           <Banner
             color="bg-brand-green"
@@ -195,7 +223,6 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Newsletter Section */}
       <NewsletterCta />
     </PageLayout>
   );

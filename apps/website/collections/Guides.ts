@@ -97,6 +97,16 @@ export const Guides: CollectionConfig = {
       admin: { position: "sidebar" },
     },
     {
+      name: "featuredOnHomepage",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description:
+          "Feature this guide as the homepage hero poster. Only one guide should be flagged at a time; the most recent published guide is used as a fallback.",
+      },
+    },
+    {
       name: "contentPipelineStatus",
       type: "select",
       options: [

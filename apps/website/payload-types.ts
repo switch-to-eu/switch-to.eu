@@ -257,6 +257,10 @@ export interface Guide {
   timeRequired: string;
   date?: string | null;
   /**
+   * Feature this guide as the homepage hero poster. Only one guide should be flagged at a time; the most recent published guide is used as a fallback.
+   */
+  featuredOnHomepage?: boolean | null;
+  /**
    * Tracks progress through the content pipeline
    */
   contentPipelineStatus?:
@@ -1114,6 +1118,7 @@ export interface GuidesSelect<T extends boolean = true> {
   difficulty?: T;
   timeRequired?: T;
   date?: T;
+  featuredOnHomepage?: T;
   contentPipelineStatus?: T;
   title?: T;
   category?: T;
