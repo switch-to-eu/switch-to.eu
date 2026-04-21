@@ -64,3 +64,6 @@ docs/inspiration
 .worktrees/
 
 gsc-oath-secrets.json
+
+# Skilld references (recreated by `skilld install`)
+.skilld

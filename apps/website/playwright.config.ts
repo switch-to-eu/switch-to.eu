@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 1,
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:5010",
     trace: "on-first-retry",
   },
   projects: [
@@ -15,8 +15,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm build && pnpm start",
-    url: "http://localhost:3000",
+    command: "pnpm prod",
+    url: "http://localhost:5010",
     reuseExistingServer: true,
     timeout: 120_000,
   },

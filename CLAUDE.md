@@ -299,3 +299,8 @@ Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` refere
 3. **Bold colour is structural, not decorative.** Full-saturation blocks mark section boundaries. Don't sprinkle brand colours as accents on otherwise-neutral cards.
 4. **Organic shapes are mandatory, never arbitrary.** 2–3 per major section, staggered timing, sized to overflow. Scatter them — aligned shapes feel corporate.
 5. **Three audiences, one page.** Hierarchy does the work, not separate sections addressed at each audience.
+
+<!-- skilld -->
+Before modifying code, evaluate each installed skill against the current task.
+For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
+<!-- /skilld -->

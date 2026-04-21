@@ -1,5 +1,23 @@
 {
     "mcpServers": {
+        "gsc": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "suganthan-gsc-mcp"
+            ],
+            "env": {
+                "GSC_AUTH_MODE": "oauth",
+                "GSC_OAUTH_SECRETS_FILE": "./gsc-oath-secrets.json",
+                "GSC_SITE_URL": "sc-domain:switch-to.eu"
+            }
+        },
+        "reddit": {
+            "command": "npx",
+            "args": [
+                "reddit-mcp-server"
+            ]
+        },
         "Payload": {
             "command": "npx",
             "args": [
@@ -7,7 +25,17 @@
                 "mcp-remote",
                 "http://localhost:5010/api/mcp",
                 "--header",
-                "Authorization: Bearer fe92273f-c5b2-4943-aeda-ade07dfce824"
+                "Authorization: Bearer ${PAYLOAD_MCP_API_KEY}"
+            ]
+        },
+        "apify": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-remote",
+                "https://mcp.apify.com/?tools=actors,docs,runs,storage,apify/website-content-crawler,apify/web-scraper,apify/google-search-scraper",
+                "--header",
+                "Authorization: Bearer ${APIFY_API_TOKEN}"
             ]
         }
     }

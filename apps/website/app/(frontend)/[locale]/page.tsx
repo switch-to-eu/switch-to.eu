@@ -1,6 +1,5 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -11,14 +10,10 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { ArticlesSection } from "@/components/ArticlesSection";
 import { CantFindIt } from "@/components/CantFindIt";
 import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
+import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { getPayload } from "@/lib/payload";
-import type { Category, Guide } from "@/payload-types";
-
-const CATEGORY_SHAPES = [
-  "spark", "cloud", "tulip", "speech",
-  "heart", "sunburst", "flower", "starburst",
-];
+import type { Category, Guide, Service } from "@/payload-types";
 
 const FEATURE_ITEMS = [
   {
@@ -63,7 +58,9 @@ export async function generateMetadata() {
 
 type Locale = "en" | "nl";
 
-async function loadFeaturedGuide(locale: Locale): Promise<Guide | null> {
+async function loadHomepageGuides(
+  locale: Locale
+): Promise<{ featured: Guide | null; others: Guide[] }> {
   const payload = await getPayload();
 
   const flagged = await payload.find({
@@ -73,105 +70,103 @@ async function loadFeaturedGuide(locale: Locale): Promise<Guide | null> {
     limit: 1,
     locale,
   });
-  if (flagged.docs[0]) return flagged.docs[0];
+  const flaggedDoc = flagged.docs[0] ?? null;
 
   const recent = await payload.find({
     collection: "guides",
     sort: "-date",
     depth: 1,
-    limit: 1,
+    limit: 3,
     locale,
-  });
-  return recent.docs[0] ?? null;
-}
-
-async function loadRecommendedServiceByCategory(
-  categoryIds: (string | number)[],
-  locale: Locale
-): Promise<Map<string, string>> {
-  if (categoryIds.length === 0) return new Map();
-
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      and: [
-        { featured: { equals: true } },
-        { region: { equals: "eu" } },
-        { category: { in: categoryIds } },
-      ],
-    },
-    sort: "-createdAt",
-    depth: 0,
-    limit: 100,
-    locale,
+    ...(flaggedDoc
+      ? { where: { id: { not_equals: flaggedDoc.id } } }
+      : {}),
   });
 
-  const map = new Map<string, string>();
-  for (const doc of docs) {
-    const categoryId =
-      typeof doc.category === "object" && doc.category !== null
-        ? String(doc.category.id)
-        : String(doc.category);
-    if (!map.has(categoryId) && doc.name) {
-      map.set(categoryId, doc.name);
-    }
+  if (flaggedDoc) {
+    return { featured: flaggedDoc, others: recent.docs.slice(0, 2) };
   }
-  return map;
+  return {
+    featured: recent.docs[0] ?? null,
+    others: recent.docs.slice(1, 3),
+  };
 }
 
-export default async function Home() {
-  const t = await getTranslations("home");
-  const locale = (await getLocale()) as Locale;
+export type HomepagePick = {
+  category: Category;
+  pick: Service | null;
+  totalCount: number;
+};
+
+async function loadHomepagePicks(locale: Locale): Promise<HomepagePick[]> {
   const payload = await getPayload();
 
-  const [guide, categoriesResult] = await Promise.all([
-    loadFeaturedGuide(locale),
+  const [categoriesResult, servicesResult] = await Promise.all([
     payload.find({
       collection: "categories",
       locale,
       limit: 100,
       sort: "title",
     }),
+    payload.find({
+      collection: "services",
+      where: { region: { in: ["eu", "eu-friendly"] } },
+      // Featured first, then most recent.
+      sort: ["-featured", "-createdAt"],
+      depth: 0,
+      limit: 500,
+      locale,
+    }),
   ]);
-  const categories = categoriesResult.docs as Category[];
 
-  const categoryIds = categories.map((c) => c.id);
-  const recommendedByCategory = await loadRecommendedServiceByCategory(
-    categoryIds,
-    locale
-  );
+  const categories = categoriesResult.docs as Category[];
+  const services = servicesResult.docs as Service[];
+
+  const byCategory = new Map<string, Service[]>();
+  for (const svc of services) {
+    const categoryId =
+      typeof svc.category === "object" && svc.category !== null
+        ? String((svc.category as Category).id)
+        : String(svc.category);
+    const list = byCategory.get(categoryId) ?? [];
+    list.push(svc);
+    byCategory.set(categoryId, list);
+  }
+
+  const picks: HomepagePick[] = [];
+  for (const cat of categories) {
+    const list = byCategory.get(String(cat.id)) ?? [];
+    if (list.length === 0) continue;
+    picks.push({
+      category: cat,
+      pick: list[0] ?? null,
+      totalCount: list.length,
+    });
+  }
+
+  picks.sort((a, b) => {
+    const aFeatured = a.pick?.featured ? 1 : 0;
+    const bFeatured = b.pick?.featured ? 1 : 0;
+    return bFeatured - aFeatured;
+  });
+
+  return picks;
+}
+
+export default async function Home() {
+  const t = await getTranslations("home");
+  const locale = (await getLocale()) as Locale;
+
+  const [{ featured, others }, picks] = await Promise.all([
+    loadHomepageGuides(locale),
+    loadHomepagePicks(locale),
+  ]);
 
   return (
     <PageLayout>
-      <FeaturedGuideHero guide={guide} />
+      <FeaturedGuideHero featured={featured} others={others} />
 
-      <section id="categories">
-        <Container noPaddingMobile>
-          <SectionHeading>{t("categoriesSectionTitle")}</SectionHeading>
-          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {categories.map((category, index) => {
-              const recommendedName = recommendedByCategory.get(String(category.id));
-              return (
-                <BrandCard
-                  key={category.slug}
-                  colorIndex={index}
-                  title={category.title}
-                  description={category.description}
-                  href={`/services/${category.slug}`}
-                  ctaText={t("exploreCategory")}
-                  shape={CATEGORY_SHAPES[index % CATEGORY_SHAPES.length]}
-                  recommendationLabel={
-                    recommendedName
-                      ? t("categoryRecommends", { name: recommendedName })
-                      : undefined
-                  }
-                />
-              );
-            })}
-          </div>
-        </Container>
-      </section>
+      <FeaturedPicksSection picks={picks} />
 
       <ArticlesSection />
 
