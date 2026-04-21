@@ -6,12 +6,10 @@ import {
   getGuideTargetService,
 } from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_cache } from "next/cache";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 const { locales } = routing;
-
-export const dynamic = "force-dynamic";
 
 interface SitemapEntry {
   url: string;
@@ -223,11 +221,14 @@ async function buildEntries(): Promise<SitemapEntry[]> {
   ];
 }
 
-export async function GET() {
-  noStore();
+const getCachedXml = unstable_cache(
+  async () => toXml(await buildEntries()),
+  ["sitemap-xml"],
+  { tags: ["services", "guides", "categories"], revalidate: 3600 }
+);
 
-  const entries = await buildEntries();
-  const xml = toXml(entries);
+export async function GET() {
+  const xml = await getCachedXml();
 
   return new Response(xml, {
     headers: {
