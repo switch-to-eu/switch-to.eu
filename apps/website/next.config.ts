@@ -63,11 +63,6 @@ const nextConfig: NextConfig = {
         destination: "/en/feedback",
         permanent: true,
       },
-      {
-        source: "/search",
-        destination: "/en/search",
-        permanent: true,
-      },
       // Renamed slug: tutanota → tuta
       {
         source: "/:locale/services/eu/tutanota",

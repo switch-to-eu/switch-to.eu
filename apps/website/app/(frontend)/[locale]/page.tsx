@@ -7,7 +7,6 @@ import { shapes } from "@switch-to-eu/blocks/shapes";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
-import { ArticlesSection } from "@/components/ArticlesSection";
 import { CantFindIt } from "@/components/CantFindIt";
 import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
 import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
@@ -167,8 +166,6 @@ export default async function Home() {
       <FeaturedGuideHero featured={featured} others={others} />
 
       <FeaturedPicksSection picks={picks} />
-
-      <ArticlesSection />
 
       <CantFindIt />
 

@@ -127,12 +127,6 @@ export function SearchInput({
     router.push(result.url);
   };
 
-  // Navigate to search page for full results
-  const handleViewAllResults = () => {
-    setOpen(false);
-    router.push(`/search?q=${encodeURIComponent(query)}`);
-  };
-
   // Filtered results by type
   const serviceResults = results.filter((result) => result.type === "service");
   const guideResults = !filterRegion
@@ -247,18 +241,6 @@ export function SearchInput({
                           onSelect={handleSelect}
                         />
                       ))}
-                    </div>
-                  )}
-
-                  {/* View all results - only show for non-filtered search */}
-                  {!filterRegion && results.length > 8 && (
-                    <div
-                      className="relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                      onClick={handleViewAllResults}
-                    >
-                      <span className="text-brand-navy font-medium">
-                        {t("viewAllResults")}
-                      </span>
                     </div>
                   )}
                 </div>

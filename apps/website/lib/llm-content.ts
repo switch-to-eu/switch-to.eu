@@ -223,7 +223,6 @@ export function buildLlmsIndex(
   lines.push(`- [Home](${BASE_URL}/en): Browse EU alternatives and migration guides`);
   lines.push(`- [About](${BASE_URL}/en/about): Mission and story behind switch-to.eu`);
   lines.push(`- [Tools](${BASE_URL}/en/tools): Free privacy-focused tools built in the EU`);
-  lines.push(`- [Search](${BASE_URL}/en/search): Search all services and guides`);
   lines.push(`- [Contribute](${BASE_URL}/en/contribute): Help improve switch-to.eu`);
   lines.push("");
 

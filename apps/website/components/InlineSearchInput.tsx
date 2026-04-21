@@ -311,12 +311,13 @@ export function InlineSearchInput({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="flex items-center rounded-full border border-brand-pink/30 bg-white/10 backdrop-blur-sm pr-1.5 sm:pr-2">
+      <div className="flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 transition-colors">
+        <Search className="h-5 w-5 text-brand-green/50 shrink-0" aria-hidden="true" />
         <input
           ref={searchInputRef}
           type="text"
           placeholder={currentPlaceholder}
-          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-cream/50 focus:outline-none focus:ring-0 ${className}`}
+          className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/40 bg-transparent focus:outline-none ${className}`}
           value={query}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
@@ -324,28 +325,32 @@ export function InlineSearchInput({
             setShowDropdown(true);
             setFocusedIndex(-1);
           }}
+          aria-label={currentPlaceholder}
         />
         <button
-          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-yellow hover:bg-brand-orange/80 text-brand-green transition-colors"
+          type="button"
+          className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white hover:opacity-90 transition-opacity"
           onClick={() => {
             if (query.trim()) {
               void fetchResults(query);
             } else {
               setShowDropdown(true);
+              searchInputRef.current?.focus();
             }
           }}
+          aria-label={t("searchDialogTitle")}
         >
-          <Search className="h-5 w-5" />
+          <Search className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
       </div>
 
       {/* Dropdown Results */}
       {showDropdown && (
-        <div className="absolute w-full mt-2 bg-brand-green/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
+        <div className="absolute w-full mt-2 bg-white rounded-2xl shadow-lg border border-brand-green/10 z-20 max-h-[350px] overflow-y-auto">
           <div className="py-0">
             {/* Dropdown Header */}
-            <div className="px-4 py-2 border-b border-brand-pink/10">
-              <h3 className="text-sm font-medium text-brand-sky/70">
+            <div className="px-4 py-2 border-b border-brand-green/10">
+              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/60">
                 {dropdownTitle}
               </h3>
             </div>
@@ -355,8 +360,8 @@ export function InlineSearchInput({
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="animate-pulse flex items-center gap-3">
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-white/10 rounded w-1/3" />
-                      <div className="h-3 bg-white/10 rounded w-2/3" />
+                      <div className="h-4 bg-brand-green/10 rounded w-1/3" />
+                      <div className="h-3 bg-brand-green/10 rounded w-2/3" />
                     </div>
                   </div>
                 ))}
@@ -365,15 +370,15 @@ export function InlineSearchInput({
               displayResults.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-pink/10" : "hover:bg-white/5"
+                  className={`px-4 py-2.5 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-sky/30" : "hover:bg-brand-sky/20"
                     }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="font-medium text-white">{result.title}</div>
-                      <div className="text-sm text-brand-sky/60 mr-2">
+                  <div className="flex justify-between items-center gap-3">
+                    <div className="min-w-0">
+                      <div className="font-semibold text-brand-green truncate">{result.title}</div>
+                      <div className="text-sm text-brand-green/60 truncate">
                         {result.description}
                       </div>
                     </div>
@@ -387,8 +392,8 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-brand-sky/70">{noResultsMessage}</p>
-                <p className="text-sm text-brand-sky/40 mt-1">
+                <p className="text-brand-green/70 font-medium">{noResultsMessage}</p>
+                <p className="text-sm text-brand-green/50 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>

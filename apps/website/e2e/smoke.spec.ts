@@ -11,7 +11,6 @@ async function expectPageOk(page: Page, urlPath: string) {
 
 // Routes not listed in sitemap.xml but still need smoke coverage.
 const extraRoutes = [
-  "/en/search",
   "/en/contribute/guide",
 ];
 

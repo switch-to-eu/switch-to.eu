@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { MapPin } from "lucide-react";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
@@ -30,7 +31,12 @@ export async function FeaturedPicksSection({ picks }: Props) {
   return (
     <section id="picks">
       <Container noPaddingMobile>
-        <SectionHeading>{t("picksSectionTitle")}</SectionHeading>
+        <SectionHeading className="mb-2 sm:mb-3">
+          {t("picksSectionTitle")}
+        </SectionHeading>
+        <p className="text-brand-green/75 text-base sm:text-lg max-w-xl mb-6 sm:mb-8 px-3 md:px-0">
+          {t("picksSectionSubtitle")}
+        </p>
 
         <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {picks.map((entry, index) => (
@@ -39,7 +45,6 @@ export async function FeaturedPicksSection({ picks }: Props) {
               entry={entry}
               colorIndex={index}
               learnMoreLabel={t("picksLearnMoreCta")}
-              viewOthersLabel={t("picksViewOthersCta")}
               learnMoreAria={
                 entry.pick
                   ? t("picksLearnMoreAria", { name: entry.pick.name })
@@ -57,7 +62,6 @@ interface PickCardProps {
   entry: HomepagePick;
   colorIndex: number;
   learnMoreLabel: string;
-  viewOthersLabel: string;
   learnMoreAria: string;
 }
 
@@ -65,7 +69,6 @@ function PickCard({
   entry,
   colorIndex,
   learnMoreLabel,
-  viewOthersLabel,
   learnMoreAria,
 }: PickCardProps) {
   const { category, pick } = entry;
@@ -83,7 +86,7 @@ function PickCard({
 
   return (
     <article
-      className={`${card.bg} relative flex flex-col h-full md:rounded-3xl overflow-hidden group transition-shadow duration-200 group-hover:shadow-md`}
+      className={`${card.bg} relative flex flex-col h-full md:rounded-3xl overflow-hidden group`}
     >
       {/* Stretched primary link — whole card clicks through to the service page. */}
       <Link
@@ -94,7 +97,7 @@ function PickCard({
 
       <div className="relative z-10 pointer-events-none flex flex-col h-full">
         {shapeData && (
-          <div className="relative h-36 sm:h-44 md:h-48 flex items-center justify-center p-6 sm:p-8">
+          <div className="relative h-28 sm:h-32 md:h-36 flex items-center justify-center p-5 sm:p-6">
             <svg
               viewBox={shapeData.viewBox}
               className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
@@ -111,11 +114,13 @@ function PickCard({
 
         <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
           {pick && (
-            <p
-              className={`${card.text} font-heading uppercase tracking-[0.18em] text-xs opacity-70 mb-2`}
+            <Link
+              href={categoryHref}
+              className={`${card.text} pointer-events-auto relative self-start font-heading uppercase tracking-[0.14em] text-xs opacity-70 hover:opacity-100 mb-2 inline-flex items-center gap-1 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded`}
             >
               {category.title}
-            </p>
+              <span aria-hidden="true">→</span>
+            </Link>
           )}
 
           <h3
@@ -124,38 +129,32 @@ function PickCard({
             {heading}
           </h3>
 
+          {location && (
+            <div
+              className={`${card.text} inline-flex items-center gap-1.5 mb-3 text-xs uppercase tracking-wider`}
+            >
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{location}</span>
+            </div>
+          )}
+
           <p
             className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-4`}
           >
             {description}
           </p>
 
-          {location && (
-            <p className={`${card.text} text-xs opacity-60 mb-4`}>{location}</p>
-          )}
-
-          <div className="mt-auto flex flex-col items-start gap-3">
+          <span
+            className={`${card.button} mt-auto self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold`}
+          >
+            {learnMoreLabel}
             <span
-              className={`${card.button} inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold`}
+              aria-hidden="true"
+              className="group-hover:translate-x-0.5 transition-transform"
             >
-              {learnMoreLabel}
-              <span
-                aria-hidden="true"
-                className="group-hover:translate-x-0.5 transition-transform"
-              >
-                →
-              </span>
+              →
             </span>
-            {pick && (
-              <Link
-                href={categoryHref}
-                className={`${card.text} pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold opacity-70 hover:opacity-100 underline underline-offset-4 decoration-current/40 hover:decoration-current transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded`}
-              >
-                {viewOthersLabel}
-                <span aria-hidden="true">→</span>
-              </Link>
-            )}
-          </div>
+          </span>
         </div>
       </div>
     </article>
