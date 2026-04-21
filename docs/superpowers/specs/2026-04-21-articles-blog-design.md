@@ -20,13 +20,14 @@ The homepage already contains an `ArticlesSection` placeholder ("Coming Soon" ca
 - Bilingual (`en` + `nl`) at launch, same localization workflow as other collections.
 - Full AI content pipeline (`write`, `humanize`, `seo-check`, `translate` + bulk variants) mirroring Services/Guides/Categories.
 - Cross-surface articles on existing Service / Category / Guide detail pages so editorial content reinforces the directory.
+- Add a **global site RSS feed** combining articles and guides, per-locale. Services/categories/pages stay out of the feed.
 - Reuse every existing platform convention: Payload `versions.drafts`, `revalidateTag`, IndexNow afterChange/afterDelete hooks, `seoFields`, localized fields, Payload MCP-driven admin tooling.
 
 ## Non-goals (out of scope)
 
 - Comments, reactions, likes.
 - Article series / multi-part structure.
-- Per-author RSS feeds (only the global feed ships).
+- Per-type or per-author RSS feeds (only the site-wide global feed ships).
 - Table-of-contents block (YAGNI until a deep-dive exceeds 2,500 words).
 - Search integration for articles (defer until Fuse.js cache or a replacement supports it).
 - `/research-article` skill — articles are voice-driven; the human fills the Brief.
@@ -175,9 +176,19 @@ All routes under `/[locale]/articles`.
 | `/articles/[slug]` | Article detail. Follows existing route conventions: `generateStaticParams`, `generateMetadata`, `generateLanguageAlternates`, `opengraph-image.tsx`. |
 | `/articles/authors/[authorSlug]` | Author page: bio, avatar, socials, articles by this author newest-first. |
 | `/articles/tags/[tagSlug]` | Tag page: tag description + articles carrying that tag. |
-| `/articles/feed.xml` | RSS 2.0 feed, 20 most-recent published articles per locale. `<link rel="alternate" type="application/rss+xml">` in article layout head. |
 
 No `/articles/types/[type]` or `/articles/categories/[cat]` routes — those are query-param filters on `/articles` (`?type=opinion&category=email`). Keeps route count down; SEO value of dedicated type/category pages is marginal when `/services/[category]` already does the heavy lifting.
+
+### Global RSS feed (site-wide, not articles-specific)
+
+A single `/feed.xml` route per locale (`/[locale]/feed.xml`) combining **articles and guides**. Articles and guides are both authored editorial output; services/categories/pages are directory/marketing content and do not belong in a feed.
+
+- **Volume:** 20 most-recent published items across both collections, merged and sorted by `publishedAt` (articles) / `date` (guides), descending.
+- **Content type:** RSS 2.0 with `application/rss+xml; charset=utf-8`.
+- **Item differentiation:** each `<item>` includes a `<category>` element — `article/<type>` (e.g. `article/opinion`) or `guide` — so readers and aggregators can filter by type if desired.
+- **Discovery:** `<link rel="alternate" type="application/rss+xml" href="/[locale]/feed.xml">` in the root layout head for both locales.
+- **Per-locale:** `/en/feed.xml` and `/nl/feed.xml` contain only content published in that locale.
+- **Implementation:** standalone feed-builder module queries both collections via the Payload client; reused across locales. Not part of the articles routes.
 
 ### Homepage integration
 
@@ -261,7 +272,11 @@ Under a new `articles.*` namespace:
 - `articles.types.opinion`, `articles.types.roundup`, `articles.types.news`, `articles.types.deepDive`
 - `articles.author.pageTitle`, `articles.author.articlesBy`, `articles.author.readAll`
 - `articles.tag.pageTitle`, `articles.tag.taggedWith`
-- `articles.feed.title`, `articles.feed.description`
+
+
+New `feed.*` namespace (global feed, not articles-specific):
+
+- `feed.title`, `feed.description`
 
 ### Updated home keys
 
@@ -281,7 +296,7 @@ Extends `apps/website/e2e/smoke.spec.ts` with new entries in the `en` + `nl` loo
 - `/articles/[seeded-slug]`
 - `/articles/authors/[seeded-author-slug]`
 - `/articles/tags/[seeded-tag-slug]`
-- `/articles/feed.xml` — asserts status 200 and `content-type` starts with `application/xml`.
+- `/feed.xml` — asserts status 200, `content-type` starts with `application/rss+xml`, body contains at least one `<item>` referencing the seeded article and at least one referencing the seeded guide.
 
 Seed file (`apps/website/seed/`) gets one article per locale that uses **every** block type and an inline service pill, an inline guide pill, and an inline category pill. This gives the smoke test meaningful coverage of the renderer.
 
@@ -295,7 +310,7 @@ Ordered for incremental review checkpoints. Each phase is independently reviewab
 
 1. **Collections and types.** Add `Articles`, `Authors`, `Tags` collections. Run Payload type generation. Verify MCP tool schemas surface.
 2. **Blocks and inline-pill renderer.** Register 5 blocks on the Articles `body` field. Build renderer components. Build `ServicePill`, `GuidePill`, `CategoryPill`. Wire `LexicalBody` component that walks the serialized editor state, resolves link nodes, and delegates blocks.
-3. **Routes.** Build `/articles`, `/articles/[slug]`, `/articles/authors/[authorSlug]`, `/articles/tags/[tagSlug]`, `/articles/feed.xml` with `generateStaticParams`, `generateMetadata`, `opengraph-image.tsx`, language alternates.
+3. **Routes.** Build `/articles`, `/articles/[slug]`, `/articles/authors/[authorSlug]`, `/articles/tags/[tagSlug]` with `generateStaticParams`, `generateMetadata`, `opengraph-image.tsx`, language alternates. Build global `/feed.xml` route (feed-builder module querying articles + guides) and add `rel="alternate"` discovery link in the root layout.
 4. **Homepage and cross-surfacing.** Replace ArticlesSection with real-data version. Add "Related articles" sections to service/category/guide detail pages.
 5. **Navigation and i18n keys.** Add header/footer links, add + translate message keys in `en.json` and `nl.json`.
 6. **Pipeline skills.** Add `.claude/skills/write-article`, `humanize-article`, `seo-check-article`, `translate-article`. Add bulk variants. Extend `/pipeline` to accept `article`.
