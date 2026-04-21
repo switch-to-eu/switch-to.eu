@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     "@switch-to-eu/ui",
     "@switch-to-eu/i18n",
     "@switch-to-eu/blocks",
-    "@switch-to-eu/content",
   ],
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],

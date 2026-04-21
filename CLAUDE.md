@@ -102,7 +102,6 @@ packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
-  content/        # Shared content system (Markdown parsing, Zod schemas, Fuse.js search)
   db/             # Shared database utilities (Redis client, crypto, admin tokens, expiration, mock-redis for tests, test-redis for Testcontainers)
   trpc/           # Shared tRPC v11 infrastructure (used by plotty, listy, privnote — NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
@@ -117,7 +116,7 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **Middleware file is `proxy.ts`**, not `middleware.ts`. The next-intl middleware entry point for both apps is named `proxy.ts`.
 
-**Content is a git submodule** at `packages/content/content/` (repo: `switch-to-eu/content`). After cloning, run `git submodule update --init`. Content is organized by locale (`en/`, `nl/`) with categories, services (eu/non-eu), and guides in Markdown with frontmatter.
+**Content lives in Payload CMS** (Postgres), managed via the `/admin` panel. Collections: Categories, Services, Guides, Landing Pages, Pages, Media. Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`. All content collections have `versions: { drafts: true }` and require explicit publish.
 
 **Next.js plugin chain** in `apps/website/next.config.ts`: `withMDX(withNextIntl(nextConfig))`. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
 
@@ -133,14 +132,6 @@ Locales: `en` (default), `nl`. Managed by `@switch-to-eu/i18n` package using nex
 - **Messages:** Located in `packages/i18n/messages/{appName}/{locale}.json` merged with `shared/{locale}.json`
 - **Request config:** Apps use `createRequestConfig("website")`, `createRequestConfig("keepfocus")`, `createRequestConfig("plotty")`, `createRequestConfig("privnote")`, etc. from `@switch-to-eu/i18n/request`
 - All routes are under `[locale]` dynamic segment
-
-## Content System (Website)
-
-Content logic lives in `@switch-to-eu/content` package. Content files are a git submodule at `packages/content/content/`. Markdown with frontmatter validated by Zod schemas. Guides use a custom section format with HTML comments (`<!-- section:intro -->`, `<!-- step-start -->`, `<!-- step-meta title:"..." -->`).
-
-Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`.
-
-Search uses Fuse.js with in-memory caching (5-min TTL, keyed by locale).
 
 ## Content Workflow (AI-Assisted)
 

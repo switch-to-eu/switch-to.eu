@@ -1,3 +1,0 @@
-[submodule "packages/content/content"]
-	path = packages/content/content
-	url = https://github.com/switch-to-eu/content.git
