@@ -208,7 +208,10 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       }));
     });
   } catch (error) {
+    // Rethrow so unstable_cache sees the failure and does NOT cache a
+    // partial sitemap missing every category / service / guide URL.
     console.error("[sitemap] Failed to fetch content from Payload:", error);
+    throw error;
   }
 
   return [

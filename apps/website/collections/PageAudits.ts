@@ -9,7 +9,10 @@ export const PageAudits: CollectionConfig = {
       "Post-publish SEO audits. One row per audit run; multiple rows per page over time form history. Operational data — no drafts.",
   },
   access: {
-    read: () => true,
+    // Internal SEO operational data (GSC metrics, competitor analysis,
+    // proposed rewrites). Not rendered on the public frontend — gate
+    // reads to authenticated Payload users only.
+    read: ({ req }) => Boolean(req.user),
   },
   fields: [
     // Sidebar — the page being audited. Discriminator + two single-target
