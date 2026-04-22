@@ -7,9 +7,12 @@ import { shapes } from "@switch-to-eu/blocks/shapes";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
+import { getToolById } from "@switch-to-eu/blocks/data/tools";
+
 import { CantFindIt } from "@/components/CantFindIt";
 import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
 import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
+import { HighlightedToolSection } from "@/components/HighlightedToolSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { getPayload } from "@/lib/payload";
 import type { Category, Guide, Service } from "@/payload-types";
@@ -161,6 +164,8 @@ export default async function Home() {
     loadHomepagePicks(locale),
   ]);
 
+  const highlightedTool = getToolById("privnote");
+
   return (
     <PageLayout>
       <FeaturedGuideHero featured={featured} others={others} />
@@ -168,6 +173,13 @@ export default async function Home() {
       <FeaturedPicksSection picks={picks} />
 
       <CantFindIt />
+
+      {highlightedTool && (
+        <HighlightedToolSection
+          tool={highlightedTool}
+          tagline={t("highlightedToolTaglinePrivnote")}
+        />
+      )}
 
       <section>
         <Container noPaddingMobile>
