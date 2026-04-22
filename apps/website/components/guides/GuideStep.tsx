@@ -30,7 +30,7 @@ const useVideoIntersection = (options = {}) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry) return;
-        
+
         setIsIntersecting(entry.isIntersecting);
 
         // Play or pause video based on visibility
@@ -103,14 +103,14 @@ export function GuideStep({
 
   // Render the video player
   const renderVideo = () => (
-    <div ref={targetRef} className="step-video h-full flex items-center">
+    <div ref={targetRef} className="step-video h-full max-h-[600px] flex items-center">
       <video
         ref={videoRef}
         muted
         playsInline
         loop
         controls
-        className="w-full"
+        className="object-fit"
         src={step.video as string}
         title={`Video guide for ${step.title}`}
       />

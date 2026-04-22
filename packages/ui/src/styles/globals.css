@@ -334,3 +334,12 @@
   60% { transform: translate(-7px, -9px) rotate(-3deg) scale(1.03); }
   85% { transform: translate(3px, 7px) rotate(1deg) scale(1.01); }
 }
+
+/* Respect reduced-motion preference: pause decorative shape animations.
+   Per brand spec in .impeccable.md, shapes are decoration only. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-shape-float,
+  [class*="animate-hero-float"] {
+    animation: none !important;
+  }
+}

@@ -1,13 +1,28 @@
 {
     "mcpServers": {
-        "Payload": {
+        "gsc": {
             "command": "npx",
             "args": [
                 "-y",
-                "mcp-remote",
-                "http://localhost:5010/api/mcp",
-                "--header",
-                "Authorization: Bearer fe92273f-c5b2-4943-aeda-ade07dfce824"
+                "suganthan-gsc-mcp"
+            ],
+            "env": {
+                "GSC_AUTH_MODE": "oauth",
+                "GSC_OAUTH_SECRETS_FILE": "./gsc-oath-secrets.json",
+                "GSC_SITE_URL": "sc-domain:switch-to.eu"
+            }
+        },
+        "reddit": {
+            "command": "npx",
+            "args": [
+                "reddit-mcp-server"
+            ]
+        },
+        "Payload": {
+            "command": "sh",
+            "args": [
+                "-c",
+                ". ./.env && exec npx -y mcp-remote http://localhost:5010/api/mcp --header \"Authorization: Bearer $PAYLOAD_MCP_API_KEY\""
             ]
         }
     }

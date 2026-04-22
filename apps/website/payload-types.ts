@@ -72,6 +72,7 @@ export interface Config {
     guides: Guide;
     'landing-pages': LandingPage;
     media: Media;
+    'page-audits': PageAudit;
     pages: Page;
     services: Service;
     users: User;
@@ -87,6 +88,7 @@ export interface Config {
     guides: GuidesSelect<false> | GuidesSelect<true>;
     'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'page-audits': PageAuditsSelect<false> | PageAuditsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -256,6 +258,10 @@ export interface Guide {
    */
   timeRequired: string;
   date?: string | null;
+  /**
+   * Feature this guide as the homepage hero poster. Only one guide should be flagged at a time; the most recent published guide is used as a fallback.
+   */
+  featuredOnHomepage?: boolean | null;
   /**
    * Tracks progress through the content pipeline
    */
@@ -749,6 +755,121 @@ export interface LandingPage {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Post-publish SEO audits. One row per audit run; multiple rows per page over time form history. Operational data — no drafts.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-audits".
+ */
+export interface PageAudit {
+  id: number;
+  pageType: 'service' | 'guide';
+  service?: (number | null) | Service;
+  guide?: (number | null) | Guide;
+  priority: 'high' | 'medium' | 'low';
+  status: 'new' | 'reviewed' | 'applied' | 'rejected';
+  auditedAt: string;
+  /**
+   * Auto-filled from page slug + auditedAt — used as admin list title.
+   */
+  summaryTitle?: string | null;
+  currentMetrics?: {
+    impressions?: number | null;
+    clicks?: number | null;
+    /**
+     * Decimal 0–1
+     */
+    ctr?: number | null;
+    avgPosition?: number | null;
+    dateRange?: {
+      from?: string | null;
+      to?: string | null;
+    };
+  };
+  topQueries?:
+    | {
+        query: string;
+        impressions?: number | null;
+        clicks?: number | null;
+        position?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Queries at positions 11–20 with meaningful impressions.
+   */
+  almostRankingQueries?:
+    | {
+        query: string;
+        impressions?: number | null;
+        position?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  competitors?:
+    | {
+        rank: number;
+        url: string;
+        title?: string | null;
+        metaDescription?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  competitorAnalysis?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  proposedChanges?: {
+    title?: string | null;
+    metaDescription?: string | null;
+    h1?: string | null;
+    contentGaps?:
+      | {
+          gap: string;
+          rationale?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Populated only when the skill runs with --lighthouse.
+   */
+  lighthouse?: {
+    performance?: number | null;
+    accessibility?: number | null;
+    bestPractices?: number | null;
+    seo?: number | null;
+    runAt?: string | null;
+  };
+  summary?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
@@ -951,6 +1072,24 @@ export interface PayloadMcpApiKey {
      */
     delete?: boolean | null;
   };
+  pageAudits?: {
+    /**
+     * Allow clients to find page-audits.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create page-audits.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update page-audits.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete page-audits.
+     */
+    delete?: boolean | null;
+  };
   media?: {
     /**
      * Allow clients to find media.
@@ -1009,6 +1148,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'page-audits';
+        value: number | PageAudit;
       } | null)
     | ({
         relationTo: 'pages';
@@ -1114,6 +1257,7 @@ export interface GuidesSelect<T extends boolean = true> {
   difficulty?: T;
   timeRequired?: T;
   date?: T;
+  featuredOnHomepage?: T;
   contentPipelineStatus?: T;
   title?: T;
   category?: T;
@@ -1207,6 +1351,86 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-audits_select".
+ */
+export interface PageAuditsSelect<T extends boolean = true> {
+  pageType?: T;
+  service?: T;
+  guide?: T;
+  priority?: T;
+  status?: T;
+  auditedAt?: T;
+  summaryTitle?: T;
+  currentMetrics?:
+    | T
+    | {
+        impressions?: T;
+        clicks?: T;
+        ctr?: T;
+        avgPosition?: T;
+        dateRange?:
+          | T
+          | {
+              from?: T;
+              to?: T;
+            };
+      };
+  topQueries?:
+    | T
+    | {
+        query?: T;
+        impressions?: T;
+        clicks?: T;
+        position?: T;
+        id?: T;
+      };
+  almostRankingQueries?:
+    | T
+    | {
+        query?: T;
+        impressions?: T;
+        position?: T;
+        id?: T;
+      };
+  competitors?:
+    | T
+    | {
+        rank?: T;
+        url?: T;
+        title?: T;
+        metaDescription?: T;
+        id?: T;
+      };
+  competitorAnalysis?: T;
+  proposedChanges?:
+    | T
+    | {
+        title?: T;
+        metaDescription?: T;
+        h1?: T;
+        contentGaps?:
+          | T
+          | {
+              gap?: T;
+              rationale?: T;
+              id?: T;
+            };
+      };
+  lighthouse?:
+    | T
+    | {
+        performance?: T;
+        accessibility?: T;
+        bestPractices?: T;
+        seo?: T;
+        runAt?: T;
+      };
+  summary?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1401,6 +1625,14 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         delete?: T;
       };
   pages?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  pageAudits?:
     | T
     | {
         find?: T;

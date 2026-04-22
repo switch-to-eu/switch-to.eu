@@ -1,8 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search } from "lucide-react";
 import { SearchResult } from "@/lib/types";
+import {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+} from "@switch-to-eu/ui/components/popover";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@switch-to-eu/i18n/navigation";
@@ -28,10 +33,10 @@ export function InlineSearchInput({
   const [isLoading, setIsLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [anchorWidth, setAnchorWidth] = useState<number>();
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [featuredServices, setFeaturedServices] = useState<SearchResult[]>([]);
   const t = useTranslations("common");
   const locale = useLocale();
 
@@ -147,32 +152,6 @@ export function InlineSearchInput({
     };
   }, [animatePlaceholder, query, placeholder, t]);
 
-  // Fetch featured non-EU services for prefilled dropdown
-  const fetchFeaturedServices = useCallback(async () => {
-    try {
-      // Adjust the API endpoint as needed
-      let url = `/api/search/featured?region=non-eu`;
-      if (showOnlyServices) {
-        url += `&types=service`;
-      }
-      if (locale) {
-        url += `&locale=${locale}`;
-      }
-
-      const response = await fetch(url);
-      const data = await response.json() as { results?: SearchResult[] };
-      setFeaturedServices(data.results ?? []);
-    } catch (error) {
-      console.error("Error fetching featured services:", error);
-      setFeaturedServices([]);
-    }
-  }, [showOnlyServices, locale]);
-
-  // Load featured services on component mount
-  useEffect(() => {
-    void fetchFeaturedServices();
-  }, [showOnlyServices, fetchFeaturedServices]);
-
   const MIN_QUERY_LENGTH = 3;
 
   // Function to fetch search results from API
@@ -243,21 +222,15 @@ export function InlineSearchInput({
     };
   }, []);
 
-  // Close dropdown when clicking outside
+  // Match popover width to the input row
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => setAnchorWidth(el.getBoundingClientRect().width);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   // Handle keyboard navigation
@@ -268,7 +241,7 @@ export function InlineSearchInput({
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setFocusedIndex((prev) =>
-        prev < (results.length || featuredServices.length) - 1 ? prev + 1 : prev
+        prev < results.length - 1 ? prev + 1 : prev
       );
     }
     // Arrow up
@@ -279,9 +252,8 @@ export function InlineSearchInput({
     // Enter
     else if (e.key === "Enter") {
       e.preventDefault();
-      const currentResults = isSearchQuery ? results : featuredServices;
-      const selectedResult = currentResults[focusedIndex];
-      if (focusedIndex >= 0 && focusedIndex < currentResults.length && selectedResult) {
+      const selectedResult = results[focusedIndex];
+      if (focusedIndex >= 0 && focusedIndex < results.length && selectedResult) {
         handleSelect(selectedResult);
       }
     }
@@ -298,82 +270,100 @@ export function InlineSearchInput({
     router.push(result.url);
   };
 
-  // Determine which results to show in the dropdown
   const isSearchQuery = query.trim().length >= MIN_QUERY_LENGTH;
-  const displayResults = isSearchQuery ? results : featuredServices;
-  const dropdownTitle = isSearchQuery
-    ? t("dropdownSearchResults")
-    : t("dropdownPopularServices");
-
-  const noResultsMessage = isSearchQuery
-    ? t("noResultsMessage", { query })
-    : t("noFeaturedServices");
+  const popoverOpen = showDropdown && isSearchQuery;
 
   return (
-    <div ref={containerRef} className="relative w-full">
-      <div className="flex items-center rounded-full border border-brand-pink/30 bg-white/10 backdrop-blur-sm pr-1.5 sm:pr-2">
-        <input
-          ref={searchInputRef}
-          type="text"
-          placeholder={currentPlaceholder}
-          className={`flex-grow py-3 sm:py-4 px-5 sm:px-6 text-base sm:text-lg bg-transparent text-white placeholder:text-brand-cream/50 focus:outline-none focus:ring-0 ${className}`}
-          value={query}
-          onChange={handleSearchChange}
-          onKeyDown={handleKeyDown}
-          onFocus={() => {
-            setShowDropdown(true);
-            setFocusedIndex(-1);
-          }}
-        />
-        <button
-          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-brand-yellow hover:bg-brand-orange/80 text-brand-green transition-colors"
-          onClick={() => {
-            if (query.trim()) {
-              void fetchResults(query);
-            } else {
-              setShowDropdown(true);
-            }
-          }}
-        >
-          <Search className="h-5 w-5" />
-        </button>
-      </div>
+    <Popover open={popoverOpen} onOpenChange={setShowDropdown}>
+      <PopoverAnchor asChild>
+        <div ref={containerRef} className="relative w-full">
+          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 transition-colors">
+            <Search
+              className="h-5 w-5 text-brand-green/50 shrink-0 transition-all duration-300 group-focus-within:text-brand-green group-focus-within:scale-110"
+              aria-hidden="true"
+            />
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder={currentPlaceholder}
+              className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/40 bg-transparent focus:outline-none ${className}`}
+              value={query}
+              onChange={handleSearchChange}
+              onKeyDown={handleKeyDown}
+              onFocus={() => {
+                setShowDropdown(true);
+                setFocusedIndex(-1);
+              }}
+              aria-label={currentPlaceholder}
+            />
+            <button
+              type="button"
+              className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white transition-transform duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+              onClick={() => {
+                if (query.trim()) {
+                  void fetchResults(query);
+                } else {
+                  setShowDropdown(true);
+                  searchInputRef.current?.focus();
+                }
+              }}
+              aria-label={t("searchDialogTitle")}
+            >
+              <Search className="h-4 w-4 sm:h-5 sm:w-5" />
+            </button>
+          </div>
+        </div>
+      </PopoverAnchor>
 
-      {/* Dropdown Results */}
-      {showDropdown && (
-        <div className="absolute w-full mt-2 bg-brand-green/95 backdrop-blur-md rounded-2xl shadow-lg border border-brand-pink/20 z-10 max-h-[350px] overflow-y-auto">
+      <PopoverContent
+        side="bottom"
+        align="start"
+        sideOffset={8}
+        style={{ width: anchorWidth }}
+        onOpenAutoFocus={(e: Event) => e.preventDefault()}
+        onCloseAutoFocus={(e: Event) => e.preventDefault()}
+        onFocusOutside={(e: Event) => e.preventDefault()}
+        onInteractOutside={(e: Event) => {
+          // Clicks on the input/button shouldn't close the popover —
+          // those are logically inside the combobox.
+          const target = e.target as Node | null;
+          if (target && containerRef.current?.contains(target)) {
+            e.preventDefault();
+          }
+        }}
+        className="bg-white rounded-2xl shadow-lg border border-brand-green/10 max-h-[350px] overflow-y-auto p-0"
+      >
           <div className="py-0">
-            {/* Dropdown Header */}
-            <div className="px-4 py-2 border-b border-brand-pink/10">
-              <h3 className="text-sm font-medium text-brand-sky/70">
-                {dropdownTitle}
+            <div className="px-4 py-2 border-b border-brand-green/10">
+              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/60">
+                {t("dropdownSearchResults")}
               </h3>
             </div>
 
-            {isLoading && isSearchQuery ? (
+            {isLoading ? (
               <div className="px-4 py-3 space-y-3">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="animate-pulse flex items-center gap-3">
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-white/10 rounded w-1/3" />
-                      <div className="h-3 bg-white/10 rounded w-2/3" />
+                      <div className="h-4 bg-brand-green/10 rounded w-1/3" />
+                      <div className="h-3 bg-brand-green/10 rounded w-2/3" />
                     </div>
                   </div>
                 ))}
               </div>
-            ) : displayResults.length > 0 ? (
-              displayResults.map((result, index) => (
+            ) : results.length > 0 ? (
+              results.map((result, index) => (
                 <div
                   key={result.id}
-                  className={`px-4 py-2 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-pink/10" : "hover:bg-white/5"
+                  className={`px-4 py-2.5 cursor-pointer transition-colors ${focusedIndex === index ? "bg-brand-sky/30" : "hover:bg-brand-sky/20"
                     }`}
                   onClick={() => handleSelect(result)}
                   onMouseEnter={() => setFocusedIndex(index)}
                 >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="font-medium text-white">{result.title}</div>
-                      <div className="text-sm text-brand-sky/60 mr-2">
+                  <div className="flex justify-between items-center gap-3">
+                    <div className="min-w-0">
+                      <div className="font-semibold text-brand-green truncate">{result.title}</div>
+                      <div className="text-sm text-brand-green/60 truncate">
                         {result.description}
                       </div>
                     </div>
@@ -387,16 +377,16 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-brand-sky/70">{noResultsMessage}</p>
-                <p className="text-sm text-brand-sky/40 mt-1">
+                <p className="text-brand-green/70 font-medium">
+                  {t("noResultsMessage", { query })}
+                </p>
+                <p className="text-sm text-brand-green/50 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>
             )}
           </div>
-        </div>
-      )}
-
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }

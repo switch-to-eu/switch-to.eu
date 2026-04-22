@@ -12,7 +12,8 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "prepare": "npx skilld prepare || true"
   },
   "devDependencies": {
     "turbo": "^2.8.3"

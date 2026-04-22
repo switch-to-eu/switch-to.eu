@@ -21,6 +21,19 @@ export interface BrandCardProps {
   className?: string;
   /** Extra classes on the content area (e.g. "text-center") */
   contentClassName?: string;
+  /** Pre-translated label shown between description and CTA (e.g. "Start with Mastodon"). A decorative arrow is appended. */
+  recommendationLabel?: string;
+  /**
+   * Optional small secondary link rendered below the CTA.
+   * When set together with `href`, the card switches to a stretched-link pattern
+   * so the whole card clicks through to `href` while this link remains independently clickable.
+   */
+  secondaryLink?: {
+    href: string;
+    text: string;
+  };
+  /** Accessible label for the primary (card-level) link. Defaults to the card title. */
+  primaryAriaLabel?: string;
 }
 
 function ShapeSvg({ name, color, colorIndex }: { name: string; color: string; colorIndex: number }) {
@@ -54,6 +67,9 @@ export function BrandCard({
   imageAlt,
   className,
   contentClassName,
+  recommendationLabel,
+  secondaryLink,
+  primaryAriaLabel,
 }: BrandCardProps) {
   const card = getCardColor(colorIndex);
 
@@ -108,23 +124,74 @@ export function BrandCard({
         <p
           className={cn(
             `${card.text} text-sm sm:text-base opacity-80 leading-relaxed`,
-            ctaText && "line-clamp-3 mb-5"
+            (ctaText || recommendationLabel) && "line-clamp-3 mb-4"
           )}
         >
           {description}
         </p>
+        {recommendationLabel && (
+          <p
+            className={cn(
+              card.text,
+              "text-xs sm:text-sm font-semibold mb-5 flex items-center gap-1.5"
+            )}
+          >
+            <span>{recommendationLabel}</span>
+            <span aria-hidden="true" className="opacity-70">→</span>
+          </p>
+        )}
         {ctaText && (
-          <div className="mt-auto">
+          <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2">
             <span
               className={`${card.button} inline-block px-5 py-2 rounded-full text-sm font-semibold`}
             >
               {ctaText}
             </span>
+            {secondaryLink && (
+              <Link
+                href={secondaryLink.href}
+                className={cn(
+                  card.text,
+                  "pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold opacity-80 hover:opacity-100 hover:underline transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded"
+                )}
+              >
+                {secondaryLink.text}
+                <span aria-hidden="true">→</span>
+              </Link>
+            )}
           </div>
         )}
       </div>
     </div>
   );
+
+  if (href && secondaryLink) {
+    // Stretched-link pattern: whole card clicks through to `href`.
+    // `pointer-events-none` on the content layer lets clicks fall to the stretched link,
+    // while the secondary link inside content re-enables pointer events for itself.
+    return (
+      <article className="relative h-full group">
+        {external ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={primaryAriaLabel ?? title}
+            className="absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-green"
+          />
+        ) : (
+          <Link
+            href={href}
+            aria-label={primaryAriaLabel ?? title}
+            className="absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-green"
+          />
+        )}
+        <div className="relative z-10 pointer-events-none h-full">
+          {content}
+        </div>
+      </article>
+    );
+  }
 
   if (href && external) {
     return (

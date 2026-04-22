@@ -85,14 +85,6 @@ export default async function LocaleLayout({
     "@type": "WebSite",
     name: "switch-to.eu",
     url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/en/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (

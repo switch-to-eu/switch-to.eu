@@ -102,7 +102,6 @@ packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
-  content/        # Shared content system (Markdown parsing, Zod schemas, Fuse.js search)
   db/             # Shared database utilities (Redis client, crypto, admin tokens, expiration, mock-redis for tests, test-redis for Testcontainers)
   trpc/           # Shared tRPC v11 infrastructure (used by plotty, listy, privnote — NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
@@ -117,7 +116,7 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **Middleware file is `proxy.ts`**, not `middleware.ts`. The next-intl middleware entry point for both apps is named `proxy.ts`.
 
-**Content is a git submodule** at `packages/content/content/` (repo: `switch-to-eu/content`). After cloning, run `git submodule update --init`. Content is organized by locale (`en/`, `nl/`) with categories, services (eu/non-eu), and guides in Markdown with frontmatter.
+**Content lives in Payload CMS** (Postgres), managed via the `/admin` panel. Collections: Categories, Services, Guides, Landing Pages, Pages, Media. Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`. All content collections have `versions: { drafts: true }` and require explicit publish.
 
 **Next.js plugin chain** in `apps/website/next.config.ts`: `withMDX(withNextIntl(nextConfig))`. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
 
@@ -133,14 +132,6 @@ Locales: `en` (default), `nl`. Managed by `@switch-to-eu/i18n` package using nex
 - **Messages:** Located in `packages/i18n/messages/{appName}/{locale}.json` merged with `shared/{locale}.json`
 - **Request config:** Apps use `createRequestConfig("website")`, `createRequestConfig("keepfocus")`, `createRequestConfig("plotty")`, `createRequestConfig("privnote")`, etc. from `@switch-to-eu/i18n/request`
 - All routes are under `[locale]` dynamic segment
-
-## Content System (Website)
-
-Content logic lives in `@switch-to-eu/content` package. Content files are a git submodule at `packages/content/content/`. Markdown with frontmatter validated by Zod schemas. Guides use a custom section format with HTML comments (`<!-- section:intro -->`, `<!-- step-start -->`, `<!-- step-meta title:"..." -->`).
-
-Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`.
-
-Search uses Fuse.js with in-memory caching (5-min TTL, keyed by locale).
 
 ## Content Workflow (AI-Assisted)
 
@@ -239,10 +230,77 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Code Style
 
-- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns.
+- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (also stored at `.impeccable.md`).
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
 - **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code.
 - Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (hero display, `--font-anton`)
 - ESLint 9 flat config; unused vars prefixed with `_` are allowed
 - shadcn/ui components live in `packages/ui/src/components/`
+
+## Design Context
+
+`docs/brand.md` is the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context brand.md leaves implicit: who we design for, how it should feel, what to avoid. Full version in `.impeccable.md`.
+
+### Users
+
+Three overlapping audiences — every page must work for all three:
+
+1. **Privacy-curious generalists** — everyday EU residents nudged here by news or a friend. Not technical. Want to be shown, not lectured.
+2. **Motivated switchers** — already decided to leave a US service, here to find the right EU alternative. Want specifics: price, what's comparable, where it falls short, migration steps.
+3. **Sovereignty-minded advocates** — often technical, already engaged. Value rigor, openness, and no-bullshit specificity.
+
+Hierarchy and progressive disclosure let each group find their layer without condescending to the others.
+
+### Brand Personality
+
+**Direct, warm, specific.**
+
+- **Direct** — no padding, no hedging, no selling. If an EU alternative is more expensive, say so on the same page you recommend it.
+- **Warm** — a knowledgeable friend, not a regulator or an activist. Explain without patronising; disagree without sneering.
+- **Specific** — every claim backed by a number, feature, or concrete trade-off. Vague reassurance is worse than honest weakness.
+
+Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed. See `.claude/skills/informational-copy` for written tone rules.
+
+### Aesthetic Direction
+
+Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` references: Pride Project posters, Flavour United palette, Vy brand, freeform shape library, Google Labs card grid.
+
+**Things switch-to.eu must NOT look like:**
+
+- **SaaS marketing sites** (Linear / Vercel / Stripe): gradient heroes, testimonial carousels, "trusted by" logo strips, CTA-stacked scroll. Too slick, too anonymous.
+- **EU institutional sites** (ec.europa.eu and kin): bureaucratic, serif-heavy, cluttered. We are FOR the EU, we do not look LIKE the EU.
+- **Generic developer tools**: monospace everywhere, dark terminal aesthetic, cyan/purple neon. Some users are technical; none want another terminal.
+
+**Signature moves — use them, don't abandon them:**
+
+- Anton display type at fluid `clamp(3.5rem, 12vw, 14rem)` for the home hero.
+- Bonbance Bold Condensed, uppercase, weight 800 for every section heading.
+- Organic SVG shapes floating around content, staggered animation, `aria-hidden` + `pointer-events-none`.
+- Fully-saturated brand-colour blocks with `rounded-3xl` as section containers.
+- `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
+- Category / pillar / feature cards rotate through the 8-colour sequence from `getCardColor(index)` — don't break the rotation to be clever.
+
+### Accessibility
+
+**Target: WCAG 2.2 AA, reduced-motion respected.**
+
+- Verify contrast for every text + background pairing. The bold palette is easy to get wrong.
+- `:focus-visible` on every interactive element. Pill buttons hide default focus rings — replace them, don't remove them.
+- Shape animations disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
+- Keyboard-complete navigation. No hover-only affordances.
+- Decorative shapes always `aria-hidden="true"` and `pointer-events-none`.
+- Respect the text-on-colour contrast rule from `docs/brand.md`: dark brand colours take `#ffffff`; light brand colours take `#1a1a1a`. Don't tint text off-palette to "make it work."
+
+### Design Principles
+
+1. **Honesty over polish.** Trade-offs appear on the same surface as recommendations. No asterisks, no hide-behind-a-link.
+2. **Swagger in the visuals, restraint in the claims.** Loud visuals + loud copy reads as marketing. We are not marketing.
+3. **Bold colour is structural, not decorative.** Full-saturation blocks mark section boundaries. Don't sprinkle brand colours as accents on otherwise-neutral cards.
+4. **Organic shapes are mandatory, never arbitrary.** 2–3 per major section, staggered timing, sized to overflow. Scatter them — aligned shapes feel corporate.
+5. **Three audiences, one page.** Hierarchy does the work, not separate sections addressed at each audience.
+
+<!-- skilld -->
+Before modifying code, evaluate each installed skill against the current task.
+For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
+<!-- /skilld -->
