@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: Post-publish SEO audit on a live page. Pulls GSC performance data, Apify SERP for competitors, current page content from Payload, and (optionally) Unlighthouse scores. Writes a prioritised rewrite plan to the pageAudits collection. Use when asked to "audit this page", "seo audit", "what's wrong with this page's SEO", "analyze ranking performance".
+description: Post-publish SEO audit on a live page. Pulls GSC performance data, Jina Search for competitor SERP + content, current page content from Payload, and (optionally) Unlighthouse scores. Writes a prioritised rewrite plan to the pageAudits collection. Use when asked to "audit this page", "seo audit", "what's wrong with this page's SEO", "analyze ranking performance".
 argument-hint: "target (e.g. 'service proton-vpn', 'guide gmail-to-protonmail', 'category cloud-storage', 'all'). Optional flags: --lighthouse, --dry-run"
 ---
 
@@ -10,7 +10,7 @@ Post-publish performance audit on live pages. Distinct from `seo-check`, which i
 
 Read these helpers before calling tools:
 - `../_shared/gsc.md` — GSC MCP tool catalogue
-- `../_shared/apify.md` — SERP scraping patterns
+- `../_shared/jina.md` — Jina Reader + Search (SERP + competitor content)
 - `../_shared/lighthouse.md` — Unlighthouse invocation
 - `../_shared/payload-operational.md` — how to write to `pageAudits`
 - `../_shared/lexical-json.md` — richText JSON format
@@ -37,21 +37,23 @@ For each resolved page, run the following in order:
 
 1. **Construct the page's canonical URL.**
    - Services with `region === "non-eu"`: `/en/services/non-eu/<slug>`.
-   - Services with a category: `/en/services/<category.slug>/<slug>`.
+   - All other services (`region` = `eu` or `eu-friendly`): `/en/services/eu/<slug>`.
    - Guides: `/en/guides/<category.slug>/<slug>`.
-   - Prepend `https://switch-to.eu`.
+   - Prepend `https://www.switch-to.eu` (site is www-canonical).
 
 2. **Fetch GSC data** (see `_shared/gsc.md`).
-   - Call `advanced_search_analytics` with `{ filters: [{ dimension: "page", operator: "equals", expression: "<full-url>" }], dimensions: ["date"], dateRange: "last-90-days" }` → aggregate impressions, clicks, ctr, avgPosition → `currentMetrics`.
-   - Call `advanced_search_analytics` with `{ filters: [page filter], dimensions: ["query"], rowLimit: 20 }` → sort by impressions → top 10 → `topQueries`. Filter by `position >= 11 && position <= 20 && impressions >= 50` → `almostRankingQueries`.
+   - Use `operator: "contains"` on the URL path (e.g. `/services/eu/proton-drive`), NOT `equals` on the full URL. Post-migration, GSC has impressions split across `switch-to.eu/en/<path>`, `www.switch-to.eu/<path>` (no `/en/`), and `www.switch-to.eu/en/<path>` — `contains` aggregates them; `equals` misses most history.
+   - Call `advanced_search_analytics` with `{ filters: [{ dimension: "page", operator: "contains", expression: "<path>" }], dimensions: ["date"], days: 90 }` → sum impressions, clicks across dates; compute avg ctr / position → `currentMetrics`.
+   - Call `advanced_search_analytics` with `{ filters: [path-contains filter], dimensions: ["query"], row_limit: 30, order_by: "impressions" }` → top 10 by impressions → `topQueries`. Filter the same rows by `position >= 11 && position <= 20 && impressions >= 5` → `almostRankingQueries`.
+   - If zero rows returned, try broader path variants before giving up (e.g. strip category segment). Slug drift is real — some pages have old slugs still accumulating impressions.
 
 3. **Determine the target keyword.**
    - If `topQueries` non-empty: use the highest-impression query.
    - Else: fall back to the Payload `name` field for services, `title` for guides.
 
-4. **Scrape the SERP** (see `_shared/apify.md`).
-   - Call `apify/google-search-scraper` with `queries=[<target keyword>]`, `countryCode=NL`, `languageCode=en`, `resultsPerPage=10`.
-   - Take top 10 organic results → `competitors[]`.
+4. **Scrape the SERP + competitor content** (see `_shared/jina.md`).
+   - Call Jina Search: `GET https://s.jina.ai/?q=<url-encoded-target-keyword>&num=10&gl=nl&hl=en` with `Authorization: Bearer $JINA_READER_API_KEY` and `X-Respond-With: markdown` header.
+   - Single call returns top 10 organic results (rank, URL, title, description) PLUS the markdown body of each competitor page. Populate `competitors[]` from the rank/URL/title/description fields; keep competitor `content` in memory for step 7's content-gap analysis — no need for a second round of Reader calls.
 
 5. **Fetch current page content from Payload.**
    - `mcp__Payload__findServices` or `findGuides` by id (from step 1) — get `name`, `metaTitle`, `metaDescription`, `content`, `description`, etc.
@@ -84,7 +86,8 @@ For each resolved page, run the following in order:
 | Failure | Behaviour |
 |---|---|
 | GSC returns no data for URL | Write `currentMetrics` zeros; set priority=low; note "no GSC data" in `summary`; continue with SERP + content analysis. |
-| Apify rate-limit / error | Skip `competitors` + `competitorAnalysis`; note in `summary`; write remainder. |
+| Jina Search rate-limit / 429 | Back off 60s, retry once. If still failing, skip `competitors` + `competitorAnalysis`; note in `summary`; write remainder. |
+| Jina Search empty `data[]` | Skip `competitors`; note "no SERP data for target keyword" in `summary`; continue with GSC + content analysis. |
 | Lighthouse fails / times out | Skip `lighthouse` group; note in `summary`. |
 | Payload read fails (page not found) | Abort this page only; continue batch. |
 | Payload write fails | Abort with error; don't silently drop. |
@@ -120,11 +123,11 @@ Batch summary at end of multi-target run:
 ## Cost per run
 
 - GSC: 2 calls/page (free)
-- Apify SERP: ~$0.0025/page
+- Jina Search: 1 call/page × ~15k tokens = ~0.15% of the 10M free-tier budget per audit
 - Unlighthouse: local CPU, ~15s/page
 - Payload writes: 1/page
 
-Top-20 run: ~$0.05 + ~5 min wall-clock (without Lighthouse). With Lighthouse: +~5 min.
+Top-20 run: $0 out-of-pocket + ~5 min wall-clock (without Lighthouse). With Lighthouse: +~5 min.
 
 ## Important notes
 
