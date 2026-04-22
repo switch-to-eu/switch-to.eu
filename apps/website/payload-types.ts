@@ -72,7 +72,7 @@ export interface Config {
     guides: Guide;
     'landing-pages': LandingPage;
     media: Media;
-    pageAudits: PageAudit;
+    'page-audits': PageAudit;
     pages: Page;
     services: Service;
     users: User;
@@ -88,7 +88,7 @@ export interface Config {
     guides: GuidesSelect<false> | GuidesSelect<true>;
     'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    pageAudits: PageAuditsSelect<false> | PageAuditsSelect<true>;
+    'page-audits': PageAuditsSelect<false> | PageAuditsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -758,7 +758,7 @@ export interface LandingPage {
  * Post-publish SEO audits. One row per audit run; multiple rows per page over time form history. Operational data — no drafts.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pageAudits".
+ * via the `definition` "page-audits".
  */
 export interface PageAudit {
   id: number;
@@ -1150,7 +1150,7 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'pageAudits';
+        relationTo: 'page-audits';
         value: number | PageAudit;
       } | null)
     | ({
@@ -1354,7 +1354,7 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pageAudits_select".
+ * via the `definition` "page-audits_select".
  */
 export interface PageAuditsSelect<T extends boolean = true> {
   pageType?: T;

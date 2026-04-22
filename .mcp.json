@@ -19,23 +19,10 @@
             ]
         },
         "Payload": {
-            "command": "npx",
+            "command": "sh",
             "args": [
-                "-y",
-                "mcp-remote",
-                "http://localhost:5010/api/mcp",
-                "--header",
-                "Authorization: Bearer ${PAYLOAD_MCP_API_KEY}"
-            ]
-        },
-        "apify": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "mcp-remote",
-                "https://mcp.apify.com/?tools=actors,docs,runs,storage,apify/website-content-crawler,apify/web-scraper,apify/google-search-scraper",
-                "--header",
-                "Authorization: Bearer ${APIFY_API_TOKEN}"
+                "-c",
+                ". ./.env && exec npx -y mcp-remote http://localhost:5010/api/mcp --header \"Authorization: Bearer $PAYLOAD_MCP_API_KEY\""
             ]
         }
     }

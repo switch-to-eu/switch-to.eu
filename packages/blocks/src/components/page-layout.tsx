@@ -17,7 +17,7 @@ export function PageLayout({
   return (
     <main
       className={cn(
-        "flex flex-col md:gap-20 overflow-hidden",
+        "flex flex-col md:gap-20 overflow-x-clip",
         gapMobile && "gap-8 sm:gap-12",
         paddingTopMobile ? "pt-6 sm:pt-8 md:pt-12" : "md:pt-12",
         paddingBottomMobile ? "pb-6 sm:pb-8 md:pb-12" : "md:pb-12",

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload";
 
 export const PageAudits: CollectionConfig = {
-  slug: "pageAudits",
+  slug: "page-audits",
   admin: {
     useAsTitle: "summaryTitle",
     defaultColumns: ["pageType", "priority", "status", "auditedAt"],
