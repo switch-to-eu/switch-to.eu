@@ -69,6 +69,7 @@ export interface Config {
   blocks: {};
   collections: {
     categories: Category;
+    'content-opportunities': ContentOpportunity;
     guides: Guide;
     'landing-pages': LandingPage;
     media: Media;
@@ -85,6 +86,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'content-opportunities': ContentOpportunitiesSelect<false> | ContentOpportunitiesSelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -232,7 +234,6 @@ export interface Category {
 export interface Media {
   id: number;
   alt?: string | null;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -246,198 +247,84 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Content backlog discovered by opportunity-finder. Type discriminator distinguishes demand-driven (GSC) vs supply-driven (Reddit/SERP) finds. Operational data — no drafts.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "guides".
+ * via the `definition` "content-opportunities".
  */
-export interface Guide {
+export interface ContentOpportunity {
   id: number;
-  slug: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  /**
-   * e.g. "45 minutes"
-   */
-  timeRequired: string;
-  date?: string | null;
-  /**
-   * Feature this guide as the homepage hero poster. Only one guide should be flagged at a time; the most recent published guide is used as a fallback.
-   */
-  featuredOnHomepage?: boolean | null;
-  /**
-   * Tracks progress through the content pipeline
-   */
-  contentPipelineStatus?:
-    | ('not-started' | 'in-progress' | 'written' | 'humanized' | 'seo-checked' | 'translated' | 'complete')
-    | null;
+  type: 'missing-guide' | 'missing-service' | 'almost-ranking' | 'new-category';
+  priority: 'high' | 'medium' | 'low';
+  status: 'new' | 'reviewed' | 'queued' | 'written' | 'rejected';
+  discoveredAt: string;
   title: string;
-  category: number | Category;
-  description: string;
   /**
-   * The non-EU service being migrated from
+   * Lowercase canonical query this opportunity targets.
    */
-  sourceService: number | Service;
-  /**
-   * The EU service being migrated to
-   */
-  targetService: number | Service;
-  author?: string | null;
-  /**
-   * Features missing in the target service compared to the source
-   */
-  missingFeatures?:
+  targetKeyword: string;
+  locale?: ('en' | 'nl' | 'both') | null;
+  estimatedMonthlyImpressions?: number | null;
+  reasoning: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  competitorUrls?:
     | {
-        feature: string;
+        url: string;
+        title?: string | null;
+        rank?: number | null;
         id?: string | null;
       }[]
     | null;
   /**
-   * Introduction section — why switch?
+   * GSC rows that triggered this opportunity (Mode A).
    */
-  intro?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Prerequisites and what you need before starting
-   */
-  beforeYouStart?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Ordered migration steps
-   */
-  steps?:
+  sourceQueries?:
     | {
-        title: string;
-        content: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * Optional video for this step
-         */
-        video?: (number | null) | Media;
-        videoOrientation?: ('landscape' | 'portrait') | null;
-        /**
-         * Whether this step is fully written (progress tracking)
-         */
-        complete?: boolean | null;
+        query: string;
+        impressions?: number | null;
+        position?: number | null;
         id?: string | null;
       }[]
     | null;
   /**
-   * Common issues and their solutions
+   * Reddit posts that triggered this opportunity (Mode B).
    */
-  troubleshooting?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Conclusion and next steps
-   */
-  outro?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Custom page title for search engines (50-60 chars)
-   */
-  metaTitle?: string | null;
-  /**
-   * Custom meta description for search engines (150-160 chars)
-   */
-  metaDescription?: string | null;
-  /**
-   * Target SEO keywords (localized — different keywords per market)
-   */
-  keywords?:
+  redditSignals?:
     | {
-        keyword: string;
+        subreddit: string;
+        postUrl: string;
+        snippet?: string | null;
+        date?: string | null;
         id?: string | null;
       }[]
     | null;
   /**
-   * Open Graph title for social sharing
+   * Set once an opportunity has been acted on.
    */
-  ogTitle?: string | null;
+  resultingType?: ('service' | 'guide') | null;
   /**
-   * Open Graph description for social sharing
+   * The service created from this opportunity (when resultingType = service).
    */
-  ogDescription?: string | null;
+  resultingService?: (number | null) | Service;
   /**
-   * Open Graph image for social sharing
+   * The guide created from this opportunity (when resultingType = guide).
    */
-  ogImage?: (number | null) | Media;
-  /**
-   * AI-assessed SEO quality score (0-100)
-   */
-  seoScore?: number | null;
-  /**
-   * Notes from last SEO review
-   */
-  seoNotes?: string | null;
-  /**
-   * When SEO was last reviewed
-   */
-  lastSeoReviewAt?: string | null;
+  resultingGuide?: (number | null) | Guide;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -634,6 +521,243 @@ export interface Service {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Aggregated Reddit sentiment. Populated by the research skill — don't edit by hand.
+   */
+  userSentiment?: {
+    positive?: number | null;
+    negative?: number | null;
+    mixed?: number | null;
+    /**
+     * Consumer-facing 2-3 sentence summary of what users say on Reddit.
+     */
+    summary?: string | null;
+    lastUpdated?: string | null;
+  };
+  /**
+   * Raw Reddit posts that fed userSentiment. Source data, not localized.
+   */
+  redditMentions?:
+    | {
+        subreddit: string;
+        postUrl: string;
+        postTitle?: string | null;
+        sentiment?: ('positive' | 'negative' | 'mixed' | 'neutral') | null;
+        snippet?: string | null;
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * News coverage in the last 12 months. Populated by the research skill.
+   */
+  recentNews?:
+    | {
+        source: string;
+        url: string;
+        title?: string | null;
+        date?: string | null;
+        /**
+         * 1-sentence consumer-facing summary of the article.
+         */
+        summary?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Custom page title for search engines (50-60 chars)
+   */
+  metaTitle?: string | null;
+  /**
+   * Custom meta description for search engines (150-160 chars)
+   */
+  metaDescription?: string | null;
+  /**
+   * Target SEO keywords (localized — different keywords per market)
+   */
+  keywords?:
+    | {
+        keyword: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Open Graph title for social sharing
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description for social sharing
+   */
+  ogDescription?: string | null;
+  /**
+   * Open Graph image for social sharing
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * AI-assessed SEO quality score (0-100)
+   */
+  seoScore?: number | null;
+  /**
+   * Notes from last SEO review
+   */
+  seoNotes?: string | null;
+  /**
+   * When SEO was last reviewed
+   */
+  lastSeoReviewAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guides".
+ */
+export interface Guide {
+  id: number;
+  slug: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  /**
+   * e.g. "45 minutes"
+   */
+  timeRequired: string;
+  date?: string | null;
+  /**
+   * Feature this guide as the homepage hero poster. Only one guide should be flagged at a time; the most recent published guide is used as a fallback.
+   */
+  featuredOnHomepage?: boolean | null;
+  /**
+   * Tracks progress through the content pipeline
+   */
+  contentPipelineStatus?:
+    | ('not-started' | 'in-progress' | 'written' | 'humanized' | 'seo-checked' | 'translated' | 'complete')
+    | null;
+  title: string;
+  category: number | Category;
+  description: string;
+  /**
+   * The non-EU service being migrated from
+   */
+  sourceService: number | Service;
+  /**
+   * The EU service being migrated to
+   */
+  targetService: number | Service;
+  author?: string | null;
+  /**
+   * Features missing in the target service compared to the source
+   */
+  missingFeatures?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Introduction section — why switch?
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Prerequisites and what you need before starting
+   */
+  beforeYouStart?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Ordered migration steps
+   */
+  steps?:
+    | {
+        title: string;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Optional video for this step
+         */
+        video?: (number | null) | Media;
+        videoOrientation?: ('landscape' | 'portrait') | null;
+        /**
+         * Whether this step is fully written (progress tracking)
+         */
+        complete?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Common issues and their solutions
+   */
+  troubleshooting?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Conclusion and next steps
+   */
+  outro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Custom page title for search engines (50-60 chars)
    */
@@ -1090,6 +1214,24 @@ export interface PayloadMcpApiKey {
      */
     delete?: boolean | null;
   };
+  contentOpportunities?: {
+    /**
+     * Allow clients to find content-opportunities.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create content-opportunities.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update content-opportunities.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete content-opportunities.
+     */
+    delete?: boolean | null;
+  };
   media?: {
     /**
      * Allow clients to find media.
@@ -1136,6 +1278,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'content-opportunities';
+        value: number | ContentOpportunity;
       } | null)
     | ({
         relationTo: 'guides';
@@ -1250,6 +1396,51 @@ export interface CategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "content-opportunities_select".
+ */
+export interface ContentOpportunitiesSelect<T extends boolean = true> {
+  type?: T;
+  priority?: T;
+  status?: T;
+  discoveredAt?: T;
+  title?: T;
+  targetKeyword?: T;
+  locale?: T;
+  estimatedMonthlyImpressions?: T;
+  reasoning?: T;
+  competitorUrls?:
+    | T
+    | {
+        url?: T;
+        title?: T;
+        rank?: T;
+        id?: T;
+      };
+  sourceQueries?:
+    | T
+    | {
+        query?: T;
+        impressions?: T;
+        position?: T;
+        id?: T;
+      };
+  redditSignals?:
+    | T
+    | {
+        subreddit?: T;
+        postUrl?: T;
+        snippet?: T;
+        date?: T;
+        id?: T;
+      };
+  resultingType?: T;
+  resultingService?: T;
+  resultingGuide?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guides_select".
  */
 export interface GuidesSelect<T extends boolean = true> {
@@ -1339,7 +1530,6 @@ export interface LandingPagesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1544,6 +1734,36 @@ export interface ServicesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  userSentiment?:
+    | T
+    | {
+        positive?: T;
+        negative?: T;
+        mixed?: T;
+        summary?: T;
+        lastUpdated?: T;
+      };
+  redditMentions?:
+    | T
+    | {
+        subreddit?: T;
+        postUrl?: T;
+        postTitle?: T;
+        sentiment?: T;
+        snippet?: T;
+        date?: T;
+        id?: T;
+      };
+  recentNews?:
+    | T
+    | {
+        source?: T;
+        url?: T;
+        title?: T;
+        date?: T;
+        summary?: T;
+        id?: T;
+      };
   metaTitle?: T;
   metaDescription?: T;
   keywords?:
@@ -1633,6 +1853,14 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         delete?: T;
       };
   pageAudits?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  contentOpportunities?:
     | T
     | {
         find?: T;

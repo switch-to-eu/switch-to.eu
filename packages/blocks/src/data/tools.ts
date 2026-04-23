@@ -57,14 +57,6 @@ export const tools: Tool[] = [
         url: isDev ? 'https://quiz.switch-to.test' : 'https://quiz.switch-to.eu',
         status: 'active',
         icon: 'brain'
-    },
-    {
-        id: 'kanban',
-        name: 'Kanban',
-        description: 'Simple kanban boards for project management',
-        url: isDev ? 'https://kanban.switch-to.test' : 'https://kanban.switch-to.eu',
-        status: 'coming-soon',
-        icon: 'kanban-square'
     }
 ];
 

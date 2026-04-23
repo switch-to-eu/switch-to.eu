@@ -65,7 +65,6 @@ Each tool app has its own color scheme defined in `packages/ui/src/lib/tool-colo
 | Plotty    | Navy    | Pink   | Pink    |
 | Listy     | Green   | Sage   | Sage    |
 | PrivNote  | Orange  | Yellow | Yellow  |
-| Kanban    | Navy    | Sage   | Sage    |
 | Quiz      | Red     | Orange | Orange  |
 | EU-Scan   | Green   | Sky    | Sky     |
 
