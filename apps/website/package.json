@@ -42,7 +42,7 @@
     "framer-motion": "^12.9.2",
     "lucide-react": "catalog:",
     "negotiator": "^1.0.0",
-    "next": "16.2.4",
+    "next": "catalog:",
     "next-intl": "catalog:",
     "next-plausible": "^3.12.4",
     "octokit": "catalog:",
