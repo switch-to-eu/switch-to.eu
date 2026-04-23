@@ -1,6 +1,6 @@
 ---
 name: bulk-research
-description: Research multiple services in parallel using subagents. Use when asked to "research all services", "bulk research", "research these services", or need to populate Research tabs for many services at once.
+description: Research multiple services in parallel using subagents. Each service gets the full research pass — vendor site, pricing, privacy/GDPR, Reddit sentiment, and recent news — written to both existing research fields and the newer structured fields (userSentiment, redditMentions, recentNews). Use when asked to "research all services", "bulk research", "research these services", or need to populate Research tabs for many services at once.
 argument-hint: "'<name1>, <name2>, ...' or 'all' or 'category <name>' or 'unresearched'"
 ---
 
@@ -76,18 +76,25 @@ Use the /research skill to research this service. Here is the full process:
 1. Find the service in Payload using mcp__payload__findServices with:
    {"where": "{\"name\": {\"contains\": \"{SERVICE_NAME}\"}}", "limit": 5}
 
-2. Research using WebSearch and WebFetch:
+2. Research using Jina Reader (r.jina.ai), Jina Search (s.jina.ai), and the Reddit MCP:
    - Company basics: website, headquarters, parent company, founded year, employees, open source
    - Pricing: free tier, paid plans, enterprise, pricing page URL
    - Privacy & GDPR: data storage locations, compliance status, DPA, privacy policy URL
    - Security: certifications, breaches, audits
-   - Public sentiment: Reddit reviews, controversies
+   - Reddit sentiment: search default subreddits (r/privacy, r/europe, r/selfhosted, r/degoogle) for the service; classify posts as positive/negative/mixed/neutral; collect snippets
+   - Recent news: Jina Search with time filter, last 12 months, top 10 results by recency
 
 3. Store findings via mcp__payload__updateServices with the service ID.
    Map all fields: gdprCompliance, gdprNotes, privacyPolicyUrl, pricingDetails, pricingUrl,
    headquarters, parentCompany, foundedYear, employeeCount, dataStorageLocations, certifications,
    openSource, sourceCodeUrl, researchNotes (Lexical richText JSON), sourceUrls,
+   userSentiment (group with positive/negative/mixed counts + 2-3 sentence summary),
+   redditMentions (array of {subreddit, postUrl, postTitle, sentiment, snippet, date}),
+   recentNews (array of {source, url, title, date, summary}),
    researchStatus: "complete", lastResearchedAt: today's ISO date.
+
+   Apply merge semantics: don't overwrite non-empty scalar fields with empty values.
+   userSentiment / redditMentions / recentNews always replace (time-sensitive).
 
 4. Also update General tab if empty: location, url, freeOption, startingPrice.
 

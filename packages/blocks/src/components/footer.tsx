@@ -1,8 +1,13 @@
 import { ReactNode } from "react";
 import { cn } from "@switch-to-eu/ui/lib/utils";
+import { Link } from "@switch-to-eu/i18n/navigation";
 import { FooterTools } from "./footer-tools";
 import { FooterFeedback } from "./footer-feedback";
 import { FooterCopyright } from "./footer-copyright";
+
+function isExternalHref(href: string): boolean {
+  return /^(https?:)?\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith("tel:");
+}
 
 export interface FooterLink {
   /** Link text or label */
@@ -70,19 +75,29 @@ export function Footer({
             </h3>
           )}
           <ul className="space-y-2">
-            {links.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link.href}
-                  className="text-sm text-white/70 transition-colors hover:text-white"
-                  {...(link.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {links.map((link, index) => {
+              const external = link.external ?? isExternalHref(link.href);
+              const className =
+                "text-sm text-white/70 transition-colors hover:text-white";
+              return (
+                <li key={index}>
+                  {external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className={className}>
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           
           {feedbackToolId && (

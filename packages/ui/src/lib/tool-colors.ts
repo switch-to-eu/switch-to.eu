@@ -29,7 +29,6 @@ export const TOOL_SCHEMES: Record<string, ToolColorScheme> = {
   plotty: { primary: "navy", accent: "pink", surface: "pink" },
   listy: { primary: "green", accent: "sage", surface: "sage" },
   privnote: { primary: "orange", accent: "yellow", surface: "yellow" },
-  kanban: { primary: "navy", accent: "sage", surface: "sage" },
   quiz: { primary: "red", accent: "orange", surface: "orange" },
   "eu-scan": { primary: "green", accent: "sky", surface: "sky" },
 };

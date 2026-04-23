@@ -5,6 +5,8 @@ import {
   getCategorySlug,
   getGuideSourceService,
   getGuideTargetService,
+  hasPricingData,
+  hasSecurityData,
 } from "@/lib/services";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -73,22 +75,11 @@ export async function collectAllSiteUrls(): Promise<string[]> {
     const servicePath = `/services/${regionPath}/${service.slug}`;
     paths.add(servicePath);
 
-    if (
-      regionPath === "eu" &&
-      ((service.pricingTiers && service.pricingTiers.length > 0) ||
-        service.pricingDetails ||
-        service.startingPrice)
-    ) {
+    if (regionPath === "eu" && hasPricingData(service)) {
       paths.add(`${servicePath}/pricing`);
     }
 
-    if (
-      regionPath === "eu" &&
-      (service.gdprCompliance ||
-        (service.certifications && service.certifications.length > 0) ||
-        (service.dataStorageLocations &&
-          service.dataStorageLocations.length > 0))
-    ) {
+    if (regionPath === "eu" && hasSecurityData(service)) {
       paths.add(`${servicePath}/security`);
     }
   }

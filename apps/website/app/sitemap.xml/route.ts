@@ -4,6 +4,8 @@ import {
   getCategorySlug,
   getGuideSourceService,
   getGuideTargetService,
+  hasPricingData,
+  hasSecurityData,
 } from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
 import { unstable_cache } from "next/cache";
@@ -140,12 +142,7 @@ async function buildEntries(): Promise<SitemapEntry[]> {
         alternates: localeAlternates(serviceUrl),
       }));
 
-      if (
-        regionPath === "eu" &&
-        ((service.pricingTiers && service.pricingTiers.length > 0) ||
-          service.pricingDetails ||
-          service.startingPrice)
-      ) {
+      if (regionPath === "eu" && hasPricingData(service)) {
         const pricingUrl = `${serviceUrl}/pricing`;
         entries.push(
           ...locales.map((locale) => ({
@@ -158,13 +155,7 @@ async function buildEntries(): Promise<SitemapEntry[]> {
         );
       }
 
-      if (
-        regionPath === "eu" &&
-        (service.gdprCompliance ||
-          (service.certifications && service.certifications.length > 0) ||
-          (service.dataStorageLocations &&
-            service.dataStorageLocations.length > 0))
-      ) {
+      if (regionPath === "eu" && hasSecurityData(service)) {
         const securityUrl = `${serviceUrl}/security`;
         entries.push(
           ...locales.map((locale) => ({

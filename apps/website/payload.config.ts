@@ -9,6 +9,7 @@ import { en } from "@payloadcms/translations/languages/en";
 import { nl } from "@payloadcms/translations/languages/nl";
 import {
   Categories,
+  ContentOpportunities,
   Guides,
   LandingPages,
   Media,
@@ -46,7 +47,7 @@ export default buildConfig({
     supportedLanguages: { en, nl },
     fallbackLanguage: "en",
   },
-  collections: [Categories, Guides, LandingPages, Media, PageAudits, Pages, Services, Users],
+  collections: [Categories, ContentOpportunities, Guides, LandingPages, Media, PageAudits, Pages, Services, Users],
   plugins: [
     mcpPlugin({
       collections: {
@@ -56,6 +57,7 @@ export default buildConfig({
         "landing-pages": { enabled: true },
         pages: { enabled: true },
         "page-audits": { enabled: true },
+        "content-opportunities": { enabled: true },
         media: {
           enabled: {
             find: true,

@@ -559,10 +559,6 @@
       "quiz": {
         "title": "Quiz",
         "description": "Organiseer live quizzen voor klassen en teams — geen registratie, end-to-end versleuteld, privacy-first."
-      },
-      "kanban": {
-        "title": "Kanban",
-        "description": "Privé Kanban-borden voor teams — organiseer taken visueel, geen account nodig, end-to-end versleuteld."
       }
     }
   },

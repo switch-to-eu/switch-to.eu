@@ -178,4 +178,77 @@ export const researchFields: Field[] = [
       description: "URLs used as sources for research",
     },
   },
+  // User sentiment (AI-aggregated from Reddit) — populated by the expanded
+  // research skill. `summary` is localized because it renders on the public
+  // service page; the raw Reddit source data below is not.
+  {
+    name: "userSentiment",
+    type: "group",
+    admin: {
+      description:
+        "Aggregated Reddit sentiment. Populated by the research skill — don't edit by hand.",
+    },
+    fields: [
+      { name: "positive", type: "number" },
+      { name: "negative", type: "number" },
+      { name: "mixed", type: "number" },
+      {
+        name: "summary",
+        type: "textarea",
+        localized: true,
+        admin: {
+          description:
+            "Consumer-facing 2-3 sentence summary of what users say on Reddit.",
+        },
+      },
+      { name: "lastUpdated", type: "date" },
+    ],
+  },
+  {
+    name: "redditMentions",
+    type: "array",
+    admin: {
+      description:
+        "Raw Reddit posts that fed userSentiment. Source data, not localized.",
+    },
+    fields: [
+      { name: "subreddit", type: "text", required: true },
+      { name: "postUrl", type: "text", required: true },
+      { name: "postTitle", type: "text" },
+      {
+        name: "sentiment",
+        type: "select",
+        options: [
+          { label: "Positive", value: "positive" },
+          { label: "Negative", value: "negative" },
+          { label: "Mixed", value: "mixed" },
+          { label: "Neutral", value: "neutral" },
+        ],
+      },
+      { name: "snippet", type: "textarea" },
+      { name: "date", type: "date" },
+    ],
+  },
+  {
+    name: "recentNews",
+    type: "array",
+    admin: {
+      description:
+        "News coverage in the last 12 months. Populated by the research skill.",
+    },
+    fields: [
+      { name: "source", type: "text", required: true },
+      { name: "url", type: "text", required: true },
+      { name: "title", type: "text" },
+      { name: "date", type: "date" },
+      {
+        name: "summary",
+        type: "textarea",
+        localized: true,
+        admin: {
+          description: "1-sentence consumer-facing summary of the article.",
+        },
+      },
+    ],
+  },
 ];

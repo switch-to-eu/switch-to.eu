@@ -5,7 +5,6 @@ import {
   TargetIcon,
   FileLock2Icon,
   BrainIcon,
-  KanbanSquareIcon,
   Layers,
   type LucideIcon,
 } from "lucide-react";
@@ -17,7 +16,6 @@ const iconMap: Record<string, LucideIcon> = {
   target: TargetIcon,
   "file-lock": FileLock2Icon,
   brain: BrainIcon,
-  "kanban-square": KanbanSquareIcon,
 };
 
 // Inline SVG paths for shape masks — eliminates dependency on /public/images/shapes/*.svg
@@ -63,7 +61,6 @@ const shapeMap: Record<string, string> = {
   target: "pebble",
   "file-lock": "heart",
   brain: "spark",
-  "kanban-square": "flower",
 };
 
 function buildShapeDataUri(shapeName: string): string {

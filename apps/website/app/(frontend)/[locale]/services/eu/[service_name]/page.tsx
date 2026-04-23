@@ -1,4 +1,4 @@
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Link } from "@switch-to-eu/i18n/navigation";

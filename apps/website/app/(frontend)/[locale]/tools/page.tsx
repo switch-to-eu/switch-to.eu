@@ -16,7 +16,6 @@ import {
   TargetIcon,
   FileLock2Icon,
   BrainIcon,
-  KanbanSquareIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -42,7 +41,6 @@ const iconMap: Record<string, LucideIcon> = {
   target: TargetIcon,
   "file-lock": FileLock2Icon,
   brain: BrainIcon,
-  "kanban-square": KanbanSquareIcon,
 };
 
 const TOOL_SHAPES = [
