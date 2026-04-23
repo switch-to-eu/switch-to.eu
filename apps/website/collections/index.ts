@@ -1,4 +1,5 @@
 export { Categories } from "./Categories";
+export { ContentOpportunities } from "./ContentOpportunities";
 export { Guides } from "./Guides";
 export { LandingPages } from "./LandingPages";
 export { Media } from "./Media";
