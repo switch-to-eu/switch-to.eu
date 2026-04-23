@@ -3,6 +3,7 @@ import PlausibleProvider from "next-plausible";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { LanguageSwitchBanner } from "@switch-to-eu/blocks/components/language-switch-banner";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -102,6 +103,7 @@ export default async function LocaleLayout({
             __html: JSON.stringify(websiteJsonLd),
           }}
         />
+        <LanguageSwitchBanner />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
