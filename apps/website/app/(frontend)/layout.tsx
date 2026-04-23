@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import { fontVariables } from "@switch-to-eu/ui/fonts";
 import { getLocale } from "next-intl/server";
 
@@ -16,6 +17,7 @@ export default async function RootLayout({
         className="antialiased min-h-screen flex flex-col"
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
