@@ -34,7 +34,7 @@
     "clsx": "catalog:",
     "lucide-react": "catalog:",
     "nanoid": "catalog:",
-    "next": "catalog:",
+    "next": "16.1.6",
     "next-intl": "catalog:",
     "next-plausible": "^3.12.5",
     "react": "catalog:",

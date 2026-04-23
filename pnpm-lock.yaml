@@ -334,7 +334,7 @@ importers:
         specifier: 'catalog:'
         version: 0.511.0(react@19.2.4)
       next:
-        specifier: 'catalog:'
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.98.0)
       next-intl:
         specifier: 'catalog:'
@@ -491,7 +491,7 @@ importers:
         specifier: 'catalog:'
         version: 5.1.6
       next:
-        specifier: 'catalog:'
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.98.0)
       next-intl:
         specifier: 'catalog:'
@@ -624,7 +624,7 @@ importers:
         specifier: 'catalog:'
         version: 5.1.6
       next:
-        specifier: 'catalog:'
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.98.0)
       next-intl:
         specifier: 'catalog:'
@@ -760,7 +760,7 @@ importers:
         specifier: 'catalog:'
         version: 5.1.6
       next:
-        specifier: 'catalog:'
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.98.0)
       next-intl:
         specifier: 'catalog:'
@@ -1129,7 +1129,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       next:
-        specifier: 'catalog:'
+        specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.98.0)
       next-intl:
         specifier: 'catalog:'

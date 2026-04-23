@@ -28,7 +28,7 @@
         "class-variance-authority": "catalog:",
         "clsx": "catalog:",
         "lucide-react": "catalog:",
-        "next": "catalog:",
+        "next": "16.1.6",
         "next-intl": "catalog:",
         "next-plausible": "^3.12.5",
         "react": "catalog:",
