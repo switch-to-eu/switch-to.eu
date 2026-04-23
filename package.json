@@ -16,10 +16,32 @@
     "prepare": "npx skilld prepare || true"
   },
   "devDependencies": {
-    "turbo": "^2.8.3"
+    "turbo": "^2.9.6"
   },
   "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": "24"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator>react": "^19.0.0",
+        "@atlaskit/tokens>react": "^19.0.0",
+        "@atlaskit/atlassian-context>react": "^19.0.0",
+        "@atlaskit/ds-lib>react": "^19.0.0",
+        "mcp-handler>@modelcontextprotocol/sdk": "^1.25.3",
+        "@payloadcms/next>next": "16.1.6"
+      }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "cpu-features",
+      "esbuild",
+      "protobufjs",
+      "sharp",
+      "ssh2",
+      "unrs-resolver"
+    ]
   }
 }
