@@ -55,7 +55,7 @@ export default async function PricingPage({
           </p>
         </div>
 
-        {tiers.length > 0 ? (
+        {tiers.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl pb-12">
             {tiers.map((tier, index) => (
               <div
@@ -92,15 +92,7 @@ export default async function PricingPage({
               </div>
             ))}
           </div>
-        ) : service.pricingDetails ? (
-          <div className="max-w-3xl pb-12">
-            <div className="bg-white rounded-2xl p-8 border border-gray-100">
-              <div className="whitespace-pre-line text-gray-600 leading-relaxed">
-                {service.pricingDetails}
-              </div>
-            </div>
-          </div>
-        ) : null}
+        )}
 
       </Container>
     </PageLayout>

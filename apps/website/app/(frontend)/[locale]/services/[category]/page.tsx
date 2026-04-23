@@ -14,7 +14,7 @@ import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { RichText } from "@/components/rich-text";
 import type { Category } from "@/payload-types";
 
 export async function generateMetadata({

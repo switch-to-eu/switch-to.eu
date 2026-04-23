@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "@switch-to-eu/i18n/navigation";
 
 const linkClassName =
   "text-orange-400 hover:text-orange-300 transition-colors font-semibold underline";
@@ -15,14 +16,9 @@ export function FooterCopyright() {
       {t.rich("copyright", {
         year: String(currentYear),
         link: (chunks) => (
-          <a
-            href="https://www.switch-to.eu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={linkClassName}
-          >
+          <Link href="/" className={linkClassName}>
             {chunks}
-          </a>
+          </Link>
         ),
       })}{" "}
       <a

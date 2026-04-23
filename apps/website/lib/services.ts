@@ -238,7 +238,6 @@ export function getGdprLabel(
 export function hasPricingData(service: Service): boolean {
   return !!(
     (service.pricingTiers && service.pricingTiers.length > 0) ||
-    service.pricingDetails ||
     service.startingPrice
   );
 }
