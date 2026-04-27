@@ -1,10 +1,27 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { hasLocale } from "next-intl";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Bot, Terminal } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Container } from "@switch-to-eu/blocks/components/container";
+import { routing, type Locale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return {
+    alternates: generateLanguageAlternates("mcp", locale as Locale),
+  };
+}
 
 function CodeBlock({ children }: { children: string }) {
   return (

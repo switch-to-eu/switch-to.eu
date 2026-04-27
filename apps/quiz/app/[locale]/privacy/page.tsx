@@ -1,5 +1,22 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
 import { Shield, Database, Eye, Clock } from "lucide-react";
+import { routing, type Locale } from "@switch-to-eu/i18n/routing";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return {
+    alternates: generateLanguageAlternates("privacy", locale as Locale),
+  };
+}
 
 export default function PrivacyPage() {
   const t = useTranslations("privacy");
