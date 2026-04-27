@@ -29,7 +29,10 @@ export default buildConfig({
       baseDir: path.resolve(__dirname),
     },
     components: {
-      beforeDashboard: ["/components/admin/IndexNowButton"],
+      beforeDashboard: [
+        "/components/admin/IndexNowButton",
+        "/components/admin/RevalidateCachesButton",
+      ],
     },
   },
   db: postgresAdapter({
@@ -78,6 +81,7 @@ export default buildConfig({
             collections: {
               media: {
                 prefix: process.env.VERCEL_ENV ?? "local",
+                disablePayloadAccessControl: true,
               },
             },
             token: process.env.BLOB_READ_WRITE_TOKEN,
