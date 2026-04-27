@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   if (authError) return authError;
 
   for (const tag of TAGS) {
-    revalidateTag(tag);
+    revalidateTag(tag, "default");
   }
 
   return Response.json({ revalidated: TAGS });
