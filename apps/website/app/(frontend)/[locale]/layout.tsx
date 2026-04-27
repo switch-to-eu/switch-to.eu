@@ -88,7 +88,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <PlausibleProvider domain="www.switch-to.eu">
+    <PlausibleProvider src="https://plausible.io/js/pa-DeH7r_C_YnnJNew1CLX5I.js">
       <NextIntlClientProvider>
         <script
           type="application/ld+json"

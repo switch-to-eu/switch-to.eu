@@ -181,10 +181,12 @@ Services and Guides have a `contentPipelineStatus` sidebar field tracking progre
 | Skill | Type | Purpose |
 |-------|------|---------|
 | `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
-| `research` | `/research` | Web research → Payload Research tab via MCP |
+| `research` | `/research` | Vendor site + Reddit sentiment + recent news → Payload Research tab via MCP |
 | `write` | `/write` | Content generation from research data |
 | `humanize` | `/humanize` | Strip AI writing patterns |
-| `seo-check` | `/seo-check` | SEO audit with scoring |
+| `seo-check` | `/seo-check` | Pre-publish 12-point QA checklist (scored 0-100) |
+| `seo-audit` | `/seo-audit` | Post-publish performance analysis — GSC + Jina SERP + live page → `pageAudits` collection |
+| `opportunity-finder` | `/opportunity-finder` | Mine GSC + Reddit + Jina SERP for content backlog → `contentOpportunities` collection |
 | `translate` | `/translate` | Localization to other EU languages |
 | `bulk-research` | `/bulk-research` | Parallel research via subagents |
 | `bulk-write` | `/bulk-write` | Parallel content writing via subagents |
@@ -192,6 +194,10 @@ Services and Guides have a `contentPipelineStatus` sidebar field tracking progre
 | `bulk-seo-check` | `/bulk-seo-check` | Parallel SEO audits via subagents |
 | `bulk-translate` | `/bulk-translate` | Parallel translation via subagents |
 | `pipeline` | `/pipeline` | Combined write→humanize→seo-check (sequential per item, parallel across items) |
+
+**`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in the `pageAudits` collection).
+
+**`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Review entries in admin at `/admin/collections/content-opportunities`; flag false positives as `rejected` so dedup behaves on re-runs.
 
 ### Tone rules (from informational-copy)
 

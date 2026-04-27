@@ -1,8 +1,5 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
-import {
-  convertLexicalToHTML,
-  defaultHTMLConverters,
-} from "@payloadcms/richtext-lexical/html";
+import { getPayload } from "@/lib/payload";
+import { RichText } from "@/components/rich-text";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
@@ -21,22 +18,10 @@ import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical
 import type { Guide } from "@/payload-types";
 import {
   getCategorySlug,
+  getGuideBySlug,
   getGuideSourceService,
   getGuideTargetService,
 } from "@/lib/services";
-
-/**
- * Convert a Payload Lexical rich text field value to an HTML string.
- * Returns an empty string if the data is null/undefined.
- */
-function lexicalToHtml(data: SerializedEditorState | null | undefined): string {
-  if (!data) return "";
-  return convertLexicalToHTML({
-    converters: defaultHTMLConverters,
-    data,
-    disableContainer: true,
-  });
-}
 
 // Generate static params for all guide pages
 export async function generateStaticParams() {
@@ -67,16 +52,7 @@ export async function generateMetadata({
 
   const t = await getTranslations("guides.service.meta");
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: await publishedWhere({ slug: { equals: service } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    depth: 2,
-    limit: 1,
-  });
-  const guide = docs[0] as Guide | undefined;
+  const guide = await getGuideBySlug(service, locale);
 
   if (!guide) {
     return {
@@ -120,17 +96,7 @@ export default async function GuideServicePage({
   const guidesT = await getTranslations("guides");
   const serviceT = await getTranslations("guides.service");
 
-  // Fetch guide data from Payload CMS
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: await publishedWhere({ slug: { equals: service } }),
-    draft: await isPreview(),
-    locale,
-    depth: 2,
-    limit: 1,
-  });
-  const guide = docs[0];
+  const guide = await getGuideBySlug(service, locale);
 
   if (!guide) {
     return notFound();
@@ -156,10 +122,7 @@ export default async function GuideServicePage({
     id: step.id,
   }));
 
-  // Pre-render step content from Lexical JSON to HTML on the server.
-  // This is necessary because GuideStep is a client component and cannot
-  // use the server-only <RichText> component from Payload.
-  const stepsWithHtml = guideSteps.map((step) => {
+  const stepsForRender = guideSteps.map((step) => {
     const videoUrl =
       step.video && typeof step.video === "object"
         ? (step.video.url ?? null)
@@ -171,22 +134,12 @@ export default async function GuideServicePage({
       complete: step.complete ?? false,
       video: videoUrl,
       videoOrientation: step.videoOrientation ?? null,
-      contentHtml: lexicalToHtml(step.content as SerializedEditorState | null),
+      content: step.content as SerializedEditorState | null,
     };
   });
 
   // Count steps that have the "complete" flag for progress tracking
   const completableStepCount = guideSteps.filter((s) => s.complete).length;
-
-  // Pre-render rich text sections to HTML
-  const introHtml = lexicalToHtml(guide.intro as SerializedEditorState | null);
-  const beforeHtml = lexicalToHtml(
-    guide.beforeYouStart as SerializedEditorState | null
-  );
-  const troubleshootingHtml = lexicalToHtml(
-    guide.troubleshooting as SerializedEditorState | null
-  );
-  const outroHtml = lexicalToHtml(guide.outro as SerializedEditorState | null);
 
   // HowTo JSON-LD structured data
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -201,7 +154,7 @@ export default async function GuideServicePage({
       : guide.difficulty === "intermediate"
         ? { educationalLevel: "Intermediate" }
         : { educationalLevel: "Advanced" }),
-    step: stepsWithHtml.map((step, index) => ({
+    step: stepsForRender.map((step, index) => ({
       "@type": "HowToStep",
       position: index + 1,
       name: step.title,
@@ -267,51 +220,64 @@ export default async function GuideServicePage({
 
               {/* Guide content with styling applied */}
               <article className="mdx-content">
-                {introHtml && (
+                {guide.intro && (
                   <section id="section-intro" className="mb-10">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: introHtml }}
+                    <RichText
+                      data={guide.intro as SerializedEditorState}
+                      disableContainer
                     />
                   </section>
                 )}
 
-                {beforeHtml && (
+                {guide.beforeYouStart && (
                   <section id="section-before" className="mb-10">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: beforeHtml }}
+                    <RichText
+                      data={guide.beforeYouStart as SerializedEditorState}
+                      disableContainer
                     />
                   </section>
                 )}
 
-                {stepsWithHtml.length > 0 && (
+                {stepsForRender.length > 0 && (
                   <section id="section-steps" className="mb-10">
                     <div className="steps-container">
-                      {stepsWithHtml.map((step, index) => (
+                      {stepsForRender.map((step, index) => (
                         <GuideStep
                           key={`step-${index}`}
                           guideId={guideId}
-                          step={step}
+                          step={{
+                            title: step.title,
+                            id: step.id,
+                            complete: step.complete,
+                            video: step.video,
+                            videoOrientation: step.videoOrientation,
+                          }}
                           stepNumber={index + 1}
+                          content={
+                            step.content ? (
+                              <RichText data={step.content} disableContainer />
+                            ) : null
+                          }
                         />
                       ))}
                     </div>
                   </section>
                 )}
 
-                {troubleshootingHtml && (
+                {guide.troubleshooting && (
                   <section id="section-troubleshooting" className="mb-10">
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: troubleshootingHtml,
-                      }}
+                    <RichText
+                      data={guide.troubleshooting as SerializedEditorState}
+                      disableContainer
                     />
                   </section>
                 )}
 
-                {outroHtml && (
+                {guide.outro && (
                   <section id="section-outro" className="mb-10">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: outroHtml }}
+                    <RichText
+                      data={guide.outro as SerializedEditorState}
+                      disableContainer
                     />
                   </section>
                 )}

@@ -16,10 +16,17 @@
     "prepare": "npx skilld prepare || true"
   },
   "devDependencies": {
-    "turbo": "^2.8.3"
+    "turbo": "^2.9.6"
   },
   "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": "24"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "mcp-handler>@modelcontextprotocol/sdk": "^1.27.0"
+      }
+    }
   }
 }

@@ -9,6 +9,7 @@ import { en } from "@payloadcms/translations/languages/en";
 import { nl } from "@payloadcms/translations/languages/nl";
 import {
   Categories,
+  ContentOpportunities,
   Guides,
   LandingPages,
   Media,
@@ -18,6 +19,7 @@ import {
   Users,
 } from "./collections";
 import { wipeContentTool } from "./mcp/wipeContentTool";
+import { replaceLinkInDocTool } from "./mcp/replaceLinkInDocTool";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -46,7 +48,7 @@ export default buildConfig({
     supportedLanguages: { en, nl },
     fallbackLanguage: "en",
   },
-  collections: [Categories, Guides, LandingPages, Media, PageAudits, Pages, Services, Users],
+  collections: [Categories, ContentOpportunities, Guides, LandingPages, Media, PageAudits, Pages, Services, Users],
   plugins: [
     mcpPlugin({
       collections: {
@@ -56,6 +58,7 @@ export default buildConfig({
         "landing-pages": { enabled: true },
         pages: { enabled: true },
         "page-audits": { enabled: true },
+        "content-opportunities": { enabled: true },
         media: {
           enabled: {
             find: true,
@@ -66,7 +69,7 @@ export default buildConfig({
         },
       },
       mcp: {
-        tools: [wipeContentTool],
+        tools: [wipeContentTool, replaceLinkInDocTool],
       },
     }),
     ...(process.env.BLOB_READ_WRITE_TOKEN

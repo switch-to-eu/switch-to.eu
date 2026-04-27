@@ -21,6 +21,7 @@ import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import { type MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
+import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 export async function generateMetadata({
   params,
@@ -31,12 +32,16 @@ export async function generateMetadata({
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: "layout.metadata" });
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://privnote.switch-to.eu";
+
   return {
+    metadataBase: new URL(baseUrl),
     title: t("title"),
     description: t("description"),
     icons: {
       icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },
+    alternates: generateLanguageAlternates("", locale as Locale),
   };
 }
 
@@ -79,7 +84,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={fontVariables}>
       <body>
-        <PlausibleProvider domain="privnote.switch-to.eu">
+        <PlausibleProvider src="https://plausible.io/js/pa-w5XStfTITs1-Sad0lJWCH.js">
         <NextIntlClientProvider>
           <TRPCReactProvider>
             <div className="min-h-screen bg-muted">

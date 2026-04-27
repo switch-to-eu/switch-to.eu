@@ -1,13 +1,3 @@
-# Other apps (not needed for website deploy)
-apps/kanban
-apps/keepfocus
-apps/listy
-apps/plotty
-apps/privnote
-apps/quiz
-apps/ui-kit
-apps/website-tool
-
 # Git
 .git
 

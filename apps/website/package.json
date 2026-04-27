@@ -23,13 +23,13 @@
     "@hookform/resolvers": "catalog:",
     "@mdx-js/mdx": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "16.1.6",
-    "@payloadcms/db-postgres": "^3.80.0",
-    "@payloadcms/next": "^3.80.0",
-    "@payloadcms/plugin-mcp": "^3.80.0",
-    "@payloadcms/richtext-lexical": "^3.80.0",
-    "@payloadcms/storage-vercel-blob": "^3.80.0",
-    "@payloadcms/translations": "^3.80.0",
+    "@next/mdx": "16.2.4",
+    "@payloadcms/db-postgres": "^3.84.0",
+    "@payloadcms/next": "^3.84.0",
+    "@payloadcms/plugin-mcp": "^3.84.0",
+    "@payloadcms/richtext-lexical": "^3.84.0",
+    "@payloadcms/storage-vercel-blob": "^3.84.0",
+    "@payloadcms/translations": "^3.84.0",
     "@switch-to-eu/blocks": "workspace:*",
     "@switch-to-eu/db": "workspace:*",
     "@switch-to-eu/i18n": "workspace:*",
@@ -44,9 +44,9 @@
     "negotiator": "^1.0.0",
     "next": "catalog:",
     "next-intl": "catalog:",
-    "next-plausible": "^3.12.4",
+    "next-plausible": "^4.0.0",
     "octokit": "catalog:",
-    "payload": "^3.80.0",
+    "payload": "^3.84.0",
     "react": "catalog:",
     "react-confetti": "^6.4.0",
     "react-dom": "catalog:",
@@ -82,10 +82,5 @@
   },
   "engines": {
     "node": "24"
-  },
-  "overrides": {
-    "@types/react": "19.2.13",
-    "@types/react-dom": "19.2.3",
-    "next": "$next"
   }
 }

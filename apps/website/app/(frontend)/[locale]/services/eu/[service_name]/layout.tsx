@@ -21,6 +21,8 @@ import {
   getGuideSourceService,
   getScreenshotUrl,
   getOutboundUrl,
+  hasPricingData,
+  hasSecurityData,
 } from "@/lib/services";
 
 function getAvailableTabs(
@@ -38,7 +40,7 @@ function getAvailableTabs(
 
   tabs.push({ key: "overview", href: basePath, label: "overview" });
 
-  if (service.pricingDetails || service.startingPrice) {
+  if (hasPricingData(service)) {
     tabs.push({
       key: "pricing",
       href: `${basePath}/pricing`,
@@ -46,11 +48,7 @@ function getAvailableTabs(
     });
   }
 
-  if (
-    service.gdprCompliance ||
-    service.certifications?.length ||
-    service.dataStorageLocations?.length
-  ) {
+  if (hasSecurityData(service)) {
     tabs.push({
       key: "security",
       href: `${basePath}/security`,

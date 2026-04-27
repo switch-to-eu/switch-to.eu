@@ -40,7 +40,7 @@
     "nanoid": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
-    "next-plausible": "^3.12.5",
+    "next-plausible": "^4.0.0",
     "qrcode.react": "^4.2.0",
     "react": "catalog:",
     "react-dom": "catalog:",

@@ -1,5 +1,5 @@
 import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Locale } from "next-intl";

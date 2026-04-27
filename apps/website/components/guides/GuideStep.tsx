@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { StepCompletionButton } from "./guide-progress/step-completion-button";
 
 interface StepProps {
@@ -11,10 +11,10 @@ interface StepProps {
     complete?: boolean;
     video?: string | null;
     videoOrientation?: string | null;
-    /** Pre-rendered HTML string (converted from Lexical JSON on the server) */
-    contentHtml: string;
   };
   stepNumber: number;
+  /** Rendered rich-text content (passed from a server component). */
+  content: ReactNode;
 }
 
 // Custom hook to determine if an element is visible in the viewport
@@ -66,6 +66,7 @@ export function GuideStep({
   guideId,
   step,
   stepNumber,
+  content,
 }: StepProps) {
   const { targetRef, videoRef } = useVideoIntersection();
   const isLandscapeVideo = step.videoOrientation === "landscape";
@@ -83,10 +84,7 @@ export function GuideStep({
         {step.title}
       </h2>
       {/* Step content */}
-      <div
-        className="step-content prose max-w-none mb-6"
-        dangerouslySetInnerHTML={{ __html: step.contentHtml }}
-      />
+      <div className="step-content prose max-w-none mb-6">{content}</div>
 
       {/* Completion button */}
       {step.complete && (
@@ -103,14 +101,14 @@ export function GuideStep({
 
   // Render the video player
   const renderVideo = () => (
-    <div ref={targetRef} className="step-video h-full max-h-[600px] flex items-center">
+    <div ref={targetRef} className="step-video flex items-center justify-center">
       <video
         ref={videoRef}
         muted
         playsInline
         loop
         controls
-        className="object-fit"
+        className="max-h-[600px] w-auto h-auto object-contain"
         src={step.video as string}
         title={`Video guide for ${step.title}`}
       />

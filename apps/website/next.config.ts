@@ -99,6 +99,14 @@ const nextConfig: NextConfig = {
       ],
     };
   },
+  headers() {
+    return [
+      {
+        source: "/_next/static/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

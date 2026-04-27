@@ -1,55 +1,65 @@
 packages:
-  - 'apps/*'
-  - 'packages/*'
+  - apps/*
+  - packages/*
 
 catalog:
-  react: 19.2.4
-  react-dom: 19.2.4
-  react-hook-form: ^7.56.4
-  sonner: ^2.0.3
-  zod: ^3.25.36
-  next: 16.1.6
-  '@types/react': 19.2.13
-  '@types/react-dom': 19.2.3
-  '@types/node': ^20.17.32
-  typescript: ^5.8.3
-  eslint: ^9.25.1
-  tailwindcss: ^4.1.4
+  '@dnd-kit/core': ^6.3.1
+  '@dnd-kit/sortable': ^10.0.0
+  '@dnd-kit/utilities': ^3.2.2
+  '@eslint/eslintrc': ^3.3.1
+  '@hookform/resolvers': ^5.0.1
+  '@modelcontextprotocol/sdk': 1.27.1
+  '@playwright/test': ^1.58.2
+  '@t3-oss/env-nextjs': ^0.12.0
   '@tailwindcss/postcss': ^4.1.4
   '@tailwindcss/typography': ^0.5.16
-  '@hookform/resolvers': ^5.0.1
-  'lucide-react': ^0.511.0
-  'clsx': ^2.1.1
-  'class-variance-authority': ^0.7.1
-  'tailwind-merge': ^3.3.0
+  '@tanstack/react-query': ^5.69.0
+  '@testcontainers/redis': ^11.12.0
   '@trpc/client': ^11.10.0
   '@trpc/react-query': ^11.10.0
   '@trpc/server': ^11.10.0
-  '@tanstack/react-query': ^5.69.0
-  'superjson': ^2.2.1
-  'next-intl': ^4.1.0
-  '@modelcontextprotocol/sdk': 1.25.3
-  'mcp-handler': ^1.0.7
-  'vitest': ^4.0.18
-  '@testcontainers/redis': ^11.12.0
-  'testcontainers': ^11.12.0
-  '@playwright/test': ^1.58.2
-  'postcss': ^8.5.3
-  'server-only': ^0.0.1
-  'nanoid': ^5.1.5
-  'redis': ^4.7.0
-  'sharp': ^0.34.4
-  '@t3-oss/env-nextjs': ^0.12.0
-  '@dnd-kit/core': ^6.3.1
-  '@dnd-kit/utilities': ^3.2.2
-  '@dnd-kit/sortable': ^10.0.0
-  '@eslint/eslintrc': ^3.3.1
-  'prettier': ^3.5.3
-  'prettier-plugin-tailwindcss': ^0.6.11
-  'eslint-config-next': ^15.3.3
-  'react-country-flag': ^3.1.0
-  'gray-matter': ^4.0.3
-  'octokit': ^4.1.3
-  'uuid': ^11.1.0
-  'tw-animate-css': ^1.3.1
-  'typescript-eslint': ^8.27.0
+  '@types/node': ^20.17.32
+  '@types/react': 19.2.13
+  '@types/react-dom': 19.2.3
+  class-variance-authority: ^0.7.1
+  clsx: ^2.1.1
+  eslint: ^9.25.1
+  eslint-config-next: ^15.3.3
+  gray-matter: ^4.0.3
+  lucide-react: ^0.511.0
+  mcp-handler: ^1.1.0
+  nanoid: ^5.1.5
+  next: 16.2.4
+  next-intl: ^4.1.0
+  octokit: ^4.1.3
+  postcss: ^8.5.3
+  prettier: ^3.5.3
+  prettier-plugin-tailwindcss: ^0.6.11
+  react: 19.2.4
+  react-country-flag: ^3.1.0
+  react-dom: 19.2.4
+  react-hook-form: ^7.56.4
+  redis: ^4.7.0
+  server-only: ^0.0.1
+  sharp: ^0.34.4
+  sonner: ^2.0.3
+  superjson: ^2.2.1
+  tailwind-merge: ^3.3.0
+  tailwindcss: ^4.1.4
+  testcontainers: ^11.12.0
+  tw-animate-css: ^1.3.1
+  typescript: ^5.8.3
+  typescript-eslint: ^8.27.0
+  uuid: ^11.1.0
+  vitest: ^4.0.18
+  zod: ^3.25.36
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - cpu-features
+  - esbuild
+  - protobufjs
+  - sharp
+  - ssh2
+  - unrs-resolver

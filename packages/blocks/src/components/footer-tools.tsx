@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { getAllToolsSorted } from "../data/tools";
 
 interface FooterToolsProps {
@@ -12,6 +12,7 @@ interface FooterToolsProps {
 
 export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
   const t = useTranslations("footerTools");
+  const locale = useLocale();
 
   const displayTools = getAllToolsSorted().filter(
     (tool) => tool.id !== excludeToolId
@@ -27,7 +28,7 @@ export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
           <li key={tool.id}>
             {tool.status === 'active' ? (
               <a
-                href={tool.url}
+                href={`${tool.url}/${locale}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-white/70 transition-colors hover:text-white"
