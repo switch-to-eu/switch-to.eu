@@ -225,6 +225,15 @@ export const Services: CollectionConfig = {
               type: "array",
               fields: [{ name: "tag", type: "text", required: true }],
             },
+            {
+              name: "angle",
+              type: "text",
+              localized: true,
+              admin: {
+                description:
+                  "One short positioning line shown when this service appears as a non-recommended alternative on someone else's page (e.g. 'Most private', 'Closest to Chrome'). Optional.",
+              },
+            },
           ],
         },
         {
@@ -261,6 +270,55 @@ export const Services: CollectionConfig = {
                   "Recommended EU alternative (non-EU services only)",
                 condition: (data) => data?.region === "non-eu",
               },
+            },
+            {
+              name: "oneLineProblem",
+              type: "textarea",
+              localized: true,
+              admin: {
+                description:
+                  "Punchy one-sentence lede shown under the page H1 (~100–140 chars). Non-EU services only.",
+                condition: (data) => data?.region === "non-eu",
+              },
+            },
+            {
+              name: "whatYoudGain",
+              type: "array",
+              localized: true,
+              admin: {
+                description:
+                  "2–3 wins gained by switching to the recommended alternative. Non-EU services only; renders when recommendedAlternative is set.",
+                condition: (data) => data?.region === "non-eu",
+              },
+              fields: [
+                { name: "point", type: "text", required: true },
+              ],
+            },
+            {
+              name: "whatYoudLose",
+              type: "array",
+              localized: true,
+              admin: {
+                description:
+                  "2–3 honest trade-offs vs the recommended alternative. Non-EU services only.",
+                condition: (data) => data?.region === "non-eu",
+              },
+              fields: [
+                { name: "point", type: "text", required: true },
+              ],
+            },
+            {
+              name: "faqs",
+              type: "array",
+              localized: true,
+              admin: {
+                description:
+                  "Page-level FAQs about considering the switch (distinct from migration-guide FAQs about executing it). Emitted as JSON-LD FAQPage.",
+              },
+              fields: [
+                { name: "question", type: "text", required: true },
+                { name: "answer", type: "richText", required: true },
+              ],
             },
           ],
         },
