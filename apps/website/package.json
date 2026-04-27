@@ -44,7 +44,7 @@
     "negotiator": "^1.0.0",
     "next": "catalog:",
     "next-intl": "catalog:",
-    "next-plausible": "^3.12.4",
+    "next-plausible": "^4.0.0",
     "octokit": "catalog:",
     "payload": "^3.84.0",
     "react": "catalog:",

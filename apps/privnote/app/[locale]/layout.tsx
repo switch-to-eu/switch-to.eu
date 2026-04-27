@@ -84,7 +84,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={fontVariables}>
       <body>
-        <PlausibleProvider domain="privnote.switch-to.eu">
+        <PlausibleProvider src="https://plausible.io/js/pa-w5XStfTITs1-Sad0lJWCH.js">
         <NextIntlClientProvider>
           <TRPCReactProvider>
             <div className="min-h-screen bg-muted">

@@ -1,5 +1,4 @@
 import { type Metadata } from "next";
-import PlausibleProvider from "next-plausible";
 import { Calendar, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -64,7 +63,6 @@ export default async function LocaleLayout({
   ];
 
   return (
-    <PlausibleProvider domain="poll.switch-to.eu">
     <NextIntlClientProvider>
       <TRPCReactProvider>
         <div className="min-h-screen bg-muted">
@@ -132,6 +130,5 @@ export default async function LocaleLayout({
         </div>
       </TRPCReactProvider>
     </NextIntlClientProvider>
-    </PlausibleProvider>
   );
 }

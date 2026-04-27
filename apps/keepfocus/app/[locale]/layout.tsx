@@ -77,7 +77,7 @@ export default async function LocaleLayout({
   ];
 
   return (
-    <PlausibleProvider domain="focus.switch-to.eu">
+    <PlausibleProvider src="https://plausible.io/js/pa-J4Zhp6KZ_MTg7FvEMT75p.js">
     <NextIntlClientProvider>
       <div className="min-h-screen bg-muted">
         <Header

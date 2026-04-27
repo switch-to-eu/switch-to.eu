@@ -78,7 +78,7 @@ export default async function LocaleLayout({
   ];
 
   return (
-    <PlausibleProvider domain="scan.switch-to.eu">
+    <PlausibleProvider src="https://plausible.io/js/pa-sqalhzlYPOApv7CvaJ1VA.js">
     <NextIntlClientProvider>
       <TRPCReactProvider>
         <div className="min-h-screen bg-muted">
