@@ -394,6 +394,10 @@ export interface Service {
       }[]
     | null;
   /**
+   * One short positioning line shown when this service appears as a non-recommended alternative on someone else's page (e.g. 'Most private', 'Closest to Chrome'). Optional.
+   */
+  angle?: string | null;
+  /**
    * Main service body content
    */
   content?: {
@@ -424,6 +428,52 @@ export interface Service {
    * Recommended EU alternative (non-EU services only)
    */
   recommendedAlternative?: (number | null) | Service;
+  /**
+   * Punchy one-sentence lede shown under the page H1 (~100–140 chars). Non-EU services only.
+   */
+  oneLineProblem?: string | null;
+  /**
+   * 2–3 wins gained by switching to the recommended alternative. Non-EU services only; renders when recommendedAlternative is set.
+   */
+  whatYoudGain?:
+    | {
+        point: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * 2–3 honest trade-offs vs the recommended alternative. Non-EU services only.
+   */
+  whatYoudLose?:
+    | {
+        point: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Page-level FAQs about considering the switch (distinct from migration-guide FAQs about executing it). Emitted as JSON-LD FAQPage.
+   */
+  faqs?:
+    | {
+        question: string;
+        answer: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Current status of research for this service
    */
@@ -1699,6 +1749,7 @@ export interface ServicesSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  angle?: T;
   content?: T;
   issues?:
     | T
@@ -1707,6 +1758,26 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   recommendedAlternative?: T;
+  oneLineProblem?: T;
+  whatYoudGain?:
+    | T
+    | {
+        point?: T;
+        id?: T;
+      };
+  whatYoudLose?:
+    | T
+    | {
+        point?: T;
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   researchStatus?: T;
   lastResearchedAt?: T;
   gdprCompliance?: T;
