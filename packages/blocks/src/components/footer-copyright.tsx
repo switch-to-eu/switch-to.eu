@@ -22,7 +22,7 @@ export function FooterCopyright() {
         ),
       })}{" "}
       <a
-        href="https://www.vinnie.studio"
+        href="https://vinnie.studio/"
         target="_blank"
         rel="noopener noreferrer"
         className={linkClassName}

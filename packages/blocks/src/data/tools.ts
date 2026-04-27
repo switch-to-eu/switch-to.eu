@@ -80,3 +80,14 @@ export const getAllToolsSorted = (): Tool[] => {
 export const getToolsByStatus = (status: Tool['status']): Tool[] => {
     return tools.filter(tool => tool.status === status);
 };
+
+/**
+ * Build the URL we link to for a tool. Active subdomain apps run on next-intl
+ * with localized routing — visiting the bare host 307s to `/{locale}`. Always
+ * append the locale to active tool URLs so we don't ship redirect-chained
+ * outbound links.
+ */
+export const getToolUrl = (tool: Tool, locale: string): string => {
+    if (tool.status !== 'active') return tool.url;
+    return `${tool.url}/${locale}`;
+};

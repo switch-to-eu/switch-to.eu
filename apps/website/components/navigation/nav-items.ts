@@ -1,6 +1,6 @@
 import { getPayload } from "@/lib/payload";
-import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
-import { getTranslations } from "next-intl/server";
+import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import type { Category } from "@/payload-types";
 
@@ -25,13 +25,14 @@ export async function getNavItems(): Promise<MainNavItem[]> {
 
   const t = await getTranslations("navigation");
   const tTools = await getTranslations("tools.items");
+  const locale = await getLocale();
 
   const allTools = getAllToolsSorted();
   const toolChildren = allTools.map((tool) => {
     const i18nKey = i18nKeyMap[tool.id] ?? tool.id;
     return {
       title: tTools(`${i18nKey}.title`),
-      href: tool.url,
+      href: getToolUrl(tool, locale),
       description: tTools(`${i18nKey}.description`),
       icon: tool.icon,
       isExternal: true,

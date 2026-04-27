@@ -1,9 +1,9 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowUpRightIcon } from "lucide-react";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { getToolIcon } from "@switch-to-eu/blocks/data/tool-icons";
-import type { Tool } from "@switch-to-eu/blocks/data/tools";
+import { getToolUrl, type Tool } from "@switch-to-eu/blocks/data/tools";
 import {
   BRAND_COLORS,
   TOOL_SCHEMES,
@@ -18,6 +18,8 @@ interface Props {
 
 export async function HighlightedToolSection({ tool, tagline }: Props) {
   const t = await getTranslations("home");
+  const locale = await getLocale();
+  const toolHref = getToolUrl(tool, locale);
 
   const scheme = TOOL_SCHEMES[tool.id];
   const card = getToolCardColor(tool.id);
@@ -66,7 +68,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
         >
           {isActive && (
             <a
-              href={tool.url}
+              href={toolHref}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={ariaLabel}

@@ -16,6 +16,7 @@ import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
 import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
+import { mainSiteUrl } from "@switch-to-eu/blocks/data/main-site";
 import { TRPCReactProvider } from "@/lib/trpc-client";
 
 export async function generateMetadata({
@@ -123,12 +124,12 @@ export default async function LocaleLayout({
             links={[
               {
                 label: footerT("privacy"),
-                href: "https://www.switch-to.eu/privacy",
+                href: mainSiteUrl(locale, "/privacy"),
                 external: true,
               },
               {
                 label: footerT("terms"),
-                href: "https://www.switch-to.eu/terms",
+                href: mainSiteUrl(locale, "/terms"),
                 external: true,
               },
             ]}
