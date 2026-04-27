@@ -104,7 +104,13 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       payload.find({
         collection: "services",
         where: { _status: { equals: "published" } },
-        locale: "all",
+        // Use the default locale here — `locale: "all"` returns localized
+        // fields as `{ en, nl }` envelope objects, which makes truthiness
+        // checks in `hasPricingData` (specifically `startingPrice`, the only
+        // localized gating field) report true even when both values are
+        // empty. That mismatch caused noindex pages to be listed in the
+        // sitemap (the page render uses a flat locale and 404s).
+        locale: defaultLocale,
         limit: 0,
         pagination: false,
       }),
