@@ -13,7 +13,7 @@
     "start": "turbo run start",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "prepare": "npx skilld prepare || true"
+    "prepare": "[ -n \"$CI\" ] || npx skilld prepare || true"
   },
   "devDependencies": {
     "turbo": "^2.9.6"
