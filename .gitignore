@@ -63,6 +63,9 @@ docs/inspiration
 # git worktrees
 .worktrees/
 
+# superpowers brainstorming/visual-companion
+.superpowers/
+
 gsc-oath-secrets.json
 
 # Skilld references (recreated by `skilld install`)
