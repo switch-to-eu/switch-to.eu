@@ -3,7 +3,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { getAllToolsSorted } from "@switch-to-eu/blocks/data/tools";
+import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -56,6 +56,7 @@ const TOOL_SHAPES = [
 
 export default async function ToolsPage() {
   const t = await getTranslations("tools");
+  const locale = await getLocale();
   const tools = getAllToolsSorted();
 
   return (
@@ -78,7 +79,7 @@ export default async function ToolsPage() {
               const Wrapper = isActive ? "a" : "div";
               const wrapperProps = isActive
                 ? {
-                    href: tool.url,
+                    href: getToolUrl(tool, locale),
                     target: "_blank" as const,
                     rel: "noopener noreferrer",
                   }

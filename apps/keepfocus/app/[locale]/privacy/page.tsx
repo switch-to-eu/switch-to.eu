@@ -1,5 +1,11 @@
 import { redirect } from "next/navigation";
+import { mainSiteUrl } from "@switch-to-eu/blocks/data/main-site";
 
-export default function PrivacyPage() {
-  redirect("https://www.switch-to.eu/privacy");
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(mainSiteUrl(locale, "/privacy"));
 }

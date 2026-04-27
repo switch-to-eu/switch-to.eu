@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Flame, Lock } from "lucide-react";
 import { generateEncryptionKey, encryptData } from "@switch-to-eu/db/crypto";
+import { mainSiteUrl } from "@switch-to-eu/blocks/data/main-site";
 
 import { api } from "@/lib/trpc-client";
 import { hashPassword } from "@/lib/crypto";
@@ -28,6 +29,7 @@ import {
 
 export function CreateNoteForm() {
   const t = useTranslations("CreatePage");
+  const locale = useLocale();
   const v = useTranslations("validation");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -218,7 +220,7 @@ export function CreateNoteForm() {
                   {t.rich("termsLabel", {
                     privacy: (chunks) => (
                       <a
-                        href="https://www.switch-to.eu/privacy"
+                        href={mainSiteUrl(locale, "/privacy")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-tool-primary hover:underline"
@@ -228,7 +230,7 @@ export function CreateNoteForm() {
                     ),
                     terms: (chunks) => (
                       <a
-                        href="https://www.switch-to.eu/terms"
+                        href={mainSiteUrl(locale, "/terms")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-tool-primary hover:underline"
