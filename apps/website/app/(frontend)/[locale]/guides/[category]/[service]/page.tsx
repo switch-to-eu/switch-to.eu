@@ -1,4 +1,4 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { getPayload } from "@/lib/payload";
 import { RichText } from "@/components/rich-text";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
@@ -18,6 +18,7 @@ import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical
 import type { Guide } from "@/payload-types";
 import {
   getCategorySlug,
+  getGuideBySlug,
   getGuideSourceService,
   getGuideTargetService,
 } from "@/lib/services";
@@ -51,16 +52,7 @@ export async function generateMetadata({
 
   const t = await getTranslations("guides.service.meta");
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: await publishedWhere({ slug: { equals: service } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    depth: 2,
-    limit: 1,
-  });
-  const guide = docs[0] as Guide | undefined;
+  const guide = await getGuideBySlug(service, locale);
 
   if (!guide) {
     return {
@@ -104,17 +96,7 @@ export default async function GuideServicePage({
   const guidesT = await getTranslations("guides");
   const serviceT = await getTranslations("guides.service");
 
-  // Fetch guide data from Payload CMS
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: await publishedWhere({ slug: { equals: service } }),
-    draft: await isPreview(),
-    locale,
-    depth: 2,
-    limit: 1,
-  });
-  const guide = docs[0];
+  const guide = await getGuideBySlug(service, locale);
 
   if (!guide) {
     return notFound();

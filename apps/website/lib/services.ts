@@ -52,6 +52,38 @@ export const getServiceBySlug = async (
 };
 
 /**
+ * Fetch a single migration guide by slug.
+ *
+ * `depth: 2` matches the previous inline calls so source/target service
+ * relationships and category come back populated for metadata + render.
+ */
+export const getGuideBySlug = async (
+  slug: string,
+  locale: string
+): Promise<Guide | null> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({ slug: { equals: slug } });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = await payload.find({
+      collection: "guides",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 2,
+      limit: 1,
+    });
+    return (docs[0] as Guide | undefined) ?? null;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(fetcher, [`guide-${slug}-${locale}`], {
+    tags: ["guides"],
+  })();
+};
+
+/**
  * Fetch guides that target a given service (i.e. migration guides *to* that
  * service).
  */

@@ -19,6 +19,7 @@ import {
   Users,
 } from "./collections";
 import { wipeContentTool } from "./mcp/wipeContentTool";
+import { replaceLinkInDocTool } from "./mcp/replaceLinkInDocTool";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -68,7 +69,7 @@ export default buildConfig({
         },
       },
       mcp: {
-        tools: [wipeContentTool],
+        tools: [wipeContentTool, replaceLinkInDocTool],
       },
     }),
     ...(process.env.BLOB_READ_WRITE_TOKEN

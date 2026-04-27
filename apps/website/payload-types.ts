@@ -1244,6 +1244,10 @@ export interface PayloadMcpApiKey {
      * Wipe all text content from services or guides while preserving media (logo, screenshot, videos), slugs, relationships, and structural fields. Use before re-running research/write pipeline to test from a clean slate. Resets contentPipelineStatus to not-started.
      */
     wipeContent?: boolean | null;
+    /**
+     * Replace a link URL across all rich-text fields of a single Payload doc, in both locales. Walks every Lexical link/autolink node; updates `fields.url` on exact matches and (by default) rewrites the visible text when it equals the old URL. Use for fixing broken outbound URLs reported by SEO crawlers, or retargeting external links to a new canonical URL. Returns per-locale, per-field hit counts.
+     */
+    replaceLinkInDoc?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1879,6 +1883,7 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | T
     | {
         wipeContent?: T;
+        replaceLinkInDoc?: T;
       };
   updatedAt?: T;
   createdAt?: T;
