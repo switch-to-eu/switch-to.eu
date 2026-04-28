@@ -1248,6 +1248,14 @@ export interface PayloadMcpApiKey {
      * Replace a link URL across all rich-text fields of a single Payload doc, in both locales. Walks every Lexical link/autolink node; updates `fields.url` on exact matches and (by default) rewrites the visible text when it equals the old URL. Use for fixing broken outbound URLs reported by SEO crawlers, or retargeting external links to a new canonical URL. Returns per-locale, per-field hit counts.
      */
     replaceLinkInDoc?: boolean | null;
+    /**
+     * Web search via Jina Search (s.jina.ai). Returns JSON with data[] entries (url, title, description). Pass withContent=true to also include scraped Markdown body of each result. Default country/language is nl/en — override per call when needed.
+     */
+    jinaSearch?: boolean | null;
+    /**
+     * Fetch a single URL as clean Markdown via Jina Reader (r.jina.ai). Strips navigation, ads, and boilerplate. Use for vendor pages, news articles, privacy policies — anywhere you need the readable body of one specific URL.
+     */
+    jinaRead?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1884,6 +1892,8 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | {
         wipeContent?: T;
         replaceLinkInDoc?: T;
+        jinaSearch?: T;
+        jinaRead?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -20,6 +20,8 @@ import {
 } from "./collections";
 import { wipeContentTool } from "./mcp/wipeContentTool";
 import { replaceLinkInDocTool } from "./mcp/replaceLinkInDocTool";
+import { jinaSearchTool } from "./mcp/jinaSearchTool";
+import { jinaReadTool } from "./mcp/jinaReadTool";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -72,7 +74,12 @@ export default buildConfig({
         },
       },
       mcp: {
-        tools: [wipeContentTool, replaceLinkInDocTool],
+        tools: [
+          wipeContentTool,
+          replaceLinkInDocTool,
+          jinaSearchTool,
+          jinaReadTool,
+        ],
       },
     }),
     ...(process.env.BLOB_READ_WRITE_TOKEN

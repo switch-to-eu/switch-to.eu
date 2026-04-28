@@ -41,7 +41,8 @@
         "VERCEL_URL",
         "PORT",
         "INDEXNOW_KEY",
-        "PREVIEW_SECRET"
+        "PREVIEW_SECRET",
+        "JINA_READER_API_KEY"
       ]
     },
     "dev": {

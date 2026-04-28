@@ -52,7 +52,7 @@ For each resolved page, run the following in order:
    - Else: fall back to the Payload `name` field for services, `title` for guides.
 
 4. **Scrape the SERP + competitor content** (see `_shared/jina.md`).
-   - Call Jina Search: `GET https://s.jina.ai/?q=<url-encoded-target-keyword>&num=10&gl=nl&hl=en` with `Authorization: Bearer $JINA_READER_API_KEY` and `X-Respond-With: markdown` header.
+   - Call `mcp__Payload__jina_search` with `{ q: "<target keyword>", num: 10, gl: "nl", hl: "en", withContent: true }`.
    - Single call returns top 10 organic results (rank, URL, title, description) PLUS the markdown body of each competitor page. Populate `competitors[]` from the rank/URL/title/description fields; keep competitor `content` in memory for step 7's content-gap analysis — no need for a second round of Reader calls.
 
 5. **Fetch current page content from Payload.**

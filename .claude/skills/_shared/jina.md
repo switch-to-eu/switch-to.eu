@@ -2,59 +2,53 @@
 
 Jina provides both Reader (`r.jina.ai`) and Search (`s.jina.ai`) under one API key. Used for SERP scraping and page content extraction across all SEO skills.
 
-One key, two endpoints. Same bearer token; no separate MCP — call via `WebFetch` or `curl`.
+Exposed through the **Payload MCP** as two tools — call them directly. Do not use `WebFetch` or raw `curl`: `WebFetch` cannot pass `Authorization: Bearer` headers and curl from skills is brittle.
 
-## Auth
+## Tools
 
-`Authorization: Bearer $JINA_READER_API_KEY` on every request. Key is in `.env` (referenced by this name for historical reasons; the same key works for Reader + Search).
+| Tool | Wraps | Use for |
+|---|---|---|
+| `mcp__Payload__jina_read` | `r.jina.ai/<url>` | One specific URL → clean Markdown body |
+| `mcp__Payload__jina_search` | `s.jina.ai/?q=...` | SERP results (+ optional scraped content) |
+
+Both read `JINA_READER_API_KEY` from the website server's env. The same key powers both endpoints.
 
 ## Reader — fetch one URL as Markdown
 
 ```
-GET https://r.jina.ai/<full-target-URL>
-Authorization: Bearer $JINA_READER_API_KEY
-Accept: text/plain
+mcp__Payload__jina_read({ url: "https://example.com/pricing" })
 ```
 
 Returns clean Markdown of the target page's main content. Strips navigation, ads, boilerplate.
 
-Use from `WebFetch` with a short prompt that just asks for the returned markdown.
-
 ## Search — SERP + optional content
 
 ```
-GET https://s.jina.ai/?q=<url-encoded-query>&num=10
-Authorization: Bearer $JINA_READER_API_KEY
-Accept: application/json
-X-Respond-With: markdown      # include scraped content of each result
-X-Locale: en-NL               # country/language
+mcp__Payload__jina_search({
+  q: "european alternative to chrome",
+  num: 10,
+  gl: "nl",
+  hl: "en",
+  withContent: true   // include scraped Markdown body of each result
+})
 ```
 
-Or POST for richer options:
-```
-POST https://s.jina.ai/
-Authorization: Bearer $JINA_READER_API_KEY
-Content-Type: application/json
+Returns JSON with `data[]`: each entry has `url`, `title`, `description`, optional `content` when `withContent: true`.
 
-{ "q": "<query>", "num": 10, "gl": "nl", "hl": "en" }
-```
-
-Returns JSON with `data[]`: each entry has `url`, `title`, `description`, optional `content` when `X-Respond-With: markdown` is set.
-
-**Key advantage over traditional SERP scrapers:** a single Jina Search call returns both the SERP rankings AND the content of each competitor page. The `seo-audit` competitor-analysis step gets organic rankings + competitor page bodies without a second round of Reader calls.
+**Key advantage:** a single search call returns both SERP rankings AND the content of each competitor page. The `seo-audit` competitor-analysis step gets organic rankings + competitor page bodies in one call.
 
 ## When to use which
 
 | Task | Call |
 |---|---|
-| Compare our page vs competitors for a query | Jina Search with `X-Respond-With: markdown` (one call, full analysis) |
-| Fetch one specific URL (vendor pricing page, news article body) | Jina Reader |
+| Compare our page vs competitors for a query | `jina_search` with `withContent: true` (one call, full analysis) |
+| Fetch one specific URL (vendor pricing, news article body) | `jina_read` |
 | Scrape a JS-heavy SPA that Jina can't read | Fall through to local Playwright (we have it installed for Playwright tests) |
 
 ## Default parameters for our skills
 
-- Country: `nl` (our primary market)
-- Language: `en` (site default locale)
+- Country: `nl` (our primary market) — already the tool default
+- Language: `en` (site default locale) — already the tool default
 - Results per query: 10 (top organic; Google's 2026 cap is 10/page anyway)
 - Content mode: on for `seo-audit` competitor analysis; off for `opportunity-finder` (just need ranks + titles)
 
@@ -74,7 +68,10 @@ At current volume the free tier lasts ~30 months.
 
 ## Error patterns
 
-- `401 Unauthorized` → check `JINA_READER_API_KEY` in `.env`.
+The MCP tools return `isError: true` with a text payload on failure.
+
+- `JINA_READER_API_KEY is not set` → key missing from `apps/website/.env`. Restart the website server after adding it.
+- `401 Unauthorized` → bad / expired key. Check root `.env` and `apps/website/.env`.
 - `429 Too Many Requests` → back off 60s, retry once; if still failing, skip and note in the output.
 - Empty `data[]` from Search → treat as valid "no results" signal. Unusual for well-formed queries.
 - Reader returns <200 characters → page likely JS-rendered; fall through to local Playwright.
