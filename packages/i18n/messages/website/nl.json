@@ -504,6 +504,55 @@
         "supportEUDigital": {
           "title": "Ondersteun de EU digitale economie",
           "description": "Draag bij aan digitale onafhankelijkheid en innovatie binnen Europa."
+        },
+        "redesign": {
+          "h1Template": "EU-alternatieven voor {name}",
+          "trustStrip": {
+            "lastReviewed": "Laatst beoordeeld op {date}",
+            "sourcesCount": "{count, plural, one {# bron} other {# bronnen}}",
+            "sourcesAnchor": "Bekijk bronnen"
+          },
+          "gainLose": {
+            "headingTemplate": "Overstappen van {source} naar {target}",
+            "gain": "Wat je krijgt",
+            "lose": "Wat je inlevert"
+          },
+          "otherAlternatives": "Andere EU-alternatieven",
+          "whyPeopleSwitch": "Waarom mensen overstappen van {name}",
+          "whereDataGoes": {
+            "title": "Waar je data heen gaat",
+            "ownedBy": "Eigenaar",
+            "headquarters": "Hoofdkantoor",
+            "dataStored": "Data opgeslagen in",
+            "openSource": "Open source",
+            "closedSource": "Gesloten broncode",
+            "viewCode": "Bekijk broncode"
+          },
+          "recentNews": {
+            "title": "Recent nieuws over {name}"
+          },
+          "whatPeopleSay": {
+            "title": "Wat mensen zeggen over {name}",
+            "subreddit": "r/{name}"
+          },
+          "faq": {
+            "title": "Veelgestelde vragen"
+          },
+          "sources": {
+            "title": "Bronnen en methodologie",
+            "lastReviewed": "Laatst beoordeeld: {date}"
+          },
+          "gdprBadge": {
+            "compliant": "AVG-conform",
+            "partial": "Gedeeltelijk AVG-conform",
+            "non-compliant": "Niet AVG-conform",
+            "unknown": "AVG-status onbekend"
+          },
+          "migrationDifficulty": {
+            "easy": "Makkelijke overstap",
+            "medium": "Gemiddelde overstap",
+            "hard": "Moeilijke overstap"
+          }
         }
       },
       "recommendedAlternative": {
@@ -512,7 +561,21 @@
         "migrateFrom": "Migreer van {source} naar {target}",
         "learnMore": "Meer info",
         "badge": "Aanbevolen door Switch-to.eu",
-        "featured": "Uitgelicht"
+        "featured": "Uitgelicht",
+        "gdpr": {
+          "compliant": "Volledig conform",
+          "partial": "Gedeeltelijk conform",
+          "non-compliant": "Niet conform",
+          "unknown": "Status onbekend"
+        },
+        "panel": {
+          "gdpr": "AVG",
+          "headquarters": "HK",
+          "source": "Broncode",
+          "openSource": "Open source",
+          "closedSource": "Gesloten broncode",
+          "keyFeatures": "Belangrijkste functies"
+        }
       }
     }
   },

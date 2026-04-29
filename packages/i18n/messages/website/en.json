@@ -510,6 +510,55 @@
         "supportEUDigital": {
           "title": "Support EU Digital Economy",
           "description": "Contribute to digital independence and innovation within Europe."
+        },
+        "redesign": {
+          "h1Template": "EU Alternatives to {name}",
+          "trustStrip": {
+            "lastReviewed": "Last reviewed {date}",
+            "sourcesCount": "{count, plural, one {# source} other {# sources}}",
+            "sourcesAnchor": "View sources"
+          },
+          "gainLose": {
+            "headingTemplate": "Switching from {source} to {target}",
+            "gain": "What you get",
+            "lose": "What you give up"
+          },
+          "otherAlternatives": "Other EU alternatives",
+          "whyPeopleSwitch": "Why people are switching from {name}",
+          "whereDataGoes": {
+            "title": "Where your data goes",
+            "ownedBy": "Owned by",
+            "headquarters": "Headquarters",
+            "dataStored": "Data stored in",
+            "openSource": "Open source",
+            "closedSource": "Closed source",
+            "viewCode": "View source code"
+          },
+          "recentNews": {
+            "title": "Recent news about {name}"
+          },
+          "whatPeopleSay": {
+            "title": "What people say about {name}",
+            "subreddit": "r/{name}"
+          },
+          "faq": {
+            "title": "Frequently asked questions"
+          },
+          "sources": {
+            "title": "Sources & methodology",
+            "lastReviewed": "Last reviewed: {date}"
+          },
+          "gdprBadge": {
+            "compliant": "GDPR compliant",
+            "partial": "Partial GDPR compliance",
+            "non-compliant": "Not GDPR compliant",
+            "unknown": "GDPR status unknown"
+          },
+          "migrationDifficulty": {
+            "easy": "Easy switch",
+            "medium": "Medium switch",
+            "hard": "Hard switch"
+          }
         }
       },
       "recommendedAlternative": {
@@ -518,7 +567,21 @@
         "migrateFrom": "Migrate {source} To {target}",
         "learnMore": "Learn more",
         "badge": "Recommended by Switch-to.eu",
-        "featured": "Featured"
+        "featured": "Featured",
+        "gdpr": {
+          "compliant": "Fully compliant",
+          "partial": "Partial compliance",
+          "non-compliant": "Not compliant",
+          "unknown": "Status unknown"
+        },
+        "panel": {
+          "gdpr": "GDPR",
+          "headquarters": "HQ",
+          "source": "Source",
+          "openSource": "Open source",
+          "closedSource": "Closed source",
+          "keyFeatures": "Key features"
+        }
       }
     }
   },
