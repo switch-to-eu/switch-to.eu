@@ -507,6 +507,13 @@
         },
         "redesign": {
           "h1Template": "EU-alternatieven voor {name}",
+          "tabs": {
+            "overview": "Overzicht",
+            "privacy": "Privacy en data",
+            "faq": "FAQ",
+            "sources": "Bronnen"
+          },
+          "heroBack": "Alle {category}",
           "trustStrip": {
             "lastReviewed": "Laatst beoordeeld op {date}",
             "sourcesCount": "{count, plural, one {# bron} other {# bronnen}}",

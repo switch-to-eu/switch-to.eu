@@ -37,15 +37,15 @@ export async function FaqAccordion({ service }: { service: Service }) {
   };
 
   return (
-    <section className="rounded-3xl bg-white border border-black/5 p-6 sm:p-8">
+    <section className="max-w-3xl">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl mb-5">
+      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-5">
         {t("title")}
       </h2>
-      <div className="space-y-2">
+      <div className="divide-y divide-brand-navy/10 border-y border-brand-navy/10">
         {faqs.map((f, i) => {
           const html = convertLexicalToHTML({
             converters: defaultHTMLConverters,
@@ -53,21 +53,18 @@ export async function FaqAccordion({ service }: { service: Service }) {
             disableContainer: true,
           });
           return (
-            <details
-              key={i}
-              className="rounded-2xl bg-brand-cream px-4 py-3 group"
-            >
-              <summary className="cursor-pointer list-none font-semibold flex justify-between items-center">
+            <details key={i} className="group">
+              <summary className="cursor-pointer list-none py-4 font-semibold text-brand-navy flex justify-between items-center gap-4">
                 <span>{f.question}</span>
                 <span
                   aria-hidden
-                  className="ml-3 text-xl group-open:rotate-45 transition-transform"
+                  className="text-brand-navy/55 text-xl shrink-0 group-open:rotate-45 transition-transform"
                 >
                   +
                 </span>
               </summary>
               <div
-                className="prose prose-sm mt-3 max-w-none"
+                className="prose prose-sm pb-4 max-w-none text-brand-navy/85"
                 dangerouslySetInnerHTML={{ __html: html }}
               />
             </details>

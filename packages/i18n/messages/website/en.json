@@ -513,6 +513,13 @@
         },
         "redesign": {
           "h1Template": "EU Alternatives to {name}",
+          "tabs": {
+            "overview": "Overview",
+            "privacy": "Privacy & data",
+            "faq": "FAQ",
+            "sources": "Sources"
+          },
+          "heroBack": "All {category}",
           "trustStrip": {
             "lastReviewed": "Last reviewed {date}",
             "sourcesCount": "{count, plural, one {# source} other {# sources}}",

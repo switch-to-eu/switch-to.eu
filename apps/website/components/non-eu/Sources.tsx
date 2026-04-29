@@ -17,26 +17,26 @@ export async function Sources({ service }: { service: Service }) {
     : null;
 
   return (
-    <section
-      id="sources"
-      className="rounded-3xl bg-white border border-black/5 p-6 sm:p-8"
-    >
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl mb-3">
+    <section id="sources" className="max-w-3xl">
+      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-3">
         {t("title")}
       </h2>
       {lastReviewed && (
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-brand-navy/55 mb-4">
           {t("lastReviewed", { date: lastReviewed })}
         </p>
       )}
-      <ul className="space-y-1 text-sm">
+      <ul className="space-y-1.5 text-sm">
         {urls.map((s, i) => (
-          <li key={i}>
+          <li key={i} className="flex gap-2">
+            <span aria-hidden className="text-brand-navy/40 shrink-0">
+              &rarr;
+            </span>
             <a
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline text-brand-navy"
+              className="text-brand-navy underline decoration-brand-navy/30 hover:decoration-brand-navy"
             >
               {s.label ?? s.url}
             </a>

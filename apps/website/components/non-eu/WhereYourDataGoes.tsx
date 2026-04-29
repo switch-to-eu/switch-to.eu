@@ -15,37 +15,37 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
   if (!hasContent) return null;
 
   return (
-    <section className="rounded-3xl bg-brand-navy text-white p-6 sm:p-8 md:p-10">
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl mb-5 text-brand-yellow">
+    <section className="max-w-3xl">
+      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-5">
         {t("title")}
       </h2>
-      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 rounded-2xl border border-brand-navy/10 bg-white p-5 sm:p-6">
         {service.parentCompany && (
           <div>
-            <dt className="text-white/60 uppercase text-xs tracking-wider mb-1">
+            <dt className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/55 mb-1">
               {t("ownedBy")}
             </dt>
-            <dd>{service.parentCompany}</dd>
+            <dd className="text-sm text-brand-navy">{service.parentCompany}</dd>
           </div>
         )}
         {service.headquarters && (
           <div>
-            <dt className="text-white/60 uppercase text-xs tracking-wider mb-1">
+            <dt className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/55 mb-1">
               {t("headquarters")}
             </dt>
-            <dd>{service.headquarters}</dd>
+            <dd className="text-sm text-brand-navy">{service.headquarters}</dd>
           </div>
         )}
         {locations.length > 0 && (
           <div className="sm:col-span-2">
-            <dt className="text-white/60 uppercase text-xs tracking-wider mb-1">
+            <dt className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/55 mb-2">
               {t("dataStored")}
             </dt>
-            <dd className="flex flex-wrap gap-2">
+            <dd className="flex flex-wrap gap-1.5">
               {locations.map((loc, i) => (
                 <span
                   key={i}
-                  className="rounded-full bg-white/10 px-3 py-1 text-xs"
+                  className="rounded-full bg-brand-navy/[0.06] text-brand-navy px-3 py-1 text-xs"
                 >
                   {loc}
                 </span>
@@ -55,10 +55,13 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
         )}
         {typeof service.openSource === "boolean" && (
           <div className="sm:col-span-2">
-            <dd>
+            <dt className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/55 mb-1">
+              {t("openSource")}
+            </dt>
+            <dd className="text-sm text-brand-navy">
               {service.openSource ? (
                 <>
-                  <span className="font-semibold">{t("openSource")}</span>
+                  <span>{t("openSource")}</span>
                   {service.sourceCodeUrl && (
                     <>
                       {" "}
@@ -66,9 +69,9 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
                         href={service.sourceCodeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="underline text-brand-yellow"
+                        className="text-brand-green underline"
                       >
-                        {t("viewCode")}
+                        {t("viewCode")} &rarr;
                       </a>
                     </>
                   )}

@@ -9,17 +9,17 @@ export async function RecentNews({ service }: { service: Service }) {
   if (items.length === 0) return null;
 
   return (
-    <section className="rounded-3xl bg-white border border-black/5 p-6 sm:p-8">
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl mb-5">
+    <section className="max-w-3xl">
+      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-5">
         {t("title", { name: service.name })}
       </h2>
-      <ul className="divide-y divide-black/10">
+      <ul className="divide-y divide-brand-navy/10">
         {items.map((item, i) => (
           <li
             key={i}
-            className="py-3 flex flex-col sm:flex-row sm:items-baseline sm:gap-4"
+            className="py-4 flex flex-col sm:flex-row sm:items-baseline sm:gap-5"
           >
-            <span className="text-xs text-gray-500 sm:w-40 shrink-0">
+            <span className="text-xs text-brand-navy/55 sm:w-44 shrink-0">
               {item.date
                 ? format.dateTime(new Date(item.date), {
                     year: "numeric",
@@ -35,13 +35,15 @@ export async function RecentNews({ service }: { service: Service }) {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold underline"
+                  className="font-semibold text-brand-navy underline decoration-brand-navy/30 hover:decoration-brand-navy"
                 >
                   {item.title}
                 </a>
               )}
               {item.summary && (
-                <p className="text-sm text-gray-700 mt-1">{item.summary}</p>
+                <p className="text-sm text-brand-navy/75 mt-1 leading-relaxed">
+                  {item.summary}
+                </p>
               )}
             </div>
           </li>
