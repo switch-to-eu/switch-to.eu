@@ -6,6 +6,13 @@ import {
 import { notFound, redirect } from "next/navigation";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { TrustStrip } from "@/components/non-eu/TrustStrip";
+import { GainLosePanel } from "@/components/non-eu/GainLosePanel";
+import { WhereYourDataGoes } from "@/components/non-eu/WhereYourDataGoes";
+import { RecentNews } from "@/components/non-eu/RecentNews";
+import { WhatPeopleSay } from "@/components/non-eu/WhatPeopleSay";
+import { FaqAccordion } from "@/components/non-eu/FaqAccordion";
+import { Sources } from "@/components/non-eu/Sources";
 
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
@@ -13,11 +20,9 @@ import { Locale } from "next-intl";
 import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
-import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
@@ -74,8 +79,10 @@ export async function generateMetadata({
 
   const tags = (service.tags ?? []).map((t) => t.tag);
 
-  const title = service.metaTitle || `${service.name} | switch-to.eu`;
-  const description = service.metaDescription || service.description;
+  const title =
+    service.metaTitle || `EU Alternatives to ${service.name} | switch-to.eu`;
+  const description =
+    service.metaDescription || service.oneLineProblem || service.description;
 
   return {
     title,
@@ -192,145 +199,126 @@ export default async function ServiceDetailPage({
 
   return (
     <PageLayout>
+      {/* 1. HERO */}
       <Container noPaddingMobile>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Banner -- orange accent for non-EU */}
-            <Banner
-              color="bg-brand-orange"
-              className="py-10 sm:py-14"
-              shapes={[
-                {
-                  shape: "starburst",
-                  className:
-                    "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44",
-                },
-              ]}
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h1 className="font-heading text-4xl sm:text-5xl uppercase text-white">
-                  {service.name}
-                </h1>
-                <RegionBadge region={service.region} />
-              </div>
-              <p className="text-white/90 text-base sm:text-lg max-w-2xl">
-                {service.description}
-              </p>
-            </Banner>
-
-            {/* Mobile Service Issues Section */}
-            {issues.length > 0 && (
-              <div className="lg:hidden">
-                <WarningCollapsible
-                  items={issues}
-                  title={t("whyProblematic", { service: service.name })}
-                  variant="error"
-                  iconType="alert-triangle"
-                  defaultOpen
-                />
-              </div>
-            )}
-
-            {/* Service Details */}
-            {htmlContent && (
-              <div className="px-3 md:px-0 mdx-content prose prose-slate prose-sm sm:prose max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-              </div>
-            )}
+        <Banner
+          color="bg-brand-orange"
+          className="py-10 sm:py-14"
+          shapes={[
+            {
+              shape: "starburst",
+              className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44",
+            },
+          ]}
+        >
+          <div className="flex justify-between items-start gap-4 mb-4">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white">
+              {t("redesign.h1Template", { name: service.name })}
+            </h1>
+            <RegionBadge region={service.region} />
           </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1 relative">
-            {issues.length > 0 ? (
-              <div className="hidden lg:block sticky top-0">
-                <WarningCollapsible
-                  items={issues}
-                  title={t("whyProblematic", { service: service.name })}
-                  variant="error"
-                  iconType="alert-triangle"
-                  defaultOpen
-                />
-              </div>
-            ) : (
-              <div className="hidden lg:block sticky top-24 rounded-3xl p-6 bg-brand-navy overflow-hidden">
-                <DecorativeShape
-                  shape="sunburst"
-                  className="-top-4 -right-4 w-20 h-20"
-                />
-                <h2 className="font-heading text-xl uppercase text-brand-yellow mb-4 relative z-10">
-                  {t("whySwitchTitle")}
-                </h2>
-                <div className="space-y-3 relative z-10">
-                  <div className="p-3 rounded-2xl bg-white/10">
-                    <h3 className="font-medium mb-1 text-white text-sm">
-                      {t("dataSovereignty.title")}
-                    </h3>
-                    <p className="text-xs text-brand-cream/80">
-                      {t("dataSovereignty.description")}
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-2xl bg-white/10">
-                    <h3 className="font-medium mb-1 text-white text-sm">
-                      {t("gdprCompliance.title")}
-                    </h3>
-                    <p className="text-xs text-brand-cream/80">
-                      {t("gdprCompliance.description")}
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-2xl bg-white/10">
-                    <h3 className="font-medium mb-1 text-white text-sm">
-                      {t("legalRecourse.title")}
-                    </h3>
-                    <p className="text-xs text-brand-cream/80">
-                      {t("legalRecourse.description")}
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-2xl bg-white/10">
-                    <h3 className="font-medium mb-1 text-white text-sm">
-                      {t("supportEUDigital.title")}
-                    </h3>
-                    <p className="text-xs text-brand-cream/80">
-                      {t("supportEUDigital.description")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+          <p className="text-white/90 text-base sm:text-lg max-w-2xl">
+            {service.oneLineProblem || service.description}
+          </p>
+        </Banner>
       </Container>
 
+      {/* 2. TRUST STRIP */}
       <Container noPaddingMobile>
-        {/* Recommended Alternative -- below body text */}
-        {resolvedAlternative && (
+        <TrustStrip service={service} />
+      </Container>
+
+      {/* 3. RECOMMENDED ALTERNATIVE */}
+      {resolvedAlternative && (
+        <Container noPaddingMobile>
           <RecommendedAlternative
             service={resolvedAlternative}
             sourceService={service.name}
             migrationGuides={migrationGuides}
           />
-        )}
+        </Container>
+      )}
+
+      {/* 4. GAIN / LOSE PANEL */}
+      {resolvedAlternative && (
+        <Container noPaddingMobile>
+          <GainLosePanel
+            service={service}
+            recommendedName={resolvedAlternative.name}
+          />
+        </Container>
+      )}
+
+      {/* 5. OTHER EU ALTERNATIVES */}
+      {otherAlternatives.length > 0 && (
+        <Container noPaddingMobile>
+          <SectionHeading>{t("redesign.otherAlternatives")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-4">
+            {otherAlternatives.map((alt, index) => (
+              <ServiceCard
+                key={alt.name}
+                service={alt}
+                showCategory={false}
+                colorIndex={index}
+              />
+            ))}
+            <SuggestServiceCard colorIndex={otherAlternatives.length} />
+          </div>
+        </Container>
+      )}
+
+      {/* 6. WHY PEOPLE ARE SWITCHING */}
+      {(issues.length > 0 || htmlContent) && (
+        <Container noPaddingMobile>
+          <section className="rounded-3xl bg-white border border-black/5 p-6 sm:p-8 md:p-10">
+            <h2 className="font-heading uppercase text-2xl sm:text-3xl mb-5">
+              {t("redesign.whyPeopleSwitch", { name: service.name })}
+            </h2>
+            {issues.length > 0 && (
+              <ul className="space-y-2 mb-6">
+                {issues.map((issue, i) => (
+                  <li key={i} className="flex gap-3 text-sm sm:text-base">
+                    <span aria-hidden className="text-brand-orange shrink-0">
+                      ⚠
+                    </span>
+                    <span>{issue}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {htmlContent && (
+              <div
+                className="mdx-content prose prose-slate prose-sm sm:prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+            )}
+          </section>
+        </Container>
+      )}
+
+      {/* 7. WHERE YOUR DATA GOES */}
+      <Container noPaddingMobile>
+        <WhereYourDataGoes service={service} />
       </Container>
 
+      {/* 8. RECENT NEWS */}
       <Container noPaddingMobile>
-        {/* Other EU Alternatives Section */}
-        {otherAlternatives.length > 0 && (
-          <div>
-            <SectionHeading>{t("otherAlternatives")}</SectionHeading>
+        <RecentNews service={service} />
+      </Container>
 
-            <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-4">
-              {otherAlternatives.map((alt, index) => (
-                <ServiceCard
-                  key={alt.name}
-                  service={alt}
-                  showCategory={false}
-                  colorIndex={index}
-                />
-              ))}
-              <SuggestServiceCard colorIndex={otherAlternatives.length} />
-            </div>
-          </div>
-        )}
+      {/* 9. WHAT PEOPLE SAY */}
+      <Container noPaddingMobile>
+        <WhatPeopleSay service={service} />
+      </Container>
+
+      {/* 10. FAQ */}
+      <Container noPaddingMobile>
+        <FaqAccordion service={service} />
+      </Container>
+
+      {/* 11. SOURCES */}
+      <Container noPaddingMobile>
+        <Sources service={service} />
       </Container>
     </PageLayout>
   );
