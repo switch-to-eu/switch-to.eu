@@ -1,12 +1,6 @@
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
-import {
-  getCategorySlug,
-  getGuideSourceService,
-  getGuideTargetService,
-  hasPricingData,
-  hasSecurityData,
-} from "@/lib/services";
+import { getCategorySlug } from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
 import { unstable_cache } from "next/cache";
 
@@ -88,7 +82,6 @@ async function buildEntries(): Promise<SitemapEntry[]> {
 
   let categoriesEntries: SitemapEntry[] = [];
   let servicesEntries: SitemapEntry[] = [];
-  let comparisonEntries: SitemapEntry[] = [];
   let guidesEntries: SitemapEntry[] = [];
 
   try {
@@ -104,12 +97,9 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       payload.find({
         collection: "services",
         where: { _status: { equals: "published" } },
-        // Use the default locale here — `locale: "all"` returns localized
-        // fields as `{ en, nl }` envelope objects, which makes truthiness
-        // checks in `hasPricingData` (specifically `startingPrice`, the only
-        // localized gating field) report true even when both values are
-        // empty. That mismatch caused noindex pages to be listed in the
-        // sitemap (the page render uses a flat locale and 404s).
+        // Pricing/security/comparison subviews are now tabs (?tab=) on the
+        // service URL, so we no longer emit per-tab entries; using the
+        // default locale is still safer here than `locale: "all"` envelopes.
         locale: defaultLocale,
         limit: 0,
         pagination: false,
@@ -140,55 +130,12 @@ async function buildEntries(): Promise<SitemapEntry[]> {
       const serviceUrl = `/services/${regionPath}/${service.slug}`;
       const lastMod = new Date(service.updatedAt);
 
-      const entries: SitemapEntry[] = locales.map((locale) => ({
+      return locales.map((locale) => ({
         url: `${baseUrl}/${locale}${serviceUrl}`,
         lastModified: lastMod,
         changeFrequency: "monthly",
         priority: 0.7,
         alternates: localeAlternates(serviceUrl),
-      }));
-
-      if (regionPath === "eu" && hasPricingData(service)) {
-        const pricingUrl = `${serviceUrl}/pricing`;
-        entries.push(
-          ...locales.map((locale) => ({
-            url: `${baseUrl}/${locale}${pricingUrl}`,
-            lastModified: lastMod,
-            changeFrequency: "monthly",
-            priority: 0.5,
-            alternates: localeAlternates(pricingUrl),
-          }))
-        );
-      }
-
-      if (regionPath === "eu" && hasSecurityData(service)) {
-        const securityUrl = `${serviceUrl}/security`;
-        entries.push(
-          ...locales.map((locale) => ({
-            url: `${baseUrl}/${locale}${securityUrl}`,
-            lastModified: lastMod,
-            changeFrequency: "monthly",
-            priority: 0.5,
-            alternates: localeAlternates(securityUrl),
-          }))
-        );
-      }
-
-      return entries;
-    });
-
-    comparisonEntries = guidesResult.docs.flatMap((g: Guide) => {
-      const target = getGuideTargetService(g);
-      const source = getGuideSourceService(g);
-      if (!target || !source || target.region === "non-eu") return [];
-
-      const path = `/services/eu/${target.slug}/vs-${source.slug}`;
-      return locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${path}`,
-        lastModified: new Date(g.updatedAt),
-        changeFrequency: "monthly",
-        priority: 0.5,
-        alternates: localeAlternates(path),
       }));
     });
 
@@ -216,7 +163,6 @@ async function buildEntries(): Promise<SitemapEntry[]> {
     ...staticEntries,
     ...categoriesEntries,
     ...servicesEntries,
-    ...comparisonEntries,
     ...guidesEntries,
   ];
 }

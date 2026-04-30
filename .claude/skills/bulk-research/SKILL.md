@@ -76,7 +76,7 @@ Use the /research skill to research this service. Here is the full process:
 1. Find the service in Payload using mcp__payload__findServices with:
    {"where": "{\"name\": {\"contains\": \"{SERVICE_NAME}\"}}", "limit": 5}
 
-2. Research using Jina Reader (r.jina.ai), Jina Search (s.jina.ai), and the Reddit MCP:
+2. Research using `mcp__Payload__jina_read`, `mcp__Payload__jina_search`, and the Reddit MCP (see `_shared/jina.md`):
    - Company basics: website, headquarters, parent company, founded year, employees, open source
    - Pricing: free tier, paid plans, enterprise, pricing page URL
    - Privacy & GDPR: data storage locations, compliance status, DPA, privacy policy URL

@@ -50,6 +50,9 @@ export function serviceToMarkdown(service: Service): string {
   if (service.headquarters) {
     lines.push(`- **Headquarters**: ${service.headquarters}`);
   }
+  if (service.parentCompany) {
+    lines.push(`- **Parent company**: ${service.parentCompany}`);
+  }
   if (service.foundedYear) {
     lines.push(`- **Founded**: ${service.foundedYear}`);
   }
@@ -63,6 +66,34 @@ export function serviceToMarkdown(service: Service): string {
     for (const f of service.features) {
       lines.push(`- ${f.feature}`);
     }
+    lines.push("");
+  }
+
+  // Pricing tiers
+  if (service.pricingTiers && service.pricingTiers.length > 0) {
+    lines.push("## Pricing");
+    lines.push("");
+    for (const tier of service.pricingTiers) {
+      const heading = tier.name ? `### ${tier.name}` : "### Tier";
+      lines.push(heading);
+      lines.push("");
+      if (tier.price) lines.push(`- **Price**: ${tier.price}`);
+      if (tier.billingNote) lines.push(`- **Billing**: ${tier.billingNote}`);
+      if (tier.features && tier.features.length > 0) {
+        lines.push("- **Includes**:");
+        for (const f of tier.features) {
+          lines.push(`  - ${f.feature}`);
+        }
+      }
+      lines.push("");
+    }
+  }
+
+  // GDPR notes
+  if (service.gdprNotes) {
+    lines.push("## GDPR notes");
+    lines.push("");
+    lines.push(service.gdprNotes);
     lines.push("");
   }
 

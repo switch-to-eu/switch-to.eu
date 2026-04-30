@@ -19,6 +19,7 @@ export type ServiceCardService = Pick<
   | "startingPrice"
   | "description"
   | "screenshot"
+  | "angle"
 >;
 
 const SERVICE_SHAPES = [
@@ -118,6 +119,14 @@ export async function ServiceCard({
                 <span>{service.startingPrice}</span>
               )}
           </div>
+
+          {service.angle && (
+            <span
+              className={`${card.text} block text-[11px] uppercase tracking-wider font-bold opacity-90 mb-1`}
+            >
+              {service.angle}
+            </span>
+          )}
 
           <p
             className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-5`}

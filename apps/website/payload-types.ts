@@ -394,6 +394,10 @@ export interface Service {
       }[]
     | null;
   /**
+   * One short positioning line shown when this service appears as a non-recommended alternative on someone else's page (e.g. 'Most private', 'Closest to Chrome'). Optional.
+   */
+  angle?: string | null;
+  /**
    * Main service body content
    */
   content?: {
@@ -424,6 +428,52 @@ export interface Service {
    * Recommended EU alternative (non-EU services only)
    */
   recommendedAlternative?: (number | null) | Service;
+  /**
+   * Punchy one-sentence lede shown under the page H1 (~100–140 chars). Non-EU services only.
+   */
+  oneLineProblem?: string | null;
+  /**
+   * 2–3 wins gained by switching to the recommended alternative. Non-EU services only; renders when recommendedAlternative is set.
+   */
+  whatYoudGain?:
+    | {
+        point: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * 2–3 honest trade-offs vs the recommended alternative. Non-EU services only.
+   */
+  whatYoudLose?:
+    | {
+        point: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Page-level FAQs about considering the switch (distinct from migration-guide FAQs about executing it). Emitted as JSON-LD FAQPage.
+   */
+  faqs?:
+    | {
+        question: string;
+        answer: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Current status of research for this service
    */
@@ -1248,6 +1298,14 @@ export interface PayloadMcpApiKey {
      * Replace a link URL across all rich-text fields of a single Payload doc, in both locales. Walks every Lexical link/autolink node; updates `fields.url` on exact matches and (by default) rewrites the visible text when it equals the old URL. Use for fixing broken outbound URLs reported by SEO crawlers, or retargeting external links to a new canonical URL. Returns per-locale, per-field hit counts.
      */
     replaceLinkInDoc?: boolean | null;
+    /**
+     * Web search via Jina Search (s.jina.ai). Returns JSON with data[] entries (url, title, description). Pass withContent=true to also include scraped Markdown body of each result. Default country/language is nl/en — override per call when needed.
+     */
+    jinaSearch?: boolean | null;
+    /**
+     * Fetch a single URL as clean Markdown via Jina Reader (r.jina.ai). Strips navigation, ads, and boilerplate. Use for vendor pages, news articles, privacy policies — anywhere you need the readable body of one specific URL.
+     */
+    jinaRead?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1699,6 +1757,7 @@ export interface ServicesSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  angle?: T;
   content?: T;
   issues?:
     | T
@@ -1707,6 +1766,26 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   recommendedAlternative?: T;
+  oneLineProblem?: T;
+  whatYoudGain?:
+    | T
+    | {
+        point?: T;
+        id?: T;
+      };
+  whatYoudLose?:
+    | T
+    | {
+        point?: T;
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   researchStatus?: T;
   lastResearchedAt?: T;
   gdprCompliance?: T;
@@ -1884,6 +1963,8 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | {
         wipeContent?: T;
         replaceLinkInDoc?: T;
+        jinaSearch?: T;
+        jinaRead?: T;
       };
   updatedAt?: T;
   createdAt?: T;

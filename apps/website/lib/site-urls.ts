@@ -1,13 +1,7 @@
 import { getPayload } from "@/lib/payload";
 import { routing } from "@switch-to-eu/i18n/routing";
 import type { Service, Guide, Category } from "@/payload-types";
-import {
-  getCategorySlug,
-  getGuideSourceService,
-  getGuideTargetService,
-  hasPricingData,
-  hasSecurityData,
-} from "@/lib/services";
+import { getCategorySlug } from "@/lib/services";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 const { locales } = routing;
@@ -72,28 +66,13 @@ export async function collectAllSiteUrls(): Promise<string[]> {
   for (const service of servicesResult.docs as Service[]) {
     if (!service.slug) continue;
     const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
-    const servicePath = `/services/${regionPath}/${service.slug}`;
-    paths.add(servicePath);
-
-    if (regionPath === "eu" && hasPricingData(service)) {
-      paths.add(`${servicePath}/pricing`);
-    }
-
-    if (regionPath === "eu" && hasSecurityData(service)) {
-      paths.add(`${servicePath}/security`);
-    }
+    paths.add(`/services/${regionPath}/${service.slug}`);
   }
 
   for (const guide of guidesResult.docs as Guide[]) {
     if (!guide.slug) continue;
     const categorySlug = getCategorySlug(guide.category) || "uncategorized";
     paths.add(`/guides/${categorySlug}/${guide.slug}`);
-
-    const target = getGuideTargetService(guide);
-    const source = getGuideSourceService(guide);
-    if (target && source && target.region !== "non-eu") {
-      paths.add(`/services/eu/${target.slug}/vs-${source.slug}`);
-    }
   }
 
   for (const page of landingPagesResult.docs as { slug?: string | null }[]) {
