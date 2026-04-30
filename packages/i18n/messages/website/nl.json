@@ -508,12 +508,21 @@
         "redesign": {
           "h1Template": "EU-alternatieven voor {name}",
           "tabs": {
-            "overview": "Overzicht",
+            "overview": "Waarom overstappen",
+            "voices": "Stemmen",
             "privacy": "Privacy en data",
             "faq": "FAQ",
             "sources": "Bronnen"
           },
           "heroBack": "Alle {category}",
+          "sidebar": {
+            "featured": "Aanbevolen alternatief",
+            "tryService": "Probeer {name}",
+            "switchGuide": "Overstappen vanaf {source}",
+            "learnMore": "Meer over {name}",
+            "otherAlternatives": "Andere EU-alternatieven",
+            "seeAll": "Alles in {category}"
+          },
           "trustStrip": {
             "lastReviewed": "Laatst beoordeeld op {date}",
             "sourcesCount": "{count, plural, one {# bron} other {# bronnen}}",
@@ -539,8 +548,7 @@
             "title": "Recent nieuws over {name}"
           },
           "whatPeopleSay": {
-            "title": "Wat mensen zeggen over {name}",
-            "subreddit": "r/{name}"
+            "title": "Wat mensen zeggen over {name}"
           },
           "faq": {
             "title": "Veelgestelde vragen"

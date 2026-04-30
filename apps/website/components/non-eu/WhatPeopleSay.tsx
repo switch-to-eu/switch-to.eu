@@ -1,68 +1,61 @@
 import { getTranslations } from "next-intl/server";
 import type { Service } from "@/payload-types";
 
+const SENTIMENT_DOT: Record<string, string> = {
+  positive: "bg-brand-green",
+  negative: "bg-brand-orange",
+  neutral: "bg-foreground/30",
+  mixed: "bg-foreground/30",
+};
+
 export async function WhatPeopleSay({ service }: { service: Service }) {
   const t = await getTranslations(
     "services.detail.nonEu.redesign.whatPeopleSay"
   );
 
   const summary = service.userSentiment?.summary;
-  const mentions = service.redditMentions ?? [];
+  const mentions = (service.redditMentions ?? []).filter((m) => m.snippet);
   if (!summary && mentions.length === 0) return null;
 
+  const visibleMentions = mentions.slice(0, 4);
+
   return (
-    <section>
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-4">
+    <section className="max-w-2xl">
+      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-4">
         {t("title", { name: service.name })}
       </h2>
+
       {summary && (
-        <p className="text-base sm:text-lg leading-relaxed text-brand-navy/85 mb-6 max-w-3xl">
+        <p className="text-base sm:text-lg leading-relaxed text-foreground/85 mb-10">
           {summary}
         </p>
       )}
-      {mentions.length > 0 && (
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl">
-          {mentions.slice(0, 4).map((m, i) => (
-            <li
-              key={i}
-              className="rounded-xl border border-brand-navy/10 bg-white p-4"
-            >
-              <div className="flex items-center gap-2 text-xs mb-2">
-                <span className="font-semibold text-brand-navy/70">
-                  {t("subreddit", { name: m.subreddit })}
-                </span>
-                {m.sentiment && (
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[11px] uppercase tracking-wider ${
-                      m.sentiment === "positive"
-                        ? "bg-brand-green/10 text-brand-green"
-                        : m.sentiment === "negative"
-                          ? "bg-brand-orange/10 text-brand-orange"
-                          : "bg-brand-navy/[0.06] text-brand-navy/60"
-                    }`}
-                  >
-                    {m.sentiment}
-                  </span>
-                )}
-              </div>
-              {m.snippet && (
-                <p className="text-sm text-brand-navy/85 leading-relaxed">
+
+      {visibleMentions.length > 0 && (
+        <div className="space-y-7 sm:space-y-8">
+          {visibleMentions.map((m, i) => {
+            const sentimentDot = m.sentiment
+              ? (SENTIMENT_DOT[m.sentiment] ?? "bg-foreground/30")
+              : null;
+
+            return (
+              <figure key={i}>
+                <blockquote className="text-lg sm:text-xl leading-snug italic text-foreground/90">
                   &ldquo;{m.snippet}&rdquo;
-                </p>
-              )}
-              {m.postUrl && (
-                <a
-                  href={m.postUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-brand-navy/55 underline mt-2 inline-block hover:text-brand-navy"
-                >
-                  {m.postTitle ?? m.postUrl}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
+                </blockquote>
+                {sentimentDot && (
+                  <figcaption className="mt-2 inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-foreground/45">
+                    <span
+                      aria-hidden
+                      className={`w-1.5 h-1.5 rounded-full ${sentimentDot}`}
+                    />
+                    {m.sentiment}
+                  </figcaption>
+                )}
+              </figure>
+            );
+          })}
+        </div>
       )}
     </section>
   );

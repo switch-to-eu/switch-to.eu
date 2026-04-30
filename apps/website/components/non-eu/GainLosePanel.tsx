@@ -15,8 +15,8 @@ export async function GainLosePanel({
   if (gain.length === 0 && lose.length === 0) return null;
 
   return (
-    <section className="max-w-3xl">
-      <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-navy mb-5">
+    <section>
+      <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green mb-5">
         {t("headingTemplate", {
           source: service.name,
           target: recommendedName,
@@ -37,7 +37,7 @@ export async function GainLosePanel({
                   >
                     &#10003;
                   </span>
-                  <span className="text-brand-navy">{point}</span>
+                  <span className="text-foreground">{point}</span>
                 </li>
               ))}
             </ul>
@@ -57,7 +57,7 @@ export async function GainLosePanel({
                   >
                     &times;
                   </span>
-                  <span className="text-brand-navy">{point}</span>
+                  <span className="text-foreground">{point}</span>
                 </li>
               ))}
             </ul>

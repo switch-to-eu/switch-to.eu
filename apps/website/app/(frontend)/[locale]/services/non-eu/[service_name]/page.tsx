@@ -1,8 +1,9 @@
 import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { notFound, redirect } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
+import { SidebarAlternative } from "@/components/non-eu/SidebarAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { ServiceSubNav } from "@/components/ui/ServiceSubNav";
 import { TabsContent } from "@switch-to-eu/ui/components/tabs";
 import { GainLosePanel } from "@/components/non-eu/GainLosePanel";
@@ -20,14 +21,12 @@ import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
-import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
 import type { Service, Category, Guide } from "@/payload-types";
 import { getCategorySlug, getResolvedRelation } from "@/lib/services";
 
-const OVERVIEW_KEY = "overview";
+const WHY_SWITCH_KEY = "overview";
 
 interface TabSpec {
   key: string;
@@ -39,8 +38,15 @@ type Translator = (key: string, values?: Record<string, string>) => string;
 
 function buildTabs(service: Service, t: Translator): TabSpec[] {
   const tabs: TabSpec[] = [
-    { key: OVERVIEW_KEY, label: t("redesign.tabs.overview") },
+    { key: WHY_SWITCH_KEY, label: t("redesign.tabs.overview") },
   ];
+
+  const hasVoices =
+    !!service.userSentiment?.summary ||
+    (service.redditMentions?.length ?? 0) > 0;
+  if (hasVoices) {
+    tabs.push({ key: "voices", label: t("redesign.tabs.voices") });
+  }
 
   const hasPrivacy =
     !!service.parentCompany ||
@@ -328,127 +334,108 @@ export default async function ServiceDetailPage({
       </Container>
 
       <ServiceSubNav tabs={tabs}>
-        <PageLayout
-          paddingTopMobile
-          paddingBottomMobile
-          className="md:gap-12 md:pt-10 md:pb-16"
-        >
-          <TabsContent
-            value={OVERVIEW_KEY}
-            className="space-y-8 sm:space-y-10 md:space-y-12"
-          >
-            {/* Recommended alternative */}
+        <Container className="pt-1 sm:pt-0 md:pt-0 pb-10 sm:pb-12 md:pb-16">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10">
+            {/* Sidebar (source order first so mobile shows the answer right after the hero) */}
             {resolvedAlternative && (
-              <Container noPaddingMobile>
-                <RecommendedAlternative
+              <div className="lg:col-start-2 lg:row-start-1">
+                <SidebarAlternative
                   service={resolvedAlternative}
                   sourceService={service.name}
                   migrationGuides={migrationGuides}
                 />
-              </Container>
+              </div>
             )}
 
-            {/* Gain / Lose */}
-            {resolvedAlternative && (
-              <Container>
-                <GainLosePanel
-                  service={service}
-                  recommendedName={resolvedAlternative.name}
-                />
-              </Container>
-            )}
-
-            {/* What people say */}
-            <Container>
-              <WhatPeopleSay service={service} />
-            </Container>
-
-            {/* Why people switch — issues + body content */}
-            {(issues.length > 0 || service.content) && (
-              <Container>
-                <section className="max-w-3xl">
-                  <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-navy mb-5">
-                    {t("redesign.whyPeopleSwitch", { name: service.name })}
-                  </h2>
-                  {issues.length > 0 && (
-                    <ul className="space-y-2 mb-6">
-                      {issues.map((issue, i) => (
-                        <li
-                          key={i}
-                          className="flex gap-2.5 text-sm sm:text-base text-brand-navy"
-                        >
-                          <span
-                            aria-hidden
-                            className="text-brand-orange shrink-0 mt-0.5"
+            <main className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <TabsContent
+                value={WHY_SWITCH_KEY}
+                className="space-y-8 sm:space-y-10"
+              >
+                {(issues.length > 0 || service.content) && (
+                  <section>
+                    <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+                      {t("redesign.whyPeopleSwitch", { name: service.name })}
+                    </h2>
+                    {issues.length > 0 && (
+                      <ul className="space-y-2 mb-6">
+                        {issues.map((issue, i) => (
+                          <li
+                            key={i}
+                            className="flex gap-2.5 text-sm sm:text-base text-foreground"
                           >
-                            &#9888;
-                          </span>
-                          <span>{issue}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {service.content && (
-                    <div className="mdx-content prose prose-sm sm:prose max-w-none text-brand-navy/85">
-                      <RichText data={service.content} />
-                    </div>
-                  )}
-                </section>
-              </Container>
-            )}
+                            <span
+                              aria-hidden
+                              className="text-brand-orange shrink-0 mt-0.5"
+                            >
+                              &#9888;
+                            </span>
+                            <span>{issue}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {service.content && (
+                      <div className="mdx-content prose prose-sm sm:prose max-w-none">
+                        <RichText data={service.content} />
+                      </div>
+                    )}
+                  </section>
+                )}
 
-            {/* Other EU alternatives */}
-            {otherAlternatives.length > 0 && (
-              <Container noPaddingMobile>
-                <SectionHeading>
-                  {t("redesign.otherAlternatives")}
-                </SectionHeading>
-                <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-4">
-                  {otherAlternatives.map((alt, index) => (
-                    <ServiceCard
-                      key={alt.name}
-                      service={alt}
-                      showCategory={false}
-                      colorIndex={index}
-                    />
-                  ))}
-                  <SuggestServiceCard colorIndex={otherAlternatives.length} />
-                </div>
-              </Container>
-            )}
-          </TabsContent>
+                {resolvedAlternative && (
+                  <GainLosePanel
+                    service={service}
+                    recommendedName={resolvedAlternative.name}
+                  />
+                )}
+              </TabsContent>
 
-          {tabs.some((tab) => tab.key === "privacy") && (
-            <TabsContent
-              value="privacy"
-              className="space-y-8 sm:space-y-10 md:space-y-12"
-            >
-              <Container>
-                <WhereYourDataGoes service={service} />
-              </Container>
-              <Container>
-                <RecentNews service={service} />
-              </Container>
-            </TabsContent>
-          )}
+              {tabs.some((tab) => tab.key === "voices") && (
+                <TabsContent value="voices" className="space-y-8 sm:space-y-10">
+                  <WhatPeopleSay service={service} />
+                </TabsContent>
+              )}
 
-          {tabs.some((tab) => tab.key === "faq") && (
-            <TabsContent value="faq">
-              <Container>
-                <FaqAccordion service={service} />
-              </Container>
-            </TabsContent>
-          )}
+              {tabs.some((tab) => tab.key === "privacy") && (
+                <TabsContent value="privacy" className="space-y-8 sm:space-y-10">
+                  <WhereYourDataGoes service={service} />
+                  <RecentNews service={service} />
+                </TabsContent>
+              )}
 
-          {tabs.some((tab) => tab.key === "sources") && (
-            <TabsContent value="sources">
-              <Container>
-                <Sources service={service} />
-              </Container>
-            </TabsContent>
-          )}
-        </PageLayout>
+              {tabs.some((tab) => tab.key === "faq") && (
+                <TabsContent value="faq" className="space-y-8 sm:space-y-10">
+                  <FaqAccordion service={service} />
+                </TabsContent>
+              )}
+
+              {tabs.some((tab) => tab.key === "sources") && (
+                <TabsContent value="sources" className="space-y-8 sm:space-y-10">
+                  <Sources service={service} />
+                </TabsContent>
+              )}
+            </main>
+          </div>
+        </Container>
       </ServiceSubNav>
+
+      {otherAlternatives.length > 0 && (
+        <Container noPaddingMobile className="pt-6 sm:pt-10 pb-10 sm:pb-14">
+          <SectionHeading>{t("redesign.otherAlternatives")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            {otherAlternatives.map((alt, index) => (
+              <ServiceCard
+                key={alt.name}
+                service={alt}
+                showCategory={false}
+                colorIndex={index}
+              />
+            ))}
+            <SuggestServiceCard colorIndex={otherAlternatives.length} />
+          </div>
+        </Container>
+      )}
     </>
   );
 }

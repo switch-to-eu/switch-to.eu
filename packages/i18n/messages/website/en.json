@@ -514,12 +514,21 @@
         "redesign": {
           "h1Template": "EU Alternatives to {name}",
           "tabs": {
-            "overview": "Overview",
+            "overview": "Why switch",
+            "voices": "Voices",
             "privacy": "Privacy & data",
             "faq": "FAQ",
             "sources": "Sources"
           },
           "heroBack": "All {category}",
+          "sidebar": {
+            "featured": "Featured alternative",
+            "tryService": "Try {name}",
+            "switchGuide": "Switch from {source}",
+            "learnMore": "Read more about {name}",
+            "otherAlternatives": "Other EU alternatives",
+            "seeAll": "See all in {category}"
+          },
           "trustStrip": {
             "lastReviewed": "Last reviewed {date}",
             "sourcesCount": "{count, plural, one {# source} other {# sources}}",
@@ -545,8 +554,7 @@
             "title": "Recent news about {name}"
           },
           "whatPeopleSay": {
-            "title": "What people say about {name}",
-            "subreddit": "r/{name}"
+            "title": "What people say about {name}"
           },
           "faq": {
             "title": "Frequently asked questions"
