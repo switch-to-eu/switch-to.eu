@@ -124,6 +124,33 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **CSS imports chain:** Apps import global styles from `@switch-to-eu/ui/styles/globals.css`. The website's `postcss.config.mjs` re-exports from the UI package.
 
+## Database Migrations (Payload + Postgres)
+
+The website Payload instance runs in **migration mode in production, push mode in local dev**. Migrations live in `apps/website/migrations/` and are checked into git.
+
+**Local dev workflow** (push mode, no migrations needed for iteration):
+
+1. Edit a collection (`apps/website/collections/*.ts`)
+2. `pnpm dev` — Payload's postgres adapter syncs the schema diff to your dev DB on boot
+
+**Capturing the schema change as a migration** (before opening a PR):
+
+```bash
+pnpm --filter website migrate:create <descriptive-name>
+```
+
+This generates `apps/website/migrations/<timestamp>_<name>.ts`. Review the SQL `up`/`down` blocks, commit alongside the collection change.
+
+**Production deploy** runs `pnpm migrate` automatically as part of `vercel-build` (configured in `apps/website/vercel.json`). The `PAYLOAD_MIGRATING=true` env flag swaps `DATABASE_URL` for `DATABASE_URL_UNPOOLED` because pgbouncer rejects DDL transactions.
+
+**Other commands**:
+
+- `pnpm --filter website migrate` — apply pending migrations (used by `vercel-build`)
+- `pnpm --filter website migrate:status` — show which migrations are pending vs. applied
+- `pnpm --filter website migrate:fresh` — DROP and recreate everything (dev only, never prod)
+
+**Never** rename a column without an explicit migration plan. Push mode would interpret it as drop + add and lose the data.
+
 ## i18n
 
 Locales: `en` (default), `nl`. Managed by `@switch-to-eu/i18n` package using next-intl v4.

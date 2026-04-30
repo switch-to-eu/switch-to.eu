@@ -38,7 +38,15 @@ export default buildConfig({
     },
   },
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URL! },
+    pool: {
+      // Migrations use the unpooled connection because pgbouncer/transaction
+      // poolers reject DDL statements; runtime falls back to the pooled URL.
+      connectionString:
+        process.env.PAYLOAD_MIGRATING === "true"
+          ? (process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL!)
+          : process.env.DATABASE_URL!,
+    },
+    migrationDir: path.resolve(__dirname, "migrations"),
   }),
   editor: lexicalEditor(),
   localization: {
