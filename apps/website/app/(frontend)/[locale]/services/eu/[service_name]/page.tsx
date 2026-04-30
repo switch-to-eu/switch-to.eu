@@ -1,21 +1,42 @@
-import { RichText } from "@/components/rich-text";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { Link } from "@switch-to-eu/i18n/navigation";
 
+import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { Link } from "@switch-to-eu/i18n/navigation";
+import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
+import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
+import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
+import { ServiceSubNav } from "@/components/ui/ServiceSubNav";
+import { TabsContent } from "@switch-to-eu/ui/components/tabs";
+import { ServiceCta } from "@/components/ui/ServiceCta";
+import { ServiceCard } from "@/components/ui/ServiceCard";
+import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
+import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
+import { RichText } from "@/components/rich-text";
 
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
 
 import {
   getServiceBySlug,
-  getAllEuServiceSlugs,
+  getRelatedGuides,
+  getSimilarServices,
+  getCategorySlug,
+  getCategoryId,
+  getGuideSourceService,
+  getScreenshotUrl,
+  getOutboundUrl,
   hasPricingData,
   hasSecurityData,
+  getAllEuServiceSlugs,
 } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
+import type { Service, Guide } from "@/payload-types";
+
+const OVERVIEW_KEY = "overview";
 
 export async function generateStaticParams() {
   return getAllEuServiceSlugs();
@@ -30,12 +51,100 @@ export async function generateMetadata({
   return generateServiceMetadata({ serviceName: service_name, locale });
 }
 
+interface TabSpec {
+  key: string;
+  label: string;
+}
+
+// eslint-disable-next-line no-unused-vars
+type Translator = (key: string, values?: Record<string, string>) => string;
+
+function buildTabs(
+  service: Service,
+  guides: Guide[],
+  t: Translator
+): TabSpec[] {
+  const tabs: TabSpec[] = [
+    { key: OVERVIEW_KEY, label: t("tabs.overview") },
+  ];
+
+  if (hasPricingData(service)) {
+    tabs.push({ key: "pricing", label: t("tabs.pricing") });
+  }
+
+  if (hasSecurityData(service)) {
+    tabs.push({ key: "security", label: t("tabs.security") });
+  }
+
+  for (const guide of guides) {
+    const sourceService = getGuideSourceService(guide);
+    if (sourceService) {
+      tabs.push({
+        key: `vs-${sourceService.slug}`,
+        label: `${service.name} vs ${sourceService.name}`,
+      });
+    }
+  }
+
+  return tabs;
+}
+
+function CompareRow({
+  label,
+  euValue,
+  nonEuValue,
+  highlight,
+}: {
+  label: string;
+  euValue: string;
+  nonEuValue: string;
+  highlight?: "eu" | "non-eu" | "neutral";
+}) {
+  return (
+    <div
+      className={`grid grid-cols-3 gap-4 py-4 border-b border-gray-100 last:border-0${
+        highlight === "eu" ? " bg-brand-green/[0.03]" : ""
+      }`}
+    >
+      <div className="text-sm font-medium text-gray-500">{label}</div>
+      <div
+        className={`text-sm ${
+          highlight === "non-eu"
+            ? "text-gray-500"
+            : highlight === "eu"
+              ? "text-brand-green font-medium"
+              : "text-gray-700"
+        }`}
+      >
+        {euValue}
+      </div>
+      <div
+        className={`text-sm ${
+          highlight === "eu"
+            ? "text-gray-500"
+            : highlight === "non-eu"
+              ? "text-brand-green font-medium"
+              : "text-gray-700"
+        }`}
+      >
+        {nonEuValue}
+      </div>
+    </div>
+  );
+}
+
 export default async function ServiceDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: Locale; service_name: string }>;
+  searchParams: Promise<{ tab?: string }>;
 }) {
   const { service_name, locale } = await params;
+  // Awaited here to opt the page into per-request rendering, so direct hits to
+  // a `?tab=X` URL render the right TabsContent on the server (avoiding a
+  // flash on the client).
+  await searchParams;
   const t = await getTranslations("services.detail");
 
   const service = await getServiceBySlug(service_name, locale);
@@ -44,19 +153,43 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
+  const categorySlug = getCategorySlug(service.category);
+  const categoryFormatted =
+    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
+
+  const screenshotUrl = getScreenshotUrl(service.screenshot);
+  const relatedGuides = await getRelatedGuides(service.id, locale);
+
+  const firstGuide = relatedGuides[0] ?? null;
+  const firstGuideCategory = firstGuide
+    ? getCategorySlug(firstGuide.category) || null
+    : null;
+  const firstSourceName = firstGuide
+    ? (getGuideSourceService(firstGuide)?.name ?? null)
+    : null;
+
+  const categoryId = getCategoryId(service.category);
+  const similarServices = await getSimilarServices(
+    categoryId,
+    service.id,
+    locale
+  );
+
+  const tabs = buildTabs(service, relatedGuides, t);
+
   const basePath = `/services/eu/${service_name}`;
 
-  // Determine which snippets to show
+  // Pre-compute overview fields
   const hasPricing = hasPricingData(service);
   const hasSecurity = hasSecurityData(service);
-
-  // Get pricing summary data
   const freeTier = service.pricingTiers?.find(
-    (t) => t.price === "Free" || t.price === "free" || t.price === "€0"
+    (tier) =>
+      tier.price === "Free" || tier.price === "free" || tier.price === "€0"
   );
-  const cheapestPaid = service.pricingTiers
-    ?.filter((t) => t.price !== "Free" && t.price !== "free" && t.price !== "€0")
-    ?.[0];
+  const cheapestPaid = service.pricingTiers?.filter(
+    (tier) =>
+      tier.price !== "Free" && tier.price !== "free" && tier.price !== "€0"
+  )?.[0];
 
   const gdprLabel =
     service.gdprCompliance === "compliant"
@@ -67,79 +200,643 @@ export default async function ServiceDetailPage({
           ? t("gdprNonCompliant")
           : null;
 
+  // Comparison data — fetch full source services + matching guides for any
+  // vs-X tabs the relatedGuides expose. The depth:1 on relatedGuides already
+  // gives us a populated source service, but we need the missingFeatures off
+  // the guide itself which is on the guide doc.
+  const filteredFeatures = service.features?.filter(
+    (f) => !/free/i.test(f.feature)
+  );
+
+  // Pre-fetch any non-EU services referenced as comparison sources, so we can
+  // render full comparison tables (issues, certifications, etc.) for each.
+  const payload = await getPayload();
+  const preview = await isPreview();
+  const comparisonGuides: Array<{ guide: Guide; nonEuService: Service }> = [];
+  for (const guide of relatedGuides) {
+    const source = getGuideSourceService(guide);
+    if (!source) continue;
+    const nonEuResult = await payload.find({
+      collection: "services",
+      where: await publishedWhere({ slug: { equals: source.slug } }),
+      draft: preview,
+      locale,
+      depth: 1,
+      limit: 1,
+    });
+    const nonEuService = nonEuResult.docs[0] as Service | undefined;
+    if (!nonEuService) continue;
+    comparisonGuides.push({ guide, nonEuService });
+  }
+
   return (
-    <PageLayout className="md:gap-8 md:pt-0 md:pb-8">
-      {/* Feature highlights (filter out pills redundant with hero meta) */}
-      {service.features && service.features.length > 0 && (() => {
-        const filtered = service.features.filter(
-          (f) => !/free/i.test(f.feature)
-        );
-        return filtered.length > 0 ? (
-          <Container className="py-2 md:py-0">
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {filtered.map((f) => (
-                <span
-                  key={f.feature}
-                  className="inline-block bg-brand-sky/20 text-brand-green px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium"
-                >
-                  {f.feature}
-                </span>
-              ))}
-            </div>
-          </Container>
-        ) : null;
-      })()}
+    <>
+      {/* Hero */}
+      <Container noPaddingMobile>
+        <Link
+          href={`/services/${categorySlug}`}
+          className="inline-flex items-center gap-1.5 text-brand-green/60 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
+        >
+          <span>&larr;</span>
+          <span>{categoryFormatted}</span>
+        </Link>
 
-      {/* Content */}
-      {service.content && (
-        <section>
-          <Container>
-            <div className="max-w-3xl">
-              <div className="mdx-content prose prose-sm sm:prose max-w-none">
-                <RichText data={service.content} />
+        <Banner
+          color="bg-brand-navy"
+          {...(!screenshotUrl && {
+            className: "[&>div]:py-8 [&>div]:sm:py-10",
+          })}
+          shapes={[
+            {
+              shape: "spark",
+              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48",
+            },
+            {
+              shape: "blob",
+              className: "bottom-4 right-20 hidden sm:block w-28 h-28",
+              opacity: 0.1,
+              duration: "9s",
+              delay: "-3s",
+            },
+            {
+              shape: "diamond-4",
+              className: "top-1/3 -left-4 hidden md:block w-16 h-16",
+              opacity: 0.1,
+              duration: "7s",
+              delay: "-5s",
+            },
+          ]}
+        >
+          <div
+            className={`grid gap-8 items-center ${
+              screenshotUrl
+                ? "grid-cols-1 md:grid-cols-2 md:gap-16"
+                : "grid-cols-1 max-w-3xl"
+            }`}
+          >
+            <div>
+              <div className="flex items-start gap-3 mb-3">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
+                  {service.name}
+                </h1>
+                <div className="flex-shrink-0 mt-2">
+                  <RegionBadge region={service.region} />
+                </div>
               </div>
-            </div>
-          </Container>
-        </section>
-      )}
 
-      {/* Pricing + Security snippets linking to tabs */}
-      {(hasPricing || hasSecurity) && (
-        <section>
-          <Container>
-            <div className="flex gap-4 sm:gap-6 mb-4">
-              {hasPricing && (
-                <Link
-                  href={`${basePath}/pricing`}
-                  className="group no-underline sm:bg-white sm:p-5 sm:rounded-xl sm:border sm:border-gray-200 sm:shadow-sm sm:hover:shadow-md sm:hover:border-brand-green/30 sm:transition-all"
-                >
-                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1.5">{t("tabs.pricing")}</span>
-                  <span className="text-sm sm:text-base font-semibold text-brand-navy group-hover:text-brand-green transition-colors whitespace-nowrap">
-                    {freeTier && cheapestPaid
-                      ? `${t("snippetFree")} \u2013 ${cheapestPaid.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
-                      : freeTier
-                        ? t("snippetFree")
-                        : service.startingPrice || t("snippetViewPlans")}
-                    {" "}<span className="text-xs sm:text-sm">&rarr;</span>
-                  </span>
-                </Link>
-              )}
+              <p className="text-brand-cream text-base sm:text-lg mb-4 max-w-2xl leading-relaxed">
+                {service.description}
+              </p>
 
-              {hasSecurity && (
-                <Link
-                  href={`${basePath}/security`}
-                  className="group no-underline sm:bg-white sm:p-5 sm:rounded-xl sm:border sm:border-gray-200 sm:shadow-sm sm:hover:shadow-md sm:hover:border-brand-green/30 sm:transition-all"
-                >
-                  <span className="block text-xs sm:text-sm text-gray-400 mb-0.5 sm:mb-1.5">{t("tabs.security")}</span>
-                  <span className="text-sm sm:text-base font-semibold text-brand-navy group-hover:text-brand-green transition-colors whitespace-nowrap">
-                    {gdprLabel || t("snippetViewDetails")} <span className="text-xs sm:text-sm">&rarr;</span>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                  {service.location}
+                </span>
+                {service.freeOption && (
+                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                    {t("freePlanPill")}
                   </span>
-                </Link>
-              )}
+                )}
+                {service.startingPrice && (
+                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                    {t("fromPrice", { price: service.startingPrice })}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-row gap-2">
+                <a
+                  href={getOutboundUrl(service)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+                >
+                  {t("tryService", { service: service.name })} &rarr;
+                </a>
+                {firstGuide && firstGuideCategory && (
+                  <Link
+                    href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
+                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                  >
+                    {t("switchFrom", { service: firstSourceName ?? "" })}
+                  </Link>
+                )}
+              </div>
+              <AffiliateDisclosure className="mt-2 text-brand-cream/30 hover:text-brand-cream/50 decoration-brand-cream/20" />
             </div>
-          </Container>
-        </section>
+            {screenshotUrl && (
+              <div className="flex justify-center md:justify-end">
+                <div className="relative w-full">
+                  <Image
+                    src={screenshotUrl}
+                    alt={service.name}
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="w-full h-auto object-cover rounded-2xl"
+                  />
+                  {service.featured && (
+                    <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 flex items-center justify-center">
+                      <svg
+                        viewBox="0 0 362.94 366"
+                        className="w-28 h-28 sm:w-32 sm:h-32 text-brand-green drop-shadow-lg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M166.52,360.05c-19.36-8.03-41.21-5.87-62.05-8.18-20.83-2.31-43.84-11.92-49.96-31.97-5.04-16.53,3.15-34.97-2.06-51.44-7.81-24.66-41.25-33.37-50.23-57.63-5.76-15.55.46-33.1,9.58-46.95,9.12-13.85,21.14-25.78,28.87-40.45,9.68-18.35,11.97-39.62,18.8-59.21,6.84-19.59,20.83-39.25,41.35-42.33,16.4-2.46,32.59,6.32,49.17,5.87,18.39-.5,34.31-12.06,50.84-20.14,16.53-8.08,38.34-12.16,51.86.32,10.92,10.08,12.24,27.37,22.51,38.11,10.86,11.35,28.27,12.28,43.85,14.26,15.58,1.98,33.43,7.89,38.23,22.84,3.89,12.1-2.62,24.95-9.81,35.44-7.19,10.48-15.61,21.27-16.03,33.97-.48,14.6,9.66,27.06,18.34,38.81,8.68,11.75,16.7,26.67,11.52,40.33-4.55,12-17.57,18.24-29.7,22.43-12.13,4.19-25.41,8.09-33.15,18.33-7.32,9.68-7.87,22.65-10.36,34.53-2.49,11.88-9.05,24.89-20.98,27.1-9.14,1.69-18.26-3.67-27.54-3.14-9.6.55-17.69,7.25-24.25,14.28-6.56,7.04-12.63,14.95-21.2,19.33-8.56,4.38-17.86-2.34-27.61-4.49"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span className="absolute text-white text-[9px] sm:text-[11px] font-bold uppercase leading-tight text-center px-2">
+                        {t("recommended")}
+                        <br />
+                        {t("recommendedBy")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </Banner>
+      </Container>
+
+      <ServiceSubNav tabs={tabs}>
+        <PageLayout className="pt-1 sm:pt-0 md:pt-0 pb-10 sm:pb-12 md:pb-14 md:gap-8">
+          <TabsContent value={OVERVIEW_KEY} className="space-y-5 sm:space-y-7">
+            {filteredFeatures && filteredFeatures.length > 0 && (
+              <Container>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  {filteredFeatures.map((f) => (
+                    <span
+                      key={f.feature}
+                      className="inline-block bg-brand-sky/25 text-brand-green px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium"
+                    >
+                      {f.feature}
+                    </span>
+                  ))}
+                </div>
+              </Container>
+            )}
+
+            {service.content && (
+              <Container>
+                <div className="max-w-3xl">
+                  <div className="mdx-content prose prose-sm sm:prose max-w-none">
+                    <RichText data={service.content} />
+                  </div>
+                </div>
+              </Container>
+            )}
+
+            {(hasPricing || hasSecurity) && (
+              <Container>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-3xl">
+                  {hasPricing && (
+                    <Link
+                      href={`${basePath}?tab=pricing`}
+                      scroll={false}
+                      className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
+                    >
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                        {t("tabs.pricing")}
+                      </span>
+                      <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
+                        {freeTier && cheapestPaid
+                          ? `${t("snippetFree")} – ${cheapestPaid.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
+                          : freeTier
+                            ? t("snippetFree")
+                            : service.startingPrice ||
+                              t("snippetViewPlans")}{" "}
+                        <span aria-hidden="true">&rarr;</span>
+                      </span>
+                    </Link>
+                  )}
+
+                  {hasSecurity && (
+                    <Link
+                      href={`${basePath}?tab=security`}
+                      scroll={false}
+                      className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
+                    >
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                        {t("tabs.security")}
+                      </span>
+                      <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
+                        {gdprLabel || t("snippetViewDetails")}{" "}
+                        <span aria-hidden="true">&rarr;</span>
+                      </span>
+                    </Link>
+                  )}
+                </div>
+              </Container>
+            )}
+          </TabsContent>
+
+          {hasPricing && (
+            <TabsContent value="pricing" className="space-y-5 sm:space-y-7">
+              <Container>
+                <div className="max-w-3xl">
+                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                    {service.name} {t("pricing.title")}
+                  </h2>
+                  <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
+                    {service.freeOption
+                      ? t("pricing.freeIntro", { service: service.name })
+                      : t("pricing.paidIntro", { service: service.name })}
+                    {service.startingPrice &&
+                      ` ${t("pricing.startingAt", { price: service.startingPrice })}`}
+                  </p>
+                </div>
+              </Container>
+
+              {(service.pricingTiers ?? []).length > 0 && (
+                <Container>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl">
+                    {(service.pricingTiers ?? []).map((tier, index) => (
+                      <div
+                        key={tier.name || index}
+                        className="rounded-2xl p-5 sm:p-6 border border-brand-navy/10 bg-white shadow-sm"
+                      >
+                        <h3 className="font-heading text-lg uppercase mb-1 text-brand-green">
+                          {tier.name}
+                        </h3>
+                        <div className="text-3xl font-bold text-brand-navy">
+                          {tier.price}
+                        </div>
+                        <p className="text-xs text-brand-navy/40 mt-1 mb-5 min-h-[1rem]">
+                          {tier.billingNote ?? " "}
+                        </p>
+                        {tier.features && tier.features.length > 0 && (
+                          <ul className="space-y-2.5">
+                            {tier.features.map((f) => (
+                              <li
+                                key={f.feature}
+                                className="flex items-start gap-2 text-sm leading-relaxed text-foreground/75"
+                              >
+                                <span className="mt-0.5 flex-shrink-0 text-brand-green">
+                                  &#10003;
+                                </span>
+                                {f.feature}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </Container>
+              )}
+            </TabsContent>
+          )}
+
+          {hasSecurity && (
+            <TabsContent value="security" className="space-y-5 sm:space-y-7">
+              <Container>
+                <div className="max-w-3xl">
+                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                    {service.name} {t("security.title")}
+                  </h2>
+                  <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
+                    {t("security.intro", { service: service.name })}
+                  </p>
+                </div>
+              </Container>
+
+              <Container>
+                <div className="max-w-3xl space-y-8">
+                  <div className="flex flex-col gap-6">
+                    {service.gdprCompliance && (
+                      <div>
+                        <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                          GDPR
+                        </h3>
+                        <div
+                          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${
+                            service.gdprCompliance === "compliant"
+                              ? "bg-brand-green/10 text-brand-green border-brand-green/20"
+                              : service.gdprCompliance === "partial"
+                                ? "bg-brand-yellow/10 text-brand-orange border-brand-yellow/20"
+                                : "bg-gray-100 text-gray-600 border-gray-200"
+                          }`}
+                        >
+                          <span
+                            className={`w-2 h-2 rounded-full ${
+                              service.gdprCompliance === "compliant"
+                                ? "bg-brand-green"
+                                : service.gdprCompliance === "partial"
+                                  ? "bg-brand-orange"
+                                  : "bg-gray-400"
+                            }`}
+                          />
+                          {gdprLabel}
+                        </div>
+                      </div>
+                    )}
+
+                    <div>
+                      <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                        {t("security.jurisdiction")}
+                      </h3>
+                      <p className="text-sm text-gray-700">
+                        {service.location}
+                        {service.headquarters
+                          ? ` (HQ: ${service.headquarters})`
+                          : ""}
+                        {service.parentCompany
+                          ? ` / ${service.parentCompany}`
+                          : ""}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-2">
+                        {t("security.openSource")}
+                      </h3>
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
+                          service.openSource
+                            ? "bg-brand-green/10 text-brand-green"
+                            : "bg-gray-100 text-gray-500"
+                        }`}
+                      >
+                        {service.openSource
+                          ? t("security.yes")
+                          : t("security.no")}
+                      </span>
+                      {service.openSource && service.sourceCodeUrl && (
+                        <a
+                          href={service.sourceCodeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-brand-navy text-xs font-medium hover:underline mt-1"
+                        >
+                          {t("security.viewSource")} &rarr;
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {service.gdprNotes && (
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {service.gdprNotes}
+                    </p>
+                  )}
+
+                  {service.dataStorageLocations &&
+                    service.dataStorageLocations.length > 0 && (
+                      <div>
+                        <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-3">
+                          {t("security.dataStorage")}
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {service.dataStorageLocations.map((loc) => (
+                            <span
+                              key={loc.location}
+                              className="inline-flex items-center gap-1.5 bg-brand-sky/10 text-brand-green px-3 py-1.5 rounded-full text-sm"
+                            >
+                              <span className="text-brand-sky">&#9679;</span>
+                              {loc.location}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                  {service.certifications &&
+                    service.certifications.length > 0 && (
+                      <div>
+                        <h3 className="text-xs font-medium uppercase tracking-wide text-gray-400 mb-3">
+                          {t("security.compliance")}
+                        </h3>
+                        <ul className="space-y-2">
+                          {service.certifications.map((cert) => (
+                            <li
+                              key={cert.certification}
+                              className="flex items-start gap-2 text-sm text-gray-600"
+                            >
+                              <span className="text-brand-green mt-0.5 flex-shrink-0">
+                                &#10003;
+                              </span>
+                              {cert.certification}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                </div>
+              </Container>
+            </TabsContent>
+          )}
+
+          {comparisonGuides.map(({ guide, nonEuService }) => {
+            const tabKey = `vs-${nonEuService.slug}`;
+            return (
+              <TabsContent
+                key={tabKey}
+                value={tabKey}
+                className="space-y-5 sm:space-y-7"
+              >
+                <Container>
+                  <div className="max-w-4xl">
+                    <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                      {service.name} vs {nonEuService.name}
+                    </h2>
+                    <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
+                      {t("compare.intro", {
+                        service: service.name,
+                        other: nonEuService.name,
+                      })}
+                    </p>
+                  </div>
+                </Container>
+
+                <Container>
+                  <div className="max-w-4xl space-y-8">
+                    <div className="bg-white rounded-2xl border border-brand-navy/10 shadow-sm overflow-hidden">
+                      <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100">
+                        <div className="text-sm font-bold text-gray-400 uppercase">
+                          {t("compare.feature")}
+                        </div>
+                        <div className="text-sm font-bold text-brand-green">
+                          {service.name}
+                        </div>
+                        <div className="text-sm font-bold text-gray-700">
+                          {nonEuService.name}
+                        </div>
+                      </div>
+
+                      <div className="px-6">
+                        <CompareRow
+                          label={t("compare.basedIn")}
+                          euValue={service.location}
+                          nonEuValue={nonEuService.location}
+                          highlight="eu"
+                        />
+                        <CompareRow
+                          label={t("compare.freePlan")}
+                          euValue={
+                            service.freeOption
+                              ? t("compare.yes")
+                              : t("compare.no")
+                          }
+                          nonEuValue={
+                            nonEuService.freeOption
+                              ? t("compare.yes")
+                              : t("compare.no")
+                          }
+                          highlight="neutral"
+                        />
+                        <CompareRow
+                          label={t("compare.startingPrice")}
+                          euValue={service.startingPrice || t("compare.free")}
+                          nonEuValue={
+                            nonEuService.startingPrice || t("compare.free")
+                          }
+                          highlight="neutral"
+                        />
+                        <CompareRow
+                          label="GDPR"
+                          euValue={
+                            service.gdprCompliance === "compliant"
+                              ? t("gdprCompliant")
+                              : service.gdprCompliance || t("compare.unknown")
+                          }
+                          nonEuValue={
+                            nonEuService.gdprCompliance === "compliant"
+                              ? t("gdprCompliant")
+                              : nonEuService.gdprCompliance === "partial"
+                                ? t("gdprPartial")
+                                : nonEuService.gdprCompliance ||
+                                  t("compare.unknown")
+                          }
+                          highlight={
+                            service.gdprCompliance === "compliant"
+                              ? "eu"
+                              : "neutral"
+                          }
+                        />
+                        <CompareRow
+                          label={t("compare.openSource")}
+                          euValue={
+                            service.openSource
+                              ? t("compare.yes")
+                              : t("compare.no")
+                          }
+                          nonEuValue={
+                            nonEuService.openSource
+                              ? t("compare.yes")
+                              : t("compare.no")
+                          }
+                          highlight={
+                            service.openSource && !nonEuService.openSource
+                              ? "eu"
+                              : "neutral"
+                          }
+                        />
+                        <CompareRow
+                          label={t("compare.dataStorage")}
+                          euValue={
+                            service.dataStorageLocations
+                              ?.map((l) => l.location)
+                              .join(", ") || t("compare.notDisclosed")
+                          }
+                          nonEuValue={
+                            nonEuService.dataStorageLocations
+                              ?.map((l) => l.location)
+                              .join(", ") || t("compare.notDisclosed")
+                          }
+                          highlight="eu"
+                        />
+                      </div>
+                    </div>
+
+                    {nonEuService.issues && nonEuService.issues.length > 0 && (
+                      <div>
+                        <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                          {t("compare.knownConcerns", {
+                            service: nonEuService.name,
+                          })}
+                        </h3>
+                        <ul className="space-y-2">
+                          {nonEuService.issues.map((issue) => (
+                            <li
+                              key={issue.issue}
+                              className="flex items-start gap-2 text-sm text-foreground/70 leading-relaxed"
+                            >
+                              <span className="text-brand-orange mt-0.5 flex-shrink-0">
+                                &bull;
+                              </span>
+                              {issue.issue}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {guide.missingFeatures &&
+                      guide.missingFeatures.length > 0 && (
+                        <div className="rounded-2xl bg-brand-yellow/5 p-5 sm:p-6 border border-brand-yellow/20">
+                          <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                            {t("compare.worthKnowing")}
+                          </h3>
+                          <p className="text-sm text-foreground/70 mb-3">
+                            {t("compare.missingFeatures", {
+                              service: service.name,
+                              other: nonEuService.name,
+                            })}
+                          </p>
+                          <ul className="space-y-1.5">
+                            {guide.missingFeatures.map((f) => (
+                              <li
+                                key={f.feature}
+                                className="flex items-start gap-2 text-sm text-foreground/70"
+                              >
+                                <span className="text-brand-orange mt-0.5 flex-shrink-0">
+                                  &bull;
+                                </span>
+                                {f.feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                  </div>
+                </Container>
+              </TabsContent>
+            );
+          })}
+        </PageLayout>
+      </ServiceSubNav>
+
+      <ServiceCta
+        serviceName={service.name}
+        serviceUrl={getOutboundUrl(service)}
+        guideHref={
+          firstGuide && firstGuideCategory
+            ? `/guides/${firstGuideCategory}/${firstGuide.slug}`
+            : null
+        }
+        sourceServiceName={firstSourceName}
+      />
+
+      {similarServices.length > 0 && (
+        <Container noPaddingMobile className="sm:py-8 md:py-12">
+          <SectionHeading>{t("similarServices")}</SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {similarServices.map((s, index) => (
+              <ServiceCard
+                key={s.name}
+                service={s}
+                showCategory={false}
+                colorIndex={index}
+              />
+            ))}
+            <SuggestServiceCard colorIndex={similarServices.length} />
+          </div>
+        </Container>
       )}
-    </PageLayout>
+    </>
   );
 }

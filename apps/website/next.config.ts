@@ -20,6 +20,40 @@ const nextConfig: NextConfig = {
   },
   redirects() {
     return [
+      // Service detail tabs were separate pages; they're now query params on
+      // the canonical service URL. Redirect the old paths (locale-prefixed
+      // and unprefixed) before the generic /services prefixer below, so we
+      // collapse to a single hop where possible.
+      {
+        source: "/:locale(en|nl)/services/eu/:slug/pricing",
+        destination: "/:locale/services/eu/:slug?tab=pricing",
+        permanent: true,
+      },
+      {
+        source: "/:locale(en|nl)/services/eu/:slug/security",
+        destination: "/:locale/services/eu/:slug?tab=security",
+        permanent: true,
+      },
+      {
+        source: "/:locale(en|nl)/services/eu/:slug/vs-:source",
+        destination: "/:locale/services/eu/:slug?tab=vs-:source",
+        permanent: true,
+      },
+      {
+        source: "/services/eu/:slug/pricing",
+        destination: "/en/services/eu/:slug?tab=pricing",
+        permanent: true,
+      },
+      {
+        source: "/services/eu/:slug/security",
+        destination: "/en/services/eu/:slug?tab=security",
+        permanent: true,
+      },
+      {
+        source: "/services/eu/:slug/vs-:source",
+        destination: "/en/services/eu/:slug?tab=vs-:source",
+        permanent: true,
+      },
       // Non-prefixed content URLs → default locale (308 permanent).
       // Prevents Accept-Language-based 307 redirects that fragment SEO.
       // These fire before the middleware.
