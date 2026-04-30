@@ -22,12 +22,6 @@ export type RecommendedAlternativeService = Pick<
   | "url"
   | "affiliateUrl"
   | "screenshot"
-  | "gdprCompliance"
-  | "headquarters"
-  | "openSource"
-  | "sourceCodeUrl"
-  | "features"
-  | "gdprNotes"
 >;
 
 export type RecommendedAlternativeGuide = Pick<Guide, "slug" | "category">;
@@ -85,18 +79,12 @@ export async function RecommendedAlternative({
             {service.name}
           </h2>
 
-          <p className="text-brand-cream text-base sm:text-lg mb-3 max-w-xl leading-relaxed">
+          <p className="text-brand-cream text-base sm:text-lg mb-5 max-w-xl leading-relaxed">
             {service.description}
           </p>
 
-          {service.gdprNotes && (
-            <p className="text-brand-cream/80 text-sm italic mb-5 max-w-xl">
-              {service.gdprNotes}
-            </p>
-          )}
-
           {/* Meta info */}
-          <div className="flex flex-wrap gap-4 mb-5">
+          <div className="flex flex-wrap gap-4 mb-6">
             {service.location && (
               <div className="flex items-center gap-1.5 text-white/80 text-sm">
                 <span className="text-brand-yellow">&#9679;</span>
@@ -117,80 +105,6 @@ export async function RecommendedAlternative({
                 </div>
               )}
           </div>
-
-          {/* GDPR / HQ / source / features panel */}
-          {(service.gdprCompliance ||
-            service.headquarters ||
-            typeof service.openSource === "boolean" ||
-            (service.features && service.features.length > 0)) && (
-            <div className="bg-white/10 rounded-2xl p-4 mb-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              {service.gdprCompliance && (
-                <div>
-                  <span className="block text-xs text-white/60 uppercase tracking-wider">
-                    {t("detail.recommendedAlternative.panel.gdpr")}
-                  </span>
-                  <span className="text-white">
-                    {t(
-                      `detail.recommendedAlternative.gdpr.${service.gdprCompliance}`
-                    )}
-                  </span>
-                </div>
-              )}
-              {service.headquarters && (
-                <div>
-                  <span className="block text-xs text-white/60 uppercase tracking-wider">
-                    {t("detail.recommendedAlternative.panel.headquarters")}
-                  </span>
-                  <span className="text-white">{service.headquarters}</span>
-                </div>
-              )}
-              {typeof service.openSource === "boolean" && (
-                <div>
-                  <span className="block text-xs text-white/60 uppercase tracking-wider">
-                    {t("detail.recommendedAlternative.panel.source")}
-                  </span>
-                  <span className="text-white">
-                    {service.openSource ? (
-                      service.sourceCodeUrl ? (
-                        <a
-                          href={service.sourceCodeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline"
-                        >
-                          {t(
-                            "detail.recommendedAlternative.panel.openSource"
-                          )}{" "}
-                          &rarr;
-                        </a>
-                      ) : (
-                        t("detail.recommendedAlternative.panel.openSource")
-                      )
-                    ) : (
-                      t("detail.recommendedAlternative.panel.closedSource")
-                    )}
-                  </span>
-                </div>
-              )}
-              {service.features && service.features.length > 0 && (
-                <div className="sm:col-span-2">
-                  <span className="block text-xs text-white/60 uppercase tracking-wider mb-1">
-                    {t("detail.recommendedAlternative.panel.keyFeatures")}
-                  </span>
-                  <ul className="flex flex-wrap gap-1.5">
-                    {service.features.slice(0, 5).map((f, i) => (
-                      <li
-                        key={i}
-                        className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs"
-                      >
-                        {f.feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Actions */}
           <div className="flex flex-wrap gap-3">
