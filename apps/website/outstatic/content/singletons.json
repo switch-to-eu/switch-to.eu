@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Test file",
+    "slug": "test-file",
+    "directory": "apps/website/outstatic/content/_singletons",
+    "path": "apps/website/outstatic/content/_singletons/test-file.mdx",
+    "publishedAt": "2026-05-12T16:04:54.286Z",
+    "status": "draft"
+  }
+]
