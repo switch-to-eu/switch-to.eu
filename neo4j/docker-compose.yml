@@ -1,0 +1,25 @@
+services:
+  neo4j:
+    image: neo4j:5
+    container_name: switch-to-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"   # HTTP / Neo4j Browser
+      - "7687:7687"   # Bolt (used by neo4j-driver)
+    environment:
+      NEO4J_AUTH: neo4j/devpassword
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_import_file_use__neo4j__config: "true"
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+    volumes:
+      - ./data:/data
+      - ./logs:/logs
+      - ./import:/var/lib/neo4j/import
+      - ./plugins:/plugins
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
