@@ -9,6 +9,8 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Page } from "@/payload-types";
 
+export const dynamic = "force-static";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("privacy");
   const locale = await getLocale();

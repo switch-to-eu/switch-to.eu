@@ -23,7 +23,9 @@ export const Pages: CollectionConfig = {
     },
   },
   access: {
-    read: () => true,
+    // Frontend reads via Local API (overrideAccess defaults to true).
+    // REST is admin-only to prevent crawlers from hammering Postgres.
+    read: ({ req }) => Boolean(req.user),
   },
   versions: {
     drafts: true,

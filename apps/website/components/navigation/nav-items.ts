@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { getPayload } from "@/lib/payload";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -8,14 +9,27 @@ const i18nKeyMap: Record<string, string> = {
   "eu-scan": "euScan",
 };
 
+// Header/Footer render on every page in the app — this fetch was the residual
+// 3–4 DB transactions per "warm" request. Cache the trimmed nav payload and
+// invalidate via the `categories` tag in afterChange hooks.
+const getNavCategories = unstable_cache(
+  async (): Promise<Pick<Category, "title" | "slug" | "description" | "icon">[]> => {
+    const payload = await getPayload();
+    const { docs } = (await payload.find({
+      collection: "categories",
+      locale: "en",
+      limit: 100,
+      sort: "title",
+      select: { title: true, slug: true, description: true, icon: true },
+    })) as { docs: Pick<Category, "title" | "slug" | "description" | "icon">[] };
+    return docs;
+  },
+  ["nav-categories"],
+  { tags: ["categories"] }
+);
+
 export async function getNavItems(): Promise<MainNavItem[]> {
-  const payload = await getPayload();
-  const { docs: categoryDocs } = await payload.find({
-    collection: "categories",
-    locale: "en",
-    limit: 100,
-    sort: "title",
-  }) as { docs: Category[] };
+  const categoryDocs = await getNavCategories();
   const categories = categoryDocs.map((category) => ({
     title: category.title,
     href: `/services/${category.slug}`,

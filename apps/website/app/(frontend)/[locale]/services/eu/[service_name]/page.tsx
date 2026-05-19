@@ -2,8 +2,10 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { Link } from "@switch-to-eu/i18n/navigation";
+
+// Fully prerender at build for every slug from generateStaticParams.
+export const dynamic = "force-static";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
@@ -135,16 +137,10 @@ function CompareRow({
 
 export default async function ServiceDetailPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale; service_name: string }>;
-  searchParams: Promise<{ tab?: string }>;
 }) {
   const { service_name, locale } = await params;
-  // Awaited here to opt the page into per-request rendering, so direct hits to
-  // a `?tab=X` URL render the right TabsContent on the server (avoiding a
-  // flash on the client).
-  await searchParams;
   const t = await getTranslations("services.detail");
 
   const service = await getServiceBySlug(service_name, locale);
@@ -208,26 +204,13 @@ export default async function ServiceDetailPage({
     (f) => !/free/i.test(f.feature)
   );
 
-  // Pre-fetch any non-EU services referenced as comparison sources, so we can
-  // render full comparison tables (issues, certifications, etc.) for each.
-  const payload = await getPayload();
-  const preview = await isPreview();
-  const comparisonGuides: Array<{ guide: Guide; nonEuService: Service }> = [];
-  for (const guide of relatedGuides) {
+  // `relatedGuides` is fetched with depth: 1, which already populates the
+  // source service with the fields the comparison table renders (issues,
+  // dataStorageLocations, etc.). Reuse that data instead of refetching.
+  const comparisonGuides = relatedGuides.flatMap((guide) => {
     const source = getGuideSourceService(guide);
-    if (!source) continue;
-    const nonEuResult = await payload.find({
-      collection: "services",
-      where: await publishedWhere({ slug: { equals: source.slug } }),
-      draft: preview,
-      locale,
-      depth: 1,
-      limit: 1,
-    });
-    const nonEuService = nonEuResult.docs[0] as Service | undefined;
-    if (!nonEuService) continue;
-    comparisonGuides.push({ guide, nonEuService });
-  }
+    return source ? [{ guide, nonEuService: source }] : [];
+  });
 
   return (
     <>

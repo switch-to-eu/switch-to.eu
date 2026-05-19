@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
 import { getPayload } from "@/lib/payload";
 import type { Service, Guide, Category } from "@/payload-types";
 import type { SearchResult } from "@/lib/types";
@@ -10,6 +11,7 @@ import {
 import { routing } from "@switch-to-eu/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
+type SearchType = "service" | "guide" | "category";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -17,50 +19,19 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const query = searchParams.get("q") || "";
+async function fetchSearchResults(
+  query: string,
+  lang: Locale,
+  limit: number,
+  region: "eu" | "non-eu" | undefined,
+  types: SearchType[]
+): Promise<SearchResult[]> {
+  const payload = await getPayload();
+  const queries: Promise<SearchResult[]>[] = [];
 
-    console.log("Search API received query:", query);
-
-    const limitParam = searchParams.get("limit");
-    const limit = limitParam ? parseInt(limitParam, 10) : 20;
-
-    const typesParam = searchParams.get("types");
-    const types = typesParam
-      ? (typesParam.split(",") as ("service" | "guide" | "category")[])
-      : undefined;
-
-    const regionParam = searchParams.get("region");
-    const region = regionParam
-      ? (regionParam as "eu" | "non-eu")
-      : undefined;
-
-    const langParam = searchParams.get("lang");
-    const lang = (langParam as Locale) || "en";
-
-    if (!query.trim()) {
-      console.log("Search API: Empty query received");
-      return NextResponse.json(
-        { results: [], message: "Search query is required" },
-        { status: 400, headers: CORS_HEADERS }
-      );
-    }
-
-    console.log(
-      `Search API: Performing search for: "${query}" with lang: ${lang}${region ? ` and region filter: ${region}` : ""}`
-    );
-
-    const payload = await getPayload();
-
-    // Build parallel queries for each requested type (or all types)
-    const searchTypes = types ?? ["service", "guide", "category"];
-
-    const queries: Promise<SearchResult[]>[] = [];
-
-    if (searchTypes.includes("service")) {
-      const serviceQuery = payload
+  if (types.includes("service")) {
+    queries.push(
+      payload
         .find({
           collection: "services",
           locale: lang,
@@ -77,7 +48,7 @@ export async function GET(request: NextRequest) {
               ...(region ? [{ region: { equals: region } }] : []),
             ],
           },
-          depth: 1, // populate category relationship
+          depth: 1,
         })
         .then(({ docs }) =>
           docs.map((service: Service): SearchResult => ({
@@ -91,12 +62,13 @@ export async function GET(request: NextRequest) {
             location: service.location,
             freeOption: service.freeOption ?? undefined,
           }))
-        );
-      queries.push(serviceQuery);
-    }
+        )
+    );
+  }
 
-    if (searchTypes.includes("guide")) {
-      const guideQuery = payload
+  if (types.includes("guide")) {
+    queries.push(
+      payload
         .find({
           collection: "guides",
           locale: lang,
@@ -112,7 +84,7 @@ export async function GET(request: NextRequest) {
               },
             ],
           },
-          depth: 1, // populate category + source/target service
+          depth: 1,
         })
         .then(({ docs }) =>
           docs.map((guide: Guide): SearchResult => {
@@ -128,12 +100,13 @@ export async function GET(request: NextRequest) {
               targetService: getGuideTargetService(guide)?.name,
             };
           })
-        );
-      queries.push(guideQuery);
-    }
+        )
+    );
+  }
 
-    if (searchTypes.includes("category")) {
-      const categoryQuery = payload
+  if (types.includes("category")) {
+    queries.push(
+      payload
         .find({
           collection: "categories",
           locale: lang,
@@ -146,28 +119,68 @@ export async function GET(request: NextRequest) {
           },
         })
         .then(({ docs }) =>
-          docs.map(
-            (cat: Category): SearchResult => ({
-              id: String(cat.id),
-              type: "category",
-              title: cat.title,
-              description: cat.description,
-              url: `/services/${cat.slug}`,
-            })
-          )
-        );
-      queries.push(categoryQuery);
+          docs.map((cat: Category): SearchResult => ({
+            id: String(cat.id),
+            type: "category",
+            title: cat.title,
+            description: cat.description,
+            url: `/services/${cat.slug}`,
+          }))
+        )
+    );
+  }
+
+  const resultArrays = await Promise.all(queries);
+  return resultArrays.flat().slice(0, limit);
+}
+
+// Cache search results — content changes trigger revalidateTag in
+// afterChange hooks on each collection. 1h revalidate is a safety net.
+const getCachedSearchResults = unstable_cache(
+  fetchSearchResults,
+  ["search-results"],
+  { tags: ["services", "guides", "categories"], revalidate: 3600 }
+);
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const query = (searchParams.get("q") || "").trim();
+
+    if (!query) {
+      return NextResponse.json(
+        { results: [], message: "Search query is required" },
+        { status: 400, headers: CORS_HEADERS }
+      );
     }
 
-    const resultArrays = await Promise.all(queries);
-    const results = resultArrays.flat().slice(0, limit);
+    const limitParam = searchParams.get("limit");
+    const limit = limitParam ? parseInt(limitParam, 10) : 20;
 
-    console.log(`Search API: Found ${results.length} results`);
+    const typesParam = searchParams.get("types");
+    const types: SearchType[] = typesParam
+      ? (typesParam.split(",") as SearchType[])
+      : ["service", "guide", "category"];
+
+    const regionParam = searchParams.get("region");
+    const region = regionParam
+      ? (regionParam as "eu" | "non-eu")
+      : undefined;
+
+    const langParam = searchParams.get("lang");
+    const lang: Locale = (langParam as Locale) || "en";
+
+    const results = await getCachedSearchResults(
+      query,
+      lang,
+      limit,
+      region,
+      types
+    );
 
     return NextResponse.json({ results }, { headers: CORS_HEADERS });
   } catch (error) {
     console.error("Search API error:", error);
-
     return NextResponse.json(
       { message: "An error occurred while searching", error: String(error) },
       { status: 500, headers: CORS_HEADERS }

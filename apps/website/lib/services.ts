@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide, Category } from "@/payload-types";
 import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 
 // ---------------------------------------------------------------------------
@@ -154,6 +154,130 @@ export const getSimilarServices = async (
   return unstable_cache(
     fetcher,
     [`similar-${categoryId}-${excludeId}-${locale}`],
+    { tags: ["services"] }
+  )();
+};
+
+/**
+ * Fetch a service by slug regardless of region. Used by the non-EU detail
+ * page (which then enforces a redirect when region has flipped). depth: 2
+ * is enough to populate `recommendedAlternative` for the gain/lose panel.
+ */
+export const getServiceBySlugAnyRegion = async (
+  slug: string,
+  locale: string
+): Promise<Service | null> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({ slug: { equals: slug } });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = await payload.find({
+      collection: "services",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 2,
+      limit: 1,
+    });
+    return (docs[0] as Service | undefined) ?? null;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(fetcher, [`service-any-${slug}-${locale}`], {
+    tags: ["services"],
+  })();
+};
+
+/**
+ * Fetch a single category by slug. depth: 0 — categories don't have
+ * relationships that pages render.
+ */
+export const getCategoryBySlug = async (
+  slug: string,
+  locale: string
+): Promise<Category | null> => {
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = await payload.find({
+      collection: "categories",
+      where: { slug: { equals: slug } },
+      locale: locale as "en" | "nl",
+      limit: 1,
+    });
+    return (docs[0] as Category | undefined) ?? null;
+  };
+  return unstable_cache(fetcher, [`category-${slug}-${locale}`], {
+    tags: ["categories"],
+  })();
+};
+
+/**
+ * Fetch migration guides for a specific (source, target) service pair.
+ */
+export const getMigrationGuidesForPair = async (
+  sourceId: number,
+  targetId: number,
+  locale: string
+): Promise<Guide[]> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({
+    sourceService: { equals: sourceId },
+    targetService: { equals: targetId },
+  });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = (await payload.find({
+      collection: "guides",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 1,
+      limit: 10,
+    })) as { docs: Guide[] };
+    return docs;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(
+    fetcher,
+    [`migration-${sourceId}-${targetId}-${locale}`],
+    { tags: ["guides"] }
+  )();
+};
+
+/**
+ * Fetch all EU (region in eu | eu-friendly) services in a category.
+ */
+export const getEuServicesByCategory = async (
+  categoryId: number,
+  locale: string,
+  limit = 100
+): Promise<Service[]> => {
+  const preview = await isPreview();
+  const where = await publishedWhere({
+    category: { equals: categoryId },
+    region: { in: EU_REGIONS },
+  });
+
+  const fetcher = async () => {
+    const payload = await getPayload();
+    const { docs } = (await payload.find({
+      collection: "services",
+      where,
+      draft: preview,
+      locale: locale as "en" | "nl",
+      depth: 1,
+      limit,
+    })) as { docs: Service[] };
+    return docs;
+  };
+
+  if (preview) return fetcher();
+  return unstable_cache(
+    fetcher,
+    [`eu-services-by-cat-${categoryId}-${locale}-${limit}`],
     { tags: ["services"] }
   )();
 };
