@@ -1,5 +1,8 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { getPayload } from "@/lib/payload";
 import { notFound } from "next/navigation";
+
+// Fully prerender at build for every slug from generateStaticParams.
+export const dynamic = "force-static";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
@@ -15,7 +18,10 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { RichText } from "@/components/rich-text";
-import type { Category } from "@/payload-types";
+import {
+  getCategoryBySlug,
+  getEuServicesByCategory,
+} from "@/lib/services";
 
 export async function generateMetadata({
   params,
@@ -27,14 +33,7 @@ export async function generateMetadata({
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "categories",
-    where: { slug: { equals: category } },
-    locale: locale as 'en' | 'nl',
-    limit: 1,
-  });
-  const categoryData = docs[0] as Category | undefined;
+  const categoryData = await getCategoryBySlug(category, locale);
 
   const pageTitle =
     categoryData?.title || `${capitalizedCategory} Service Alternatives`;
@@ -81,36 +80,20 @@ export default async function ServicesCategoryPage({
 
   const t = await getTranslations("services");
 
-  const payload = await getPayload();
-
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
-  // Fetch category data
-  const { docs: categoryDocs } = await payload.find({
-    collection: "categories",
-    where: { slug: { equals: category } },
-    locale,
-    limit: 1,
-  });
-  const categoryData = categoryDocs[0];
+  const categoryData = await getCategoryBySlug(category, locale);
 
   if (!categoryData) {
     notFound();
   }
 
-  // Fetch EU services for this category
-  const { docs: euServices } = await payload.find({
-    collection: "services",
-    where: await publishedWhere({
-      category: { equals: categoryData.id },
-      region: { in: ["eu", "eu-friendly"] },
-    }),
-    draft: await isPreview(),
+  const euServices = await getEuServicesByCategory(
+    categoryData.id,
     locale,
-    depth: 1,
-    limit: 100,
-  });
+    100
+  );
 
   if (euServices.length === 0) {
     notFound();

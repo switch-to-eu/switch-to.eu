@@ -1,6 +1,23 @@
 import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
+
+// Fully prerender at build for every published landing-page slug.
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const payload = await getPayload();
+  const { docs } = await payload.find({
+    collection: "landing-pages",
+    where: { _status: { equals: "published" } },
+    depth: 0,
+    limit: 200,
+  });
+  const locales: Array<"en" | "nl"> = ["en", "nl"];
+  return locales.flatMap((locale) =>
+    docs.map((p) => ({ locale, slug: p.slug as string }))
+  );
+}
 import { Metadata } from "next";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";

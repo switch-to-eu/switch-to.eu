@@ -71,3 +71,9 @@ gsc-oath-secrets.json
 # Skilld references (recreated by `skilld install`)
 .skilld
 .env.IGNORE
+
+# neo4j local docker volumes
+neo4j/data/
+neo4j/logs/
+neo4j/import/
+neo4j/plugins/

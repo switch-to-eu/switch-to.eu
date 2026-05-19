@@ -7,6 +7,8 @@ import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
+export const dynamic = "force-static";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("feedback");
   const locale = await getLocale();

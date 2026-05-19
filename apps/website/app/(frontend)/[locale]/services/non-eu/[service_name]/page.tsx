@@ -1,5 +1,8 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { getPayload } from "@/lib/payload";
 import { notFound, redirect } from "next/navigation";
+
+// Fully prerender at build for every slug from generateStaticParams.
+export const dynamic = "force-static";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { SidebarAlternative } from "@/components/non-eu/SidebarAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -23,8 +26,15 @@ import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import type { Service, Category, Guide } from "@/payload-types";
-import { getCategorySlug, getResolvedRelation } from "@/lib/services";
+import type { Service, Guide } from "@/payload-types";
+import {
+  getCategorySlug,
+  getCategoryBySlug,
+  getEuServicesByCategory,
+  getMigrationGuidesForPair,
+  getResolvedRelation,
+  getServiceBySlugAnyRegion,
+} from "@/lib/services";
 
 const WHY_SWITCH_KEY = "overview";
 
@@ -97,16 +107,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { service_name, locale } = await params;
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: await publishedWhere({ slug: { equals: service_name } }),
-    draft: await isPreview(),
-    locale: locale as "en" | "nl",
-    depth: 1,
-    limit: 1,
-  });
-  const service = docs[0] as Service | undefined;
+  const service = await getServiceBySlugAnyRegion(service_name, locale);
 
   if (!service) {
     return {
@@ -147,28 +148,14 @@ export async function generateMetadata({
 
 export default async function ServiceDetailPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale; service_name: string }>;
-  searchParams: Promise<{ tab?: string }>;
 }) {
   const { service_name, locale } = await params;
-  // Awaited to opt the page into per-request rendering, so direct hits to
-  // a `?tab=X` URL render the right TabsContent on the server.
-  await searchParams;
   const t = await getTranslations("services.detail.nonEu");
   const format = await getFormatter();
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: await publishedWhere({ slug: { equals: service_name } }),
-    draft: await isPreview(),
-    locale,
-    depth: 2,
-    limit: 1,
-  });
-  const service = docs[0];
+  const service = await getServiceBySlugAnyRegion(service_name, locale);
 
   if (!service) {
     notFound();
@@ -184,50 +171,21 @@ export default async function ServiceDetailPage({
     service.recommendedAlternative
   );
 
-  let migrationGuides: Guide[] = [];
-  if (resolvedAlternative) {
-    const { docs: guideDocs } = (await payload.find({
-      collection: "guides",
-      where: await publishedWhere({
-        sourceService: { equals: service.id },
-        targetService: { equals: resolvedAlternative.id },
-      }),
-      draft: await isPreview(),
-      locale,
-      depth: 1,
-      limit: 10,
-    })) as { docs: Guide[] };
-    migrationGuides = guideDocs;
-  }
+  const migrationGuides: Guide[] = resolvedAlternative
+    ? await getMigrationGuidesForPair(service.id, resolvedAlternative.id, locale)
+    : [];
 
   const categorySlug = getCategorySlug(service.category);
   const categoryFormatted =
     categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
-  const { docs: categoryDocs } = await payload.find({
-    collection: "categories",
-    where: { slug: { equals: categorySlug } },
-    depth: 0,
-    limit: 1,
-  });
-  const categoryDoc = categoryDocs[0] as Category | undefined;
+  const categoryDoc = categorySlug
+    ? await getCategoryBySlug(categorySlug, locale)
+    : null;
 
-  let euAlternatives: Service[] = [];
-
-  if (categoryDoc) {
-    const { docs: euDocs } = await payload.find({
-      collection: "services",
-      where: await publishedWhere({
-        category: { equals: categoryDoc.id },
-        region: { equals: "eu" },
-      }),
-      draft: await isPreview(),
-      locale,
-      depth: 1,
-      limit: 50,
-    });
-    euAlternatives = euDocs;
-  }
+  const euAlternatives: Service[] = categoryDoc
+    ? await getEuServicesByCategory(categoryDoc.id, locale, 50)
+    : [];
 
   const otherAlternatives = resolvedAlternative
     ? euAlternatives.filter((alt) => alt.id !== resolvedAlternative.id)
