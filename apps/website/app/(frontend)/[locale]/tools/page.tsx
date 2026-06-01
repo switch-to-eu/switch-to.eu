@@ -8,8 +8,6 @@ import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
-
-export const dynamic = "force-static";
 import {
   ArrowUpRightIcon,
   GlobeIcon,

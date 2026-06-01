@@ -3,9 +3,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 import { Link } from "@switch-to-eu/i18n/navigation";
-
-// Fully prerender at build for every slug from generateStaticParams.
-export const dynamic = "force-static";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";

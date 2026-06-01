@@ -2,9 +2,6 @@ import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
 import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
 
-// Fully prerender at build for every published landing-page slug.
-export const dynamic = "force-static";
-
 export async function generateStaticParams() {
   const payload = await getPayload();
   const { docs } = await payload.find({

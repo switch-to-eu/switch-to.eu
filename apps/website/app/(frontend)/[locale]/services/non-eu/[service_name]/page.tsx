@@ -1,8 +1,5 @@
 import { getPayload } from "@/lib/payload";
 import { notFound, redirect } from "next/navigation";
-
-// Fully prerender at build for every slug from generateStaticParams.
-export const dynamic = "force-static";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { SidebarAlternative } from "@/components/non-eu/SidebarAlternative";
 import { ServiceCard } from "@/components/ui/ServiceCard";

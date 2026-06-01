@@ -1,7 +1,5 @@
 import { Metadata } from "next";
 import { Container } from "@switch-to-eu/blocks/components/container";
-
-export const dynamic = "force-static";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
