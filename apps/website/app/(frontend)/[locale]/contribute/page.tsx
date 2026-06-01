@@ -7,8 +7,6 @@ import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
-export const dynamic = "force-static";
-
 const CONTRIBUTION_CARDS = [
   { titleKey: "cards.migration.title", descKey: "cards.migration.description", ctaKey: "cards.migration.cta", href: "/contribute/guide", colorIndex: 0, shape: "spark" },
   { titleKey: "cards.tester.title", descKey: "cards.tester.description", ctaKey: "cards.tester.cta", href: "/feedback", colorIndex: 1, shape: "cloud" },

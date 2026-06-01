@@ -9,8 +9,6 @@ import { Metadata } from "next";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
-export const dynamic = "force-static";
-
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contribute");
   const locale = await getLocale();

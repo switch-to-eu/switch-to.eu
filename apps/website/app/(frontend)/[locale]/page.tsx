@@ -1,8 +1,5 @@
 import { unstable_cache } from "next/cache";
 import { Container } from "@switch-to-eu/blocks/components/container";
-
-// Fully prerender at build. Editors trigger a rebuild on publish.
-export const dynamic = "force-static";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { AlternatingShowcase } from "@switch-to-eu/blocks/components/alternating-showcase";

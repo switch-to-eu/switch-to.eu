@@ -1,8 +1,5 @@
 import { getPayload } from "@/lib/payload";
 import { RichText } from "@/components/rich-text";
-
-// Fully prerender at build for every slug from generateStaticParams.
-export const dynamic = "force-static";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";

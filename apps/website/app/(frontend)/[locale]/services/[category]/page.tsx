@@ -1,8 +1,5 @@
 import { getPayload } from "@/lib/payload";
 import { notFound } from "next/navigation";
-
-// Fully prerender at build for every slug from generateStaticParams.
-export const dynamic = "force-static";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
