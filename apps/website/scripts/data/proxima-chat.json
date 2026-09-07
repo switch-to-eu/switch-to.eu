@@ -1,0 +1,752 @@
+{
+  "_comment": "Service submission for switch-to.eu. Non-localized fields sit at the top level; localized fields sit under locales.<code>. Import with: pnpm --filter website import-service scripts/data/proxima-chat.json",
+  "slug": "proxima-chat",
+  "category": "artificial-intelligence",
+  "region": "eu",
+  "featured": false,
+  "location": "France",
+  "freeOption": true,
+  "url": "https://www.proxima.green/proximachat",
+  "tags": [
+    {
+      "tag": "ai assistant"
+    },
+    {
+      "tag": "chatgpt alternative"
+    },
+    {
+      "tag": "france"
+    },
+    {
+      "tag": "sovereign ai"
+    },
+    {
+      "tag": "open-weight models"
+    }
+  ],
+  "pricingTiers": [
+    {
+      "name": "Free",
+      "price": "Free"
+    },
+    {
+      "name": "Paid plan",
+      "price": "€9/month",
+      "billingNote": "the only paid plan"
+    }
+  ],
+  "researchStatus": "needs-update",
+  "lastResearchedAt": "2026-09-07T00:00:00.000Z",
+  "gdprCompliance": "compliant",
+  "privacyPolicyUrl": "https://www.proxima.green/legalmentions/politique-confidentialite",
+  "pricingDetails": "Free plan plus a single paid plan at 9 EUR per month, announced on the product page. Proxima does not publish the contents of either plan. Proxima Meet has no published price. API pricing is per model and lives in the developer console.",
+  "pricingUrl": "https://www.proxima.green/proximachat#pricing",
+  "headquarters": "Clamart, France",
+  "foundedYear": 2025,
+  "dataStorageLocations": [
+    {
+      "location": "France"
+    }
+  ],
+  "certifications": [
+    {
+      "certification": "ISO/IEC 27001 and HDS: held by the hosting providers Scaleway and OVHcloud, not by Proxima"
+    },
+    {
+      "certification": "ISO/IEC 27001 and HDS for Proxima itself: in progress, targeted end of 2026"
+    },
+    {
+      "certification": "ISO/IEC 42001 (AI management): planned for 2027"
+    },
+    {
+      "certification": "GDPR: data processing agreement published, DPO reachable at dpo@proxima.green"
+    },
+    {
+      "certification": "Outside the scope of the US CLOUD Act: French company, French hosting, no American subcontractor with access to customer data"
+    }
+  ],
+  "openSource": false,
+  "researchNotes": {
+    "root": {
+      "type": "root",
+      "direction": "ltr",
+      "format": "",
+      "indent": 0,
+      "version": 1,
+      "children": [
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "children": [
+            {
+              "type": "text",
+              "text": "Submitted by Proxima on 2026-09-07, following issue #280. Every fact below comes from a public Proxima source or from the French company register, listed under Source URLs. Independent verification is still worth doing, so researchStatus is left at needs-update rather than complete.",
+              "mode": "normal",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "children": [
+            {
+              "type": "text",
+              "text": "One point deserves care, because the site itself invites the mistake. Proxima's footer shows an ISO 27001 badge, and that badge describes the certifications of its hosting providers, Scaleway and OVHcloud. Proxima holds no certification in its own name yet: ISO 27001 and HDS are in progress with the end of 2026 as the target, and ISO 42001 is planned for 2027. The certifications entries below name the holder for that reason, since they render as a plain checklist on the public page.",
+              "mode": "normal",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "children": [
+            {
+              "type": "text",
+              "text": "Not provided, for lack of a published source: employee count, a breakdown of what the free plan includes, and a product screenshot at a stable URL. Reddit sentiment and press coverage were left empty rather than filled with weak matches.",
+              "mode": "normal",
+              "style": "",
+              "detail": 0,
+              "format": 0,
+              "version": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sourceUrls": [
+    {
+      "url": "https://www.proxima.green/legalmentions/mentions-legales",
+      "label": "Legal notice: company identity, hosting, no third-party model APIs"
+    },
+    {
+      "url": "https://www.proxima.green/legalmentions/liste-sous-traitants",
+      "label": "Subprocessor list: Scaleway and OVHcloud, with their certifications"
+    },
+    {
+      "url": "https://www.proxima.green/legalmentions/politique-confidentialite",
+      "label": "Privacy policy"
+    },
+    {
+      "url": "https://docmost.proxima.green/share/nuvysjc2no/p/certifications-iso-proxima-jyM8Gnm1wX",
+      "label": "Certification status, in Proxima's own words"
+    },
+    {
+      "url": "https://docmost.proxima.green/share/4jvu81s7t8/p/cloud-act-proxima-51BEhqxsyo",
+      "label": "Proxima's position on the US CLOUD Act"
+    },
+    {
+      "url": "https://recherche-entreprises.api.gouv.fr/search?q=993553262",
+      "label": "French company register: SIREN 993553262, registered 2025-11-04"
+    },
+    {
+      "url": "https://www.proxima.green/proxima.json",
+      "label": "Machine-readable listing data published by Proxima (live once its PR #19 ships)"
+    }
+  ],
+  "locales": {
+    "en": {
+      "name": "Proxima Chat",
+      "description": "Chat with an AI assistant hosted in France on open-weight models. Your conversations stay on Proxima's own servers and are never used to train a model.",
+      "startingPrice": "€9/month",
+      "angle": "Fully French-hosted",
+      "features": [
+        {
+          "feature": "Hosted in France"
+        },
+        {
+          "feature": "Open-weight models"
+        },
+        {
+          "feature": "No training on your data"
+        },
+        {
+          "feature": "Follows EU privacy rules"
+        },
+        {
+          "feature": "OpenAI-compatible API"
+        }
+      ],
+      "content": {
+        "root": {
+          "type": "root",
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima is a French company running its own AI assistant on its own servers. You sign in, ask questions, upload documents and get answers the way you would anywhere else. The difference sits underneath: the models run on machines rented from two French hosting companies, Scaleway and OVHcloud, and your data stays in France.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima uses open-weight models, which means the model files are public and open to inspection by anyone. Your text is never sent to OpenAI, Anthropic or another American provider, and your conversations are not used to train models. Because both the company and its servers sit in France, US law does not reach your data the way it reaches an American provider.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Two other products share the same platform. Proxima Meet transcribes and summarises meetings, and an OpenAI-compatible API lets developers point existing code at Proxima instead of a US provider.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "tag": "h2",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Worth knowing",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima is new. The company was registered in November 2025, so it has a far shorter track record than Proton or Mistral. Its own security audits are unfinished too. The French data centres it rents have passed independent audits, but Proxima itself is still working through the same process and targets the end of 2026. Anyone who needs a certificate in Proxima's own name today will not get one.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "The apps are closed source, so \"open\" here describes the models, not Proxima's code. The website and interface open in French, with English behind a switch. And one paid plan exists at 9 euros per month, with no published list of what the free plan includes.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "gdprNotes": "Proxima is a French company and keeps your data in France, on servers rented from two French hosting providers. Your conversations are not used to train models, and Proxima runs the models itself instead of forwarding your text to an American AI provider. Because nothing sits with a US company, American authorities have no route to demand it. How long your data is kept depends on the plan, and Proxima publishes a data processing agreement for business customers.",
+      "faqs": [
+        {
+          "question": "Does Proxima train its models on my conversations?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "No. Proxima states that customer data is not used for training, and the models it serves are open-weight models it did not build itself. The commitment is written into its contracts.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "Where is my data stored?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "In France, on servers rented from Scaleway and OVHcloud. Proxima does not use American cloud providers, and it does not call the APIs of American AI providers either.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "Is Proxima ISO 27001 certified?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Not in its own name, not yet. The French hosting providers it rents from have passed those audits. Proxima is working through the same process for itself and targets the end of 2026, with an AI management standard planned for 2027.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "What does Proxima Chat cost?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "There is a free plan and one paid plan at 9 euros per month. Proxima does not publish what the free plan includes.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metaTitle": "Proxima Chat: French AI assistant, hosted in France",
+      "metaDescription": "Proxima Chat is a French AI assistant that runs open-weight models on French servers. Free plan, 9 euros per month, and no training on your conversations.",
+      "keywords": [
+        {
+          "keyword": "european chatgpt alternative"
+        },
+        {
+          "keyword": "french ai assistant"
+        },
+        {
+          "keyword": "sovereign ai"
+        },
+        {
+          "keyword": "gdpr ai chat"
+        },
+        {
+          "keyword": "ai hosted in france"
+        }
+      ]
+    },
+    "nl": {
+      "name": "Proxima Chat",
+      "description": "Chat met een AI-assistent die in Frankrijk draait op modellen met open gewichten. Je gesprekken blijven op de eigen servers van Proxima en worden nooit gebruikt om een model te trainen.",
+      "startingPrice": "€9/maand",
+      "angle": "Volledig in Frankrijk gehost",
+      "features": [
+        {
+          "feature": "In Frankrijk gehost"
+        },
+        {
+          "feature": "Modellen met open gewichten"
+        },
+        {
+          "feature": "Traint niet op je gegevens"
+        },
+        {
+          "feature": "Volgt de EU-privacyregels"
+        },
+        {
+          "feature": "OpenAI-compatibele API"
+        }
+      ],
+      "content": {
+        "root": {
+          "type": "root",
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima is een Frans bedrijf dat zijn eigen AI-assistent op eigen servers laat draaien. Je meldt je aan, stelt vragen, uploadt documenten en krijgt antwoorden zoals je elders gewend bent. Het verschil zit eronder: de modellen draaien op machines die Proxima huurt bij twee Franse hostingbedrijven, Scaleway en OVHcloud, en je gegevens blijven in Frankrijk.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima gebruikt modellen met open gewichten. De modelbestanden zijn openbaar en iedereen mag ze inspecteren. Je tekst gaat nooit naar OpenAI, Anthropic of een andere Amerikaanse aanbieder, en je gesprekken worden niet gebruikt om modellen te trainen. Omdat zowel het bedrijf als de servers in Frankrijk staan, reikt Amerikaans recht niet tot je gegevens zoals bij een Amerikaanse aanbieder.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Twee andere producten delen hetzelfde platform. Proxima Meet transcribeert en vat vergaderingen samen, en een OpenAI-compatibele API laat ontwikkelaars bestaande code op Proxima richten in plaats van op een Amerikaanse aanbieder.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "tag": "h2",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Goed om te weten",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "Proxima is nieuw. Het bedrijf is in november 2025 ingeschreven en heeft dus een veel kortere staat van dienst dan Proton of Mistral. Ook de eigen veiligheidsaudits zijn nog niet afgerond. De Franse datacenters die Proxima huurt zijn onafhankelijk getoetst, maar Proxima zelf doorloopt datzelfde traject nog en mikt op eind 2026. Wie vandaag een certificaat op naam van Proxima nodig heeft, krijgt dat niet.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "text": "De apps zijn closed source. \"Open\" gaat hier dus over de modellen, niet over de code van Proxima. De website en de interface openen in het Frans, met Engels achter een schakelaar. En er is één betaald plan van 9 euro per maand, zonder gepubliceerde lijst van wat het gratis plan bevat.",
+                  "mode": "normal",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "gdprNotes": "Proxima is een Frans bedrijf en houdt je gegevens in Frankrijk, op servers die het huurt bij twee Franse hostingpartijen. Je gesprekken worden niet gebruikt om modellen te trainen, en Proxima draait de modellen zelf in plaats van je tekst door te sturen naar een Amerikaanse AI-aanbieder. Omdat niets bij een Amerikaans bedrijf staat, hebben Amerikaanse autoriteiten geen route om het op te vragen. Hoe lang gegevens bewaard blijven hangt af van het plan, en Proxima publiceert een verwerkersovereenkomst voor zakelijke klanten.",
+      "faqs": [
+        {
+          "question": "Traint Proxima zijn modellen op mijn gesprekken?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Nee. Proxima stelt dat klantgegevens niet voor training worden gebruikt, en de modellen die het aanbiedt zijn modellen met open gewichten die het niet zelf heeft gebouwd. Die belofte staat in de contracten.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "Waar worden mijn gegevens opgeslagen?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "In Frankrijk, op servers die Proxima huurt bij Scaleway en OVHcloud. Proxima gebruikt geen Amerikaanse cloudaanbieders en roept ook de API's van Amerikaanse AI-aanbieders niet aan.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "Is Proxima ISO 27001-gecertificeerd?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Nog niet op eigen naam. De Franse hostingpartijen waar Proxima huurt zijn wel getoetst. Proxima doorloopt datzelfde traject voor zichzelf en mikt op eind 2026, met een AI-managementnorm gepland voor 2027.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "question": "Wat kost Proxima Chat?",
+          "answer": {
+            "root": {
+              "type": "root",
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "direction": "ltr",
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "Er is een gratis plan en één betaald plan van 9 euro per maand. Proxima publiceert niet wat het gratis plan bevat.",
+                      "mode": "normal",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metaTitle": "Proxima Chat: Franse AI-assistent, in Frankrijk gehost",
+      "metaDescription": "Proxima Chat is een Franse AI-assistent die modellen met open gewichten op Franse servers draait. Gratis plan, 9 euro per maand, en geen training op je gesprekken.",
+      "keywords": [
+        {
+          "keyword": "europees chatgpt alternatief"
+        },
+        {
+          "keyword": "franse ai-assistent"
+        },
+        {
+          "keyword": "soevereine ai"
+        },
+        {
+          "keyword": "ai zonder tracking"
+        },
+        {
+          "keyword": "ai gehost in europa"
+        }
+      ]
+    }
+  }
+}
