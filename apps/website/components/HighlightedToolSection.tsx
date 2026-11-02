@@ -89,7 +89,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </span>
                 <span
-                  className={`font-heading text-xs uppercase tracking-[0.18em] sm:text-sm ${card.text} opacity-80`}
+                  className={`font-heading text-xs uppercase tracking-[0.18em] sm:text-sm ${card.text}`}
                 >
                   {t("highlightedToolKicker")}
                 </span>
@@ -102,7 +102,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
               </h2>
 
               <p
-                className={`max-w-xl text-base sm:text-lg ${card.text} opacity-85`}
+                className={`max-w-xl text-base sm:text-lg ${card.text}`}
               >
                 {description}
               </p>
@@ -122,7 +122,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                   </span>
                   {hostHint && (
                     <span
-                      className={`font-heading text-[0.65rem] uppercase tracking-[0.2em] sm:text-xs ${card.text} opacity-70`}
+                      className={`font-heading text-[0.65rem] uppercase tracking-[0.2em] sm:text-xs ${card.text}`}
                     >
                       {hostHint}
                     </span>

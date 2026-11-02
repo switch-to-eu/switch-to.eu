@@ -335,7 +335,7 @@ export function InlineSearchInput({
       >
           <div className="py-0">
             <div className="px-4 py-2 border-b border-brand-green/10">
-              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/60">
+              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/80">
                 {t("dropdownSearchResults")}
               </h3>
             </div>
@@ -363,7 +363,7 @@ export function InlineSearchInput({
                   <div className="flex justify-between items-center gap-3">
                     <div className="min-w-0">
                       <div className="font-semibold text-brand-green truncate">{result.title}</div>
-                      <div className="text-sm text-brand-green/60 truncate">
+                      <div className="text-sm text-brand-green/80 truncate">
                         {result.description}
                       </div>
                     </div>
@@ -377,10 +377,10 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-brand-green/70 font-medium">
+                <p className="text-brand-green/80 font-medium">
                   {t("noResultsMessage", { query })}
                 </p>
-                <p className="text-sm text-brand-green/50 mt-1">
+                <p className="text-sm text-brand-green/80 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>

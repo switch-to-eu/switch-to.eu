@@ -27,6 +27,9 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
   // Opening paragraph of the lead, as plain text, to give the lead some body.
   const excerpt = markdownToPlainText(lead.content.split(/\n\s*\n/)[0] ?? "");
   const t = await getTranslations({ locale, namespace: "news" });
+  // Lead and briefing headings sit one level below the section title. Without
+  // a title (news index, under the page h1) they are h2s.
+  const Heading = title ? "h3" : "h2";
 
   return (
     <section aria-labelledby={title ? "front-page-title" : undefined}>
@@ -61,14 +64,14 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
 
             <div className="relative z-10 flex flex-col h-full">
               <ArticleMeta article={lead} locale={locale} t={t} />
-              <h3 className="font-heading uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl mt-5 mb-5 text-balance">
+              <Heading className="font-heading uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl mt-5 mb-5 text-balance">
                 <Link
                   href={`/news/${lead.slug}`}
                   className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-brand-yellow"
                 >
                   {lead.title}
                 </Link>
-              </h3>
+              </Heading>
               <p className="text-lg sm:text-xl font-semibold leading-relaxed max-w-[60ch] mb-5">{lead.description}</p>
               {excerpt && (
                 <p className="hidden sm:block text-base leading-relaxed max-w-[62ch] mb-8 line-clamp-4">{excerpt}</p>
@@ -91,9 +94,9 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
             aria-labelledby="briefing-title"
             className="lg:col-span-4 bg-brand-cream md:rounded-3xl border border-brand-green/10 px-6 sm:px-8 py-8"
           >
-            <h3 id="briefing-title" className="font-heading uppercase text-brand-green text-2xl sm:text-3xl mb-4">
+            <Heading id="briefing-title" className="font-heading uppercase text-brand-green text-2xl sm:text-3xl mb-4">
               {t("briefing")}
-            </h3>
+            </Heading>
             {briefing.length > 0 ? (
               <ol className="divide-y divide-brand-green/15">
                 {briefing.map((article) => (
@@ -123,13 +126,13 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
             <div className="mt-6 pt-5 border-t border-brand-green/15 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold">
               <Link
                 href="/news"
-                className="text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+                className="inline-block py-1 text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
               >
                 {t("viewAll")} →
               </Link>
               <a
                 href={`/${locale}/news/feed.xml`}
-                className="text-brand-green/80 hover:text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+                className="inline-block py-1 text-brand-green/80 hover:text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
               >
                 {t("rss")}
               </a>
@@ -155,7 +158,7 @@ export function ArticleMeta({
   t: T;
   tone?: "dark" | "light";
 }) {
-  const pill = tone === "dark" ? "bg-brand-green text-white" : "bg-brand-yellow text-brand-navy";
+  const pill = tone === "dark" ? "bg-brand-green text-white" : "bg-brand-yellow text-brand-green";
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold">
       <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs uppercase tracking-wider ${pill}`}>

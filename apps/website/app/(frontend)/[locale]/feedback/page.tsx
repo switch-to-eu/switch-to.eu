@@ -34,13 +34,13 @@ export default async function FeedbackPage() {
           >
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white mb-4">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-[#1a1a1a] mb-4">
                   {t("hero.title")}
                 </h1>
-                <p className="text-white/90 text-base sm:text-lg mb-3">
+                <p className="text-[#1a1a1a] text-base sm:text-lg mb-3">
                   {t("hero.description1")}
                 </p>
-                <p className="text-white/80 text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {t("hero.description2")}
                 </p>
               </div>

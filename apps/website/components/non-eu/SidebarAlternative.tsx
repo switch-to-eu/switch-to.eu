@@ -138,7 +138,7 @@ export async function SidebarAlternative({
             {firstGuide && firstGuideCategory && (
               <Link
                 href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
-                className="inline-flex items-center justify-center px-4 py-2.5 border-2 border-brand-yellow text-brand-yellow rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
+                className="inline-flex items-center justify-center px-4 py-2.5 border-2 border-brand-yellow text-white rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
               >
                 {t("switchGuide", { source: sourceService })}{" "}
                 <span aria-hidden className="ml-1.5">&rarr;</span>
@@ -147,7 +147,7 @@ export async function SidebarAlternative({
 
             <Link
               href={`/services/eu/${service.slug}`}
-              className="inline-flex items-center justify-center text-brand-cream/70 hover:text-brand-yellow text-xs sm:text-sm pt-1 transition-colors no-underline"
+              className="inline-flex items-center justify-center text-brand-cream hover:text-brand-yellow text-xs sm:text-sm py-1.5 transition-colors underline underline-offset-2 decoration-brand-cream/50 hover:decoration-current"
             >
               {t("learnMore", { name: service.name })}{" "}
               <span aria-hidden className="ml-1">&rarr;</span>
@@ -155,7 +155,7 @@ export async function SidebarAlternative({
           </div>
 
           {outboundUrl && service.affiliateUrl && (
-            <AffiliateDisclosure className="mt-3 text-brand-cream/40 hover:text-brand-cream/60 decoration-brand-cream/30 text-[10px]" />
+            <AffiliateDisclosure className="mt-3 text-brand-cream hover:text-white decoration-brand-cream/60" />
           )}
         </div>
 

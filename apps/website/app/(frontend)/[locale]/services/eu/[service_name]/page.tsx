@@ -215,7 +215,7 @@ export default async function ServiceDetailPage({
       <Container noPaddingMobile>
         <Link
           href={`/services/${categorySlug}`}
-          className="inline-flex items-center gap-1.5 text-brand-green/60 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
+          className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
           <span>&larr;</span>
           <span>{categoryFormatted}</span>
@@ -289,20 +289,20 @@ export default async function ServiceDetailPage({
                   href={getOutboundUrl(service)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+                  className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-green font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
                 >
                   {t("tryService", { service: service.name })} &rarr;
                 </a>
                 {firstGuide && firstGuideCategory && (
                   <Link
                     href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
-                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-yellow text-white font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-green transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
                   >
                     {t("switchFrom", { service: firstSourceName ?? "" })}
                   </Link>
                 )}
               </div>
-              <AffiliateDisclosure className="mt-2 text-brand-cream/30 hover:text-brand-cream/50 decoration-brand-cream/20" />
+              <AffiliateDisclosure className="mt-2 text-brand-cream hover:text-white decoration-brand-cream/60" />
             </div>
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
@@ -328,7 +328,7 @@ export default async function ServiceDetailPage({
                           fill="currentColor"
                         />
                       </svg>
-                      <span className="absolute text-white text-[9px] sm:text-[11px] font-bold uppercase leading-tight text-center px-2">
+                      <span className="absolute text-white text-[11px] sm:text-xs font-bold uppercase leading-tight text-center px-2">
                         {t("recommended")}
                         <br />
                         {t("recommendedBy")}
@@ -379,7 +379,7 @@ export default async function ServiceDetailPage({
                       scroll={false}
                       className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
                     >
-                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/80 mb-1">
                         {t("tabs.pricing")}
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
@@ -400,7 +400,7 @@ export default async function ServiceDetailPage({
                       scroll={false}
                       className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
                     >
-                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/80 mb-1">
                         {t("tabs.security")}
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
@@ -497,7 +497,7 @@ export default async function ServiceDetailPage({
                             service.gdprCompliance === "compliant"
                               ? "bg-brand-green/10 text-brand-green border-brand-green/20"
                               : service.gdprCompliance === "partial"
-                                ? "bg-brand-yellow/10 text-brand-orange border-brand-yellow/20"
+                                ? "bg-brand-yellow/20 text-[#1a1a1a] border-brand-yellow/40"
                                 : "bg-gray-100 text-gray-600 border-gray-200"
                           }`}
                         >

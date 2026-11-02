@@ -49,20 +49,20 @@ export function ServiceCta({
               href={serviceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+              className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-yellow text-brand-green font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
             >
               {t("tryService", { service: serviceName })} &rarr;
             </a>
             {guideHref && sourceServiceName && (
               <Link
                 href={guideHref}
-                className="inline-block px-4 sm:px-8 py-2 sm:py-3 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                className="inline-block px-4 sm:px-8 py-2 sm:py-3 border-2 border-brand-yellow text-white font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-green transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
               >
                 {t("switchFrom", { service: sourceServiceName })}
               </Link>
             )}
           </div>
-          <AffiliateDisclosure className="mt-4 text-brand-cream/40 hover:text-brand-cream/60 decoration-brand-cream/20" />
+          <AffiliateDisclosure className="mt-4 text-brand-cream hover:text-white decoration-brand-cream/60" />
         </Banner>
       </Container>
     </section>

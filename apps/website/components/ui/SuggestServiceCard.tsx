@@ -39,7 +39,7 @@ export function SuggestServiceCard({ colorIndex = 0 }: { colorIndex?: number }) 
         </h3>
 
         <p
-          className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-5`}
+          className={`${card.text} text-sm leading-relaxed line-clamp-3 mb-5`}
         >
           {t("suggestCardDescription")}
         </p>

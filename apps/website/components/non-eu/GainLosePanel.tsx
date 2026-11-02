@@ -45,7 +45,7 @@ export async function GainLosePanel({
         )}
         {lose.length > 0 && (
           <div>
-            <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-orange mb-3">
+            <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-red mb-3">
               {t("lose")}
             </h3>
             <ul className="space-y-2.5">

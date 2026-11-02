@@ -440,15 +440,17 @@ The generic rotation sequence:
 | #  | Background       | Text Color   | Button                    | Shape    |
 | -- | ---------------- | ------------ | ------------------------- | -------- |
 | 1  | `bg-brand-sky`   | Green        | `bg-brand-green text-white` | spark    |
-| 2  | `bg-brand-orange`| White        | `bg-white text-brand-orange`| cloud    |
+| 2  | `bg-brand-orange`| `#1a1a1a`    | `bg-[#1a1a1a] text-white`   | cloud    |
 | 3  | `bg-brand-yellow`| Green        | `bg-brand-green text-white` | tulip    |
 | 4  | `bg-brand-green` | White        | `bg-white text-brand-green` | speech   |
-| 5  | `bg-brand-pink`  | Green        | `bg-brand-green text-white` | heart    |
+| 5  | `bg-brand-pink`  | `#1a1a1a`    | `bg-brand-green text-white` | heart    |
 | 6  | `bg-brand-navy`  | White        | `bg-white text-brand-navy`  | sunburst |
 | 7  | `bg-brand-sage`  | Green        | `bg-brand-green text-white` | flower   |
 | 8  | `bg-brand-red`   | White        | `bg-white text-brand-red`   | starburst|
 
-Rule: light backgrounds (sky, yellow, pink, sage) pair with Green text; dark backgrounds (orange, green, navy, red) pair with White text.
+Rule: sky, yellow and sage pair with Green text. Green, navy and red pair with White text. Orange and pink pair with `#1a1a1a`, because neither white nor green reaches 4.5:1 on them (changed 2026-11-02, see `docs/design/2026-11-02-audit.md`). Text on cards is never faded with opacity: at 80% opacity most pairs drop below 4.5:1.
+
+Yellow buttons and pills take Green text, not Navy (navy on yellow is 4.29:1). Yellow-outline buttons on dark grounds take White text.
 
 ### Readable rotation (cards with body copy)
 

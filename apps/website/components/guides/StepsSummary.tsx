@@ -205,7 +205,7 @@ export function StepsSummary({
         <h2 className="font-heading text-lg uppercase text-brand-green">
           {stepsToCompleteText}
         </h2>
-        <span className="text-xs font-semibold text-brand-green/60 bg-brand-green/10 px-2 py-0.5 rounded-full">
+        <span className="text-xs font-semibold text-brand-green bg-brand-green/10 px-2 py-0.5 rounded-full">
           {completedCount}/{totalCount}
         </span>
       </div>

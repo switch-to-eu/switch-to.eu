@@ -287,6 +287,13 @@
 }
 
 /* Custom badges for regions */
+.badge-eu {
+  /* Brand green with white: 10.5:1. The generic success variant was 3.2:1. */
+  background-color: var(--brand-green) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
 .badge-eu-friendly {
   background-color: var(--brand-yellow) !important;
   color: var(--brand-green) !important;

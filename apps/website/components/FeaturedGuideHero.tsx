@@ -189,7 +189,7 @@ function GuidesColumn({
 
         {others.length > 0 && (
           <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-brand-green/15">
-            <p className="font-heading uppercase tracking-[0.2em] text-brand-green/80 text-xs sm:text-sm mb-3 sm:mb-4">
+            <p className="font-heading uppercase tracking-[0.2em] text-brand-green text-xs sm:text-sm mb-3 sm:mb-4">
               {moreMigrationsLabel}
             </p>
             <ul className="flex flex-col gap-0.5">
@@ -224,7 +224,7 @@ function FeaturedPoster({
 }: FeaturedPosterProps) {
   return (
     <div>
-      <p className="font-heading uppercase tracking-[0.2em] text-brand-green/80 text-xs sm:text-sm mb-3 sm:mb-4">
+      <p className="font-heading uppercase tracking-[0.2em] text-brand-green text-xs sm:text-sm mb-3 sm:mb-4">
         {eyebrowLabel}
       </p>
 
@@ -292,12 +292,12 @@ function GuideRow({ guide, difficultyLabels }: GuideRowProps) {
           </span>{" "}
           {guide.targetName}
         </span>
-        <span className="block text-brand-green/60 text-xs sm:text-sm mt-1">
+        <span className="block text-brand-green text-xs sm:text-sm mt-1">
           {difficultyLabels[guide.difficulty]} · {guide.timeRequired}
         </span>
       </span>
       <span
-        className="text-brand-green/60 group-hover:translate-x-1 transition-transform text-lg shrink-0"
+        className="text-brand-green/80 group-hover:translate-x-1 transition-transform text-lg shrink-0"
         aria-hidden="true"
       >
         →
@@ -326,7 +326,7 @@ function FallbackPoster({ title, subtitle }: FallbackPosterProps) {
       >
         {title}
       </h2>
-      <p className="text-brand-green/80 text-base sm:text-lg mt-6 max-w-lg leading-relaxed">
+      <p className="text-brand-green text-base sm:text-lg mt-6 max-w-lg leading-relaxed">
         {subtitle}
       </p>
     </div>

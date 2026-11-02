@@ -59,7 +59,7 @@ export default async function NewsIndexPage({
               <p className="text-white text-base sm:text-lg mb-6">{t("hero.description")}</p>
               <a
                 href={`/${locale}/news/feed.xml`}
-                className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
+                className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
               >
                 {t("rss")}
               </a>

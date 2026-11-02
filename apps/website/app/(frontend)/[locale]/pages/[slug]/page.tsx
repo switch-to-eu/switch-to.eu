@@ -95,7 +95,7 @@ export default async function LandingPage({
               {categorySlug && (
                 <Link
                   href={`/services/${categorySlug}`}
-                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
                 >
                   {t("exploreAlternatives")}
                 </Link>
@@ -133,7 +133,7 @@ export default async function LandingPage({
               <ul className="space-y-3 max-w-3xl">
                 {relatedServiceIssues.map((issue: string, index: number) => (
                   <li key={index} className="flex items-start gap-3 text-gray-700">
-                    <span className="text-brand-red mt-1 flex-shrink-0">&#9679;</span>
+                    <span aria-hidden="true" className="text-brand-red mt-1 flex-shrink-0">&#9679;</span>
                     <span>{issue}</span>
                   </li>
                 ))}

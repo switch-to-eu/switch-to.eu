@@ -125,7 +125,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                           <Input
                             placeholder="John"
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
                         </FormControl>
                         <FormMessage />
@@ -145,7 +145,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                             type="email"
                             placeholder="john.doe@example.com"
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
                         </FormControl>
                         <FormMessage />
@@ -162,7 +162,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                   variant="cta"
                   type="submit"
                   disabled={isSubmitting}
-                  className="h-12 px-8 text-base bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full font-semibold"
+                  className="h-12 px-8 text-base bg-brand-yellow text-brand-green hover:bg-brand-yellow/90 rounded-full font-semibold"
                 >
                   {isSubmitting ? "..." : t("submitLabel")}
                 </Button>

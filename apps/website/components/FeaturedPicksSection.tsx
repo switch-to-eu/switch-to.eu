@@ -116,7 +116,7 @@ function PickCard({
           {pick && (
             <Link
               href={categoryHref}
-              className={`${card.text} pointer-events-auto relative self-start font-heading uppercase tracking-[0.14em] text-xs opacity-70 hover:opacity-100 mb-2 inline-flex items-center gap-1 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded`}
+              className={`${card.text} pointer-events-auto relative self-start font-heading uppercase tracking-[0.14em] text-xs hover:underline mb-1 py-1 inline-flex items-center gap-1 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded`}
             >
               {category.title}
               <span aria-hidden="true">→</span>
@@ -139,7 +139,7 @@ function PickCard({
           )}
 
           <p
-            className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-4`}
+            className={`${card.text} text-sm leading-relaxed line-clamp-3 mb-4`}
           >
             {description}
           </p>

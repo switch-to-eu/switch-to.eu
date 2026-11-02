@@ -295,7 +295,7 @@ export default async function ContributeGuidePage() {
             <Button
               variant="red"
               asChild
-              className="bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
+              className="bg-brand-yellow text-brand-green hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
             >
               <Link
                 href="https://github.com/switch-to-eu/content"

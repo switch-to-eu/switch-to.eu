@@ -111,7 +111,7 @@ export default async function NewsArticlePage({
             <div className="max-w-3xl">
               <Link
                 href="/news"
-                className="inline-block mb-6 text-sm font-semibold text-brand-sky hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky"
+                className="inline-block py-1 mb-5 text-sm font-semibold text-brand-sky hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky"
               >
                 ← {t("backToNews")}
               </Link>

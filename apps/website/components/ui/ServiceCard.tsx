@@ -105,13 +105,13 @@ export async function ServiceCard({
           </h3>
 
           {showCategory && (
-            <p className={`${card.text} text-xs opacity-60 mb-2`}>
+            <p className={`${card.text} text-xs mb-2`}>
               {categoryFormatted}
             </p>
           )}
 
           {/* Compact meta row */}
-          <div className={`${card.text} flex flex-wrap gap-x-3 gap-y-0.5 text-xs opacity-70 mb-3`}>
+          <div className={`${card.text} flex flex-wrap gap-x-3 gap-y-0.5 text-xs mb-3`}>
             <span>{service.location}</span>
             <span>{service.freeOption ? "Free tier" : "Paid"}</span>
             {service.startingPrice &&
@@ -122,14 +122,14 @@ export async function ServiceCard({
 
           {service.angle && (
             <span
-              className={`${card.text} block text-[11px] uppercase tracking-wider font-bold opacity-90 mb-1`}
+              className={`${card.text} block text-[11px] uppercase tracking-wider font-bold mb-1`}
             >
               {service.angle}
             </span>
           )}
 
           <p
-            className={`${card.text} text-sm opacity-80 leading-relaxed line-clamp-3 mb-5`}
+            className={`${card.text} text-sm leading-relaxed line-clamp-3 mb-5`}
           >
             {service.description}
           </p>

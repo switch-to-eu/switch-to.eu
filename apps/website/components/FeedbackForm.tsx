@@ -266,7 +266,7 @@ export default function FeedbackForm() {
               </Alert>
             )}
 
-            <div className="text-xs text-black/40">
+            <div className="text-xs text-black/70">
               <p>
                 {commonT("privacyNotice")}{" "}
                 <Link

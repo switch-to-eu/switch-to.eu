@@ -123,7 +123,7 @@ export function BrandCard({
         </h3>
         <p
           className={cn(
-            `${card.text} text-sm sm:text-base opacity-80 leading-relaxed`,
+            `${card.text} text-sm sm:text-base leading-relaxed`,
             (ctaText || recommendationLabel) && "line-clamp-3 mb-4"
           )}
         >
@@ -152,7 +152,7 @@ export function BrandCard({
                 href={secondaryLink.href}
                 className={cn(
                   card.text,
-                  "pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold opacity-80 hover:opacity-100 hover:underline transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded"
+                  "pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded"
                 )}
               >
                 {secondaryLink.text}

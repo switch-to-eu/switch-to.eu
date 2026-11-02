@@ -43,7 +43,7 @@ export async function HowWeWork() {
               </h2>
               <a
                 href="https://github.com/switch-to-eu/switch-to.eu"
-                className="inline-block rounded-full border-2 border-brand-yellow px-5 py-2 text-sm font-semibold text-brand-yellow hover:bg-brand-yellow hover:text-brand-navy transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
+                className="inline-block rounded-full border-2 border-brand-yellow px-5 py-2 text-sm font-semibold text-white hover:bg-brand-yellow hover:text-brand-green transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
               >
                 {t("githubCta")} ↗
               </a>

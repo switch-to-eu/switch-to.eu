@@ -202,7 +202,7 @@ export default async function ServiceDetailPage({
       <Container noPaddingMobile>
         <Link
           href={`/services/${categorySlug}`}
-          className="inline-flex items-center gap-1.5 text-brand-orange/70 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-orange transition-colors"
+          className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
           <span aria-hidden>&larr;</span>
           <span>
@@ -211,7 +211,7 @@ export default async function ServiceDetailPage({
         </Link>
 
         <Banner
-          color="bg-brand-orange"
+          color="bg-brand-red"
           className="[&>div]:py-8 [&>div]:sm:py-10"
           shapes={[
             {
@@ -237,12 +237,12 @@ export default async function ServiceDetailPage({
               </div>
             </div>
 
-            <p className="text-white/90 text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
+            <p className="text-white text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
               {service.oneLineProblem || service.description}
             </p>
 
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+              <span className="inline-flex items-center gap-2 bg-black/15 text-white rounded-full px-3 py-1 text-sm">
                 <span
                   aria-hidden
                   className={`w-2 h-2 rounded-full ${gdprDotClass}`}
@@ -250,12 +250,12 @@ export default async function ServiceDetailPage({
                 {t(`redesign.gdprBadge.${gdpr}`)}
               </span>
               {service.headquarters && (
-                <span className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm">
                   {service.headquarters}
                 </span>
               )}
               {lastReviewedLabel && (
-                <span className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm">
                   {t("redesign.trustStrip.lastReviewed", {
                     date: lastReviewedLabel,
                   })}
@@ -264,7 +264,7 @@ export default async function ServiceDetailPage({
               {(service.sourceUrls?.length ?? 0) > 0 && (
                 <a
                   href="?tab=sources"
-                  className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm no-underline hover:bg-white/20 transition-colors"
+                  className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm no-underline hover:bg-black/25 transition-colors"
                 >
                   {t("redesign.trustStrip.sourcesCount", {
                     count: service.sourceUrls?.length ?? 0,

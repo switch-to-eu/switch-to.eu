@@ -53,6 +53,16 @@ export function getToolCardColor(toolId: string): CardColorScheme {
   }
 
   const primary = BRAND_COLORS[scheme.primary];
+  // Orange and pink fail AA with both white and brand green at body sizes,
+  // so their cards use near-black text (4.59:1 and 6.7:1).
+  if (scheme.primary === "orange" || scheme.primary === "pink") {
+    return {
+      bg: `bg-${primary.tw}`,
+      text: "text-[#1a1a1a]",
+      button: "bg-[#1a1a1a] text-white",
+      shapeColor: "text-white",
+    };
+  }
   const isDark = primary.foreground === "#ffffff";
 
   return {
