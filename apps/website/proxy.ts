@@ -11,10 +11,12 @@ export const config = {
   // contain dots (service slugs like `mailbox.org`, scanned domains).
   // Without these, the i18n middleware skips the request and `getLocale()`
   // falls back to the default locale, producing `<html lang="en">` on NL URLs.
+  // The locale is pinned to en|nl so static files like
+  // /images/services/x.png don't match and get redirected.
   matcher: [
     "/((?!admin|api|trpc|_next|_vercel|sitemap|.*\\..*).*)",
-    "/:locale/tools/domain/:domain*",
-    "/:locale/services/:category/:service*",
-    "/:locale/guides/:category/:service*",
+    "/:locale(en|nl)/tools/domain/:domain*",
+    "/:locale(en|nl)/services/:category/:service*",
+    "/:locale(en|nl)/guides/:category/:service*",
   ],
 };
