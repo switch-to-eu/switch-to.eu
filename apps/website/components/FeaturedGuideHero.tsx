@@ -66,13 +66,9 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
       <Container noPaddingMobile>
         <div className="md:rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
           <OrientationColumn
-            taglineLines={[
-              t("heroTaglineLine1"),
-              t("heroTaglineLine2"),
-              t("heroTaglineLine3"),
-            ]}
-            subtitle={t("heroSubtitle")}
-            ctaLabel={t("heroBrowseCategoriesCta")}
+            title={t("guidesBand.title")}
+            body={t("guidesBand.body")}
+            ctaLabel={t("masthead.picksLink")}
           />
 
           <GuidesColumn
@@ -92,60 +88,44 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
 }
 
 interface OrientationColumnProps {
-  taglineLines: string[];
-  subtitle: string;
+  title: string;
+  body: string;
   ctaLabel: string;
 }
 
-function OrientationColumn({
-  taglineLines,
-  subtitle,
-  ctaLabel,
-}: OrientationColumnProps) {
+/** Intro panel for the guides band (the masthead above owns the page h1). */
+function OrientationColumn({ title, body, ctaLabel }: OrientationColumnProps) {
   return (
-    <div className="relative bg-brand-green overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-7">
+    <div className="relative bg-brand-red overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-7">
       <DecorativeShape
         shape="sunburst"
         className="-top-14 -left-10 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60"
         color="text-brand-yellow"
-        opacity={0.14}
+        opacity={0.2}
         duration="13s"
       />
       <DecorativeShape
         shape="pebble"
         className="-bottom-12 -right-10 w-36 h-36 sm:w-48 sm:h-48 rotate-12"
-        color="text-brand-yellow"
-        opacity={0.1}
+        color="text-white"
+        opacity={0.12}
         duration="15s"
         delay="-4s"
       />
 
       <div className="relative z-10 flex flex-col h-full">
-        <h1
-          className="font-display text-brand-yellow uppercase"
-          style={{
-            fontFamily: "var(--font-anton)",
-            fontWeight: 400,
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-            fontSize: "clamp(2.25rem, 6.5vw, 5.5rem)",
-          }}
-        >
-          {taglineLines.map((line, index) => (
-            <span key={index} className="block">
-              {line}
-            </span>
-          ))}
-        </h1>
+        <h2 className="font-heading uppercase text-white leading-none text-5xl sm:text-6xl md:text-7xl">
+          {title}
+        </h2>
 
-        <p className="text-brand-cream text-base sm:text-lg md:text-xl mt-5 sm:mt-6 max-w-xl leading-snug">
-          {subtitle}
+        <p className="text-white text-base sm:text-lg md:text-xl mt-5 sm:mt-6 max-w-xl leading-snug">
+          {body}
         </p>
 
-        <div className="mt-6 sm:mt-8">
+        <div className="mt-auto pt-6 sm:pt-8">
           <a
             href="#picks"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 border border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-green transition-colors text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-brand-green"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-white text-brand-red font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-red"
           >
             {ctaLabel}
             <span aria-hidden="true">→</span>

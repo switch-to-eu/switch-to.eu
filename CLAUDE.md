@@ -207,6 +207,10 @@ Services and Guides have a `contentPipelineStatus` frontmatter field tracking pr
 
 One AI-researched news article per weekday, EU focus, researched and written in English. Articles live in `content/articles/<slug>/{en,nl,fr}.md` and are served at `/[locale]/news/<slug>` (index at `/[locale]/news`, RSS at `/[locale]/news/feed.xml`). Unlike other collections, **each locale file is a full translation with its own `draft` flag**: English is approved by the owner, then `/translate article <slug> nl` (owner re-reads), then `fr` (AI only, stored but not served until `fr` becomes a site locale). Format: `.claude/skills/_shared/content-files.md` → "Articles".
 
+**Sample articles:** `sample: true` in an article's `en.md` marks layout placeholders. They render with a visible notice, are `noindex`, and are left out of the sitemap, RSS and the knowledge graph. Remove them with `grep -l '^sample: true' content/articles/*/en.md | xargs -n1 dirname | xargs rm -r` once real articles exist.
+
+**Design:** the homepage is a news-led front page (`components/home/`, `components/news/FrontPage.tsx`). Cards with body text use the AA-safe `getReadableCardColor()` rotation (see `docs/brand.md`, "Readable rotation"). The impeccable design skill's guidance is vendored in `.claude/skills/impeccable/` (reference docs only; its binary launcher is not included).
+
 Research memory is a markdown knowledge graph in `knowledge/` (schema and rules: `knowledge/README.md`, design: `docs/superpowers/specs/2026-11-02-news-knowledge-base-design.md`): immutable `sources/` notes with numbered claims, `entities/` with dated, cited fact lines, and `stories/` (ongoing storylines with summary, timeline and "Our coverage"). Relations are frontmatter slugs and `[[wikilinks]]`. **Code does the bookkeeping:** `pnpm knowledge:index` (package `packages/knowledge`) rebuilds the generated `knowledge/index.md` and `knowledge/graph.json`, computes story heat and reports broken links, orphans and stale pages. `--check` exits non-zero on errors. Never hand-edit the generated files.
 
 ```

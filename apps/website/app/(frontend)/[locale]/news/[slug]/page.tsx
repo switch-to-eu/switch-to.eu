@@ -15,6 +15,7 @@ import { findArticle, getAllArticles } from "@/lib/content/loader";
 import type { Article } from "@/lib/content/types";
 import { markdownToPlainText } from "@/lib/markdown";
 import { ARTICLE_LOCALE_NAMES, formatArticleDate, sourceHost } from "@/lib/news";
+import { ArticleMeta } from "@/components/news/FrontPage";
 import { getCategorySlug } from "@/lib/services";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -44,6 +45,7 @@ export async function generateMetadata({
     title: `${article.metaTitle || article.title} | switch-to.eu`,
     description: article.metaDescription || article.description,
     keywords: article.keywords,
+    ...(article.sample ? { robots: { index: false, follow: false } } : {}),
     alternates: {
       canonical: `${siteUrl}/${locale}/news/${slug}`,
       languages: {
@@ -113,21 +115,18 @@ export default async function NewsArticlePage({
               >
                 ← {t("backToNews")}
               </Link>
-              <div className="flex flex-wrap items-center gap-3 mb-4 text-sm text-white">
-                <span className="inline-flex items-center rounded-full bg-brand-yellow text-brand-navy px-3 py-1 text-xs font-semibold uppercase tracking-wider">
-                  {t(`types.${article.type}`)}
-                </span>
-                <time dateTime={article.date}>
-                  {t("publishedOn", { date: formatArticleDate(article.date, locale) })}
-                </time>
+              <div className="text-white mb-5">
+                <ArticleMeta article={article} locale={locale} t={t} tone="light" />
                 {updated && (
-                  <span>· {t("updatedOn", { date: formatArticleDate(updated, locale) })}</span>
+                  <p className="mt-2 text-sm text-brand-sky">
+                    {t("updatedOn", { date: formatArticleDate(updated, locale) })}
+                  </p>
                 )}
               </div>
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-4 leading-none">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-5 leading-[0.95] text-balance">
                 {article.title}
               </h1>
-              <p className="text-white text-base sm:text-lg">{article.description}</p>
+              <p className="text-white text-lg sm:text-xl leading-relaxed max-w-[60ch]">{article.description}</p>
             </div>
           </Banner>
         </Container>
@@ -135,12 +134,20 @@ export default async function NewsArticlePage({
 
       <section>
         <Container>
-          <div className="mdx-content max-w-3xl mx-auto text-lg text-gray-700">
+          {article.sample && (
+            <p
+              role="note"
+              className="max-w-[68ch] mx-auto mb-8 rounded-2xl bg-brand-cream border border-brand-green/20 px-5 py-4 text-brand-green leading-relaxed"
+            >
+              {t("sampleNotice")}
+            </p>
+          )}
+          <div className="article-body mdx-content max-w-[68ch] mx-auto text-[1.125rem] leading-[1.75] text-[#2b2b2b]">
             <RichText data={article.content} />
           </div>
 
           {otherLocales.length > 0 && (
-            <p className="max-w-3xl mx-auto mt-8 text-sm text-gray-700">
+            <p className="max-w-[68ch] mx-auto mt-10 pt-6 border-t border-brand-green/15 text-sm text-gray-700">
               {t("otherLanguages")}{" "}
               {otherLocales.map((l, i) => (
                 <span key={l}>
@@ -158,7 +165,7 @@ export default async function NewsArticlePage({
       {article.sources.length > 0 && (
         <section>
           <Container>
-            <div className="max-w-3xl mx-auto bg-brand-sage/40 rounded-3xl p-6 sm:p-8">
+            <div className="max-w-[68ch] mx-auto bg-brand-sage/40 rounded-3xl p-6 sm:p-8">
               <h2 className="font-heading uppercase text-2xl text-brand-green mb-2">{t("sources")}</h2>
               <p className="text-sm text-gray-700 mb-4">{t("sourcesIntro")}</p>
               <ol className="space-y-3 list-decimal pl-5 text-gray-700">

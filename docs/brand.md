@@ -450,6 +450,16 @@ The generic rotation sequence:
 
 Rule: light backgrounds (sky, yellow, pink, sage) pair with Green text; dark backgrounds (orange, green, navy, red) pair with White text.
 
+### Readable rotation (cards with body copy)
+
+Measured contrast for body text (WCAG AA needs 4.5:1): white on orange is 3.79:1 and green on pink is 4.03:1, so both fail at body sizes. They are fine for shapes and for display headings at 24px and up. Cards whose main content is running text (news article cards) use the AA-safe subset `getReadableCardColor(index)` from `apps/website/lib/news.ts`: sky, green, yellow, navy, sage, red. The same applies to section blocks with body copy: use green, navy, red, yellow, sky or sage, never orange, as the ground for paragraphs.
+
+Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, white on navy 8.5, green on sage 6.6, white on red 4.7, sky on green 6.0, sky on navy 4.9.
+
+## Editorial components (homepage and news)
+
+The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton capped at 6rem, and the search as the primary action), then `FrontPage` (lead story on yellow, dated briefing column on cream), the guides band, picks, `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
+
 ---
 
 ## MDX Content Styling

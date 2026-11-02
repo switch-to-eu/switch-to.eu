@@ -74,26 +74,39 @@
       "advanced": "Advanced"
     },
     "categoryRecommends": "Start with {name}",
-    "cantFindItTitle": "Can't find it?",
-    "cantFindItSubtitle": "Search any service by name and we will show you what we have.",
-    "cantFindItPlaceholder": "Type a service name...",
-    "cantFindItSubmit": "Search",
     "highlightedToolKicker": "From our toolbox",
     "highlightedToolTaglinePrivnote": "Send a note that deletes itself after one read. Encrypted end-to-end, no account needed.",
     "highlightedToolCta": "Try {tool}",
     "highlightedToolAria": "Open {tool} — opens in a new tab",
     "highlightedToolComingSoon": "Coming soon",
-    "featuredTitle": "What Switch-to.eu does",
-    "featuresEuropeanTitle": "European alternatives",
-    "featuresEuropeanDescription": "We collect EU-based alternatives for email, cloud storage, messaging, and more. Each listing shows where the service is hosted, what it costs, and how it handles your data.",
-    "featuresGuidesTitle": "Step-by-step guides",
-    "featuresGuidesDescription": "Step-by-step instructions for moving your data from one service to another. Each guide breaks the process into short, concrete steps.",
-    "featuresCommunityTitle": "Community driven",
-    "featuresCommunityDescription": "Built and maintained by volunteers. Anyone can add services, write guides, or flag outdated information.",
     "whySwitchTitle": "Why switch to Europe-based services?",
     "whySwitchDescription1": "Use EU-based digital alternatives that comply with GDPR, ensuring your data is processed with transparency and security.",
     "whySwitchDescription2": "Support the local tech ecosystem and contribute to a fairer digital economy.",
-    "knowMoreButton": "Want to know more?"
+    "knowMoreButton": "Want to know more?",
+    "masthead": {
+      "dateline": "EU tech news, alternatives and migration guides",
+      "searchLabel": "Which service do you want to leave?",
+      "quickLabel": "Or start with",
+      "picksLink": "See our picks"
+    },
+    "guidesBand": {
+      "title": "Make the switch",
+      "body": "Step-by-step guides for moving your data, contacts and habits from a US service to a European one. Each step is short and tested.",
+      "cta": "All guides by category"
+    },
+    "howWeWork": {
+      "title": "How we work",
+      "sourcesTitle": "Sources on every claim",
+      "sourcesBody": "News articles link each fact to where it came from and list every source at the end. If we can't source it, we don't print it.",
+      "tradeoffsTitle": "Trade-offs up front",
+      "tradeoffsBody": "Every listing has a \"Worth knowing\" section with the downsides: price, missing features, where the company is based. On the same page as the recommendation.",
+      "openTitle": "Open and community-built",
+      "openBody": "The site, its content and its research notes are public on GitHub. Anyone can suggest a service or flag something that's out of date.",
+      "affiliateTitle": "Affiliate links are labelled",
+      "affiliateBody": "Some outbound links earn us a small commission. They are marked where they appear.",
+      "githubCta": "See the source on GitHub"
+    },
+    "latestNews": "Latest news"
   },
   "footer": {
     "copyright": "{year} <link>Switch-to.eu</link>.",
@@ -812,6 +825,12 @@
     "rss": "RSS feed",
     "latest": "Latest news",
     "latestIntro": "Short, sourced pieces on EU tech and privacy. One every weekday.",
-    "viewAll": "All news"
+    "viewAll": "All news",
+    "sampleNotice": "Sample article. We wrote this to test the news section. It describes real events, but it hasn't been through our research and review process.",
+    "briefing": "The briefing",
+    "moreNews": "More news",
+    "readingTime": "{minutes} min read",
+    "sourcesCount": "{count, plural, one {# source} other {# sources}}",
+    "sampleLabel": "Sample"
   }
 }
