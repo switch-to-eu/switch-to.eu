@@ -1,14 +1,14 @@
 ---
 name: write-service
-description: Write or rewrite content for a service listing on switch-to.eu using research data from Payload CMS. Use when asked to "write a service", "write service ProtonMail", "draft service content".
+description: Write or rewrite content for a service listing on switch-to.eu using research data from its content file (content/services/<slug>/en.md). Use when asked to "write a service", "write service ProtonMail", "draft service content".
 argument-hint: "'<service name>'"
 ---
 
 # Write Service Content
 
-Write a service listing for switch-to.eu using research data from Payload CMS.
+Write a service listing for switch-to.eu using the research data in `content/services/<slug>/en.md`.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/lexical-json.md` for richText format.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling.
 
 ## Page Structure Awareness
 
@@ -16,7 +16,7 @@ The service detail page has multiple tabs. Each tab has its own content source:
 
 | Tab | Content source | What this skill populates |
 |-----|---------------|--------------------------|
-| **Overview** | `features` (tags) + `content` (richText) + auto-generated pricing/security snippets | `features`, `content` |
+| **Overview** | `features` (tags) + markdown body + auto-generated pricing/security snippets | `features`, body |
 | **Pricing** | `pricingTiers` (structured array) | `pricingTiers` |
 | **Security** | Research fields + `gdprNotes` | `gdprNotes` |
 | **Comparison** | Auto-generated from both services + guide data | Nothing |
@@ -25,9 +25,9 @@ The service detail page has multiple tabs. Each tab has its own content source:
 
 ### Step 1: Pull research data
 
-Use `mcp__Payload__findServices` to get the service with all its research fields:
-```json
-{"where": "{\"name\": {\"contains\": \"SERVICE_NAME\"}}", "limit": 1, "depth": 1}
+Find the service file and read it in full (frontmatter with all research fields + body):
+```bash
+grep -il '^name: .*SERVICE_NAME' content/services/*/en.md
 ```
 
 If `researchStatus` is "not-started", tell the user to run `/research SERVICE_NAME` first.
@@ -47,12 +47,12 @@ The description answers: "Why would I use this instead of what I have now?" Star
 - Bad: "End-to-end encryption between Proton users. Zero-access encryption for all stored mail."
 - Good: "End-to-end encrypted", "Free tier available", "Open source", "GDPR compliant"
 
-**`content`** (richText, Lexical JSON): 150-250 words. Consumer-friendly overview:
+**Body** (markdown below the frontmatter): 150-250 words. Consumer-friendly overview:
 
 1. Opening paragraph: What it does, who made it, why you'd trust it. Reference the country.
 2. Second paragraph: What makes it different, in plain language. Focus on outcomes not mechanisms.
 3. Optional third paragraph: What else comes with it (calendar, storage, etc.) if applicable.
-4. "Worth knowing" (h2): 1-2 paragraphs of honest trade-offs written for everyday users.
+4. `## Worth knowing`: 1-2 paragraphs of honest trade-offs written for everyday users.
 
 Do NOT include:
 - "What stands out" section (features tags handle that)
@@ -62,13 +62,14 @@ Do NOT include:
 - Certificate names (ISO 27001, SOC 2) — say "passed independent security audits"
 
 **`pricingTiers`** array: Structured pricing data from research. Each tier:
-```json
-{
-  "name": "Mail Plus",
-  "price": "€3.99/month",
-  "billingNote": "billed annually",
-  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}]
-}
+```yaml
+pricingTiers:
+- name: Mail Plus
+  price: €3.99/month
+  billingNote: billed annually
+  features:
+  - 15 GB storage
+  - 10 email addresses
 ```
 - Free tier name: "Free" with price "Free"
 - Keep feature descriptions under 6 words
@@ -82,7 +83,18 @@ Do NOT include:
 
 ### Step 3: Save
 
-Use `mcp__Payload__updateServices` (existing) or `mcp__Payload__createServices` (new). Set `_status: "draft"`.
+Edit `content/services/<slug>/en.md` following `_shared/content-files.md`:
+- `description`, `features`, `pricingTiers` in the `# Listing` group
+- `issues` in the `# Non-EU page (only used when region is non-eu)` group
+- `gdprNotes` in its existing place in `# Research`
+- the body below the closing `---`
+
+Keep group comments and key order, quote where needed, bump `updatedAt`, then run the validation snippet.
+
+- **Existing service:** edit in place. Don't add `draft: true` (that would unpublish a live page). The PR review is the gate.
+- **New service:** create the file with `draft: true` as the first key of `# Workflow`.
+
+Don't touch `nl.md`. `/translate` updates it.
 
 ## Self-check before saving
 

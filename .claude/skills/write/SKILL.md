@@ -1,12 +1,12 @@
 ---
 name: write
-description: Write or rewrite content for switch-to.eu using research data from Payload CMS. Handles service listings (descriptions, features, content) and migration guides (intro, steps, troubleshooting). Use when asked to "write a service page", "write a guide", "draft content for", "rewrite the description".
+description: Write or rewrite content for switch-to.eu using research data from the service content files in content/. Handles service listings (descriptions, features, body) and migration guides (intro, steps, troubleshooting). Use when asked to "write a service page", "write a guide", "draft content for", "rewrite the description".
 argument-hint: "'service <name>' or 'guide <source> to <target>'"
 ---
 
 # Content Writing Skill
 
-Write switch-to.eu content using research data from Payload CMS.
+Write switch-to.eu content using research data stored in `content/services/<slug>/en.md`. Content lives in markdown files. Read `.claude/skills/_shared/content-files.md` for the layout, field shapes, frontmatter editing rules and draft handling.
 
 ## Voice
 
@@ -61,7 +61,7 @@ The service detail page has multiple tabs. Each tab has its own content source. 
 
 | Tab | Content source | What /write populates |
 |-----|---------------|----------------------|
-| **Overview** | `features` (tags) + `content` (richText) + auto-generated pricing/security snippets | `features`, `content` |
+| **Overview** | `features` (tags) + markdown body + auto-generated pricing/security snippets | `features`, body |
 | **Pricing** | `pricingTiers` (structured array) | `pricingTiers` |
 | **Security** | Research fields (gdprCompliance, certifications, dataStorageLocations, etc.) + `gdprNotes` | `gdprNotes` (rewritten from research into consumer-friendly text) |
 | **Comparison** | Auto-generated from both services + guide data | Nothing (auto-generated) |
@@ -76,10 +76,11 @@ Usage: `/write service ProtonMail`
 
 ### Step 1: Pull research data
 
-Use `mcp__payload__findServices` to get the service with all its research fields:
-```json
-{"where": "{\"name\": {\"contains\": \"SERVICE_NAME\"}}", "limit": 1, "depth": 1}
+Find and read the service file with all its research fields:
+```bash
+grep -il '^name: .*SERVICE_NAME' content/services/*/en.md
 ```
+Read the whole `en.md` (frontmatter + body).
 
 If `researchStatus` is "not-started", tell the user to run `/research SERVICE_NAME` first.
 
@@ -101,12 +102,12 @@ The description answers: "Why would I use this instead of what I have now?" Star
 - Good: "Open source"
 - Good: "GDPR compliant"
 
-**`content`** (richText, Lexical JSON): 150-250 words. Consumer-friendly overview:
+**Body** (the markdown below the frontmatter): 150-250 words. Consumer-friendly overview:
 
 1. Opening paragraph: What it does, who made it, why you'd trust it. Reference the country. Written for someone who uses email, not someone who builds email servers.
 2. Second paragraph: What makes it different, in plain language. Focus on outcomes ("no one can read your emails") not mechanisms ("AES-256 with zero-access architecture").
 3. Optional third paragraph: What else comes with it (calendar, storage, etc.) if applicable.
-4. "Worth knowing" (h2): 1-2 paragraphs of honest trade-offs written for everyday users. Not technical caveats. Think: "search is slower than Gmail" not "full-text search requires client-side index decryption."
+4. `## Worth knowing`: 1-2 paragraphs of honest trade-offs written for everyday users. Not technical caveats. Think: "search is slower than Gmail" not "full-text search requires client-side index decryption."
 
 Do NOT include:
 - "What stands out" section (features tags handle that)
@@ -116,13 +117,14 @@ Do NOT include:
 - Certificate names (ISO 27001, SOC 2, etc.) — say "passed independent security audits." Details belong in the security tab.
 
 **`pricingTiers`** array: Structured pricing data extracted from research. Each tier:
-```json
-{
-  "name": "Mail Plus",
-  "price": "€3.99/month",
-  "billingNote": "billed annually",
-  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}]
-}
+```yaml
+pricingTiers:
+- name: Mail Plus
+  price: €3.99/month
+  billingNote: billed annually
+  features:
+  - 15 GB storage
+  - 10 email addresses
 ```
 - Use the free tier name as "Free" with price "Free"
 - Keep feature descriptions short (under 6 words)
@@ -136,7 +138,12 @@ Do NOT include:
 
 ### Step 3: Save
 
-Use `mcp__payload__updateServices` (existing) or `mcp__payload__createServices` (new). Set `_status: "draft"`.
+Edit `content/services/<slug>/en.md`: listing fields in the `# Listing` group, `issues` in the `# Non-EU page` group, `gdprNotes` in its place in `# Research`, body below the closing `---`. Keep group comments and key order, quote where needed (see `_shared/content-files.md`). Bump `updatedAt`. Run the validation snippet.
+
+- **Existing service:** edit in place. Don't add `draft: true` (that would unpublish a live page). The PR review is the gate.
+- **New service:** create the file with `draft: true` as the first key of `# Workflow`.
+
+Don't touch `nl.md`. `/translate` updates it.
 
 ---
 
@@ -146,14 +153,15 @@ Usage: `/write guide Gmail to ProtonMail`
 
 ### Step 1: Pull research for both services
 
-Use `mcp__payload__findServices` twice to get research data for the source (non-EU) and target (EU) services.
+Find and read the source (non-EU) and target (EU) service files in `content/services/*/en.md` (grep `^name:`). Note both slugs.
 
 ### Step 2: Check if guide exists
 
-Use `mcp__payload__findGuides`:
-```json
-{"where": "{\"sourceService\": {\"equals\": SOURCE_ID}, \"targetService\": {\"equals\": TARGET_ID}}", "limit": 1, "depth": 1}
+```bash
+grep -l '^sourceService: SOURCE_SLUG$' content/guides/*/en.md | xargs -r grep -l '^targetService: TARGET_SLUG$'
 ```
+
+If it exists, read the whole `en.md`. If not, the new guide goes to `content/guides/<source-slug>-to-<target-slug>/en.md`.
 
 ### Step 3: Write the guide sections
 
@@ -165,14 +173,15 @@ Use `mcp__payload__findGuides`:
 
 **`timeRequired`**: Realistic estimate (e.g. "30 minutes" or "1-2 hours").
 
-**`intro`** (richText, Lexical JSON): 100-150 words. Why someone would switch. State facts, not opinions.
+**`intro`** section (markdown): 100-150 words. Why someone would switch. State facts, not opinions.
 
-**`beforeYouStart`** (richText, Lexical JSON): 50-100 words. The thing people wish they'd known before starting.
+**`beforeYouStart`** section (markdown): 50-100 words. The thing people wish they'd known before starting.
 
-**`steps`** array: 4-8 ordered steps. Each step has:
-- `title`: Action-first ("Create your ProtonMail account", not "Account Creation")
-- `content` (richText, Lexical JSON): 2-3 sentences. Action first, context second.
-- `complete`: false
+**`steps`** section: 4-8 ordered steps, each wrapped in `<!-- step-start -->` / `<!-- step-end -->` with a `step-meta` block:
+- `title` (in step-meta): Action-first ("Create your ProtonMail account", not "Account Creation")
+- Step markdown below the step-meta: 2-3 sentences. Action first, context second.
+- `complete: false` (in step-meta)
+- Keep existing `video` / `videoOrientation` keys when rewriting a step that has them. Don't invent video URLs.
 
 Step writing rules:
 - Start with the verb
@@ -180,36 +189,20 @@ Step writing rules:
 - Include specific UI paths ("Go to Settings > Import/Export")
 - Note time estimates for longer steps
 
-**`troubleshooting`** (richText, Lexical JSON): 3-5 common issues as Q&A pairs. 100-200 words.
+**`troubleshooting`** section (markdown): 3-5 common issues as Q&A pairs. 100-200 words.
 
-**`outro`** (richText, Lexical JSON): What to do after switching. 50-100 words.
+**`outro`** section (markdown): What to do after switching. 50-100 words.
 
 **`missingFeatures`** array: Features the source has that the target doesn't. Be honest.
 
 ### Step 4: Save
 
-Use `mcp__payload__createGuides` (new) or `mcp__payload__updateGuides` (existing). Set category, sourceService, targetService by ID. Set `_status: "draft"`.
+Write `content/guides/<slug>/en.md`. Frontmatter: `title`, `description`, `category` (category slug), `sourceService`, `targetService` (service slugs), `difficulty`, `timeRequired`, `missingFeatures`, then `# Workflow` with `updatedAt`. Body: the five sections with the exact markers from `_shared/content-files.md` (intro, beforeYouStart, steps, troubleshooting, outro). Run the validation snippet.
 
----
+- **Existing guide:** edit in place, no `draft` key.
+- **New guide:** add `draft: true` as the first key of `# Workflow`. Also set `date: '<today>'` and `author: Switch-to.EU Team`.
 
-## Lexical JSON reference
-
-All richText fields require Lexical JSON:
-
-```json
-{
-  "root": {
-    "type": "root", "direction": "ltr", "format": "", "indent": 0, "version": 1,
-    "children": [ ...nodes... ]
-  }
-}
-```
-
-**Paragraph:** `{"type": "paragraph", "format": "", "indent": 0, "version": 1, "direction": "ltr", "children": [{"type": "text", "text": "...", "mode": "normal", "style": "", "detail": 0, "format": 0, "version": 1}]}`
-
-**Heading:** Same but `"type": "heading", "tag": "h2"`.
-
-**Bold text:** `"format": 1` on the text node. **Italic:** `"format": 2`.
+Don't touch `nl.md`. `/translate` updates it.
 
 ---
 

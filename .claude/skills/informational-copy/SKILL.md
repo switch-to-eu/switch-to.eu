@@ -396,8 +396,8 @@ State facts. Acknowledge trade-offs. Let the reader decide.
 
 ---
 
-## Integration with Payload CMS
+## Where the content lives
 
-This tone of voice applies to all content written for switch-to.eu, whether entered manually or via the Payload MCP tools. When other skills (/write, /humanize, /translate) reference "informational-copy tone," they mean these rules.
+This tone of voice applies to all content written for switch-to.eu, whether edited by hand or by the content skills. When other skills (/write, /humanize, /translate) reference "informational-copy tone," they mean these rules.
 
-Content collections in Payload: services, guides, landing-pages, pages, categories. All have localized text fields (en, nl) and SEO metadata tabs.
+Content lives as markdown files in `content/`: services, guides, landing-pages, pages, categories. Each item has an `en.md` (all fields in YAML frontmatter + markdown body) and an optional `nl.md` with the Dutch localized fields and body. See `.claude/skills/_shared/content-files.md`.

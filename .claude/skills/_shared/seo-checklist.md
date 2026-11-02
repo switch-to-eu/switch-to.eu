@@ -21,7 +21,7 @@ Score each item: PASS (10 pts), PARTIAL (5 pts), FAIL (0 pts).
 - PARTIAL: 1-2 keywords or some seem irrelevant
 - FAIL: Empty
 
-**4. Heading Structure** (analyze `content` or section fields)
+**4. Heading Structure** (analyze the markdown body, or the guide sections)
 - PASS: Single H1 (or title field), H2s for sections, no skipped levels, keyword in at least one H2
 - PARTIAL: Minor issues (skipped level, no keyword in headings)
 - FAIL: No headings or broken hierarchy
@@ -84,7 +84,9 @@ Suggested metaDescription: "[if missing or bad, suggest one]"
 
 ## Fields to Save
 
-- `seoScore`: the number (0-100)
-- `seoNotes`: the summary text
-- `lastSeoReviewAt`: today's date in ISO format
-- If `metaTitle` or `metaDescription` are empty, also populate them with suggested values
+Write these into the item's `en.md` frontmatter (see `_shared/content-files.md` for groups, quoting and validation):
+
+- `seoScore`: the number (0-100), `# Workflow` group
+- `seoNotes`: the summary text, `# Workflow` group. It is multi-line, so write it as a `|-` block scalar
+- `lastSeoReviewAt`: today's date, quoted (`'YYYY-MM-DD'`), `# Workflow` group
+- If `metaTitle` or `metaDescription` are empty, also populate them with suggested values in the `# SEO` group

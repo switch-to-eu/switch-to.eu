@@ -26,17 +26,22 @@ Run SEO audits on multiple items in parallel by dispatching one subagent per ite
 
 ### Step 1: Build the item list
 
-**For `service unchecked`:**
-```json
-mcp__payload__findServices: {"where": "{\"lastSeoReviewAt\": {\"exists\": false}}", "limit": 100}
+Grep the frontmatter of the content files (format: `../_shared/content-files.md`). The slug is the directory name.
+
+**For `service unchecked`** (never reviewed):
+```bash
+grep -L '^lastSeoReviewAt:' content/services/*/en.md
 ```
 
 **For `service below 70`:**
-```json
-mcp__payload__findServices: {"where": "{\"seoScore\": {\"less_than\": 70}}", "limit": 100}
+```bash
+grep -H '^seoScore:' content/services/*/en.md | awk '$2 < 70 {split($1, a, ":"); print a[1]}'
 ```
+Services with no `seoScore` at all count as below any threshold: add `grep -L '^seoScore:' content/services/*/en.md`.
 
-**For `all`:** Query services, guides, and pages separately. Combine the lists.
+**For `service category Email`:** `grep -l '^category: email$' content/services/*/en.md`.
+
+**For `all`:** list `content/services/*/en.md`, `content/guides/*/en.md`, `content/categories/*/en.md`, `content/pages/*/en.md` and `content/landing-pages/*/en.md`. Combine the lists.
 
 ### Step 2: Confirm with user
 
@@ -47,32 +52,35 @@ Show count and list. Ask for confirmation.
 **Agent prompt template:**
 
 ```
-You are running an SEO audit on {COLLECTION_TYPE} "{ITEM_NAME}" for switch-to.eu.
+You are running an SEO audit on {TYPE} "{ITEM_NAME}" for switch-to.eu.
 
 Use the /seo-check skill. Process:
 
-1. Fetch the item from Payload:
-   {FIND_TOOL}: {FIND_QUERY}
+Read .claude/skills/seo-check-{TYPE}/SKILL.md (or seo-check/SKILL.md for pages and landing pages),
+.claude/skills/_shared/seo-checklist.md and .claude/skills/_shared/content-files.md first.
+
+1. Read the item's file in full: {FILE_PATH}
 
 2. Run the 10-point SEO checklist. Score each PASS (10), PARTIAL (5), FAIL (0):
    1. Meta Title: present, 40-60 chars, contains keyword
    2. Meta Description: present, 150-160 chars, value proposition
    3. Keywords: 3-8 relevant keywords defined
    4. Heading Structure: proper hierarchy, keyword in H2
-   5. Content Length: service 300+ words, guide 500+ words
-   6. Internal Context: category set, features 3+, tags 2+
+   5. Content Length: per-type threshold from the seo-check-{TYPE} skill (service body 300+ words, guide 500+ words)
+   6. Internal Context: per-type rule from the seo-check-{TYPE} skill (services: category set, features 3+, tags 2+)
    7. Open Graph: ogTitle + ogDescription present and correct length
-   8. Image: screenshot or logo present
+   8. Image: screenshot present (services)
    9. Readability: short paragraphs, active voice, Flesch 60+
    10. Freshness: reviewed within 90 days
 
 3. Calculate total score (max 100).
 
-4. Save via {UPDATE_TOOL}:
-   - seoScore: [number]
-   - seoNotes: [formatted summary with PASS/ISSUES/suggestions]
-   - lastSeoReviewAt: [today ISO date]
-   - If metaTitle or metaDescription empty, populate with suggestions
+4. Save by editing {FILE_PATH} (targeted Edit calls, keep group comments and key order):
+   - seoScore: [number]                        (# Workflow group)
+   - seoNotes: [formatted summary with PASS/ISSUES/suggestions, as a |- block scalar]   (# Workflow group)
+   - lastSeoReviewAt: '[today YYYY-MM-DD]'     (# Workflow group)
+   - If metaTitle or metaDescription empty, populate with suggestions (# SEO group)
+   Don't add or remove `draft`. Run the validation snippet. Only edit this one file. Don't touch git.
 
 Return: item name, score, rating, top 3 issues.
 ```
@@ -104,5 +112,6 @@ Priority fixes (items scoring below 50):
 ## Guardrails
 
 - **Max parallel agents:** 10 at a time.
-- **Lightweight agents:** SEO checks don't use WebSearch, so they're fast. Can batch 10 comfortably.
+- **Lightweight agents:** SEO checks only read and edit local files, so they're fast. Can batch 10 comfortably.
+- **Review gate:** Changes sit in the working tree for review in `git diff`. Don't commit unless the user asks.
 - **Auto-populate:** Empty metaTitle and metaDescription get filled with suggestions.

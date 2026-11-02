@@ -27,7 +27,7 @@ Server exposes 20 tools; default site is `sc-domain:switch-to.eu` (set in `.mcp.
 
 ## Output patterns
 
-Every tool returns structured JSON. Persist the raw payload when writing to Payload — truncate only for terminal display.
+Every tool returns structured JSON. Keep the numbers you need for the output file (e.g. an audit or opportunity markdown file). Truncate only for terminal display.
 
 ## Rate limits
 

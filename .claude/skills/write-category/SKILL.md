@@ -8,22 +8,19 @@ argument-hint: "'<category slug>'"
 
 Write a category page description for switch-to.eu.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/lexical-json.md` for richText format.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling.
 
 ## Process
 
 ### Step 1: Fetch the category
 
-Use `mcp__Payload__findCategories`:
-```json
-{"where": "{\"slug\": {\"equals\": \"CATEGORY_SLUG\"}}", "limit": 1}
-```
+Read `content/categories/CATEGORY_SLUG/en.md`. If it doesn't exist, check `ls content/categories` for the right slug.
 
 ### Step 2: Fetch services in this category
 
-Use `mcp__Payload__findServices` to see what services exist in this category. This gives you context for what to write about.
-```json
-{"where": "{\"category\": {\"equals\": CATEGORY_ID}}", "limit": 50, "depth": 0}
+See what services exist in this category. This gives you context for what to write about.
+```bash
+grep -l '^category: CATEGORY_SLUG$' content/services/*/en.md | xargs -r grep -H '^name:\|^region:\|^description:'
 ```
 
 ### Step 3: Write the content
@@ -35,7 +32,7 @@ Use `mcp__Payload__findServices` to see what services exist in this category. Th
 - Bad: "European email providers offering secure and private communication."
 - Good: "Your inbox, not an advertising platform."
 
-**`content`** (richText, Lexical JSON): 2-3 sentences. Brief context about what the services in this category do and why EU matters here. Keep it tight. No "Worth knowing" section (that's per-service). No essay.
+**Body** (markdown below the frontmatter): 2-3 sentences. Brief context about what the services in this category do and why EU matters here. Keep it tight. No "Worth knowing" section (that's per-service). No essay.
 
 - State a concrete fact about the mainstream options in this space
 - Say what the EU alternatives do differently, in one sentence
@@ -46,7 +43,9 @@ Example for email:
 
 ### Step 4: Save
 
-Use `mcp__Payload__updateCategories` with the category ID. Set `_status: "draft"`.
+Edit `content/categories/CATEGORY_SLUG/en.md`: `description` in the frontmatter, body below the closing `---`. Keep the other keys and the group comments as they are, bump `updatedAt`, run the validation snippet from `_shared/content-files.md`.
+
+Existing categories have no `draft` key. Don't add one. A brand-new category file gets `draft: true` as the first key of `# Workflow`. Don't touch `nl.md`.
 
 ## Self-check before saving
 

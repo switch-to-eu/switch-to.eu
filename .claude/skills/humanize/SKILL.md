@@ -1,12 +1,12 @@
 ---
 name: humanize
-description: Strip AI writing patterns from content stored in Payload CMS. Use when asked to "humanize", "de-AI", "make this sound human", "clean up the writing", or review content for AI patterns. Runs a two-pass rewrite on content fetched via MCP.
+description: Strip AI writing patterns from site content in content/ (markdown files). Use when asked to "humanize", "de-AI", "make this sound human", "clean up the writing", or review content for AI patterns. Runs a two-pass rewrite on the content file.
 argument-hint: "'service <name>' or 'guide <slug>'"
 ---
 
 # Humanize Skill
 
-Remove AI writing patterns from content in Payload CMS. Two-pass process: rewrite, then audit.
+Remove AI writing patterns from content in `content/` (see `.claude/skills/_shared/content-files.md`). Two-pass process: rewrite, then audit.
 
 ## AI Pattern Detection List
 
@@ -42,8 +42,8 @@ These patterns signal AI-generated text. Find and fix all of them.
 
 ### Step 1: Fetch the content
 
-For services: `mcp__payload__findServices` with name search, get `description`, `content`, `features`, `issues`.
-For guides: `mcp__payload__findGuides` with slug search, get `intro`, `beforeYouStart`, `steps`, `troubleshooting`, `outro`.
+For services: find the file with `grep -il '^name: .*NAME' content/services/*/en.md` and read it. Check `description`, `features`, `issues` (frontmatter) and the markdown body.
+For guides: read `content/guides/<slug>/en.md`. Check the `intro`, `beforeYouStart`, `steps` (each step's markdown and step-meta `title`), `troubleshooting` and `outro` sections of the body.
 
 ### Step 2: First pass — Rewrite
 
@@ -63,9 +63,9 @@ Fix those remaining issues. Common second-pass catches:
 - Every sentence follows subject-verb-object (vary with an occasional "The hard part:" or "In practice:")
 - No personality (add one slightly opinionated observation with "Worth knowing:" or "The catch:")
 
-### Step 4: Save back to Payload
+### Step 4: Save back to the file
 
-Use `mcp__payload__updateServices` or `mcp__payload__updateGuides` to save the rewritten content. Only update the text fields that changed.
+Edit the `en.md` with targeted Edit calls. Only update the text fields that changed. For guides, keep every section and step marker exactly as it was. Only change the text that needs it. Keep frontmatter group comments, key order and quoting rules from `_shared/content-files.md`. Bump `updatedAt` and run the validation snippet. Don't add or remove `draft`.
 
 ### Step 5: Report
 

@@ -1,32 +1,33 @@
 ---
 name: research
-description: Research a digital service and store structured findings in Payload CMS. Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the Research tab on a service. Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for".
+description: Research a digital service and store structured findings in its content file (content/services/<slug>/en.md). Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the research fields on a service. Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for".
 argument-hint: "service name (e.g. 'ProtonMail'); comma-separate for multiple; add --dry-run to gather without writing"
 ---
 
 # Service Research Skill
 
-Research a digital service and store structured findings in Payload via MCP. Populates both the pre-existing research fields (GDPR, pricing, headquarters, certifications) AND the newer structured fields (`userSentiment`, `redditMentions`, `recentNews`) that render on the public service page.
+Research a digital service and store structured findings in the `# Research` group of `content/services/<slug>/en.md`. Populates both the pre-existing research fields (GDPR, pricing, headquarters, certifications) AND the newer structured fields (`userSentiment`, `redditMentions`, `recentNews`) that render on the public service page.
 
 Read these helpers first:
 - `../_shared/jina.md` — Reader + Search
 - `../_shared/reddit.md` — sentiment gathering
-- `../_shared/payload-operational.md` — writing structured research fields + merge semantics
-- `../_shared/lexical-json.md` — richText JSON format for `researchNotes`
+- `../_shared/content-files.md` — file layout, field shapes, frontmatter editing rules, validation
 - `../_shared/voice.md` — tone rules for any consumer-facing copy we generate
 
 ## Inputs
 
 - Argument: service name, or comma-separated list of service names.
-- Flags: `--dry-run` — gather and print the JSON payload, don't call Payload update.
+- Flags: `--dry-run` — gather and print the would-be frontmatter changes, don't edit the file.
 
 ## Per-service flow
 
 ### Step 1: Resolve the service
 
-`mcp__Payload__findServices` with `{ where: { name: { contains: "<name>" } }, limit: 5 }`. If none found, ask the user whether to create a new service row or correct the name.
+Find the file: `grep -il '^name: .*<name>' content/services/*/en.md`, or match the slug with `ls content/services | grep -i <stem>`. Read the whole `en.md`.
 
-If found, mark `researchStatus=in-progress` and `lastResearchedAt=<today>` via `mcp__Payload__updateServices` so parallel runs don't collide.
+If none found, ask the user whether to create a new service or correct the name. A new service gets a new `content/services/<slug>/en.md` (lowercase, hyphenated slug) with at least `name`, `region`, `category` in `# Listing`, the research fields, and `draft: true` in `# Workflow` (see `_shared/content-files.md`).
+
+If found, set `researchStatus: in-progress` and `lastResearchedAt: '<today>'` in the file so parallel runs don't collide.
 
 ### Step 2: Gather data in parallel
 
@@ -97,11 +98,11 @@ Same mapping as the previous version of this skill. Key fields:
 | Open source | `openSource`, `sourceCodeUrl` |
 | All source URLs | `sourceUrls[]` |
 
-Also update General tab fields if empty or clearly outdated: `location`, `url`, `freeOption`, `startingPrice`.
+Also update `# Listing` fields if empty or clearly outdated: `location`, `url`, `freeOption`, `startingPrice`.
 
-### Step 6: Generate `researchNotes` richText narrative
+### Step 6: Generate the `researchNotes` markdown narrative
 
-Build Lexical richText (see `_shared/lexical-json.md`) synthesizing all gathered data. Section order (H2 headings):
+Write markdown synthesizing all gathered data, stored as a `|-` block scalar (see `_shared/content-files.md`). Section order (`##` headings):
 
 1. **Company** — founded, HQ, parent, size, open-source status.
 2. **Pricing** — free tier, paid tiers, enterprise.
@@ -113,27 +114,31 @@ Build Lexical richText (see `_shared/lexical-json.md`) synthesizing all gathered
 
 ### Step 7: Merge semantics — don't clobber good data
 
-Before calling `mcp__Payload__updateServices`:
+Before editing the file:
 
-- **Scalar fields** (`headquarters`, `foundedYear`, `gdprCompliance`, etc.): include in payload only if the new value is non-empty.
+- **Scalar fields** (`headquarters`, `foundedYear`, `gdprCompliance`, etc.): write only if the new value is non-empty.
 - **Pre-existing array fields** (`certifications`, `dataStorageLocations`): replace wholesale only if the new array is non-empty.
-- **New structured fields** (`userSentiment`, `redditMentions`, `recentNews`): always replace with fresh data, even if empty — they're time-sensitive.
+- **New structured fields** (`userSentiment`, `redditMentions`, `recentNews`): always replace with fresh data — they're time-sensitive. If the fresh `redditMentions` / `recentNews` list is empty, delete the key rather than keeping stale entries.
 - **`researchNotes`**: always regenerate.
 
-### Step 8: Write to Payload
+### Step 8: Write to the content file
 
-`mcp__Payload__updateServices` with the merged payload, including `researchStatus: "complete"` and `lastResearchedAt: <today>`. Skip if `--dry-run`; print the payload as a JSON block instead.
+Edit `content/services/<slug>/en.md` with the merged values, including `researchStatus: complete` and `lastResearchedAt: '<today>'`. Follow `_shared/content-files.md`: targeted Edit calls, keep the `# Research (filled by /research)` group comment and key order, quote where needed, `researchNotes` stays the last key of the group. Run the validation snippet afterwards.
+
+Don't touch `nl.md`. Most research fields aren't localized. The localized ones (`gdprNotes`, `userSentiment`, `recentNews`) are written in English here, and `/translate` adds the Dutch versions later.
+
+Skip if `--dry-run`; print the would-be frontmatter changes as a YAML block instead.
 
 ## Error handling
 
 | Failure | Behaviour |
 |---|---|
-| Vendor site unreachable | Note in `researchNotes`; preserve existing Payload data for that field. |
+| Vendor site unreachable | Note in `researchNotes`; preserve existing data for that field. |
 | Jina Reader empty | Fall through to Playwright local; if that also fails, note gap in `researchNotes`. |
 | All fetchers fail for a URL | Skip that URL; note gap in `researchNotes`. |
 | Reddit empty | `redditMentions: []`, `userSentiment.summary = "No recent Reddit discussion found"`, counts 0. |
 | Jina Search empty for news | `recentNews: []`, note in `researchNotes`. |
-| Payload update fails | Abort this service; continue batch. |
+| File edit or validation fails | Fix the YAML; if you can't, revert that file with `git checkout -- <file>`, abort this service, continue batch. |
 
 ## Output format
 
@@ -143,19 +148,19 @@ Per service:
   Reddit: <N> mentions (<P>/<N>/<M> positive/negative/mixed)
   News: <N> items in last 12 months
   Updated: <list of fields written>
-  → Updated services/<id>
+  → Updated content/services/<slug>/en.md
 ```
 
 Batch: `N researched • M errors`.
 
-`--dry-run`: print the JSON payload instead of the summary.
+`--dry-run`: print the would-be frontmatter changes instead of the summary.
 
 ## Cost per service
 
 - Reddit MCP: ~4 searches (free)
 - Jina Search: ~5 queries (with content) = ~50k tokens (~0.5% of monthly budget)
 - Jina Reader: ~4 pages (negligible)
-- Payload writes: 1
+- File writes: 1
 
 Per service: $0 out-of-pocket, 2–3 min. Backfilling 50 services at 5-parallel: ~1h wall-clock.
 
