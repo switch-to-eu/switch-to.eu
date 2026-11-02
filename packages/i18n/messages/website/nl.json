@@ -42,7 +42,8 @@
     "allCategories": "Alle Categorieën",
     "contributeGuide": "Bijdragerichtlijnen",
     "feedback": "Feedback",
-    "mobileMenu": "Menu openen"
+    "mobileMenu": "Menu openen",
+    "news": "Nieuws"
   },
   "home": {
     "heading": "Weg van big tech? Maak de switch.",
@@ -70,11 +71,6 @@
       "advanced": "Expert"
     },
     "categoryRecommends": "Begin met {name}",
-    "articlesSectionTitle": "Lezen",
-    "articlesSectionIntro": "Artikelen over EU-privacywetgeving, valkuilen bij het overstappen, en de mensen achter Europese alternatieven.",
-    "articlesComingSoon": "Binnenkort",
-    "articlesPlaceholderTitle": "Hier komt een nieuw artikel",
-    "articlesPlaceholderBody": "Artikelen verschijnen hier zodra we ze publiceren. Kom langs, of schrijf je in voor de nieuwsbrief hieronder om ze in je inbox te ontvangen.",
     "cantFindItTitle": "Niet gevonden?",
     "cantFindItSubtitle": "Zoek op de naam van een dienst, dan tonen we wat we hebben.",
     "cantFindItPlaceholder": "Typ een dienst...",
@@ -783,5 +779,33 @@
     "heading": "404",
     "message": "Pagina niet gevonden",
     "cta": "Naar de startpagina"
+  },
+  "news": {
+    "meta": {
+      "title": "EU-technieuws | switch-to.eu",
+      "description": "Nieuws op werkdagen over digitale soevereiniteit, privacy en Europese alternatieven voor Amerikaanse tech. Met bronnen, kort, en gericht op wat het voor jou betekent."
+    },
+    "hero": {
+      "title": "Nieuws",
+      "description": "Wat er deze week veranderde in Europese tech, en wat dat betekent als je overstapt van Amerikaanse diensten. Elke bewering linkt naar de bron."
+    },
+    "empty": "Nog geen artikelen. Het eerste komt eraan.",
+    "readMore": "Lees artikel",
+    "types": {
+      "news": "Nieuws",
+      "analysis": "Analyse"
+    },
+    "publishedOn": "Gepubliceerd op {date}",
+    "updatedOn": "Bijgewerkt op {date}",
+    "sources": "Bronnen",
+    "sourcesIntro": "Alles in dit artikel komt uit deze bronnen.",
+    "mentioned": "Diensten in dit artikel",
+    "relatedGuides": "Gidsen",
+    "otherLanguages": "Ook beschikbaar in",
+    "backToNews": "Al het nieuws",
+    "rss": "RSS-feed",
+    "latest": "Laatste nieuws",
+    "latestIntro": "Korte stukken met bronnen over Europese tech en privacy. Elke werkdag één.",
+    "viewAll": "Al het nieuws"
   }
 }

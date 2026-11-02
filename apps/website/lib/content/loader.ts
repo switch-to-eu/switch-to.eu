@@ -2,6 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import type {
+  Article,
+  ArticleLocale,
+  ArticleSource,
   Category,
   Guide,
   GuideStep,
@@ -304,3 +307,106 @@ export const findLandingPage = (slug: string, locale: string) =>
   getStore(locale).landingPages.get(slug) ?? null;
 export const findPage = (slug: string, locale: string) =>
   getStore(locale).pages.get(slug) ?? null;
+
+// ---------------------------------------------------------------------------
+// Articles
+//
+// Each locale file is a full translation with its own `draft` flag (see
+// .claude/skills/_shared/content-files.md, "Articles"). Shared metadata
+// (date, story, relations, sources) lives only in en.md.
+// ---------------------------------------------------------------------------
+
+export const ARTICLE_LOCALES: ArticleLocale[] = ["en", "nl", "fr"];
+
+interface RawArticle {
+  slug: string;
+  files: Partial<Record<ArticleLocale, { data: Raw; body: string }>>;
+}
+
+function readArticles(): RawArticle[] {
+  const dir = path.join(CONTENT_ROOT, "articles");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
+    .map((entry) => {
+      const article: RawArticle = { slug: entry.name, files: {} };
+      for (const locale of ARTICLE_LOCALES) {
+        const file = path.join(dir, entry.name, `${locale}.md`);
+        if (!fs.existsSync(file)) continue;
+        const parsed = matter(fs.readFileSync(file, "utf8"));
+        const data = normalize(parsed.data) as Raw;
+        if (!includeDrafts && data.draft === true) continue;
+        article.files[locale] = { data, body: parsed.content.trim() };
+      }
+      return article;
+    })
+    .filter((article) => article.files.en);
+}
+
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+}
+
+function buildArticles(locale: ArticleLocale): Article[] {
+  const store = getStore(locale === "fr" ? "en" : locale);
+  const lookup = <T>(map: Map<string, T>, slugs: unknown) =>
+    stringList(slugs)
+      .map((slug) => map.get(slug))
+      .filter((v): v is T => v !== undefined);
+
+  return readArticles()
+    .filter((a) => a.files[locale])
+    .map((a) => {
+      const en = a.files.en!.data;
+      const own = a.files[locale]!;
+      const sources = (Array.isArray(en.sources) ? (en.sources as Raw[]) : [])
+        .map((src): ArticleSource => ({
+          title: str(src.title),
+          publisher: str(src.publisher),
+          url: str(src.url),
+          date: str(src.date) || null,
+        }))
+        .filter((src) => !!src.url);
+      return {
+        ...own.data,
+        id: a.slug,
+        slug: a.slug,
+        locale,
+        locales: ARTICLE_LOCALES.filter((l) => a.files[l]),
+        draft: own.data.draft === true,
+        title: str(own.data.title, a.slug),
+        description: str(own.data.description),
+        date: str(en.date),
+        type: en.type === "analysis" ? "analysis" : "news",
+        story: str(en.story) || null,
+        entities: stringList(en.entities),
+        services: lookup(store.services, en.services),
+        categories: lookup(store.categories, en.categories),
+        guides: lookup(store.guides, en.guides),
+        sources,
+        author: str(en.author, "Switch-to.eu"),
+        keywords: stringList(own.data.keywords),
+        content: own.body,
+        updatedAt: str(own.data.updatedAt) || str(en.updatedAt) || str(en.date),
+      } as Article;
+    })
+    .sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+}
+
+const articleCache = new Map<ArticleLocale, Article[]>();
+
+/** Published articles in a locale, newest first. */
+export function getAllArticles(locale: string): Article[] {
+  const loc = (ARTICLE_LOCALES as string[]).includes(locale) ? (locale as ArticleLocale) : "en";
+  if (isDev) return buildArticles(loc);
+  let articles = articleCache.get(loc);
+  if (!articles) {
+    articles = buildArticles(loc);
+    articleCache.set(loc, articles);
+  }
+  return articles;
+}
+
+export const findArticle = (slug: string, locale: string) =>
+  getAllArticles(locale).find((a) => a.slug === slug) ?? null;

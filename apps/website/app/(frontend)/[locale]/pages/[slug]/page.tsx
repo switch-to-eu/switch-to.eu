@@ -109,7 +109,7 @@ export default async function LandingPage({
       <section>
         <Container>
           <div
-            className="prose prose-lg max-w-3xl mx-auto
+            className="mdx-content prose prose-lg max-w-3xl mx-auto
               prose-headings:font-heading prose-headings:uppercase prose-headings:text-brand-navy
               prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-6
               prose-p:text-gray-700 prose-p:leading-relaxed

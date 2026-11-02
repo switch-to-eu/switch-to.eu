@@ -14,6 +14,7 @@ import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
 import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
 import { HighlightedToolSection } from "@/components/HighlightedToolSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
+import { ArticlesSection } from "@/components/ArticlesSection";
 import { getAllCategories, getAllGuides, getAllServices } from "@/lib/content/loader";
 import type { Category, Guide, Service } from "@/lib/content/types";
 
@@ -184,6 +185,8 @@ export default async function Home() {
           </Banner>
         </Container>
       </section>
+
+      <ArticlesSection locale={locale} />
 
       <NewsletterCta />
     </PageLayout>

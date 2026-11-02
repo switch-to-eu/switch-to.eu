@@ -102,6 +102,7 @@ packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
+  knowledge/      # Knowledge graph index script (pnpm knowledge:index)
   db/             # Shared database utilities (Redis client, crypto, admin tokens, expiration, mock-redis for tests, test-redis for Testcontainers)
   trpc/           # Shared tRPC v11 infrastructure (used by plotty, listy, privnote — NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
@@ -201,6 +202,24 @@ Services and Guides have a `contentPipelineStatus` frontmatter field tracking pr
 **`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in `docs/seo/audits/<collection>-<slug>.md`).
 
 **`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Entries are files in `docs/seo/opportunities/`; set `status: rejected` on false positives so dedup behaves on re-runs.
+
+### News pipeline and knowledge base
+
+One AI-researched news article per weekday, EU focus, researched and written in English. Articles live in `content/articles/<slug>/{en,nl,fr}.md` and are served at `/[locale]/news/<slug>` (index at `/[locale]/news`, RSS at `/[locale]/news/feed.xml`). Unlike other collections, **each locale file is a full translation with its own `draft` flag**: English is approved by the owner, then `/translate article <slug> nl` (owner re-reads), then `fr` (AI only, stored but not served until `fr` becomes a site locale). Format: `.claude/skills/_shared/content-files.md` → "Articles".
+
+Research memory is a markdown knowledge graph in `knowledge/` (schema and rules: `knowledge/README.md`, design: `docs/superpowers/specs/2026-11-02-news-knowledge-base-design.md`): immutable `sources/` notes with numbered claims, `entities/` with dated, cited fact lines, and `stories/` (ongoing storylines with summary, timeline and "Our coverage"). Relations are frontmatter slugs and `[[wikilinks]]`. **Code does the bookkeeping:** `pnpm knowledge:index` (package `packages/knowledge`) rebuilds the generated `knowledge/index.md` and `knowledge/graph.json`, computes story heat and reports broken links, orphans and stale pages. `--check` exits non-zero on errors. Never hand-edit the generated files.
+
+```
+/news-daily       → scan → ingest → pick → write → check, ends with a briefing (weekdays)
+/news-scan        → watchlist (knowledge/watchlist.md) → knowledge/inbox/<date>.md
+/news-ingest      → source notes + entity/story updates + knowledge/flags.md
+/news-pick        → pick a story + 2 backups
+/news-write       → content/articles/<slug>/en.md (draft: true)
+/news-check       → fact check against source claims, humanize, SEO
+/knowledge-lint   → weekly health pass
+/knowledge-prune  → monthly compaction
+/research flagged → refresh service listings flagged by news
+```
 
 ### Tone rules (from informational-copy)
 

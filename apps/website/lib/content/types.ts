@@ -195,3 +195,42 @@ export interface Page extends BaseDoc {
   /** Markdown */
   content?: string | null;
 }
+
+export type ArticleLocale = "en" | "nl" | "fr";
+
+export interface ArticleSource {
+  title: string;
+  publisher: string;
+  url: string;
+  date?: string | null;
+}
+
+/**
+ * A news article in one locale. Unlike other collections, each locale file is
+ * a complete translation with its own `draft` flag; a missing or draft locale
+ * file means the article doesn't exist in that language.
+ */
+export interface Article extends SeoFields {
+  id: string;
+  slug: string;
+  locale: ArticleLocale;
+  /** Locales in which this article is published (or visible in dev). */
+  locales: ArticleLocale[];
+  draft?: boolean;
+  title: string;
+  description: string;
+  /** Publication date, YYYY-MM-DD. */
+  date: string;
+  type: "news" | "analysis";
+  /** knowledge/stories slug (not resolved: knowledge isn't shipped). */
+  story?: string | null;
+  entities: string[];
+  services: Service[];
+  categories: Category[];
+  guides: Guide[];
+  sources: ArticleSource[];
+  author: string;
+  /** Markdown */
+  content: string;
+  updatedAt: string;
+}

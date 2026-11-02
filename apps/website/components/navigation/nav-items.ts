@@ -43,6 +43,10 @@ export async function getNavItems(): Promise<MainNavItem[]> {
       children: [...categories],
     },
     {
+      title: t("news"),
+      href: `/news`,
+    },
+    {
       title: t("tools"),
       href: `/tools`,
       dropdown: "mega",

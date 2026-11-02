@@ -45,7 +45,8 @@
     "allCategories": "All Categories",
     "contributeGuide": "Contribution Guide",
     "feedback": "Feedback",
-    "mobileMenu": "Toggle menu"
+    "mobileMenu": "Toggle menu",
+    "news": "News"
   },
   "home": {
     "heading": "Moving away from big tech? Make the switch.",
@@ -73,11 +74,6 @@
       "advanced": "Advanced"
     },
     "categoryRecommends": "Start with {name}",
-    "articlesSectionTitle": "Reading",
-    "articlesSectionIntro": "Deep dives on EU privacy law, migration pitfalls, and the people building European alternatives.",
-    "articlesComingSoon": "Coming soon",
-    "articlesPlaceholderTitle": "A new piece is on the way",
-    "articlesPlaceholderBody": "Articles land here as we publish them. Check back, or sign up to the newsletter below to catch them in your inbox.",
     "cantFindItTitle": "Can't find it?",
     "cantFindItSubtitle": "Search any service by name and we will show you what we have.",
     "cantFindItPlaceholder": "Type a service name...",
@@ -789,5 +785,33 @@
     "heading": "404",
     "message": "Page not found",
     "cta": "Go home"
+  },
+  "news": {
+    "meta": {
+      "title": "EU tech news | switch-to.eu",
+      "description": "Weekday news on digital sovereignty, privacy and European alternatives to US tech. Sourced, short, and focused on what it means for you."
+    },
+    "hero": {
+      "title": "News",
+      "description": "What changed in European tech this week, and what it means if you're moving away from US services. Every claim links to its source."
+    },
+    "empty": "No articles yet. The first one is on its way.",
+    "readMore": "Read article",
+    "types": {
+      "news": "News",
+      "analysis": "Analysis"
+    },
+    "publishedOn": "Published {date}",
+    "updatedOn": "Updated {date}",
+    "sources": "Sources",
+    "sourcesIntro": "Everything in this article comes from these sources.",
+    "mentioned": "Services in this article",
+    "relatedGuides": "Guides",
+    "otherLanguages": "Also available in",
+    "backToNews": "All news",
+    "rss": "RSS feed",
+    "latest": "Latest news",
+    "latestIntro": "Short, sourced pieces on EU tech and privacy. One every weekday.",
+    "viewAll": "All news"
   }
 }

@@ -1,4 +1,9 @@
-import { getAllCategories, getAllGuides, getAllServices } from "@/lib/content/loader";
+import {
+  getAllArticles,
+  getAllCategories,
+  getAllGuides,
+  getAllServices,
+} from "@/lib/content/loader";
 import { getCategorySlug } from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
 
@@ -66,6 +71,7 @@ function buildEntries(): SitemapEntry[] {
     "/privacy",
     "/terms",
     "/feedback",
+    "/news",
   ];
 
   const staticEntries: SitemapEntry[] = staticRoutes.flatMap((route) =>
@@ -118,12 +124,35 @@ function buildEntries(): SitemapEntry[] {
     }));
   });
 
+  // Articles exist per locale, so only list (and cross-link) the locales
+  // each article is actually published in.
+  const articlesByLocale = new Map(locales.map((l) => [l, getAllArticles(l)]));
+  const articleEntries: SitemapEntry[] = locales.flatMap((locale) =>
+    (articlesByLocale.get(locale) ?? []).map((article) => {
+      const path = `/news/${article.slug}`;
+      const available = locales.filter((l) =>
+        (articlesByLocale.get(l) ?? []).some((a) => a.slug === article.slug)
+      );
+      return {
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: lastMod(article.updatedAt || article.date),
+        changeFrequency: "weekly",
+        priority: 0.8,
+        alternates: {
+          ...Object.fromEntries(available.map((l) => [l, `${baseUrl}/${l}${path}`])),
+          "x-default": `${baseUrl}/${available.includes(defaultLocale) ? defaultLocale : available[0]}${path}`,
+        },
+      };
+    })
+  );
+
   return [
     ...homeEntries,
     ...staticEntries,
     ...categoriesEntries,
     ...servicesEntries,
     ...guidesEntries,
+    ...articleEntries,
   ];
 }
 
