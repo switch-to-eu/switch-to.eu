@@ -217,6 +217,11 @@ export interface Article extends SeoFields {
   /** Locales in which this article is published (or visible in dev). */
   locales: ArticleLocale[];
   draft?: boolean;
+  /**
+   * Placeholder content for layout testing. Shown with a visible notice,
+   * never indexed, and left out of the sitemap, RSS feed and knowledge graph.
+   */
+  sample?: boolean;
   title: string;
   description: string;
   /** Publication date, YYYY-MM-DD. */

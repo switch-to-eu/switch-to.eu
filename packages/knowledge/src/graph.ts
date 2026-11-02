@@ -159,7 +159,24 @@ export function buildGraph(root: string, today = new Date().toISOString().slice(
     for (const slug of fs.readdirSync(dir)) {
       const file = path.join(dir, slug, "en.md");
       if (!fs.existsSync(file)) continue;
-      const f = parse(file, root, `${collection}/${slug}`);
+      // Translations aren't graph nodes, but a broken one breaks the site.
+      for (const other of fs.readdirSync(path.join(dir, slug))) {
+        if (other === "en.md" || !other.endsWith(".md")) continue;
+        try {
+          matter(fs.readFileSync(path.join(dir, slug, other), "utf8"));
+        } catch (e) {
+          error("bad-yaml", `${collection}/${slug}`, `${other}: ${(e as Error).message.split("\n")[0]}`);
+        }
+      }
+      let f: ParsedFile;
+      try {
+        f = parse(file, root, `${collection}/${slug}`);
+      } catch (e) {
+        error("bad-yaml", `${collection}/${slug}`, `en.md: ${(e as Error).message.split("\n")[0]}`);
+        continue;
+      }
+      // Sample articles are layout placeholders, not part of the knowledge graph.
+      if (type === "article" && f.data.sample === true) continue;
       addNode(f.id, {
         type,
         title: str(f.data.name) ?? str(f.data.title) ?? slug,

@@ -126,7 +126,7 @@ function buildEntries(): SitemapEntry[] {
 
   // Articles exist per locale, so only list (and cross-link) the locales
   // each article is actually published in.
-  const articlesByLocale = new Map(locales.map((l) => [l, getAllArticles(l)]));
+  const articlesByLocale = new Map(locales.map((l) => [l, getAllArticles(l).filter((a) => !a.sample)]));
   const articleEntries: SitemapEntry[] = locales.flatMap((locale) =>
     (articlesByLocale.get(locale) ?? []).map((article) => {
       const path = `/news/${article.slug}`;

@@ -33,7 +33,9 @@ export async function GET(
   }
 
   const meta = TITLES[locale] ?? TITLES.en!;
-  const articles = getAllArticles(locale).slice(0, 50);
+  const articles = getAllArticles(locale)
+    .filter((article) => !article.sample)
+    .slice(0, 50);
   const items = articles
     .map((article) => {
       const url = `${siteUrl}/${locale}/news/${article.slug}`;

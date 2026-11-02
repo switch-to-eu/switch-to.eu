@@ -77,6 +77,20 @@ function normalize(value: unknown): unknown {
   return value;
 }
 
+/**
+ * Parse a content file. A file with broken frontmatter is skipped with an
+ * error in the log instead of taking the whole site down.
+ * `pnpm knowledge:index --check` reports the same files as errors.
+ */
+function parseFile(file: string): matter.GrayMatterFile<string> | null {
+  try {
+    return matter(fs.readFileSync(file, "utf8"));
+  } catch (error) {
+    console.error(`[content] skipping ${path.relative(CONTENT_ROOT, file)}: ${(error as Error).message.split("\n")[0]}`);
+    return null;
+  }
+}
+
 function readCollection(collection: string): RawDoc[] {
   const dir = path.join(CONTENT_ROOT, collection);
   if (!fs.existsSync(dir)) return [];
@@ -89,7 +103,8 @@ function readCollection(collection: string): RawDoc[] {
       for (const locale of LOCALES) {
         const file = path.join(dir, entry.name, `${locale}.md`);
         if (!fs.existsSync(file)) continue;
-        const parsed = matter(fs.readFileSync(file, "utf8"));
+        const parsed = parseFile(file);
+        if (!parsed) continue;
         doc.data[locale] = normalize(parsed.data) as Raw;
         doc.body[locale] = parsed.content.trim();
       }
@@ -334,7 +349,8 @@ function readArticles(): RawArticle[] {
       for (const locale of ARTICLE_LOCALES) {
         const file = path.join(dir, entry.name, `${locale}.md`);
         if (!fs.existsSync(file)) continue;
-        const parsed = matter(fs.readFileSync(file, "utf8"));
+        const parsed = parseFile(file);
+        if (!parsed) continue;
         const data = normalize(parsed.data) as Raw;
         if (!includeDrafts && data.draft === true) continue;
         article.files[locale] = { data, body: parsed.content.trim() };
@@ -375,6 +391,7 @@ function buildArticles(locale: ArticleLocale): Article[] {
         locale,
         locales: ARTICLE_LOCALES.filter((l) => a.files[l]),
         draft: own.data.draft === true,
+        sample: en.sample === true,
         title: str(own.data.title, a.slug),
         description: str(own.data.description),
         date: str(en.date),
