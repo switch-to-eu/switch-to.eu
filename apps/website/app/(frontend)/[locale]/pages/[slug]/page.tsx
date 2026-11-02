@@ -1,18 +1,12 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { findLandingPage, getAllLandingPages } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: { _status: { equals: "published" } },
-    depth: 0,
-    limit: 200,
-  });
+export function generateStaticParams() {
+  const docs = getAllLandingPages("en");
   const locales: Array<"en" | "nl"> = ["en", "nl"];
   return locales.flatMap((locale) =>
-    docs.map((p) => ({ locale, slug: p.slug as string }))
+    docs.map((p) => ({ locale, slug: p.slug }))
   );
 }
 import { Metadata } from "next";
@@ -26,8 +20,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import type { LandingPage as LandingPageType, Service } from "@/payload-types";
-import { getCategorySlug, getResolvedRelation } from "@/lib/services";
+import { getCategorySlug } from "@/lib/services";
 
 export async function generateMetadata({
   params,
@@ -36,16 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, locale } = await params;
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: await publishedWhere({ slug: { equals: slug } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    depth: 1,
-    limit: 1,
-  });
-  const page = docs[0] as LandingPageType | undefined;
+  const page = findLandingPage(slug, locale);
 
   if (!page) {
     return { title: "Not Found" };
@@ -54,7 +38,7 @@ export async function generateMetadata({
   return {
     title: `${page.ogTitle || page.title} | switch-to.eu`,
     description: page.ogDescription || page.description,
-    keywords: page.keywords?.map((k) => k.keyword),
+    keywords: page.keywords,
     alternates: generateLanguageAlternates(`pages/${slug}`, locale as Locale),
     openGraph: {
       title: page.ogTitle || page.title,
@@ -72,33 +56,18 @@ export default async function LandingPage({
   const { slug, locale } = await params;
   const t = await getTranslations("landingPages");
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: await publishedWhere({ slug: { equals: slug } }),
-    draft: await isPreview(),
-    locale,
-    depth: 1,
-    limit: 1,
-  });
-  const page = docs[0];
+  const page = findLandingPage(slug, locale);
 
   if (!page) {
     notFound();
   }
 
-  // With depth: 1, relationships are resolved objects
   const categorySlug = getCategorySlug(page.category) || null;
 
-  const recommendedServices = (page.recommendedServices ?? [])
-    .map((s) => getResolvedRelation<Service>(s))
-    .filter((s): s is Service => s !== null);
+  const recommendedServices = page.recommendedServices;
+  const relatedService = page.relatedService ?? null;
 
-  // Resolve the related non-EU service
-  const relatedService = getResolvedRelation<Service>(page.relatedService);
-
-  // Extract issues from the related service (Payload stores as {issue: string}[])
-  const relatedServiceIssues = relatedService?.issues?.map((i) => i.issue) ?? [];
+  const relatedServiceIssues = relatedService?.issues ?? [];
 
   // Map related service name
   const relatedServiceName = relatedService?.name ?? "";

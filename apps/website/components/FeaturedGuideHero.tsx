@@ -3,7 +3,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
-import type { Category, Guide, Service } from "@/payload-types";
+import type { Category, Guide, Service } from "@/lib/content/types";
 
 type MaybePopulated<T> = T | number | null | undefined;
 

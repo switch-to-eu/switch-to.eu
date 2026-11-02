@@ -1,6 +1,10 @@
-import { getPayload } from "@/lib/payload";
+import {
+  getAllCategories,
+  getAllGuides,
+  getAllLandingPages,
+  getAllServices,
+} from "@/lib/content/loader";
 import { routing } from "@switch-to-eu/i18n/routing";
-import type { Service, Guide, Category } from "@/payload-types";
 import { getCategorySlug } from "@/lib/services";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -17,65 +21,38 @@ const STATIC_ROUTES = [
 ];
 
 /**
- * Collect every public, published URL on the site across all locales.
+ * Collect every public URL on the site across all locales.
  * Used by the IndexNow bulk-submit admin action.
  */
-export async function collectAllSiteUrls(): Promise<string[]> {
+export function collectAllSiteUrls(): string[] {
   const paths = new Set<string>();
 
   for (const route of STATIC_ROUTES) paths.add(route);
 
-  const payload = await getPayload();
+  const [categories, services, guides, landingPages] = [
+    getAllCategories("en"),
+    getAllServices("en"),
+    getAllGuides("en"),
+    getAllLandingPages("en"),
+  ];
 
-  const [categoriesResult, servicesResult, guidesResult, landingPagesResult] =
-    await Promise.all([
-      payload.find({
-        collection: "categories",
-        locale: "all",
-        limit: 0,
-        pagination: false,
-      }),
-      payload.find({
-        collection: "services",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        limit: 0,
-        pagination: false,
-      }),
-      payload.find({
-        collection: "guides",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        limit: 0,
-        pagination: false,
-        depth: 1,
-      }),
-      payload.find({
-        collection: "landing-pages",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        limit: 0,
-        pagination: false,
-      }),
-    ]);
-
-  for (const category of categoriesResult.docs as Category[]) {
+  for (const category of categories) {
     if (category.slug) paths.add(`/services/${category.slug}`);
   }
 
-  for (const service of servicesResult.docs as Service[]) {
+  for (const service of services) {
     if (!service.slug) continue;
     const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
     paths.add(`/services/${regionPath}/${service.slug}`);
   }
 
-  for (const guide of guidesResult.docs as Guide[]) {
+  for (const guide of guides) {
     if (!guide.slug) continue;
     const categorySlug = getCategorySlug(guide.category) || "uncategorized";
     paths.add(`/guides/${categorySlug}/${guide.slug}`);
   }
 
-  for (const page of landingPagesResult.docs as { slug?: string | null }[]) {
+  for (const page of landingPages) {
     if (page.slug) paths.add(`/pages/${page.slug}`);
   }
 

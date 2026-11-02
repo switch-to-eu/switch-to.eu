@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getAllGuides } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
 import { Metadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
@@ -14,8 +14,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
-import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
-import type { Guide } from "@/payload-types";
+import type { Guide } from "@/lib/content/types";
 import {
   getCategorySlug,
   getGuideBySlug,
@@ -24,14 +23,8 @@ import {
 } from "@/lib/services";
 
 // Generate static params for all guide pages
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: { _status: { equals: "published" } },
-    depth: 1,
-    limit: 100,
-  });
+export function generateStaticParams() {
+  const docs = getAllGuides("en");
   const locales = ["en", "nl"];
   return locales.flatMap((locale) =>
     docs.map((g: Guide) => ({
@@ -106,16 +99,10 @@ export default async function GuideServicePage({
   const guideId = `${category}-${service}`;
 
   // Extract missing features from the structured array
-  const missingFeatures = (guide.missingFeatures ?? []).map(
-    (mf) => mf.feature
-  );
+  const missingFeatures = guide.missingFeatures ?? [];
 
   // Build steps data for the sidebar and progress tracking.
-  // Filter out any rows Payload hasn't assigned a stable id to yet so
-  // downstream code can rely on a non-null anchor id.
-  const guideSteps = (guide.steps ?? []).filter(
-    (s): s is typeof s & { id: string } => typeof s.id === "string" && s.id.length > 0
-  );
+  const guideSteps = guide.steps;
 
   const sidebarSteps = guideSteps.map((step) => ({
     title: step.title,
@@ -123,10 +110,7 @@ export default async function GuideServicePage({
   }));
 
   const stepsForRender = guideSteps.map((step) => {
-    const videoUrl =
-      step.video && typeof step.video === "object"
-        ? (step.video.url ?? null)
-        : null;
+    const videoUrl = step.video ?? null;
 
     return {
       title: step.title,
@@ -134,7 +118,7 @@ export default async function GuideServicePage({
       complete: step.complete ?? false,
       video: videoUrl,
       videoOrientation: step.videoOrientation ?? null,
-      content: step.content as SerializedEditorState | null,
+      content: step.content,
     };
   });
 
@@ -223,7 +207,7 @@ export default async function GuideServicePage({
                 {guide.intro && (
                   <section id="section-intro" className="mb-10">
                     <RichText
-                      data={guide.intro as SerializedEditorState}
+                      data={guide.intro}
                       disableContainer
                     />
                   </section>
@@ -232,7 +216,7 @@ export default async function GuideServicePage({
                 {guide.beforeYouStart && (
                   <section id="section-before" className="mb-10">
                     <RichText
-                      data={guide.beforeYouStart as SerializedEditorState}
+                      data={guide.beforeYouStart}
                       disableContainer
                     />
                   </section>
@@ -267,7 +251,7 @@ export default async function GuideServicePage({
                 {guide.troubleshooting && (
                   <section id="section-troubleshooting" className="mb-10">
                     <RichText
-                      data={guide.troubleshooting as SerializedEditorState}
+                      data={guide.troubleshooting}
                       disableContainer
                     />
                   </section>
@@ -276,7 +260,7 @@ export default async function GuideServicePage({
                 {guide.outro && (
                   <section id="section-outro" className="mb-10">
                     <RichText
-                      data={guide.outro as SerializedEditorState}
+                      data={guide.outro}
                       disableContainer
                     />
                   </section>

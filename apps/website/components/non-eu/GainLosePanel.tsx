@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function GainLosePanel({
   service,
@@ -10,8 +10,8 @@ export async function GainLosePanel({
 }) {
   const t = await getTranslations("services.detail.nonEu.redesign.gainLose");
 
-  const gain = (service.whatYoudGain ?? []).map((g) => g.point);
-  const lose = (service.whatYoudLose ?? []).map((l) => l.point);
+  const gain = service.whatYoudGain ?? [];
+  const lose = service.whatYoudLose ?? [];
   if (gain.length === 0 && lose.length === 0) return null;
 
   return (

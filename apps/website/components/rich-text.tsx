@@ -1,53 +1,22 @@
-import type { ReactNode } from "react";
-import {
-  RichText as LexicalRichText,
-  type JSXConvertersFunction,
-} from "@payloadcms/richtext-lexical/react";
-import { Link } from "@switch-to-eu/i18n/navigation";
+import { getLocale } from "next-intl/server";
+import { renderMarkdown } from "@/lib/markdown";
 
-type RichTextProps = Parameters<typeof LexicalRichText>[0];
-
-function isInternalPath(href: string): boolean {
-  return href.startsWith("/") && !href.startsWith("//");
+interface RichTextProps {
+  /** Markdown source. */
+  data: string | null | undefined;
+  className?: string;
+  /** Kept for call-site compatibility; the wrapper div is always rendered. */
+  disableContainer?: boolean;
 }
 
-function renderLink(
-  href: string,
-  newTab: boolean | undefined,
-  children: ReactNode
-): ReactNode {
-  if (isInternalPath(href) && !newTab) {
-    return <Link href={href}>{children}</Link>;
-  }
+/** Renders markdown content from /content as HTML (server component). */
+export async function RichText({ data, className }: RichTextProps) {
+  if (!data) return null;
+  const locale = await getLocale();
   return (
-    <a
-      href={href}
-      target={newTab ? "_blank" : undefined}
-      rel={newTab ? "noopener noreferrer" : undefined}
-    >
-      {children}
-    </a>
+    <div
+      className={className}
+      dangerouslySetInnerHTML={{ __html: renderMarkdown(data, locale) }}
+    />
   );
-}
-
-const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
-  ...defaultConverters,
-  link: ({ node, nodesToJSX }) => {
-    const href = node.fields.url ?? "#";
-    return renderLink(
-      href,
-      node.fields.newTab,
-      nodesToJSX({ nodes: node.children })
-    );
-  },
-  autolink: ({ node, nodesToJSX }) =>
-    renderLink(
-      node.fields.url ?? "#",
-      node.fields.newTab,
-      nodesToJSX({ nodes: node.children })
-    ),
-});
-
-export function RichText(props: RichTextProps) {
-  return <LexicalRichText {...props} converters={jsxConverters} />;
 }

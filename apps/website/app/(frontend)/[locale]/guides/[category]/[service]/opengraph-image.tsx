@@ -1,6 +1,5 @@
 import { generateOgImage, ogSize, ogContentType } from "@/lib/og/og-image";
-import { getPayload } from "@/lib/payload";
-import type { Guide } from "@/payload-types";
+import { findGuide } from "@/lib/content/loader";
 
 export const alt = "Migration Guide";
 export const size = ogSize;
@@ -18,20 +17,7 @@ export default async function Image({
 }) {
   const { locale, service } = await params;
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: {
-      and: [
-        { _status: { equals: "published" } },
-        { slug: { equals: service } },
-      ],
-    },
-    locale: locale as "en" | "nl",
-    depth: 2,
-    limit: 1,
-  });
-  const guide = docs[0] as Guide | undefined;
+  const guide = findGuide(service, locale);
 
   if (!guide) {
     return generateOgImage({

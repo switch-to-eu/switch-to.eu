@@ -1,6 +1,5 @@
 import { generateOgImage, ogSize, ogContentType } from "@/lib/og/og-image";
-import { getPayload } from "@/lib/payload";
-import type { Service } from "@/payload-types";
+import { findService } from "@/lib/content/loader";
 
 export const alt = "Non-EU Service";
 export const size = ogSize;
@@ -18,20 +17,7 @@ export default async function Image({
 }) {
   const { locale, service_name } = await params;
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      and: [
-        { _status: { equals: "published" } },
-        { slug: { equals: service_name } },
-      ],
-    },
-    locale: locale as "en" | "nl",
-    depth: 0,
-    limit: 1,
-  });
-  const service = docs[0] as Service | undefined;
+  const service = findService(service_name, locale);
 
   if (!service) {
     return generateOgImage({

@@ -6,7 +6,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import { getCategorySlug, getScreenshotUrl } from "@/lib/services";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export type ServiceCardService = Pick<
   Service,

@@ -8,9 +8,6 @@
       ],
       "@switch-to-eu/ui/*": [
         "../../packages/ui/src/*"
-      ],
-      "@payload-config": [
-        "./payload.config.ts"
       ]
     }
   },
@@ -23,7 +20,6 @@
   "exclude": [
     "node_modules",
     "playwright.config.ts",
-    "e2e",
-    "app/(payload)/admin/importMap.js"
+    "e2e"
   ]
 }

@@ -116,9 +116,11 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **Middleware file is `proxy.ts`**, not `middleware.ts`. The next-intl middleware entry point for both apps is named `proxy.ts`.
 
-**Content lives in Payload CMS** (Postgres), managed via the `/admin` panel. Collections: Categories, Services, Guides, Landing Pages, Pages, Media. Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`. All content collections have `versions: { drafts: true }` and require explicit publish.
+**Content lives in markdown files in `content/`** at the repo root (no CMS, no database). Layout: `content/<collection>/<slug>/en.md` (all fields in YAML frontmatter, body = main content) plus an optional `nl.md` holding only the localized fields that differ and the translated body. Collections: `services`, `guides`, `categories`, `landing-pages`, `pages`. Relations are slugs (`category: email`, `recommendedAlternative: proton-mail`). Guide bodies use `<!-- section:name -->` / `<!-- step-start -->` markers. Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`. Full format reference: `.claude/skills/_shared/content-files.md`.
 
-**Next.js plugin chain** in `apps/website/next.config.ts`: `withMDX(withNextIntl(nextConfig))`. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
+**Content loader** is `apps/website/lib/content/loader.ts` (types in `lib/content/types.ts`). It parses everything once per process (re-reads on every request in `next dev`) and resolves relations to objects. `lib/services.ts` wraps it with the query helpers pages use. Markdown is rendered by `components/rich-text.tsx` via `marked` (`lib/markdown.ts`). Service screenshots live in `apps/website/public/images/services/`. Guide videos are too big for git and stay on Vercel Blob (absolute URLs in step meta).
+
+**Next.js plugin chain** in `apps/website/next.config.ts`: `withNextIntl(nextConfig)`. `outputFileTracingIncludes` ships `content/**/*.md` with the server bundle. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
 
 **`global.ts` at repo root** is a next-intl type declaration that augments the `Messages` type — it is not a general utilities file.
 
@@ -135,18 +137,18 @@ Locales: `en` (default), `nl`. Managed by `@switch-to-eu/i18n` package using nex
 
 ## Content Workflow (AI-Assisted)
 
-The site uses custom Claude Code skills wired to Payload CMS via MCP for a research-to-publish pipeline. All content enters as draft and requires human review before publishing.
+The site uses custom Claude Code skills that read and write the markdown files in `content/` for a research-to-publish pipeline. New content enters with `draft: true` and requires human review (the git diff / PR) before publishing.
 
 ### Single-Item Pipeline
 
 ```
-/research "ServiceName"     → Fills Research tab on service via MCP
-/write service "ServiceName" → Writes listing from research data, saves as draft
+/research "ServiceName"     → Fills research fields in content/services/<slug>/en.md
+/write service "ServiceName" → Writes listing from research data
 /humanize service "ServiceName" → Strips AI writing patterns
-/seo-check service "ServiceName" → 10-point audit, stores score in SEO tab
-→ Editor reviews in /admin, publishes
-/translate service "ServiceName" nl → Translates to Dutch locale
-→ Editor reviews Dutch version, publishes
+/seo-check service "ServiceName" → 10-point audit, stores seoScore/seoNotes in frontmatter
+→ Editor reviews the diff, removes draft: true, merges
+/translate service "ServiceName" nl → Writes nl.md
+→ Editor reviews Dutch version, merges
 ```
 
 For guides:
@@ -174,19 +176,19 @@ Bulk skills accept: specific names (comma-separated), `all`, `unresearched`/`unw
 
 ### Content Pipeline Status
 
-Services and Guides have a `contentPipelineStatus` sidebar field tracking progress: `not-started` → `in-progress` → `written` → `humanized` → `seo-checked` → `translated` → `complete`. The `/pipeline` skill updates this automatically. Useful for filtering items that need the next step.
+Services and Guides have a `contentPipelineStatus` frontmatter field tracking progress: `not-started` → `in-progress` → `written` → `humanized` → `seo-checked` → `translated` → `complete`. The `/pipeline` skill updates this automatically. Useful for filtering items that need the next step.
 
 ### Skills (`.claude/skills/`)
 
 | Skill | Type | Purpose |
 |-------|------|---------|
 | `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
-| `research` | `/research` | Vendor site + Reddit sentiment + recent news → Payload Research tab via MCP |
+| `research` | `/research` | Vendor site + Reddit sentiment + recent news → research fields in the service's en.md |
 | `write` | `/write` | Content generation from research data |
 | `humanize` | `/humanize` | Strip AI writing patterns |
 | `seo-check` | `/seo-check` | Pre-publish 12-point QA checklist (scored 0-100) |
-| `seo-audit` | `/seo-audit` | Post-publish performance analysis — GSC + Jina SERP + live page → `pageAudits` collection |
-| `opportunity-finder` | `/opportunity-finder` | Mine GSC + Reddit + Jina SERP for content backlog → `contentOpportunities` collection |
+| `seo-audit` | `/seo-audit` | Post-publish performance analysis — GSC + Jina SERP + live page → `docs/seo/audits/` |
+| `opportunity-finder` | `/opportunity-finder` | Mine GSC + Reddit + Jina SERP for content backlog → `docs/seo/opportunities/` |
 | `translate` | `/translate` | Localization to other EU languages |
 | `bulk-research` | `/bulk-research` | Parallel research via subagents |
 | `bulk-write` | `/bulk-write` | Parallel content writing via subagents |
@@ -194,10 +196,11 @@ Services and Guides have a `contentPipelineStatus` sidebar field tracking progre
 | `bulk-seo-check` | `/bulk-seo-check` | Parallel SEO audits via subagents |
 | `bulk-translate` | `/bulk-translate` | Parallel translation via subagents |
 | `pipeline` | `/pipeline` | Combined write→humanize→seo-check (sequential per item, parallel across items) |
+| `content-link-edit` | `/content-link-edit` | Swap a URL across all content files (both locales) |
 
-**`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in the `pageAudits` collection).
+**`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in `docs/seo/audits/<collection>-<slug>.md`).
 
-**`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Review entries in admin at `/admin/collections/content-opportunities`; flag false positives as `rejected` so dedup behaves on re-runs.
+**`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Entries are files in `docs/seo/opportunities/`; set `status: rejected` on false positives so dedup behaves on re-runs.
 
 ### Tone rules (from informational-copy)
 
@@ -209,7 +212,7 @@ Services and Guides have a `contentPipelineStatus` sidebar field tracking progre
 
 ### Draft/Publish workflow
 
-All content collections have `versions: { drafts: true }`. New content from AI skills enters as draft (`_status: "draft"`). Editors review in the Payload admin panel and click "Publish" to make content live. Nothing publishes automatically.
+`draft: true` in an item's `en.md` frontmatter hides it from production builds (it still shows in `pnpm dev`; `SHOW_DRAFTS=1` forces it on). New items from AI skills are written with `draft: true`. Edits to existing items go live when merged, so review happens in the PR. To publish a new item, delete the `draft` line.
 
 ## tRPC + Redis Apps (Plotty, Listy, Privnote)
 

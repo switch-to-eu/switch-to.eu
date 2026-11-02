@@ -33,11 +33,11 @@ import {
   getAllEuServiceSlugs,
 } from "@/lib/services";
 import { generateServiceMetadata } from "@/lib/service-metadata";
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide } from "@/lib/content/types";
 
 const OVERVIEW_KEY = "overview";
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return getAllEuServiceSlugs();
 }
 
@@ -198,7 +198,7 @@ export default async function ServiceDetailPage({
   // gives us a populated source service, but we need the missingFeatures off
   // the guide itself which is on the guide doc.
   const filteredFeatures = service.features?.filter(
-    (f) => !/free/i.test(f.feature)
+    (f) => !/free/i.test(f)
   );
 
   // `relatedGuides` is fetched with depth: 1, which already populates the
@@ -350,10 +350,10 @@ export default async function ServiceDetailPage({
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {filteredFeatures.map((f) => (
                     <span
-                      key={f.feature}
+                      key={f}
                       className="inline-block bg-brand-sky/25 text-brand-green px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium"
                     >
-                      {f.feature}
+                      {f}
                     </span>
                   ))}
                 </div>
@@ -452,13 +452,13 @@ export default async function ServiceDetailPage({
                           <ul className="space-y-2.5">
                             {tier.features.map((f) => (
                               <li
-                                key={f.feature}
+                                key={f}
                                 className="flex items-start gap-2 text-sm leading-relaxed text-foreground/75"
                               >
                                 <span className="mt-0.5 flex-shrink-0 text-brand-green">
                                   &#10003;
                                 </span>
-                                {f.feature}
+                                {f}
                               </li>
                             ))}
                           </ul>
@@ -573,11 +573,11 @@ export default async function ServiceDetailPage({
                         <div className="flex flex-wrap gap-2">
                           {service.dataStorageLocations.map((loc) => (
                             <span
-                              key={loc.location}
+                              key={loc}
                               className="inline-flex items-center gap-1.5 bg-brand-sky/10 text-brand-green px-3 py-1.5 rounded-full text-sm"
                             >
                               <span className="text-brand-sky">&#9679;</span>
-                              {loc.location}
+                              {loc}
                             </span>
                           ))}
                         </div>
@@ -593,13 +593,13 @@ export default async function ServiceDetailPage({
                         <ul className="space-y-2">
                           {service.certifications.map((cert) => (
                             <li
-                              key={cert.certification}
+                              key={cert}
                               className="flex items-start gap-2 text-sm text-gray-600"
                             >
                               <span className="text-brand-green mt-0.5 flex-shrink-0">
                                 &#10003;
                               </span>
-                              {cert.certification}
+                              {cert}
                             </li>
                           ))}
                         </ul>
@@ -718,14 +718,10 @@ export default async function ServiceDetailPage({
                         <CompareRow
                           label={t("compare.dataStorage")}
                           euValue={
-                            service.dataStorageLocations
-                              ?.map((l) => l.location)
-                              .join(", ") || t("compare.notDisclosed")
+                            (service.dataStorageLocations ?? []).join(", ") || t("compare.notDisclosed")
                           }
                           nonEuValue={
-                            nonEuService.dataStorageLocations
-                              ?.map((l) => l.location)
-                              .join(", ") || t("compare.notDisclosed")
+                            (nonEuService.dataStorageLocations ?? []).join(", ") || t("compare.notDisclosed")
                           }
                           highlight="eu"
                         />
@@ -742,13 +738,13 @@ export default async function ServiceDetailPage({
                         <ul className="space-y-2">
                           {nonEuService.issues.map((issue) => (
                             <li
-                              key={issue.issue}
+                              key={issue}
                               className="flex items-start gap-2 text-sm text-foreground/70 leading-relaxed"
                             >
                               <span className="text-brand-orange mt-0.5 flex-shrink-0">
                                 &bull;
                               </span>
-                              {issue.issue}
+                              {issue}
                             </li>
                           ))}
                         </ul>
@@ -770,13 +766,13 @@ export default async function ServiceDetailPage({
                           <ul className="space-y-1.5">
                             {guide.missingFeatures.map((f) => (
                               <li
-                                key={f.feature}
+                                key={f}
                                 className="flex items-start gap-2 text-sm text-foreground/70"
                               >
                                 <span className="text-brand-orange mt-0.5 flex-shrink-0">
                                   &bull;
                                 </span>
-                                {f.feature}
+                                {f}
                               </li>
                             ))}
                           </ul>

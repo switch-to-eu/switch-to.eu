@@ -28,16 +28,16 @@ export async function generateServiceMetadata({
     "EU service",
     "privacy-focused",
     "GDPR compliant",
-    ...(service.tags?.map((t) => t.tag) ?? []),
+    ...(service.tags ?? []),
   ];
 
   const basePath = `/services/eu/${serviceName}`;
 
   let ogImageUrl: string | undefined;
-  if (typeof service.ogImage === "object" && service.ogImage?.url) {
-    ogImageUrl = service.ogImage.url.startsWith("http")
-      ? service.ogImage.url
-      : `${siteUrl}${service.ogImage.url}`;
+  if (service.ogImage) {
+    ogImageUrl = service.ogImage.startsWith("http")
+      ? service.ogImage
+      : `${siteUrl}${service.ogImage}`;
   }
 
   return {

@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getAllServices } from "@/lib/content/loader";
 import { notFound, redirect } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { SidebarAlternative } from "@/components/non-eu/SidebarAlternative";
@@ -23,7 +23,7 @@ import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide } from "@/lib/content/types";
 import {
   getCategorySlug,
   getCategoryBySlug,
@@ -78,19 +78,8 @@ function buildTabs(service: Service, t: Translator): TabSpec[] {
   return tabs;
 }
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      and: [
-        { _status: { equals: "published" } },
-        { region: { equals: "non-eu" } },
-      ],
-    },
-    depth: 0,
-    limit: 200,
-  });
+export function generateStaticParams() {
+  const docs = getAllServices("en").filter((s) => s.region === "non-eu");
 
   return docs.map((service) => ({
     service_name: service.slug,
@@ -114,7 +103,7 @@ export async function generateMetadata({
 
   const categorySlug = getCategorySlug(service.category);
 
-  const tags = (service.tags ?? []).map((t) => t.tag);
+  const tags = service.tags ?? [];
 
   const title =
     service.metaTitle || `EU Alternatives to ${service.name} | switch-to.eu`;
@@ -162,7 +151,7 @@ export default async function ServiceDetailPage({
     redirect(`/${locale}/services/eu/${service_name}`);
   }
 
-  const issues = (service.issues ?? []).map((i) => i.issue);
+  const issues = service.issues ?? [];
 
   const resolvedAlternative = getResolvedRelation<Service>(
     service.recommendedAlternative

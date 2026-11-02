@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 const SENTIMENT_DOT: Record<string, string> = {
   positive: "bg-brand-green",

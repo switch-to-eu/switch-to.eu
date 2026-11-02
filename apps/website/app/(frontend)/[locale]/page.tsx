@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
@@ -15,8 +14,8 @@ import { FeaturedGuideHero } from "@/components/FeaturedGuideHero";
 import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
 import { HighlightedToolSection } from "@/components/HighlightedToolSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
-import { getPayload } from "@/lib/payload";
-import type { Category, Guide, Service } from "@/payload-types";
+import { getAllCategories, getAllGuides, getAllServices } from "@/lib/content/loader";
+import type { Category, Guide, Service } from "@/lib/content/types";
 
 type Locale = "en" | "nl";
 
@@ -61,74 +60,21 @@ export async function generateMetadata() {
   };
 }
 
-// Only the fields the homepage components actually render. Trims the Postgres
-// row-fanout from ~37k rows/hit to a handful by skipping every services_*
-// child table (pricingTiers, features, issues, faqs, redditMentions, etc.).
-const PICK_SERVICE_SELECT = {
-  name: true,
-  slug: true,
-  description: true,
-  location: true,
-  featured: true,
-  category: true,
-} as const;
-
-const HOMEPAGE_GUIDE_SELECT = {
-  slug: true,
-  difficulty: true,
-  timeRequired: true,
-  sourceService: true,
-  targetService: true,
-  category: true,
-  featuredOnHomepage: true,
-  date: true,
-  // Below are required by the Guide type but unused by the homepage hero.
-  // They're plain scalars on the guides table (no array-table JOINs).
-  title: true,
-  description: true,
-  updatedAt: true,
-  createdAt: true,
-} as const;
-
-const HOMEPAGE_CATEGORY_SELECT = {
-  slug: true,
-  title: true,
-  description: true,
-} as const;
-
-async function fetchHomepageGuides(
+function fetchHomepageGuides(
   locale: Locale
-): Promise<{ featured: Guide | null; others: Guide[] }> {
-  const payload = await getPayload();
+): { featured: Guide | null; others: Guide[] } {
+  const guides = getAllGuides(locale);
+  const flagged = guides.find((g) => g.featuredOnHomepage) ?? null;
+  const recent = guides
+    .filter((g) => g !== flagged)
+    .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
 
-  const flagged = await payload.find({
-    collection: "guides",
-    where: { featuredOnHomepage: { equals: true } },
-    depth: 1,
-    limit: 1,
-    locale,
-    select: HOMEPAGE_GUIDE_SELECT,
-  });
-  const flaggedDoc = flagged.docs[0] ?? null;
-
-  const recent = await payload.find({
-    collection: "guides",
-    sort: "-date",
-    depth: 1,
-    limit: 3,
-    locale,
-    select: HOMEPAGE_GUIDE_SELECT,
-    ...(flaggedDoc
-      ? { where: { id: { not_equals: flaggedDoc.id } } }
-      : {}),
-  });
-
-  if (flaggedDoc) {
-    return { featured: flaggedDoc, others: recent.docs.slice(0, 2) };
+  if (flagged) {
+    return { featured: flagged, others: recent.slice(0, 2) };
   }
   return {
-    featured: recent.docs[0] ?? null,
-    others: recent.docs.slice(1, 3),
+    featured: recent[0] ?? null,
+    others: recent.slice(1, 3),
   };
 }
 
@@ -137,52 +83,25 @@ export type HomepagePick = {
   pick: Service | null;
 };
 
-async function fetchHomepagePicks(locale: Locale): Promise<HomepagePick[]> {
-  const payload = await getPayload();
+function fetchHomepagePicks(locale: Locale): HomepagePick[] {
+  const categories = getAllCategories(locale).sort((a, b) =>
+    a.title.localeCompare(b.title)
+  );
+  const services = getAllServices(locale)
+    .filter((s) => s.region !== "non-eu")
+    .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
 
-  // Fetch only the *first* service per category by capping at 50 — we have ~70
-  // services total and only render one per category. The sort guarantees the
-  // featured pick lands first when there is one.
-  const [categoriesResult, servicesResult] = await Promise.all([
-    payload.find({
-      collection: "categories",
-      locale,
-      limit: 100,
-      sort: "title",
-      select: HOMEPAGE_CATEGORY_SELECT,
-    }),
-    payload.find({
-      collection: "services",
-      where: {
-        and: [
-          { _status: { equals: "published" } },
-          { region: { in: ["eu", "eu-friendly"] } },
-        ],
-      },
-      sort: ["-featured", "-createdAt"],
-      depth: 0,
-      limit: 50,
-      locale,
-      select: PICK_SERVICE_SELECT,
-    }),
-  ]);
-
-  const categories = categoriesResult.docs as Category[];
-  const services = servicesResult.docs as Service[];
-
-  // Take the first service per category encountered (sort already ranks them).
+  // First service per category; featured services sort first.
   const pickByCategory = new Map<string, Service>();
   for (const svc of services) {
-    const categoryId =
-      typeof svc.category === "object" && svc.category !== null
-        ? String((svc.category as Category).id)
-        : String(svc.category);
-    if (!pickByCategory.has(categoryId)) pickByCategory.set(categoryId, svc);
+    if (!pickByCategory.has(svc.category.slug)) {
+      pickByCategory.set(svc.category.slug, svc);
+    }
   }
 
   const picks: HomepagePick[] = [];
   for (const cat of categories) {
-    const pick = pickByCategory.get(String(cat.id));
+    const pick = pickByCategory.get(cat.slug);
     if (!pick) continue;
     picks.push({ category: cat, pick });
   }
@@ -196,26 +115,12 @@ async function fetchHomepagePicks(locale: Locale): Promise<HomepagePick[]> {
   return picks;
 }
 
-// Both helpers wrapped in unstable_cache. Invalidated via revalidateTag
-// in the afterChange hooks on Services/Guides/Categories collections.
-const loadHomepageGuides = (locale: Locale) =>
-  unstable_cache(() => fetchHomepageGuides(locale), [`homepage-guides-${locale}`], {
-    tags: ["guides", "services"],
-  })();
-
-const loadHomepagePicks = (locale: Locale) =>
-  unstable_cache(() => fetchHomepagePicks(locale), [`homepage-picks-${locale}`], {
-    tags: ["services", "categories"],
-  })();
-
 export default async function Home() {
   const t = await getTranslations("home");
   const locale = (await getLocale()) as Locale;
 
-  const [{ featured, others }, picks] = await Promise.all([
-    loadHomepageGuides(locale),
-    loadHomepagePicks(locale),
-  ]);
+  const { featured, others } = fetchHomepageGuides(locale);
+  const picks = fetchHomepagePicks(locale);
 
   const highlightedTool = getToolById("privnote");
 

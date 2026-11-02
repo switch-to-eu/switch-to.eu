@@ -1,12 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function WhereYourDataGoes({ service }: { service: Service }) {
   const t = await getTranslations(
     "services.detail.nonEu.redesign.whereDataGoes"
   );
 
-  const locations = (service.dataStorageLocations ?? []).map((l) => l.location);
+  const locations = service.dataStorageLocations ?? [];
   const hasContent =
     !!service.parentCompany ||
     !!service.headquarters ||

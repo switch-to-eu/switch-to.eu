@@ -1,5 +1,5 @@
 import { getTranslations, getFormatter } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function Sources({ service }: { service: Service }) {
   const t = await getTranslations("services.detail.nonEu.redesign.sources");

@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getAllCategories } from "@/lib/content/loader";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -59,9 +59,8 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({ collection: "categories", limit: 100 });
+export function generateStaticParams() {
+  const docs = getAllCategories("en");
   const locales = ["en", "nl"];
   return locales.flatMap((locale) =>
     docs.map((cat) => ({ locale, category: cat.slug }))

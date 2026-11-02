@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { withPayload } from "@payloadcms/next/withPayload";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
@@ -8,12 +7,16 @@ const nextConfig: NextConfig = {
     "@switch-to-eu/i18n",
     "@switch-to-eu/blocks",
   ],
+  // Markdown content lives in /content at the repo root and is read with fs
+  // at runtime by the search, sitemap and llm routes, so ship it with every
+  // server bundle.
+  outputFileTracingIncludes: {
+    "/**": ["../../content/**/*.md"],
+  },
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
-    // Payload media is served from Vercel Blob when BLOB_READ_WRITE_TOKEN
-    // is set (see payload.config.ts), otherwise from /api/media/file/* on
-    // the same origin.
+    // Guide videos live on Vercel Blob (too large for git).
     remotePatterns: [
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
@@ -144,4 +147,4 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withPayload(withNextIntl(nextConfig));
+export default withNextIntl(nextConfig);

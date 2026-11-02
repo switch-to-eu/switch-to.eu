@@ -8,7 +8,7 @@ import {
   getOutboundUrl,
   getScreenshotUrl,
 } from "@/lib/services";
-import type { Guide, Service } from "@/payload-types";
+import type { Guide, Service } from "@/lib/content/types";
 
 type CompactService = Pick<
   Service,

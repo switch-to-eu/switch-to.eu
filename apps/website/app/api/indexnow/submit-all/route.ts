@@ -1,29 +1,33 @@
 import { NextRequest } from "next/server";
-import { getPayload } from "@/lib/payload";
 import { collectAllSiteUrls } from "@/lib/site-urls";
 import { submitToIndexNow } from "@/lib/indexnow";
 
 const BATCH_SIZE = 1000;
 
-async function requireAdmin(request: NextRequest) {
-  const payload = await getPayload();
-  const { user } = await payload.auth({ headers: request.headers });
-  if (!user) {
+/**
+ * Payload's admin session used to guard this route. Now it takes a bearer
+ * token: `Authorization: Bearer $INDEXNOW_SUBMIT_SECRET`. Without the env var
+ * set, every request is rejected.
+ */
+function requireSecret(request: NextRequest) {
+  const secret = process.env.INDEXNOW_SUBMIT_SECRET;
+  const header = request.headers.get("authorization");
+  if (!secret || header !== `Bearer ${secret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
   return null;
 }
 
-export async function GET(request: NextRequest) {
-  const authError = await requireAdmin(request);
+export function GET(request: NextRequest) {
+  const authError = requireSecret(request);
   if (authError) return authError;
 
-  const urls = await collectAllSiteUrls();
+  const urls = collectAllSiteUrls();
   return Response.json({ count: urls.length });
 }
 
 export async function POST(request: NextRequest) {
-  const authError = await requireAdmin(request);
+  const authError = requireSecret(request);
   if (authError) return authError;
 
   if (process.env.VERCEL_ENV !== "production") {
@@ -33,7 +37,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const urls = await collectAllSiteUrls();
+  const urls = collectAllSiteUrls();
 
   let batches = 0;
   for (let i = 0; i < urls.length; i += BATCH_SIZE) {

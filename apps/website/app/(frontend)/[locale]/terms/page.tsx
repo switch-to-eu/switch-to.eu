@@ -1,13 +1,12 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { findPage } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 
 import { notFound } from "next/navigation";
-import type { Page } from "@/payload-types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("terms");
@@ -27,15 +26,7 @@ export default async function TermsPage({
 }) {
   const { locale } = await params;
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: await publishedWhere({ slug: { equals: "terms" } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    limit: 1,
-  });
-  const page = docs[0] as Page | undefined;
+  const page = findPage("terms", locale);
 
   if (!page) {
     notFound();

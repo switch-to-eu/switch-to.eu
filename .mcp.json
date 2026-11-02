@@ -17,13 +17,6 @@
             "args": [
                 "reddit-mcp-server"
             ]
-        },
-        "Payload": {
-            "command": "sh",
-            "args": [
-                "-c",
-                ". ./.env && exec npx -y mcp-remote http://localhost:5010/api/mcp --header \"Authorization: Bearer $PAYLOAD_MCP_API_KEY\""
-            ]
         }
     }
 }
