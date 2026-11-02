@@ -9,14 +9,14 @@ services: [mastodon, bluesky, signal]
 categories: [social-media, messaging]
 guides: [x-to-bluesky, whatsapp-to-signal]
 sources:
-  - {title: 'Digital Markets Act', publisher: European Commission, url: 'https://digital-markets-act.ec.europa.eu/', date: '2025-04-23'}
+  - {title: 'First fines issued under EU Digital Markets Act', publisher: Pinsent Masons Out-Law, url: 'https://www.pinsentmasons.com/out-law/news/first-fines-issued-eu-digital-markets-act', date: '2025-04-23'}
 author: Switch-to.eu
 # Workflow
 sample: true
 updatedAt: '2025-04-23'
 ---
 
-The European Commission issued the first fines under the Digital Markets Act on 23 April 2025: €500 million for Apple and €200 million for Meta.
+The European Commission [issued the first fines](https://www.pinsentmasons.com/out-law/news/first-fines-issued-eu-digital-markets-act) under the Digital Markets Act on 23 April 2025: €500 million for Apple and €200 million for Meta.
 
 Apple was fined for its anti-steering rules, which stopped app developers from telling users about cheaper offers outside the App Store. Meta was fined over its "pay or consent" model, which gave Facebook and Instagram users in the EU a choice between paying a subscription or agreeing to personalised advertising based on their data. The Commission found that this did not give users a real alternative that used less of their personal data.
 
@@ -26,4 +26,4 @@ Under the DMA, fines can reach 10% of a company's worldwide annual turnover. The
 
 ## What this means for you
 
-The DMA can force gatekeepers to change their rules, but it won't move your accounts for you. If you want social media without an ad-funded feed, [Mastodon](/services/eu/mastodon) is federated and hosted largely in Europe. [Bluesky](/services/eu/bluesky) is US-based, which is why we list it as EU-friendly rather than EU, but it lets you take your followers with you. For private chats outside Meta's apps, [Signal](/services/eu/signal) is the usual pick, and our [WhatsApp to Signal guide](/guides/messaging/whatsapp-to-signal) helps you bring your contacts along.
+The DMA can force gatekeepers to change their rules, but it won't move your accounts for you. If you want social media without an ad-funded feed, [Mastodon](/services/eu/mastodon) is federated, and its main server is run by a German non-profit. [Bluesky](/services/eu/bluesky) is US-based, which is why we list it as EU-friendly rather than EU, but it lets you take your followers with you. For private chats outside Meta's apps, [Signal](/services/eu/signal) is the usual pick, and our [WhatsApp to Signal guide](/guides/messaging/whatsapp-to-signal) helps you bring your contacts along.

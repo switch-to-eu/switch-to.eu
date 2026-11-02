@@ -10,7 +10,7 @@ De EU Data Act is sinds 12 september 2025 van toepassing. De meeste aandacht gaa
 
 Cloud- en andere dataverwerkingsdiensten moeten klanten nu laten overstappen naar een andere aanbieder, of terug naar eigen servers, zonder onredelijke drempels. Contracten moeten beschrijven hoe een overstap werkt, en aanbieders moeten meewerken tijdens de overgangsperiode.
 
-Overstapkosten worden afgebouwd. Aanbieders mogen voorlopig alleen de werkelijke kosten van een overstap rekenen, en vanaf 12 januari 2027 helemaal niets meer. Dat geldt ook voor de kosten voor het uitgaand dataverkeer die vertrekken bij een grote aanbieder nu duur maken.
+Overstapkosten worden afgebouwd. Aanbieders mogen voorlopig alleen de werkelijke kosten van een overstap rekenen, en vanaf 12 januari 2027 helemaal niets meer. Dat geldt ook voor de kosten van uitgaand dataverkeer om je data bij een overstap mee te nemen. Gewone kosten voor dataverkeer naar gebruikers vallen er niet onder.
 
 ## Wat verandert er niet
 

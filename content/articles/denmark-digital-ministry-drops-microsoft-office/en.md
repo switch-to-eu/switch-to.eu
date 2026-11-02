@@ -9,7 +9,8 @@ services: [nextcloud, proton-drive]
 categories: [storage]
 guides: [google-drive-to-pcloud]
 sources:
-  - {title: 'Ministry of Digitalisation (Digitaliseringsministeriet)', publisher: Government of Denmark, url: 'https://www.digmin.dk/', date: '2025-06-11'}
+  - {title: 'Denmark’s digital agency to ditch Microsoft in move toward digital independence', publisher: The Record, url: 'https://therecord.media/denmark-digital-agency-microsoft-digital-independence', date: '2025-06-11'}
+  - {title: 'Denmark’s Digital Ministry shifts from Microsoft to LibreOffice', publisher: Computing, url: 'https://www.computing.co.uk/news/2025/denmark-digital-ministry-drops-microsoft', date: '2025-06-12'}
 author: Switch-to.eu
 # Workflow
 sample: true
@@ -22,7 +23,7 @@ The reason she gave was not price. It was dependence. A government that runs on 
 
 ## A test, not a vow
 
-The ministry was careful about the promise. If the switch turns out to be too hard for staff, it said, it can move back. That makes this a real-world trial, and other Danish public bodies will be watching how it goes. Copenhagen and Aarhus, the country's two largest cities, have also said they are reviewing their reliance on Microsoft.
+The ministry was careful about the promise. If the switch turns out to be too hard for staff, it said, it can move back. That makes this a real-world trial, and other Danish public bodies will be watching how it goes. Early reports said the ministry would also replace Windows with Linux. [It later clarified](https://therecord.media/denmark-digital-agency-microsoft-digital-independence) that only Microsoft Office is being replaced.
 
 Worth knowing: LibreOffice opens and saves Word and Excel files, but complex documents with macros or heavy formatting don't always survive the round trip. Shared editing is also weaker than in Microsoft 365 unless you pair LibreOffice with a collaboration server.
 

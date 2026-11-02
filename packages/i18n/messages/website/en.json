@@ -826,7 +826,7 @@
     "latest": "Latest news",
     "latestIntro": "Short, sourced pieces on EU tech and privacy. One every weekday.",
     "viewAll": "All news",
-    "sampleNotice": "Sample article. We wrote this to test the news section. It describes real events, but it hasn't been through our research and review process.",
+    "sampleNotice": "Sample article. We wrote this to test the news section. The events are real and the facts were checked against the sources listed below, but it didn't go through our full research and review pipeline.",
     "briefing": "The briefing",
     "moreNews": "More news",
     "readingTime": "{minutes} min read",

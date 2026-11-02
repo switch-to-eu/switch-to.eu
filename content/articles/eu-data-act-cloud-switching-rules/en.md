@@ -10,19 +10,20 @@ categories: [storage]
 guides: [google-drive-to-pcloud]
 sources:
   - {title: 'Regulation (EU) 2023/2854 (Data Act)', publisher: EUR-Lex, url: 'https://eur-lex.europa.eu/eli/reg/2023/2854/oj', date: '2023-12-22'}
+  - {title: 'EU Data Act: switching cloud provider', publisher: McCann FitzGerald, url: 'https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/eu-data-act-switching-cloud-provider', date: '2025-09-01'}
 author: Switch-to.eu
 # Workflow
 sample: true
 updatedAt: '2025-09-12'
 ---
 
-The EU Data Act became applicable on 12 September 2025. Most coverage focuses on connected devices and who gets to use the data they produce. For anyone stuck with a cloud provider, a different chapter matters more: the rules on switching.
+The [EU Data Act](https://eur-lex.europa.eu/eli/reg/2023/2854/oj) became applicable on 12 September 2025. Most coverage focuses on connected devices and who gets to use the data they produce. For anyone stuck with a cloud provider, a different chapter matters more: the rules on switching.
 
 ## What changes
 
 Cloud and other data processing services must now let customers move to another provider, or back to their own servers, without unreasonable obstacles. Contracts have to spell out how a switch works, and providers must cooperate during the transition period.
 
-Switching charges are being phased out. Providers may only charge the actual costs of a switch for now, and from 12 January 2027 they may not charge for switching at all. That includes the data egress fees that make leaving a large provider expensive today.
+Switching charges are being phased out. Providers may only charge the actual costs of a switch for now, and from 12 January 2027 they may not charge for switching at all. That includes the data egress fees for moving your data out as part of a switch. Ordinary egress charges for serving data to users are not affected.
 
 ## What doesn't change
 

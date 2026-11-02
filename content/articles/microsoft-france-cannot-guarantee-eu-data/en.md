@@ -8,14 +8,14 @@ entities: [microsoft, cloud-act, french-senate]
 services: [proton-drive, nextcloud, tresorit]
 categories: [storage]
 sources:
-  - {title: 'French Senate inquiry into public procurement and digital sovereignty', publisher: Sénat, url: 'https://www.senat.fr/', date: '2025-06-10'}
+  - {title: 'Microsoft tells French lawmakers it can’t protect user data from US demands', publisher: SDxCentral, url: 'https://www.sdxcentral.com/news/microsoft-tells-french-lawmakers-it-cant-protect-user-data-from-us-demands/', date: '2025-07-21'}
 author: Switch-to.eu
 # Workflow
 sample: true
 updatedAt: '2025-06-10'
 ---
 
-Asked directly by French senators whether he could guarantee that data held by Microsoft for French public bodies would never be handed to US authorities without French approval, Anton Carniaux, Microsoft France's director of public and legal affairs, answered under oath: no, he could not.
+Asked directly by French senators whether he could guarantee that data held by Microsoft for French public bodies would never be handed to US authorities without French approval, Anton Carniaux, Microsoft France's director of public and legal affairs, [answered under oath](https://www.sdxcentral.com/news/microsoft-tells-french-lawmakers-it-cant-protect-user-data-from-us-demands/): no, he could not.
 
 He added that Microsoft contests requests it considers unfounded and that, in his words, such transfers had not happened in practice. But the answer to the question that was asked was no.
 

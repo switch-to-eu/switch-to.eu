@@ -10,7 +10,7 @@ De reden die ze gaf was niet de prijs. Het was afhankelijkheid. Een overheid die
 
 ## Een test, geen belofte
 
-Het ministerie was voorzichtig met de belofte. Als de overstap te lastig blijkt voor medewerkers, kan het terug. Dat maakt dit een proef in de praktijk, en andere Deense overheden kijken mee. Kopenhagen en Aarhus, de twee grootste steden van het land, hebben ook gezegd dat ze hun afhankelijkheid van Microsoft onder de loep nemen.
+Het ministerie was voorzichtig met de belofte. Als de overstap te lastig blijkt voor medewerkers, kan het terug. Dat maakt dit een proef in de praktijk, en andere Deense overheden kijken mee. Eerste berichten meldden dat het ministerie ook Windows door Linux zou vervangen. [Later verduidelijkte het](https://therecord.media/denmark-digital-agency-microsoft-digital-independence) dat alleen Microsoft Office wordt vervangen.
 
 Goed om te weten: LibreOffice opent en bewaart Word- en Excel-bestanden, maar complexe documenten met macro's of zware opmaak komen niet altijd heel terug. Samen bewerken werkt ook minder goed dan in Microsoft 365, tenzij je LibreOffice combineert met een samenwerkingsserver.
 

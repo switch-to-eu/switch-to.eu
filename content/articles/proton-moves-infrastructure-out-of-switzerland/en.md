@@ -1,27 +1,28 @@
 ---
 title: Proton starts moving infrastructure out of Switzerland over surveillance plans
-description: Proton says proposed changes to Swiss surveillance rules would force it to retain user data. It is shifting new investment to Germany and Norway.
+description: Proposed Swiss surveillance rules would require services to identify users and retain data. Proton is moving new infrastructure to Germany and Norway.
 date: '2025-07-23'
 type: analysis
 story: swiss-surveillance-law-revision
 entities: [proton, switzerland]
-services: [proton-mail, proton-lumo, proton-drive, threema]
+services: [proton-mail, proton-lumo, proton-drive]
 categories: [email, artificial-intelligence]
 sources:
-  - {title: 'Proton blog', publisher: Proton, url: 'https://proton.me/blog', date: '2025-07-23'}
+  - {title: 'Surveillance: Proton relocates parts of its infrastructure from Switzerland', publisher: heise online, url: 'https://heise.de/-10538664', date: '2025-08-14'}
+  - {title: 'Is Proton leaving Switzerland?', publisher: TechRadar, url: 'https://www.techradar.com/vpn/vpn-privacy-security/is-proton-leaving-switzerland-legal-uncertainty-of-proposed-surveillance-laws-is-pushing-them-to-make-several-changes', date: '2025-07-25'}
 author: Switch-to.eu
 # Workflow
 sample: true
-updatedAt: '2025-07-23'
+updatedAt: '2025-08-14'
 ---
 
-Proton, the Swiss company behind Proton Mail and Proton Drive, has started moving parts of its infrastructure out of Switzerland. Its new AI assistant, [Lumo](/services/eu/proton-lumo), launched in July 2025 running on servers in Germany, and the company says further investment will go to Germany and Norway.
+Proton, the Swiss company behind Proton Mail and Proton Drive, has started moving parts of its infrastructure out of Switzerland. Its new AI assistant, [Lumo](/services/eu/proton-lumo), launched in July 2025 running on servers in Germany, the [first product to move](https://heise.de/-10538664). The company is also building facilities in Norway.
 
 ## The trigger
 
-The Swiss government has proposed revising the ordinance that governs telecom surveillance. Under the draft, more online services, including some VPN and email providers, would have to identify users and retain metadata so authorities can access it. Proton's CEO Andy Yen has said the company would leave Switzerland rather than comply, and that the rules would be stricter than those in the EU.
+In January 2025 the Swiss Federal Council proposed revising the ordinance that governs telecom surveillance. Under the draft, services with more than 5,000 users, including some VPN and messaging providers, would have to identify customers and retain data for six months. Proton's CEO Andy Yen [told Le Temps](https://www.techradar.com/vpn/vpn-privacy-security/is-proton-leaving-switzerland-legal-uncertainty-of-proposed-surveillance-laws-is-pushing-them-to-make-several-changes) that Proton would freeze its investment in Switzerland, and the company says it can't be "held hostage" while all its servers sit in one country.
 
-The proposal is not final. It drew criticism during consultation from privacy groups and from other Swiss companies, including the messaging app Threema.
+Proton is not leaving entirely. Its headquarters stay in Geneva. The proposal was not final at the time of writing.
 
 ## What it means for Swiss privacy
 
