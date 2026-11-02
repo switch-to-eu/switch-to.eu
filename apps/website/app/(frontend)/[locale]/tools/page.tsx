@@ -97,7 +97,7 @@ export default async function ToolsPage() {
                   className={`group bg-white md:rounded-3xl overflow-hidden transition-all duration-200 ${
                     isActive
                       ? "hover:shadow-lg hover:scale-[1.02] cursor-pointer"
-                      : "opacity-60"
+                      : "border-dashed"
                   }`}
                   style={{ borderWidth: 1, borderColor: primaryHex }}
                 >
@@ -131,8 +131,8 @@ export default async function ToolsPage() {
                     {!isActive && (
                       <div className="absolute top-4 right-4">
                         <span
-                          className="text-xs font-medium italic opacity-70 px-3 py-1 rounded-full"
-                          style={{ color: primaryHex, backgroundColor: `${accentHex}33` }}
+                          className="text-xs font-semibold px-3 py-1 rounded-full text-[#1a1a1a]"
+                          style={{ backgroundColor: `${accentHex}66` }}
                         >
                           {t("comingSoon")}
                         </span>
@@ -214,7 +214,7 @@ export default async function ToolsPage() {
                       {t(`features.${feature.key}.title`)}
                     </h3>
                     <p
-                      className={`${card.text} text-sm sm:text-base opacity-80`}
+                      className={`${card.text} text-sm sm:text-base`}
                     >
                       {t(`features.${feature.key}.description`)}
                     </p>

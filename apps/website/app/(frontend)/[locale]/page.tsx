@@ -100,18 +100,19 @@ export default async function Home() {
 
   const { featured, others } = fetchHomepageGuides(locale);
   const picks = fetchHomepagePicks(locale);
+  const articles = getAllArticles(locale);
 
   const highlightedTool = getToolById("privnote");
 
   return (
     <PageLayout>
-      <HomeMasthead locale={locale} />
-
-      <FrontPage articles={getAllArticles(locale)} locale={locale} title={t("latestNews")} />
+      <HomeMasthead locale={locale} latestDate={articles[0]?.date ?? null} />
 
       <FeaturedGuideHero featured={featured} others={others} />
 
       <FeaturedPicksSection picks={picks} />
+
+      <FrontPage articles={articles} locale={locale} title={t("latestNews")} />
 
       <HowWeWork />
 

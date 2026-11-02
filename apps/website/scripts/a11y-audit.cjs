@@ -2,7 +2,11 @@
  * Rendered accessibility audit (the measurable half of an impeccable audit).
  *
  *   pnpm --filter website dev        # or a production server on :5010
- *   node apps/website/scripts/a11y-audit.cjs [baseUrl]
+ *   node apps/website/scripts/a11y-audit.cjs [baseUrl] [--sitemap] [--keyboard]
+ *
+ * --sitemap   audit every URL in /sitemap.xml instead of the built-in sample
+ * --keyboard  also tab through each page (1280px) and check that every stop is
+ *             visible and shows a focus indicator
  *
  * For each page at 1280px and 375px it reports: text contrast below WCAG AA
  * (computed colours, opacity and translucent backgrounds blended), horizontal
@@ -41,12 +45,52 @@ const audit = () => {
   const hs = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].filter(h => h.getClientRects().length);
   out.h1 = hs.filter(h => h.tagName === 'H1').length;
   let prev = 0; hs.forEach((h) => { const l = +h.tagName[1]; if (prev && l > prev + 1) out.headings.push(`h${prev}→h${l} "${h.textContent.trim().slice(0, 40)}"`); prev = l; });
-  document.querySelectorAll('a,button,input,select,[role=button]').forEach((e) => { const r = e.getBoundingClientRect(); if (!r.width || !r.height) return; const inline = getComputedStyle(e).display === 'inline' && e.closest('p,li'); if (!inline && (r.width < 24 || r.height < 24)) out.targets.push(`${Math.round(r.width)}x${Math.round(r.height)} ${e.tagName} "${(e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 30)}"`); });
-  document.querySelectorAll('input,textarea,select').forEach((i) => { if (i.type === 'hidden') return; const lab = i.labels?.length || i.getAttribute('aria-label') || i.getAttribute('aria-labelledby'); if (!lab) out.inputs.push(i.name || i.placeholder || i.type); });
+  document.querySelectorAll('a,button,input,select,[role=button]').forEach((e) => { if (e.closest('[aria-hidden="true"]')) return; const r = e.getBoundingClientRect(); if (!r.width || !r.height) return; if (r.width <= 1 && r.height <= 1) return; /* visually hidden until focused (sr-only skip link) */ const inline = getComputedStyle(e).display === 'inline' && e.closest('p,li'); if (!inline && (r.width < 24 || r.height < 24)) out.targets.push(`${Math.round(r.width)}x${Math.round(r.height)} ${e.tagName} "${(e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 30)}"`); });
+  document.querySelectorAll('input,textarea,select').forEach((i) => { if (i.type === 'hidden' || i.closest('[aria-hidden="true"]')) return; const lab = i.labels?.length || i.getAttribute('aria-label') || i.getAttribute('aria-labelledby'); if (!lab) out.inputs.push(i.name || i.placeholder || i.type); });
   out.reducedMotion = [...document.styleSheets].some((ss) => { try { return [...ss.cssRules].some(r => r.media && /prefers-reduced-motion/.test(r.media.mediaText)); } catch { return false; } });
   return out;
 };
+const keyboardPass = async (p, maxTabs = 60) => {
+  // Tab through the page; every focused element must be visible and show a focus indicator.
+  const issues = [];
+  await p.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); });
+  await p.keyboard.press('Tab');
+  const seen = new Set();
+  for (let i = 0; i < maxTabs; i++) {
+    const info = await p.evaluate(() => {
+      const el = document.activeElement;
+      if (!el || el === document.body) return null;
+      const r = el.getBoundingClientRect();
+      const s = getComputedStyle(el);
+      const hasRing = (st) => (st.outlineStyle !== 'none' && parseFloat(st.outlineWidth) > 0) || (st.boxShadow && st.boxShadow !== 'none');
+      // A focus ring may be drawn by a wrapper via :focus-within (e.g. a search field).
+      let ring = hasRing(s);
+      for (let n = el.parentElement, i = 0; !ring && n && i < 3; n = n.parentElement, i++) ring = hasRing(getComputedStyle(n));
+      const label = (el.getAttribute('aria-label') || el.textContent || el.getAttribute('placeholder') || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 40);
+      const path = el.tagName + ':' + label + ':' + Math.round(r.top + window.scrollY);
+      return { path, label, visible: r.width > 0 && r.height > 0 && s.visibility !== 'hidden', ring };
+    });
+    if (!info) break;
+    if (seen.has(info.path)) break; // cycled back to the start: no trap
+    seen.add(info.path);
+    if (!info.visible) issues.push(`focus on invisible element "${info.label}"`);
+    else if (!info.ring) issues.push(`no visible focus indicator on "${info.label}"`);
+    await p.keyboard.press('Tab');
+  }
+  return { issues: [...new Set(issues)], count: seen.size };
+};
+
+const fromSitemap = process.argv.includes('--sitemap');
+const withKeyboard = process.argv.includes('--keyboard');
+
 (async () => {
+  if (fromSitemap) {
+    const xml = await (await fetch(BASE + '/sitemap.xml')).text();
+    pages.length = 0;
+    for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) pages.push(new URL(m[1]).pathname);
+    pages.push('/en/news/eu-data-act-cloud-switching-rules', '/en/contribute/guide');
+  }
+
   const b = await chromium.launch();
   for (const w of [1280, 375]) {
     const p = await b.newPage({ viewport: { width: w, height: 900 } });
@@ -62,6 +106,10 @@ const audit = () => {
       if (r.targets.length) issues.push(`small targets(${r.targets.length}): ` + r.targets.join(' | '));
       if (r.inputs.length) issues.push('unlabelled inputs: ' + r.inputs.join(', '));
       if (!r.reducedMotion) issues.push('no prefers-reduced-motion rules');
+      if (withKeyboard && w === 1280) {
+        const kb = await keyboardPass(p);
+        if (kb.issues.length) issues.push(`keyboard (${kb.count} stops): ` + kb.issues.join(' | '));
+      }
       console.log(`[${w}] ${url}: ${issues.length ? '\n   ' + issues.join('\n   ') : 'ok'}`);
     }
     await p.close();

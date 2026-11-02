@@ -18,7 +18,14 @@ const QUICK_SWITCHES = [
  * Front-page masthead: today's dateline, the promise in Anton, and the site's
  * main action (search for the service you want to leave) in working form.
  */
-export async function HomeMasthead({ locale }: { locale: string }) {
+export async function HomeMasthead({
+  locale,
+  latestDate,
+}: {
+  locale: string;
+  /** Date of the newest article. The dateline shows this, never "today", so it can't promise news that isn't there. */
+  latestDate: string | null;
+}) {
   const t = await getTranslations("home");
 
   return (
@@ -51,11 +58,16 @@ export async function HomeMasthead({ locale }: { locale: string }) {
 
           <div className="relative z-10">
             <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-brand-sky/25 pb-4 mb-8 sm:mb-10 text-sm text-brand-sky">
-              <time dateTime={new Date().toISOString().slice(0, 10)} className="font-semibold text-white">
-                {formatDateline(new Date(), locale)}
-              </time>
-              <span aria-hidden="true" className="hidden sm:inline">·</span>
-              <span className="basis-full sm:basis-auto">{t("masthead.dateline")}</span>
+              <span className="font-semibold text-white">{t("masthead.dateline")}</span>
+              {latestDate && (
+                <>
+                  <span aria-hidden="true" className="hidden sm:inline">·</span>
+                  <span className="basis-full sm:basis-auto">
+                    {t("masthead.lastUpdate")}{" "}
+                    <time dateTime={latestDate}>{formatDateline(new Date(`${latestDate}T12:00:00Z`), locale)}</time>
+                  </span>
+                </>
+              )}
             </p>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">

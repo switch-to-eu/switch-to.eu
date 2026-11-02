@@ -68,6 +68,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }>) {
   await params;
+  const skipLabel = (await getTranslations("common"))("skipToContent");
 
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
@@ -102,8 +103,17 @@ export default async function LocaleLayout({
             __html: JSON.stringify(websiteJsonLd),
           }}
         />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-brand-green focus:px-5 focus:py-2.5 focus:text-white focus:font-semibold focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-brand-yellow"
+        >
+          {skipLabel}
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        {/* Pages render their own <main> (PageLayout). This wrapper is the skip-link target. */}
+        <div id="main-content" tabIndex={-1} className="flex-1 flex flex-col outline-none">
+          {children}
+        </div>
         <Footer />
       </NextIntlClientProvider>
     </PlausibleProvider>

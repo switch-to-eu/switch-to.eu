@@ -197,7 +197,7 @@ export default async function ServiceDetailPage({
     : null;
 
   return (
-    <>
+    <main className="flex flex-col">
       {/* Hero */}
       <Container noPaddingMobile>
         <Link
@@ -380,6 +380,6 @@ export default async function ServiceDetailPage({
           </div>
         </Container>
       )}
-    </>
+    </main>
   );
 }

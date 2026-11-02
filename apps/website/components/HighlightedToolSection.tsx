@@ -88,11 +88,6 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                 >
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </span>
-                <span
-                  className={`font-heading text-xs uppercase tracking-[0.18em] sm:text-sm ${card.text}`}
-                >
-                  {t("highlightedToolKicker")}
-                </span>
               </div>
 
               <h2

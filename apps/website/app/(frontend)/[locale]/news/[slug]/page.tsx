@@ -11,6 +11,7 @@ import { routing } from "@switch-to-eu/i18n/routing";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { RichText } from "@/components/rich-text";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { ArticleCard } from "@/components/news/ArticleCard";
 import { findArticle, getAllArticles } from "@/lib/content/loader";
 import type { Article } from "@/lib/content/types";
 import { markdownToPlainText } from "@/lib/markdown";
@@ -75,6 +76,12 @@ export default async function NewsArticlePage({
 
   const t = await getTranslations({ locale, namespace: "news" });
   const otherLocales = servedLocales(article).filter((l) => l !== locale);
+  // Prefer other pieces from the same story, then the most recent.
+  const others = getAllArticles(locale).filter((a) => a.slug !== slug);
+  const moreNews = [
+    ...others.filter((a) => article.story && a.story === article.story),
+    ...others.filter((a) => !article.story || a.story !== article.story),
+  ].slice(0, 3);
   const updated = article.updatedAt && article.updatedAt > article.date ? article.updatedAt : null;
 
   const jsonLd = {
@@ -132,40 +139,43 @@ export default async function NewsArticlePage({
         </Container>
       </section>
 
-      <section>
+      <section className="pt-8 md:pt-0">
         <Container>
-          {article.sample && (
-            <p
-              role="note"
-              className="max-w-[68ch] mx-auto mb-8 rounded-2xl bg-brand-cream border border-brand-green/20 px-5 py-4 text-brand-green leading-relaxed"
-            >
-              {t("sampleNotice")}
-            </p>
-          )}
-          <div className="article-body mdx-content max-w-[68ch] mx-auto text-[1.125rem] leading-[1.75] text-[#2b2b2b]">
-            <RichText data={article.content} />
-          </div>
+          {/* One column, one measure: note, body, language line and sources share these edges. */}
+          <div className="max-w-[42.5rem] mx-auto">
+            {article.sample && (
+              <p
+                role="note"
+                className="mb-8 rounded-2xl bg-brand-cream border border-brand-green/20 px-5 py-4 text-brand-green leading-relaxed"
+              >
+                {t("sampleNotice")}
+              </p>
+            )}
+            <div className="article-body mdx-content text-[1.125rem] leading-[1.75] text-[#2b2b2b]">
+              <RichText data={article.content} />
+            </div>
 
-          {otherLocales.length > 0 && (
-            <p className="max-w-[68ch] mx-auto mt-10 pt-6 border-t border-brand-green/15 text-sm text-gray-700">
-              {t("otherLanguages")}{" "}
-              {otherLocales.map((l, i) => (
-                <span key={l}>
-                  {i > 0 && ", "}
-                  <Link href={`/news/${slug}`} locale={l} className="text-brand-green underline hover:no-underline">
-                    {ARTICLE_LOCALE_NAMES[l]}
-                  </Link>
-                </span>
-              ))}
-            </p>
-          )}
+            {otherLocales.length > 0 && (
+              <p className="mt-10 pt-6 border-t border-brand-green/15 text-sm text-gray-700">
+                {t("otherLanguages")}{" "}
+                {otherLocales.map((l, i) => (
+                  <span key={l}>
+                    {i > 0 && ", "}
+                    <Link href={`/news/${slug}`} locale={l} className="text-brand-green underline hover:no-underline">
+                      {ARTICLE_LOCALE_NAMES[l]}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
         </Container>
       </section>
 
       {article.sources.length > 0 && (
-        <section>
+        <section className="pt-8 md:pt-0">
           <Container>
-            <div className="max-w-[68ch] mx-auto bg-brand-sage/40 rounded-3xl p-6 sm:p-8">
+            <div className="max-w-[42.5rem] mx-auto bg-brand-sage/40 rounded-3xl p-6 sm:p-8">
               <h2 className="font-heading uppercase text-2xl text-brand-green mb-2">{t("sources")}</h2>
               <p className="text-sm text-gray-700 mb-4">{t("sourcesIntro")}</p>
               <ol className="space-y-3 list-decimal pl-5 text-gray-700">
@@ -223,6 +233,32 @@ export default async function NewsArticlePage({
                 </li>
               ))}
             </ul>
+          </Container>
+        </section>
+      )}
+
+      {moreNews.length > 0 && (
+        <section aria-labelledby="more-news-title">
+          <Container noPaddingMobile>
+            <h2
+              id="more-news-title"
+              className="px-3 md:px-0 pt-10 md:pt-0 font-heading uppercase text-brand-green text-4xl sm:text-5xl mb-6 sm:mb-8"
+            >
+              {t("moreNews")}
+            </h2>
+            <div role="list" className="grid gap-0 md:gap-5 grid-cols-1 md:grid-cols-3">
+              {moreNews.map((other, index) => (
+                <ArticleCard
+                  key={other.slug}
+                  article={other}
+                  locale={locale}
+                  index={index}
+                  typeLabel={t(`types.${other.type}`)}
+                  readMoreLabel={t("readMore")}
+                  sampleLabel={t("sampleLabel")}
+                />
+              ))}
+            </div>
           </Container>
         </section>
       )}

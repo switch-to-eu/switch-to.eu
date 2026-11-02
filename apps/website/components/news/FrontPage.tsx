@@ -14,13 +14,21 @@ interface FrontPageProps {
   title?: string;
   /** How many headlines the briefing column lists after the lead. */
   briefingCount?: number;
+  /** "All news" and RSS links under the briefing. Off on /news itself. */
+  showFooterLinks?: boolean;
 }
 
 /**
  * Newspaper-style front page: the latest article as the lead, the next few as
  * a dated briefing column. Renders nothing without articles.
  */
-export async function FrontPage({ articles, locale, title, briefingCount = 5 }: FrontPageProps) {
+export async function FrontPage({
+  articles,
+  locale,
+  title,
+  briefingCount = 5,
+  showFooterLinks = true,
+}: FrontPageProps) {
   const [lead, ...rest] = articles;
   if (!lead) return null;
   const briefing = rest.slice(0, briefingCount);
@@ -45,19 +53,19 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-5">
           {/* Lead story */}
-          <article className="relative overflow-hidden lg:col-span-8 bg-brand-yellow text-brand-green md:rounded-3xl px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
+          <article className="relative overflow-hidden lg:col-span-8 bg-white text-brand-green md:rounded-3xl border border-brand-green/10 px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
             <DecorativeShape
               shape="starburst"
               className="-bottom-14 -right-14 w-48 h-48 sm:w-64 sm:h-64"
-              color="text-brand-orange"
-              opacity={0.18}
+              color="text-brand-yellow"
+              opacity={0.35}
               duration="12s"
             />
             <DecorativeShape
               shape="pebble"
               className="-top-10 right-1/4 w-28 h-28 hidden sm:block"
-              color="text-white"
-              opacity={0.25}
+              color="text-brand-sky"
+              opacity={0.35}
               duration="9s"
               delay="-3s"
             />
@@ -67,7 +75,7 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
               <Heading className="font-heading uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl mt-5 mb-5 text-balance">
                 <Link
                   href={`/news/${lead.slug}`}
-                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-brand-yellow"
+                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-white"
                 >
                   {lead.title}
                 </Link>
@@ -123,6 +131,7 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
             ) : (
               <p className="text-brand-green/80">{t("empty")}</p>
             )}
+            {showFooterLinks && (
             <div className="mt-6 pt-5 border-t border-brand-green/15 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold">
               <Link
                 href="/news"
@@ -137,6 +146,7 @@ export async function FrontPage({ articles, locale, title, briefingCount = 5 }: 
                 {t("rss")}
               </a>
             </div>
+            )}
           </aside>
         </div>
       </Container>

@@ -32,7 +32,8 @@
       "dropbox": "Dropbox"
     },
     "privacyNotice": "By submitting this form, your data will be used to create a public GitHub issue for community review. For more information about how we handle your data, please see our",
-    "privacyPolicyLink": "Privacy Policy"
+    "privacyPolicyLink": "Privacy Policy",
+    "skipToContent": "Skip to content"
   },
   "navigation": {
     "home": "Home",
@@ -87,7 +88,8 @@
       "dateline": "EU tech news, alternatives and migration guides",
       "searchLabel": "Which service do you want to leave?",
       "quickLabel": "Or start with",
-      "picksLink": "See our picks"
+      "picksLink": "See our picks",
+      "lastUpdate": "Last update"
     },
     "guidesBand": {
       "title": "Make the switch",

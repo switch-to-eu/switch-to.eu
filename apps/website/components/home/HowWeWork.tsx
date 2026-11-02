@@ -16,7 +16,7 @@ export async function HowWeWork() {
   return (
     <section aria-labelledby="how-we-work-title">
       <Container noPaddingMobile>
-        <div className="relative overflow-hidden bg-brand-navy md:rounded-3xl px-6 sm:px-10 md:px-14 py-12 sm:py-14 md:py-16">
+        <div className="relative overflow-hidden bg-brand-green md:rounded-3xl px-6 sm:px-10 md:px-14 py-12 sm:py-14 md:py-16">
           <DecorativeShape
             shape="flower"
             className="-top-14 -left-12 w-44 h-44 sm:w-56 sm:h-56"
@@ -43,7 +43,7 @@ export async function HowWeWork() {
               </h2>
               <a
                 href="https://github.com/switch-to-eu/switch-to.eu"
-                className="inline-block rounded-full border-2 border-brand-yellow px-5 py-2 text-sm font-semibold text-white hover:bg-brand-yellow hover:text-brand-green transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
+                className="inline-block rounded-full border-2 border-brand-yellow px-5 py-2 text-sm font-semibold text-white hover:bg-brand-yellow hover:text-brand-green transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-green"
               >
                 {t("githubCta")} ↗
               </a>

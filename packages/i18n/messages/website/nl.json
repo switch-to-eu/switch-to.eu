@@ -29,7 +29,8 @@
       "dropbox": "Dropbox"
     },
     "privacyNotice": "Door dit formulier in te dienen, worden je gegevens gebruikt om een openbare GitHub issue aan te maken voor gemeenschapsbeoordeling. Voor meer informatie over hoe wij je gegevens behandelen, zie ons",
-    "privacyPolicyLink": "Privacybeleid"
+    "privacyPolicyLink": "Privacybeleid",
+    "skipToContent": "Ga naar inhoud"
   },
   "navigation": {
     "home": "Home",
@@ -84,7 +85,8 @@
       "dateline": "EU-technieuws, alternatieven en overstapgidsen",
       "searchLabel": "Welke dienst wil je verlaten?",
       "quickLabel": "Of begin met",
-      "picksLink": "Bekijk onze keuzes"
+      "picksLink": "Bekijk onze keuzes",
+      "lastUpdate": "Laatste update"
     },
     "guidesBand": {
       "title": "Maak de overstap",

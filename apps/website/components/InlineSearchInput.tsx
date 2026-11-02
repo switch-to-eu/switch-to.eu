@@ -277,7 +277,7 @@ export function InlineSearchInput({
     <Popover open={popoverOpen} onOpenChange={setShowDropdown}>
       <PopoverAnchor asChild>
         <div ref={containerRef} className="relative w-full">
-          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 transition-colors">
+          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 focus-within:ring-4 focus-within:ring-brand-yellow transition-colors">
             <Search
               className="h-5 w-5 text-brand-green/50 shrink-0 transition-all duration-300 group-focus-within:text-brand-green group-focus-within:scale-110"
               aria-hidden="true"
@@ -298,7 +298,7 @@ export function InlineSearchInput({
             />
             <button
               type="button"
-              className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white transition-transform duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+              className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white transition-transform duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-brand-green motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
               onClick={() => {
                 if (query.trim()) {
                   void fetchResults(query);

@@ -33,7 +33,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
         onMouseLeave={scheduleClose}
         onClick={toggle}
         className={cn(
-          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
+          "group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline outline-none rounded-md focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-tool-primary [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]",
           className,
         )}
       >
@@ -63,7 +63,7 @@ export function NavLanguageSelector({ locale, className }: NavLanguageSelectorPr
                   key={otherLocale}
                   href={pathname}
                   locale={otherLocale}
-                  className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none"
+                  className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-tool-primary"
                 >
                   {localeNames[otherLocale]}
                 </Link>

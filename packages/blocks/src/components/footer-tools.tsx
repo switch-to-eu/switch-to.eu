@@ -34,13 +34,13 @@ export function FooterTools({ excludeToolId, title }: FooterToolsProps) {
                 className="text-sm text-white/70 transition-colors hover:text-white"
               >
                 <span className="font-medium">{tool.name}</span>
-                <span aria-hidden="true" className="text-white/60"> — </span>
+                <span aria-hidden="true" className="text-white/60"> · </span>
                 <span className="text-xs">{t(tool.id as never)}</span>
               </a>
             ) : (
               <span className="text-sm text-white/70">
                 <span className="font-medium">{tool.name}</span>
-                <span aria-hidden="true" className="text-white/60"> — </span>
+                <span aria-hidden="true" className="text-white/60"> · </span>
                 <span className="text-xs italic">{t('comingSoon')}</span>
               </span>
             )}

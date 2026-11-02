@@ -74,7 +74,6 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
           <GuidesColumn
             featured={resolvedFeatured}
             others={resolvedOthers}
-            featuredEyebrow={t("heroFeaturedLabel")}
             moreMigrationsLabel={t("heroMoreMigrationsLabel")}
             primaryCta={t("homeHeroPrimaryCta")}
             fallbackTitle={t("heroFallbackTitle")}
@@ -139,7 +138,6 @@ function OrientationColumn({ title, body, ctaLabel }: OrientationColumnProps) {
 interface GuidesColumnProps {
   featured: ResolvedGuide | null;
   others: ResolvedGuide[];
-  featuredEyebrow: string;
   moreMigrationsLabel: string;
   primaryCta: string;
   fallbackTitle: string;
@@ -150,7 +148,6 @@ interface GuidesColumnProps {
 function GuidesColumn({
   featured,
   others,
-  featuredEyebrow,
   moreMigrationsLabel,
   primaryCta,
   fallbackTitle,
@@ -179,7 +176,6 @@ function GuidesColumn({
         {featured ? (
           <FeaturedPoster
             guide={featured}
-            eyebrowLabel={featuredEyebrow}
             primaryCta={primaryCta}
             difficultyLabels={difficultyLabels}
           />
@@ -189,9 +185,9 @@ function GuidesColumn({
 
         {others.length > 0 && (
           <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-brand-green/15">
-            <p className="font-heading uppercase tracking-[0.2em] text-brand-green text-xs sm:text-sm mb-3 sm:mb-4">
+            <h3 className="font-heading uppercase text-brand-green text-xl sm:text-2xl mb-2 sm:mb-3">
               {moreMigrationsLabel}
-            </p>
+            </h3>
             <ul className="flex flex-col gap-0.5">
               {others.map((guide) => (
                 <li key={guide.slug}>
@@ -211,24 +207,18 @@ function GuidesColumn({
 
 interface FeaturedPosterProps {
   guide: ResolvedGuide;
-  eyebrowLabel: string;
   primaryCta: string;
   difficultyLabels: DifficultyLabels;
 }
 
 function FeaturedPoster({
   guide,
-  eyebrowLabel,
   primaryCta,
   difficultyLabels,
 }: FeaturedPosterProps) {
   return (
     <div>
-      <p className="font-heading uppercase tracking-[0.2em] text-brand-green text-xs sm:text-sm mb-3 sm:mb-4">
-        {eyebrowLabel}
-      </p>
-
-      <h2
+      <h3
         className="font-display text-brand-green uppercase"
         style={{
           fontFamily: "var(--font-anton)",
@@ -252,7 +242,7 @@ function FeaturedPoster({
           →
         </span>
         {guide.targetName}
-      </h2>
+      </h3>
 
       <div className="flex flex-wrap gap-2 mt-5 sm:mt-6">
         <Badge>{difficultyLabels[guide.difficulty]}</Badge>
@@ -314,7 +304,7 @@ interface FallbackPosterProps {
 function FallbackPoster({ title, subtitle }: FallbackPosterProps) {
   return (
     <div>
-      <h2
+      <h3
         className="font-display text-brand-green uppercase"
         style={{
           fontFamily: "var(--font-anton)",
@@ -325,7 +315,7 @@ function FallbackPoster({ title, subtitle }: FallbackPosterProps) {
         }}
       >
         {title}
-      </h2>
+      </h3>
       <p className="text-brand-green text-base sm:text-lg mt-6 max-w-lg leading-relaxed">
         {subtitle}
       </p>
