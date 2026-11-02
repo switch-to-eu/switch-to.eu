@@ -1,7 +1,7 @@
 ---
 name: research
-description: Research a digital service and store structured findings in its content file (content/services/<slug>/en.md). Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the research fields on a service. Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for".
-argument-hint: "service name (e.g. 'ProtonMail'); comma-separate for multiple; add --dry-run to gather without writing"
+description: Research a digital service and store structured findings in its content file (content/services/<slug>/en.md). Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the research fields on a service. Also refreshes services flagged by news in knowledge/flags.md ("research flagged"). Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for", "research flagged services".
+argument-hint: "service name (e.g. 'ProtonMail'); comma-separate for multiple; 'flagged' (or no argument) for services flagged by news in knowledge/flags.md; add --dry-run to gather without writing"
 ---
 
 # Service Research Skill
@@ -17,6 +17,7 @@ Read these helpers first:
 ## Inputs
 
 - Argument: service name, or comma-separated list of service names.
+- `flagged`, or no argument: the services listed in `knowledge/flags.md`, oldest flag first (see **Flagged services** below). With no argument and no flags, ask which service to research.
 - Flags: `--dry-run` — gather and print the would-be frontmatter changes, don't edit the file.
 
 ## Per-service flow
@@ -128,6 +129,30 @@ Edit `content/services/<slug>/en.md` with the merged values, including `research
 Don't touch `nl.md`. Most research fields aren't localized. The localized ones (`gdprNotes`, `userSentiment`, `recentNews`) are written in English here, and `/translate` adds the Dutch versions later.
 
 Skip if `--dry-run`; print the would-be frontmatter changes as a YAML block instead.
+
+## Flagged services
+
+`/news-ingest` appends a line to `knowledge/flags.md` when news changes something a listing states (format in `knowledge/README.md`):
+
+```
+- 2026-11-02 · services/proton-mail · price increase for Mail Plus · [[2026-11-02-proton-pricing#c1]]
+```
+
+In `flagged` mode:
+
+1. Collect the flagged slugs: `rg -o "· services/([a-z0-9-]+) ·" -r '$1' knowledge/flags.md | awk '!seen[$0]++'` (keeps file order, oldest first). Skip and report any slug without `content/services/<slug>/en.md`.
+2. For each service, read the cited claim(s) first (`find knowledge/sources -name "<source-slug>.md"`, then the `cN` line). That's what changed. Check that specific point on the vendor's own pages in Step 2, and make sure the fields it affects (`startingPrice`, `pricingTiers`, `pricingDetails`, `parentCompany`, `dataStorageLocations`, `headquarters`, `recentNews`, `researchNotes`) end up correct. Add the news item to `recentNews`.
+3. Run the normal per-service flow.
+4. When the service file is updated and validated, delete that service's lines from `knowledge/flags.md` (all of them, if the research covered every flagged issue; otherwise only the ones it covered, and say which remain). Leave the header untouched.
+5. If the research can't confirm the flagged change (the vendor page still says otherwise), keep the flag line and say why in the output.
+
+Knowledge files changed, so close per `../_shared/knowledge.md`: `pnpm knowledge:index`, then one line per service in `knowledge/log.md`:
+
+```
+2026-11-03 research | services/proton-mail | flag cleared: price increase for Mail Plus
+```
+
+Several flagged services can run in parallel through `/bulk-research` with the list of slugs. The flags.md edit and log lines stay with the main agent, after the subagents finish.
 
 ## Error handling
 

@@ -14,6 +14,7 @@ content/
   guides/<slug>/{en,nl}.md     # body uses section markers (see below)
   landing-pages/<slug>/{en,nl}.md
   pages/<slug>/{en,nl}.md
+  articles/<slug>/{en,nl,fr}.md  # news articles, see "Articles" below (different locale rules)
 ```
 
 - The directory name is the slug. There is no `slug` key in frontmatter.
@@ -32,6 +33,12 @@ content/
 | Items missing a field | `grep -L '^seoScore:' content/services/*/en.md` |
 | Items without a translation | `for d in content/services/*/; do [ -f "$d/nl.md" ] \|\| echo "$d"; done` |
 | Body word count | `awk 'BEGIN{n=0} /^---$/{n++; next} n>=2' <file> \| wc -w` |
+| Articles awaiting approval (any locale) | `grep -l '^draft: true' content/articles/*/{en,nl}.md 2>/dev/null` |
+| Approved articles without Dutch | `for d in content/articles/*/; do grep -q '^draft: true' "$d/en.md" \|\| [ -f "$d/nl.md" ] \|\| echo "$d"; done` |
+| Dutch approved, French missing | `for d in content/articles/*/; do [ -f "$d/nl.md" ] && ! grep -q '^draft: true' "$d/nl.md" && [ ! -f "$d/fr.md" ] && echo "$d"; done` |
+| Articles on a story | `grep -l '^story: <story-slug>$' content/articles/*/en.md` |
+| Articles mentioning a service | `grep -lE '^services:.*\b<slug>\b\|/services/(eu\|non-eu)/<slug>\b' content/articles/*/en.md` |
+| Articles citing a URL | `grep -lF '<url>' content/articles/*/*.md` |
 
 If a name search returns more than one match, pick the exact one or ask the user.
 
@@ -232,6 +239,53 @@ complete: false
 - **New items** created by a skill must be written with `draft: true`. A human removes it during PR review to publish.
 - **Existing items** (no `draft` key): edit in place and don't add `draft: true`. That would unpublish a live page. The PR review is the gate.
 - Never remove `draft: true` yourself.
+
+## Articles
+
+News articles live in `content/articles/<slug>/`. They differ from other collections in two ways: **every locale file is a full article** (title, description, SEO and body all translated, no fallback to English), and **every locale file has its own `draft` flag**, because each language is approved separately.
+
+The slug is English, kebab-case, 3 to 7 words, describing the news (`dutch-finance-ministry-cloud-tender`), with no date in it.
+
+### en.md
+
+```markdown
+---
+title: Dutch finance ministry puts €120M cloud contract up for EU tender
+description: One or two sentences, 140-160 characters. Used as the standfirst and meta description.
+date: '2026-11-02'          # publication date, set when written, updated on approval
+type: news                  # news | analysis
+story: dutch-government-cloud-exit          # knowledge/stories/<slug>
+entities: [dutch-government, microsoft]     # knowledge/entities slugs
+services: [microsoft-365, nextcloud]        # content/services slugs mentioned or recommended
+categories: [storage]                       # content/categories slugs
+guides: []                                  # content/guides slugs worth linking
+sources:
+  - {title: 'Finance ministry tenders sovereign cloud', publisher: NOS, url: 'https://…', date: '2026-10-30'}
+author: Switch-to.eu
+# SEO
+metaTitle: …                # optional, falls back to title
+keywords: [sovereign cloud, Dutch government]
+# Workflow
+draft: true
+updatedAt: '2026-11-02'
+---
+
+Body in markdown. 300-600 words for `news`, up to 1,200 for `analysis`.
+```
+
+- **Only en.md** holds the shared keys: `date`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources`, `author`.
+- **Translations** (`nl.md`, `fr.md`) hold `title`, `description`, SEO keys, `draft` and the body, all translated. A missing locale file means the article doesn't exist in that language.
+- **Body:** no H1 (the page renders `title`). Use `##` subheads only when the piece is longer than ~400 words. Link sources inline at the claim with a normal markdown link to the original URL. Link our own pages with root-relative paths without a locale (`/services/eu/nextcloud`, `/guides/storage/google-drive-to-pcloud`); the site adds the locale.
+- **Every factual sentence** must be traceable to a claim in a `knowledge/sources` note whose `url` matches a link or a `sources` entry. `/news-check` enforces this.
+- End `news` pieces with a short `## What this means for you` section: what an EU reader can actually do, linking the relevant services or guides. Skip it only when nothing actionable exists.
+
+### Approval flow (per locale)
+
+1. `/news-write` creates `en.md` with `draft: true`. A human reads it and removes `draft` to approve.
+2. `/translate article <slug> nl` writes `nl.md` with `draft: true`. A human re-reads the Dutch and removes `draft`.
+3. `/translate article <slug> fr` writes `fr.md` **without** `draft` (AI-only, no human review) and only after `nl.md` is approved.
+
+The site serves a locale only if its file exists and has no `draft: true`. `fr` isn't a site locale yet, so `fr.md` files are stored but not served until it is added.
 
 ## Review
 
