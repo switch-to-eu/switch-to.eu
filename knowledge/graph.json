@@ -1,0 +1,659 @@
+{
+ "generated": "2026-11-02",
+ "nodes": {
+  "services/bing-search": {
+   "type": "service",
+   "title": "Bing Search",
+   "path": "content/services/bing-search/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/bluesky": {
+   "type": "service",
+   "title": "Bluesky",
+   "path": "content/services/bluesky/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/brave": {
+   "type": "service",
+   "title": "Brave",
+   "path": "content/services/brave/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/chatgpt": {
+   "type": "service",
+   "title": "ChatGPT",
+   "path": "content/services/chatgpt/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/chrome": {
+   "type": "service",
+   "title": "Chrome",
+   "path": "content/services/chrome/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/claude": {
+   "type": "service",
+   "title": "Claude",
+   "path": "content/services/claude/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/duckduckgo": {
+   "type": "service",
+   "title": "DuckDuckGo",
+   "path": "content/services/duckduckgo/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/ecosia": {
+   "type": "service",
+   "title": "Ecosia",
+   "path": "content/services/ecosia/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/ecosia-browser": {
+   "type": "service",
+   "title": "Ecosia Browser",
+   "path": "content/services/ecosia-browser/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/element": {
+   "type": "service",
+   "title": "Element",
+   "path": "content/services/element/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/facebook": {
+   "type": "service",
+   "title": "Facebook",
+   "path": "content/services/facebook/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/gmail": {
+   "type": "service",
+   "title": "Gmail",
+   "path": "content/services/gmail/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/google-drive": {
+   "type": "service",
+   "title": "Google Drive",
+   "path": "content/services/google-drive/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/google-gemini": {
+   "type": "service",
+   "title": "Google Gemini",
+   "path": "content/services/google-gemini/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/google-maps": {
+   "type": "service",
+   "title": "Google Maps",
+   "path": "content/services/google-maps/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/google-search": {
+   "type": "service",
+   "title": "Google Search",
+   "path": "content/services/google-search/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/here-wego": {
+   "type": "service",
+   "title": "HERE WeGo",
+   "path": "content/services/here-wego/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/infomaniak-mail": {
+   "type": "service",
+   "title": "Infomaniak Mail",
+   "path": "content/services/infomaniak-mail/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/instagram": {
+   "type": "service",
+   "title": "Instagram",
+   "path": "content/services/instagram/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/magic-earth": {
+   "type": "service",
+   "title": "Magic Earth",
+   "path": "content/services/magic-earth/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/mailbox.org": {
+   "type": "service",
+   "title": "Mailbox.org",
+   "path": "content/services/mailbox.org/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/mastodon": {
+   "type": "service",
+   "title": "Mastodon",
+   "path": "content/services/mastodon/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/microsoft-edge": {
+   "type": "service",
+   "title": "Microsoft Edge",
+   "path": "content/services/microsoft-edge/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/mistral-le-chat": {
+   "type": "service",
+   "title": "Mistral Le Chat",
+   "path": "content/services/mistral-le-chat/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/nextcloud": {
+   "type": "service",
+   "title": "Nextcloud",
+   "path": "content/services/nextcloud/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/organic-maps": {
+   "type": "service",
+   "title": "Organic Maps",
+   "path": "content/services/organic-maps/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/osmand": {
+   "type": "service",
+   "title": "OsmAnd",
+   "path": "content/services/osmand/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/pcloud": {
+   "type": "service",
+   "title": "pCloud",
+   "path": "content/services/pcloud/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/proton-drive": {
+   "type": "service",
+   "title": "Proton Drive",
+   "path": "content/services/proton-drive/en.md",
+   "updated": "2026-04-27"
+  },
+  "services/proton-lumo": {
+   "type": "service",
+   "title": "Proton Lumo",
+   "path": "content/services/proton-lumo/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/proton-mail": {
+   "type": "service",
+   "title": "Proton Mail",
+   "path": "content/services/proton-mail/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/qwant": {
+   "type": "service",
+   "title": "Qwant",
+   "path": "content/services/qwant/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/session": {
+   "type": "service",
+   "title": "Session",
+   "path": "content/services/session/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/signal": {
+   "type": "service",
+   "title": "Signal",
+   "path": "content/services/signal/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/startpage": {
+   "type": "service",
+   "title": "Startpage",
+   "path": "content/services/startpage/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/threema": {
+   "type": "service",
+   "title": "Threema",
+   "path": "content/services/threema/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/tiktok": {
+   "type": "service",
+   "title": "TikTok",
+   "path": "content/services/tiktok/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/tresorit": {
+   "type": "service",
+   "title": "Tresorit",
+   "path": "content/services/tresorit/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/tuta": {
+   "type": "service",
+   "title": "Tuta",
+   "path": "content/services/tuta/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/vivaldi": {
+   "type": "service",
+   "title": "Vivaldi",
+   "path": "content/services/vivaldi/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/waterfox": {
+   "type": "service",
+   "title": "Waterfox",
+   "path": "content/services/waterfox/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/waze": {
+   "type": "service",
+   "title": "Waze",
+   "path": "content/services/waze/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/whatsapp": {
+   "type": "service",
+   "title": "WhatsApp",
+   "path": "content/services/whatsapp/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/x-(twitter)": {
+   "type": "service",
+   "title": "X (Twitter)",
+   "path": "content/services/x-(twitter)/en.md",
+   "updated": "2026-04-20"
+  },
+  "services/yahoo-search": {
+   "type": "service",
+   "title": "Yahoo Search",
+   "path": "content/services/yahoo-search/en.md",
+   "updated": "2026-04-20"
+  },
+  "categories/artificial-intelligence": {
+   "type": "category",
+   "title": "Artificial Intelligence",
+   "path": "content/categories/artificial-intelligence/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/browsers": {
+   "type": "category",
+   "title": "Web Browsers",
+   "path": "content/categories/browsers/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/email": {
+   "type": "category",
+   "title": "Email Services",
+   "path": "content/categories/email/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/messaging": {
+   "type": "category",
+   "title": "Messaging Apps",
+   "path": "content/categories/messaging/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/navigation": {
+   "type": "category",
+   "title": "Navigation",
+   "path": "content/categories/navigation/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/search-engines": {
+   "type": "category",
+   "title": "Search Engines",
+   "path": "content/categories/search-engines/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/social-media": {
+   "type": "category",
+   "title": "Social Media",
+   "path": "content/categories/social-media/en.md",
+   "updated": "2026-03-30"
+  },
+  "categories/storage": {
+   "type": "category",
+   "title": "Cloud Storage Services",
+   "path": "content/categories/storage/en.md",
+   "updated": "2026-03-30"
+  },
+  "guides/gmail-to-protonmail": {
+   "type": "guide",
+   "title": "Migrating from Gmail to ProtonMail",
+   "path": "content/guides/gmail-to-protonmail/en.md",
+   "updated": "2026-04-27",
+   "published": "2025-03-22"
+  },
+  "guides/google-drive-to-pcloud": {
+   "type": "guide",
+   "title": "Migrating from Google Drive to pCloud",
+   "path": "content/guides/google-drive-to-pcloud/en.md",
+   "updated": "2026-04-20",
+   "published": "2025-04-10"
+  },
+  "guides/whatsapp-to-signal": {
+   "type": "guide",
+   "title": "Migrating from WhatsApp to Signal",
+   "path": "content/guides/whatsapp-to-signal/en.md",
+   "updated": "2026-04-20",
+   "published": "2025-04-08"
+  },
+  "guides/x-to-bluesky": {
+   "type": "guide",
+   "title": "Migrating from X (Twitter) to Bluesky",
+   "path": "content/guides/x-to-bluesky/en.md",
+   "updated": "2026-04-23",
+   "published": "2025-04-15"
+  },
+  "landing-pages/quit-chatgpt": {
+   "type": "landing-page",
+   "title": "Quit ChatGPT: Switch to European AI Alternatives",
+   "path": "content/landing-pages/quit-chatgpt/en.md",
+   "updated": "2026-04-20"
+  },
+  "pages/privacy": {
+   "type": "page",
+   "title": "Privacy",
+   "path": "content/pages/privacy/en.md",
+   "updated": "2026-04-20"
+  },
+  "pages/terms": {
+   "type": "page",
+   "title": "Terms",
+   "path": "content/pages/terms/en.md",
+   "updated": "2026-04-27"
+  }
+ },
+ "edges": [
+  {
+   "from": "services/bing-search",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/bluesky",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/brave",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/chatgpt",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/chrome",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/claude",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/duckduckgo",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/ecosia",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/ecosia-browser",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/element",
+   "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/facebook",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/gmail",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/google-drive",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/google-gemini",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/google-maps",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/google-search",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/here-wego",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/infomaniak-mail",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/instagram",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/magic-earth",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/mailbox.org",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/mastodon",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/microsoft-edge",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/mistral-le-chat",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/nextcloud",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/organic-maps",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/osmand",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/pcloud",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/proton-drive",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/proton-lumo",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/proton-mail",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/qwant",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/session",
+   "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/signal",
+   "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/startpage",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/threema",
+   "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/tiktok",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/tresorit",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/tuta",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/vivaldi",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/waterfox",
+   "to": "categories/browsers",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/waze",
+   "to": "categories/navigation",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/whatsapp",
+   "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/x-(twitter)",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/yahoo-search",
+   "to": "categories/search-engines",
+   "rel": "in-category"
+  }
+ ],
+ "backlinks": {
+  "categories/search-engines": [
+   "services/bing-search",
+   "services/duckduckgo",
+   "services/ecosia",
+   "services/google-search",
+   "services/qwant",
+   "services/startpage",
+   "services/yahoo-search"
+  ],
+  "categories/social-media": [
+   "services/bluesky",
+   "services/facebook",
+   "services/instagram",
+   "services/mastodon",
+   "services/tiktok",
+   "services/x-(twitter)"
+  ],
+  "categories/browsers": [
+   "services/brave",
+   "services/chrome",
+   "services/ecosia-browser",
+   "services/microsoft-edge",
+   "services/vivaldi",
+   "services/waterfox"
+  ],
+  "categories/artificial-intelligence": [
+   "services/chatgpt",
+   "services/claude",
+   "services/google-gemini",
+   "services/mistral-le-chat",
+   "services/proton-lumo"
+  ],
+  "categories/messaging": [
+   "services/element",
+   "services/session",
+   "services/signal",
+   "services/threema",
+   "services/whatsapp"
+  ],
+  "categories/email": [
+   "services/gmail",
+   "services/infomaniak-mail",
+   "services/mailbox.org",
+   "services/proton-mail",
+   "services/tuta"
+  ],
+  "categories/storage": [
+   "services/google-drive",
+   "services/nextcloud",
+   "services/pcloud",
+   "services/proton-drive",
+   "services/tresorit"
+  ],
+  "categories/navigation": [
+   "services/google-maps",
+   "services/here-wego",
+   "services/magic-earth",
+   "services/organic-maps",
+   "services/osmand",
+   "services/waze"
+  ]
+ }
+}

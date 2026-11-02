@@ -25,7 +25,8 @@
         "INDEXNOW_KEY",
         "JINA_READER_API_KEY",
         "INDEXNOW_SUBMIT_SECRET",
-        "SHOW_DRAFTS"
+        "SHOW_DRAFTS",
+        "KNOWLEDGE_TODAY"
       ]
     },
     "dev": {

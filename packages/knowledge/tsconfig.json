@@ -1,0 +1,9 @@
+{
+  "extends": "@switch-to-eu/typescript-config/base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  },
+  "include": ["src", "__tests__"]
+}
