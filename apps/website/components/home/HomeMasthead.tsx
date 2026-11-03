@@ -72,7 +72,7 @@ export async function HomeMasthead({
                   </span>
                 )}
               </p>
-              <h1 className="font-heading text-brand-yellow text-4xl sm:text-5xl lg:text-6xl leading-[1.02] text-balance">
+              <h1 className="font-heading text-brand-yellow text-3xl sm:text-4xl leading-[1.05] text-balance">
                 {t("heroTaglineLine1")} {t("heroTaglineLine2")}{" "}
                 {t("heroTaglineLine3")}
               </h1>

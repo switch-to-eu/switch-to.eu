@@ -21,7 +21,7 @@ export async function HowWeWork() {
             <div className="lg:col-span-4">
               <h2
                 id="how-we-work-title"
-                className="font-heading text-brand-yellow text-3xl sm:text-4xl md:text-5xl leading-none mb-6"
+                className="font-heading text-brand-yellow text-3xl sm:text-4xl leading-none mb-6"
               >
                 {t("title")}
               </h2>
