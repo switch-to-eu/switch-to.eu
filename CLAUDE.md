@@ -198,6 +198,7 @@ Services and Guides have a `contentPipelineStatus` frontmatter field tracking pr
 | `bulk-translate` | `/bulk-translate` | Parallel translation via subagents |
 | `pipeline` | `/pipeline` | Combined write→humanize→seo-check (sequential per item, parallel across items) |
 | `content-link-edit` | `/content-link-edit` | Swap a URL across all content files (both locales) |
+| `claims-audit` | `/claims-audit` | Re-check each claim on published listings and guides against the vendors' current pages (current / changed / unverifiable / overclaimed) → `docs/claims-audits/`. `--fix` rewrites them |
 
 **`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in `docs/seo/audits/<collection>-<slug>.md`).
 
@@ -229,6 +230,7 @@ Research memory is a markdown knowledge graph in `knowledge/` (schema and rules:
 
 - Write like a knowledgeable friend, not a marketing team
 - Back every claim with specifics (numbers, features, prices)
+- Evidence rules (`.claude/skills/_shared/evidence.md`): "not listed" is not "doesn't have", date what changes (`sourceUrls[].checkedAt`), no guessed motives, attribute company-only practices and Reddit views
 - Always acknowledge trade-offs ("Worth knowing:" section is mandatory)
 - No em dashes, no semicolons, no banned words (see skill for full list)
 - Active voice, short sentences, varied paragraph length

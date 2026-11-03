@@ -63,6 +63,8 @@ Fix those remaining issues. Common second-pass catches:
 - Every sentence follows subject-verb-object (vary with an occasional "The hard part:" or "In practice:")
 - No personality (add one slightly opinionated observation with "Worth knowing:" or "The catch:")
 
+Both passes follow the **Evidence guard** in `_shared/humanize-patterns.md`: change the style, never the facts. Keep "not listed" hedges, attributions, numbers and dates. The opinionated observation rests on a fact already in the text or the research fields.
+
 ### Step 4: Save back to the file
 
 Edit the `en.md` with targeted Edit calls. Only update the text fields that changed. For guides, keep every section and step marker exactly as it was. Only change the text that needs it. Keep frontmatter group comments, key order and quoting rules from `_shared/content-files.md`. Bump `updatedAt` and run the validation snippet. Don't add or remove `draft`.

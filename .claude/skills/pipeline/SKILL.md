@@ -80,7 +80,7 @@ Launch one subagent per item. Each agent runs the three steps **sequentially** w
 ```
 You are running the full content pipeline for service "{SERVICE_NAME}" (slug: {SLUG}) on switch-to.eu.
 
-Read .claude/skills/_shared/content-files.md, .claude/skills/_shared/voice.md,
+Read .claude/skills/_shared/content-files.md, .claude/skills/_shared/voice.md, .claude/skills/_shared/evidence.md,
 .claude/skills/_shared/humanize-patterns.md and .claude/skills/_shared/seo-checklist.md first.
 Edit only content/services/{SLUG}/en.md with targeted Edit calls. Keep group comments, key order and quoting rules
    from .claude/skills/_shared/content-files.md. Run its validation snippet after every save. Don't touch nl.md or git.
@@ -131,7 +131,8 @@ Run these three steps IN ORDER. Each step must complete before the next starts.
    Meta Title, Meta Description, Keywords, Heading Structure, Content Length,
    Internal Context, Open Graph, Image, Readability, Freshness
 
-3. Calculate score (max 100).
+3. Calculate score (max 100). For services and guides, also run the evidence check from
+   `_shared/seo-checklist.md` and add its flags under `EVIDENCE:` in seoNotes (not scored).
 
 4. Save in the file: seoScore, seoNotes (|- block scalar), lastSeoReviewAt ('YYYY-MM-DD') in `# Workflow`.
    Auto-populate empty metaTitle/metaDescription in `# SEO`.

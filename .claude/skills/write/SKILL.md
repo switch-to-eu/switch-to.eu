@@ -53,6 +53,15 @@ Always acknowledge trade-offs. The "Worth knowing" section is not optional.
 Use neutral framing for comparisons:
 - Instead of "Gmail spies on your data," write "Gmail scans your emails to show you targeted ads."
 
+### Evidence rules
+
+Every fact on the page comes from the research fields or `sourceUrls` of the service file. Follow `.claude/skills/_shared/evidence.md`. The ones writers break most:
+- Write "no X" only when research confirms the absence. "Not listed on their pricing page" is not proof. Leave it out instead.
+- Don't add facts from memory. If research doesn't have it, it doesn't go on the page.
+- No motives. "Custom domains moved to the paid plan", not "They want to push free users to pay."
+- Attribute practices only the company can see: "Its privacy policy says it doesn't log your IP address."
+- Reddit is opinion: "Some users report...", not a fact about the product.
+
 ---
 
 ## Page Structure Awareness
@@ -131,10 +140,10 @@ pricingTiers:
 
 **`gdprNotes`** (localized text): Rewrite the research `gdprNotes` into 2-4 consumer-friendly sentences. This shows on the Security tab. Don't copy the research text verbatim. Translate technical/legal language into plain outcomes.
 - Bad: "Fully GDPR compliant. Provides a Data Processing Agreement (DPA) for business customers as required by GDPR. EU representative is X sàrl in Luxembourg."
-- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. The company doesn't log your IP address by default, so it holds very little data about you. Your email content, subject lines, contacts, and calendar are all encrypted so nobody can read them."
+- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. Its privacy policy says it doesn't log your IP address by default, so it holds very little data about you. Your email content, subject lines, contacts, and calendar are all encrypted so nobody can read them."
 
 **For non-EU services also write:**
-- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."
+- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data." Each issue needs a source in `sourceUrls`, `recentNews` or a knowledge claim. No motives.
 
 ### Step 3: Save
 
@@ -193,7 +202,7 @@ Step writing rules:
 
 **`outro`** section (markdown): What to do after switching. 50-100 words.
 
-**`missingFeatures`** array: Features the source has that the target doesn't. Be honest.
+**`missingFeatures`** array: Features the source has that the target doesn't. Be honest. List a feature only when the target's docs or research confirm it's missing. If it's only absent from a pricing page, put "check that X works for you" in `beforeYouStart` instead.
 
 ### Step 4: Save
 
@@ -214,5 +223,6 @@ Don't touch `nl.md`. `/translate` updates it.
 4. Are features 2-4 word tags, not sentences?
 5. Did you populate `pricingTiers` with structured data?
 6. Does the content include pricing or security details that belong on their own tabs? Remove them.
+7. Did you run the self-check in `_shared/evidence.md`? Every "no X", price, issue and company practice traces to research.
 
 Note: detailed AI pattern detection (banned words, em dashes, parallel openings) happens in `/humanize`, which runs after `/write`.

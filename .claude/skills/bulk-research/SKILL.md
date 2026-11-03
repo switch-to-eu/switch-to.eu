@@ -74,7 +74,7 @@ You are researching the service "{SERVICE_NAME}" (slug: {SLUG}) for switch-to.eu
 
 Use the /research skill to research this service. Here is the full process:
 
-Read .claude/skills/research/SKILL.md, .claude/skills/_shared/content-files.md and .claude/skills/_shared/jina.md first.
+Read .claude/skills/research/SKILL.md, .claude/skills/_shared/content-files.md, .claude/skills/_shared/evidence.md and .claude/skills/_shared/jina.md first.
 
 1. Open the service file: content/services/{SLUG}/en.md. Read it in full.
    Set researchStatus: in-progress and lastResearchedAt: '<today>' so parallel runs don't collide.

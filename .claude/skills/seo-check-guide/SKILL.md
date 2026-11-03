@@ -37,7 +37,11 @@ Apply the checklist from `_shared/seo-checklist.md` with the thresholds defined 
 
 No subpage audit for guides.
 
-### Step 3: Save
+### Step 3: Evidence check (not scored)
+
+Run the evidence check from `_shared/seo-checklist.md` against the research fields of both `sourceService` and `targetService`. Its flags go in `seoNotes` under `EVIDENCE:` and don't change the score.
+
+### Step 4: Save
 
 Edit `content/guides/GUIDE_SLUG/en.md` (see `_shared/content-files.md`):
 - `seoScore`, `seoNotes` (`|-` block scalar), `lastSeoReviewAt` (quoted date) in the `# Workflow` group
@@ -45,6 +49,6 @@ Edit `content/guides/GUIDE_SLUG/en.md` (see `_shared/content-files.md`):
 
 Don't add or remove `draft`. Run the validation snippet.
 
-### Step 4: Report
+### Step 5: Report
 
-Show the user: score and rating, table of all 10 checks, top 3 priority fixes.
+Show the user: score and rating, table of all 10 checks, evidence flags, top 3 priority fixes.

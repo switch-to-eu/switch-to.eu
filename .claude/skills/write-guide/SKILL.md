@@ -8,7 +8,7 @@ argument-hint: "'<source> to <target>'"
 
 Write a migration guide for switch-to.eu using the research data in `content/services/<slug>/en.md`. The guide lives in `content/guides/<slug>/en.md`.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, guide section/step markers, frontmatter editing rules and draft handling.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, guide section/step markers, frontmatter editing rules and draft handling, `.claude/skills/_shared/evidence.md` for what counts as proof.
 
 ## Process
 
@@ -54,7 +54,9 @@ Step writing rules:
 
 **`outro`** section (markdown): What to do after switching. 50-100 words.
 
-**`missingFeatures`** array: Features the source has that the target doesn't. Be honest.
+**`missingFeatures`** array: Features the source has that the target doesn't. Be honest. List a feature only when the target's docs or research confirm it's missing. If it's only absent from a pricing page, put "check that X works for you" in `beforeYouStart` instead.
+
+Import limits, menu paths and export formats change. Take them from the vendors' current help pages, not from memory, and add each page to the target service's `sourceUrls` with `checkedAt`.
 
 ### Step 4: Save
 
@@ -73,5 +75,5 @@ Don't touch `nl.md`. `/translate` updates it.
 1. Would your non-technical friend understand every step?
 2. Does every step start with an action verb?
 3. Did you include specific UI paths (Settings > Import/Export)?
-4. Did you list missing features honestly?
+4. Did you list missing features honestly, and does research confirm each one (`_shared/evidence.md`)?
 5. Is the time estimate realistic?

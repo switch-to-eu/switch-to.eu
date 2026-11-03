@@ -57,7 +57,11 @@ Apply the checklist from `_shared/seo-checklist.md` with the thresholds defined 
 
 Include subpage issues in `seoNotes` under a "Subpages" section. These don't affect the main score.
 
-### Step 4: Save
+### Step 4: Evidence check (not scored)
+
+Run the evidence check from `_shared/seo-checklist.md`. Its flags go in `seoNotes` under `EVIDENCE:` and don't change the score.
+
+### Step 5: Save
 
 Edit the item's `en.md` (see `_shared/content-files.md` for groups, quoting and validation):
 - `seoScore`: the number (0-100), `# Workflow` group
@@ -67,6 +71,6 @@ Edit the item's `en.md` (see `_shared/content-files.md` for groups, quoting and 
 
 Don't add or remove `draft`. Run the validation snippet.
 
-### Step 5: Report
+### Step 6: Report
 
-Show the user: score and rating, table of all 10 checks, subpage audit results, top 3 priority fixes.
+Show the user: score and rating, table of all 10 checks, subpage audit results, evidence flags, top 3 priority fixes.

@@ -8,7 +8,7 @@ argument-hint: "'<category slug>'"
 
 Write a category page description for switch-to.eu.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling, `.claude/skills/_shared/evidence.md` for what counts as proof.
 
 ## Process
 
@@ -51,5 +51,5 @@ Existing categories have no `draft` key. Don't add one. A brand-new category fil
 
 1. Is the description under 150 characters?
 2. Is the content 2-3 sentences, not more?
-3. Does it mention a concrete fact, not a vague claim?
+3. Does it mention a concrete fact, not a vague claim? Does that fact come from the research fields of the services in the category?
 4. Does it avoid repeating what the services themselves say? (No specific service names.)

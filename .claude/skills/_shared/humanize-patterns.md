@@ -52,6 +52,14 @@ Fix those remaining issues. Common second-pass catches:
 - Every sentence follows subject-verb-object (vary with an occasional "The hard part:" or "In practice:")
 - No personality (add one slightly opinionated observation with "Worth knowing:" or "The catch:")
 
+## Evidence guard
+
+Humanizing changes the style, never the facts. Rules from `_shared/evidence.md`:
+- Keep hedges that carry evidence. "Not listed on their pricing page" must not become "doesn't have". "Some Reddit users report" must not become "users say" or a plain fact.
+- Keep attributions: "Tuta's privacy policy says", "Proton says".
+- Keep every number, price, date and "as of".
+- The opinionated observation from Pass 2 must rest on a fact that is already in the text or in the research fields. Don't add a new fact, a motive or a trend.
+
 ## Verification Checklist
 
 After humanizing, the content should pass these checks:

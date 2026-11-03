@@ -83,7 +83,8 @@ At current volume the free tier lasts ~30 months.
 
 `--fail-with-body` makes curl exit non-zero on HTTP errors and still print the body.
 
-- `JINA_API_KEY` empty → see Auth above. Don't call without a key.
+- `JINA_API_KEY` empty → see Auth above. Search needs the key: don't call it without one. Reader also works without the key at a low rate limit: drop the `Authorization` header and wait about 3 seconds between calls. Use that only when the key isn't available.
+- Pages render from Jina's location, so prices can come back in USD and `?currency=EUR` is often ignored. Find the EUR price on the vendor's help or plan pages. Never convert a currency yourself.
 - `401 Unauthorized` → bad or expired key. Check the root `.env`.
 - `429 Too Many Requests` → back off 60s, retry once. If it still fails, skip and note it in the output.
 - Empty `data[]` from Search → treat as a valid "no results" signal. Unusual for well-formed queries.

@@ -136,11 +136,16 @@ For services, also check that subpage metadata will be effective. The subpage me
 
 Include subpage issues in `seoNotes` under a "Subpages" section. These don't affect the main score but should be flagged as recommendations.
 
-### Step 7: Report
+### Step 7: Evidence check (services and guides, not scored)
+
+Run the evidence check from `_shared/seo-checklist.md`. Its flags go in `seoNotes` under `EVIDENCE:` and don't change the score.
+
+### Step 8: Report
 
 Show the user:
 - Score and rating
 - Table of all 10 checks with status
 - Subpage audit results (if applicable)
+- Evidence flags (if any)
 - Top 3 priority fixes
 - Any fields that were auto-populated

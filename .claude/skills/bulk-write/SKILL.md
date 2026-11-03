@@ -60,7 +60,7 @@ You are writing content for the service "{SERVICE_NAME}" (slug: {SLUG}) on switc
 
 Use the /write skill for service content. Here is the process:
 
-Read .claude/skills/write-service/SKILL.md, .claude/skills/_shared/voice.md and .claude/skills/_shared/content-files.md first.
+Read .claude/skills/write-service/SKILL.md, .claude/skills/_shared/voice.md, .claude/skills/_shared/evidence.md and .claude/skills/_shared/content-files.md first.
 
 1. Read content/services/{SLUG}/en.md in full (frontmatter with research fields + body).
 
@@ -92,7 +92,7 @@ You are writing a migration guide for switching from "{SOURCE}" to "{TARGET}" on
 
 Use the /write skill for guide content. Process:
 
-Read .claude/skills/write-guide/SKILL.md, .claude/skills/_shared/voice.md and .claude/skills/_shared/content-files.md first.
+Read .claude/skills/write-guide/SKILL.md, .claude/skills/_shared/voice.md, .claude/skills/_shared/evidence.md and .claude/skills/_shared/content-files.md first.
 
 1. Read both service files (content/services/{SOURCE_SLUG}/en.md, content/services/{TARGET_SLUG}/en.md)
    and the guide file content/guides/{GUIDE_SLUG}/en.md if it exists.

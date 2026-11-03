@@ -112,6 +112,7 @@ pricingTiers:
 sourceUrls:
 - url: https://proton.me/pricing
   label: Proton Pricing page
+  checkedAt: '2026-11-03'   # optional: date we last read the page (see _shared/evidence.md)
 faqs:
 - question: Can I keep my Gmail address?
   answer: |-

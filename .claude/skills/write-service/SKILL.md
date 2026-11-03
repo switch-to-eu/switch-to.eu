@@ -8,7 +8,7 @@ argument-hint: "'<service name>'"
 
 Write a service listing for switch-to.eu using the research data in `content/services/<slug>/en.md`.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling, `.claude/skills/_shared/evidence.md` for what counts as proof.
 
 ## Page Structure Awareness
 
@@ -76,10 +76,12 @@ pricingTiers:
 
 **`gdprNotes`** (localized text): Rewrite research `gdprNotes` into 2-4 consumer-friendly sentences.
 - Bad: "Fully GDPR compliant. Provides a Data Processing Agreement (DPA) for business customers."
-- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. The company doesn't log your IP address by default, so it holds very little data about you."
+- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. Its privacy policy says it doesn't log your IP address by default, so it holds very little data about you."
 
 **For non-EU services also write:**
-- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."
+- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data." Each issue needs a source in `sourceUrls`, `recentNews` or a knowledge claim. No motives.
+
+**Every fact comes from research.** Don't add facts from memory. Write "no X" only when research confirms the absence, not when a pricing page leaves X out. See `_shared/evidence.md`.
 
 ### Step 3: Save
 
@@ -104,3 +106,4 @@ Don't touch `nl.md`. `/translate` updates it.
 4. Are features 2-4 word tags, not sentences?
 5. Did you populate `pricingTiers` with structured data?
 6. Does the content include pricing or security details that belong on their own tabs? Remove them.
+7. Did you run the self-check in `_shared/evidence.md`? Every "no X", price, issue and company practice traces to research.

@@ -12,6 +12,7 @@ Read these helpers first:
 - `../_shared/jina.md` — Reader + Search
 - `../_shared/reddit.md` — sentiment gathering
 - `../_shared/content-files.md` — file layout, field shapes, frontmatter editing rules, validation
+- `../_shared/evidence.md` — what counts as proof, where dates go, how to word absences and company claims
 - `../_shared/voice.md` — tone rules for any consumer-facing copy we generate
 
 ## Inputs
@@ -97,21 +98,29 @@ Same mapping as the previous version of this skill. Key fields:
 | Data storage locations | `dataStorageLocations[]` |
 | Certifications | `certifications[]` |
 | Open source | `openSource`, `sourceCodeUrl` |
-| All source URLs | `sourceUrls[]` |
+| All source URLs | `sourceUrls[]`, each page read in this run with `checkedAt: '<today>'` |
 
 Also update `# Listing` fields if empty or clearly outdated: `location`, `url`, `freeOption`, `startingPrice`.
+
+Apply `_shared/evidence.md` to every value:
+- A feature that the pricing or feature page doesn't mention is "not listed", not missing. Record it as "not listed on the <page> (as of <Month YYYY>)" or leave it out.
+- Prices in `pricingDetails` end with "(as of <Month YYYY>)". Record the billing period with each price.
+- Practices only the company can see (logging, staff access, deletion) go in as the company's statement: "Privacy policy says ...".
+- Reddit and reviews feed `userSentiment`, `redditMentions` and incidents. Never use them as the source for a price, a limit or a feature.
 
 ### Step 6: Generate the `researchNotes` markdown narrative
 
 Write markdown synthesizing all gathered data, stored as a `|-` block scalar (see `_shared/content-files.md`). Section order (`##` headings):
 
 1. **Company** — founded, HQ, parent, size, open-source status.
-2. **Pricing** — free tier, paid tiers, enterprise.
+2. **Pricing** — free tier, paid tiers, enterprise. Each price "as of <Month YYYY>", with its billing period.
 3. **Privacy & GDPR** — compliance posture, data locations, notable concerns.
 4. **Security** — certifications, audits, known incidents with dates.
 5. **User sentiment** — derived from `userSentiment.summary` + one concrete quote from `redditMentions[]`.
 6. **Recent news** — up to 3 most recent items from `recentNews[]` as a bulleted list.
 7. **Sources** — cite each URL used.
+
+In each section, state what the sources say first. Put our reading after it, marked as ours ("In practice", "For most users"). Don't mix the two in one sentence.
 
 ### Step 7: Merge semantics — don't clobber good data
 
@@ -119,6 +128,7 @@ Before editing the file:
 
 - **Scalar fields** (`headquarters`, `foundedYear`, `gdprCompliance`, etc.): write only if the new value is non-empty.
 - **Pre-existing array fields** (`certifications`, `dataStorageLocations`): replace wholesale only if the new array is non-empty.
+- **`sourceUrls`**: merge by URL. Set `checkedAt: '<today>'` on every URL read in this run, and add new URLs. Keep the other entries with their old `checkedAt`, unless the page is gone (then delete the entry).
 - **New structured fields** (`userSentiment`, `redditMentions`, `recentNews`): always replace with fresh data — they're time-sensitive. If the fresh `redditMentions` / `recentNews` list is empty, delete the key rather than keeping stale entries.
 - **`researchNotes`**: always regenerate.
 
@@ -192,6 +202,6 @@ Per service: $0 out-of-pocket, 2–3 min. Backfilling 50 services at 5-parallel:
 ## Important notes
 
 - EN-only for `userSentiment.summary` and `recentNews[].summary` in this phase. The existing `translate` skill picks them up on a later run.
-- Cite sources: every non-obvious claim in `researchNotes` must reference a `sourceUrls[]` entry.
+- Cite sources: every non-obvious claim in `researchNotes` must reference a `sourceUrls[]` entry. Run the self-check in `_shared/evidence.md` before Step 8.
 - Respect Reddit's Responsible Builder Policy (see `_shared/reddit.md`): always credit source URL when rendering a Reddit quote on the public site.
 - Follow `_shared/voice.md` for any consumer-facing prose. Summaries should be direct, honest, specific — no marketing fluff, no em dashes, no banned words.
