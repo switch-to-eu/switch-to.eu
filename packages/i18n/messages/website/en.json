@@ -794,15 +794,15 @@
     "exploreAlternatives": "Explore alternatives"
   },
   "newsletter": {
-    "title": "Subscribe to our newsletter",
-    "description": "Stay up to date with our latest guides and service alternatives",
-    "firstNameLabel": "First name",
+    "title": "New guides and EU tech news in your inbox",
+    "description": "The latest switching guides, new EU alternatives and the news behind them.",
     "emailLabel": "Email address",
     "submitLabel": "Subscribe",
     "successMessage": "Thank you for subscribing! You will receive our next update in your inbox.",
     "errorMessage": "We couldn't subscribe you just now. Check your email address and try again, or come back in a few minutes.",
-    "firstNamePlaceholder": "Your first name",
-    "emailPlaceholder": "you@example.com"
+    "emailPlaceholder": "you@example.com",
+    "submitting": "Subscribing…",
+    "alreadySubscribed": "This address is already on our list. Nothing more to do."
   },
   "notFound": {
     "title": "Page not found | switch-to.eu",

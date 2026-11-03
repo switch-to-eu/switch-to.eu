@@ -85,7 +85,7 @@ draft, contentPipelineStatus, updatedAt, seoScore, seoNotes, lastSeoReviewAt
 ```text
 ---
 title, description, icon (categories), category / recommendedServices / relatedService (landing pages)
-picks, compare (categories in buyer's-guide form)
+headline, picks, compare (categories in buyer's-guide form)
 # SEO
 metaTitle, metaDescription, keywords, ogTitle, ogDescription
 # Workflow
@@ -145,7 +145,7 @@ researchNotes: |-
 
 ### Buyer's-guide categories
 
-A category with `picks` or `compare` renders as a buyer's guide (brief: `docs/design/2026-11-03-category-buyers-guide.md`): header, our picks, a comparison table, "How to choose" (the body), switching guides, all services. Without them the page keeps the plain layout. The editorial parts live in the category. Every fact lives in the listings, so a price fix updates the category page too.
+A category with `picks` or `compare` renders as a buyer's guide (brief: `docs/design/2026-11-03-category-buyers-guide.md`): a green header with the `headline` (h1, falls back to `title`) and the first pick as a quick "Try <service>" click-through, then our picks, a comparison table, "How to choose" (the body), switching guides, all services. Without them the page keeps the plain layout. The editorial parts live in the category. Every fact lives in the listings, so a price fix updates the category page too.
 
 ```yaml
 # content/categories/storage/en.md
@@ -209,7 +209,7 @@ Only these fields may appear in `nl.md`. Everything else lives only in `en.md`.
 |---|---|
 | Services | name, startingPrice, description, features, specs, angle, issues, oneLineProblem, whatYoudGain, whatYoudLose, faqs, gdprNotes, userSentiment, recentNews, pricingTiers, metaTitle, metaDescription, keywords, ogTitle, ogDescription + body |
 | Guides | title, description, missingFeatures, SEO fields + body |
-| Categories, pages, landing pages | title, description, picks, compare (categories), SEO fields + body |
+| Categories, pages, landing pages | title, description, headline, picks, compare (categories), SEO fields + body |
 
 Rules:
 - `nl.md` holds only the localized fields whose Dutch value **differs** from English. A missing key falls back to `en.md`. If the Dutch value would be identical (a brand name, a price in the same format), leave the key out.

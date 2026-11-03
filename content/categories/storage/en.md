@@ -1,6 +1,7 @@
 ---
 title: Cloud Storage Services
 shortTitle: cloud storage
+headline: European cloud storage compared
 description: Keep your files safe and accessible, with encryption and hosting that stays in Europe.
 icon: folder
 picks:

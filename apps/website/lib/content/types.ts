@@ -50,6 +50,8 @@ export interface Category extends BaseDoc {
   icon?: string | null;
   /** Markdown. On a buyer's-guide category this is the "How to choose" text. */
   content?: string | null;
+  /** The h1 of a buyer's-guide category page. Falls back to `title`, which menus keep using. */
+  headline?: string | null;
   /** Editorial picks, one per need. Present only on buyer's-guide categories. */
   picks?: CategoryPick[];
   /** Category-specific comparison columns, read from each service's `specs`. */

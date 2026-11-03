@@ -276,6 +276,7 @@ Calm, solid and round. Buttons do not change size or colour loudly.
 ### Inputs / Fields
 - **Search:** a white pill with a faint forest-green border, forest-green text, and a round green submit button inside it. On focus, the border turns solid green and a soft green ring (20%) appears.
 - **Form fields:** white pills 48px high with 20px side padding and ink text. On focus the border turns forest green.
+- **Newsletter:** on the sage panel, a specific heading and one line of what readers get on the left, and on the right one white pill with the email field and the green button inside it, like the search. No other fields, no shapes. Success replaces the form with a white message in place.
 - **Error:** a red message in a pale red pill (red at 10%).
 
 ### Navigation
@@ -289,6 +290,9 @@ The homepage starts with this panel. It is forest green with a marigold Bonbance
 
 ### Content Table
 Tables in markdown content and the category comparison are white panels with a 16px radius and a hairline border. The column headers are Bonbance in forest green above a 2px green rule, and hairlines separate the rows. Row headers are semibold Hanken labels. On narrow screens the table scrolls sideways and the first column stays in place.
+
+### Category Header
+A buyer's-guide category opens with a forest-green anchor panel: the headline in marigold, one line of intro in white, and the top pick as a white card on the right (label pill, name, region badge, head office, two facts, a "Try …" pill and a link to the full review). The affiliate disclosure shows under the button only when the link is an affiliate link. Our picks follow directly below.
 
 ### Pick Card
 On a buyer's-guide category page, each editorial pick is a card: the colour strip, the need as a soft green pill ("Best overall"), the service name as a title, the region badge and head office, the reason, two facts from the listing, a "Worth knowing:" line above a hairline, and one green pill action. Picks never carry scores, stars or rankings.

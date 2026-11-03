@@ -1,6 +1,7 @@
 ---
 title: Cloudopslagdiensten
 shortTitle: cloudopslag
+headline: Europese cloudopslag vergeleken
 description: Bewaar je bestanden veilig en toegankelijk, met encryptie en hosting die in Europa blijft.
 picks:
 - label: Beste totaalkeuze

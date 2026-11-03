@@ -1,4 +1,5 @@
 import { getAllCategories, getAllGuides } from "@/lib/content/loader";
+import { CategoryHeader } from "@/components/category/CategoryHeader";
 import { CategoryPicks } from "@/components/category/CategoryPicks";
 import { CategoryComparison } from "@/components/category/CategoryComparison";
 import { CategoryGuides } from "@/components/category/CategoryGuides";
@@ -123,18 +124,12 @@ export default async function ServicesCategoryPage({
 
     return (
       <PageLayout>
-        <Container noPaddingMobile>
-          <Banner color="bg-white border-y md:border border-black/10">
-            <div className="max-w-3xl">
-              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green text-balance mb-4">
-                {pageTitle}
-              </h1>
-              <p className="text-[#1a1a1a] text-base sm:text-lg">
-                {pageDescription}
-              </p>
-            </div>
-          </Banner>
-        </Container>
+        <CategoryHeader
+          headline={categoryData.headline || pageTitle}
+          description={pageDescription}
+          topPick={picks[0] ?? null}
+          compare={compare}
+        />
 
         {picks.length > 0 && <CategoryPicks picks={picks} compare={compare} />}
 
