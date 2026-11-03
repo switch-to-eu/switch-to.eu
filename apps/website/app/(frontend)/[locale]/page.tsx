@@ -111,11 +111,11 @@ export default async function Home() {
         latestDate={articles.find((a) => !a.sample)?.date ?? null}
       />
 
+      <FrontPage articles={articles} locale={locale} title={t("latestNews")} />
+
       <FeaturedGuideHero featured={featured} others={others} />
 
       <FeaturedPicksSection picks={picks} />
-
-      <FrontPage articles={articles} locale={locale} title={t("latestNews")} />
 
       <HowWeWork />
 

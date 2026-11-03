@@ -79,14 +79,9 @@ export default async function LandingPage({
         <Container noPaddingMobile>
           <Banner
             color="bg-white border-y md:border border-black/10"
-            shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
-              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.3, duration: "8s", delay: "-2s", color: "text-brand-sky" },
-              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.3, duration: "7s", delay: "-4s", color: "text-brand-pink" },
-            ]}
           >
             <div className="max-w-3xl">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-green mb-4">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-brand-green mb-4">
                 {page.title}
               </h1>
               <p className="text-[#1a1a1a] text-base sm:text-lg mb-6">
@@ -110,14 +105,14 @@ export default async function LandingPage({
         <Container>
           <div
             className="mdx-content prose prose-lg max-w-3xl mx-auto
-              prose-headings:font-heading prose-headings:uppercase prose-headings:text-brand-navy
-              prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-6
-              prose-p:text-gray-700 prose-p:leading-relaxed
-              prose-li:text-gray-700
-              prose-strong:text-brand-navy
-              prose-a:text-brand-green prose-a:no-underline hover:prose-a:underline
-              prose-table:w-full prose-th:text-left prose-th:text-brand-navy prose-th:text-sm
-              prose-td:text-sm prose-td:py-2"
+ prose-headings:font-heading prose-headings:text-brand-navy
+ prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-6
+ prose-p:text-gray-700 prose-p:leading-relaxed
+ prose-li:text-gray-700
+ prose-strong:text-brand-navy
+ prose-a:text-brand-green prose-a:no-underline hover:prose-a:underline
+ prose-table:w-full prose-th:text-left prose-th:text-brand-navy prose-th:text-sm
+ prose-td:text-sm prose-td:py-2"
           >
             {page.content && <RichText data={page.content} />}
           </div>

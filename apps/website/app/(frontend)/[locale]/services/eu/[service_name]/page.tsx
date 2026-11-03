@@ -226,23 +226,6 @@ export default async function ServiceDetailPage({
           {...(!screenshotUrl && {
             className: "[&>div]:py-8 [&>div]:sm:py-10",
           })}
-          shapes={[
-            {
-              shape: "spark",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
-            {
-              shape: "blob",
-              className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.3,
-              duration: "9s",
-              delay: "-3s", color: "text-brand-sky" },
-            {
-              shape: "diamond-4",
-              className: "top-1/3 -left-4 hidden md:block w-16 h-16",
-              opacity: 0.3,
-              duration: "7s",
-              delay: "-5s", color: "text-brand-pink" },
-          ]}
         >
           <div
             className={`grid gap-8 items-center ${
@@ -253,7 +236,7 @@ export default async function ServiceDetailPage({
           >
             <div>
               <div className="flex items-start gap-3 mb-3">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green">
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green">
                   {service.name}
                 </h1>
                 <div className="flex-shrink-0 mt-2">
@@ -415,7 +398,7 @@ export default async function ServiceDetailPage({
             <TabsContent value="pricing" className="space-y-5 sm:space-y-7">
               <Container>
                 <div className="max-w-3xl">
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                  <h2 className="font-heading text-3xl text-brand-green mb-3">
                     {service.name} {t("pricing.title")}
                   </h2>
                   <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -436,7 +419,7 @@ export default async function ServiceDetailPage({
                         key={tier.name || index}
                         className="rounded-2xl p-5 sm:p-6 border border-brand-navy/10 bg-white shadow-sm"
                       >
-                        <h3 className="font-heading text-lg uppercase mb-1 text-brand-green">
+                        <h3 className="font-heading text-lg mb-1 text-brand-green">
                           {tier.name}
                         </h3>
                         <div className="text-3xl font-bold text-brand-navy">
@@ -472,7 +455,7 @@ export default async function ServiceDetailPage({
             <TabsContent value="security" className="space-y-5 sm:space-y-7">
               <Container>
                 <div className="max-w-3xl">
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                  <h2 className="font-heading text-3xl text-brand-green mb-3">
                     {service.name} {t("security.title")}
                   </h2>
                   <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -617,7 +600,7 @@ export default async function ServiceDetailPage({
               >
                 <Container>
                   <div className="max-w-4xl">
-                    <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                    <h2 className="font-heading text-3xl text-brand-green mb-3">
                       {service.name} vs {nonEuService.name}
                     </h2>
                     <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -727,7 +710,7 @@ export default async function ServiceDetailPage({
 
                     {nonEuService.issues && nonEuService.issues.length > 0 && (
                       <div>
-                        <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                        <h3 className="font-heading text-lg text-brand-green mb-3">
                           {t("compare.knownConcerns", {
                             service: nonEuService.name,
                           })}
@@ -751,7 +734,7 @@ export default async function ServiceDetailPage({
                     {guide.missingFeatures &&
                       guide.missingFeatures.length > 0 && (
                         <div className="rounded-2xl bg-brand-yellow/5 p-5 sm:p-6 border border-brand-yellow/20">
-                          <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                          <h3 className="font-heading text-lg text-brand-green mb-3">
                             {t("compare.worthKnowing")}
                           </h3>
                           <p className="text-sm text-foreground/70 mb-3">

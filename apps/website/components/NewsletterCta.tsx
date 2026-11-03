@@ -92,19 +92,11 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
       <Wrapper>
         <Banner
           color="bg-white border-y md:border border-black/10"
-          shapes={[
-            { shape: "sunburst", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
-            { shape: "blob", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s", opacity: 0.35, color: "text-brand-sky" },
-            { shape: "spark", className: "top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 -translate-y-1/2", opacity: 0.15, delay: "-5s", color: "text-brand-pink" },
-          ]}
           contentClassName="max-w-2xl mx-auto text-center"
         >
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-8 sm:mb-10">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green mb-6 sm:mb-8">
             {t("title")}
           </h2>
-          <p className="text-[#1a1a1a] text-base sm:text-lg mb-8 sm:mb-10">
-            {t("description")}
-          </p>
 
           {!isSuccess ? (
             <Form {...form}>
@@ -169,7 +161,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
               </form>
             </Form>
           ) : (
-            <div className="bg-brand-sage/40 p-6 rounded-3xl">
+            <div className="bg-white border border-black/10 p-6 rounded-3xl">
               <p className="text-brand-green text-lg font-medium">
                 {t("successMessage")}
               </p>

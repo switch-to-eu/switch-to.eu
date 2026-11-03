@@ -3,22 +3,11 @@ import { getTranslations } from "next-intl/server";
 import { MapPin } from "lucide-react";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
-import { shapes } from "@switch-to-eu/blocks/shapes";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@/lib/quiet-palette";
 
 import type { HomepagePick } from "@/app/(frontend)/[locale]/page";
 
-const PICK_SHAPES = [
-  "spark",
-  "cloud",
-  "tulip",
-  "pebble",
-  "heart",
-  "sunburst",
-  "flower",
-  "starburst",
-];
 
 interface Props {
   picks: HomepagePick[];
@@ -32,12 +21,9 @@ export async function FeaturedPicksSection({ picks }: Props) {
   return (
     <section id="picks">
       <Container noPaddingMobile>
-        <SectionHeading className="mb-2 sm:mb-3">
+        <SectionHeading>
           {t("picksSectionTitle")}
         </SectionHeading>
-        <p className="text-brand-green/75 text-base sm:text-lg max-w-xl mb-6 sm:mb-8 px-3 md:px-0">
-          {t("picksSectionSubtitle")}
-        </p>
 
         <div className="grid gap-0 md:gap-5 sm:auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {picks.map((entry, index) => (
@@ -77,8 +63,6 @@ function PickCard({
 }: PickCardProps) {
   const { category, pick } = entry;
   const card = getCardColor(colorIndex);
-  const shapeName = PICK_SHAPES[colorIndex % PICK_SHAPES.length]!;
-  const shapeData = shapes[shapeName];
 
   const categoryHref = `/services/${category.slug}`;
   const primaryHref = pick ? `/services/eu/${pick.slug}` : categoryHref;
@@ -100,25 +84,10 @@ function PickCard({
       />
 
       <div className="relative z-10 pointer-events-none flex flex-col h-full">
-        {shapeData && (
-          <div className={`${card.band} relative h-16 sm:h-32 md:h-36 flex items-center justify-start sm:justify-center px-5 py-3 sm:p-6`}>
-            <svg
-              viewBox={shapeData.viewBox}
-              className={`w-16 sm:w-full h-full select-none animate-shape-float ${card.shapeColor}`}
-              style={{
-                animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-                animationDelay: `${(colorIndex % 4) * -1.5}s`,
-              }}
-              aria-hidden="true"
-            >
-              <path d={shapeData.d} fill="currentColor" />
-            </svg>
-          </div>
-        )}
-
+        <div aria-hidden="true" className={`h-1.5 ${card.strip}`} />
         <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
           <h3
-            className={`${card.text} font-heading uppercase font-bold leading-tight text-xl sm:text-2xl mb-2`}
+            className={`${card.text} font-heading font-bold leading-tight text-xl sm:text-2xl mb-2`}
           >
             {heading}
           </h3>

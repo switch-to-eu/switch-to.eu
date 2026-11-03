@@ -11,6 +11,10 @@ guides: [x-to-bluesky, whatsapp-to-signal]
 sources:
   - {title: 'First fines issued under EU Digital Markets Act', publisher: Pinsent Masons Out-Law, url: 'https://www.pinsentmasons.com/out-law/news/first-fines-issued-eu-digital-markets-act', date: '2025-04-23'}
 author: Switch-to.eu
+image: /images/articles/dma-fines-apple-meta.jpg
+imageAlt: 'The Berlaymont building in Brussels, headquarters of the European Commission'
+imageCredit: 'Photo: JLogan, CC BY 3.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=11101438'
 # Workflow
 sample: true
 updatedAt: '2025-04-23'

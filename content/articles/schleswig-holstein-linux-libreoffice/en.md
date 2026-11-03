@@ -11,6 +11,10 @@ sources:
   - {title: 'German state to move 30,000 PCs from Windows, Office to Linux, LibreOffice', publisher: iTWire, url: 'https://itwire.com/business-it-news/open-source/german-state-to-move-30,000-pcs-from-windows-office-to-linux-libreoffice.html', date: '2024-04-08'}
   - {title: 'Open-Source-Wende: 30.000 Mitarbeiter in Schleswig-Holstein umgestiegen', publisher: Börse Express, url: 'https://www.boerse-express.com/news/articles/open-source-wende-30000-mitarbeiter-in-schleswig-holstein-umgestiegen-921880', date: '2025-10-01'}
 author: Switch-to.eu
+image: /images/articles/schleswig-holstein-linux-libreoffice.jpg
+imageAlt: 'Aerial view of Kiel, capital of Schleswig-Holstein, and its harbour'
+imageCredit: 'Photo: Federal Waterways Engineering and Research Institute, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=92482785'
 # Workflow
 sample: true
 updatedAt: '2025-10-01'

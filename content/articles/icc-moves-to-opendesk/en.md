@@ -11,6 +11,10 @@ sources:
   - {title: 'International Criminal Court kicks out Microsoft', publisher: heise online, url: 'https://heise.de/-10964189', date: '2025-10-31'}
   - {title: 'Justice recoded: why it matters that the ICC embraced open source software', publisher: EJIL:Talk!, url: 'https://www.ejiltalk.org/justice-recoded-why-it-matters-that-the-international-criminal-court-embraced-open-source-software-and-ditched-microsoft/', date: '2025-11-05'}
 author: Switch-to.eu
+image: /images/articles/icc-moves-to-opendesk.jpg
+imageAlt: 'The International Criminal Court building in The Hague'
+imageCredit: 'Photo: Tony Webster, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=160019176'
 # Workflow
 sample: true
 updatedAt: '2025-10-31'

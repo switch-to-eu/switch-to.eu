@@ -16,7 +16,7 @@ export async function GainLosePanel({
 
   return (
     <section>
-      <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("headingTemplate", {
           source: service.name,
           target: recommendedName,

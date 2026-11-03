@@ -222,6 +222,13 @@ export interface Article extends SeoFields {
    * never indexed, and left out of the sitemap, RSS feed and knowledge graph.
    */
   sample?: boolean;
+  /** Header photo under public/, e.g. /images/articles/<slug>.jpg. */
+  image?: string | null;
+  imageAlt?: string;
+  /** Visible credit line, e.g. "Photo: Tony Webster, CC BY 2.0, via Wikimedia Commons". */
+  imageCredit?: string;
+  /** Source page of the photo (licence and author). */
+  imageCreditUrl?: string;
   title: string;
   description: string;
   /** Publication date, YYYY-MM-DD. */

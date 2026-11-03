@@ -10,6 +10,10 @@ categories: [storage]
 sources:
   - {title: 'Microsoft tells French lawmakers it can’t protect user data from US demands', publisher: SDxCentral, url: 'https://www.sdxcentral.com/news/microsoft-tells-french-lawmakers-it-cant-protect-user-data-from-us-demands/', date: '2025-07-21'}
 author: Switch-to.eu
+image: /images/articles/microsoft-france-cannot-guarantee-eu-data.jpg
+imageAlt: 'The Palais du Luxembourg in Paris, seat of the French Senate'
+imageCredit: 'Photo: Fred Romero, CC BY 2.0, via Flickr'
+imageCreditUrl: 'https://www.flickr.com/photos/129231073@N06/38686243740'
 # Workflow
 sample: true
 updatedAt: '2025-06-10'

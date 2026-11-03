@@ -12,6 +12,10 @@ sources:
   - {title: 'Regulation (EU) 2023/2854 (Data Act)', publisher: EUR-Lex, url: 'https://eur-lex.europa.eu/eli/reg/2023/2854/oj', date: '2023-12-22'}
   - {title: 'EU Data Act: switching cloud provider', publisher: McCann FitzGerald, url: 'https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/eu-data-act-switching-cloud-provider', date: '2025-09-01'}
 author: Switch-to.eu
+image: /images/articles/eu-data-act-cloud-switching-rules.jpg
+imageAlt: 'Rows of server racks in a data centre'
+imageCredit: 'Photo: Carl Lender, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=44808039'
 # Workflow
 sample: true
 updatedAt: '2025-09-12'

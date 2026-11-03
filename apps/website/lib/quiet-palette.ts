@@ -1,21 +1,22 @@
 /**
- * Card colours for the website's calm look.
+ * Card colours for the website.
  *
- * Cards are white with a hairline border and dark text. The brand colour
- * rotation survives in small doses: the tinted band behind a card's shape or
- * image, and the shape itself. Same interface as `getCardColor` from
- * `@switch-to-eu/ui/lib/brand-palette` (which the tool apps keep using), plus
- * `band` for the tinted visual area.
+ * Cards are white with a hairline border and dark text, on the warm page
+ * ground. Each card carries one thin, saturated brand-colour strip across its
+ * top: colour as accent, never as the card's ground. Same interface as
+ * `getCardColor` from `@switch-to-eu/ui/lib/brand-palette` (which the tool
+ * apps keep using), plus `band` for an image area and `strip`.
  */
+const BAND = "bg-[#f3efe8]";
 const ROTATION = [
-  { band: "bg-brand-sky/35", shape: "text-brand-green" },
-  { band: "bg-brand-orange/15", shape: "text-brand-orange" },
-  { band: "bg-brand-yellow/25", shape: "text-brand-green" },
-  { band: "bg-brand-sage/40", shape: "text-brand-green" },
-  { band: "bg-brand-pink/20", shape: "text-brand-pink" },
-  { band: "bg-brand-navy/10", shape: "text-brand-navy" },
-  { band: "bg-brand-sage/30", shape: "text-brand-green" },
-  { band: "bg-brand-red/10", shape: "text-brand-red" },
+  { strip: "bg-brand-sky", shape: "text-brand-sky" },
+  { strip: "bg-brand-orange", shape: "text-brand-orange" },
+  { strip: "bg-brand-yellow", shape: "text-brand-yellow" },
+  { strip: "bg-brand-green", shape: "text-brand-green" },
+  { strip: "bg-brand-pink", shape: "text-brand-pink" },
+  { strip: "bg-brand-navy", shape: "text-brand-navy" },
+  { strip: "bg-brand-sage", shape: "text-brand-sage" },
+  { strip: "bg-brand-red", shape: "text-brand-red" },
 ] as const;
 
 export interface QuietCardColor {
@@ -24,6 +25,8 @@ export interface QuietCardColor {
   button: string;
   shapeColor: string;
   band: string;
+  /** Thin saturated strip across the top of the card. */
+  strip: string;
 }
 
 export function getCardColor(index: number): QuietCardColor {
@@ -33,6 +36,7 @@ export function getCardColor(index: number): QuietCardColor {
     text: "text-[#1a1a1a]",
     button: "bg-brand-green text-white",
     shapeColor: c.shape,
-    band: c.band,
+    band: BAND,
+    strip: c.strip,
   };
 }

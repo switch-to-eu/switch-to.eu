@@ -52,25 +52,6 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
         <Banner
           color={card.bg}
           className="group"
-          shapes={[
-            {
-              shape: "pebble",
-              className:
-                "-top-8 -right-6 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36",
-              color: card.shapeColor,
-              opacity: 0.22,
-              duration: "11s",
-            },
-            {
-              shape: "spark",
-              className:
-                "-bottom-6 -left-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24",
-              color: card.shapeColor,
-              opacity: 0.25,
-              duration: "9s",
-              delay: "-3s",
-            },
-          ]}
         >
           {isActive && (
             <a
@@ -97,7 +78,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
               </div>
 
               <h2
-                className={`font-heading text-3xl uppercase leading-[1.05] sm:text-4xl md:text-5xl mb-3 ${card.text}`}
+                className={`font-heading text-3xl leading-[1.05] sm:text-3xl md:text-4xl mb-3 ${card.text}`}
               >
                 {tool.name}
               </h2>
@@ -123,7 +104,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                   </span>
                   {hostHint && (
                     <span
-                      className={`font-heading text-[0.65rem] uppercase tracking-[0.2em] sm:text-xs ${card.text}`}
+                      className={`font-heading text-[0.65rem] tracking-[0.2em] sm:text-xs ${card.text}`}
                     >
                       {hostHint}
                     </span>

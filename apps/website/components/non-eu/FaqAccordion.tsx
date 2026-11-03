@@ -27,7 +27,7 @@ export async function FaqAccordion({ service }: { service: Service }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title")}
       </h2>
       <div className="divide-y divide-brand-navy/10 border-y border-brand-navy/10">

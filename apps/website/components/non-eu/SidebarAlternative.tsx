@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
 import {
   getCategorySlug,
@@ -57,29 +56,13 @@ export async function SidebarAlternative({
   return (
     <aside className="lg:sticky lg:top-24 lg:self-start">
       <div className="bg-white border border-black/10 rounded-3xl overflow-hidden relative">
-        <DecorativeShape
-          shape="swirl"
-          className="-top-6 -right-6 w-28 h-28"
-          color="text-brand-yellow"
-          opacity={0.35}
-          duration="11s"
-          delay="-2s"
-        />
-        <DecorativeShape
-          shape="blob"
-          className="-bottom-8 -left-8 w-24 h-24"
-          color="text-brand-sky"
-          opacity={0.4}
-          duration="14s"
-          delay="-4s"
-        />
 
         <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-5 sm:pb-6">
           <span className="text-[#1a1a1a] text-[11px] font-semibold uppercase tracking-widest mb-2 block">
             {t("featured")}
           </span>
 
-          <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green leading-[1.05] mb-4">
+          <h2 className="font-heading text-2xl sm:text-3xl text-brand-green leading-[1.05] mb-4">
             {service.name}
           </h2>
 

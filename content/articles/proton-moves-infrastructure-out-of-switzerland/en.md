@@ -11,6 +11,10 @@ sources:
   - {title: 'Surveillance: Proton relocates parts of its infrastructure from Switzerland', publisher: heise online, url: 'https://heise.de/-10538664', date: '2025-08-14'}
   - {title: 'Is Proton leaving Switzerland?', publisher: TechRadar, url: 'https://www.techradar.com/vpn/vpn-privacy-security/is-proton-leaving-switzerland-legal-uncertainty-of-proposed-surveillance-laws-is-pushing-them-to-make-several-changes', date: '2025-07-25'}
 author: Switch-to.eu
+image: /images/articles/proton-moves-infrastructure-out-of-switzerland.jpg
+imageAlt: 'Geneva harbour with the Jet d''Eau fountain'
+imageCredit: 'Photo: Luisfpizarro, public domain (CC0), via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=68701598'
 # Workflow
 sample: true
 updatedAt: '2025-08-14'

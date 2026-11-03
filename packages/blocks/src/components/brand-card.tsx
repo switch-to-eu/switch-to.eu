@@ -104,7 +104,7 @@ export function BrandCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           {shape && (
-            <div className="absolute top-3 right-3 w-14 h-14 sm:w-16 sm:h-16 opacity-30 pointer-events-none">
+            <div className="absolute top-3 right-3 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none">
               <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
             </div>
           )}
@@ -116,7 +116,7 @@ export function BrandCard({
       ) : null}
 
       {shape && shapePosition === "accent" && (
-        <div className="absolute top-3 right-3 w-20 h-20 sm:w-24 sm:h-24 opacity-20 pointer-events-none">
+        <div className="absolute top-4 right-4 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none">
           <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       )}

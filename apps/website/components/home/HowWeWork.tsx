@@ -1,12 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { Container } from "@switch-to-eu/blocks/components/container";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 const ITEMS = [
-  { title: "sourcesTitle", body: "sourcesBody" },
-  { title: "tradeoffsTitle", body: "tradeoffsBody" },
-  { title: "openTitle", body: "openBody" },
-  { title: "affiliateTitle", body: "affiliateBody" },
+  { title: "sourcesTitle", body: "sourcesBody", dot: "bg-brand-yellow" },
+  { title: "tradeoffsTitle", body: "tradeoffsBody", dot: "bg-brand-orange" },
+  { title: "openTitle", body: "openBody", dot: "bg-brand-sky" },
+  { title: "affiliateTitle", body: "affiliateBody", dot: "bg-brand-pink" },
 ] as const;
 
 /** Concrete trust signals: how we source, what we disclose, where it's open. */
@@ -16,34 +15,19 @@ export async function HowWeWork() {
   return (
     <section aria-labelledby="how-we-work-title">
       <Container noPaddingMobile>
-        <div className="relative overflow-hidden bg-brand-sage/25 md:rounded-3xl px-6 sm:px-10 md:px-14 py-12 sm:py-14 md:py-16">
-          <DecorativeShape
-            shape="flower"
-            className="-top-14 -left-12 w-44 h-44 sm:w-56 sm:h-56"
-            color="text-brand-sage"
-            opacity={0.6}
-            duration="13s"
-          />
-          <DecorativeShape
-            shape="squiggle"
-            className="-bottom-12 right-10 w-40 h-40 sm:w-52 sm:h-52"
-            color="text-brand-yellow"
-            opacity={0.3}
-            duration="10s"
-            delay="-4s"
-          />
+        <div className="relative overflow-hidden bg-brand-green md:rounded-3xl px-6 sm:px-10 md:px-14 py-12 sm:py-14 md:py-16">
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
             <div className="lg:col-span-4">
               <h2
                 id="how-we-work-title"
-                className="font-heading uppercase text-brand-green text-4xl sm:text-5xl md:text-6xl leading-none mb-6"
+                className="font-heading text-brand-yellow text-3xl sm:text-4xl md:text-5xl leading-none mb-6"
               >
                 {t("title")}
               </h2>
               <a
                 href="https://github.com/switch-to-eu/switch-to.eu"
-                className="inline-block rounded-full border-2 border-brand-green px-5 py-2 text-sm font-semibold text-brand-green hover:bg-brand-green hover:text-white transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
+                className="inline-block rounded-full border-2 border-brand-yellow px-5 py-2 text-sm font-semibold text-brand-yellow hover:bg-brand-yellow hover:text-brand-green transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow"
               >
                 {t("githubCta")} ↗
               </a>
@@ -51,11 +35,12 @@ export async function HowWeWork() {
 
             <dl className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
               {ITEMS.map((item) => (
-                <div key={item.title} className="border-t border-brand-green/20 pt-5">
-                  <dt className="font-heading uppercase text-brand-green text-2xl leading-tight mb-2">
+                <div key={item.title} className="border-t border-white/20 pt-5">
+                  <span aria-hidden="true" className={`block h-3 w-3 rounded-full mb-3 ${item.dot}`} />
+                  <dt className="font-heading text-white text-2xl leading-tight mb-2">
                     {t(item.title)}
                   </dt>
-                  <dd className="text-[#1a1a1a] leading-relaxed">{t(item.body)}</dd>
+                  <dd className="text-white/90 leading-relaxed">{t(item.body)}</dd>
                 </div>
               ))}
             </dl>

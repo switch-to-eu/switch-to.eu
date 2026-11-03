@@ -5,7 +5,9 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { InlineSearchInput } from "@/components/InlineSearchInput";
 import { formatDateline } from "@/lib/news";
 
-/** Services people most often come here to leave. Slugs of non-EU listings. */
+/**
+ * Services people most often come here to leave. Slugs of non-EU listings.
+ */
 const QUICK_SWITCHES = [
   { slug: "gmail", name: "Gmail" },
   { slug: "whatsapp", name: "WhatsApp" },
@@ -15,8 +17,9 @@ const QUICK_SWITCHES = [
 ];
 
 /**
- * Front-page masthead: today's dateline, the promise in Anton, and the site's
- * main action (search for the service you want to leave) in working form.
+ * Compact front-page intro. No hero block: one line of promise, the site's
+ * main action (search for the service you want to leave) in working form, and
+ * the news underneath it straight away.
  */
 export async function HomeMasthead({
   locale,
@@ -31,74 +34,70 @@ export async function HomeMasthead({
   return (
     <section>
       <Container noPaddingMobile>
-        <div className="relative overflow-hidden bg-white border-y md:border border-black/10 md:rounded-3xl px-6 sm:px-10 md:px-14 pt-6 pb-10 sm:pb-12 md:pb-14">
+        <div className="relative overflow-hidden bg-brand-green md:rounded-3xl px-6 sm:px-10 md:px-14 py-9 sm:py-12">
           <DecorativeShape
             shape="sunburst"
-            className="-top-16 -right-16 w-56 h-56 sm:w-72 sm:h-72"
-            color="text-brand-yellow"
-            opacity={0.3}
+            className="-top-16 -left-16 w-56 h-56 sm:w-72 sm:h-72"
+            color="text-brand-sage"
+            opacity={0.12}
             duration="14s"
           />
           <DecorativeShape
             shape="bumpy-cloud"
-            className="-bottom-20 left-1/3 w-48 h-48 sm:w-64 sm:h-64 hidden sm:block"
-            color="text-brand-sky"
-            opacity={0.35}
+            className="-bottom-24 right-[30%] w-56 h-56 hidden lg:block"
+            color="text-brand-sage"
+            opacity={0.1}
             duration="11s"
             delay="-5s"
           />
-          <DecorativeShape
-            shape="spark"
-            className="top-1/2 right-[38%] w-12 h-12 hidden lg:block"
-            color="text-brand-pink"
-            opacity={0.35}
-            duration="8s"
-            delay="-2s"
-          />
-
-          <div className="relative z-10">
-            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-black/10 pb-4 mb-8 sm:mb-10 text-sm text-[#1a1a1a]/80">
-              <span className="font-semibold text-brand-green">{t("masthead.dateline")}</span>
-              {latestDate && (
-                <>
-                  <span aria-hidden="true" className="hidden sm:inline">·</span>
-                  <span className="basis-full sm:basis-auto">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
+            <div className="lg:col-span-6">
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4 text-sm text-white/85">
+                <span className="inline-flex items-center gap-2 font-semibold text-white">
+                  <span
+                    aria-hidden="true"
+                    className="h-2.5 w-2.5 rounded-full bg-brand-yellow"
+                  />
+                  {t("masthead.dateline")}
+                </span>
+                {latestDate && (
+                  <span>
                     {t("masthead.lastUpdate")}{" "}
-                    <time dateTime={latestDate}>{formatDateline(new Date(`${latestDate}T12:00:00Z`), locale)}</time>
+                    <time dateTime={latestDate}>
+                      {formatDateline(
+                        new Date(`${latestDate}T12:00:00Z`),
+                        locale,
+                      )}
+                    </time>
                   </span>
-                </>
-              )}
-            </p>
-
-            <h1
-              style={{ fontFamily: "var(--font-anton)" }}
-              className="uppercase text-brand-green leading-[0.9] tracking-[-0.02em] text-[clamp(3rem,7vw,6rem)] text-balance mb-8 sm:mb-10"
-            >
-              {t("heroTaglineLine1")} {t("heroTaglineLine2")} {t("heroTaglineLine3")}
-            </h1>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
-              <p className="lg:col-span-5 text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[42ch]">
-                {t("heroSubtitle")}
+                )}
               </p>
+              <h1 className="font-heading text-brand-yellow text-4xl sm:text-5xl lg:text-6xl leading-[1.02] text-balance">
+                {t("heroTaglineLine1")} {t("heroTaglineLine2")}{" "}
+                {t("heroTaglineLine3")}
+              </h1>
+            </div>
 
-              <div className="lg:col-span-7">
-                <h2 className="font-heading uppercase text-brand-green text-xl sm:text-2xl mb-3">
-                  {t("masthead.searchLabel")}
-                </h2>
-                <InlineSearchInput placeholder={t("masthead.searchPlaceholder")} />
-                <div className="mt-5 flex flex-wrap items-center gap-2 text-sm">
-                  <span className="text-[#1a1a1a]/80 mr-1">{t("masthead.quickLabel")}</span>
-                  {QUICK_SWITCHES.map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/services/non-eu/${s.slug}`}
-                      className="rounded-full border border-brand-green/30 bg-brand-sage/20 px-3 py-1 text-brand-green hover:bg-brand-green hover:text-white transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
-                    >
-                      {s.name}
-                    </Link>
-                  ))}
-                </div>
+            <div className="lg:col-span-6">
+              <h2 className="text-sm font-semibold text-white mb-2">
+                {t("masthead.searchLabel")}
+              </h2>
+              <InlineSearchInput
+                placeholder={t("masthead.searchPlaceholder")}
+              />
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+                <span className="text-white/85 mr-1">
+                  {t("masthead.quickLabel")}
+                </span>
+                {QUICK_SWITCHES.map((s) => (
+                  <Link
+                    key={s.slug}
+                    href={`/services/non-eu/${s.slug}`}
+                    className="rounded-full border border-white/40 px-3 py-1 font-semibold text-white hover:bg-brand-yellow hover:border-brand-yellow hover:text-brand-green transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow"
+                  >
+                    {s.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

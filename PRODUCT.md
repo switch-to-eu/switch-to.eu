@@ -30,7 +30,7 @@ See `.claude/skills/informational-copy` for the written tone-of-voice rules (no 
 
 ### Aesthetic Direction
 
-**Calm, warm, approachable, with personality. Never corporate, bureaucratic, or technical-for-technical's-sake.** (Toned down on 2026-11-03 at the owner's request: the earlier all-saturated look felt off-putting.)
+**Calm, trustworthy, editorial, with personality in the details. Never corporate, bureaucratic, or technical-for-technical's-sake.** (Reworked on 2026-11-03 at the owner's request: the all-saturated look felt off-putting, then the shapes and candy colours felt "childish and gimmicky". The reference is a good news site such as Tweakers: photo-led articles, quiet surfaces, bold colour only as accent.)
 
 Draw energy from the references documented in `docs/brand.md`: Pride Project posters (oversized uppercase display + organic shapes), Flavour United (structured 8-colour semantic palette), Vy brand (ultra-black condensed display, floating badges, pill CTAs), freeform quirky shapes library, Google Labs card grid.
 
@@ -42,12 +42,13 @@ Draw energy from the references documented in `docs/brand.md`: Pride Project pos
 - **Generic developer tools**: monospace everywhere, dark terminal aesthetic, cyan/purple neon. Some of our users are technical; none of them came here because they wanted another terminal.
 
 **Signature moves** (use them, don't abandon them):
-- Anton display type for the home hero at `clamp(3rem, 7vw, 6rem)`: large and confident, not shouting (reduced from 14rem with the 2026-11-03 calm pass).
-- Bonbance Bold Condensed, uppercase, at weight 800 for every section heading.
-- Organic SVG shapes (from the 36-shape library) floating behind or around content blocks, staggered animation, always `aria-hidden` and `pointer-events-none`.
-- White or lightly tinted panels with `rounded-3xl` corners and a hairline border (`border-black/10`) on a warm off-white page (`#faf8f5`). Brand green carries headings, buttons and links. At most one tinted section per screen. No full-saturation colour blocks as section grounds.
+- Content first: no big homepage hero. A compact green intro panel with the search, then the news.
+- Bonbance Bold Condensed in sentence case for headings, at modest sizes. Anton only in the logo.
+- Real, openly licensed photos on news articles, credited under the image. Decorative shapes only tone-on-tone inside colour panels; no blob illustrations on cards.
+- No subtitle filler under headings.
+- `rounded-3xl` panels on a warm page ground (`#f1eee8`): white with a hairline border for most content, full brand colour (green, sky, navy) for at most three anchor sections per page. Brand green carries headings, buttons and links. Bold accents: card strips, type pills, dots, the logo's `.eu`.
 - Pill-shaped `rounded-full` buttons only. No square or slightly-rounded buttons anywhere.
-- Cards rotate through the brand colours in small doses: a tinted band behind the shape or image and the shape itself (`apps/website/lib/quiet-palette.ts`). The card itself stays white with dark text.
+- Cards are white with dark text and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`). They get a visual area only for a real screenshot or photo.
 
 ### Accessibility
 
@@ -57,9 +58,9 @@ Non-negotiable rules for every design decision:
 
 - Verify contrast ratios for every text + background pairing. The bold palette is easy to get wrong — yellow text on sky looks cheerful and fails.
 - `:focus-visible` must be present on every interactive element. The pill-button style hides default focus rings; replace them, don't remove them.
-- All shape animations (`animate-shape-float`, hero floats, and any new motion) must be disabled or reduced under `@media (prefers-reduced-motion: reduce)`. The shapes are decoration, never a carrier of information.
+- Any motion must be disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
 - Keyboard-complete navigation. No hover-only affordances; every hover-reveal must also appear on focus.
-- Decorative shapes are always `aria-hidden="true"` and `pointer-events-none`. Shapes do not carry meaning — copy does.
+- Photos carry real alt text. Thumbnails that repeat a linked headline use `alt=""`.
 - Respect the text-on-colour contrast rule from `docs/brand.md`: dark brand colours (green, navy, red, orange) take `#ffffff` foreground; light brand colours (yellow, sky, pink, sage, cream) take `#1a1a1a` foreground. Do not tint text off-palette to "make it work."
 
 ### Design Principles
@@ -67,9 +68,9 @@ Non-negotiable rules for every design decision:
 These five override every other temptation. When a design choice feels clever but breaks one of these, drop the choice.
 
 1. **Honesty over polish.** If something is more expensive, less featureful, or has a worse iOS app, show it on the same surface you recommend it. No asterisks, no "learn more" hides. The trade-off section is a first-class UI element, not a footnote.
-2. **Personality in the details, restraint in the claims.** Display type, organic shapes and a touch of brand colour carry the character. Copy stays quiet: specific, factual, short.
-3. **Colour is an accent, not a ground.** Neutral surfaces do the structural work. Brand colours appear in tags, tinted bands, shapes and one highlight per screen, never as a wall of saturated blocks.
-4. **Organic shapes stay, softly.** Major sections get 1–3 floating shapes in brand tints at about 30% opacity, staggered timing, sized to overflow. They add warmth without competing with content.
+2. **Personality in the details, restraint in the claims.** Bonbance headings, real photos and a few bold accents carry the character. Copy stays quiet: specific, factual, short.
+3. **Colour has a rhythm.** Neutral surfaces carry most of the page, a few brand-colour panels anchor it, small accents tie it together. Too white is as wrong as too colourful.
+4. **Show the real thing.** Photos of the actual institution or place, real screenshots, source links. No illustration for its own sake.
 5. **Three audiences, one page.** Every page should read correctly whether the visitor arrived curious, committed, or already-converted. Hierarchy and progressive disclosure (per `docs/brand.md` layout patterns) do this work — not separate sections addressed at each audience.
 
 ### When in Doubt

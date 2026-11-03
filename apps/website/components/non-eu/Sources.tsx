@@ -18,7 +18,7 @@ export async function Sources({ service }: { service: Service }) {
 
   return (
     <section id="sources">
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-3">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-3">
         {t("title")}
       </h2>
       {lastReviewed && (

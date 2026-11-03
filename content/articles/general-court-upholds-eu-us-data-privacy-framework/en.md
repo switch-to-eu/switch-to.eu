@@ -12,6 +12,10 @@ sources:
   - {title: 'EU General Court rejects legal challenge to EU-US data transfer framework', publisher: Society for Computers and Law, url: 'https://www.scl.org/eu-general-court-rejects-legal-challenge-to-eu-us-data-transfer-framework/', date: '2025-09-04'}
   - {title: 'Latombe files appeal against General Court dismissal', publisher: Digital Policy Alert, url: 'https://digitalpolicyalert.org/event/35459-latombe-filed-appeal-against-general-court-dismissal-of-challenge-to-european-unionunited-states-data-protection-framework-adequacy-decision-in-latombe-v-commission', date: '2025-10-31'}
 author: Switch-to.eu
+image: /images/articles/general-court-upholds-eu-us-data-privacy-framework.jpg
+imageAlt: 'EU member state flags in front of the Court of Justice of the European Union in Luxembourg'
+imageCredit: 'Photo: Cédric Puisney, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=34942312'
 # Workflow
 sample: true
 updatedAt: '2025-10-31'

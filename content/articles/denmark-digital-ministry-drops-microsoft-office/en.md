@@ -12,6 +12,10 @@ sources:
   - {title: 'Denmark’s digital agency to ditch Microsoft in move toward digital independence', publisher: The Record, url: 'https://therecord.media/denmark-digital-agency-microsoft-digital-independence', date: '2025-06-11'}
   - {title: 'Denmark’s Digital Ministry shifts from Microsoft to LibreOffice', publisher: Computing, url: 'https://www.computing.co.uk/news/2025/denmark-digital-ministry-drops-microsoft', date: '2025-06-12'}
 author: Switch-to.eu
+image: /images/articles/denmark-digital-ministry-drops-microsoft-office.jpg
+imageAlt: 'Christiansborg Palace in Copenhagen, home of the Danish parliament, seen from the air'
+imageCredit: 'Photo: Kristoffer Trolle, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=105381413'
 # Workflow
 sample: true
 updatedAt: '2025-06-12'

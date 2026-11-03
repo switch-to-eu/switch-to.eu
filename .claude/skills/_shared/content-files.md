@@ -262,6 +262,10 @@ guides: []                                  # content/guides slugs worth linking
 sources:
   - {title: 'Finance ministry tenders sovereign cloud', publisher: NOS, url: 'https://…', date: '2026-10-30'}
 author: Switch-to.eu
+image: /images/articles/<slug>.jpg          # header photo, see "Article photos" below
+imageAlt: 'The Danish parliament building, Christiansborg, seen from above'
+imageCredit: 'Photo: Kristoffer Trolle, CC BY 2.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/…'   # the photo's licence/source page
 # SEO
 metaTitle: …                # optional, falls back to title
 keywords: [sovereign cloud, Dutch government]
@@ -273,7 +277,8 @@ updatedAt: '2026-11-02'
 Body in markdown. 300-600 words for `news`, up to 1,200 for `analysis`.
 ```
 
-- **Only en.md** holds the shared keys: `date`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources`, `author`.
+- **Only en.md** holds the shared keys: `date`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources`, `author`, `image`, `imageCredit`, `imageCreditUrl`. `imageAlt` may be translated.
+- **Article photos:** every article gets a real, openly licensed photo of the place, institution or thing the news is about (a parliament building, a court, a data centre). No AI-generated images, no logos, no stock people-at-laptops. Find one via the Openverse API (`https://api.openverse.org/v1/images/?q=<query>&license=cc0,by,pdm&aspect_ratio=wide&size=large`), prefer Wikimedia Commons, and record `creator`, `license`, `license_version` and `foreign_landing_url`. Download the 1920px Wikimedia thumbnail (`…/commons/thumb/<a>/<ab>/<file>/1920px-<file>`, send a User-Agent with a contact URL, and wait between requests: Commons rate-limits). Convert to a 1600px-wide JPEG around quality 78 and save it as `apps/website/public/images/articles/<slug>.jpg`. Credit line: `Photo: <creator>, CC BY <version>, via Wikimedia Commons` (or `public domain (CC0)`). The credit renders under the header photo and links to `imageCreditUrl`. If nothing fitting and openly licensed exists, leave the image keys out: the page falls back to a text header.
 - **Translations** (`nl.md`, `fr.md`) hold `title`, `description`, SEO keys, `draft` and the body, all translated. A missing locale file means the article doesn't exist in that language.
 - **Body:** no H1 (the page renders `title`). Use `##` subheads only when the piece is longer than ~400 words. Link sources inline at the claim with a normal markdown link to the original URL. Link our own pages with root-relative paths without a locale (`/services/eu/nextcloud`, `/guides/storage/google-drive-to-pcloud`); the site adds the locale.
 - **Every factual sentence** must be traceable to a claim in a `knowledge/sources` note whose `url` matches a link or a `sources` entry. `/news-check` enforces this.

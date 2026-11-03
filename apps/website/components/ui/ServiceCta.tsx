@@ -24,19 +24,9 @@ export function ServiceCta({
       <Container noPaddingMobile>
         <Banner
           color="bg-white border-y md:border border-black/10"
-          shapes={[
-            {
-              shape: "sunburst",
-              className: "-top-8 -right-8 w-36 h-36",
-              opacity: 0.3, color: "text-brand-yellow" },
-            {
-              shape: "blob",
-              className: "-bottom-10 -left-10 w-40 h-40",
-              delay: "-3s", opacity: 0.3, color: "text-brand-sky" },
-          ]}
           contentClassName="text-center max-w-2xl mx-auto"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-green mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl text-brand-green mb-4">
             {t("cta.title", { service: serviceName })}
           </h2>
           <p className="text-[#1a1a1a] text-base sm:text-lg mb-8">

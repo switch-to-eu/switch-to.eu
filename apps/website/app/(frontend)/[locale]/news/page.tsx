@@ -45,10 +45,9 @@ export default async function NewsIndexPage({
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-b-2 border-brand-green pb-5">
             <div className="max-w-2xl">
-              <h1 className="font-heading uppercase text-brand-green text-5xl sm:text-6xl md:text-7xl leading-none mb-3">
+              <h1 className="font-heading text-brand-green text-4xl sm:text-5xl leading-none mb-3">
                 {t("hero.title")}
               </h1>
-              <p className="text-brand-green text-base sm:text-lg">{t("hero.description")}</p>
             </div>
             <a
               href={`/${locale}/news/feed.xml`}
@@ -75,7 +74,7 @@ export default async function NewsIndexPage({
           <Container noPaddingMobile>
             <h2
               id="more-news-title"
-              className="px-3 md:px-0 pt-10 md:pt-0 font-heading uppercase text-brand-green text-4xl sm:text-5xl mb-6 sm:mb-8"
+              className="px-3 md:px-0 pt-10 md:pt-0 font-heading text-brand-green text-3xl sm:text-4xl mb-6 sm:mb-8"
             >
               {t("moreNews")}
             </h2>

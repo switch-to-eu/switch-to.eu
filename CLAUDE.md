@@ -209,7 +209,7 @@ One AI-researched news article per weekday, EU focus, researched and written in 
 
 **Sample articles:** `sample: true` in an article's `en.md` marks layout placeholders. They render with a visible notice, are `noindex`, and are left out of the sitemap, RSS and the knowledge graph. Remove them with `grep -l '^sample: true' content/articles/*/en.md | xargs -n1 dirname | xargs rm -r` once real articles exist.
 
-**Design:** the homepage is a news-led front page (`components/home/`, `components/news/FrontPage.tsx`). Cards with body text use the AA-safe `getReadableCardColor()` rotation (see `docs/brand.md`, "Readable rotation"). The impeccable design skill (v4.8.0, Apache-2.0) is vendored in `.claude/skills/impeccable/`, including its launcher. `scripts/impeccable` downloads the pinned engine binary on first use, verifies it against `engine-checksums.txt` and caches it outside the repo. Run `.claude/skills/impeccable/scripts/impeccable detect --json <dirs>` after UI changes; it should report `[]`. The rendered checks in `apps/website/scripts/a11y-audit.cjs --sitemap --keyboard` complement it.
+**Design:** the homepage is a news-led front page (`components/home/`, `components/news/FrontPage.tsx`). Articles carry an openly licensed header photo (`image`, `imageAlt`, `imageCredit`, `imageCreditUrl` in en.md, files in `apps/website/public/images/articles/`); the article page shows it full width with the title panel overlapping it and the credit underneath. The impeccable design skill (v4.8.0, Apache-2.0) is vendored in `.claude/skills/impeccable/`, including its launcher. `scripts/impeccable` downloads the pinned engine binary on first use, verifies it against `engine-checksums.txt` and caches it outside the repo. Run `.claude/skills/impeccable/scripts/impeccable detect --json <dirs>` after UI changes; it should report `[]`. The rendered checks in `apps/website/scripts/a11y-audit.cjs --sitemap --keyboard` complement it.
 
 Research memory is a markdown knowledge graph in `knowledge/` (schema and rules: `knowledge/README.md`, design: `docs/superpowers/specs/2026-11-02-news-knowledge-base-design.md`): immutable `sources/` notes with numbered claims, `entities/` with dated, cited fact lines, and `stories/` (ongoing storylines with summary, timeline and "Our coverage"). Relations are frontmatter slugs and `[[wikilinks]]`. **Code does the bookkeeping:** `pnpm knowledge:index` (package `packages/knowledge`) rebuilds the generated `knowledge/index.md` and `knowledge/graph.json`, computes story heat and reports broken links, orphans and stale pages. `--check` exits non-zero on errors. Never hand-edit the generated files.
 
@@ -262,17 +262,17 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Code Style
 
-- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (also stored at `.impeccable.md`).
+- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (full version in `PRODUCT.md`).
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
 - **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code.
-- Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (hero display, `--font-anton`)
+- Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (logo only, `--font-anton`)
 - ESLint 9 flat config; unused vars prefixed with `_` are allowed
 - shadcn/ui components live in `packages/ui/src/components/`
 
 ## Design Context
 
-`docs/brand.md` is the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context brand.md leaves implicit: who we design for, how it should feel, what to avoid. Full version in `.impeccable.md`.
+`docs/brand.md` is the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context brand.md leaves implicit: who we design for, how it should feel, what to avoid. Full version in `PRODUCT.md`.
 
 ### Users
 
@@ -296,7 +296,7 @@ Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shame
 
 ### Aesthetic Direction
 
-Calm, warm, approachable, with personality. Light mode only. Toned down on 2026-11-03 at the owner's request: warm off-white page (`#faf8f5`), white cards with hairline borders, brand green for type and actions, other brand colours only as small accents. Energy references in `docs/brand.md` still apply to shapes and display type.
+Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **a few deliberate brand-colour panels per page** (homepage: green intro, sky guides panel, green "How we work"), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
 
 **Things switch-to.eu must NOT look like:**
 
@@ -306,12 +306,14 @@ Calm, warm, approachable, with personality. Light mode only. Toned down on 2026-
 
 **Signature moves — use them, don't abandon them:**
 
-- Anton display type for the home hero at `clamp(3rem, 7vw, 6rem)`, in brand green.
-- Bonbance Bold Condensed, uppercase, weight 800 for every section heading.
-- Organic SVG shapes floating around content, staggered animation, `aria-hidden` + `pointer-events-none`.
-- White or lightly tinted `rounded-3xl` panels with `border-black/10`. No saturated section grounds. At most one tinted section per screen.
+- Content first: no big homepage hero. A compact green intro panel (dateline, yellow Bonbance h1, search, quick-switch chips) and the news straight after it.
+- Bonbance Bold Condensed in **sentence case** for headings, at modest sizes (section headings `text-3xl sm:text-4xl`). No uppercase headings, no Anton outside the logo.
+- Real, openly licensed photos for news (credited under the image). Decorative shapes only tone-on-tone inside colour panels (about 8-12% opacity). No blob illustrations on cards.
+- `rounded-3xl` panels: white with `border-black/10`, or a full brand colour (green, sky, navy) for at most three anchor sections per page, never two adjacent.
+- Bold brand colour as accents: card strips, article type pills (news = yellow, analysis = navy), small dots, the logo's `.eu`. No grid of saturated cards.
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
-- Cards rotate brand colours in small doses (tinted band + shape) via `apps/website/lib/quiet-palette.ts`. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
+- No subtitle filler under headings. If a heading needs a sentence to explain it, fix the heading.
+- Cards: white with hairline border and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`); a visual area only when there is a real screenshot or photo. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
 
 ### Accessibility
 
@@ -319,17 +321,17 @@ Calm, warm, approachable, with personality. Light mode only. Toned down on 2026-
 
 - Verify contrast for every text + background pairing. The bold palette is easy to get wrong.
 - `:focus-visible` on every interactive element. Pill buttons hide default focus rings — replace them, don't remove them.
-- Shape animations disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
+- Any animation disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
 - Keyboard-complete navigation. No hover-only affordances.
-- Decorative shapes always `aria-hidden="true"` and `pointer-events-none`.
+- Photos have real alt text (`imageAlt`); purely decorative thumbnails use `alt=""`.
 - Respect the text-on-colour contrast rule from `docs/brand.md`: dark brand colours take `#ffffff`; light brand colours take `#1a1a1a`. Don't tint text off-palette to "make it work."
 
 ### Design Principles
 
 1. **Honesty over polish.** Trade-offs appear on the same surface as recommendations. No asterisks, no hide-behind-a-link.
-2. **Personality in the details, restraint in the claims.** Display type, shapes and a touch of colour carry character. Loud visuals + loud copy reads as marketing.
-3. **Colour is an accent, not a ground.** Neutral surfaces structure the page. Brand colour lives in tags, tinted bands, shapes and one highlight per screen.
-4. **Organic shapes stay, softly.** 1–3 per major section in brand tints at about 30% opacity, staggered timing, sized to overflow.
+2. **Personality in the details, restraint in the claims.** Bonbance headings, a few brand-colour panels, real photos and bold accents carry character. Gimmicks (floating shapes on white, candy-coloured card grids) read as unserious.
+3. **Colour has a rhythm.** Neutral surfaces carry most of the page; a few full brand-colour panels anchor it; small accents (strips, pills, dots) tie the rest together. Too white is as wrong as too colourful.
+4. **Show the real thing.** A photo of the actual institution or place, a real screenshot, a source link. Never illustration for its own sake.
 5. **Three audiences, one page.** Hierarchy does the work, not separate sections addressed at each audience.
 
 <!-- skilld -->

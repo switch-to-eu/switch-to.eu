@@ -6,7 +6,7 @@
 
 :root {
   /* Warm off-white page. Cards sit on it in white with a hairline border. */
-  --background: #faf8f5;
+  --background: #f1eee8;
   --tool-primary: #2d2d2d;
   --tool-primary-foreground: #ffffff;
   --tool-accent: var(--brand-sky);
@@ -36,7 +36,6 @@
 .article-body h2 {
   font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
   line-height: 1.05;
-  text-transform: uppercase;
   color: var(--brand-green);
   margin-top: 2.2em;
   margin-bottom: 0.6em;

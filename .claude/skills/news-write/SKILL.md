@@ -48,6 +48,8 @@ Gather, in this order, and stop reading when you have enough:
 
 Keep a private claim map while writing (sentence → `[[source#cN]]`). Put it in your report so `/news-check` and the owner can verify quickly. It doesn't go in the file.
 
+**Header photo:** pick an openly licensed photo per "Article photos" in `../_shared/content-files.md`, save it to `apps/website/public/images/articles/<slug>.jpg` and fill `image`, `imageAlt`, `imageCredit` and `imageCreditUrl`. Mention the photo and its licence in your report so the owner can check it.
+
 Validate the frontmatter with the snippet in `../_shared/content-files.md`.
 
 ## Step 3: File it in the story

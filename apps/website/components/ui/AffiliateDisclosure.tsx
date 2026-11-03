@@ -26,7 +26,7 @@ export function AffiliateDisclosure({ className }: { className?: string }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-heading text-lg uppercase text-brand-green">
+          <DialogTitle className="font-heading text-lg text-brand-green">
             {t("affiliateTitle")}
           </DialogTitle>
           <DialogDescription className="text-sm text-gray-600 leading-relaxed">

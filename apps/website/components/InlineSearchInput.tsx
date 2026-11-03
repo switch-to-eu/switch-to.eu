@@ -335,7 +335,7 @@ export function InlineSearchInput({
       >
           <div className="py-0">
             <div className="px-4 py-2 border-b border-brand-green/10">
-              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/80">
+              <h3 className="text-xs font-heading tracking-wider text-brand-green/80">
                 {t("dropdownSearchResults")}
               </h3>
             </div>

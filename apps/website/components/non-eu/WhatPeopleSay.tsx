@@ -21,7 +21,7 @@ export async function WhatPeopleSay({ service }: { service: Service }) {
 
   return (
     <section className="max-w-2xl">
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-4">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-4">
         {t("title", { name: service.name })}
       </h2>
 

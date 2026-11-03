@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
 import {
   getCategorySlug,
@@ -55,29 +54,15 @@ export async function RecommendedAlternative({
                 {t("detail.recommendedAlternative.badge")}
               </span>
             </div>
-            <DecorativeShape
-          color="text-brand-yellow"
-              shape="star"
-              className="inset-0 flex items-center justify-center"
-              opacity={0.3}
-            />
           </div>
         )}
 
         <div className="px-6 sm:px-8 md:px-10 py-8 sm:py-10 md:py-12 relative">
-          <DecorativeShape
-          color="text-brand-sky"
-            shape="swirl"
-            className="-top-4 -right-4 w-24 h-24"
-            opacity={0.3}
-            duration="9s"
-            delay="-3s"
-          />
 
           <span className="text-[#1a1a1a]/60 text-xs font-semibold uppercase tracking-widest mb-2 block">
             {t("detail.recommendedAlternative.featured")}
           </span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-green mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl text-brand-green mb-4">
             {service.name}
           </h2>
 

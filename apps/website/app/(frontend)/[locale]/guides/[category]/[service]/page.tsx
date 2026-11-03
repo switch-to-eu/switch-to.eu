@@ -168,7 +168,7 @@ export default async function GuideServicePage({
             <div className="lg:col-span-8">
               {/* Header - Full width */}
               <div className="mb-8">
-                <h1 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4">
+                <h1 className="font-heading text-3xl sm:text-4xl text-brand-green mb-4">
                   {guide.title}
                 </h1>
                 <div className="flex mt-4 space-x-3">
@@ -281,8 +281,8 @@ export default async function GuideServicePage({
                 <NewsletterCta contained={false} />
               </div>
 
-              <div className="mt-12 p-6 sm:p-8 bg-brand-sage/30 rounded-3xl">
-                <h2 className="font-heading text-xl uppercase text-brand-green mb-4 text-balance">
+              <div className="mt-12 p-6 sm:p-8 bg-white border border-black/10 rounded-3xl">
+                <h2 className="font-heading text-xl text-brand-green mb-4 text-balance">
                   {serviceT("editGuide.title")}
                 </h2>
                 <p className="mb-4 text-brand-green/80">

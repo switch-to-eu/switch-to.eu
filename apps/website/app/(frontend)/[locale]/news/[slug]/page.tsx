@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "next-intl";
@@ -15,7 +16,11 @@ import { ArticleCard } from "@/components/news/ArticleCard";
 import { findArticle, getAllArticles } from "@/lib/content/loader";
 import type { Article } from "@/lib/content/types";
 import { markdownToPlainText } from "@/lib/markdown";
-import { ARTICLE_LOCALE_NAMES, formatArticleDate, sourceHost } from "@/lib/news";
+import {
+  ARTICLE_LOCALE_NAMES,
+  formatArticleDate,
+  sourceHost,
+} from "@/lib/news";
 import { ArticleMeta } from "@/components/news/FrontPage";
 import { getCategorySlug } from "@/lib/services";
 
@@ -23,12 +28,14 @@ const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
 /** Site locales this article is published in. */
 function servedLocales(article: Article) {
-  return routing.locales.filter((l) => (article.locales as string[]).includes(l));
+  return routing.locales.filter((l) =>
+    (article.locales as string[]).includes(l),
+  );
 }
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    getAllArticles(locale).map((article) => ({ locale, slug: article.slug }))
+    getAllArticles(locale).map((article) => ({ locale, slug: article.slug })),
   );
 }
 
@@ -50,7 +57,9 @@ export async function generateMetadata({
     alternates: {
       canonical: `${siteUrl}/${locale}/news/${slug}`,
       languages: {
-        ...Object.fromEntries(locales.map((l) => [l, `${siteUrl}/${l}/news/${slug}`])),
+        ...Object.fromEntries(
+          locales.map((l) => [l, `${siteUrl}/${l}/news/${slug}`]),
+        ),
         "x-default": `${siteUrl}/en/news/${slug}`,
       },
     },
@@ -82,7 +91,10 @@ export default async function NewsArticlePage({
     ...others.filter((a) => article.story && a.story === article.story),
     ...others.filter((a) => !article.story || a.story !== article.story),
   ].slice(0, 3);
-  const updated = article.updatedAt && article.updatedAt > article.date ? article.updatedAt : null;
+  const updated =
+    article.updatedAt && article.updatedAt > article.date
+      ? article.updatedAt
+      : null;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -96,8 +108,37 @@ export default async function NewsArticlePage({
     publisher: { "@type": "Organization", name: "switch-to.eu", url: siteUrl },
     mainEntityOfPage: `${siteUrl}/${locale}/news/${slug}`,
     articleBody: markdownToPlainText(article.content),
-    citation: article.sources.map((s) => ({ "@type": "CreativeWork", name: s.title, url: s.url })),
+    citation: article.sources.map((s) => ({
+      "@type": "CreativeWork",
+      name: s.title,
+      url: s.url,
+    })),
   };
+
+  const header = (
+    <div className="max-w-3xl">
+      <Link
+        href="/news"
+        className="inline-block py-1 mb-5 text-sm font-semibold text-brand-green hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+      >
+        ← {t("backToNews")}
+      </Link>
+      <div className="text-[#1a1a1a] mb-5">
+        <ArticleMeta article={article} locale={locale} t={t} />
+        {updated && (
+          <p className="mt-2 text-sm text-brand-green">
+            {t("updatedOn", { date: formatArticleDate(updated, locale) })}
+          </p>
+        )}
+      </div>
+      <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green mb-4 leading-[1.02] text-balance">
+        {article.title}
+      </h1>
+      <p className="text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[60ch]">
+        {article.description}
+      </p>
+    </div>
+  );
 
   return (
     <PageLayout>
@@ -108,34 +149,42 @@ export default async function NewsArticlePage({
 
       <section>
         <Container noPaddingMobile>
-          <Banner
-            color="bg-white border-y md:border border-black/10"
-            shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
-              { shape: "petal", className: "bottom-6 right-16 hidden sm:block w-24 h-24", opacity: 0.3, duration: "8s", delay: "-2s", color: "text-brand-sky" },
-            ]}
-          >
-            <div className="max-w-3xl">
-              <Link
-                href="/news"
-                className="inline-block py-1 mb-5 text-sm font-semibold text-brand-green hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky"
-              >
-                ← {t("backToNews")}
-              </Link>
-              <div className="text-[#1a1a1a] mb-5">
-                <ArticleMeta article={article} locale={locale} t={t} tone="light" />
-                {updated && (
-                  <p className="mt-2 text-sm text-brand-green">
-                    {t("updatedOn", { date: formatArticleDate(updated, locale) })}
-                  </p>
-                )}
+          {article.image ? (
+            <div>
+              <div className="relative h-[220px] sm:h-[340px] lg:h-[440px] md:rounded-3xl overflow-hidden bg-[#f3efe8]">
+                <Image
+                  src={article.image}
+                  alt={article.imageAlt ?? ""}
+                  fill
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  className="object-cover"
+                />
               </div>
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-5 leading-[0.95] text-balance">
-                {article.title}
-              </h1>
-              <p className="text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[60ch]">{article.description}</p>
+              <div className="relative -mt-12 sm:-mt-24 mx-3 sm:mx-8 lg:mx-16 bg-white border border-black/10 rounded-3xl px-6 sm:px-10 md:px-12 py-7 sm:py-10">
+                {header}
+              </div>
+              {article.imageCredit && (
+                <p className="mx-3 sm:mx-8 lg:mx-16 mt-2 px-1 text-xs text-[#1a1a1a]/75 text-right">
+                  {article.imageCreditUrl ? (
+                    <a
+                      href={article.imageCreditUrl}
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:no-underline"
+                    >
+                      {article.imageCredit}
+                    </a>
+                  ) : (
+                    article.imageCredit
+                  )}
+                </p>
+              )}
             </div>
-          </Banner>
+          ) : (
+            <Banner color="bg-white border-y md:border border-black/10">
+              {header}
+            </Banner>
+          )}
         </Container>
       </section>
 
@@ -161,7 +210,11 @@ export default async function NewsArticlePage({
                 {otherLocales.map((l, i) => (
                   <span key={l}>
                     {i > 0 && ", "}
-                    <Link href={`/news/${slug}`} locale={l} className="text-brand-green underline hover:no-underline">
+                    <Link
+                      href={`/news/${slug}`}
+                      locale={l}
+                      className="text-brand-green underline hover:no-underline"
+                    >
                       {ARTICLE_LOCALE_NAMES[l]}
                     </Link>
                   </span>
@@ -175,9 +228,10 @@ export default async function NewsArticlePage({
       {article.sources.length > 0 && (
         <section className="pt-8 md:pt-0">
           <Container>
-            <div className="max-w-[42.5rem] mx-auto bg-brand-sage/40 rounded-3xl p-6 sm:p-8">
-              <h2 className="font-heading uppercase text-2xl text-brand-green mb-2">{t("sources")}</h2>
-              <p className="text-sm text-gray-700 mb-4">{t("sourcesIntro")}</p>
+            <div className="max-w-[42.5rem] mx-auto bg-white border border-black/10 rounded-3xl p-6 sm:p-8">
+              <h2 className="font-heading text-2xl text-brand-green mb-2">
+                {t("sources")}
+              </h2>
               <ol className="space-y-3 list-decimal pl-5 text-gray-700">
                 {article.sources.map((source) => (
                   <li key={source.url}>
@@ -192,7 +246,9 @@ export default async function NewsArticlePage({
                     <span className="text-sm">
                       {" "}
                       · {source.publisher || sourceHost(source.url)}
-                      {source.date ? ` · ${formatArticleDate(source.date, locale)}` : ""}
+                      {source.date
+                        ? ` · ${formatArticleDate(source.date, locale)}`
+                        : ""}
                     </span>
                   </li>
                 ))}
@@ -206,10 +262,17 @@ export default async function NewsArticlePage({
         <section>
           <Container noPaddingMobile>
             <SectionHeading>{t("mentioned")}</SectionHeading>
-            <div role="list" className="grid gap-0 md:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              role="list"
+              className="grid gap-0 md:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            >
               {article.services.map((service, index) => (
                 <div role="listitem" key={service.slug}>
-                  <ServiceCard service={service} showCategory colorIndex={index} />
+                  <ServiceCard
+                    service={service}
+                    showCategory
+                    colorIndex={index}
+                  />
                 </div>
               ))}
             </div>
@@ -242,11 +305,14 @@ export default async function NewsArticlePage({
           <Container noPaddingMobile>
             <h2
               id="more-news-title"
-              className="px-3 md:px-0 pt-10 md:pt-0 font-heading uppercase text-brand-green text-4xl sm:text-5xl mb-6 sm:mb-8"
+              className="px-3 md:px-0 pt-10 md:pt-0 font-heading text-brand-green text-3xl sm:text-4xl mb-6 sm:mb-8"
             >
               {t("moreNews")}
             </h2>
-            <div role="list" className="grid gap-0 md:gap-5 grid-cols-1 md:grid-cols-3">
+            <div
+              role="list"
+              className="grid gap-0 md:gap-5 grid-cols-1 md:grid-cols-3"
+            >
               {moreNews.map((other, index) => (
                 <ArticleCard
                   key={other.slug}

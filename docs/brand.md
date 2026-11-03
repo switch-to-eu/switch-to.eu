@@ -452,9 +452,9 @@ Rule: sky, yellow and sage pair with Green text. Green, navy and red pair with W
 
 Yellow buttons and pills take Green text, not Navy (navy on yellow is 4.29:1). Yellow-outline buttons on dark grounds take White text.
 
-### Readable rotation (cards with body copy)
+### Readable rotation (cards with body copy, tool apps only)
 
-Measured contrast for body text (WCAG AA needs 4.5:1): white on orange is 3.79:1 and green on pink is 4.03:1, so both fail at body sizes. They are fine for shapes and for display headings at 24px and up. Cards whose main content is running text (news article cards) use the AA-safe subset `getReadableCardColor(index)` from `apps/website/lib/news.ts`: sky, green, yellow, navy, sage, red. The same applies to section blocks with body copy: use green, navy, red, yellow, sky or sage, never orange, as the ground for paragraphs.
+Measured contrast for body text (WCAG AA needs 4.5:1): white on orange is 3.79:1 and green on pink is 4.03:1, so both fail at body sizes. They are fine for shapes and for display headings at 24px and up. Cards whose main content is running text should use the AA-safe subset: sky, green, yellow, navy, sage, red. (The website no longer uses coloured cards; this applies to the tool apps.) The same applies to section blocks with body copy: use green, navy, red, yellow, sky or sage, never orange, as the ground for paragraphs.
 
 Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, white on navy 8.5, green on sage 6.6, white on red 4.7, sky on green 6.0, sky on navy 4.9.
 
@@ -462,16 +462,18 @@ Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, whi
 
 The owner asked for a toned-down, more approachable website. This supersedes the "Section Blocks" and colour-pairing guidance below for the **website** (the tool apps keep their saturated tool colours):
 
-- **Page:** warm off-white `--background: #faf8f5`. Header on the same ground with a `border-black/10` bottom rule. The logo's `.eu` uses brand orange instead of yellow.
-- **Panels and cards:** `bg-white border border-black/10` with `md:rounded-3xl` (top and bottom borders only on mobile, where panels run edge to edge). One tinted section per screen at most (for example "How we work" on `bg-brand-sage/25`).
-- **Type:** headings in brand green (Bonbance, uppercase). Body `#1a1a1a`. The Anton hero is brand green on white.
+- **Page:** warm ground `--background: #f1eee8`, dark enough that white cards read as cards. Header on the same ground with a `border-black/10` bottom rule. The logo's `.eu` uses brand orange instead of yellow.
+- **Panels and cards:** `bg-white border border-black/10` with `md:rounded-3xl` (top and bottom borders only on mobile, where panels run edge to edge). Up to three full brand-colour anchor panels per page, never adjacent: homepage intro and "How we work" on green (yellow headings, white text), the guides panel on sky (green text). Cards get a `h-1.5` saturated strip on top from the rotation.
+- **Type:** headings in brand green, Bonbance in **sentence case** (no `uppercase`), one size step smaller than before (section headings `text-3xl sm:text-4xl`, page h1 `text-3xl sm:text-4xl md:text-5xl`). Body `#1a1a1a`. Anton is used only in the logo.
 - **Actions:** green pills (`bg-brand-green text-white`), green outline pills for secondary actions, links in green.
-- **Colour in small doses:** card rotation through `apps/website/lib/quiet-palette.ts`, with a tinted band (`bg-brand-sky/35`, `bg-brand-orange/15`, …) behind the shape or image and the shape in the brand colour. Tags and region badges keep their colours.
-- **Shapes:** 1–3 per section in yellow, sky or pink at about 30% opacity.
+- **Colour as accent:** bold, saturated brand colours only in small elements: card strips, article type pills (`news` yellow with `#1a1a1a`, `analysis` navy with white, `components/news/article-type.ts`), small dots, region badges, the logo's `.eu`. Big colour belongs only to the few anchor panels above.
+- **Shapes:** only tone-on-tone inside colour panels (sage on green, green on sky, 8-12% opacity). None on white surfaces, no blob illustrations on cards (2026-11-03: "too childish and gimmicky"). Cards get a visual area only for a real screenshot or photo.
+- **Photos:** news articles carry an openly licensed photo of the real place or institution, credited under the image (see `.claude/skills/_shared/content-files.md`, "Article photos").
+- **No subtitle filler** under headings.
 
 ## Editorial components (homepage and news)
 
-The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton at `clamp(3rem, 7vw, 6rem)`, full width, and the search as the primary action), then the guides band, picks, `FrontPage` (lead story on yellow, dated briefing column on cream; the masthead's "last update" ignores `sample: true` articles), `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
+The homepage is content first, with no big hero: `HomeMasthead` is a compact green panel (dateline, yellow Bonbance h1, search, quick-switch chips), then `FrontPage` (lead story with its photo, briefing column with thumbnails; the "last update" ignores `sample: true` articles), the guides band, picks, `HowWeWork` (concrete trust signals), tools and newsletter. Article pages open with the photo full width, the title panel overlapping its bottom edge (as on Tweakers) and the photo credit under it, then the calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. Articles without a photo fall back to a white text header. No eyebrow labels above headings.
 
 ---
 

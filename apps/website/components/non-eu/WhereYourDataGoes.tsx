@@ -16,7 +16,7 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
 
   return (
     <section>
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title")}
       </h2>
       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 rounded-2xl border border-brand-navy/10 bg-white p-5 sm:p-6">

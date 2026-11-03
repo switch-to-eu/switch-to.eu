@@ -213,21 +213,10 @@ export default async function ServiceDetailPage({
         <Banner
           color="bg-white border-y md:border border-black/10"
           className="[&>div]:py-8 [&>div]:sm:py-10"
-          shapes={[
-            {
-              shape: "starburst",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
-            {
-              shape: "blob",
-              className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.3,
-              duration: "9s",
-              delay: "-3s", color: "text-brand-sky" },
-          ]}
         >
           <div className="max-w-3xl">
             <div className="flex items-start gap-3 mb-3">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-[#1a1a1a]">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1a1a1a]">
                 {t("redesign.h1Template", { name: service.name })}
               </h1>
               <div className="flex-shrink-0 mt-2">
@@ -296,7 +285,7 @@ export default async function ServiceDetailPage({
               >
                 {(issues.length > 0 || service.content) && (
                   <section>
-                    <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+                    <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
                       {t("redesign.whyPeopleSwitch", { name: service.name })}
                     </h2>
                     {issues.length > 0 && (

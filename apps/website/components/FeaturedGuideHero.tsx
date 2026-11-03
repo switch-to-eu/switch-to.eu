@@ -1,14 +1,14 @@
+import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
 import type { Category, Guide, Service } from "@/lib/content/types";
 
 type MaybePopulated<T> = T | number | null | undefined;
 
 function populated<T extends { slug?: string | null }>(
-  value: MaybePopulated<T>
+  value: MaybePopulated<T>,
 ): T | null {
   return typeof value === "object" && value !== null ? value : null;
 }
@@ -64,13 +64,25 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
   return (
     <section>
       <Container noPaddingMobile>
-        <div className="bg-white border-y md:border border-black/10 md:rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
-          <OrientationColumn
-            title={t("guidesBand.title")}
-            body={t("guidesBand.body")}
-            ctaLabel={t("masthead.picksLink")}
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 px-3 md:px-0 pt-10 md:pt-0 mb-6 sm:mb-8">
+          <h2 className="font-heading text-brand-green text-3xl sm:text-4xl">
+            {t("guidesBand.title")}
+          </h2>
+          <a
+            href="#picks"
+            className="inline-block py-1 text-sm font-semibold text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
+          >
+            {t("masthead.picksLink")} →
+          </a>
+        </div>
+        <div className="relative bg-brand-sky md:rounded-3xl overflow-hidden">
+          <DecorativeShape
+            shape="starburst"
+            className="-top-14 -right-14 w-48 h-48 sm:w-60 sm:h-60"
+            color="text-brand-green"
+            opacity={0.08}
+            duration="13s"
           />
-
           <GuidesColumn
             featured={resolvedFeatured}
             others={resolvedOthers}
@@ -83,55 +95,6 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
         </div>
       </Container>
     </section>
-  );
-}
-
-interface OrientationColumnProps {
-  title: string;
-  body: string;
-  ctaLabel: string;
-}
-
-/** Intro panel for the guides band (the masthead above owns the page h1). */
-function OrientationColumn({ title, body, ctaLabel }: OrientationColumnProps) {
-  return (
-    <div className="relative overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-5">
-      <DecorativeShape
-        shape="sunburst"
-        className="-top-14 -left-10 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60"
-        color="text-brand-yellow"
-        opacity={0.3}
-        duration="13s"
-      />
-      <DecorativeShape
-        shape="pebble"
-        className="-bottom-12 -right-10 w-36 h-36 sm:w-48 sm:h-48 rotate-12"
-        color="text-brand-pink"
-        opacity={0.2}
-        duration="15s"
-        delay="-4s"
-      />
-
-      <div className="relative z-10 flex flex-col h-full">
-        <h2 className="font-heading uppercase text-brand-green leading-none text-5xl sm:text-6xl md:text-7xl">
-          {title}
-        </h2>
-
-        <p className="text-[#1a1a1a] text-base sm:text-lg md:text-xl mt-5 sm:mt-6 max-w-xl leading-snug">
-          {body}
-        </p>
-
-        <div className="mt-auto pt-6 sm:pt-8">
-          <a
-            href="#picks"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
-          >
-            {ctaLabel}
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -155,46 +118,29 @@ function GuidesColumn({
   difficultyLabels,
 }: GuidesColumnProps) {
   return (
-    <div className="relative bg-brand-sky/25 overflow-hidden px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 md:col-span-7">
-      <DecorativeShape
-        shape="spark"
-        className="-top-10 -right-8 w-32 h-32 sm:w-44 sm:h-44"
-        color="text-brand-green"
-        opacity={0.1}
-        duration="12s"
-      />
-      <DecorativeShape
-        shape="blob"
-        className="-bottom-16 -left-14 w-44 h-44 sm:w-56 sm:h-56"
-        color="text-brand-green"
-        opacity={0.08}
-        duration="16s"
-        delay="-6s"
-      />
-
-      <div className="relative z-10">
-        {featured ? (
-          <FeaturedPoster
-            guide={featured}
-            primaryCta={primaryCta}
-            difficultyLabels={difficultyLabels}
-          />
-        ) : (
-          <FallbackPoster title={fallbackTitle} subtitle={fallbackSubtitle} />
-        )}
+    <div className="relative z-10 px-6 sm:px-10 md:px-12 py-8 sm:py-10">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-y-6 md:gap-x-12">
+        <div className="md:col-span-6">
+          {featured ? (
+            <FeaturedPoster
+              guide={featured}
+              primaryCta={primaryCta}
+              difficultyLabels={difficultyLabels}
+            />
+          ) : (
+            <FallbackPoster title={fallbackTitle} subtitle={fallbackSubtitle} />
+          )}
+        </div>
 
         {others.length > 0 && (
-          <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-brand-green/15">
-            <h3 className="font-heading uppercase text-brand-green text-xl sm:text-2xl mb-2 sm:mb-3">
+          <div className="md:col-span-6 pt-5 md:pt-0 border-t md:border-t-0 md:border-l border-brand-green/20 md:pl-12">
+            <h3 className="font-heading text-brand-green text-xl sm:text-2xl mb-2 sm:mb-3">
               {moreMigrationsLabel}
             </h3>
             <ul className="flex flex-col gap-0.5">
               {others.map((guide) => (
                 <li key={guide.slug}>
-                  <GuideRow
-                    guide={guide}
-                    difficultyLabels={difficultyLabels}
-                  />
+                  <GuideRow guide={guide} difficultyLabels={difficultyLabels} />
                 </li>
               ))}
             </ul>
@@ -218,17 +164,7 @@ function FeaturedPoster({
 }: FeaturedPosterProps) {
   return (
     <div>
-      <h3
-        className="font-display text-brand-green uppercase"
-        style={{
-          fontFamily: "var(--font-anton)",
-          fontWeight: 400,
-          lineHeight: 0.95,
-          letterSpacing: "-0.015em",
-          fontSize: "clamp(1.5rem, 3.2vw, 2.75rem)",
-          overflowWrap: "break-word",
-        }}
-      >
+      <h3 className="font-heading text-brand-green text-3xl sm:text-4xl leading-[1.05] break-words text-balance">
         {guide.sourceName}
         <span
           className="text-brand-green/70 mx-2 sm:mx-3 inline-block"
@@ -272,10 +208,10 @@ function GuideRow({ guide, difficultyLabels }: GuideRowProps) {
   return (
     <Link
       href={guide.href}
-      className="group flex items-center gap-3 sm:gap-4 py-3 -mx-2 px-2 sm:-mx-3 sm:px-3 rounded-xl hover:bg-brand-green/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-sky"
+      className="group flex items-center gap-3 sm:gap-4 py-3 -mx-2 px-2 sm:-mx-3 sm:px-3 rounded-xl hover:bg-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-sky"
     >
       <span className="flex-1 min-w-0">
-        <span className="block font-heading uppercase text-brand-green font-bold text-base sm:text-lg leading-tight">
+        <span className="block font-heading text-brand-green font-bold text-base sm:text-lg leading-tight">
           {guide.sourceName}{" "}
           <span className="text-brand-green/50" aria-hidden="true">
             →
@@ -304,16 +240,7 @@ interface FallbackPosterProps {
 function FallbackPoster({ title, subtitle }: FallbackPosterProps) {
   return (
     <div>
-      <h3
-        className="font-display text-brand-green uppercase"
-        style={{
-          fontFamily: "var(--font-anton)",
-          fontWeight: 400,
-          lineHeight: 0.9,
-          letterSpacing: "-0.02em",
-          fontSize: "clamp(2rem, 5vw, 3.5rem)",
-        }}
-      >
+      <h3 className="font-heading text-brand-green text-3xl sm:text-4xl leading-[1.05] text-balance">
         {title}
       </h3>
       <p className="text-brand-green text-base sm:text-lg mt-6 max-w-lg leading-relaxed">

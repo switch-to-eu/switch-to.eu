@@ -4,7 +4,6 @@ import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCardColor } from "@/lib/quiet-palette";
-import { shapes } from "@switch-to-eu/blocks/shapes";
 import { getCategorySlug, getScreenshotUrl } from "@/lib/services";
 import type { Service } from "@/lib/content/types";
 
@@ -22,20 +21,6 @@ export type ServiceCardService = Pick<
   | "angle"
 >;
 
-const SERVICE_SHAPES = [
-  "spark",
-  "cloud",
-  "tulip",
-  "pebble",
-  "heart",
-  "sunburst",
-  "flower",
-  "starburst",
-  "coral",
-  "diamond-4",
-  "daisy",
-  "star",
-];
 
 export async function ServiceCard({
   service,
@@ -57,17 +42,15 @@ export async function ServiceCard({
   const screenshotUrl = getScreenshotUrl(service.screenshot);
 
   const card = getCardColor(colorIndex);
-  const shapeName = SERVICE_SHAPES[colorIndex % SERVICE_SHAPES.length]!;
-  const shapeData = shapes[shapeName];
 
   return (
     <Link href={serviceLink} className="block h-full no-underline group">
       <div
         className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden`}
       >
-        {/* Visual area: screenshot or decorative shape */}
-        <div className={`${card.band} relative h-36 sm:h-44 flex items-center justify-center overflow-hidden`}>
-          {screenshotUrl ? (
+        <div aria-hidden="true" className={`h-1.5 ${card.strip}`} />
+        {screenshotUrl && (
+          <div className={`${card.band} relative h-36 sm:h-44 overflow-hidden`}>
             <Image
               src={screenshotUrl}
               alt={service.name}
@@ -75,34 +58,17 @@ export async function ServiceCard({
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover"
             />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center p-8 sm:p-10">
-              {shapeData && (
-                <svg
-                  viewBox={shapeData.viewBox}
-                  className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
-                  style={{
-                    animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
-                    animationDelay: `${(colorIndex % 4) * -1.5}s`,
-                  }}
-                  aria-hidden="true"
-                >
-                  <path d={shapeData.d} fill="currentColor" />
-                </svg>
-              )}
-            </div>
-          )}
-          {/* Region badge floated top-right */}
-          <div className="absolute top-3 right-3">
-            <RegionBadge region={service.region} />
           </div>
-        </div>
+        )}
 
         {/* Content area */}
         <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
-          <h3 className={`${card.text} text-lg sm:text-xl font-bold mb-1`}>
-            {service.name}
-          </h3>
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <h3 className={`${card.text} text-lg sm:text-xl font-bold`}>
+              {service.name}
+            </h3>
+            <RegionBadge region={service.region} />
+          </div>
 
           {showCategory && (
             <p className={`${card.text} text-xs mb-2`}>
