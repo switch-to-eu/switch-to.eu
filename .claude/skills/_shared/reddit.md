@@ -10,6 +10,12 @@ The common surface is:
 - `mcp__reddit__get_post_comments` — comments on a specific post
 - `mcp__reddit__get_subreddit_info` — subreddit metadata
 
+Without credentials, `search_reddit` reads from the Arctic Shift archive. Pass one `subreddit` per call. Scores and comment counts lag and are often 0 or 1. Arctic Shift can time out under load: retry once after a few seconds.
+
+## Second server: `reddit-mcp-buddy`
+
+`.mcp.json` also has `reddit-mcp-buddy` (tools `mcp__reddit-mcp-buddy__*`). Without `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET` in the root `.env`, only `browse_subreddit` works, and it returns no scores. Its `search_reddit` fails. Use the `reddit` server for search unless those credentials are set.
+
 ## Default subreddit set
 
 For SEO / switch-to.eu use cases, always include these unless overridden:
