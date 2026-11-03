@@ -2,21 +2,26 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { findPage } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import type { Metadata, ResolvingMetadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 
 import { notFound } from "next/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("terms");
   const locale = await getLocale();
 
-  return {
+  return pageMetadata({
+    parent,
+    path: "terms",
+    locale,
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("terms", locale),
-  };
+  });
 }
 
 export default async function TermsPage({

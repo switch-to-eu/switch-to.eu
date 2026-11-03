@@ -1,8 +1,7 @@
 {
   "common": {
-    "title": "Switch-to.eu — Vind EU-alternatieven voor Big Tech",
-    "subtitle": "EU-alternatieven voor wereldwijde diensten",
-    "description": "Een gids om je te helpen overstappen van niet-EU naar EU-gebaseerde digitale diensten en producten.",
+    "title": "Europese alternatieven voor Big Tech | Switch-to.eu",
+    "description": "Vergelijk Europese alternatieven voor Gmail, WhatsApp, Google Drive en Chrome. Bekijk prijzen en nadelen, en volg een stappenplan om over te stappen.",
     "search": "Zoeken...",
     "searchPlaceholder": "Zoek naar diensten...",
     "searchResults": "Zoekresultaten",
@@ -106,12 +105,12 @@
     "poweredBy": "Mogelijk gemaakt door"
   },
   "privacy": {
-    "title": "Privacybeleid | Switch-to.EU",
+    "title": "Privacybeleid: je gegevens op Switch-to.EU",
     "description": "Leer hoe Switch-to.EU uw persoonlijke gegevens verzamelt, gebruikt en beschermt in overeenstemming met de AVG en Europese privacywetten."
   },
   "terms": {
     "title": "Gebruiksvoorwaarden | Switch-to.EU",
-    "description": "Lees de gebruiksvoorwaarden voor Switch-to.EU en onze tools, waaronder KeepFocus, Plotty en Nully."
+    "description": "Lees de gebruiksvoorwaarden voor Switch-to.EU en onze tools: KeepFocus, Plotty, Listy, Privnote, Quiz en Kanban. Waarmee je akkoord gaat als je ze gebruikt."
   },
   "contribute": {
     "title": "Bijdragen",
@@ -318,8 +317,8 @@
     }
   },
   "about": {
-    "title": "Over Switch-to.eu",
-    "description": "Wij helpen EU-burgers digitale diensten te vinden die onder EU-wetgeving vallen",
+    "title": "Over Switch-to.eu: wie we zijn en waarom we dit bouwden",
+    "description": "Switch-to.eu is gebouwd door Vincent en Simon Peters, ontwerpers uit Antwerpen. We vergelijken EU-alternatieven voor Amerikaanse diensten en schrijven gidsen.",
     "initiative": {
       "heading": "Wie we zijn",
       "intro": "Switch-to.eu is gebouwd door Vincent en Simon Peters, digitale ontwerpers uit Antwerpen. We begonnen hiermee omdat het vinden van en overstappen naar EU-alternatieven meer uitzoekwerk vergde dan nodig.",
@@ -590,7 +589,8 @@
           "closedSource": "Gesloten broncode",
           "keyFeatures": "Belangrijkste functies"
         }
-      }
+      },
+      "alternativeTo": "Alternatief voor:"
     },
     "buyersGuide": {
       "picksTitle": "Onze keuzes",
@@ -608,12 +608,18 @@
       "howToChoose": "Zo kies je",
       "guidesTitle": "Overstapgidsen",
       "guideTime": "{time} · {difficulty}",
+      "leavingTitle": "Stap je over van een van deze?",
+      "leavingIntro": "Lees wat elke dienst met je gegevens doet en welk EU-alternatief wij aanraden.",
       "allServices": "Alle diensten voor {category}"
     }
   },
   "tools": {
     "title": "Tools",
     "description": "Privacy-first tools, gebouwd in Europa. Geen tracking, geen accounts — gewoon handige apps die je data respecteren.",
+    "meta": {
+      "title": "Privacytools gebouwd in Europa | switch-to.eu",
+      "description": "Tools gebouwd in Europa: een websitescanner, focustimer, polls, gedeelde lijsten, zelfvernietigende notities en live quizzen. Geen tracking, geen accounts."
+    },
     "comingSoon": "Binnenkort beschikbaar",
     "whyUseTools": "Waarom Onze Tools Gebruiken",
     "features": {
@@ -722,8 +728,8 @@
   },
   "feedback": {
     "meta": {
-      "title": "Feedback - Switch-to.eu",
-      "description": "Deel je feedback, rapporteer bugs of stel functies voor voor Switch-to.eu"
+      "title": "Feedback geven of een bug melden | Switch-to.eu",
+      "description": "Deel je feedback, meld bugs of stel functies voor voor Switch-to.eu. Laat weten welke dienst we verkeerd hebben of welk alternatief we moeten toevoegen."
     },
     "hero": {
       "title": "Deel Je Feedback",
@@ -806,8 +812,8 @@
   },
   "news": {
     "meta": {
-      "title": "EU-technieuws | switch-to.eu",
-      "description": "Nieuws op werkdagen over digitale soevereiniteit, privacy en Europese alternatieven voor Amerikaanse tech. Met bronnen, kort, en gericht op wat het voor jou betekent."
+      "title": "EU-technieuws over soevereiniteit en privacy | switch-to.eu",
+      "description": "Nieuws op werkdagen over digitale soevereiniteit, privacy en Europese alternatieven voor Amerikaanse tech. Kort, met bronnen en wat het voor jou betekent."
     },
     "hero": {
       "title": "Nieuws",

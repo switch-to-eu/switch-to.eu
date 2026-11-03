@@ -259,10 +259,10 @@
    "path": "content/services/whatsapp/en.md",
    "updated": "2026-04-20"
   },
-  "services/x-(twitter)": {
+  "services/x-twitter": {
    "type": "service",
    "title": "X (Twitter)",
-   "path": "content/services/x-(twitter)/en.md",
+   "path": "content/services/x-twitter/en.md",
    "updated": "2026-11-03"
   },
   "services/yahoo-search": {
@@ -2908,7 +2908,7 @@
    "rel": "in-category"
   },
   {
-   "from": "services/x-(twitter)",
+   "from": "services/x-twitter",
    "to": "categories/social-media",
    "rel": "in-category"
   },
@@ -2949,7 +2949,7 @@
   },
   {
    "from": "articles/app-builders-ask-eu-for-portable-followers",
-   "to": "services/x-(twitter)",
+   "to": "services/x-twitter",
    "rel": "mentions"
   },
   {
@@ -4714,7 +4714,7 @@
   },
   {
    "from": "eu-digital-fairness-act-social-switching",
-   "to": "services/x-(twitter)",
+   "to": "services/x-twitter",
    "rel": "involves"
   },
   {
@@ -6804,7 +6804,7 @@
    "services/instagram",
    "services/mastodon",
    "services/tiktok",
-   "services/x-(twitter)"
+   "services/x-twitter"
   ],
   "categories/browsers": [
    "services/brave",
@@ -6911,7 +6911,7 @@
    "articles/app-builders-ask-eu-for-portable-followers",
    "eu-digital-fairness-act-social-switching"
   ],
-  "services/x-(twitter)": [
+  "services/x-twitter": [
    "articles/app-builders-ask-eu-for-portable-followers",
    "eu-digital-fairness-act-social-switching"
   ],

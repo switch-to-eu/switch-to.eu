@@ -2,7 +2,7 @@
 title: Migrating from X (Twitter) to Bluesky
 description: Step-by-step guide for switching from X (Twitter) to Bluesky
 category: social-media
-sourceService: x-(twitter)
+sourceService: x-twitter
 targetService: bluesky
 difficulty: beginner
 timeRequired: 45 minutes
@@ -12,6 +12,9 @@ missingFeatures:
 - 'Direct messages: Bluesky does not currently support private messaging'
 - 'Polls: Creating polls is not yet available on Bluesky'
 - 'Advanced search: Bluesky search is more limited compared to X'
+# SEO
+metaTitle: 'X to Bluesky: Find Followers and Import Tweets with Porto'
+metaDescription: 'Move from X (Twitter) to Bluesky. Find the people you follow with Sky Follower Bridge, import your tweet archive with Porto, and see what doesn''t carry over.'
 # Workflow
 contentPipelineStatus: not-started
 updatedAt: '2026-04-23'

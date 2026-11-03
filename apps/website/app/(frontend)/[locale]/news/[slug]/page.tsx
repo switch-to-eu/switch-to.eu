@@ -1,4 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
+import { inheritedOpenGraph } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -39,23 +42,27 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: Locale; slug: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { locale, slug } = await params;
   const article = findArticle(slug, locale);
   if (!article) return { title: "Not Found" };
 
   const locales = servedLocales(article);
+  const canonical = `${siteUrl}/${locale}/news/${slug}`;
   return {
     title: `${article.metaTitle || article.title} | switch-to.eu`,
     description: article.metaDescription || article.description,
     keywords: article.keywords,
     ...(article.sample ? { robots: { index: false, follow: false } } : {}),
     alternates: {
-      canonical: `${siteUrl}/${locale}/news/${slug}`,
+      canonical,
       languages: {
         ...Object.fromEntries(
           locales.map((l) => [l, `${siteUrl}/${l}/news/${slug}`]),
@@ -64,6 +71,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...(await inheritedOpenGraph(parent, canonical)),
       type: "article",
       title: article.ogTitle || article.title,
       description: article.ogDescription || article.description,
@@ -115,6 +123,13 @@ export default async function NewsArticlePage({
     })),
   };
 
+  const tNav = await getTranslations({ locale, namespace: "navigation" });
+  const breadcrumbs = breadcrumbJsonLd(locale, [
+    { name: tNav("home"), path: "" },
+    { name: tNav("news"), path: "news" },
+    { name: article.title, path: `news/${slug}` },
+  ]);
+
   const header = (
     <div className="max-w-3xl">
       <Link
@@ -142,6 +157,7 @@ export default async function NewsArticlePage({
 
   return (
     <PageLayout>
+      <JsonLd data={breadcrumbs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

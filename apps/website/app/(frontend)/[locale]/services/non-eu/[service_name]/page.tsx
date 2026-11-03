@@ -15,10 +15,11 @@ import { Sources } from "@/components/non-eu/Sources";
 import { RichText } from "@/components/rich-text";
 
 import { getTranslations, getFormatter } from "next-intl/server";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -86,11 +87,14 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; service_name: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; service_name: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { service_name, locale } = await params;
 
   const service = await getServiceBySlugAnyRegion(service_name, locale);
@@ -111,8 +115,13 @@ export async function generateMetadata({
     service.metaDescription || service.oneLineProblem || service.description;
 
   return {
-    title,
-    description,
+    ...(await pageMetadata({
+      parent,
+      path: `services/non-eu/${service_name}`,
+      locale,
+      title,
+      description,
+    })),
     keywords: [
       service.name,
       categorySlug,
@@ -121,14 +130,6 @@ export async function generateMetadata({
       "EU alternatives",
       ...tags,
     ],
-    alternates: generateLanguageAlternates(
-      `services/non-eu/${service_name}`,
-      locale as AppLocale
-    ),
-    openGraph: {
-      title,
-      description,
-    },
   };
 }
 
@@ -197,8 +198,17 @@ export default async function ServiceDetailPage({
       })
     : null;
 
+  const tNav = await getTranslations("navigation");
+
   return (
     <main className="flex flex-col">
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: service.category.title, path: `services/${categorySlug}` },
+          { name: service.name, path: `services/non-eu/${service_name}` },
+        ])}
+      />
       {/* Hero */}
       <Container noPaddingMobile>
         <Link

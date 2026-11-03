@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "next-intl";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
 import { ArticleCard } from "@/components/news/ArticleCard";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { FrontPage } from "@/components/news/FrontPage";
@@ -11,18 +11,27 @@ import { getAllArticles } from "@/lib/content/loader";
 
 const BRIEFING_COUNT = 4;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: Locale }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "news" });
-  return {
+  const metadata = await pageMetadata({
+    parent,
+    path: "news",
+    locale,
     title: t("meta.title"),
     description: t("meta.description"),
+  });
+  return {
+    ...metadata,
     alternates: {
-      ...generateLanguageAlternates("news", locale),
+      ...metadata.alternates,
       types: { "application/rss+xml": `/${locale}/news/feed.xml` },
     },
   };

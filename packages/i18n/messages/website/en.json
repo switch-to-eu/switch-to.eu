@@ -1,11 +1,10 @@
 {
   "common": {
-    "title": "Switch-to.eu — Find EU Alternatives to Big Tech",
-    "description": "A guide to help you switch from non-EU to EU-based digital services and products.",
+    "title": "European Alternatives to US Big Tech | Switch-to.eu",
+    "description": "Compare European alternatives to Gmail, WhatsApp, Google Drive and Chrome. See prices and trade-offs, and follow step-by-step guides to switch.",
     "keywords": {
       "euAlternatives": "EU alternatives"
     },
-    "subtitle": "EU alternatives to global services",
     "search": "Search...",
     "searchPlaceholder": "Search for services...",
     "searchResults": "Search results",
@@ -109,12 +108,12 @@
     "poweredBy": "Powered by"
   },
   "privacy": {
-    "title": "Privacy Policy | Switch-to.EU",
+    "title": "Privacy Policy: Your Data on Switch-to.EU",
     "description": "Learn how Switch-to.EU collects, uses, and protects your personal data in accordance with GDPR and European privacy laws."
   },
   "terms": {
     "title": "Terms of Service | Switch-to.EU",
-    "description": "Read the terms of service for Switch-to.EU and our tools, including KeepFocus, Plotty, and Nully."
+    "description": "Read the terms of service for Switch-to.EU and our tools: KeepFocus, Plotty, Listy, Privnote, Quiz and Kanban. What you agree to when you use them."
   },
   "contribute": {
     "title": "Contribute",
@@ -324,8 +323,8 @@
     }
   },
   "about": {
-    "title": "About Switch-to.eu",
-    "description": "We help EU citizens find digital services governed by EU law",
+    "title": "About Switch-to.eu: Who We Are and Why We Built This",
+    "description": "Switch-to.eu is built by Vincent and Simon Peters, digital designers from Antwerp. We compare EU alternatives to US services and write switching guides.",
     "initiative": {
       "heading": "Who we are",
       "intro": "Switch-to.eu is built by Vincent and Simon Peters, digital designers from Antwerp. We started this because finding and switching to EU alternatives took more research than it should.",
@@ -596,7 +595,8 @@
           "closedSource": "Closed source",
           "keyFeatures": "Key features"
         }
-      }
+      },
+      "alternativeTo": "Alternative to:"
     },
     "buyersGuide": {
       "picksTitle": "Our picks",
@@ -614,6 +614,8 @@
       "howToChoose": "How to choose",
       "guidesTitle": "Switching guides",
       "guideTime": "{time} · {difficulty}",
+      "leavingTitle": "Leaving one of these?",
+      "leavingIntro": "Read what each service does with your data and which EU alternative we recommend.",
       "allServices": "All {category} services"
     }
   },
@@ -679,6 +681,10 @@
   "tools": {
     "title": "Tools",
     "description": "Privacy-first tools built in Europe. No tracking, no accounts — just useful apps that respect your data.",
+    "meta": {
+      "title": "Privacy Tools Built in Europe | switch-to.eu",
+      "description": "Tools built in Europe: a website scanner, focus timer, polls, shared lists, self-destructing notes and live quizzes. No tracking, no accounts."
+    },
     "comingSoon": "Coming soon",
     "whyUseTools": "Why Use Our Tools",
     "features": {
@@ -728,8 +734,8 @@
   },
   "feedback": {
     "meta": {
-      "title": "Feedback - Switch-to.eu",
-      "description": "Share your feedback, report bugs, or suggest features for Switch-to.eu"
+      "title": "Send Feedback or Report a Bug | Switch-to.eu",
+      "description": "Share your feedback, report bugs, or suggest features for Switch-to.eu. Tell us which service we got wrong or which alternative we should add."
     },
     "hero": {
       "title": "Share Your Feedback",
@@ -812,7 +818,7 @@
   },
   "news": {
     "meta": {
-      "title": "EU tech news | switch-to.eu",
+      "title": "EU Tech News: Digital Sovereignty and Privacy | switch-to.eu",
       "description": "Weekday news on digital sovereignty, privacy and European alternatives to US tech. Sourced, short, and focused on what it means for you."
     },
     "hero": {

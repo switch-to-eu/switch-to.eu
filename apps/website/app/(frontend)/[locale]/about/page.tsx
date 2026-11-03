@@ -1,9 +1,9 @@
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { getCardColor } from "@/lib/quiet-palette";
@@ -23,15 +23,20 @@ const WHY_CHOOSE_CARDS = [
   { titleKey: "whyChoosePoints.point4.title", descKey: "whyChoosePoints.point4.description", colorIndex: 3, shape: "speech" },
 ] as const;
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("about");
   const locale = await getLocale();
 
-  return {
+  return pageMetadata({
+    parent,
+    path: "about",
+    locale,
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("about", locale),
-  };
+  });
 }
 
 export default async function AboutPage() {

@@ -43,14 +43,13 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: generateLanguageAlternates("", locale),
     openGraph: {
       type: "website",
-      siteName: title,
+      siteName: "switch-to.eu",
       description,
       locale: locale,
     },
+    // Next.js fills the title, description and image from `openGraph`.
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
     },
   };
 }
