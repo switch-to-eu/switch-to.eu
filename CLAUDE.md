@@ -266,7 +266,7 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Code Style
 
-- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (full version in `PRODUCT.md`).
+- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `DESIGN.md` first: the website's visual system ("The Warm Broadsheet"), with tokens in its frontmatter and a sidecar at `.impeccable/design.json`. `docs/brand.md` holds the code-level details: tool color schemes, the shape library, and the older look the tool apps still use. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (full version in `PRODUCT.md`).
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
 - **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code.
@@ -276,7 +276,7 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Design Context
 
-`docs/brand.md` is the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context brand.md leaves implicit: who we design for, how it should feel, what to avoid. Full version in `PRODUCT.md`.
+`DESIGN.md` (website) and `docs/brand.md` (code-level details, tool apps) are the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context they leave implicit: who we design for, how it should feel, what to avoid. Full version in `PRODUCT.md`.
 
 ### Users
 

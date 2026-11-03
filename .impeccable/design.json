@@ -1,0 +1,449 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T17:08:29.676Z",
+  "title": "Design System: switch-to.eu",
+  "extensions": {
+    "colorMeta": {
+      "forest-green": {
+        "role": "primary",
+        "displayName": "Forest Green",
+        "canonical": "oklch(36.0% 0.078 157.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.078 157.0)",
+          "oklch(26.4% 0.078 157.0)",
+          "oklch(37.9% 0.078 157.0)",
+          "oklch(49.3% 0.078 157.0)",
+          "oklch(60.7% 0.078 157.0)",
+          "oklch(72.1% 0.078 157.0)",
+          "oklch(83.6% 0.078 157.0)",
+          "oklch(95.0% 0.078 157.0)"
+        ]
+      },
+      "marigold": {
+        "role": "secondary",
+        "displayName": "Marigold",
+        "canonical": "oklch(79.0% 0.166 71.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.166 71.7)",
+          "oklch(26.4% 0.166 71.7)",
+          "oklch(37.9% 0.166 71.7)",
+          "oklch(49.3% 0.166 71.7)",
+          "oklch(60.7% 0.166 71.7)",
+          "oklch(72.1% 0.166 71.7)",
+          "oklch(83.6% 0.166 71.7)",
+          "oklch(95.0% 0.166 71.7)"
+        ]
+      },
+      "harbour-sky": {
+        "role": "secondary",
+        "displayName": "Harbour Sky",
+        "canonical": "oklch(81.4% 0.052 200.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.052 200.8)",
+          "oklch(26.4% 0.052 200.8)",
+          "oklch(37.9% 0.052 200.8)",
+          "oklch(49.3% 0.052 200.8)",
+          "oklch(60.7% 0.052 200.8)",
+          "oklch(72.1% 0.052 200.8)",
+          "oklch(83.6% 0.052 200.8)",
+          "oklch(95.0% 0.052 200.8)"
+        ]
+      },
+      "soft-sage": {
+        "role": "secondary",
+        "displayName": "Soft Sage",
+        "canonical": "oklch(84.3% 0.069 144.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.069 144.9)",
+          "oklch(26.4% 0.069 144.9)",
+          "oklch(37.9% 0.069 144.9)",
+          "oklch(49.3% 0.069 144.9)",
+          "oklch(60.7% 0.069 144.9)",
+          "oklch(72.1% 0.069 144.9)",
+          "oklch(83.6% 0.069 144.9)",
+          "oklch(95.0% 0.069 144.9)"
+        ]
+      },
+      "signal-navy": {
+        "role": "tertiary",
+        "displayName": "Signal Navy",
+        "canonical": "oklch(42.9% 0.180 265.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.180 265.3)",
+          "oklch(26.4% 0.180 265.3)",
+          "oklch(37.9% 0.180 265.3)",
+          "oklch(49.3% 0.180 265.3)",
+          "oklch(60.7% 0.180 265.3)",
+          "oklch(72.1% 0.180 265.3)",
+          "oklch(83.6% 0.180 265.3)",
+          "oklch(95.0% 0.180 265.3)"
+        ]
+      },
+      "brick-orange": {
+        "role": "tertiary",
+        "displayName": "Brick Orange",
+        "canonical": "oklch(63.1% 0.189 35.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.189 35.9)",
+          "oklch(26.4% 0.189 35.9)",
+          "oklch(37.9% 0.189 35.9)",
+          "oklch(49.3% 0.189 35.9)",
+          "oklch(60.7% 0.189 35.9)",
+          "oklch(72.1% 0.189 35.9)",
+          "oklch(83.6% 0.189 35.9)",
+          "oklch(95.0% 0.189 35.9)"
+        ]
+      },
+      "alert-red": {
+        "role": "tertiary",
+        "displayName": "Alert Red",
+        "canonical": "oklch(58.5% 0.223 26.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.223 26.4)",
+          "oklch(26.4% 0.223 26.4)",
+          "oklch(37.9% 0.223 26.4)",
+          "oklch(49.3% 0.223 26.4)",
+          "oklch(60.7% 0.223 26.4)",
+          "oklch(72.1% 0.223 26.4)",
+          "oklch(83.6% 0.223 26.4)",
+          "oklch(95.0% 0.223 26.4)"
+        ]
+      },
+      "rose": {
+        "role": "tertiary",
+        "displayName": "Rose",
+        "canonical": "oklch(72.5% 0.132 348.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.132 348.4)",
+          "oklch(26.4% 0.132 348.4)",
+          "oklch(37.9% 0.132 348.4)",
+          "oklch(49.3% 0.132 348.4)",
+          "oklch(60.7% 0.132 348.4)",
+          "oklch(72.1% 0.132 348.4)",
+          "oklch(83.6% 0.132 348.4)",
+          "oklch(95.0% 0.132 348.4)"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Cream",
+        "canonical": "oklch(99.0% 0.004 56.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 56.4)",
+          "oklch(26.4% 0.004 56.4)",
+          "oklch(37.9% 0.004 56.4)",
+          "oklch(49.3% 0.004 56.4)",
+          "oklch(60.7% 0.004 56.4)",
+          "oklch(72.1% 0.004 56.4)",
+          "oklch(83.6% 0.004 56.4)",
+          "oklch(95.0% 0.004 56.4)"
+        ]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(95.0% 0.009 84.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.009 84.6)",
+          "oklch(26.4% 0.009 84.6)",
+          "oklch(37.9% 0.009 84.6)",
+          "oklch(49.3% 0.009 84.6)",
+          "oklch(60.7% 0.009 84.6)",
+          "oklch(72.1% 0.009 84.6)",
+          "oklch(83.6% 0.009 84.6)",
+          "oklch(95.0% 0.009 84.6)"
+        ]
+      },
+      "photo-mat": {
+        "role": "neutral",
+        "displayName": "Photo Mat",
+        "canonical": "oklch(95.3% 0.010 81.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 81.8)",
+          "oklch(26.4% 0.010 81.8)",
+          "oklch(37.9% 0.010 81.8)",
+          "oklch(49.3% 0.010 81.8)",
+          "oklch(60.7% 0.010 81.8)",
+          "oklch(72.1% 0.010 81.8)",
+          "oklch(83.6% 0.010 81.8)",
+          "oklch(95.0% 0.010 81.8)"
+        ]
+      },
+      "card-white": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(21.8% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(0, 0, 0, 0.1)",
+        "tonalRamp": [
+          "rgba(0, 0, 0, 0.6)",
+          "rgba(0, 0, 0, 0.4)",
+          "rgba(0, 0, 0, 0.25)",
+          "rgba(0, 0, 0, 0.15)",
+          "rgba(0, 0, 0, 0.1)",
+          "rgba(0, 0, 0, 0.08)",
+          "rgba(0, 0, 0, 0.05)",
+          "rgba(0, 0, 0, 0.03)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The homepage intro heading only, in marigold on green."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and page titles, in sentence case."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles and article card headlines, in forest green."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text on cards, listings and content pages."
+      },
+      "body-article": {
+        "displayName": "Body Article",
+        "purpose": "The news article reading column, at most 68ch wide."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, chips, form labels and meta lines."
+      },
+      "pill-label": {
+        "displayName": "Pill Label",
+        "purpose": "Uppercase article type pills, region badges and card meta lines."
+      },
+      "logo": {
+        "displayName": "Logo",
+        "purpose": "The logo only. Anton appears nowhere else."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-layer",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Dropdowns and search suggestions only. Cards and panels have no shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-change",
+        "value": "150ms ease-out",
+        "purpose": "Colour and opacity changes on buttons, chips and links."
+      },
+      {
+        "name": "press",
+        "value": "200ms ease-out",
+        "purpose": "The small scale on the round search button. Off under reduced motion."
+      },
+      {
+        "name": "shape-float",
+        "value": "6s to 14s ease-in-out infinite",
+        "purpose": "Slow float of tone-on-tone shapes in colour panels. Off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action on light grounds and on cards.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Read the guide</a>",
+      "css": ".ds-btn-primary { display: inline-block; background: var(--brand-green, #0D492C); color: #ffffff; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; padding: 10px 24px; border-radius: 9999px; text-decoration: none; transition: opacity 150ms ease-out; } .ds-btn-primary:hover { opacity: 0.9; } .ds-btn-primary:focus-visible { outline: 2px solid var(--brand-green, #0D492C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A second action next to a primary button, as a green outline pill.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Compare plans</a>",
+      "css": ".ds-btn-secondary { display: inline-block; border: 2px solid var(--brand-green, #0D492C); color: var(--brand-green, #0D492C); background: transparent; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; padding: 8px 22px; border-radius: 9999px; text-decoration: none; transition: background-color 150ms ease-out, color 150ms ease-out; } .ds-btn-secondary:hover { background: var(--brand-green, #0D492C); color: #ffffff; } .ds-btn-secondary:focus-visible { outline: 2px solid var(--brand-green, #0D492C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "The site search: a white pill with a round green submit button.",
+      "html": "<form class=\"ds-search\" role=\"search\"><span class=\"ds-search-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></span><input class=\"ds-search-input\" type=\"search\" placeholder=\"Gmail, WhatsApp, Google Drive\" aria-label=\"Search for a service\"><button class=\"ds-search-btn\" type=\"submit\" aria-label=\"Search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg></button></form>",
+      "css": ".ds-search { display: flex; align-items: center; gap: 8px; max-width: 32rem; background: #ffffff; border: 1px solid rgba(13, 73, 44, 0.2); border-radius: 9999px; padding: 6px 6px 6px 20px; transition: border-color 150ms ease-out, box-shadow 150ms ease-out; } .ds-search:focus-within { border-color: var(--brand-green, #0D492C); box-shadow: 0 0 0 4px rgba(13, 73, 44, 0.2); } .ds-search-icon { color: rgba(13, 73, 44, 0.5); display: flex; } .ds-search-input { flex: 1; border: 0; background: transparent; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-size: 1rem; color: var(--brand-green, #0D492C); padding: 8px 0; outline: none; } .ds-search-input::placeholder { color: rgba(13, 73, 44, 0.75); } .ds-search-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 9999px; background: var(--brand-green, #0D492C); color: #ffffff; cursor: pointer; transition: transform 200ms ease-out; } .ds-search-btn:hover { transform: scale(1.05); } .ds-search-btn:focus-visible { outline: 2px solid var(--brand-green, #0D492C); outline-offset: 2px; } @media (prefers-reduced-motion: reduce) { .ds-search-btn:hover { transform: none; } }"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Newsletter and contact fields: white pills on a sage or white ground.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email address</span><input class=\"ds-field-input\" type=\"email\" placeholder=\"you@example.com\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 20rem; } .ds-field-label { font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; color: var(--brand-green, #0D492C); } .ds-field-input { height: 48px; padding: 0 20px; border: 1px solid transparent; border-radius: 9999px; background: #ffffff; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-size: 1rem; color: #1a1a1a; outline: none; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); } .ds-field-input::placeholder { color: rgba(26, 26, 26, 0.65); } .ds-field-input:focus { border-color: var(--brand-green, #0D492C); box-shadow: 0 0 0 3px rgba(13, 73, 44, 0.3); }"
+    },
+    {
+      "name": "Quick-switch Chips",
+      "kind": "chip",
+      "refersTo": "chip-quick-switch",
+      "description": "Shortcut chips on the green intro panel. They fill with marigold on hover.",
+      "html": "<div class=\"ds-chips\"><a class=\"ds-chip\" href=\"#\">Gmail</a><a class=\"ds-chip\" href=\"#\">WhatsApp</a><a class=\"ds-chip\" href=\"#\">ChatGPT</a></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 8px; background: var(--brand-green, #0D492C); padding: 20px; border-radius: 1.5rem; } .ds-chip { border: 1px solid rgba(255, 255, 255, 0.4); color: #ffffff; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; padding: 4px 12px; border-radius: 9999px; text-decoration: none; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-chip:hover { background: var(--brand-yellow, #FBA616); border-color: var(--brand-yellow, #FBA616); color: var(--brand-green, #0D492C); } .ds-chip:focus-visible { outline: 2px solid var(--brand-yellow, #FBA616); outline-offset: 2px; }"
+    },
+    {
+      "name": "Article Type Pills",
+      "kind": "chip",
+      "refersTo": "pill-news",
+      "description": "One saturated pill per article type: news in marigold, analysis in navy.",
+      "html": "<span class=\"ds-pill ds-pill-news\">News</span> <span class=\"ds-pill ds-pill-analysis\">Analysis</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 12px; border-radius: 9999px; } .ds-pill-news { background: var(--brand-yellow, #FBA616); color: #1a1a1a; } .ds-pill-analysis { background: var(--brand-navy, #1E42B0); color: #ffffff; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A white card on warm paper, with one saturated strip across its top.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-strip\"></div><div class=\"ds-card-body\"><h3 class=\"ds-card-title\">Proton Mail</h3><p class=\"ds-card-meta\">EU-friendly · Switzerland</p><p class=\"ds-card-text\">Encrypted email from a Swiss company, with a free plan and paid plans.</p><a class=\"ds-card-btn\" href=\"#\">Learn more</a></div></article>",
+      "css": ".ds-card { max-width: 18rem; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 1.5rem; overflow: hidden; color: #1a1a1a; } .ds-card-strip { height: 6px; background: var(--brand-sky, #9BCDD0); } .ds-card-body { padding: 20px 24px 24px; } .ds-card-title { margin: 0 0 8px; font-family: var(--font-heading, \"Bonbance Bold Condensed\"), sans-serif; font-weight: 800; font-size: 1.5rem; line-height: 1.08; color: #1a1a1a; } .ds-card-meta { margin: 0 0 12px; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; } .ds-card-text { margin: 0 0 20px; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-size: 0.875rem; line-height: 1.625; } .ds-card-btn { display: inline-block; background: var(--brand-green, #0D492C); color: #ffffff; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; padding: 8px 20px; border-radius: 9999px; text-decoration: none; } .ds-card-btn:hover { opacity: 0.9; } .ds-card-btn:focus-visible { outline: 2px solid var(--brand-green, #0D492C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Intro Panel",
+      "kind": "custom",
+      "refersTo": "panel-intro",
+      "description": "The compact green panel that opens the homepage, in place of a hero.",
+      "html": "<section class=\"ds-intro\"><h1 class=\"ds-intro-title\">Switch from big tech to EU alternatives.</h1><p class=\"ds-intro-dateline\"><span class=\"ds-intro-dot\"></span>EU tech news, alternatives and migration guides</p></section>",
+      "css": ".ds-intro { background: var(--brand-green, #0D492C); border-radius: 1.5rem; padding: 48px 56px; color: #ffffff; } .ds-intro-title { margin: 0 0 16px; max-width: 18ch; font-family: var(--font-heading, \"Bonbance Bold Condensed\"), sans-serif; font-weight: 800; font-size: 3rem; line-height: 1.02; color: var(--brand-yellow, #FBA616); text-wrap: balance; } .ds-intro-dateline { display: flex; align-items: center; gap: 8px; margin: 0; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 600; font-size: 0.875rem; } .ds-intro-dot { width: 10px; height: 10px; border-radius: 9999px; background: var(--brand-yellow, #FBA616); }"
+    },
+    {
+      "name": "Content Table",
+      "kind": "custom",
+      "refersTo": "content-table",
+      "description": "Markdown tables: a white panel, Bonbance headers over a green rule, hairline rows.",
+      "html": "<div class=\"ds-table-wrap\"><table class=\"ds-table\"><thead><tr><th>Feature</th><th>ChatGPT</th><th>Proton Lumo</th></tr></thead><tbody><tr><td>Headquarters</td><td>San Francisco, USA</td><td>Geneva, Switzerland</td></tr><tr><td>Free tier</td><td>Yes</td><td>Yes</td></tr></tbody></table></div>",
+      "css": ".ds-table-wrap { overflow-x: auto; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 1rem; padding: 4px 0; } .ds-table { width: 100%; border-collapse: collapse; font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-size: 0.9375rem; line-height: 1.5; color: #1a1a1a; } .ds-table th, .ds-table td { padding: 12px 16px; text-align: left; vertical-align: top; } .ds-table th:first-child, .ds-table td:first-child { padding-left: 20px; } .ds-table th { padding-top: 16px; font-family: var(--font-heading, \"Bonbance Bold Condensed\"), sans-serif; font-weight: 800; font-size: 1.125rem; line-height: 1.1; color: var(--brand-green, #0D492C); border-bottom: 2px solid var(--brand-green, #0D492C); } .ds-table td { border-bottom: 1px solid rgba(0, 0, 0, 0.08); } .ds-table tr:last-child td { border-bottom: 0; } .ds-table td:first-child { font-weight: 600; }"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "description": "The site header on warm paper, with a hairline rule and uppercase navigation.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-logo\">SWITCH-TO<span class=\"ds-logo-eu\">.EU</span></span><nav class=\"ds-nav\"><a href=\"#\">Services</a><a href=\"#\">News</a><a href=\"#\">Tools</a><a href=\"#\">About</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 24px; background: #f1eee8; border-bottom: 1px solid rgba(0, 0, 0, 0.1); } .ds-logo { font-family: var(--font-anton, \"Anton\"), sans-serif; font-size: 1.5rem; line-height: 1; color: var(--brand-green, #0D492C); } .ds-logo-eu { color: var(--brand-orange, #E45229); } .ds-nav { display: flex; gap: 20px; } .ds-nav a { font-family: var(--font-hanken-grotesk, \"Hanken Grotesk\"), sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: #1a1a1a; text-decoration: none; text-underline-offset: 4px; } .ds-nav a:hover { text-decoration: underline; } .ds-nav a:focus-visible { outline: 2px solid var(--brand-green, #0D492C); outline-offset: 2px; border-radius: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Warm Broadsheet",
+    "overview": "The site looks like a good news site printed on warm paper. Most of each page is neutral: a warm paper ground, white cards with a hairline border, and ink text. A few full brand-colour panels anchor the page and mark its main parts. Small saturated accents (card strips, type pills, dots) tie the palette together. The character comes from the details: condensed Bonbance headings in brand green, real photos, and a recognisable palette. It never comes from loud blocks or decoration.\n\nThe owner settled this direction on 2026-11-03 after three rounds of feedback. All-saturated cards were \"a bit much\". Shapes everywhere felt \"childish and gimmicky\". An all-white page was \"ugly, barely any contrast\". The Warm Broadsheet is the balance between these three failures. Later the same day, the owner also removed a \"How we work\" self-description panel as \"AI slop\".\n\nThe density is medium and content first. The homepage has no hero. A compact green intro panel holds the promise, the search and quick-switch chips, and the news follows directly.",
+    "keyCharacteristics": [
+      "Warm paper ground with white cards. Depth comes from contrast and hairlines, not from shadows.",
+      "Bonbance headings in sentence case, at modest sizes, in brand green.",
+      "A few full-colour anchor panels per page. Two adjacent panels never share a colour.",
+      "Bold colour as small accents only: a 6px card strip, type pills, dots, region badges, the logo's \".eu\".",
+      "Full pill shapes for every button, chip and input.",
+      "Real photos and screenshots, never illustration for its own sake."
+    ],
+    "rules": [
+      {
+        "name": "The Few Panels Rule",
+        "body": "Full brand colour fills only the anchor panels: the homepage intro (green), the guides panel (sky), the featured tool (its own tool surface colour), and the newsletter (sage). Two adjacent panels never share a colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Accent Not Ground Rule",
+        "body": "Outside the anchor panels, saturated colour appears only in small elements. A grid of saturated cards is not allowed on the website.",
+        "section": "colors"
+      },
+      {
+        "name": "The Text-on-Colour Rule",
+        "body": "Forest green, navy and red take white text. Marigold, sky, sage, rose and cream take ink or forest green. Orange takes ink for body text, because white on orange is only 3.8:1. Never fade text with opacity to make a pair work.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Bonbance headings are always in sentence case. Uppercase is only for small Hanken labels: pills, badges, navigation items and meta lines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Logo-Only Anton Rule",
+        "body": "Anton appears in the logo and nowhere else.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Filler Rule",
+        "body": "A heading has no subtitle line under it and no eyebrow label above it. If a heading needs a sentence of explanation, rewrite the heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "Surfaces are flat at rest. A card shows its edge with a hairline and its colour with the top strip, never with a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Tone-on-Tone Rule",
+        "body": "A decorative shape is always the same colour family as its panel and is barely visible. Shapes never appear on white surfaces or on cards.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do put white cards (#ffffff, 1px hairline, 24px radius) on the warm paper ground (#f1eee8).",
+      "Do give each card one 6px saturated strip across its top, from the 8-colour rotation.",
+      "Do write Bonbance headings in sentence case: forest green on light grounds, marigold on the green panel.",
+      "Do make every button, chip, input and badge a full pill, with a visible focus outline in place of the default ring.",
+      "Do keep decorative shapes tone-on-tone inside colour panels, at 8 to 12% opacity, with motion off under reduced motion.",
+      "Do show real, openly licensed photos on news articles, with the credit under the image."
+    ],
+    "donts": [
+      "Don't fill a grid with saturated cards. The owner called that \"a bit much\".",
+      "Don't put shapes or blob illustrations on white surfaces or on cards. The owner called that \"childish and gimmicky\".",
+      "Don't make a page all white with no colour panels. The owner called that \"ugly, barely any contrast\".",
+      "Don't add self-description panels such as \"How we work\" or \"Why trust us\". The owner removed one as \"AI slop\".",
+      "Don't use uppercase Bonbance headings, or Anton outside the logo.",
+      "Don't put a subtitle under a heading or an eyebrow label above it.",
+      "Don't put two panels of the same colour next to each other.",
+      "Don't use square or slightly rounded buttons.",
+      "Don't add dark mode or `dark:` classes. The site is light only."
+    ]
+  }
+}

@@ -2,7 +2,9 @@
 
 ## Brand Identity
 
-Switch-to.eu is a platform helping users switch from non-EU digital services to EU alternatives. The visual identity is bold, colorful, and optimistic — communicating approachability and empowerment through a vibrant palette, playful organic shapes, and strong typographic hierarchy.
+> **Website:** the website follows the calm system in `DESIGN.md` ("The Warm Broadsheet", 2026-11-03) and the "Calm surface system" section below. The sections on uppercase headings, the Anton hero, shapes in every section and saturated card grids describe the earlier look. They still apply to the tool apps, not to the website.
+
+Switch-to.eu is a platform helping users switch from non-EU digital services to EU alternatives. The visual identity was first bold, colorful, and optimistic, with a vibrant palette, playful organic shapes, and strong typographic hierarchy. The tool apps keep that energy. The website now carries it in the details only.
 
 ### Design Inspirations
 
@@ -489,16 +491,20 @@ Markdown/MDX content rendered in `.mdx-content` receives specific styles:
 - Italic: Hanken Grotesk SemiBold Italic
 - Blockquotes: left border, italic
 - Horizontal rules: gray border with generous vertical margin (`my-8`)
+- Tables: `renderMarkdown` wraps each table in `.mdx-table`, a white panel with a hairline border and a 1rem radius. Column headers in Bonbance, brand green, over a 2px green rule. Hairline rows. On narrow screens the table scrolls sideways and the first column stays in place
 
 ---
 
 ## Key Design Principles
 
-1. **Bold and vibrant** — use the full palette generously; every section should have visual energy
-2. **Uppercase headings** — section headings are always uppercase to convey strength and clarity
-3. **Organic shapes everywhere** — decorative shapes appear in every major section, softening the bold type and adding playfulness
-4. **Generous rounding** — cards use `rounded-3xl`, buttons use `rounded-full`; sharp corners are avoided
-5. **High contrast pairings** — Yellow on Navy, Green on light, White on dark; always ensure readability
-6. **Fluid typography** — hero type scales fluidly from 3.5rem to 14rem using `clamp()`
-7. **Staggered animation** — shapes float independently with offset delays to feel natural, not mechanical
-8. **Consistent card anatomy** — every card follows the same structure: shape area + content area + optional CTA pill
+Website (full detail in `DESIGN.md`):
+
+1. **Neutral first** — warm paper ground, white cards with a hairline border, ink text. A few full brand-colour anchor panels per page, never two adjacent in the same colour
+2. **Colour as accent** — saturated colour only in small elements: card strips, type pills, dots, region badges, the logo's `.eu`
+3. **Sentence-case headings** — Bonbance in sentence case at modest sizes, in brand green. Anton only in the logo
+4. **Shapes only tone-on-tone** — inside colour panels at 8-12% opacity, never on white surfaces or cards, motion off under reduced motion
+5. **Generous rounding** — panels and cards use `rounded-3xl`, buttons, chips and inputs use `rounded-full`
+6. **High contrast pairings** — follow the text-on-colour rule above; never fade text with opacity
+7. **Real things** — real photos and screenshots, no illustration for its own sake, no self-description panels
+
+Tool apps keep the earlier principles: bold full-palette sections, organic shapes with staggered float, and coloured cards from `getCardColor`.
