@@ -108,6 +108,8 @@ describe("helpers", () => {
     expect(companyName("Google LLC (Alphabet Inc.)")).toBe("Google");
     expect(companyName("Heinlein Group (Heinlein Hosting GmbH)")).toBe("Heinlein");
     expect(companyName("Surfboard Holding BV")).toBe("Surfboard");
+    expect(companyName("Vivaldi Technologies AS")).toBe("Vivaldi Technologies");
+    expect(companyName("Organic Maps OÜ")).toBe("Organic Maps");
     expect(normalizeUrl("https://www.Example.org/a/?utm=1#x")).toBe("example.org/a");
   });
 

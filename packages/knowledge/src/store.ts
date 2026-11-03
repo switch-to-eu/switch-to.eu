@@ -79,7 +79,7 @@ export function slugify(text: string): string {
   return normalizeText(text).replace(/ /g, "-");
 }
 
-const LEGAL_SUFFIX = /\s*,?\s+(ag|llc|inc\.?|corporation|corp\.?|gmbh|ggmbh|b\.?v\.?|s\.?a\.?s?\.?|ltd\.?|limited|pbc|plc|group|holdings?|ab|aps|oy|se|s\.r\.l\.|e\.v\.|n\.v\.)$/i;
+const LEGAL_SUFFIX = /\s*,?\s+(ag|llc|inc\.?|corporation|corp\.?|gmbh|ggmbh|b\.?v\.?|s\.?a\.?s?\.?|ltd\.?|limited|pbc|plc|group|holdings?|ab|aps|oy|se|s\.r\.l\.|e\.v\.|n\.v\.|as|o[uü]|s[àa]rl|kft|s\.?p\.?a\.?)$/i;
 
 /** "Google LLC (Alphabet Inc.)" -> "Google". */
 export function companyName(parentCompany: string): string {
@@ -143,8 +143,10 @@ const RESEARCH_FACTS = [
   "openSource",
   "pricingDetails",
 ];
-/** Listing fields copied into `facts`, dated with updatedAt. */
+/** Listing fields copied into `facts`, dated with lastResearchedAt (prices: see PRICING_FIELDS). */
 const LISTING_FACTS = ["region", "category", "location", "freeOption", "startingPrice", "recommendedAlternative"];
+/** Fields dated with the newer of lastResearchedAt and the pricingUrl check. */
+const PRICING_FIELDS = new Set(["freeOption", "startingPrice"]);
 
 export function buildStore(root: string, graph: Graph): StoreStats {
   const dir = path.join(root, STORE_DIR);
@@ -283,10 +285,16 @@ export function buildStore(root: string, graph: Graph): StoreStats {
           const seen = cite ? checked.get(normalizeUrl(cite)) : undefined;
           fact(id, field, d[field], [researched, seen].filter((x): x is string => !!x).sort().pop() ?? null, cite ?? null);
         }
-        for (const field of LISTING_FACTS) fact(id, field, d[field], updated);
+        // Never date a fact with updatedAt: any edit (a typo, a translation) moves
+        // it, and old prices would look freshly checked. Prices take the pricing
+        // page's check date when there is one.
+        const pricingUrl = str(d.pricingUrl);
+        const pricingSeen = pricingUrl ? checked.get(normalizeUrl(pricingUrl)) : undefined;
+        const pricingDate = [researched, pricingSeen].filter((x): x is string => !!x).sort().pop() ?? null;
+        for (const field of LISTING_FACTS) fact(id, field, d[field], PRICING_FIELDS.has(field) ? pricingDate : researched);
         const tiers = Array.isArray(d.pricingTiers) ? (d.pricingTiers as Fm[]) : [];
         if (tiers.length) {
-          fact(id, "pricingTiers", tiers.map((t) => `${str(t.name)}: ${str(t.price)}${t.billingNote ? ` (${str(t.billingNote)})` : ""}`).join("; "), updated, str(d.pricingUrl));
+          fact(id, "pricingTiers", tiers.map((t) => `${str(t.name)}: ${str(t.price)}${t.billingNote ? ` (${str(t.billingNote)})` : ""}`).join("; "), pricingDate, pricingUrl);
         }
         const sentiment = d.userSentiment as Fm | undefined;
         if (sentiment?.summary) fact(id, "userSentiment", sentiment.summary, date(sentiment.lastUpdated));
