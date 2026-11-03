@@ -11,9 +11,12 @@ export function ServiceCta({
   serviceUrl,
   guideHref,
   sourceServiceName,
+  affiliate = false,
 }: {
   serviceName: string;
   serviceUrl: string;
+  /** serviceUrl is an affiliate link: mark it sponsored and show the disclosure. */
+  affiliate?: boolean;
   guideHref?: string | null;
   sourceServiceName?: string | null;
 }) {
@@ -36,7 +39,7 @@ export function ServiceCta({
             <a
               href={serviceUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel={affiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
               className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
             >
               {t("tryService", { service: serviceName })} &rarr;
@@ -50,7 +53,9 @@ export function ServiceCta({
               </Link>
             )}
           </div>
-          <AffiliateDisclosure className="mt-4 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+          {affiliate && (
+            <AffiliateDisclosure className="mt-4 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+          )}
         </Banner>
       </Container>
     </section>

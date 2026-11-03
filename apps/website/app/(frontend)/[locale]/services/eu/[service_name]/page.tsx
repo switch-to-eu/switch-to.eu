@@ -274,7 +274,7 @@ export default async function ServiceDetailPage({
                 <a
                   href={getOutboundUrl(service)}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
                   className="inline-block px-4 sm:px-6 py-2 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
                 >
                   {t("tryService", { service: service.name })} &rarr;
@@ -288,7 +288,9 @@ export default async function ServiceDetailPage({
                   </Link>
                 )}
               </div>
-              <AffiliateDisclosure className="mt-2 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+              {service.affiliateUrl && (
+                <AffiliateDisclosure className="mt-2 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+              )}
             </div>
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
@@ -775,6 +777,7 @@ export default async function ServiceDetailPage({
       <ServiceCta
         serviceName={service.name}
         serviceUrl={getOutboundUrl(service)}
+        affiliate={!!service.affiliateUrl}
         guideHref={
           firstGuide && firstGuideCategory
             ? `/guides/${firstGuideCategory}/${firstGuide.slug}`
