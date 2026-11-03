@@ -23,6 +23,7 @@ What `/news-scan` monitors. EU focus: digital sovereignty, privacy, competition 
 | netzpolitik.org | netzpolitik.org | verify | medium | German, translate |
 | Tweakers | tweakers.net | verify | high | Dutch, translate |
 | NOS Tech | nos.nl/nieuws/tech | verify | high | Dutch, translate |
+| Bert Hubert | berthub.eu/articles | https://berthub.eu/articles/index.xml | medium | Dutch and English. Analysis and opinion on digital autonomy, cloud dependence and Dutch government IT. Use as a lead, cite primary sources for facts. Added 2026-11-03 |
 | Le Monde Informatique | lemondeinformatique.fr | verify | medium | French, translate |
 | Sifted | sifted.eu | verify | medium | European startups and funding |
 | TechCrunch (Europe) | techcrunch.com | verify | medium | Filter on EU |

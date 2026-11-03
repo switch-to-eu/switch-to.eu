@@ -6,16 +6,157 @@
 
 _None yet._
 
-## Entities (0)
+## Entities (14)
+
+### company
+
+- [Alphabet](entities/company/alphabet.md) `alphabet` · 26 refs · US parent of Google; Android, Chrome and Google Search fall under the DMA rules on defaults and choice screens.
+- [Apple](entities/company/apple.md) `apple` · 7 refs · US maker of iOS, iPadOS and Safari, which fall under the DMA rules on defaults and choice screens.
+- [DuckDuckGo](entities/company/duck-duck-go.md) `duck-duck-go` · 4 refs · Company behind the DuckDuckGo search engine, which largely sources its web results from Bing.
+- [Ecosia](entities/company/ecosia.md) `ecosia` · 10 refs · German search company that funds climate projects from ad revenue and co-owns the EUSP search index with Qwant.
+- [European Search Perspective](entities/company/european-search-perspective.md) `european-search-perspective` · 5 refs · Paris-based joint venture of Ecosia and Qwant that runs the Staan European search index.
+- [Microsoft](entities/company/microsoft.md) `microsoft` · 7 refs · US software and cloud vendor; Windows falls under the DMA rules on defaults, Bing and Edge do not.
+- [Mistral AI](entities/company/mistral-ai.md) `mistral-ai` · 28 refs · French AI company behind the Vibe assistant (formerly Le Chat) and the Mistral models.
+- [OpenAI](entities/company/openai.md) `openai` · 10 refs · US AI company behind ChatGPT.
+- [Organic Maps](entities/company/organic-maps.md) `organic-maps` · 19 refs · Estonian company behind the Organic Maps offline maps app, with a sole shareholder since August 2025.
+- [Proton](entities/company/proton.md) `proton` · 24 refs · Swiss company behind Proton Mail, Proton Drive and Lumo, sold alone or in bundles.
+- [Qwant](entities/company/qwant.md) `qwant` · 14 refs · Company behind the Qwant search engine; co-owns the EUSP search index with Ecosia and uses Microsoft for results it can't answer itself.
+- [Surfboard Holding B.V.](entities/company/surfboard.md) `surfboard` · 12 refs · Dutch holding company that owns Startpage, listed as a subsidiary of the US company System1.
+- [System1](entities/company/system1.md) `system1` · 3 refs · Publicly traded US company whose subsidiaries include Startpage's owner, Surfboard Holding B.V.
+- [Vivaldi Technologies](entities/company/vivaldi-technologies.md) `vivaldi-technologies` · 30 refs · Norwegian browser maker behind Vivaldi, funded by search and bookmark partner deals.
 
 ## Articles (0)
 
 _None yet._
 
-## Sources (0)
+## Sources (182)
 
-_None yet._
+- 2026-11: 182
 
 ## Health
 
-- No issues.
+- **warning** `uncited-source` 2026-11-03-android-dma-search-choice-eligibility: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-apple-iphone-default-search-engine-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-apple-iphone-safari-search-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-apple-safari-mac-search-settings: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-brave-default-search-engine-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-brave-search-faq-default-mobile: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-bookmarks-import-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-default-search-engine-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-dma-choice-screen: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-export-data-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-manage-passwords-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-chrome-password-import-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-comaps-homepage: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-computerworld-chrome-to-vivaldi: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-datatilsynet-gdpr-norway: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepakness-vivaldi-migration-blog: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ec-dma-citizens-qa: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ecosia-blog-eusp-index: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ecosia-default-desktop-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ecosia-default-mobile-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-edge-default-search-engine-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-edge-mobile-faq-search-engine: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-eur-lex-eea-glossary: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-firefox-140-custom-search-engines: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-gdpr-article-3-territorial-scope: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-drive-desktop-stream-mirror-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-drive-download-file-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-drive-for-desktop-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-drive-takeout-contents-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-maps-lists-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-maps-save-favorite-places-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-maps-timeline-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-my-maps-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-my-maps-import-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-takeout-maps-schema: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-takeout-maps-your-places-schema: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-google-takeout-saved-schema: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-choose-work-code: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-custom-instructions: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-knowledge-base: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-libraries: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-memories-legacy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-projects: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-skills: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-vibe-overview: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-docs-voice-mode: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-data-export: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-data-storage-location: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-delete-account: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-le-chat-is-now-vibe: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-training-opt-out: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-help-zero-data-retention: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mistral-vibe-product-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-custom-instructions-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-data-controls-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-data-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-delete-account-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-memory-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-openai-chatgpt-projects-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-export-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-github-google-takeout-import: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-import-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-june-2024-release-icloud: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-map-download-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-map-errors-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-route-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-search-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-organic-maps-supported-versions-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-delete-chatgpt-account-guide: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-docs-create-edit-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-docs-import-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-cli-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-download-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-import-google-drive-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-macos-setup-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-previewable-file-types: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-pricing-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-setup-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-support-hub: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-version-history-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-web-guide: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-drive-windows-app-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-easy-switch-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-google-photos-import-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-proton-sheets-import-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-android-app-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-chrome-extension-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-chrome-manual-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-firefox-manual-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-install-on-computer-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-iphone-app-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-ranking-index-sources: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-qwant-safari-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-rclone-google-drive-backend-docs: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-rclone-proton-drive-backend-docs: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-reddit-proton-drive-roadmap-h2-2026: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-chrome-android-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-chrome-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-chrome-ios-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-firefox-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-firefox-ios-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-safari-ios-homescreen-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-startpage-safari-not-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vibe-app-store-listing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vibe-google-play-listing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-android-bookmarks-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-android-passwords-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-browser-privacy-policy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-default-browser-android-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-default-browser-desktop-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-default-browser-ios-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-extensions-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-forum-chrome-password-import: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-import-export-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-ios-import-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-manifest-v3-update-blog: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-password-management-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-privacy-settings-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-search-android-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-search-ios-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-search-settings-desktop-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-sync-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-third-party-search-engines: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-vivaldi-tracker-ad-blocking-help: no entity, story or article cites this source

@@ -29,7 +29,7 @@
    "type": "service",
    "title": "Chrome",
    "path": "content/services/chrome/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/claude": {
    "type": "service",
@@ -41,7 +41,7 @@
    "type": "service",
    "title": "DuckDuckGo",
    "path": "content/services/duckduckgo/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/ecosia": {
    "type": "service",
@@ -59,13 +59,13 @@
    "type": "service",
    "title": "Element",
    "path": "content/services/element/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/facebook": {
    "type": "service",
    "title": "Facebook",
    "path": "content/services/facebook/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/gmail": {
    "type": "service",
@@ -101,19 +101,19 @@
    "type": "service",
    "title": "HERE WeGo",
    "path": "content/services/here-wego/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/infomaniak-mail": {
    "type": "service",
    "title": "Infomaniak Mail",
    "path": "content/services/infomaniak-mail/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/instagram": {
    "type": "service",
    "title": "Instagram",
    "path": "content/services/instagram/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/magic-earth": {
    "type": "service",
@@ -123,9 +123,9 @@
   },
   "services/mailbox.org": {
    "type": "service",
-   "title": "Mailbox.org",
+   "title": "mailbox",
    "path": "content/services/mailbox.org/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/mastodon": {
    "type": "service",
@@ -137,7 +137,7 @@
    "type": "service",
    "title": "Microsoft Edge",
    "path": "content/services/microsoft-edge/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/mistral-le-chat": {
    "type": "service",
@@ -155,7 +155,7 @@
    "type": "service",
    "title": "Organic Maps",
    "path": "content/services/organic-maps/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/osmand": {
    "type": "service",
@@ -167,13 +167,13 @@
    "type": "service",
    "title": "pCloud",
    "path": "content/services/pcloud/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/proton-drive": {
    "type": "service",
    "title": "Proton Drive",
    "path": "content/services/proton-drive/en.md",
-   "updated": "2026-04-27"
+   "updated": "2026-11-03"
   },
   "services/proton-lumo": {
    "type": "service",
@@ -215,13 +215,13 @@
    "type": "service",
    "title": "Threema",
    "path": "content/services/threema/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/tiktok": {
    "type": "service",
    "title": "TikTok",
    "path": "content/services/tiktok/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/tresorit": {
    "type": "service",
@@ -251,7 +251,7 @@
    "type": "service",
    "title": "Waze",
    "path": "content/services/waze/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/whatsapp": {
    "type": "service",
@@ -263,7 +263,7 @@
    "type": "service",
    "title": "X (Twitter)",
    "path": "content/services/x-(twitter)/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/yahoo-search": {
    "type": "service",
@@ -364,6 +364,1574 @@
    "title": "Terms",
    "path": "content/pages/terms/en.md",
    "updated": "2026-04-27"
+  },
+  "2026-11-03-agcm-mistral-le-chat-hallucination-commitments": {
+   "type": "source",
+   "title": "AGCM decision PS12968 accepting Mistral AI commitments on hallucination warnings in Le Chat",
+   "path": "knowledge/sources/2026/11/2026-11-03-agcm-mistral-le-chat-hallucination-commitments.md",
+   "reliability": "high",
+   "published": "2026-02-17",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-android-dma-choice-screen": {
+   "type": "source",
+   "title": "DMA Choice Screen: Your Android, your choice (android.com)",
+   "path": "knowledge/sources/2026/11/2026-11-03-android-dma-choice-screen.md",
+   "reliability": "high",
+   "published": "2024-03-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-android-dma-search-choice-eligibility": {
+   "type": "source",
+   "title": "DMA Search Choice Screen (android.com)",
+   "path": "knowledge/sources/2026/11/2026-11-03-android-dma-search-choice-eligibility.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-apple-default-apps-choice-screens": {
+   "type": "source",
+   "title": "Change your default apps for features on iPhone and iPad (Apple Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-apple-default-apps-choice-screens.md",
+   "reliability": "high",
+   "published": "2025-12-18",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-apple-eu-browser-choice-screen": {
+   "type": "source",
+   "title": "About the browser choice screen in the EU (Apple Developer Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-apple-eu-browser-choice-screen.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-apple-iphone-default-search-engine-help": {
+   "type": "source",
+   "title": "Change your default search engine on iPhone (iPhone User Guide)",
+   "path": "knowledge/sources/2026/11/2026-11-03-apple-iphone-default-search-engine-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-apple-iphone-safari-search-help": {
+   "type": "source",
+   "title": "Search for websites in Safari on iPhone (iPhone User Guide)",
+   "path": "knowledge/sources/2026/11/2026-11-03-apple-iphone-safari-search-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-apple-safari-mac-search-settings": {
+   "type": "source",
+   "title": "Change Search settings in Safari on Mac (Safari User Guide)",
+   "path": "knowledge/sources/2026/11/2026-11-03-apple-safari-mac-search-settings.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-brave-default-search-engine-help": {
+   "type": "source",
+   "title": "How do I set my default search engine? (Brave Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-brave-default-search-engine-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-brave-search-faq-default-mobile": {
+   "type": "source",
+   "title": "Brave Search FAQ (Brave Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-brave-search-faq-default-mobile.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-bookmarks-import-export-help": {
+   "type": "source",
+   "title": "Import Chrome bookmarks and settings (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-bookmarks-import-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-default-search-engine-help": {
+   "type": "source",
+   "title": "Set default search engine and site search shortcuts (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-default-search-engine-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-dma-choice-screen": {
+   "type": "source",
+   "title": "Chrome Browser Choice Screen (google.com/chrome)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-dma-choice-screen.md",
+   "reliability": "high",
+   "published": "2024-07-16",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-export-data-help": {
+   "type": "source",
+   "title": "Export your data from Chrome (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-export-data-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-manage-passwords-help": {
+   "type": "source",
+   "title": "Manage passwords in Chrome, computer (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-manage-passwords-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-password-import-export-help": {
+   "type": "source",
+   "title": "Import or export passwords and passkeys with Chrome (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-password-import-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-chrome-sign-in-help": {
+   "type": "source",
+   "title": "Sign in to Chrome, computer (Google Chrome Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-chrome-sign-in-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-clubic-mistral-cnil-complaint": {
+   "type": "source",
+   "title": "Le Chat en sait-il trop ? Mistral AI accusée de violer les droits des utilisateurs en matière de données personnelles",
+   "path": "knowledge/sources/2026/11/2026-11-03-clubic-mistral-cnil-complaint.md",
+   "reliability": "medium",
+   "published": "2025-02-12",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-comaps-homepage": {
+   "type": "source",
+   "title": "CoMaps: Hike, Bike, Drive Offline – Navigate with Privacy (homepage)",
+   "path": "knowledge/sources/2026/11/2026-11-03-comaps-homepage.md",
+   "reliability": "medium",
+   "published": "2026-10-30",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-computerworld-chrome-to-vivaldi": {
+   "type": "source",
+   "title": "Chrome, Vivaldi, and the challenge of changing browsers",
+   "path": "knowledge/sources/2026/11/2026-11-03-computerworld-chrome-to-vivaldi.md",
+   "reliability": "medium",
+   "published": "2026-03-11",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-computing-startpage-system1-investment": {
+   "type": "source",
+   "title": "Privacy-focused search engine Startpage gives more details of the System1 investment",
+   "path": "knowledge/sources/2026/11/2026-11-03-computing-startpage-system1-investment.md",
+   "reliability": "medium",
+   "published": "2020-07-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-datatilsynet-gdpr-norway": {
+   "type": "source",
+   "title": "Regulations, General Data Protection Regulation (Datatilsynet)",
+   "path": "knowledge/sources/2026/11/2026-11-03-datatilsynet-gdpr-norway.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-decrypt-quitgpt-data-guide": {
+   "type": "source",
+   "title": "Before You Quit ChatGPT, Do This to Take Your Data With You",
+   "path": "knowledge/sources/2026/11/2026-11-03-decrypt-quitgpt-data-guide.md",
+   "reliability": "medium",
+   "published": "2026-03-04",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepakness-vivaldi-migration-blog": {
+   "type": "source",
+   "title": "Trying and Migrating to Vivaldi Browser",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepakness-vivaldi-migration-blog.md",
+   "reliability": "low",
+   "published": "2026-01-30",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-duckduckgo-privacy-policy": {
+   "type": "source",
+   "title": "DuckDuckGo Privacy Policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-duckduckgo-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-06-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-duckduckgo-privacy-rights-gdpr-representative": {
+   "type": "source",
+   "title": "Privacy Rights and Related Information (DuckDuckGo Help Pages)",
+   "path": "knowledge/sources/2026/11/2026-11-03-duckduckgo-privacy-rights-gdpr-representative.md",
+   "reliability": "high",
+   "published": "2026-06-17",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-duckduckgo-results-sources": {
+   "type": "source",
+   "title": "Where do DuckDuckGo search results come from? (DuckDuckGo Help Pages)",
+   "path": "knowledge/sources/2026/11/2026-11-03-duckduckgo-results-sources.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ec-bing-edge-not-gatekeepers": {
+   "type": "source",
+   "title": "Commission closes market investigations on Microsoft's and Apple's services under the Digital Markets Act",
+   "path": "knowledge/sources/2026/11/2026-11-03-ec-bing-edge-not-gatekeepers.md",
+   "reliability": "high",
+   "published": "2024-02-13",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ec-dma-citizens-qa": {
+   "type": "source",
+   "title": "EU Citizens Q&A (Digital Markets Act, European Commission)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ec-dma-citizens-qa.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ec-dma-review-2026-choice-screens": {
+   "type": "source",
+   "title": "DMA Review, Commission Staff Working Document SWD(2026) 123",
+   "path": "knowledge/sources/2026/11/2026-11-03-ec-dma-review-2026-choice-screens.md",
+   "reliability": "high",
+   "published": "2026-04-28",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-blog-eusp-index": {
+   "type": "source",
+   "title": "We're teaming up with Qwant to build a European search index (Ecosia blog)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-blog-eusp-index.md",
+   "reliability": "medium",
+   "published": "2024-12-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-default-desktop-help": {
+   "type": "source",
+   "title": "Make Ecosia your default on your browser (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-default-desktop-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-default-mobile-help": {
+   "type": "source",
+   "title": "On Mobile: Use Ecosia App or make it your default search (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-default-mobile-help.md",
+   "reliability": "high",
+   "published": "2026-01-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-how-it-makes-money": {
+   "type": "source",
+   "title": "How Ecosia makes money (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-how-it-makes-money.md",
+   "reliability": "high",
+   "published": "2025-07-14",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-privacy-policy": {
+   "type": "source",
+   "title": "We protect your privacy (Ecosia privacy policy)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-05-21",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-search-results-providers": {
+   "type": "source",
+   "title": "Search Result Providers (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-search-results-providers.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-edge-default-search-engine-help": {
+   "type": "source",
+   "title": "Change your default search engine in Microsoft Edge (Microsoft Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-edge-default-search-engine-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-edge-mobile-faq-search-engine": {
+   "type": "source",
+   "title": "Microsoft Edge for mobile FAQs (Microsoft Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-edge-mobile-faq-search-engine.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-estonian-register-organic-maps-ou": {
+   "type": "source",
+   "title": "Organic Maps OÜ (Estonian e-Business Register entry 16225385)",
+   "path": "knowledge/sources/2026/11/2026-11-03-estonian-register-organic-maps-ou.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-eur-lex-eea-glossary": {
+   "type": "source",
+   "title": "European Economic Area (EEA) (EUR-Lex glossary)",
+   "path": "knowledge/sources/2026/11/2026-11-03-eur-lex-eea-glossary.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-firefox-140-custom-search-engines": {
+   "type": "source",
+   "title": "Firefox 140.0 release notes",
+   "path": "knowledge/sources/2026/11/2026-11-03-firefox-140-custom-search-engines.md",
+   "reliability": "high",
+   "published": "2025-06-24",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-gdpr-article-3-territorial-scope": {
+   "type": "source",
+   "title": "Regulation (EU) 2016/679 (GDPR), Article 3 Territorial scope",
+   "path": "knowledge/sources/2026/11/2026-11-03-gdpr-article-3-territorial-scope.md",
+   "reliability": "high",
+   "published": "2016-04-27",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-drive-desktop-stream-mirror-help": {
+   "type": "source",
+   "title": "Manage Google Drive for desktop: advanced guide (Google Drive Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-drive-desktop-stream-mirror-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-drive-download-file-help": {
+   "type": "source",
+   "title": "Download a file (Google Drive Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-drive-download-file-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-drive-for-desktop-help": {
+   "type": "source",
+   "title": "Use Google Drive for desktop (Google Drive Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-drive-for-desktop-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-drive-takeout-contents-help": {
+   "type": "source",
+   "title": "Export your data from Google Docs, Sheets, Slides, Drawings, Sites, Drive, Forms & Vids (Google Docs Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-drive-takeout-contents-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-maps-lists-help": {
+   "type": "source",
+   "title": "Create a list of places (Google Maps Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-maps-lists-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-maps-save-favorite-places-help": {
+   "type": "source",
+   "title": "Save favorite places (Google Maps Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-maps-save-favorite-places-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-maps-timeline-help": {
+   "type": "source",
+   "title": "Manage your Google Maps Timeline (Google Maps Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-maps-timeline-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-my-maps-export-help": {
+   "type": "source",
+   "title": "Share, download, or print your map (Google My Maps Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-my-maps-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-my-maps-import-help": {
+   "type": "source",
+   "title": "Import map features from a file (Google My Maps Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-my-maps-import-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-storage-quota-help": {
+   "type": "source",
+   "title": "How your Google storage works (Google One Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-storage-quota-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-takeout-download-data-help": {
+   "type": "source",
+   "title": "How to download your Google data (Google Account Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-takeout-download-data-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-takeout-maps-schema": {
+   "type": "source",
+   "title": "Google Maps Schema Reference (Google Data Portability)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-takeout-maps-schema.md",
+   "reliability": "high",
+   "published": "2026-03-16",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-takeout-maps-your-places-schema": {
+   "type": "source",
+   "title": "Maps (your places) Schema Reference (Google Data Portability)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-takeout-maps-your-places-schema.md",
+   "reliability": "high",
+   "published": "2025-02-13",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-google-takeout-saved-schema": {
+   "type": "source",
+   "title": "Saved Schema Reference (Google Data Portability)",
+   "path": "knowledge/sources/2026/11/2026-11-03-google-takeout-saved-schema.md",
+   "reliability": "high",
+   "published": "2025-03-26",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-lwn-comaps-organic-maps-fork": {
+   "type": "source",
+   "title": "CoMaps emerges as an Organic Maps fork",
+   "path": "knowledge/sources/2026/11/2026-11-03-lwn-comaps-organic-maps-fork.md",
+   "reliability": "medium",
+   "published": "2025-06-18",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-choose-work-code": {
+   "type": "source",
+   "title": "Choose Work or Code (Mistral docs, Vibe)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-choose-work-code.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-custom-instructions": {
+   "type": "source",
+   "title": "Set custom instructions (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-custom-instructions.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-knowledge-base": {
+   "type": "source",
+   "title": "Knowledge Base (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-knowledge-base.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-libraries": {
+   "type": "source",
+   "title": "Add context with Libraries (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-libraries.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-memories-legacy": {
+   "type": "source",
+   "title": "Memories, legacy Chat feature (Mistral docs)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-memories-legacy.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-projects": {
+   "type": "source",
+   "title": "Group tasks with Projects (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-projects.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-skills": {
+   "type": "source",
+   "title": "Reuse work with Skills (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-skills.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-vibe-overview": {
+   "type": "source",
+   "title": "Vibe overview (Mistral docs)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-vibe-overview.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-docs-voice-mode": {
+   "type": "source",
+   "title": "Use Voice mode (Mistral docs, Vibe Work)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-docs-voice-mode.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-data-export": {
+   "type": "source",
+   "title": "How do I export my data from Vibe? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-data-export.md",
+   "reliability": "high",
+   "published": "2026-08-12",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-data-storage-location": {
+   "type": "source",
+   "title": "Where do you store my data or my Organization's data? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-data-storage-location.md",
+   "reliability": "high",
+   "published": "2026-08-12",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-delete-account": {
+   "type": "source",
+   "title": "How can I delete my account? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-delete-account.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-le-chat-is-now-vibe": {
+   "type": "source",
+   "title": "Le Chat is now Vibe (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-le-chat-is-now-vibe.md",
+   "reliability": "high",
+   "published": "2026-08-12",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-training-data-use": {
+   "type": "source",
+   "title": "Do you use my user data to train your Artificial Intelligence models? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-training-data-use.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-training-opt-out": {
+   "type": "source",
+   "title": "Can I opt out of my input or output data being used for training? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-training-opt-out.md",
+   "reliability": "high",
+   "published": "2026-09-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-help-zero-data-retention": {
+   "type": "source",
+   "title": "Can I activate Zero Data Retention (ZDR)? (Mistral Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-help-zero-data-retention.md",
+   "reliability": "high",
+   "published": "2026-08-12",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-memories-launch-2025": {
+   "type": "source",
+   "title": "Le Chat. Custom MCP connectors. Memories. (Mistral announcement)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-memories-launch-2025.md",
+   "reliability": "medium",
+   "published": "2025-09-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-pricing-page": {
+   "type": "source",
+   "title": "Pricing (Mistral, Vibe plans)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-privacy-policy": {
+   "type": "source",
+   "title": "Privacy Policy (Mistral AI)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-09-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-release-notes-vibe": {
+   "type": "source",
+   "title": "Release notes (Mistral docs, Vibe entries from September 2026)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-release-notes-vibe.md",
+   "reliability": "high",
+   "published": "2026-10-30",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-trust-center-subprocessors": {
+   "type": "source",
+   "title": "Subprocessors (Mistral Trust Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-trust-center-subprocessors.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-vibe-agent-launch": {
+   "type": "source",
+   "title": "Vibe gets to work (Mistral announcement: Le Chat becomes Vibe)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-vibe-agent-launch.md",
+   "reliability": "medium",
+   "published": "2026-05-28",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-vibe-product-page": {
+   "type": "source",
+   "title": "Mistral Vibe (formerly Le Chat), AI chat and coding agent (product page)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-vibe-product-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-custom-instructions-help": {
+   "type": "source",
+   "title": "ChatGPT Custom Instructions (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-custom-instructions-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-data-controls-help": {
+   "type": "source",
+   "title": "Data controls in ChatGPT (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-data-controls-help.md",
+   "reliability": "high",
+   "published": "2026-10-30",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-data-export-help": {
+   "type": "source",
+   "title": "Exporting your ChatGPT history and data (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-data-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-delete-account-help": {
+   "type": "source",
+   "title": "Deleting your ChatGPT account (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-delete-account-help.md",
+   "reliability": "high",
+   "published": "2026-11-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-memory-help": {
+   "type": "source",
+   "title": "Memory in ChatGPT (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-memory-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-chatgpt-projects-help": {
+   "type": "source",
+   "title": "Projects in ChatGPT (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-chatgpt-projects-help.md",
+   "reliability": "high",
+   "published": "2026-10-31",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-custom-gpt-retirement-faq": {
+   "type": "source",
+   "title": "Custom GPT retirement and migration FAQ (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-custom-gpt-retirement-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-gpts-help": {
+   "type": "source",
+   "title": "GPTs in ChatGPT (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-gpts-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-12m-installs": {
+   "type": "source",
+   "title": "Organic Maps reaches 12M+ installs",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-12m-installs.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-2025-year-in-review": {
+   "type": "source",
+   "title": "Organic Maps 2025: Year in Review",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-2025-year-in-review.md",
+   "reliability": "medium",
+   "published": "2025-12-31",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-export-faq": {
+   "type": "source",
+   "title": "How to share (export) bookmarks and tracks? (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-export-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-github-google-takeout-import": {
+   "type": "source",
+   "title": "Import from Google Maps Saved Places (Organic Maps GitHub Discussion 928)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-github-google-takeout-import.md",
+   "reliability": "medium",
+   "published": "2025-10-31",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-homepage": {
+   "type": "source",
+   "title": "Organic Maps: Offline Hike, Bike, Trails and Navigation (homepage)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-homepage.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-import-faq": {
+   "type": "source",
+   "title": "How to import bookmarks and tracks in KML, KMZ, KMB, GPX or GeoJSON (JSON) format? (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-import-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-july-2026-release": {
+   "type": "source",
+   "title": "Bugfixes and improvements for public transport, routing, search, and bookmarks in the July 2026 update (Organic Maps)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-july-2026-release.md",
+   "reliability": "high",
+   "published": "2026-07-23",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-june-2024-release-icloud": {
+   "type": "source",
+   "title": "The major June update and a follow-up OSM data-only update were published and are available in all app stores (Organic Maps, June 2024)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-june-2024-release-icloud.md",
+   "reliability": "high",
+   "published": "2024-06-22",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-june-2026-release": {
+   "type": "source",
+   "title": "Satellite imagery, public transport routes, alternate routes and more in the June 2026 update (Organic Maps)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-june-2026-release.md",
+   "reliability": "high",
+   "published": "2026-06-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-map-download-faq": {
+   "type": "source",
+   "title": "I can't download (update) maps (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-map-download-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-map-errors-faq": {
+   "type": "source",
+   "title": "Some places are missing on the map or have wrong names (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-map-errors-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-may-2025-release": {
+   "type": "source",
+   "title": "May 2025.05.20 Release (Organic Maps)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-may-2025-release.md",
+   "reliability": "high",
+   "published": "2025-05-20",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-november-2025-release": {
+   "type": "source",
+   "title": "New Organic Maps Release 2025.11.25: Wikipedia articles in Turkish, Japanese, and Chinese, setting to see downloaded regions, and more",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-november-2025-release.md",
+   "reliability": "high",
+   "published": "2025-11-26",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-october-2025-release": {
+   "type": "source",
+   "title": "October 23 Release: Organic Maps as default navigation app in EU on iOS, road shields displaying on Android, and more",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-october-2025-release.md",
+   "reliability": "high",
+   "published": "2025-10-23",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-route-faq": {
+   "type": "source",
+   "title": "How to create a route and start navigation (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-route-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-search-faq": {
+   "type": "source",
+   "title": "Search cannot find a place on the map (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-search-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-organic-maps-supported-versions-faq": {
+   "type": "source",
+   "title": "Which iOS and Android versions are supported? (Organic Maps FAQ)",
+   "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-supported-versions-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-autumn-winter-2026-roadmap": {
+   "type": "source",
+   "title": "Proton product roadmaps for autumn and winter 2026 (Proton blog)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-autumn-winter-2026-roadmap.md",
+   "reliability": "medium",
+   "published": "2026-10-15",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-delete-chatgpt-account-guide": {
+   "type": "source",
+   "title": "How to delete your ChatGPT account (Proton blog)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-delete-chatgpt-account-guide.md",
+   "reliability": "medium",
+   "published": "2026-06-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-docs-create-edit-help": {
+   "type": "source",
+   "title": "Creating and editing a document in Proton Docs (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-docs-create-edit-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-docs-import-export-help": {
+   "type": "source",
+   "title": "Importing and exporting documents in Docs (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-docs-import-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-cli-help": {
+   "type": "source",
+   "title": "Using Proton Drive CLI (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-cli-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-download-page": {
+   "type": "source",
+   "title": "Download Proton Drive for Windows, Android, macOS or iOS (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-download-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-faq": {
+   "type": "source",
+   "title": "Proton Drive FAQ (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-free-storage-help": {
+   "type": "source",
+   "title": "Unlock more free storage for your new Proton Drive account (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-free-storage-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-import-google-drive-help": {
+   "type": "source",
+   "title": "Import files from Google Drive to Proton Drive (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-import-google-drive-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-macos-setup-help": {
+   "type": "source",
+   "title": "Setting up Proton Drive for macOS (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-macos-setup-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-previewable-file-types": {
+   "type": "source",
+   "title": "Previewable file types in Proton Drive (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-previewable-file-types.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-pricing-page": {
+   "type": "source",
+   "title": "Proton Drive pricing for individuals (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-release-notes": {
+   "type": "source",
+   "title": "Proton Drive release notes (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-release-notes.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-roadmap-page": {
+   "type": "source",
+   "title": "Proton Drive roadmap: new features, improvements, releases (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-roadmap-page.md",
+   "reliability": "high",
+   "published": "2026-10-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-setup-help": {
+   "type": "source",
+   "title": "How to set up Proton Drive (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-setup-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-support-hub": {
+   "type": "source",
+   "title": "Proton Drive Support (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-support-hub.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-version-history-help": {
+   "type": "source",
+   "title": "How to manage file version history in Proton Drive (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-version-history-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-web-guide": {
+   "type": "source",
+   "title": "How to use Proton Drive for web (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-web-guide.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-drive-windows-app-help": {
+   "type": "source",
+   "title": "How to use the Proton Drive desktop app for Windows (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-drive-windows-app-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-easy-switch-help": {
+   "type": "source",
+   "title": "How to migrate to Proton using Easy Switch (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-easy-switch-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-google-photos-import-help": {
+   "type": "source",
+   "title": "How to import from Google Photos into Proton Drive (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-google-photos-import-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-plans-help": {
+   "type": "source",
+   "title": "Proton plans explained: Free, Mail Plus, Unlimited, Duo, Family and Visionary (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-plans-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-sheets-import-export-help": {
+   "type": "source",
+   "title": "Importing and exporting in Proton Sheets (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-sheets-import-export-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-android-app-help": {
+   "type": "source",
+   "title": "Download the Qwant App on Android (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-android-app-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-chrome-extension-help": {
+   "type": "source",
+   "title": "Installing the Qwant Extension on Chrome (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-chrome-extension-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-chrome-manual-help": {
+   "type": "source",
+   "title": "Set Qwant Manually on Chrome (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-chrome-manual-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-ecosia-eusp-announcement": {
+   "type": "source",
+   "title": "Ecosia and Qwant join forces to develop European search index (Qwant Better Web)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-ecosia-eusp-announcement.md",
+   "reliability": "medium",
+   "published": "2024-11-08",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-firefox-manual-help": {
+   "type": "source",
+   "title": "Manually Set Qwant on Firefox (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-firefox-manual-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-install-on-computer-help": {
+   "type": "source",
+   "title": "Install Qwant on my computer (Windows, Mac, Linux) (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-install-on-computer-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-iphone-app-help": {
+   "type": "source",
+   "title": "Download the Qwant App on iPhone and iPad (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-iphone-app-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-privacy-policy": {
+   "type": "source",
+   "title": "Qwant privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-ranking-index-sources": {
+   "type": "source",
+   "title": "Referencing, ranking and de-referencing of web pages and their media content (Qwant)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-ranking-index-sources.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-qwant-safari-help": {
+   "type": "source",
+   "title": "Set Qwant on Safari (Qwant Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-qwant-safari-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-rclone-google-drive-backend-docs": {
+   "type": "source",
+   "title": "Google Drive backend (rclone documentation)",
+   "path": "knowledge/sources/2026/11/2026-11-03-rclone-google-drive-backend-docs.md",
+   "reliability": "high",
+   "published": "2026-10-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-rclone-proton-drive-backend-docs": {
+   "type": "source",
+   "title": "Proton Drive backend (rclone documentation)",
+   "path": "knowledge/sources/2026/11/2026-11-03-rclone-proton-drive-backend-docs.md",
+   "reliability": "high",
+   "published": "2026-10-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-reddit-proton-drive-roadmap-h2-2026": {
+   "type": "source",
+   "title": "Proton Drive Roadmap for the second half of 2026 (r/ProtonDrive)",
+   "path": "knowledge/sources/2026/11/2026-11-03-reddit-proton-drive-roadmap-h2-2026.md",
+   "reliability": "low",
+   "published": "2026-08-26",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-chrome-android-default-help": {
+   "type": "source",
+   "title": "Make Startpage the default search engine in Chrome (Android) (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-chrome-android-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-chrome-default-help": {
+   "type": "source",
+   "title": "Make Startpage your default search engine in Chrome (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-chrome-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-chrome-ios-default-help": {
+   "type": "source",
+   "title": "Make Startpage the default search engine in Chrome (iOS) (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-chrome-ios-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-firefox-default-help": {
+   "type": "source",
+   "title": "Make Startpage your default search engine in Firefox (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-firefox-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-firefox-ios-default-help": {
+   "type": "source",
+   "title": "Make Startpage the default search engine in Firefox (iOS) (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-firefox-ios-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-safari-ios-homescreen-help": {
+   "type": "source",
+   "title": "Add Startpage to your home screen in Safari for iOS (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-safari-ios-homescreen-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-safari-not-default-help": {
+   "type": "source",
+   "title": "Startpage is not my default search engine anymore in Safari. What happened? (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-safari-not-default-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-startpage-what-is-startpage": {
+   "type": "source",
+   "title": "What is Startpage? (Startpage Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-startpage-what-is-startpage.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-system1-10k-2022-subsidiaries": {
+   "type": "source",
+   "title": "Subsidiaries of System1, Inc. (Exhibit 21.1 to Form 10-K, fiscal year 2022)",
+   "path": "knowledge/sources/2026/11/2026-11-03-system1-10k-2022-subsidiaries.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-techcrunch-staan-launch": {
+   "type": "source",
+   "title": "Qwant and Ecosia debut Staan, a European search index that aims to take on Big Tech",
+   "path": "knowledge/sources/2026/11/2026-11-03-techcrunch-staan-launch.md",
+   "reliability": "high",
+   "published": "2025-08-06",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vibe-app-store-listing": {
+   "type": "source",
+   "title": "Vibe by Mistral (ex-Le Chat) on the App Store",
+   "path": "knowledge/sources/2026/11/2026-11-03-vibe-app-store-listing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vibe-google-play-listing": {
+   "type": "source",
+   "title": "Vibe by Mistral (ex-Le Chat) on Google Play",
+   "path": "knowledge/sources/2026/11/2026-11-03-vibe-google-play-listing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-7-1-release-search-partners": {
+   "type": "source",
+   "title": "Vivaldi 7.1: Widgets, Tabs, and sleek start to 2025",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-7-1-release-search-partners.md",
+   "reliability": "high",
+   "published": "2025-01-23",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-about-company": {
+   "type": "source",
+   "title": "About us (Vivaldi)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-about-company.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-ad-attribution-help": {
+   "type": "source",
+   "title": "How Ad Attribution is implemented (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-ad-attribution-help.md",
+   "reliability": "high",
+   "published": "2024-12-05",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-android-bookmarks-help": {
+   "type": "source",
+   "title": "Bookmarks on Android (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-android-bookmarks-help.md",
+   "reliability": "high",
+   "published": "2019-09-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-android-passwords-help": {
+   "type": "source",
+   "title": "Save Passwords in Vivaldi on Android (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-android-passwords-help.md",
+   "reliability": "high",
+   "published": "2019-09-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-browser-privacy-policy": {
+   "type": "source",
+   "title": "Vivaldi Browser privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-browser-privacy-policy.md",
+   "reliability": "high",
+   "published": "2023-12-15",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-compare-chrome-page": {
+   "type": "source",
+   "title": "Vivaldi vs Chrome: Privacy, Tabs & No AI",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-compare-chrome-page.md",
+   "reliability": "medium",
+   "published": "2026-10-01",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-contact-page": {
+   "type": "source",
+   "title": "Contact (Vivaldi)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-contact-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-default-browser-android-help": {
+   "type": "source",
+   "title": "Make Vivaldi the default browser on Android (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-default-browser-android-help.md",
+   "reliability": "high",
+   "published": "2023-09-22",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-default-browser-desktop-help": {
+   "type": "source",
+   "title": "Make Vivaldi the default browser on desktop (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-default-browser-desktop-help.md",
+   "reliability": "high",
+   "published": "2024-02-06",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-default-browser-ios-help": {
+   "type": "source",
+   "title": "Make Vivaldi the default browser on iOS (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-default-browser-ios-help.md",
+   "reliability": "high",
+   "published": "2023-09-22",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-download-page": {
+   "type": "source",
+   "title": "Download Vivaldi",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-download-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-extensions-help": {
+   "type": "source",
+   "title": "Using Extensions in Vivaldi (Vivaldi Help, desktop)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-extensions-help.md",
+   "reliability": "high",
+   "published": "2016-01-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-for-a-better-web": {
+   "type": "source",
+   "title": "Fighting for a better web (Vivaldi)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-for-a-better-web.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-forum-chrome-password-import": {
+   "type": "source",
+   "title": "import chrome passwords to vivaldi... not working (Vivaldi Forum thread)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-forum-chrome-password-import.md",
+   "reliability": "low",
+   "published": "2023-10-11",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-forum-startpage-default": {
+   "type": "source",
+   "title": "Search engine changed to Startpage (Vivaldi Forum thread)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-forum-startpage-default.md",
+   "reliability": "medium",
+   "published": "2024-12-13",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-import-export-help": {
+   "type": "source",
+   "title": "Import and export browser data (Vivaldi Help, desktop)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-import-export-help.md",
+   "reliability": "high",
+   "published": "2021-03-11",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-ios-import-help": {
+   "type": "source",
+   "title": "Import browser data to Vivaldi on iOS (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-ios-import-help.md",
+   "reliability": "high",
+   "published": "2026-03-26",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-manifest-v3-update-blog": {
+   "type": "source",
+   "title": "Manifest v3 update: Vivaldi is future-proofed with its built-in functionality",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-manifest-v3-update-blog.md",
+   "reliability": "high",
+   "published": "2024-06-17",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-password-management-help": {
+   "type": "source",
+   "title": "Password management (Vivaldi Help, desktop)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-password-management-help.md",
+   "reliability": "high",
+   "published": "2019-02-21",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-privacy-settings-help": {
+   "type": "source",
+   "title": "Privacy and Security Settings (Vivaldi Help, desktop)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-privacy-settings-help.md",
+   "reliability": "high",
+   "published": "2019-06-24",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-search-android-help": {
+   "type": "source",
+   "title": "Search the web with Vivaldi on Android (Vivaldi Browser Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-search-android-help.md",
+   "reliability": "high",
+   "published": "2019-09-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-search-ios-help": {
+   "type": "source",
+   "title": "Search the web with Vivaldi on iOS (Vivaldi Browser Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-search-ios-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-search-settings-desktop-help": {
+   "type": "source",
+   "title": "Search Settings in Vivaldi (Vivaldi Browser Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-search-settings-desktop-help.md",
+   "reliability": "high",
+   "published": "2022-05-04",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-sync-help": {
+   "type": "source",
+   "title": "Sync (Vivaldi Help, desktop)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-sync-help.md",
+   "reliability": "high",
+   "published": "2017-11-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-sync-privacy-policy": {
+   "type": "source",
+   "title": "Vivaldi Sync privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-sync-privacy-policy.md",
+   "reliability": "high",
+   "published": "2018-07-13",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-third-party-search-engines": {
+   "type": "source",
+   "title": "Privacy Policies for Third-Parties (Vivaldi)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-third-party-search-engines.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-vivaldi-tracker-ad-blocking-help": {
+   "type": "source",
+   "title": "Block Trackers and Ads on desktop (Vivaldi Help)",
+   "path": "knowledge/sources/2026/11/2026-11-03-vivaldi-tracker-ad-blocking-help.md",
+   "reliability": "high",
+   "published": "2020-03-24",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-windows-dma-updates-2025": {
+   "type": "source",
+   "title": "Updates to Windows for the Digital Markets Act (Windows Insider Blog)",
+   "path": "knowledge/sources/2026/11/2026-11-03-windows-dma-updates-2025.md",
+   "reliability": "high",
+   "published": "2025-06-02",
+   "updated": "2026-11-03"
+  },
+  "alphabet": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Alphabet",
+   "path": "knowledge/entities/company/alphabet.md",
+   "summary": "US parent of Google; Android, Chrome and Google Search fall under the DMA rules on defaults and choice screens.",
+   "updated": "2026-11-03"
+  },
+  "apple": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Apple",
+   "path": "knowledge/entities/company/apple.md",
+   "summary": "US maker of iOS, iPadOS and Safari, which fall under the DMA rules on defaults and choice screens.",
+   "updated": "2026-11-03"
+  },
+  "duck-duck-go": {
+   "type": "entity",
+   "kind": "company",
+   "title": "DuckDuckGo",
+   "path": "knowledge/entities/company/duck-duck-go.md",
+   "summary": "Company behind the DuckDuckGo search engine, which largely sources its web results from Bing.",
+   "updated": "2026-11-03"
+  },
+  "ecosia": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Ecosia",
+   "path": "knowledge/entities/company/ecosia.md",
+   "summary": "German search company that funds climate projects from ad revenue and co-owns the EUSP search index with Qwant.",
+   "updated": "2026-11-03"
+  },
+  "european-search-perspective": {
+   "type": "entity",
+   "kind": "company",
+   "title": "European Search Perspective",
+   "path": "knowledge/entities/company/european-search-perspective.md",
+   "summary": "Paris-based joint venture of Ecosia and Qwant that runs the Staan European search index.",
+   "updated": "2026-11-03"
+  },
+  "microsoft": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Microsoft",
+   "path": "knowledge/entities/company/microsoft.md",
+   "summary": "US software and cloud vendor; Windows falls under the DMA rules on defaults, Bing and Edge do not.",
+   "updated": "2026-11-03"
+  },
+  "mistral-ai": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Mistral AI",
+   "path": "knowledge/entities/company/mistral-ai.md",
+   "summary": "French AI company behind the Vibe assistant (formerly Le Chat) and the Mistral models.",
+   "updated": "2026-11-03"
+  },
+  "openai": {
+   "type": "entity",
+   "kind": "company",
+   "title": "OpenAI",
+   "path": "knowledge/entities/company/openai.md",
+   "summary": "US AI company behind ChatGPT.",
+   "updated": "2026-11-03"
+  },
+  "organic-maps": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Organic Maps",
+   "path": "knowledge/entities/company/organic-maps.md",
+   "summary": "Estonian company behind the Organic Maps offline maps app, with a sole shareholder since August 2025.",
+   "updated": "2026-11-03"
+  },
+  "proton": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Proton",
+   "path": "knowledge/entities/company/proton.md",
+   "summary": "Swiss company behind Proton Mail, Proton Drive and Lumo, sold alone or in bundles.",
+   "updated": "2026-11-03"
+  },
+  "qwant": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Qwant",
+   "path": "knowledge/entities/company/qwant.md",
+   "summary": "Company behind the Qwant search engine; co-owns the EUSP search index with Ecosia and uses Microsoft for results it can't answer itself.",
+   "updated": "2026-11-03"
+  },
+  "surfboard": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Surfboard Holding B.V.",
+   "path": "knowledge/entities/company/surfboard.md",
+   "summary": "Dutch holding company that owns Startpage, listed as a subsidiary of the US company System1.",
+   "updated": "2026-11-03"
+  },
+  "system1": {
+   "type": "entity",
+   "kind": "company",
+   "title": "System1",
+   "path": "knowledge/entities/company/system1.md",
+   "summary": "Publicly traded US company whose subsidiaries include Startpage's owner, Surfboard Holding B.V.",
+   "updated": "2026-11-03"
+  },
+  "vivaldi-technologies": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Vivaldi Technologies",
+   "path": "knowledge/entities/company/vivaldi-technologies.md",
+   "summary": "Norwegian browser maker behind Vivaldi, funded by search and bookmark partner deals.",
+   "updated": "2026-11-03"
   }
  },
  "edges": [
@@ -591,6 +2159,2561 @@
    "from": "services/yahoo-search",
    "to": "categories/search-engines",
    "rel": "in-category"
+  },
+  {
+   "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-android-dma-choice-screen",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-apple-default-apps-choice-screens",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-apple-eu-browser-choice-screen",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-apple-iphone-default-search-engine-help",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-apple-iphone-safari-search-help",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-apple-safari-mac-search-settings",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-bookmarks-import-export-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-dma-choice-screen",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-export-data-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-manage-passwords-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-password-import-export-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-chrome-sign-in-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-clubic-mistral-cnil-complaint",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-computerworld-chrome-to-vivaldi",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-computing-startpage-system1-investment",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-computing-startpage-system1-investment",
+   "to": "system1",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-decrypt-quitgpt-data-guide",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-deepakness-vivaldi-migration-blog",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-privacy-policy",
+   "to": "duck-duck-go",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
+   "to": "duck-duck-go",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-results-sources",
+   "to": "duck-duck-go",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-blog-eusp-index",
+   "to": "european-search-perspective",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-blog-eusp-index",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-blog-eusp-index",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-default-desktop-help",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-default-mobile-help",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-how-it-makes-money",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-privacy-policy",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-search-results-providers",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-edge-default-search-engine-help",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-edge-mobile-faq-search-engine",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-estonian-register-organic-maps-ou",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-drive-desktop-stream-mirror-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-drive-download-file-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-drive-for-desktop-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-drive-takeout-contents-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-maps-lists-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-maps-save-favorite-places-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-maps-timeline-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-my-maps-export-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-my-maps-import-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-storage-quota-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-takeout-download-data-help",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-takeout-maps-schema",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-takeout-maps-your-places-schema",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-google-takeout-saved-schema",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-lwn-comaps-organic-maps-fork",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-choose-work-code",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-custom-instructions",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-knowledge-base",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-libraries",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-memories-legacy",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-projects",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-skills",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-vibe-overview",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-voice-mode",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-data-export",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-data-storage-location",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-delete-account",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-le-chat-is-now-vibe",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-training-data-use",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-training-opt-out",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-help-zero-data-retention",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-memories-launch-2025",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-pricing-page",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-privacy-policy",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-release-notes-vibe",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-trust-center-subprocessors",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-vibe-agent-launch",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-vibe-product-page",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-data-controls-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-data-export-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-delete-account-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-memory-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-projects-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-custom-gpt-retirement-faq",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-gpts-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-12m-installs",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-2025-year-in-review",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-export-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-github-google-takeout-import",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-homepage",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-import-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-july-2026-release",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-june-2024-release-icloud",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-june-2026-release",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-map-download-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-map-errors-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-may-2025-release",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-november-2025-release",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-october-2025-release",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-route-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-search-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-organic-maps-supported-versions-faq",
+   "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-delete-chatgpt-account-guide",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-docs-create-edit-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-docs-import-export-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-cli-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-download-page",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-faq",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-free-storage-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-import-google-drive-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-macos-setup-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-previewable-file-types",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-pricing-page",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-release-notes",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-roadmap-page",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-setup-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-support-hub",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-version-history-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-web-guide",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-drive-windows-app-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-easy-switch-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-google-photos-import-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-plans-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-sheets-import-export-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-android-app-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-extension-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-manual-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "to": "european-search-perspective",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-firefox-manual-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-install-on-computer-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-iphone-app-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-privacy-policy",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-ranking-index-sources",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-qwant-safari-help",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-rclone-google-drive-backend-docs",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-rclone-proton-drive-backend-docs",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-android-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-ios-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-firefox-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-firefox-ios-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-safari-ios-homescreen-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-safari-not-default-help",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-startpage-what-is-startpage",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-system1-10k-2022-subsidiaries",
+   "to": "system1",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-system1-10k-2022-subsidiaries",
+   "to": "surfboard",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-techcrunch-staan-launch",
+   "to": "european-search-perspective",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-techcrunch-staan-launch",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-techcrunch-staan-launch",
+   "to": "qwant",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vibe-app-store-listing",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vibe-google-play-listing",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-7-1-release-search-partners",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-about-company",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-ad-attribution-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-android-bookmarks-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-android-passwords-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-browser-privacy-policy",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-compare-chrome-page",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-contact-page",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-android-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-desktop-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-ios-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-download-page",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-extensions-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-for-a-better-web",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-forum-chrome-password-import",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-forum-startpage-default",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-import-export-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-ios-import-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-manifest-v3-update-blog",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-password-management-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-privacy-settings-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-android-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-ios-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-settings-desktop-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-sync-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-sync-privacy-policy",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-third-party-search-engines",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-vivaldi-tracker-ad-blocking-help",
+   "to": "vivaldi-technologies",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-windows-dma-updates-2025",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/chrome",
+   "rel": "provides"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/gmail",
+   "rel": "provides"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/google-drive",
+   "rel": "provides"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/google-gemini",
+   "rel": "provides"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/google-maps",
+   "rel": "provides"
+  },
+  {
+   "from": "alphabet",
+   "to": "services/google-search",
+   "rel": "provides"
+  },
+  {
+   "from": "duck-duck-go",
+   "to": "services/duckduckgo",
+   "rel": "provides"
+  },
+  {
+   "from": "ecosia",
+   "to": "services/ecosia",
+   "rel": "provides"
+  },
+  {
+   "from": "ecosia",
+   "to": "services/ecosia-browser",
+   "rel": "provides"
+  },
+  {
+   "from": "ecosia",
+   "to": "european-search-perspective",
+   "rel": "owns"
+  },
+  {
+   "from": "ecosia",
+   "to": "microsoft",
+   "rel": "partners-with"
+  },
+  {
+   "from": "ecosia",
+   "to": "alphabet",
+   "rel": "partners-with"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "ecosia",
+   "rel": "owned-by"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "qwant",
+   "rel": "owned-by"
+  },
+  {
+   "from": "microsoft",
+   "to": "services/bing-search",
+   "rel": "provides"
+  },
+  {
+   "from": "microsoft",
+   "to": "services/microsoft-edge",
+   "rel": "provides"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "services/mistral-le-chat",
+   "rel": "provides"
+  },
+  {
+   "from": "openai",
+   "to": "services/chatgpt",
+   "rel": "provides"
+  },
+  {
+   "from": "organic-maps",
+   "to": "services/organic-maps",
+   "rel": "provides"
+  },
+  {
+   "from": "proton",
+   "to": "services/proton-drive",
+   "rel": "provides"
+  },
+  {
+   "from": "proton",
+   "to": "services/proton-mail",
+   "rel": "provides"
+  },
+  {
+   "from": "proton",
+   "to": "services/proton-lumo",
+   "rel": "provides"
+  },
+  {
+   "from": "qwant",
+   "to": "services/qwant",
+   "rel": "provides"
+  },
+  {
+   "from": "qwant",
+   "to": "european-search-perspective",
+   "rel": "owns"
+  },
+  {
+   "from": "qwant",
+   "to": "microsoft",
+   "rel": "partners-with"
+  },
+  {
+   "from": "qwant",
+   "to": "mistral-ai",
+   "rel": "partners-with"
+  },
+  {
+   "from": "surfboard",
+   "to": "services/startpage",
+   "rel": "provides"
+  },
+  {
+   "from": "surfboard",
+   "to": "system1",
+   "rel": "subsidiary-of"
+  },
+  {
+   "from": "system1",
+   "to": "surfboard",
+   "rel": "owns"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "services/vivaldi",
+   "rel": "provides"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "surfboard",
+   "rel": "partners-with"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "ecosia",
+   "rel": "partners-with"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "duck-duck-go",
+   "rel": "partners-with"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "qwant",
+   "rel": "partners-with"
+  },
+  {
+   "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-choice-screen",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-choice-screen",
+   "to": "services/google-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "services/google-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-android-dma-search-choice-eligibility",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-apple-eu-browser-choice-screen",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-apple-eu-browser-choice-screen",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-apple-eu-browser-choice-screen",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-apple-iphone-default-search-engine-help",
+   "to": "2026-11-03-apple-iphone-safari-search-help",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-apple-iphone-safari-search-help",
+   "to": "2026-11-03-apple-iphone-default-search-engine-help",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-brave-default-search-engine-help",
+   "to": "services/brave",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-brave-default-search-engine-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-brave-search-faq-default-mobile",
+   "to": "services/brave",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-bookmarks-import-export-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "services/google-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-default-search-engine-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-dma-choice-screen",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-export-data-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-manage-passwords-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-password-import-export-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-chrome-sign-in-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-clubic-mistral-cnil-complaint",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-comaps-homepage",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-computerworld-chrome-to-vivaldi",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-computerworld-chrome-to-vivaldi",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-computing-startpage-system1-investment",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-datatilsynet-gdpr-norway",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-decrypt-quitgpt-data-guide",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-deepakness-vivaldi-migration-blog",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-privacy-policy",
+   "to": "services/duckduckgo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
+   "to": "services/duckduckgo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-duckduckgo-results-sources",
+   "to": "services/duckduckgo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "to": "services/bing-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "to": "services/microsoft-edge",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-blog-eusp-index",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-blog-eusp-index",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-default-desktop-help",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-default-desktop-help",
+   "to": "services/ecosia-browser",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-default-mobile-help",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-how-it-makes-money",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-privacy-policy",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-search-results-providers",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-search-results-providers",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-edge-default-search-engine-help",
+   "to": "services/microsoft-edge",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-edge-default-search-engine-help",
+   "to": "services/bing-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-edge-mobile-faq-search-engine",
+   "to": "services/microsoft-edge",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-estonian-register-organic-maps-ou",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-eur-lex-eea-glossary",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-gdpr-article-3-territorial-scope",
+   "to": "services/duckduckgo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-gdpr-article-3-territorial-scope",
+   "to": "services/google-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-gdpr-article-3-territorial-scope",
+   "to": "services/bing-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-drive-desktop-stream-mirror-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-drive-download-file-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-drive-for-desktop-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-drive-takeout-contents-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-maps-lists-help",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-maps-save-favorite-places-help",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-maps-timeline-help",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-my-maps-export-help",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-my-maps-import-help",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-storage-quota-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-takeout-download-data-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-takeout-maps-schema",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-takeout-maps-your-places-schema",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-google-takeout-saved-schema",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-lwn-comaps-organic-maps-fork",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-choose-work-code",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-custom-instructions",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-knowledge-base",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-libraries",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-memories-legacy",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-projects",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-skills",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-vibe-overview",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-docs-voice-mode",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-data-export",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-data-storage-location",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-delete-account",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-le-chat-is-now-vibe",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-training-data-use",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-training-opt-out",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-help-zero-data-retention",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-memories-launch-2025",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-pricing-page",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-privacy-policy",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-release-notes-vibe",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-trust-center-subprocessors",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-vibe-agent-launch",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-vibe-product-page",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-data-controls-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-data-export-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-delete-account-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-memory-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-chatgpt-projects-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-custom-gpt-retirement-faq",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-gpts-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-12m-installs",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-2025-year-in-review",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-export-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-github-google-takeout-import",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-github-google-takeout-import",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-homepage",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-import-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-july-2026-release",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-june-2024-release-icloud",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-june-2026-release",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-map-download-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-map-errors-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-may-2025-release",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-november-2025-release",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-november-2025-release",
+   "to": "services/google-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-october-2025-release",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-route-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-search-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-organic-maps-supported-versions-faq",
+   "to": "services/organic-maps",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "to": "services/proton-mail",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-delete-chatgpt-account-guide",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-delete-chatgpt-account-guide",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-docs-create-edit-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-docs-import-export-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-cli-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-download-page",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-faq",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-free-storage-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-import-google-drive-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-import-google-drive-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-macos-setup-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-previewable-file-types",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-pricing-page",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-release-notes",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-roadmap-page",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-setup-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-support-hub",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-version-history-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-web-guide",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-drive-windows-app-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-easy-switch-help",
+   "to": "services/proton-mail",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-easy-switch-help",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-google-photos-import-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-plans-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-plans-help",
+   "to": "services/proton-mail",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-sheets-import-export-help",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-android-app-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-extension-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-extension-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-manual-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-chrome-manual-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-firefox-manual-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-install-on-computer-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-iphone-app-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-privacy-policy",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-ranking-index-sources",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-qwant-safari-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-rclone-google-drive-backend-docs",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-rclone-proton-drive-backend-docs",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-rclone-proton-drive-backend-docs",
+   "to": "services/google-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
+   "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-android-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-android-default-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-default-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-ios-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-chrome-ios-default-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-firefox-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-firefox-ios-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-safari-ios-homescreen-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-safari-not-default-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-startpage-what-is-startpage",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-system1-10k-2022-subsidiaries",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-techcrunch-staan-launch",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-techcrunch-staan-launch",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vibe-app-store-listing",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vibe-google-play-listing",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-7-1-release-search-partners",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-about-company",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-ad-attribution-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-android-bookmarks-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-android-passwords-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-browser-privacy-policy",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-compare-chrome-page",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-compare-chrome-page",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-contact-page",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-android-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-desktop-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-default-browser-ios-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-download-page",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-extensions-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-extensions-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-for-a-better-web",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-forum-chrome-password-import",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-forum-startpage-default",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-import-export-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-import-export-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-ios-import-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-ios-import-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-manifest-v3-update-blog",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-password-management-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-password-management-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-privacy-settings-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-android-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-ios-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-settings-desktop-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-settings-desktop-help",
+   "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-settings-desktop-help",
+   "to": "services/qwant",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-search-settings-desktop-help",
+   "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-sync-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-sync-help",
+   "to": "services/chrome",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-sync-privacy-policy",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-third-party-search-engines",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-vivaldi-tracker-ad-blocking-help",
+   "to": "services/vivaldi",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-windows-dma-updates-2025",
+   "to": "services/bing-search",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-windows-dma-updates-2025",
+   "to": "services/microsoft-edge",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-google-storage-quota-help",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-google-takeout-download-data-help",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-chrome-sign-in-help",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-android-dma-choice-screen",
+   "rel": "links"
+  },
+  {
+   "from": "apple",
+   "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "apple",
+   "to": "2026-11-03-apple-eu-browser-choice-screen",
+   "rel": "links"
+  },
+  {
+   "from": "apple",
+   "to": "2026-11-03-apple-default-apps-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "apple",
+   "to": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "rel": "links"
+  },
+  {
+   "from": "duck-duck-go",
+   "to": "2026-11-03-duckduckgo-results-sources",
+   "rel": "links"
+  },
+  {
+   "from": "duck-duck-go",
+   "to": "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
+   "rel": "links"
+  },
+  {
+   "from": "duck-duck-go",
+   "to": "2026-11-03-duckduckgo-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "ecosia",
+   "to": "2026-11-03-ecosia-search-results-providers",
+   "rel": "links"
+  },
+  {
+   "from": "ecosia",
+   "to": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "rel": "links"
+  },
+  {
+   "from": "ecosia",
+   "to": "2026-11-03-ecosia-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "ecosia",
+   "to": "2026-11-03-ecosia-how-it-makes-money",
+   "rel": "links"
+  },
+  {
+   "from": "ecosia",
+   "to": "2026-11-03-techcrunch-staan-launch",
+   "rel": "links"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "rel": "links"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "2026-11-03-techcrunch-staan-launch",
+   "rel": "links"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "2026-11-03-ecosia-search-results-providers",
+   "rel": "links"
+  },
+  {
+   "from": "european-search-perspective",
+   "to": "2026-11-03-qwant-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "microsoft",
+   "to": "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "rel": "links"
+  },
+  {
+   "from": "microsoft",
+   "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "microsoft",
+   "to": "2026-11-03-windows-dma-updates-2025",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-vibe-agent-launch",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-help-training-data-use",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-trust-center-subprocessors",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-pricing-page",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-release-notes-vibe",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-mistral-memories-launch-2025",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-clubic-mistral-cnil-complaint",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
+   "to": "2026-11-03-openai-gpts-help",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
+   "to": "2026-11-03-openai-custom-gpt-retirement-faq",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
+   "to": "2026-11-03-decrypt-quitgpt-data-guide",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-estonian-register-organic-maps-ou",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-12m-installs",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-lwn-comaps-organic-maps-fork",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-homepage",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-july-2026-release",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-june-2026-release",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-2025-year-in-review",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-november-2025-release",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-october-2025-release",
+   "rel": "links"
+  },
+  {
+   "from": "organic-maps",
+   "to": "2026-11-03-organic-maps-may-2025-release",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-drive-free-storage-help",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-plans-help",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-drive-roadmap-page",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-drive-release-notes",
+   "rel": "links"
+  },
+  {
+   "from": "qwant",
+   "to": "2026-11-03-qwant-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "qwant",
+   "to": "2026-11-03-qwant-ecosia-eusp-announcement",
+   "rel": "links"
+  },
+  {
+   "from": "qwant",
+   "to": "2026-11-03-techcrunch-staan-launch",
+   "rel": "links"
+  },
+  {
+   "from": "surfboard",
+   "to": "2026-11-03-startpage-what-is-startpage",
+   "rel": "links"
+  },
+  {
+   "from": "surfboard",
+   "to": "2026-11-03-system1-10k-2022-subsidiaries",
+   "rel": "links"
+  },
+  {
+   "from": "surfboard",
+   "to": "2026-11-03-computing-startpage-system1-investment",
+   "rel": "links"
+  },
+  {
+   "from": "system1",
+   "to": "2026-11-03-system1-10k-2022-subsidiaries",
+   "rel": "links"
+  },
+  {
+   "from": "system1",
+   "to": "2026-11-03-startpage-what-is-startpage",
+   "rel": "links"
+  },
+  {
+   "from": "system1",
+   "to": "2026-11-03-computing-startpage-system1-investment",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-contact-page",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-for-a-better-web",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-about-company",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-sync-privacy-policy",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-download-page",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-compare-chrome-page",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-7-1-release-search-partners",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-forum-startpage-default",
+   "rel": "links"
+  },
+  {
+   "from": "vivaldi-technologies",
+   "to": "2026-11-03-vivaldi-ad-attribution-help",
+   "rel": "links"
   }
  ],
  "backlinks": {
@@ -654,6 +4777,705 @@
    "services/organic-maps",
    "services/osmand",
    "services/waze"
+  ],
+  "mistral-ai": [
+   "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "2026-11-03-clubic-mistral-cnil-complaint",
+   "2026-11-03-mistral-docs-choose-work-code",
+   "2026-11-03-mistral-docs-custom-instructions",
+   "2026-11-03-mistral-docs-knowledge-base",
+   "2026-11-03-mistral-docs-libraries",
+   "2026-11-03-mistral-docs-memories-legacy",
+   "2026-11-03-mistral-docs-projects",
+   "2026-11-03-mistral-docs-skills",
+   "2026-11-03-mistral-docs-vibe-overview",
+   "2026-11-03-mistral-docs-voice-mode",
+   "2026-11-03-mistral-help-data-export",
+   "2026-11-03-mistral-help-data-storage-location",
+   "2026-11-03-mistral-help-delete-account",
+   "2026-11-03-mistral-help-le-chat-is-now-vibe",
+   "2026-11-03-mistral-help-training-data-use",
+   "2026-11-03-mistral-help-training-opt-out",
+   "2026-11-03-mistral-help-zero-data-retention",
+   "2026-11-03-mistral-memories-launch-2025",
+   "2026-11-03-mistral-pricing-page",
+   "2026-11-03-mistral-privacy-policy",
+   "2026-11-03-mistral-release-notes-vibe",
+   "2026-11-03-mistral-trust-center-subprocessors",
+   "2026-11-03-mistral-vibe-agent-launch",
+   "2026-11-03-mistral-vibe-product-page",
+   "2026-11-03-vibe-app-store-listing",
+   "2026-11-03-vibe-google-play-listing",
+   "qwant"
+  ],
+  "alphabet": [
+   "2026-11-03-android-dma-choice-screen",
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-chrome-bookmarks-import-export-help",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-chrome-dma-choice-screen",
+   "2026-11-03-chrome-export-data-help",
+   "2026-11-03-chrome-manage-passwords-help",
+   "2026-11-03-chrome-password-import-export-help",
+   "2026-11-03-chrome-sign-in-help",
+   "2026-11-03-ec-dma-review-2026-choice-screens",
+   "2026-11-03-google-drive-desktop-stream-mirror-help",
+   "2026-11-03-google-drive-download-file-help",
+   "2026-11-03-google-drive-for-desktop-help",
+   "2026-11-03-google-drive-takeout-contents-help",
+   "2026-11-03-google-maps-lists-help",
+   "2026-11-03-google-maps-save-favorite-places-help",
+   "2026-11-03-google-maps-timeline-help",
+   "2026-11-03-google-my-maps-export-help",
+   "2026-11-03-google-my-maps-import-help",
+   "2026-11-03-google-storage-quota-help",
+   "2026-11-03-google-takeout-download-data-help",
+   "2026-11-03-google-takeout-maps-schema",
+   "2026-11-03-google-takeout-maps-your-places-schema",
+   "2026-11-03-google-takeout-saved-schema",
+   "2026-11-03-rclone-google-drive-backend-docs",
+   "ecosia"
+  ],
+  "apple": [
+   "2026-11-03-apple-default-apps-choice-screens",
+   "2026-11-03-apple-eu-browser-choice-screen",
+   "2026-11-03-apple-iphone-default-search-engine-help",
+   "2026-11-03-apple-iphone-safari-search-help",
+   "2026-11-03-apple-safari-mac-search-settings",
+   "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "2026-11-03-ec-dma-review-2026-choice-screens"
+  ],
+  "vivaldi-technologies": [
+   "2026-11-03-computerworld-chrome-to-vivaldi",
+   "2026-11-03-deepakness-vivaldi-migration-blog",
+   "2026-11-03-vivaldi-7-1-release-search-partners",
+   "2026-11-03-vivaldi-about-company",
+   "2026-11-03-vivaldi-ad-attribution-help",
+   "2026-11-03-vivaldi-android-bookmarks-help",
+   "2026-11-03-vivaldi-android-passwords-help",
+   "2026-11-03-vivaldi-browser-privacy-policy",
+   "2026-11-03-vivaldi-compare-chrome-page",
+   "2026-11-03-vivaldi-contact-page",
+   "2026-11-03-vivaldi-default-browser-android-help",
+   "2026-11-03-vivaldi-default-browser-desktop-help",
+   "2026-11-03-vivaldi-default-browser-ios-help",
+   "2026-11-03-vivaldi-download-page",
+   "2026-11-03-vivaldi-extensions-help",
+   "2026-11-03-vivaldi-for-a-better-web",
+   "2026-11-03-vivaldi-forum-chrome-password-import",
+   "2026-11-03-vivaldi-forum-startpage-default",
+   "2026-11-03-vivaldi-import-export-help",
+   "2026-11-03-vivaldi-ios-import-help",
+   "2026-11-03-vivaldi-manifest-v3-update-blog",
+   "2026-11-03-vivaldi-password-management-help",
+   "2026-11-03-vivaldi-privacy-settings-help",
+   "2026-11-03-vivaldi-search-android-help",
+   "2026-11-03-vivaldi-search-ios-help",
+   "2026-11-03-vivaldi-search-settings-desktop-help",
+   "2026-11-03-vivaldi-sync-help",
+   "2026-11-03-vivaldi-sync-privacy-policy",
+   "2026-11-03-vivaldi-third-party-search-engines",
+   "2026-11-03-vivaldi-tracker-ad-blocking-help"
+  ],
+  "surfboard": [
+   "2026-11-03-computing-startpage-system1-investment",
+   "2026-11-03-startpage-chrome-android-default-help",
+   "2026-11-03-startpage-chrome-default-help",
+   "2026-11-03-startpage-chrome-ios-default-help",
+   "2026-11-03-startpage-firefox-default-help",
+   "2026-11-03-startpage-firefox-ios-default-help",
+   "2026-11-03-startpage-safari-ios-homescreen-help",
+   "2026-11-03-startpage-safari-not-default-help",
+   "2026-11-03-startpage-what-is-startpage",
+   "2026-11-03-system1-10k-2022-subsidiaries",
+   "system1",
+   "vivaldi-technologies"
+  ],
+  "system1": [
+   "2026-11-03-computing-startpage-system1-investment",
+   "2026-11-03-system1-10k-2022-subsidiaries",
+   "surfboard"
+  ],
+  "openai": [
+   "2026-11-03-decrypt-quitgpt-data-guide",
+   "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "2026-11-03-openai-chatgpt-data-controls-help",
+   "2026-11-03-openai-chatgpt-data-export-help",
+   "2026-11-03-openai-chatgpt-delete-account-help",
+   "2026-11-03-openai-chatgpt-memory-help",
+   "2026-11-03-openai-chatgpt-projects-help",
+   "2026-11-03-openai-custom-gpt-retirement-faq",
+   "2026-11-03-openai-gpts-help",
+   "2026-11-03-proton-delete-chatgpt-account-guide"
+  ],
+  "duck-duck-go": [
+   "2026-11-03-duckduckgo-privacy-policy",
+   "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
+   "2026-11-03-duckduckgo-results-sources",
+   "vivaldi-technologies"
+  ],
+  "microsoft": [
+   "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "2026-11-03-ec-dma-review-2026-choice-screens",
+   "2026-11-03-edge-default-search-engine-help",
+   "2026-11-03-edge-mobile-faq-search-engine",
+   "2026-11-03-windows-dma-updates-2025",
+   "ecosia",
+   "qwant"
+  ],
+  "european-search-perspective": [
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-techcrunch-staan-launch",
+   "ecosia",
+   "qwant"
+  ],
+  "ecosia": [
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-ecosia-default-desktop-help",
+   "2026-11-03-ecosia-default-mobile-help",
+   "2026-11-03-ecosia-how-it-makes-money",
+   "2026-11-03-ecosia-privacy-policy",
+   "2026-11-03-ecosia-search-results-providers",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-techcrunch-staan-launch",
+   "european-search-perspective",
+   "vivaldi-technologies"
+  ],
+  "qwant": [
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-qwant-android-app-help",
+   "2026-11-03-qwant-chrome-extension-help",
+   "2026-11-03-qwant-chrome-manual-help",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-qwant-firefox-manual-help",
+   "2026-11-03-qwant-install-on-computer-help",
+   "2026-11-03-qwant-iphone-app-help",
+   "2026-11-03-qwant-privacy-policy",
+   "2026-11-03-qwant-ranking-index-sources",
+   "2026-11-03-qwant-safari-help",
+   "2026-11-03-techcrunch-staan-launch",
+   "european-search-perspective",
+   "vivaldi-technologies"
+  ],
+  "organic-maps": [
+   "2026-11-03-estonian-register-organic-maps-ou",
+   "2026-11-03-lwn-comaps-organic-maps-fork",
+   "2026-11-03-organic-maps-12m-installs",
+   "2026-11-03-organic-maps-2025-year-in-review",
+   "2026-11-03-organic-maps-export-faq",
+   "2026-11-03-organic-maps-github-google-takeout-import",
+   "2026-11-03-organic-maps-homepage",
+   "2026-11-03-organic-maps-import-faq",
+   "2026-11-03-organic-maps-july-2026-release",
+   "2026-11-03-organic-maps-june-2024-release-icloud",
+   "2026-11-03-organic-maps-june-2026-release",
+   "2026-11-03-organic-maps-map-download-faq",
+   "2026-11-03-organic-maps-map-errors-faq",
+   "2026-11-03-organic-maps-may-2025-release",
+   "2026-11-03-organic-maps-november-2025-release",
+   "2026-11-03-organic-maps-october-2025-release",
+   "2026-11-03-organic-maps-route-faq",
+   "2026-11-03-organic-maps-search-faq",
+   "2026-11-03-organic-maps-supported-versions-faq"
+  ],
+  "proton": [
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-docs-create-edit-help",
+   "2026-11-03-proton-docs-import-export-help",
+   "2026-11-03-proton-drive-cli-help",
+   "2026-11-03-proton-drive-download-page",
+   "2026-11-03-proton-drive-faq",
+   "2026-11-03-proton-drive-free-storage-help",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-drive-macos-setup-help",
+   "2026-11-03-proton-drive-previewable-file-types",
+   "2026-11-03-proton-drive-pricing-page",
+   "2026-11-03-proton-drive-release-notes",
+   "2026-11-03-proton-drive-roadmap-page",
+   "2026-11-03-proton-drive-setup-help",
+   "2026-11-03-proton-drive-support-hub",
+   "2026-11-03-proton-drive-version-history-help",
+   "2026-11-03-proton-drive-web-guide",
+   "2026-11-03-proton-drive-windows-app-help",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-proton-google-photos-import-help",
+   "2026-11-03-proton-plans-help",
+   "2026-11-03-proton-sheets-import-export-help",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "2026-11-03-reddit-proton-drive-roadmap-h2-2026"
+  ],
+  "services/chrome": [
+   "2026-11-03-android-dma-choice-screen",
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-chrome-bookmarks-import-export-help",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-chrome-dma-choice-screen",
+   "2026-11-03-chrome-export-data-help",
+   "2026-11-03-chrome-manage-passwords-help",
+   "2026-11-03-chrome-password-import-export-help",
+   "2026-11-03-chrome-sign-in-help",
+   "2026-11-03-computerworld-chrome-to-vivaldi",
+   "2026-11-03-qwant-chrome-extension-help",
+   "2026-11-03-qwant-chrome-manual-help",
+   "2026-11-03-startpage-chrome-android-default-help",
+   "2026-11-03-startpage-chrome-default-help",
+   "2026-11-03-startpage-chrome-ios-default-help",
+   "2026-11-03-vivaldi-compare-chrome-page",
+   "2026-11-03-vivaldi-extensions-help",
+   "2026-11-03-vivaldi-import-export-help",
+   "2026-11-03-vivaldi-ios-import-help",
+   "2026-11-03-vivaldi-password-management-help",
+   "2026-11-03-vivaldi-sync-help",
+   "alphabet"
+  ],
+  "services/gmail": [
+   "alphabet"
+  ],
+  "services/google-drive": [
+   "2026-11-03-google-drive-desktop-stream-mirror-help",
+   "2026-11-03-google-drive-download-file-help",
+   "2026-11-03-google-drive-for-desktop-help",
+   "2026-11-03-google-drive-takeout-contents-help",
+   "2026-11-03-google-storage-quota-help",
+   "2026-11-03-google-takeout-download-data-help",
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-rclone-google-drive-backend-docs",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "alphabet"
+  ],
+  "services/google-gemini": [
+   "alphabet"
+  ],
+  "services/google-maps": [
+   "2026-11-03-google-maps-lists-help",
+   "2026-11-03-google-maps-save-favorite-places-help",
+   "2026-11-03-google-maps-timeline-help",
+   "2026-11-03-google-my-maps-export-help",
+   "2026-11-03-google-my-maps-import-help",
+   "2026-11-03-google-takeout-maps-schema",
+   "2026-11-03-google-takeout-maps-your-places-schema",
+   "2026-11-03-google-takeout-saved-schema",
+   "2026-11-03-organic-maps-github-google-takeout-import",
+   "2026-11-03-organic-maps-november-2025-release",
+   "alphabet"
+  ],
+  "services/google-search": [
+   "2026-11-03-android-dma-choice-screen",
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-gdpr-article-3-territorial-scope",
+   "alphabet"
+  ],
+  "services/duckduckgo": [
+   "2026-11-03-duckduckgo-privacy-policy",
+   "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
+   "2026-11-03-duckduckgo-results-sources",
+   "2026-11-03-gdpr-article-3-territorial-scope",
+   "duck-duck-go"
+  ],
+  "services/ecosia": [
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-apple-eu-browser-choice-screen",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-ecosia-default-desktop-help",
+   "2026-11-03-ecosia-default-mobile-help",
+   "2026-11-03-ecosia-how-it-makes-money",
+   "2026-11-03-ecosia-privacy-policy",
+   "2026-11-03-ecosia-search-results-providers",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-techcrunch-staan-launch",
+   "2026-11-03-vivaldi-search-settings-desktop-help",
+   "ecosia"
+  ],
+  "services/ecosia-browser": [
+   "2026-11-03-ecosia-default-desktop-help",
+   "ecosia"
+  ],
+  "services/bing-search": [
+   "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "2026-11-03-edge-default-search-engine-help",
+   "2026-11-03-gdpr-article-3-territorial-scope",
+   "2026-11-03-windows-dma-updates-2025",
+   "microsoft"
+  ],
+  "services/microsoft-edge": [
+   "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "2026-11-03-edge-default-search-engine-help",
+   "2026-11-03-edge-mobile-faq-search-engine",
+   "2026-11-03-windows-dma-updates-2025",
+   "microsoft"
+  ],
+  "services/mistral-le-chat": [
+   "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "2026-11-03-clubic-mistral-cnil-complaint",
+   "2026-11-03-mistral-docs-choose-work-code",
+   "2026-11-03-mistral-docs-custom-instructions",
+   "2026-11-03-mistral-docs-knowledge-base",
+   "2026-11-03-mistral-docs-libraries",
+   "2026-11-03-mistral-docs-memories-legacy",
+   "2026-11-03-mistral-docs-projects",
+   "2026-11-03-mistral-docs-skills",
+   "2026-11-03-mistral-docs-vibe-overview",
+   "2026-11-03-mistral-docs-voice-mode",
+   "2026-11-03-mistral-help-data-export",
+   "2026-11-03-mistral-help-data-storage-location",
+   "2026-11-03-mistral-help-delete-account",
+   "2026-11-03-mistral-help-le-chat-is-now-vibe",
+   "2026-11-03-mistral-help-training-data-use",
+   "2026-11-03-mistral-help-training-opt-out",
+   "2026-11-03-mistral-help-zero-data-retention",
+   "2026-11-03-mistral-memories-launch-2025",
+   "2026-11-03-mistral-pricing-page",
+   "2026-11-03-mistral-privacy-policy",
+   "2026-11-03-mistral-release-notes-vibe",
+   "2026-11-03-mistral-trust-center-subprocessors",
+   "2026-11-03-mistral-vibe-agent-launch",
+   "2026-11-03-mistral-vibe-product-page",
+   "2026-11-03-vibe-app-store-listing",
+   "2026-11-03-vibe-google-play-listing",
+   "mistral-ai"
+  ],
+  "services/chatgpt": [
+   "2026-11-03-decrypt-quitgpt-data-guide",
+   "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "2026-11-03-openai-chatgpt-data-controls-help",
+   "2026-11-03-openai-chatgpt-data-export-help",
+   "2026-11-03-openai-chatgpt-delete-account-help",
+   "2026-11-03-openai-chatgpt-memory-help",
+   "2026-11-03-openai-chatgpt-projects-help",
+   "2026-11-03-openai-custom-gpt-retirement-faq",
+   "2026-11-03-openai-gpts-help",
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "openai"
+  ],
+  "services/organic-maps": [
+   "2026-11-03-comaps-homepage",
+   "2026-11-03-estonian-register-organic-maps-ou",
+   "2026-11-03-lwn-comaps-organic-maps-fork",
+   "2026-11-03-organic-maps-12m-installs",
+   "2026-11-03-organic-maps-2025-year-in-review",
+   "2026-11-03-organic-maps-export-faq",
+   "2026-11-03-organic-maps-github-google-takeout-import",
+   "2026-11-03-organic-maps-homepage",
+   "2026-11-03-organic-maps-import-faq",
+   "2026-11-03-organic-maps-july-2026-release",
+   "2026-11-03-organic-maps-june-2024-release-icloud",
+   "2026-11-03-organic-maps-june-2026-release",
+   "2026-11-03-organic-maps-map-download-faq",
+   "2026-11-03-organic-maps-map-errors-faq",
+   "2026-11-03-organic-maps-may-2025-release",
+   "2026-11-03-organic-maps-november-2025-release",
+   "2026-11-03-organic-maps-october-2025-release",
+   "2026-11-03-organic-maps-route-faq",
+   "2026-11-03-organic-maps-search-faq",
+   "2026-11-03-organic-maps-supported-versions-faq",
+   "organic-maps"
+  ],
+  "services/proton-drive": [
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-docs-create-edit-help",
+   "2026-11-03-proton-docs-import-export-help",
+   "2026-11-03-proton-drive-cli-help",
+   "2026-11-03-proton-drive-download-page",
+   "2026-11-03-proton-drive-faq",
+   "2026-11-03-proton-drive-free-storage-help",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-drive-macos-setup-help",
+   "2026-11-03-proton-drive-previewable-file-types",
+   "2026-11-03-proton-drive-pricing-page",
+   "2026-11-03-proton-drive-release-notes",
+   "2026-11-03-proton-drive-roadmap-page",
+   "2026-11-03-proton-drive-setup-help",
+   "2026-11-03-proton-drive-support-hub",
+   "2026-11-03-proton-drive-version-history-help",
+   "2026-11-03-proton-drive-web-guide",
+   "2026-11-03-proton-drive-windows-app-help",
+   "2026-11-03-proton-google-photos-import-help",
+   "2026-11-03-proton-plans-help",
+   "2026-11-03-proton-sheets-import-export-help",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
+   "proton"
+  ],
+  "services/proton-mail": [
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-proton-plans-help",
+   "proton"
+  ],
+  "services/proton-lumo": [
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "proton"
+  ],
+  "services/qwant": [
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-apple-eu-browser-choice-screen",
+   "2026-11-03-brave-default-search-engine-help",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-ecosia-search-results-providers",
+   "2026-11-03-qwant-android-app-help",
+   "2026-11-03-qwant-chrome-extension-help",
+   "2026-11-03-qwant-chrome-manual-help",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-qwant-firefox-manual-help",
+   "2026-11-03-qwant-install-on-computer-help",
+   "2026-11-03-qwant-iphone-app-help",
+   "2026-11-03-qwant-privacy-policy",
+   "2026-11-03-qwant-ranking-index-sources",
+   "2026-11-03-qwant-safari-help",
+   "2026-11-03-techcrunch-staan-launch",
+   "2026-11-03-vivaldi-search-settings-desktop-help",
+   "qwant"
+  ],
+  "services/startpage": [
+   "2026-11-03-android-dma-search-choice-eligibility",
+   "2026-11-03-apple-eu-browser-choice-screen",
+   "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-computing-startpage-system1-investment",
+   "2026-11-03-startpage-chrome-android-default-help",
+   "2026-11-03-startpage-chrome-default-help",
+   "2026-11-03-startpage-chrome-ios-default-help",
+   "2026-11-03-startpage-firefox-default-help",
+   "2026-11-03-startpage-firefox-ios-default-help",
+   "2026-11-03-startpage-safari-ios-homescreen-help",
+   "2026-11-03-startpage-safari-not-default-help",
+   "2026-11-03-startpage-what-is-startpage",
+   "2026-11-03-system1-10k-2022-subsidiaries",
+   "2026-11-03-vivaldi-search-settings-desktop-help",
+   "surfboard"
+  ],
+  "services/vivaldi": [
+   "2026-11-03-computerworld-chrome-to-vivaldi",
+   "2026-11-03-datatilsynet-gdpr-norway",
+   "2026-11-03-deepakness-vivaldi-migration-blog",
+   "2026-11-03-eur-lex-eea-glossary",
+   "2026-11-03-vivaldi-7-1-release-search-partners",
+   "2026-11-03-vivaldi-about-company",
+   "2026-11-03-vivaldi-ad-attribution-help",
+   "2026-11-03-vivaldi-android-bookmarks-help",
+   "2026-11-03-vivaldi-android-passwords-help",
+   "2026-11-03-vivaldi-browser-privacy-policy",
+   "2026-11-03-vivaldi-compare-chrome-page",
+   "2026-11-03-vivaldi-contact-page",
+   "2026-11-03-vivaldi-default-browser-android-help",
+   "2026-11-03-vivaldi-default-browser-desktop-help",
+   "2026-11-03-vivaldi-default-browser-ios-help",
+   "2026-11-03-vivaldi-download-page",
+   "2026-11-03-vivaldi-extensions-help",
+   "2026-11-03-vivaldi-for-a-better-web",
+   "2026-11-03-vivaldi-forum-chrome-password-import",
+   "2026-11-03-vivaldi-forum-startpage-default",
+   "2026-11-03-vivaldi-import-export-help",
+   "2026-11-03-vivaldi-ios-import-help",
+   "2026-11-03-vivaldi-manifest-v3-update-blog",
+   "2026-11-03-vivaldi-password-management-help",
+   "2026-11-03-vivaldi-privacy-settings-help",
+   "2026-11-03-vivaldi-search-android-help",
+   "2026-11-03-vivaldi-search-ios-help",
+   "2026-11-03-vivaldi-search-settings-desktop-help",
+   "2026-11-03-vivaldi-sync-help",
+   "2026-11-03-vivaldi-sync-privacy-policy",
+   "2026-11-03-vivaldi-third-party-search-engines",
+   "2026-11-03-vivaldi-tracker-ad-blocking-help",
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-apple-iphone-safari-search-help": [
+   "2026-11-03-apple-iphone-default-search-engine-help"
+  ],
+  "2026-11-03-apple-iphone-default-search-engine-help": [
+   "2026-11-03-apple-iphone-safari-search-help"
+  ],
+  "services/brave": [
+   "2026-11-03-brave-default-search-engine-help",
+   "2026-11-03-brave-search-faq-default-mobile"
+  ],
+  "2026-11-03-ec-dma-review-2026-choice-screens": [
+   "alphabet",
+   "apple",
+   "microsoft"
+  ],
+  "2026-11-03-google-storage-quota-help": [
+   "alphabet"
+  ],
+  "2026-11-03-google-takeout-download-data-help": [
+   "alphabet"
+  ],
+  "2026-11-03-chrome-sign-in-help": [
+   "alphabet"
+  ],
+  "2026-11-03-android-dma-choice-screen": [
+   "alphabet"
+  ],
+  "2026-11-03-apple-eu-browser-choice-screen": [
+   "apple"
+  ],
+  "2026-11-03-apple-default-apps-choice-screens": [
+   "apple"
+  ],
+  "2026-11-03-ec-bing-edge-not-gatekeepers": [
+   "apple",
+   "microsoft"
+  ],
+  "2026-11-03-duckduckgo-results-sources": [
+   "duck-duck-go"
+  ],
+  "2026-11-03-duckduckgo-privacy-rights-gdpr-representative": [
+   "duck-duck-go"
+  ],
+  "2026-11-03-duckduckgo-privacy-policy": [
+   "duck-duck-go"
+  ],
+  "2026-11-03-ecosia-search-results-providers": [
+   "ecosia",
+   "european-search-perspective"
+  ],
+  "2026-11-03-qwant-ecosia-eusp-announcement": [
+   "ecosia",
+   "european-search-perspective",
+   "qwant"
+  ],
+  "2026-11-03-ecosia-privacy-policy": [
+   "ecosia"
+  ],
+  "2026-11-03-ecosia-how-it-makes-money": [
+   "ecosia"
+  ],
+  "2026-11-03-techcrunch-staan-launch": [
+   "ecosia",
+   "european-search-perspective",
+   "qwant"
+  ],
+  "2026-11-03-qwant-privacy-policy": [
+   "european-search-perspective",
+   "qwant"
+  ],
+  "2026-11-03-windows-dma-updates-2025": [
+   "microsoft"
+  ],
+  "2026-11-03-mistral-privacy-policy": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-vibe-agent-launch": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-help-training-data-use": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-trust-center-subprocessors": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-pricing-page": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-release-notes-vibe": [
+   "mistral-ai"
+  ],
+  "2026-11-03-agcm-mistral-le-chat-hallucination-commitments": [
+   "mistral-ai"
+  ],
+  "2026-11-03-mistral-memories-launch-2025": [
+   "mistral-ai"
+  ],
+  "2026-11-03-clubic-mistral-cnil-complaint": [
+   "mistral-ai"
+  ],
+  "2026-11-03-openai-gpts-help": [
+   "openai"
+  ],
+  "2026-11-03-openai-custom-gpt-retirement-faq": [
+   "openai"
+  ],
+  "2026-11-03-decrypt-quitgpt-data-guide": [
+   "openai"
+  ],
+  "2026-11-03-estonian-register-organic-maps-ou": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-12m-installs": [
+   "organic-maps"
+  ],
+  "2026-11-03-lwn-comaps-organic-maps-fork": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-homepage": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-july-2026-release": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-june-2026-release": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-2025-year-in-review": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-november-2025-release": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-october-2025-release": [
+   "organic-maps"
+  ],
+  "2026-11-03-organic-maps-may-2025-release": [
+   "organic-maps"
+  ],
+  "2026-11-03-proton-drive-free-storage-help": [
+   "proton"
+  ],
+  "2026-11-03-proton-plans-help": [
+   "proton"
+  ],
+  "2026-11-03-proton-drive-roadmap-page": [
+   "proton"
+  ],
+  "2026-11-03-proton-autumn-winter-2026-roadmap": [
+   "proton"
+  ],
+  "2026-11-03-proton-drive-release-notes": [
+   "proton"
+  ],
+  "2026-11-03-startpage-what-is-startpage": [
+   "surfboard",
+   "system1"
+  ],
+  "2026-11-03-system1-10k-2022-subsidiaries": [
+   "surfboard",
+   "system1"
+  ],
+  "2026-11-03-computing-startpage-system1-investment": [
+   "surfboard",
+   "system1"
+  ],
+  "2026-11-03-vivaldi-contact-page": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-for-a-better-web": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-about-company": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-sync-privacy-policy": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-download-page": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-compare-chrome-page": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-7-1-release-search-partners": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-forum-startpage-default": [
+   "vivaldi-technologies"
+  ],
+  "2026-11-03-vivaldi-ad-attribution-help": [
+   "vivaldi-technologies"
   ]
  }
 }
