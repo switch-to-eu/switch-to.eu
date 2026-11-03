@@ -79,7 +79,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Tresorit is fully GDPR compliant and headquartered in Switzerland, which has an EU adequacy decision. Your files are encrypted on your device before upload, and Tresorit never holds the keys to decrypt them. Because they cannot access the encrypted content, they fall outside the scope of data processor audits for personal data stored in files. Business plans let you choose your data center location within Europe.
 privacyPolicyUrl: https://tresorit.com/m/privacy-policy
-pricingDetails: Geen gratis abonnement beschikbaar. Alle betaalde abonnementen hebben een gratis proefperiode van 14 dagen. De Personal en Professional abonnementen zijn voor individuele gebruikers. Zakelijke abonnementen vereisen minimaal 3 gebruikers. Enterprise-prijzen zijn op maat en beginnen bij 50 gebruikers.
+pricingDetails: No free plan available. All paid plans have a 14-day free trial. The Personal and Professional plans are for individual users. Business plans require at least 3 users. Enterprise pricing is custom and starts at 50 users.
 pricingUrl: https://tresorit.com/m/pricing/personal
 headquarters: Zurich, Switzerland
 parentCompany: Swiss Post
@@ -127,7 +127,7 @@ researchNotes: |-
   User sentiment: Highly praised for security and encryption. Main complaints: higher pricing than competitors, occasional sync issues, file management can be cumbersome, app freezing reported. Not open source (some crypto libraries open-sourced on GitHub). Best suited for regulated industries and security-focused users willing to pay a premium.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong SEO profile. Content hits primary keywords naturally (encrypted cloud storage, zero-knowledge, Swiss, GDPR). Description is under 200 chars and leads with benefit. Meta title is 50 chars, within limit. Meta description is 155 chars, within limit. Content includes specific pricing, company background, and honest trade-offs which builds E-E-A-T. Worth knowing section adds depth. Minor opportunities: could add more internal linking context once related guides exist. No image alt text issues (screenshot already has alt). Overall very solid for a service listing page.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

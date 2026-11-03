@@ -1,5 +1,5 @@
 ---
-startingPrice: €3.99 eenmalig
+startingPrice: $2,99 eenmalig
 description: Stuur privéberichten zonder je telefoonnummer te delen. Zwitsers, open source en ontworpen om zo min mogelijk data te verzamelen.
 features:
 - End-to-end versleuteling
@@ -7,6 +7,36 @@ features:
 - Open source apps
 - Spraak- en videobellen
 - Zelfvernietigende berichten
+pricingTiers:
+- name: Threema (Personal)
+  price: $2,99 eenmalig
+  features:
+  - End-to-end versleutelde berichten
+  - Spraak- en videogesprekken
+  - Groepschats en peilingen
+  - Bestanden delen
+  - Geen advertenties, geen abonnement
+- name: Threema Work Essential
+  price: $10,99/gebruiker/maand
+  features:
+  - Centraal apparaatbeheer
+  - App-configuratie
+  - Eigen huisstijl
+  - Voorrang bij support
+- name: Threema Work Advanced
+  price: $21,99/gebruiker/maand
+  features:
+  - Alles uit Essential
+  - Directory-integratie
+  - Bewaarbeleid voor berichten
+  - Geavanceerd beheer
+- name: Threema Work Professional
+  price: $32,99/gebruiker/maand
+  features:
+  - Alles uit Advanced
+  - API-toegang
+  - Broadcastberichten
+  - Persoonlijke ondersteuning
 metaTitle: 'Threema: Privéberichten zonder je telefoonnummer'
 metaDescription: Threema is een Zwitserse beveiligde messenger waarmee je anoniem kunt chatten. End-to-end versleuteld, open source, geen telefoonnummer nodig.
 keywords:

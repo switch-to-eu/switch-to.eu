@@ -1,5 +1,5 @@
 ---
-startingPrice: €5.35/month
+startingPrice: €5,75/maand
 description: Zwitserse e-mail die je data in Zwitserland houdt. Gebouwd door een bedrijf in handen van medewerkers met 30 jaar hostingervaring en geen externe investeerders.
 features:
 - Alleen Zwitserse dataopslag
@@ -8,6 +8,41 @@ features:
 - Agenda en contacten
 - Eigen domein mogelijk
 - Gratis migratietools
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 20GB e-mailopslag
+  - Adres op @ik.me, @ikmail.com of @etik.com
+  - 15GB cloudopslag in kDrive
+  - Eenvoudige AI-functies
+  - Agenda, contacten en taken
+- name: kSuite Standard
+  price: €5,75/maand
+  billingNote: Gratis bij aankoop van een Infomaniak-domein
+  features:
+  - Eigen domein inbegrepen
+  - Onbeperkte e-mailopslag
+  - 2TB cloudopslag in kDrive
+  - AI-tools voor schrijven en vertalen
+  - Migratietools
+- name: Mail Service Pro
+  price: €6,58/maand
+  features:
+  - Onbeperkte e-mailopslag
+  - Eigen domeinen
+  - Tot 300 e-mailadressen
+  - AI-functies
+  - Geavanceerde spam- en phishingbescherming
+  - SSO-integratie
+- name: kSuite Pro
+  price: Prijs op aanvraag
+  features:
+  - Alles uit Mail Service Pro
+  - Cloudopslag in kDrive
+  - Videovergaderen met kMeet
+  - Tools om samen te werken
+  - Persoonlijke ondersteuning
 metaTitle: 'Infomaniak Mail: Zwitserse e-mail met data in Zwitserland'
 metaDescription: Infomaniak Mail biedt professionele Zwitserse e-mail met onbeperkte opslag, AI-schrijftools en data die uitsluitend in Zwitserland blijft. Gratis abonnement met 20GB.
 keywords:

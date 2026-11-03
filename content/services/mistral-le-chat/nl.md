@@ -7,6 +7,36 @@ features:
 - Beeldgeneratie
 - Zoeken op het web
 - Code-interpreter
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - ~25 berichten/dag
+  - Flash Answers
+  - Code-interpreter
+  - Documenten uploaden
+  - Nieuws zoeken via AFP
+  - Afbeeldingen genereren
+- name: Pro
+  price: $14,99/maand
+  features:
+  - Onbeperkt chatten (redelijk gebruik)
+  - 150 Flash Answers/dag
+  - No Telemetry Mode
+  - Voorrang bij modeltoegang
+  - Alle functies van Gratis
+- name: Student
+  price: $7,04/maand
+  features:
+  - Alle Pro-functies
+  - Studentenkorting na verificatie
+- name: Enterprise
+  price: Prijs op aanvraag
+  features:
+  - Keuze voor dataresidentie
+  - Samenwerken in teams
+  - SSO-integratie
+  - Implementatie op maat
 metaTitle: 'Mistral Le Chat: EU AI-assistent uit Parijs | Switch to EU'
 metaDescription: Le Chat van Mistral AI is een GDPR-conforme AI-assistent gebouwd in Parijs. Gratis versie beschikbaar. Deep Research, beeldgeneratie, codetools en EU-dataopslag.
 keywords:

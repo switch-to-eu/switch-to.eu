@@ -40,7 +40,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: 'Ecosia is GDPR compliant and based in Berlin, Germany. Your IP address and usage data are anonymized within 7 days. They don''t build personal profiles from your searches and don''t sell your data. All connections use HTTPS encryption, and their analytics tool is self-hosted with no personal tracking. One thing to know: search queries pass through Microsoft Bing to deliver results, so Bing receives some data as part of that process.'
 privacyPolicyUrl: https://www.ecosia.org/privacy
-pricingDetails: Ecosia Browser is volledig gratis op alle platforms. Het bedrijf verdient geld via zoekadvertenties die naast resultaten worden getoond en gebruikt die inkomsten om bomen te planten en te investeren in hernieuwbare energie. Er zijn geen betaalde abonnementen of premiumfuncties.
+pricingDetails: Ecosia Browser is completely free on all platforms. The company earns money from search ads shown next to results and uses that income to plant trees and invest in renewable energy. There are no paid plans or premium features.
 pricingUrl: https://www.ecosia.org/browser
 headquarters: Berlin, Germany
 parentCompany: Ecosia GmbH
@@ -80,7 +80,7 @@ researchNotes: |-
   Generally positive sentiment, especially among eco-conscious users. Praised for transparency (monthly financial and ecological reports). Concerns: search quality sometimes trails Google for niche queries (Bing-powered results). Tree-planting revenue percentage has declined from earlier years to around 25% of income in 2023. Some users report account resets and tree counter issues on mobile. In August 2025, Ecosia partnered with French search engine Qwant to build a Europe-based search index for French users. In August 2025, Ecosia also offered to take stewardship of Chrome.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'SEO Audit (2026-04-08)\n\n1. Title tag (8/10): 52 chars, includes primary keyword and value prop. Could include ''alternative'' for comparison searches.\n2. Meta description (9/10): 155 chars, includes key facts and numbers. Clear call to value.\n3. Keywords (8/10): Good mix of branded and generic terms. Covers ''EU browser'', ''privacy browser Europe'', and environmental angle.\n4. Content length (8/10): ~200 words in body content. Hits the 150-250 target range with good information density.\n5. Heading structure (8/10): Single H2 ''Worth knowing'' section. Could benefit from one more H2 to break up the privacy section.\n6. Internal linking potential (7/10): Category page (browsers) links naturally. Could link to non-EU browser comparison pages.\n7. Readability (9/10): Short sentences, active voice, specific numbers. No jargon.\n8. Unique value prop (9/10): Tree planting angle is distinctive. 230M trees figure is compelling.\n9. OG tags (8/10): Complete with title and description. No OG image set.\n10. Technical (8/10): Slug ''ecosia-browser'' is clean. Description under 200 chars.\n\nTotal: 82/100\nMain opportunities: Add OG image, consider a second H2 for content structure, add ''alternative to Chrome'' keyword variant.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

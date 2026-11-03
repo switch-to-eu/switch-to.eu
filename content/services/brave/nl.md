@@ -8,6 +8,25 @@ features:
 - Brave Search (onafhankelijke index)
 - Leo AI-assistent
 - Compatibel met Chrome-extensies
+pricingTiers:
+- name: Brave Browser
+  price: Gratis
+  features:
+  - Blokkeert advertenties en trackers
+  - Anti-fingerprinting
+  - Privévenster met Tor
+  - Brave Search
+  - Werkt met Chrome-extensies
+  - Synchronisatie tussen apparaten
+- name: Brave Premium
+  price: $9,99/maand
+  billingNote: $99,99/jaar (bespaar 17%)
+  features:
+  - Alles uit de gratis versie
+  - Leo AI-assistent (geavanceerde modellen)
+  - Brave VPN (10 apparaten)
+  - VPN voor je hele apparaat
+  - 7 dagen gratis proberen
 metaTitle: 'Brave Browser: Priv\u00e9 Browsen Met Ingebouwde Adblocker'
 metaDescription: Brave blokkeert advertenties en trackers standaard. Gratis, open source en compatibel met Chrome-extensies. Inclusief Brave Search, Leo AI en optionele VPN.
 keywords:

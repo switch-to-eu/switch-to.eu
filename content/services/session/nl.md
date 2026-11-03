@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Stuur berichten zonder je telefoonnummer, e-mailadres of IP-adres te delen. Session stuurt alles via een gedecentraliseerd onion-netwerk.
 features:
 - End-to-end-encryptie
@@ -7,6 +8,16 @@ features:
 - Gedecentraliseerd netwerk
 - Open source
 - Meerdere platformen
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - Onbeperkt berichten
+  - Groepschats
+  - Spraakberichten
+  - Bijlagen versturen
+  - Onion routing
+  - Apps voor desktop en mobiel
 metaTitle: 'Session: Anonieme Messenger met Onion-routing'
 metaDescription: Session laat je berichten sturen zonder telefoonnummer of e-mail. Gratis, open-source messenger met gedecentraliseerde onion-routing voor je privacy.
 keywords:

@@ -8,6 +8,50 @@ features:
 - Zoeken op het web
 - Spraakgesprekken
 - Bestanden en data analyseren
+pricingTiers:
+- name: Gratis
+  price: $0/maand
+  features:
+  - Beperkte toegang tot GPT-5.3
+  - Afbeeldingen genereren (basis)
+  - Beperkt zoeken op het web
+  - Advertenties (VS)
+- name: Go
+  price: $8/maand
+  features:
+  - Meer berichten dan Gratis
+  - Uitgebreide modeltoegang
+  - Advertenties
+- name: Plus
+  price: $20/maand
+  features:
+  - Uitgebreide berichtlimieten
+  - Afbeeldingen genereren met DALL-E
+  - Geavanceerde spraakmodus
+  - Geen advertenties
+- name: Pro
+  price: $200/maand
+  features:
+  - Onbeperkt berichten
+  - o1-pro redeneermodel
+  - Voorrang bij nieuwe functies
+  - Uitgebreid Deep Research
+- name: Business
+  price: $25/gebruiker/maand
+  billingNote: $30/gebruiker/maand bij maandelijkse facturering
+  features:
+  - Beheerconsole en werkruimte
+  - Data niet gebruikt voor training
+  - SSO en domeinverificatie
+  - Gebruiksanalyse
+- name: Enterprise
+  price: Prijs op aanvraag
+  billingNote: Minimaal 150 licenties, jaarcontract
+  features:
+  - Optie voor EU-dataresidentie
+  - Optie zonder dataretentie
+  - HIPAA-compliance
+  - Eigen accountmanager
 issues:
 - Gesprekken worden standaard gebruikt voor modeltraining
 - Data van consumentenabonnementen opgeslagen en verwerkt in de VS

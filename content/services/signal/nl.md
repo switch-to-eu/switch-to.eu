@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Stuur berichten, bel en deel bestanden in de wetenschap dat niemand kan meeluisteren. Zelfs Signal niet.
 features:
 - Versleutelde berichten

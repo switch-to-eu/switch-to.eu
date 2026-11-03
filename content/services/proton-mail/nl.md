@@ -6,6 +6,44 @@ features:
 - Open source apps
 - GDPR-conform
 - Onder toezicht van non-profit
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 1 GB opslag
+  - 1 e-mailadres
+  - 150 berichten per dag
+- name: Mail Plus
+  price: €3,99/maand
+  billingNote: jaarlijks gefactureerd
+  features:
+  - 15 GB opslag
+  - 10 e-mailadressen
+  - Onbeperkt berichten
+  - Eigen domein
+- name: Proton Unlimited
+  price: €9,99/maand
+  billingNote: jaarlijks gefactureerd
+  features:
+  - 500 GB opslag
+  - 15 e-mailadressen
+  - Met VPN, Drive en Calendar
+  - Proton Pass inbegrepen
+- name: Proton Family
+  price: €23,99/maand
+  billingNote: jaarlijks gefactureerd
+  features:
+  - 3 TB gedeelde opslag
+  - Tot 6 gebruikers
+  - Alle Proton-diensten
+- name: Workspace Standard
+  price: €12,99/gebruiker/maand
+  billingNote: jaarlijks gefactureerd
+  features:
+  - 1 TB per gebruiker
+  - 20 adressen per gebruiker
+  - 15 eigen domeinen
+  - Mail, Calendar, Drive, VPN, Pass
 metaTitle: 'Proton Mail: Versleutelde e-mail uit Zwitserland'
 metaDescription: 'Proton Mail: end-to-end versleutelde e-mail uit Zwitserland. Gratis abonnement, open source apps, onder toezicht van een non-profit. Vergelijk EU-alternatieven.'
 keywords:

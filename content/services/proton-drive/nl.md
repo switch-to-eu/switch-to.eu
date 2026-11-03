@@ -1,5 +1,5 @@
 ---
-startingPrice: €3.99/month
+startingPrice: Gratis (5 GB)
 description: Sla bestanden op en deel ze met end-to-end encryptie van een Zwitsers bedrijf dat je data niet kan inzien, zelfs niet als ze daartoe gedwongen worden.
 features:
 - End-to-end versleutelde opslag
@@ -8,6 +8,45 @@ features:
 - Synchronisatie op alle platformen
 - Fotoback-up
 - Open source
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 5 GB versleutelde opslag
+  - Toegang tot Proton Docs
+  - Eenvoudig bestanden delen
+  - 10 bestandsversies, 7 dagen bewaard
+- name: Drive Plus
+  price: $4,99/maand
+  billingNote: $47,88/jaar, jaarlijks gefactureerd
+  features:
+  - 200 GB opslag
+  - 200 bestandsversies, 10 jaar bewaard
+  - Meer controle over delen
+  - Desktopsynchronisatie (Windows, macOS)
+- name: Proton Unlimited
+  price: $12,99/maand
+  billingNote: $119,88/jaar, jaarlijks gefactureerd
+  features:
+  - 500 GB opslag
+  - Alle Proton-apps (Mail, VPN, Calendar, Pass)
+  - Voorrang bij support
+  - Alles uit Drive Plus
+- name: Proton Family
+  price: $29,99/maand
+  billingNote: $287,88/jaar, jaarlijks gefactureerd
+  features:
+  - 3 TB gedeelde opslag
+  - Tot 6 gebruikers
+  - Alle Proton-apps inbegrepen
+  - Alles uit Unlimited
+- name: Drive Professional
+  price: $9,99/gebruiker/maand
+  features:
+  - Zakelijke opslag per gebruiker
+  - Gebruikersbeheer
+  - Compliancetools
+  - Voorrang bij zakelijke support
 metaTitle: 'Proton Drive: Versleutelde cloudopslag uit Zwitserland'
 metaDescription: Sla bestanden op en deel ze met end-to-end encryptie. Proton Drive biedt 5 GB gratis, open-source apps en zero-access encryptie van het Zwitserse Proton AG.
 keywords:

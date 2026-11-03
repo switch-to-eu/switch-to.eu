@@ -17,38 +17,38 @@ features:
 - 400+ apps and integrations
 - End-to-end encryption
 pricingTiers:
-- name: Community (zelf hosten)
-  price: Gratis
-  billingNote: Open source, geen gebruikerslimiet
+- name: Community (self-hosted)
+  price: Free
+  billingNote: Open source, no user limit
   features:
-  - Volledig Nextcloud Hub-platform
-  - Onbeperkt aantal gebruikers
-  - Alle community-apps
-  - Ondersteuning via communityforum
+  - Full Nextcloud Hub platform
+  - Unlimited users
+  - All community apps
+  - Support via the community forum
 - name: Enterprise Standard
-  price: ~€68/gebruiker/jaar
-  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  price: ~€68/user/year
+  billingNote: Minimum 100 users, billed annually
   features:
-  - Alles van Community
-  - 'Reactietijd: 2 werkdagen'
-  - Beveiligingsverharding
-  - Huisstijl en thema's
+  - Everything in Community
+  - 'Response time: 2 business days'
+  - Security hardening
+  - Branding and theming
 - name: Enterprise Premium
-  price: ~€100/gebruiker/jaar
-  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  price: ~€100/user/year
+  billingNote: Minimum 100 users, billed annually
   features:
-  - Alles van Standard
-  - 'Reactietijd: 1 werkdag'
-  - Clustering en hoge beschikbaarheid
-  - Push-notificatieservice
+  - Everything in Standard
+  - 'Response time: 1 business day'
+  - Clustering and high availability
+  - Push notification service
 - name: Enterprise Ultimate
-  price: ~€195/gebruiker/jaar
-  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  price: ~€195/user/year
+  billingNote: Minimum 100 users, billed annually
   features:
-  - Alles van Premium
-  - 'Reactietijd: 1 uur bij kritieke problemen'
-  - Persoonlijke accountmanager
-  - Ondersteuning voor maatwerkoplossingen
+  - Everything in Premium
+  - 'Response time: 1 hour for critical issues'
+  - Personal account manager
+  - Support for custom solutions
 tags:
 - open-source
 - GDPR-compliant
@@ -118,7 +118,7 @@ researchNotes: |-
   Positive: privacy, data control, all-in-one platform replacing multiple services, extensive plugin ecosystem, local AI assistant. Negative: Android app reliability issues, large file uploads can fail, initial setup complexity for non-technical users, sync conflicts need manual resolution, file preview generation can strain servers.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong SEO profile. Title is 56 chars (good). Meta description is 158 chars (good). Primary keyword ''Nextcloud'' appears in title, description, and content. Secondary keywords target common search queries (Google Drive alternative, Dropbox alternative, GDPR cloud storage). Content is 220 words with good structure: intro paragraph, feature details, enterprise info, and Worth knowing section. H2 heading present. Pricing tiers provide additional keyword-rich content. Improvement opportunities: could add internal links to comparison pages once available. Missing OG image (using screenshot fallback). Description could be slightly shorter for card display.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

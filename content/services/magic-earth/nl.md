@@ -8,6 +8,22 @@ features:
 - Openbaar vervoer routering
 - Flitserwaarschuwingen
 - Dashcam- en HUD-modi
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - Kaarten bekijken en zoeken
+  - Stapsgewijze navigatie
+  - Routes met openbaar vervoer
+  - Favorieten en opgeslagen plekken
+- name: Premium
+  price: $19,99/jaar
+  billingNote: 'Introductieaanbod: $8/jaar. 14 dagen gratis proberen.'
+  features:
+  - Navigatie met actuele verkeersinfo
+  - Offline kaarten downloaden
+  - Activiteiten vastleggen
+  - Kaartstijl met hoogteverschillen
 metaTitle: 'Magic Earth: Privacyvriendelijke navigatie-app uit de EU'
 metaDescription: Magic Earth biedt stapsgewijze navigatie, offline kaarten en ov-routes zonder tracking. Gemaakt door Magic Lane in Nederland. Gratis en premium abonnementen.
 keywords:

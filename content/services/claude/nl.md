@@ -7,6 +7,55 @@ features:
 - Document- en beeldanalyse
 - Interactieve artefacten
 - Uitgebreid denken voor complexe taken
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - Toegang tot Sonnet 4.5
+  - ~30-100 berichten per dag
+  - Basisfuncties
+  - Gesprekken standaard gebruikt voor training
+- name: Pro
+  price: $20/maand
+  billingNote: $17/maand, jaarlijks gefactureerd
+  features:
+  - Alle modellen (Opus 4.5, Sonnet 4.5, Haiku 4.5)
+  - Hogere gebruikslimieten
+  - Toegang tot Claude Code
+  - Koppeling met Google Workspace
+  - Gesprekken standaard gebruikt voor training
+- name: Max
+  price: Vanaf $100/maand
+  billingNote: $200/maand voor de 20x-variant
+  features:
+  - 5-20x het gebruik van Pro
+  - Voorrang bij toegang
+  - Alle Pro-functies inbegrepen
+- name: Team Standard
+  price: $25/gebruiker/maand
+  billingNote: Minimaal 5 gebruikers
+  features:
+  - 1,25x de Pro-limiet per gebruiker
+  - Beheertools en -instellingen
+  - Context van 200k tokens
+  - Geen training op gesprekken
+- name: Team Premium
+  price: $125/gebruiker/maand
+  billingNote: Minimaal 5 gebruikers
+  features:
+  - 6,25x de Pro-limiet per gebruiker
+  - Claude Code inbegrepen
+  - Alle beheerfuncties
+  - Geen training op gesprekken
+- name: Enterprise
+  price: Prijs op aanvraag
+  billingNote: Vanaf ~$50.000/jaar
+  features:
+  - Contextvenster van 500k tokens
+  - SSO en SCIM-provisioning
+  - HIPAA-geschikte configuratie
+  - Eigen bewaartermijn voor data
+  - Geen training op gesprekken
 issues:
 - Gesprekken van consumenten worden standaard gebruikt voor AI-training sinds september 2025
 - Alle consumentengegevens worden opgeslagen en verwerkt in de VS

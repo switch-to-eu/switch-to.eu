@@ -16,32 +16,32 @@ features:
 - Code generation and developer API
 - Auto Browse for web tasks
 pricingTiers:
-- name: Gratis
-  price: Gratis
+- name: Free
+  price: Free
   features:
-  - Gemini Flash-model (met limiet)
-  - Basis tekst- en afbeeldingeninvoer
-  - 15 GB Google-opslag
+  - Gemini Flash model (limited)
+  - Basic text and image input
+  - 15 GB Google storage
 - name: AI Plus
-  price: $7,99/maand
+  price: $7.99/month
   features:
-  - Uitgebreide gebruikslimieten
-  - Toegang tot nieuwere modellen
-  - 100 GB Google-opslag
+  - Higher usage limits
+  - Access to newer models
+  - 100 GB Google storage
 - name: AI Pro
-  price: $19,99/maand
+  price: $19.99/month
   features:
-  - Gemini 3 Pro-model
+  - Gemini 3 Pro model
   - Deep Research
   - Workspace AI (Gmail, Docs, Sheets, Slides)
-  - 2 TB Google One-opslag
+  - 2 TB Google One storage
 - name: AI Ultra
-  price: $249,99/maand
+  price: $249.99/month
   features:
-  - Hoogste gebruikslimieten voor alle functies
-  - Veo-videogeneratie
-  - Vroege toegang tot experimentele producten
-  - YouTube Premium inbegrepen
+  - Highest usage limits on all features
+  - Veo video generation
+  - Early access to experimental products
+  - YouTube Premium included
 tags:
 - ai
 - chatbot
@@ -120,7 +120,7 @@ researchNotes: |-
   Enterprise plans offer EU data residency (europe-west12, de-central1). Consumer plans have no EU data residency guarantees. Google signed the EU AI Act Code of Practice. Certifications include SOC 1/2/3, ISO 27001, 27701, 27017, 27018, and 42001.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong content with specific facts, pricing data, and clear Worth knowing section. Description under 200 chars. Meta title 55 chars, meta description 155 chars. Good keyword targeting for EU privacy seekers. Issues array is factual and well-sourced. Minor deductions: could benefit from more internal linking language and a slightly more keyword-rich opening paragraph. Content length is good at roughly 200 words. H2 structure is clean.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

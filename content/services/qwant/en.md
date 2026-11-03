@@ -40,7 +40,7 @@ lastResearchedAt: '2026-04-09T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Qwant is fully GDPR compliant and based in Paris, France. It does not store search histories, build user profiles, or use tracking cookies. All data stays on EU servers. Ads are contextual, based on what you search for in that moment, not on your browsing history. In 2025, France's data protection authority (CNIL) reminded Qwant that certain data shared with Microsoft for ad delivery counted as personal data. Qwant updated its practices in response. The company is actively reducing its dependence on non-EU infrastructure through its Staan search index project with Ecosia.
 privacyPolicyUrl: https://about.qwant.com/en/legal/confidentialite/
-pricingDetails: Qwant is volledig gratis te gebruiken. De dienst verdient geld met contextuele advertenties en affiliate-partnerschappen, niet door het verkopen van gebruikersgegevens. Er zijn geen betaalde abonnementen.
+pricingDetails: Qwant is completely free to use. The service earns money from contextual ads and affiliate partnerships, not by selling user data. There are no paid plans.
 pricingUrl: https://www.qwant.com/
 headquarters: Paris, France
 parentCompany: Octave Klaba (acquired June 2023)
@@ -84,7 +84,7 @@ researchNotes: |-
   1.35% desktop market share in France (5th place). Google dominates at 89.95%. User sentiment is mixed: praised for privacy commitment, criticized for slower search speed and mobile app quality issues (crashes, navigation bugs). Search quality improving with Staan index. The Staan partnership with Ecosia is seen as a significant step toward European digital sovereignty.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strengths: Clear description under 200 chars with reader benefit. Strong keyword targeting for EU/privacy search intent. Content includes specific data points (1.35% market share, Staan launch date, 50% query target). Worth knowing section adds transparency and E-E-A-T signals. Meta title under 60 chars, meta description under 160 chars. Good keyword variety covering branded and generic terms.\n\nAreas for improvement: Could benefit from internal links to comparison pages (Qwant vs Google, Qwant vs DuckDuckGo). Missing structured pricing tier data for rich snippets. No screenshot alt text optimization. Content could mention more specific use cases to capture long-tail queries. Consider adding FAQ schema for common questions about Qwant privacy.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

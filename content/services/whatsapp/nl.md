@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Gratis berichtenapp met 2 miljard+ gebruikers. Versleutelde chats, maar Meta verzamelt uitgebreide metadata voor zijn advertentiesysteem.
 features:
 - End-to-end versleutelde berichten
@@ -7,6 +8,30 @@ features:
 - Bestanden en media delen
 - Beschikbaar op alle platformen (iOS, Android, Web, Desktop)
 - WhatsApp Business voor bedrijven
+pricingTiers:
+- name: Personal
+  price: Gratis
+  features:
+  - Onbeperkt berichten
+  - Spraak- en videogesprekken
+  - Groepschats tot 1.024 leden
+  - Bestanden delen tot 2 GB
+  - End-to-end versleuteling
+- name: Business App
+  price: Gratis
+  features:
+  - Bedrijfsprofiel en catalogus
+  - Snelle antwoorden en labels
+  - Begroetings- en afwezigheidsberichten
+  - Tot 5 gekoppelde apparaten
+- name: Business Platform (API)
+  price: Per bericht
+  billingNote: Prijs verschilt per land en berichttype (marketing, utility, authenticatie, service). 1.000 gratis servicegesprekken per maand.
+  features:
+  - Geautomatiseerde berichten op schaal
+  - Koppeling met CRM en chatbots
+  - Sjabloonberichten
+  - Analyses en rapportages
 issues:
 - Deelt berichtenmetadata met Meta voor advertentietargeting op alle platformen
 - Beboet met EUR 230,5 miljoen door de Ierse DPC voor GDPR-overtredingen

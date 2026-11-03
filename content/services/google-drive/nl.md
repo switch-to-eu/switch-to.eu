@@ -1,5 +1,5 @@
 ---
-startingPrice: €1.99/maand voor 100GB
+startingPrice: €1,99/maand voor 100GB
 description: Cloudopslag van Google met 15 GB gratis. Onderdeel van Google Workspace met Docs, Sheets en Slides ingebouwd. Valt onder Amerikaanse datawetgeving.
 features:
 - 15 GB gratis opslag
@@ -7,6 +7,36 @@ features:
 - Google Workspace-integratie
 - Bestanden delen met rechten
 - Desktop- en mobiele sync
+pricingTiers:
+- name: Gratis
+  price: €0
+  billingNote: Geen creditcard nodig
+  features:
+  - 15 GB opslag (gedeeld met Gmail en Foto's)
+  - Eenvoudige tools om samen te werken
+  - Google Documenten, Spreadsheets, Presentaties
+- name: Google One Basic
+  price: €1,99/maand
+  billingNote: Maandelijks gefactureerd of €19,99/jaar
+  features:
+  - 100 GB opslag
+  - Opslag delen met maximaal 5 mensen
+  - Toegang tot Google-support
+- name: Google One Standard
+  price: €2,99/maand
+  billingNote: Maandelijks gefactureerd of €29,99/jaar
+  features:
+  - 200 GB opslag
+  - Opslag delen met maximaal 5 mensen
+  - Toegang tot Google-support
+- name: Google One Premium
+  price: €9,99/maand
+  billingNote: Maandelijks gefactureerd of €99,99/jaar
+  features:
+  - 2 TB opslag
+  - Opslag delen met maximaal 5 mensen
+  - Gemini AI-functies inbegrepen
+  - Toegang tot Google-support
 issues:
 - Bestanden kunnen door Google's geautomatiseerde systemen worden gescand
 - Valt onder de Amerikaanse CLOUD Act, waardoor autoriteiten toegang kunnen eisen tot data wereldwijd

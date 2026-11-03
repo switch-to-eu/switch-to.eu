@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Chromium-browser van Microsoft met Copilot AI, trackingbescherming en diepe Windows-integratie. Gratis op alle platformen.
 features:
 - Chromium-engine

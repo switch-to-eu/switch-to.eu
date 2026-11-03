@@ -1,6 +1,6 @@
 ---
 name: Tutanota
-startingPrice: €1.20/maand
+startingPrice: €3/maand
 description: E-mail die niemand kan lezen behalve jij. Tuta versleutelt alles, van onderwerpregels tot contacten, opgeslagen in Duitsland.
 features:
 - Volledig versleutelde e-mail
@@ -8,6 +8,31 @@ features:
 - Geen IP-logging
 - Open source apps
 - Anonieme registratie
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 1 GB opslag
+  - 1 agenda
+  - 3 labels
+  - Alleen standaardadressen
+- name: Revolutionary
+  price: €3/maand
+  billingNote: Jaarlijks gefactureerd
+  features:
+  - 20 GB opslag
+  - Onbeperkt agenda's
+  - 15 extra adressen
+  - 3 eigen domeinen
+  - Agenda's delen
+- name: Legend
+  price: €8/maand
+  billingNote: Jaarlijks gefactureerd
+  features:
+  - 500 GB opslag
+  - 30 extra adressen
+  - 10 eigen domeinen
+  - Voorrang bij support
 metaTitle: Tuta - Versleutelde e-mail uit Duitsland | switch-to.eu
 metaDescription: Tuta versleutelt je e-mails, contacten en agenda. Niemand kan ze lezen, zelfs Tuta niet. Gratis abonnement beschikbaar. Gevestigd in Hannover, Duitsland.
 keywords:

@@ -7,6 +7,32 @@ features:
 - Open-source taalmodellen
 - Bestanden uploaden via Proton Drive
 - Projecten voor georganiseerde werkruimtes
+pricingTiers:
+- name: Lumo Free
+  price: Gratis
+  features:
+  - Beperkt aantal prompts per week
+  - Eenvoudige AI-chat
+  - Zero-access-versleuteling
+  - Ghost mode
+- name: Lumo Plus
+  price: $12,99/maand
+  billingNote: $119,88/jaar ($9,99/maand, jaarlijks gefactureerd)
+  features:
+  - Onbeperkt vragen
+  - Bestanden uploaden uit Proton Drive
+  - Projecten (versleutelde werkruimtes)
+  - Voorrang bij antwoorden
+  - Zero-access-versleuteling
+  - Ghost mode
+- name: Lumo for Business
+  price: Op aanvraag
+  features:
+  - Teambeheer en beheeropties
+  - Onbeperkt vragen per gebruiker
+  - Versleutelde werkruimtes
+  - Zero-access-versleuteling
+  - Ghost mode
 metaTitle: 'Proton Lumo: Prive AI-assistent met versleutelde chats'
 metaDescription: Proton Lumo is een privacy-first AI-assistent die elk gesprek versleutelt. Gebouwd op open-source modellen, gehost in Europa, zonder dataregistratie of training.
 keywords:

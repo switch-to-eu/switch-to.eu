@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Gratis navigatie-app van Google die gebruikmaakt van door de community gemelde verkeersinformatie, flitspaalwaarschuwingen en realtime omleiding. Geen offline modus.
 features:
 - Realtime door gebruikers gemelde verkeers- en wegproblemen

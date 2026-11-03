@@ -1,5 +1,5 @@
 ---
-startingPrice: €8,33/maand
+startingPrice: $11,99/maand
 description: Bewaar en deel bestanden met zero-knowledge encryptie die je data privat houdt, zelfs voor Tresorit zelf.
 features:
 - End-to-end encryptie
@@ -7,6 +7,47 @@ features:
 - EU dataopslag
 - Veilig bestanden delen
 - Synchronisatie op alle apparaten
+pricingTiers:
+- name: Personal
+  price: $11,99/maand
+  billingNote: Jaarlijks gefactureerd
+  features:
+  - 1 TB versleutelde opslag
+  - Bestanden tot 10 GB
+  - Veilig bestanden delen
+  - Toegang vanaf al je apparaten
+- name: Professional
+  price: $27,49/maand
+  billingNote: Jaarlijks gefactureerd
+  features:
+  - 4 TB versleutelde opslag
+  - Bestanden tot 15 GB
+  - Versleutelde bestandsverzoeken
+  - Delen met eigen huisstijl
+- name: Business Standard
+  price: $14,50/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, min. 3 gebruikers
+  features:
+  - 1 TB opslag per gebruiker
+  - Plug-ins voor Outlook en Gmail
+  - Activiteitenlogs
+  - Beheeropties
+- name: Business Plus
+  price: $19/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, min. 3 gebruikers
+  features:
+  - 2 TB opslag per gebruiker
+  - Geavanceerde beheerfuncties
+  - Keuze voor datalocatie
+  - Voorrang bij support
+- name: Enterprise
+  price: Prijs op aanvraag
+  billingNote: 50+ gebruikers, neem contact op met sales
+  features:
+  - Schaalbare opslag
+  - SSO en directorysynchronisatie
+  - Persoonlijke accountmanager
+  - Persoonlijke onboarding
 metaTitle: 'Tresorit: Versleutelde cloudopslag uit Zwitserland'
 metaDescription: Tresorit biedt zero-knowledge versleutelde cloudopslag, eigendom van Swiss Post. Bestanden worden versleuteld op je apparaat. Kies EU-datacenters. Vanaf $11,99/maand.
 keywords:

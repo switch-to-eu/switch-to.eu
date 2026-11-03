@@ -7,6 +7,33 @@ features:
 - Google Workspace-integratie
 - Codegeneratie en developer-API
 - Auto Browse voor webtaken
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - Gemini Flash-model (met limiet)
+  - Tekst- en afbeeldingsinvoer (basis)
+  - 15 GB Google-opslag
+- name: AI Plus
+  price: $7,99/maand
+  features:
+  - Uitgebreide gebruikslimieten
+  - Toegang tot nieuwere modellen
+  - 100 GB Google-opslag
+- name: AI Pro
+  price: $19,99/maand
+  features:
+  - Gemini 3 Pro-model
+  - Deep Research
+  - Workspace AI (Gmail, Docs, Sheets, Slides)
+  - 2 TB Google One-opslag
+- name: AI Ultra
+  price: $249,99/maand
+  features:
+  - Hoogste limieten voor alle functies
+  - Video's maken met Veo
+  - Vroege toegang tot experimentele producten
+  - YouTube Premium inbegrepen
 issues:
 - Gesprekken kunnen worden gebruikt om AI-modellen te trainen bij consumentenabonnementen
 - Gemini werd in oktober 2025 standaard ingeschakeld voor Gmail- en Meet-gebruikers

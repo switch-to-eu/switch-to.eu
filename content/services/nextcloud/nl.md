@@ -8,6 +8,39 @@ features:
 - Agenda, contacten en e-mail
 - 400+ apps en integraties
 - End-to-end-encryptie
+pricingTiers:
+- name: Community (zelf hosten)
+  price: Gratis
+  billingNote: Open source, geen gebruikerslimiet
+  features:
+  - Volledig Nextcloud Hub-platform
+  - Onbeperkt aantal gebruikers
+  - Alle community-apps
+  - Hulp via het communityforum
+- name: Enterprise Standard
+  price: ~€68/gebruiker/jaar
+  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  features:
+  - Alles uit Community
+  - 'Reactietijd: 2 werkdagen'
+  - Extra beveiliging (hardening)
+  - Huisstijl en thema's
+- name: Enterprise Premium
+  price: ~€100/gebruiker/jaar
+  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  features:
+  - Alles uit Standard
+  - 'Reactietijd: 1 werkdag'
+  - Clustering en hoge beschikbaarheid
+  - Dienst voor pushmeldingen
+- name: Enterprise Ultimate
+  price: ~€195/gebruiker/jaar
+  billingNote: Minimaal 100 gebruikers, jaarlijks gefactureerd
+  features:
+  - Alles uit Premium
+  - 'Reactietijd: 1 uur bij kritieke problemen'
+  - Persoonlijke accountmanager
+  - Ondersteuning voor maatwerk
 metaTitle: 'Nextcloud: Open-source cloudopslag en samenwerking uit Duitsland'
 metaDescription: Nextcloud is een gratis, open-source platform voor bestandsopslag, videobellen en documenten bewerken. Zelf hosten of beheerde EU-hosting. Gebouwd door Nextcloud GmbH in Stuttgart.
 keywords:

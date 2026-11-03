@@ -58,6 +58,14 @@ interface TabSpec {
 // eslint-disable-next-line no-unused-vars
 type Translator = (key: string, values?: Record<string, string>) => string;
 
+// Free tiers are written per locale: "Free" (en), "Gratis" (nl), or a zero price
+// such as "€0", "€0,00" or "$0/maand".
+const FREE_PRICE = /^(free|gratis|[€$]\s?0(?:[.,]00)?(?:\/\S+)?)$/i;
+
+function isFreePrice(price: string): boolean {
+  return FREE_PRICE.test(price.trim());
+}
+
 function buildTabs(
   service: Service,
   guides: Guide[],
@@ -175,14 +183,12 @@ export default async function ServiceDetailPage({
   // Pre-compute overview fields
   const hasPricing = hasPricingData(service);
   const hasSecurity = hasSecurityData(service);
-  const freeTier = service.pricingTiers?.find(
-    (tier) =>
-      tier.price === "Free" || tier.price === "free" || tier.price === "€0"
+  const freeTier = service.pricingTiers?.find((tier) =>
+    isFreePrice(tier.price)
   );
-  const cheapestPaid = service.pricingTiers?.filter(
-    (tier) =>
-      tier.price !== "Free" && tier.price !== "free" && tier.price !== "€0"
-  )?.[0];
+  const cheapestPaid = service.pricingTiers?.find(
+    (tier) => !isFreePrice(tier.price)
+  );
 
   const gdprLabel =
     service.gdprCompliance === "compliant"
@@ -198,7 +204,7 @@ export default async function ServiceDetailPage({
   // gives us a populated source service, but we need the missingFeatures off
   // the guide itself which is on the guide doc.
   const filteredFeatures = service.features?.filter(
-    (f) => !/free/i.test(f)
+    (f) => !/free|gratis/i.test(f)
   );
 
   // `relatedGuides` is fetched with depth: 1, which already populates the
@@ -364,7 +370,7 @@ export default async function ServiceDetailPage({
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
                         {freeTier && cheapestPaid
-                          ? `${t("snippetFree")} – ${cheapestPaid.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
+                          ? `${t("snippetFree")} – ${cheapestPaid.price}`
                           : freeTier
                             ? t("snippetFree")
                             : service.startingPrice ||

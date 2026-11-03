@@ -17,35 +17,35 @@ features:
 - Web search
 - Code interpreter
 pricingTiers:
-- name: Gratis
-  price: Gratis
+- name: Free
+  price: Free
   features:
-  - ~25 berichten/dag
+  - ~25 messages/day
   - Flash Answers
-  - Code-interpreter
-  - Documenten uploaden
-  - AFP-nieuwszoeken
-  - Beeldgeneratie
+  - Code interpreter
+  - Document uploads
+  - AFP news search
+  - Image generation
 - name: Pro
-  price: $14,99/maand
+  price: $14.99/month
   features:
-  - Onbeperkte chats (redelijk gebruik)
-  - 150 Flash Answers/dag
+  - Unlimited chats (fair use)
+  - 150 Flash Answers/day
   - No Telemetry Mode
-  - Prioriteit modeltoegang
-  - Alle Gratis-functies
+  - Priority model access
+  - All Free features
 - name: Student
-  price: $7,04/maand
+  price: $7.04/month
   features:
-  - Alle Pro-functies
-  - Geverifieerde studentenkorting
+  - All Pro features
+  - Verified student discount
 - name: Enterprise
-  price: Op maat
+  price: Custom
   features:
-  - Dataresidentie-opties
-  - Teamsamenwerking
-  - SSO-integratie
-  - Aangepaste implementatie-opties
+  - Data residency options
+  - Team collaboration
+  - SSO integration
+  - Custom deployment options
 tags:
 - ai
 - chatbot
@@ -114,7 +114,7 @@ researchNotes: |-
   84% satisfaction rating. Praised for speed (up to 1000 words/sec), multilingual support, model quality on par with ChatGPT/Claude. Criticism: fewer customization options than ChatGPT, some users report paid version coding worse than free, less comprehensive answers on niche topics.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'SEO Audit (10-point checklist):\n1. Meta title: 55 chars, includes primary keyword + brand. PASS\n2. Meta description: 155 chars, includes CTA-like phrasing and key features. PASS\n3. Primary keyword (Mistral Le Chat) in H1/title, description, content. PASS\n4. Secondary keywords (EU AI, GDPR, European alternative) distributed across content. PASS\n5. Content length: ~210 words, within 150-250 target. PASS\n6. Heading structure: one H2 (Worth knowing). Could benefit from one more H2. MINOR\n7. Internal linking opportunity: link to AI assistants category page. TODO\n8. Description under 200 chars, leads with reader benefit. PASS\n9. No keyword stuffing, natural language throughout. PASS\n10. OG tags set for social sharing. PASS\n\nScore: 82/100. Deductions: single H2 (-8), no internal links yet (-10, structural, not content issue).'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

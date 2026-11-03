@@ -1,5 +1,5 @@
 ---
-startingPrice: €5/maand (gehost)
+startingPrice: $5/gebruiker/maand
 description: Chat veilig op jouw voorwaarden met versleutelde berichten die je zelf kunt hosten of in de cloud kunt draaien.
 features:
 - End-to-end-versleuteling
@@ -8,6 +8,28 @@ features:
 - Koppeling met andere messengers
 - Spraak- en videobellen
 - Open source
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - Persoonlijk gebruik op matrix.org
+  - End-to-end versleuteling
+  - Spraak- en videogesprekken
+  - Apps voor alle platforms
+- name: Business
+  price: $5/gebruiker/maand
+  features:
+  - Gehost door Element
+  - Beheerconsole
+  - Klantenondersteuning
+  - Ondersteunt federatie
+- name: Enterprise
+  price: $10/gebruiker/maand
+  features:
+  - In de cloud of zelf gehost
+  - 24/7 ondersteuning
+  - Geavanceerde beheeropties
+  - Implementatie op maat
 metaTitle: 'Element: Versleuteld berichtenverkeer dat je zelf kunt hosten'
 metaDescription: Element is een veilige, open-source messenger gebouwd op het Matrix-protocol. Gratis voor persoonlijk gebruik, met betaalde abonnementen vanaf $5/gebruiker/maand.
 keywords:

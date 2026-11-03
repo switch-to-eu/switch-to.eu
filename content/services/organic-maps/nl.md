@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Navigeer offline zonder tracking. Organic Maps geeft je routebeschrijvingen voor autorijden, wandelen en fietsen op basis van OpenStreetMap, zonder gegevens te verzamelen.
 features:
 - Volledig offline kaarten

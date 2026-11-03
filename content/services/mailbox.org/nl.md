@@ -8,6 +8,34 @@ features:
 - Cloudbestandsopslag
 - Eigen domein mogelijk
 - PGP-versleuteling
+pricingTiers:
+- name: Light
+  price: €1/maand
+  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  features:
+  - 2 GB e-mailopslag
+  - Agenda en contacten
+  - 3 e-mailaliassen
+  - 30 dagen gratis proberen
+- name: Standard
+  price: €3/maand
+  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  features:
+  - 10 GB e-mailopslag
+  - 5 GB cloudopslag
+  - Online kantoorsoftware
+  - Videovergaderen
+  - Webchat
+  - GDPR-verwerkersovereenkomst
+- name: Premium
+  price: €9/maand
+  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  features:
+  - 25 GB e-mailopslag
+  - 50 GB cloudopslag
+  - Alle functies van Standard
+  - Voorrang bij support
+  - GDPR-verwerkersovereenkomst
 metaTitle: 'Mailbox.org: Privacyvriendelijke e-mail en kantoorpakket uit Duitsland'
 metaDescription: Mailbox.org biedt versleutelde e-mail, agenda, cloudopslag en een kantoorpakket vanaf 1 euro per maand. Alle data opgeslagen op Duitse servers. GDPR-conform.
 keywords:

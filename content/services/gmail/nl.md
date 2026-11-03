@@ -1,4 +1,5 @@
 ---
+startingPrice: $7/gebruiker/maand
 description: Gratis e-maildienst van Google met 15 GB opslag. Verwerkt je e-mails voor functies en gebruikt je gegevens om advertentieprofielen op te bouwen binnen Google-diensten.
 features:
 - 15 GB gratis opslag
@@ -6,6 +7,45 @@ features:
 - Spam- en phishingbescherming
 - Google-ecosysteemintegratie
 - Smart Compose en AI-functies
+pricingTiers:
+- name: Gratis
+  price: $0
+  features:
+  - 15 GB gedeelde opslag
+  - Bescherming tegen spam en phishing
+  - Smart Compose
+  - Met advertenties
+- name: Business Starter
+  price: $7/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, maandelijks $8,40
+  features:
+  - 30 GB opslag per gebruiker
+  - Zakelijke e-mail op eigen domein
+  - Videogesprekken met 100 personen
+  - Gemini AI-functies
+- name: Business Standard
+  price: $14/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, maandelijks $16,80
+  features:
+  - 2 TB opslag per gebruiker
+  - Videogesprekken (150 personen) met opname
+  - Elektronische handtekeningen
+  - Gemini AI in alle apps
+- name: Business Plus
+  price: $22/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, maandelijks $26,40
+  features:
+  - 5 TB opslag per gebruiker
+  - Videogesprekken met 500 personen
+  - Uitgebreide beveiligingsinstellingen
+  - Vault voor eDiscovery
+- name: Enterprise
+  price: Prijs op aanvraag
+  features:
+  - Onbeperkte opslag
+  - Geavanceerde beveiliging en compliance
+  - Eigen bewaartermijn voor data
+  - Persoonlijke ondersteuning
 issues:
 - E-mailactiviteit voedt het advertentieprofiel dat Google over je opbouwt
 - Gegevens staan voornamelijk op Amerikaanse servers, onderworpen aan de CLOUD Act

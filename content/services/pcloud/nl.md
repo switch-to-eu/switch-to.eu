@@ -8,6 +8,46 @@ features:
 - Ingebouwde mediaspeler
 - Synchronisatie op alle apparaten
 - Bestandsversies tot 365 dagen
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 10 GB opslag
+  - Bestanden delen
+  - Synchronisatie op alle platforms
+  - Ingebouwde mediaspeler
+- name: Premium 500 GB
+  price: $4,99/maand
+  billingNote: $49,99/jaar of $199 levenslang
+  features:
+  - 500 GB opslag
+  - 30 dagen bestandsgeschiedenis
+  - Delen via eigen links
+  - Automatische back-up van je telefoon
+- name: Premium Plus 2 TB
+  price: $9,99/maand
+  billingNote: $99,99/jaar of $399 levenslang
+  features:
+  - 2 TB opslag
+  - 365 dagen bestandsgeschiedenis
+  - Alles uit Premium
+  - Voorrang bij support
+- name: Family 2 TB
+  price: $595 levenslang
+  billingNote: Tot 5 gebruikers
+  features:
+  - 2 TB gedeelde opslag
+  - Eigen account per gebruiker
+  - 365 dagen bestandsgeschiedenis
+  - Alle functies van Premium Plus
+- name: Crypto Add-on
+  price: $49,99/jaar
+  billingNote: $150 levenslang, inbegrepen bij Business
+  features:
+  - Zero-knowledge-versleuteling op je apparaat
+  - Aparte Crypto-map
+  - Alleen jij hebt de sleutel
+  - Werkt naast gewone opslag
 metaTitle: 'pCloud: Zwitserse cloudopslag met EU-datacenter'
 metaDescription: pCloud bewaart je bestanden in Luxemburg of de VS. Gratis 10 GB, levenslange abonnementen vanaf $199, en optionele zero-knowledge encryptie. Zwitsers bedrijf, GDPR-conform.
 keywords:

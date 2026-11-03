@@ -17,49 +17,49 @@ features:
 - Voice conversations
 - File and data analysis
 pricingTiers:
-- name: Gratis
-  price: $0/maand
+- name: Free
+  price: $0/month
   features:
-  - Beperkte GPT-5.3 toegang
-  - Basis afbeeldingen genereren
-  - Beperkt zoeken op het web
-  - Advertenties (VS)
+  - Limited GPT-5.3 access
+  - Basic image generation
+  - Limited web search
+  - Ads (US)
 - name: Go
-  price: $8/maand
+  price: $8/month
   features:
-  - Meer berichten dan Gratis
-  - Uitgebreide modeltoegang
-  - Advertenties
+  - More messages than Free
+  - Expanded model access
+  - Ads
 - name: Plus
-  price: $20/maand
+  price: $20/month
   features:
-  - Uitgebreide berichtlimieten
-  - Afbeeldingen genereren met DALL-E
-  - Geavanceerde spraakmodus
-  - Geen advertenties
+  - Higher message limits
+  - Image generation with DALL-E
+  - Advanced voice mode
+  - No ads
 - name: Pro
-  price: $200/maand
+  price: $200/month
   features:
-  - Onbeperkt berichten
-  - o1-pro redeneermodel
-  - Prioriteitstoegang tot nieuwe functies
-  - Uitgebreid Deep Research
+  - Unlimited messages
+  - o1-pro reasoning model
+  - Priority access to new features
+  - Extended Deep Research
 - name: Business
-  price: $25/gebruiker/maand
-  billingNote: $30/gebruiker/maand bij maandelijkse facturering
+  price: $25/user/month
+  billingNote: $30/user/month billed monthly
   features:
-  - Beheerconsole en werkruimte
-  - Data niet gebruikt voor training
-  - SSO en domeinverificatie
-  - Gebruiksanalyse
+  - Admin console and workspace
+  - Data not used for training
+  - SSO and domain verification
+  - Usage analytics
 - name: Enterprise
-  price: Aangepaste prijs
-  billingNote: Minimum 150 licenties, jaarlijks contract
+  price: Custom pricing
+  billingNote: Minimum 150 licenses, annual contract
   features:
-  - EU-dataresidentie optie
-  - Nul dataretentie beschikbaar
-  - HIPAA-compliance
-  - Toegewijd accountbeheer
+  - EU data residency option
+  - Zero data retention available
+  - HIPAA compliance
+  - Dedicated account management
 tags:
 - ai
 - chatbot
@@ -153,7 +153,7 @@ researchNotes: |-
   SOC 2 Type 2, ISO 27001, ISO 27017, ISO 27018, ISO 27701 certified. HIPAA and PCI compliant. FedRAMP and CSA STAR Level 1. AES-256 encryption at rest, TLS 1.2+ in transit.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong points: Clear description under 160 chars, factual content with specific data points (EUR 15M fine, pricing figures), mandatory Worth knowing section present, no banned words or AI patterns detected, good keyword density for ChatGPT + privacy + GDPR. Areas for improvement: Could benefit from internal links to EU alternatives within content body. No screenshot or logo uploaded yet which affects visual SEO. Description could include the word ''review'' for search intent matching. Content word count (~230 words) is within target range.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

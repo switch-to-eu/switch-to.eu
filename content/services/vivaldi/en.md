@@ -42,7 +42,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Vivaldi Technologies is based in Oslo, Norway, and falls under GDPR as an EEA company. The Norwegian data protection authority (Datatilsynet) oversees compliance. Vivaldi does not track, profile, or sell user data. Sync data is stored on Vivaldi's own servers in Iceland using end-to-end encryption. Each browser installation sends a daily ping with anonymized technical data (version, screen resolution) to count active users. IP addresses are truncated. Some Chromium-inherited Google features (like search suggestions) are on by default but you can turn them off in settings.
 privacyPolicyUrl: https://vivaldi.com/privacy/browser/
-pricingDetails: Vivaldi is 100% gratis. Er zijn geen betaalde niveaus, premiumfuncties of abonnementen. Alle ingebouwde tools (e-mailclient, agenda, feedlezer, advertentieblocker, tabbeheer) zijn zonder kosten beschikbaar. Inkomsten komen uit standaard zoekmachinepartnerschappen en bladwijzer-affiliates. De geintegreerde Proton VPN gratis versie biedt servers in 5 landen met standaardsnelheden. Betaalde Proton VPN-upgrades verlopen rechtstreeks via Proton.
+pricingDetails: Vivaldi is 100% free. There are no paid tiers, premium features or subscriptions. All built-in tools (email client, calendar, feed reader, ad blocker, tab management) are available at no cost. Revenue comes from standard search engine partnerships and bookmark affiliates. The built-in free version of Proton VPN offers servers in 5 countries at standard speeds. Paid Proton VPN upgrades go directly through Proton.
 pricingUrl: https://vivaldi.com
 headquarters: Oslo, Norway
 parentCompany: Vivaldi Technologies AS
@@ -86,7 +86,7 @@ researchNotes: |-
   Generally positive. Praised for extensive customization, privacy stance, and built-in productivity tools. Criticisms include: not fully open source, 24-hour unique ID ping to Vivaldi servers, some Google features enabled by default. Power users love it. Some find the learning curve steep due to the sheer number of options.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong content with specific facts (60 employees, 7 countries, Iceland servers, IMAP/POP3). Good positioning against Chrome. Worth knowing section adds credibility. Description leads with reader benefit at 131 chars. 5 feature tags are scannable and specific. GDPR notes are thorough and consumer-friendly. Minor areas for improvement: content has only one H2 (Worth knowing), could add a second section header for the productivity/customization part. Keyword density is natural. No banned words or AI patterns detected.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

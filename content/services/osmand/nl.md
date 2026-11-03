@@ -7,6 +7,31 @@ features:
 - Topografische kaarten en terrein
 - Open source
 - Android, iOS en web
+pricingTiers:
+- name: Gratis
+  price: Gratis
+  features:
+  - 5 kaartdownloads op Android
+  - Onbeperkt via F-Droid
+  - Basisnavigatie en POI's
+  - GPX-tracks opnemen
+- name: Maps+
+  price: €9,99/jaar
+  billingNote: Of eenmalig €39,99
+  features:
+  - Onbeperkt kaarten downloaden
+  - Wikipedia en Wikivoyage offline
+  - Plug-ins voor zee- en skikaarten
+  - Hoogtelijnen en terrein
+- name: OsmAnd Pro
+  price: €14,99/jaar
+  billingNote: Of €2,99/maand
+  features:
+  - Alles uit Maps+
+  - Back-up en synchronisatie via cloud
+  - Toegang op alle platforms
+  - 3D-terrein en weerlagen
+  - Kaartupdates elk uur
 metaTitle: 'OsmAnd: Offline kaarten en navigatie uit Nederland'
 metaDescription: OsmAnd is een open-source offline navigatie-app gebouwd op OpenStreetMap. Gevestigd in Nederland, met GPS-tracking, topografische kaarten en geen dataverzameling.
 keywords:

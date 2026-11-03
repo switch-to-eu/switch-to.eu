@@ -96,7 +96,7 @@ lastResearchedAt: '2026-04-09T00:00:00.000Z'
 gdprCompliance: partial
 gdprNotes: Anthropic offers a Data Processing Agreement with Standard Contractual Clauses for EU data transfers. However, consumer accounts (Free, Pro, Max) store data on US servers only. EU data residency is available through AWS Bedrock and Google Vertex AI, but not through the direct Claude interface. Since September 2025, consumer conversations are used for model training by default. You can opt out in your privacy settings, which also reduces data retention from 5 years to 30 days. Team and Enterprise accounts are excluded from training entirely.
 privacyPolicyUrl: https://www.anthropic.com/privacy
-pricingDetails: De gratis versie geeft toegang tot Sonnet 4.5 met dagelijkse berichtlimieten. Pro kost $20/maand ($17/maand bij jaarlijkse betaling) en ontgrendelt alle modellen en Claude Code. Max-abonnementen kosten $100-200/maand en vermenigvuldigen het gebruik 5-20x. Team-abonnementen beginnen bij $25/gebruiker/maand (minimaal 5 gebruikers). Enterprise-prijzen zijn op maat, vanaf ongeveer $50.000/jaar met compliance-functies.
+pricingDetails: The free version gives access to Sonnet 4.5 with daily message limits. Pro costs $20/month ($17/month billed yearly) and unlocks all models and Claude Code. Max plans cost $100-200/month and multiply usage 5-20x. Team plans start at $25/user/month (minimum 5 users). Enterprise pricing is custom, from about $50,000/year with compliance features.
 pricingUrl: https://claude.com/pricing
 headquarters: San Francisco, California
 parentCompany: Anthropic PBC
@@ -145,7 +145,7 @@ researchNotes: |-
   Generally positive sentiment for product quality. Criticism around Sep 2025 privacy policy shift: opt-out design questioned (small toggle, large Accept button). Stanford HAI and privacy advocates flagged the burden placed on users. No formal GDPR certification. US-only data storage for direct accounts.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Score: 82/100. Strengths: Clear description under 160 chars, specific pricing data, factual issues list, strong Worth knowing section with trade-offs. Keywords well-targeted for EU privacy audience. Improvements possible: Could add more internal linking opportunities to EU AI alternatives. Content length is good at ~220 words. H2 structure is clean. Missing: comparison angle could be stronger for search intent around ''Claude vs [EU alternative]''.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

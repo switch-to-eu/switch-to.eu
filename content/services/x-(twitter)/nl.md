@@ -6,6 +6,32 @@ features:
 - Directe berichten met versleuteling
 - Ingebouwde Grok AI-chatbot
 - Live audio- en videokamers (Spaces)
+pricingTiers:
+- name: Basic
+  price: $3/maand
+  billingNote: $32/jaar via de website
+  features:
+  - Posts bewerken
+  - Langere posts
+  - Basistoegang tot Grok
+- name: Premium
+  price: $8/maand
+  billingNote: $84/jaar via de website
+  features:
+  - Blauw vinkje
+  - 50% minder advertenties
+  - Toegang tot verdienmodel voor makers
+  - Toegang tot Grok AI
+  - Langere posts en video-uploads
+- name: Premium+
+  price: $40/maand
+  billingNote: $395/jaar via de website
+  features:
+  - Bijna geen advertenties
+  - Hogere limieten voor Grok AI
+  - Artikelen publiceren
+  - Radar Search
+  - X Pro (TweetDeck)
 issues:
 - Berichten worden standaard gebruikt voor Grok AI-training. Je moet handmatig uitschakelen in je instellingen.
 - Datalek in januari 2025 trof gegevens van 2,8 miljard accounts.
