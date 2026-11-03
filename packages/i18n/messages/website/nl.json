@@ -94,18 +94,6 @@
       "body": "Stap-voor-stapgidsen om je data, contacten en gewoontes van een Amerikaanse dienst naar een Europese te verhuizen. Elke stap is kort en getest.",
       "cta": "Alle gidsen per categorie"
     },
-    "howWeWork": {
-      "title": "Hoe we werken",
-      "sourcesTitle": "Bronnen bij elke bewering",
-      "sourcesBody": "Nieuwsartikelen linken elk feit naar de herkomst en noemen alle bronnen aan het eind. Kunnen we het niet onderbouwen, dan publiceren we het niet.",
-      "tradeoffsTitle": "Nadelen vooraan",
-      "tradeoffsBody": "Elke vermelding heeft een sectie \"Goed om te weten\" met de nadelen: prijs, ontbrekende functies, waar het bedrijf zit. Op dezelfde pagina als de aanbeveling.",
-      "openTitle": "Open en door de community gebouwd",
-      "openBody": "De site, de inhoud en de onderzoeksnotities staan openbaar op GitHub. Iedereen kan een dienst voorstellen of melden dat iets verouderd is.",
-      "affiliateTitle": "Affiliatelinks zijn gemarkeerd",
-      "affiliateBody": "Sommige uitgaande links leveren ons een kleine commissie op. Ze zijn gemarkeerd waar ze staan.",
-      "githubCta": "Bekijk de broncode op GitHub"
-    },
     "latestNews": "Laatste nieuws",
     "picksMoreInCategory": "Bekijk alles in {category}"
   },

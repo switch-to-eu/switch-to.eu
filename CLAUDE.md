@@ -300,7 +300,7 @@ Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shame
 
 ### Aesthetic Direction
 
-Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **deliberate brand-colour panels** (homepage: green intro, sky guides panel, green "How we work", the featured tool in its own surface colour, sage newsletter), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
+Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **deliberate brand-colour panels** (homepage: green intro, sky guides panel, the featured tool in its own surface colour, sage newsletter), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
 
 **Things switch-to.eu must NOT look like:**
 
@@ -317,6 +317,7 @@ Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-0
 - Bold brand colour as accents: card strips, article type pills (news = yellow, analysis = navy), small dots, the logo's `.eu`. No grid of saturated cards.
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
 - No subtitle filler under headings. If a heading needs a sentence to explain it, fix the heading.
+- No self-description panels ("How we work", "Why trust us", values grids). The owner cut one on 2026-11-03 as AI slop. Trust comes from the sources and trade-offs in the content itself.
 - Cards: white with hairline border and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`); a visual area only when there is a real screenshot or photo. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
 
 ### Accessibility

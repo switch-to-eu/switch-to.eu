@@ -97,18 +97,6 @@
       "body": "Step-by-step guides for moving your data, contacts and habits from a US service to a European one. Each step is short and tested.",
       "cta": "All guides by category"
     },
-    "howWeWork": {
-      "title": "How we work",
-      "sourcesTitle": "Sources on every claim",
-      "sourcesBody": "News articles link each fact to where it came from and list every source at the end. If we can't source it, we don't print it.",
-      "tradeoffsTitle": "Trade-offs up front",
-      "tradeoffsBody": "Every listing has a \"Worth knowing\" section with the downsides: price, missing features, where the company is based. On the same page as the recommendation.",
-      "openTitle": "Open and community-built",
-      "openBody": "The site, its content and its research notes are public on GitHub. Anyone can suggest a service or flag something that's out of date.",
-      "affiliateTitle": "Affiliate links are labelled",
-      "affiliateBody": "Some outbound links earn us a small commission. They are marked where they appear.",
-      "githubCta": "See the source on GitHub"
-    },
     "latestNews": "Latest news",
     "picksMoreInCategory": "See all in {category}"
   },

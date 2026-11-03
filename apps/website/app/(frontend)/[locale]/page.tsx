@@ -10,7 +10,6 @@ import { HighlightedToolSection } from "@/components/HighlightedToolSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { FrontPage } from "@/components/news/FrontPage";
 import { HomeMasthead } from "@/components/home/HomeMasthead";
-import { HowWeWork } from "@/components/home/HowWeWork";
 import {
   getAllArticles,
   getAllCategories,
@@ -116,8 +115,6 @@ export default async function Home() {
       <FeaturedGuideHero featured={featured} others={others} />
 
       <FeaturedPicksSection picks={picks} />
-
-      <HowWeWork />
 
       {highlightedTool && (
         <HighlightedToolSection
