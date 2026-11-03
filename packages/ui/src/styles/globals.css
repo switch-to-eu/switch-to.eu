@@ -286,6 +286,93 @@
   @apply my-8 border-t border-border;
 }
 
+/*
+ * Markdown tables. renderMarkdown wraps each table in .mdx-table, a white
+ * panel that scrolls sideways on narrow screens. The first column (the row
+ * label) stays in place while the other columns scroll.
+ */
+.mdx-content .mdx-table {
+  margin: 1.75rem 0 2.25rem;
+  padding-block: 0.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-radius: 1rem;
+}
+
+.mdx-content .mdx-table:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+}
+
+.mdx-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-hanken-grotesk);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+
+.mdx-content th,
+.mdx-content td {
+  min-width: 9rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.mdx-content th:first-child,
+.mdx-content td:first-child {
+  min-width: 8rem;
+  padding-left: 1.25rem;
+}
+
+.mdx-content th:last-child,
+.mdx-content td:last-child {
+  padding-right: 1.25rem;
+}
+
+.mdx-content th {
+  padding-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--brand-green);
+  text-wrap: balance;
+  border-bottom: 2px solid var(--brand-green);
+}
+
+.mdx-content td {
+  border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.mdx-content tr:last-child td {
+  border-bottom: 0;
+}
+
+.mdx-content td:first-child {
+  font-weight: 600;
+}
+
+/* Keep the row label in view while the other columns scroll. */
+.mdx-content th:first-child,
+.mdx-content td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+@media (max-width: 40rem) {
+  .mdx-content th:first-child,
+  .mdx-content td:first-child {
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 0.1);
+  }
+}
+
 /* Custom badges for regions */
 .badge-eu {
   /* Brand green with white: 10.5:1. The generic success variant was 3.2:1. */

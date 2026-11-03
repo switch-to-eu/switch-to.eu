@@ -33,6 +33,21 @@ export function slugify(text: string): string {
 // eslint-disable-next-line no-unused-vars
 type InlineParser = { parser: { parseInline: (tokens: Tokens.Generic[]) => string } };
 
+// Name for the scrollable table region. Screen readers announce it when the
+// region takes keyboard focus.
+const TABLE_LABEL: Record<string, string> = { en: "Table", nl: "Tabel" };
+
+/**
+ * Wrap tables in a focusable region so they can scroll sideways on narrow
+ * screens (styled as .mdx-table in the UI package's globals.css).
+ */
+function wrapTables(html: string, locale: string): string {
+  const label = TABLE_LABEL[locale] ?? TABLE_LABEL.en;
+  return html
+    .replace(/<table>/g, `<div class="mdx-table" role="region" tabindex="0" aria-label="${label}"><table>`)
+    .replace(/<\/table>/g, "</table></div>");
+}
+
 const instances = new Map<string, Marked>();
 
 function getMarked(locale: string): Marked {
@@ -63,7 +78,7 @@ function getMarked(locale: string): Marked {
 
 export function renderMarkdown(markdown: string | null | undefined, locale: string): string {
   if (!markdown) return "";
-  return getMarked(locale).parse(markdown) as string;
+  return wrapTables(getMarked(locale).parse(markdown) as string, locale);
 }
 
 /** Strip markdown syntax for plain-text contexts (JSON-LD, meta tags). */
