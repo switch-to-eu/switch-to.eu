@@ -14,7 +14,9 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "prepare": "[ -n \"$CI\" ] || npx skilld prepare || true",
-    "knowledge:index": "pnpm --silent --filter @switch-to-eu/knowledge run index"
+    "knowledge:index": "pnpm --silent --filter @switch-to-eu/knowledge run index",
+    "knowledge": "pnpm --silent --filter @switch-to-eu/knowledge run cli",
+    "knowledge:explore": "pnpm --silent --filter @switch-to-eu/knowledge run cli explore"
   },
   "devDependencies": {
     "turbo": "^2.9.6"

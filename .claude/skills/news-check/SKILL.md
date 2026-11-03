@@ -19,7 +19,7 @@ Read first:
 
 ## Step 1: Load
 
-Read `content/articles/<slug>/en.md`. For every link in the body and every `sources:` entry, find the source note by URL (`rg -lF "<host/path>" knowledge/sources`). A URL with no source note is an **unread source**: the article may not rest on it. Read every matching source note in full.
+Read `content/articles/<slug>/en.md`. For every link in the body and every `sources:` entry, find the source note by URL: `pnpm -s knowledge resolve "<url>" 2>/dev/null` returns it as a `1.0 url` hit of type `source`, and `pnpm -s knowledge node <source-slug> 2>/dev/null` gives its path and claims. A URL with no source note is an **unread source**: the article may not rest on it. Read every matching source note in full.
 
 ## Step 2: Fact check
 

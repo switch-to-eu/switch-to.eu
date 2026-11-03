@@ -83,6 +83,14 @@ The overview page auto-generates compact pricing and security snippet cards that
 
 Usage: `/write service ProtonMail`
 
+### Step 0 (optional): Knowledge context
+
+```bash
+pnpm -s knowledge context services/<slug> --budget 3000 2>/dev/null
+```
+
+A short, cited brief: the guides for this service, its recommended alternative (or the services that point to it), the owner company and its other services, recent news and open flags. `pnpm -s knowledge resolve "SERVICE_NAME" 2>/dev/null` gives the slug. Use it to see the bigger picture and to pick internal links. It is not a source: every fact you write still comes from the research fields of the service file (see Evidence rules above and `_shared/evidence.md`). An open flag means the listing may be out of date: tell the user and suggest `/research SERVICE_NAME` first.
+
 ### Step 1: Pull research data
 
 Find and read the service file with all its research fields:
@@ -159,6 +167,10 @@ Don't touch `nl.md`. `/translate` updates it.
 ## Mode 2: Write a migration guide
 
 Usage: `/write guide Gmail to ProtonMail`
+
+### Step 0 (optional): Knowledge context
+
+Same as Mode 1, for the target service (`services/<target-slug>`), and for the source service if you need it. It shows the guides that already exist for either one. The facts in the guide still come from research and the vendors' help pages.
 
 ### Step 1: Pull research for both services
 

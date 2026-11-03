@@ -12,6 +12,14 @@ Write a migration guide for switch-to.eu using the research data in `content/ser
 
 ## Process
 
+### Step 0 (optional): Knowledge context
+
+```bash
+pnpm -s knowledge context services/<target-slug> --budget 3000 2>/dev/null
+```
+
+A short, cited brief: the guides that already use the service, its alternatives, the owner company and its other services, recent news and open flags. Run it for the source service too if you need it. `pnpm -s knowledge resolve "NAME" 2>/dev/null` gives a slug. It is not a source: every fact in the guide still comes from the research fields and the vendors' help pages (`_shared/evidence.md`). An open flag on either service means its research may be out of date: tell the user and suggest `/research` first.
+
 ### Step 1: Pull research for both services
 
 Find and read the source (non-EU) and target (EU) service files (`grep -il '^name: .*NAME' content/services/*/en.md`). Note both slugs.

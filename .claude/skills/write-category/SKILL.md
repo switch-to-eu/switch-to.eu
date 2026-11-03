@@ -12,6 +12,14 @@ Write a category page description for switch-to.eu.
 
 ## Process
 
+### Step 0 (optional): Knowledge context
+
+```bash
+pnpm -s knowledge context categories/<slug> --budget 3000 2>/dev/null
+```
+
+A short brief: every service in this category with its one-line summary, plus any guide or article filed under it. Use it to see the space before you write. It is not a source: the concrete fact still comes from the research fields of the services in the category (Step 2, `_shared/evidence.md`).
+
 ### Step 1: Fetch the category
 
 Read `content/categories/CATEGORY_SLUG/en.md`. If it doesn't exist, check `ls content/categories` for the right slug.

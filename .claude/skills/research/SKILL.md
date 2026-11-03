@@ -29,7 +29,9 @@ Find the file: `grep -il '^name: .*<name>' content/services/*/en.md`, or match t
 
 If none found, ask the user whether to create a new service or correct the name. A new service gets a new `content/services/<slug>/en.md` (lowercase, hyphenated slug) with at least `name`, `region`, `category` in `# Listing`, the research fields, and `draft: true` in `# Workflow` (see `_shared/content-files.md`).
 
-If found, set `researchStatus: in-progress` and `lastResearchedAt: '<today>'` in the file so parallel runs don't collide.
+If found, check what the knowledge base already knows: `pnpm -s knowledge node services/<slug> 2>/dev/null`. If it says there is no store, run `pnpm knowledge:index` once. A store a few hours old is fine here. It shows open flags and news under Events, the check date of every source, and the owner under Links (the line ending `provides → this`). `pnpm -s knowledge node <company-id> 2>/dev/null` gives the owner's dated fact lines, if it has a knowledge page. A fact or flag newer than the research is a lead: confirm it on the vendor's pages in Step 2 before it goes in a field.
+
+Then set `researchStatus: in-progress` and `lastResearchedAt: '<today>'` in the file so parallel runs don't collide.
 
 ### Step 2: Gather data in parallel
 
@@ -151,7 +153,7 @@ Skip if `--dry-run`; print the would-be frontmatter changes as a YAML block inst
 In `flagged` mode:
 
 1. Collect the flagged slugs: `rg -o "· services/([a-z0-9-]+) ·" -r '$1' knowledge/flags.md | awk '!seen[$0]++'` (keeps file order, oldest first). Skip and report any slug without `content/services/<slug>/en.md`.
-2. For each service, read the cited claim(s) first (`find knowledge/sources -name "<source-slug>.md"`, then the `cN` line). That's what changed. Check that specific point on the vendor's own pages in Step 2, and make sure the fields it affects (`startingPrice`, `pricingTiers`, `pricingDetails`, `parentCompany`, `dataStorageLocations`, `headquarters`, `recentNews`, `researchNotes`) end up correct. Add the news item to `recentNews`.
+2. For each service, read the cited claim(s) first: `pnpm -s knowledge node <source-slug> 2>/dev/null` lists the source's claims and its file path. That's what changed. Check that specific point on the vendor's own pages in Step 2, and make sure the fields it affects (`startingPrice`, `pricingTiers`, `pricingDetails`, `parentCompany`, `dataStorageLocations`, `headquarters`, `recentNews`, `researchNotes`) end up correct. Add the news item to `recentNews`.
 3. Run the normal per-service flow.
 4. When the service file is updated and validated, delete that service's lines from `knowledge/flags.md` (all of them, if the research covered every flagged issue; otherwise only the ones it covered, and say which remain). Leave the header untouched.
 5. If the research can't confirm the flagged change (the vendor page still says otherwise), keep the flag line and say why in the output.

@@ -20,14 +20,22 @@ Read first:
 
 ## Step 1: Build context
 
-Gather, in this order, and stop reading when you have enough:
+Start with the brief. Run `pnpm knowledge:index` first if `knowledge/` changed since the last index.
+
+```bash
+pnpm -s knowledge context <story-slug> --budget 6000 2>/dev/null
+```
+
+It gives the story's timeline with its claim refs, its best passages, and every entity, service, source and article one hop away, with summaries. Use it to plan and to see what to read. It is a map, not evidence: every fact in the article still rests on a claim in a source note you read in full (Step 2).
+
+Then gather, in this order, and stop reading when you have enough:
 
 1. **The story page** `knowledge/stories/<slug>.md`, in full.
 2. **Its entities (1 hop)**: every slug in the story's `entities:`. Read `## Current state` and the facts newer than `last_covered`.
-3. **Neighbours (2 hops), summaries only**: 1-hop neighbours of those entities from `graph.json` (command in `../_shared/knowledge.md`). Read only their `summary:` line or story `title`. This is for framing, not facts.
-4. **Source notes**: every source cited in the story's timeline since `last_covered`, plus any source whose claim you plan to state. Collect claim refs with the "Claims a page cites" command. Read each note in full: url, publisher, published date, reliability, claims.
+3. **Neighbours (2 hops), summaries only**: `pnpm -s knowledge related <entity-slug> --hops 1 2>/dev/null` for each of those entities. Read only their `summary:` line or story `title`. This is for framing, not facts.
+4. **Source notes**: every source the brief cites in the timeline since `last_covered`, plus any source whose claim you plan to state. Read each note in full: url, publisher, published date, reliability, claims. `pnpm -s knowledge node <source-slug> 2>/dev/null` gives its path.
 5. **Our previous coverage**: every `[[articles/<slug>]]` in `## Our coverage`. Read those articles' en.md. List what they already said, so you don't repeat it. A one-sentence recap with a link to the earlier article is fine.
-6. **Site content to link**: each slug in the story's `services:` and `categories:` (`content/services/<slug>/en.md`: `name`, `region`, `category`, `description`), plus guides for those services (`grep -l "^\(source\|target\)Service: <slug>$" content/guides/*/en.md`).
+6. **Site content to link**: each slug in the story's `services:` and `categories:` (`content/services/<slug>/en.md`: `name`, `region`, `category`, `description`), plus guides for those services (`pnpm -s knowledge node services/<slug> 2>/dev/null` lists them under Links as `migrates-from` or `migrates-to`).
 
 ## Step 2: Write
 

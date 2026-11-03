@@ -31,7 +31,7 @@ Read these first:
 - `all`: every service and guide without `draft: true`. Ask before you start a run of more than 10 items.
 - `--fix`: apply the rewrites. Without it, the skill writes only the report and changes no content file.
 
-More than 3 items: dispatch one subagent per item with the Agent tool (`run_in_background: true`, at most 10 at once), like the bulk skills. Give each subagent this file, the slug and the `--fix` setting. Each one returns its claim table and the fixes it made. The main agent writes the batch report.
+More than 3 items: dispatch one subagent per item with the Agent tool (`run_in_background: true`, at most 10 at once), like the bulk skills. Run `pnpm knowledge:index` once before you dispatch. Give each subagent this file, the slug and the `--fix` setting. Each one returns its claim table and the fixes it made. The main agent writes the batch report.
 
 ## Step 1: List the claims
 
@@ -60,7 +60,7 @@ One id per fact (`k1`, `k2`, ...), not per place. When the same fact appears in 
 For each claim, find the source that should prove it, in this order:
 
 1. **The vendor's own current page**: pricing, plans, features, help docs, privacy policy, transparency report, security page. Start from the `sourceUrls` of the service file. Follow links from those pages to other pages on the vendor's own domain when a claim needs them. Read each URL once per run and reuse it for every claim it covers. Use Jina Reader (`_shared/jina.md`). Without `JINA_API_KEY`, use Reader keyless as `_shared/jina.md` describes. If the Exa MCP is connected, `web_fetch_exa` is a second option.
-2. **Knowledge**: open flags for this service in `knowledge/flags.md` (`rg "services/<slug> " knowledge/flags.md`), and the fact lines of the company entity that lists the service (`rg -l '^services:.*[\[ ,]<slug>[,\]]' knowledge/entities`, newest fact first). Products are not entities, so don't look for `<slug>.md` there. Also read the service's `recentNews`, if it has any. A newer fact line or flag can show a change before the vendor page does.
+2. **Knowledge**: `pnpm -s knowledge node services/<slug> 2>/dev/null`. If it says there is no store, run `pnpm knowledge:index` once. Under Events it lists the open flags (`flag`) and the service's `recentNews` (`news`). The Links line ending `provides → this` names the company. `pnpm -s knowledge node <company-id> 2>/dev/null` gives that company's fact lines, newest first, with their claim refs. A derived company ("no knowledge note yet") has none. Read the claim behind a fact or flag with `pnpm -s knowledge node <source-slug> 2>/dev/null`. A newer fact line or flag can show a change before the vendor page does.
 3. **Search** (Jina Search or `web_search_exa`), only to find the right vendor page or a dated incident. A search result never proves a current price.
 
 Wikipedia, review sites and comparison sites can point you to a primary source. Alone, they don't prove a price, a limit, a feature or a data location: without a primary source, those claims are **unverifiable**. For a dated incident, a news article is a primary source. Add it to `sourceUrls`.

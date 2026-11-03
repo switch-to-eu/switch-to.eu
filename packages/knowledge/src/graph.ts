@@ -58,16 +58,16 @@ export interface Graph {
   issues: Issue[];
 }
 
-type Fm = Record<string, unknown>;
+export type Fm = Record<string, unknown>;
 
-interface ParsedFile {
+export interface ParsedFile {
   id: string;
   path: string;
   data: Fm;
   body: string;
 }
 
-const CONTENT_COLLECTIONS: Record<string, NodeType> = {
+export const CONTENT_COLLECTIONS: Record<string, NodeType> = {
   services: "service",
   categories: "category",
   guides: "guide",
@@ -82,7 +82,7 @@ const RELIABILITY = ["high", "medium", "low"];
 const RELIABILITY_WEIGHT: Record<string, number> = { high: 3, medium: 2, low: 1 };
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SOURCE_SLUG_RE = /^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const WIKILINK_RE = /\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|[^\]]*)?\]\]/g;
+export const WIKILINK_RE = /\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|[^\]]*)?\]\]/g;
 
 export const HEAT_WINDOW_DAYS = 30;
 export const DORMANT_AFTER_DAYS = 90;
@@ -91,7 +91,7 @@ export const DORMANT_AFTER_DAYS = 90;
 // Helpers
 // ---------------------------------------------------------------------------
 
-function walk(dir: string): string[] {
+export function walk(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
@@ -101,19 +101,19 @@ function walk(dir: string): string[] {
 }
 
 /** YAML dates come back as Date objects unless quoted. Normalize to YYYY-MM-DD. */
-function str(value: unknown): string | undefined {
+export function str(value: unknown): string | undefined {
   if (value instanceof Date) return value.toISOString().slice(0, 10);
   if (typeof value === "string") return value;
   if (typeof value === "number") return String(value);
   return undefined;
 }
 
-function list(value: unknown): string[] {
+export function list(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return value.map(str).filter((v): v is string => !!v);
 }
 
-function parse(file: string, root: string, id: string): ParsedFile {
+export function parse(file: string, root: string, id: string): ParsedFile {
   const parsed = matter(fs.readFileSync(file, "utf8"));
   return { id, path: path.relative(root, file), data: parsed.data as Fm, body: parsed.content };
 }

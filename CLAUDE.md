@@ -214,6 +214,8 @@ One AI-researched news article per weekday, EU focus, researched and written in 
 
 Research memory is a markdown knowledge graph in `knowledge/` (schema and rules: `knowledge/README.md`, design: `docs/superpowers/specs/2026-11-02-news-knowledge-base-design.md`): immutable `sources/` notes with numbered claims, `entities/` with dated, cited fact lines, and `stories/` (ongoing storylines with summary, timeline and "Our coverage"). Relations are frontmatter slugs and `[[wikilinks]]`. **Code does the bookkeeping:** `pnpm knowledge:index` (package `packages/knowledge`) rebuilds the generated `knowledge/index.md` and `knowledge/graph.json`, computes story heat and reports broken links, orphans and stale pages. `--check` exits non-zero on errors. Never hand-edit the generated files.
 
+The same command builds a local search store, `knowledge/.cache/knowledge.db` (gitignored, safe to delete): full text of knowledge notes and site content in English and Dutch, dated research facts, URLs with `checkedAt`, claims, events, flags, and owner companies derived from `parentCompany`. Query it with `pnpm -s knowledge search|node|resolve|related|context 2>/dev/null` (the redirect hides an unrelated pnpm warning). Commands and the `rg`/`jq` fallbacks are in `.claude/skills/_shared/knowledge.md`. It is only as fresh as the last `pnpm knowledge:index`. `pnpm knowledge:explore` opens a local web explorer for people.
+
 ```
 /news-daily       → scan → ingest → pick → write → check, ends with a briefing (weekdays)
 /news-scan        → watchlist (knowledge/watchlist.md) → knowledge/inbox/<date>.md

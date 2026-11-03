@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02",
+ "generated": "2026-11-03",
  "nodes": {
   "services/bing-search": {
    "type": "service",
@@ -23,7 +23,7 @@
    "type": "service",
    "title": "ChatGPT",
    "path": "content/services/chatgpt/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/chrome": {
    "type": "service",
@@ -35,7 +35,7 @@
    "type": "service",
    "title": "Claude",
    "path": "content/services/claude/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/duckduckgo": {
    "type": "service",
@@ -53,7 +53,7 @@
    "type": "service",
    "title": "Ecosia Browser",
    "path": "content/services/ecosia-browser/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/element": {
    "type": "service",
@@ -83,7 +83,7 @@
    "type": "service",
    "title": "Google Gemini",
    "path": "content/services/google-gemini/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/google-maps": {
    "type": "service",
@@ -143,13 +143,13 @@
    "type": "service",
    "title": "Mistral Le Chat",
    "path": "content/services/mistral-le-chat/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/nextcloud": {
    "type": "service",
    "title": "Nextcloud",
    "path": "content/services/nextcloud/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/organic-maps": {
    "type": "service",
@@ -185,13 +185,13 @@
    "type": "service",
    "title": "Proton Mail",
    "path": "content/services/proton-mail/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/qwant": {
    "type": "service",
    "title": "Qwant",
    "path": "content/services/qwant/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/session": {
    "type": "service",
@@ -227,7 +227,7 @@
    "type": "service",
    "title": "Tresorit",
    "path": "content/services/tresorit/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/tuta": {
    "type": "service",
@@ -239,7 +239,7 @@
    "type": "service",
    "title": "Vivaldi",
    "path": "content/services/vivaldi/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/waterfox": {
    "type": "service",

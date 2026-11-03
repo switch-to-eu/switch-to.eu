@@ -3,19 +3,21 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
-  "description": "Builds knowledge/index.md and knowledge/graph.json from the markdown knowledge base and site content.",
+  "description": "Builds knowledge/index.md, knowledge/graph.json and the local search store from the markdown knowledge base and site content. CLI: pnpm knowledge <command>.",
   "scripts": {
     "index": "tsx src/cli.ts",
+    "cli": "tsx src/cli.ts",
     "lint": "eslint .",
     "test": "vitest run"
   },
   "dependencies": {
+    "cytoscape": "3.34.4",
     "gray-matter": "catalog:"
   },
   "devDependencies": {
     "@switch-to-eu/eslint-config": "workspace:*",
     "@switch-to-eu/typescript-config": "workspace:*",
-    "@types/node": "catalog:",
+    "@types/node": "^24.19.2",
     "eslint": "catalog:",
     "tsx": "^4.21.0",
     "typescript": "catalog:",

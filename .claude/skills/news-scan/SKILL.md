@@ -48,7 +48,7 @@ If a source fails (feed down, 429, MCP not authenticated), skip it, note it in t
 ## Step 3: Dedupe
 
 Normalise every URL (lowercase host, drop `www.`, scheme, query string, fragment, trailing slash). Then drop:
-- URLs already in `knowledge/sources/**` (`rg -lF "<host/path>" knowledge/sources`) → reason `already ingested: [[<source-slug>]]`
+- URLs already in `knowledge/sources/**` (`pnpm -s knowledge resolve "<url>" 2>/dev/null` returns a `1.0 url` hit of type `source`) → reason `already ingested: [[<source-slug>]]`
 - URLs in any earlier inbox (`rg -F "<host/path>" knowledge/inbox`) → reason `seen in inbox/<date>`
 - The same event reported by several outlets: keep the one with the best reliability (primary source first, then high, then the earliest), list the others under it as `also:` so ingest can use them if the first is paywalled.
 

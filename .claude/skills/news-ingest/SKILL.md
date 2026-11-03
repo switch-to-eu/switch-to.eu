@@ -17,12 +17,17 @@ Read first:
 
 - No argument: every `- [ ]` item in `knowledge/inbox/<today>.md`.
 - A date: that day's inbox.
-- One or more URLs: ingest those directly (no inbox needed). Check `rg -lF "<host/path>" knowledge/sources` first and stop if it's already there.
+- One or more URLs: ingest those directly (no inbox needed).
 - `--dry-run`: print the source notes and the planned page edits, write nothing.
 
 ## Step 1: Plan slugs
 
-For each item, choose the source slug now, before any fan-out: `<today>-<3-6 kebab words>`, path `knowledge/sources/<YYYY>/<MM>/<slug>.md` (today = fetch date). Check it's unused across the whole base: `find knowledge -name "<slug>.md"`.
+Run `pnpm knowledge:index` first, so the search store knows every source and entity up to now.
+
+For each item:
+
+1. **Check the URL isn't ingested yet**: `pnpm -s knowledge resolve "<url>" 2>/dev/null`, also for its `also:` URLs. A `1.0 url` hit of type `source` means it's already in the base: drop the item with reason `already ingested: [[<source-slug>]]` (Step 6 marks the inbox line), or for a URL argument, stop and say so. A `0.8 … same site` hit is another article from the same publisher, not a duplicate.
+2. **Choose the source slug** now, before any fan-out: `<today>-<3-6 kebab words>`, path `knowledge/sources/<YYYY>/<MM>/<slug>.md` (today = fetch date). Check it's unused across the whole base: `find knowledge -name "<slug>.md"`.
 
 ## Step 2: Write source notes (fan out allowed)
 
@@ -30,9 +35,9 @@ Per item:
 
 1. Fetch with Jina Reader. If the body is a paywall teaser or under ~200 words, try the `also:` URLs from the inbox, then a Jina Search for the same event. If nothing readable, mark the inbox line `[-] … · dropped: paywalled` and move on.
 2. Write the source note exactly per the README: frontmatter (`type`, `title` in English, `url` of the page actually read, `publisher`, `published`, `fetched`, `lang`, `reliability`, `entities`, `stories`), `**Summary:**`, `**Claims**` (3 to 10, atomic, numbered, only what the source says, contested claims attributed), `**Quotes**` (optional, translated with the language noted).
-3. In `entities:` and `stories:` use existing slugs where they exist (search aliases, see `../_shared/knowledge.md`). For things without a page yet, add the slug you propose and say so in the hand-off.
+3. In `entities:` and `stories:` use existing slugs where they exist. Look each one up: `pnpm -s knowledge resolve "<name>" 2>/dev/null` for entities, `pnpm -s knowledge search "<words>" --type story 2>/dev/null` for stories. For things without a page yet, add the slug you propose and say so in the hand-off.
 
-**Fan-out:** with more than 3 items, dispatch one subagent per item (Agent tool, `run_in_background: true`, max 10). **Subagents write their own source note and nothing else.** No entity, story, flags, inbox, log or index edits. Each prompt includes: the URL(s), the assigned slug and path, today's date, the instruction to read `knowledge/README.md` and `.claude/skills/_shared/jina.md`, the list of existing entity and story slugs (`find knowledge/entities knowledge/stories -name '*.md'`), and this return format:
+**Fan-out:** with more than 3 items, dispatch one subagent per item (Agent tool, `run_in_background: true`, max 10). **Subagents write their own source note and nothing else.** No entity, story, flags, inbox, log or index edits, and no `pnpm knowledge:index` (the store from Step 1 is enough). Each prompt includes: the URL(s), the assigned slug and path, today's date, the instruction to read `knowledge/README.md`, `.claude/skills/_shared/jina.md` and the "Search store and CLI" section of `.claude/skills/_shared/knowledge.md`, the instruction to look up every entity and story slug with `resolve` and `search --type story` (never guess a slug), and this return format:
 
 ```
 source: <slug> | dropped: <reason>
@@ -48,7 +53,7 @@ Wait for all subagents, then continue alone. Entity and story pages are shared b
 
 For each entity the source touches:
 
-1. **Find before creating.** Search name and aliases (`rg -il "aliases:.*\b<name>\b|^name: <name>" knowledge/entities`), and the stem. A hit under another name means: use it, and add the new spelling to its `aliases`.
+1. **Find before creating.** `pnpm -s knowledge resolve "<name>" 2>/dev/null`, then again with the stem and with the company's website if the source gives one (a `service` hit `via home` is a listed service it provides). A hit under another name means: use it, and add the new spelling to its `aliases`. A derived owner company (`node` says "no knowledge note yet") has no page: if you create one, use its slug. Pages you created earlier in this run aren't in the store until the next `pnpm knowledge:index`, so re-index after each source's edits before you resolve again.
 2. **Create only when it will recur**: it's central to the source, or already showed up in an earlier source. A one-off name stays plain text in the claim. New pages follow the README template, with the right `kind` folder, `summary`, `services` (only slugs that exist in `content/services`) and `related` (only `rel` values from the README list).
 3. **Add fact lines** for what's new: `- YYYY-MM-DD · statement. [[<source-slug>#cN]]`. Date = when it happened. Insert in date order (newest first). A fact we already have from another source gets the extra citation on the same line, not a second line.
 4. **Supersede contradictions.** If the new claim contradicts an existing fact, strike the old line, add `superseded <today>`, keep its citation, and put the new fact above. A low-reliability source never supersedes a higher one: record it as `X says …` instead, or leave it to `## Open questions` on the story.
@@ -57,7 +62,7 @@ For each entity the source touches:
 
 ## Step 4: Update stories (main agent, per source)
 
-1. Find the story: the source's `stories:`, else `rg -il` on titles and on the main entity slugs in `knowledge/stories`.
+1. Find the story: the source's `stories:`, else `pnpm -s knowledge search "<words>" --type story 2>/dev/null` and the stories that `pnpm -s knowledge node <main-entity-slug> 2>/dev/null` lists under Links (`involves → this`).
 2. **Existing story:** add a timeline line (`- YYYY-MM-DD · event. [[source#cN]]`, newest first). Rewrite `## Summary` so it reflects where things stand now. Update `## Open questions` (remove answered ones, add new ones). Set `last_event` to the newest timeline date, `updated` to today, union new `entities`/`services`/`categories`. A `dormant` story with a new event goes back to `active`.
 3. **New story** only when it's genuinely a storyline: an event that will have follow-ups (a tender with a deadline, a court case, a law in negotiation, a migration in progress), not a one-off announcement. One-offs live as facts on entity pages. Before creating, check it isn't a chapter of an existing story. New stories: `status: active`, `started` = first event date, no `last_covered`, empty `## Our coverage`.
 4. Never touch `## Our coverage` or `last_covered` here. That's `/news-write`.
