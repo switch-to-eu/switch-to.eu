@@ -4,8 +4,8 @@
   },
   "layout": {
     "metadata": {
-      "title": "EU-Scan — Check If a Website Uses EU Services | switch-to.eu",
-      "description": "Analyze any website to check if it uses EU-based services and is GDPR compliant."
+      "title": "EU-Scan: Check How EU-Friendly a Website Is | switch-to.eu",
+      "description": "Enter a domain and see where its hosting, email, CDN, domain registrar and other services are based. EU-Scan shows how EU-friendly a website is."
     },
     "header": {
       "home": "Home"

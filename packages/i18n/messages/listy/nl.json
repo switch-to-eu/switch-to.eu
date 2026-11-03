@@ -1,8 +1,8 @@
 {
     "layout": {
         "metadata": {
-            "title": "Listy — Privé Gedeelde Lijsten, Geen Account Nodig | switch-to.eu",
-            "description": "Maak en deel privélijsten direct. Boodschappenlijsten, potlucks en meer — versleuteld en zonder registratie."
+            "title": "Listy: privé gedeelde lijsten, geen account | switch-to.eu",
+            "description": "Maak en deel end-to-end versleutelde lijsten voor boodschappen, potlucks en taken. Geen account en geen registratie: je deelt een link met wie je kiest."
         },
         "header": {
             "createList": "Maak Lijst",

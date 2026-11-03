@@ -1,8 +1,8 @@
 {
     "layout": {
         "metadata": {
-            "title": "Quiz — Maak Live Quizzen & Strijd in Real-Time | switch-to.eu",
-            "description": "Host interactieve quizsessies met live scores — geen account nodig."
+            "title": "Quiz: maak live quizzen met scores | switch-to.eu",
+            "description": "Organiseer live quizsessies voor klassen en teams, met live scores. End-to-end versleuteld, en spelers doen mee zonder account of registratie."
         },
         "header": {
             "createQuiz": "Quiz Maken",
