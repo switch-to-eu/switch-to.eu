@@ -101,11 +101,11 @@ Wanneer we uw gegevens verwerken op basis van onze gerechtvaardigde belangen, **
 
 We gebruiken de volgende diensten van derden die gegevens kunnen verwerken:
 
-| Dienst | Aanbieder | Rol | Locatie | Doel |\
-|--------|-----------|-----|---------|------|\
-| Plausible Analytics | Plausible Insights OÜ | Verwerker | EU (Estland) | Anonieme website-analyse |\
-| GitHub | Microsoft Corporation | Onafhankelijke verwerkingsverantwoordelijke | VS (EU-VS Data Privacy Framework) | Openbare issuetracering voor formulierinzendingen |\
-| Mailcoach | Spatie BV | Verwerker | EU (België) | Nieuwsbriefbeheer en -verzending |\
+| Dienst | Aanbieder | Rol | Locatie | Doel |
+|--------|-----------|-----|---------|------|
+| Plausible Analytics | Plausible Insights OÜ | Verwerker | EU (Estland) | Anonieme website-analyse |
+| GitHub | Microsoft Corporation | Onafhankelijke verwerkingsverantwoordelijke | VS (EU-VS Data Privacy Framework) | Openbare issuetracering voor formulierinzendingen |
+| Mailcoach | Spatie BV | Verwerker | EU (België) | Nieuwsbriefbeheer en -verzending |
 | Vercel | Vercel Inc. | Verwerker | VS (EU-functies geconfigureerd voor Frankfurt, Duitsland) | Website- en toolhosting |
 
 We hebben verwerkersovereenkomsten afgesloten met onze verwerkers. Elke dienst heeft een eigen privacybeleid dat bepaalt hoe zij gegevens behandelen.

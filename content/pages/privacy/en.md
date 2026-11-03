@@ -1,7 +1,7 @@
 ---
 title: Privacy
 # Workflow
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 ---
 
 # Privacy Policy
@@ -104,11 +104,11 @@ Where we process your data based on our legitimate interests, **you have the rig
 
 We use the following third-party services that may process data:
 
-| Service | Provider | Role | Location | Purpose |\
-|---------|----------|------|----------|---------|\
-| Plausible Analytics | Plausible Insights OÜ | Processor | EU (Estonia) | Anonymous website analytics |\
-| GitHub | Microsoft Corporation | Independent controller | USA (EU-US Data Privacy Framework) | Public issue tracking for form submissions |\
-| Mailcoach | Spatie BV | Processor | EU (Belgium) | Newsletter delivery and management |\
+| Service | Provider | Role | Location | Purpose |
+|---------|----------|------|----------|---------|
+| Plausible Analytics | Plausible Insights OÜ | Processor | EU (Estonia) | Anonymous website analytics |
+| GitHub | Microsoft Corporation | Independent controller | USA (EU-US Data Privacy Framework) | Public issue tracking for form submissions |
+| Mailcoach | Spatie BV | Processor | EU (Belgium) | Newsletter delivery and management |
 | Vercel | Vercel Inc. | Processor | USA (EU functions configured for Frankfurt, Germany) | Website and tool hosting |
 
 We have Data Processing Agreements in place with our processors. Each service has its own privacy policy governing how they handle data.

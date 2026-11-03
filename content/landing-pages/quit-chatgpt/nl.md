@@ -1,8 +1,8 @@
 ---
 title: 'Stop met ChatGPT: Stap over naar Europese AI-alternatieven'
-description: Sluit je aan bij miljoenen die ChatGPT verlaten. Ontdek privacy-first Europese AI-alternatieven zoals Mistral Le Chat en Proton Lumo die je data in Europa houden.
-ogTitle: Stop met ChatGPT — Europese AI-alternatieven die je privacy respecteren
-ogDescription: 2,5 miljoen mensen verlaten ChatGPT. Vind EU-gebaseerde AI-alternatieven met echte privacybescherming.
+description: Sluit je aan bij miljoenen die ChatGPT verlaten. Vergelijk Europese AI-alternatieven zoals Mistral Vibe (voorheen Le Chat) en Proton Lumo, en wat elk met je data doet.
+ogTitle: 'Stop met ChatGPT: Europese AI-alternatieven die je privacy respecteren'
+ogDescription: 2,5 miljoen mensen verlaten ChatGPT. Vergelijk Europese AI-alternatieven en wat elk met je data doet.
 ---
 
 ## Waarom mensen stoppen met ChatGPT
@@ -23,26 +23,26 @@ Je gesprekken met ChatGPT onthullen hoe je denkt, waar je aan werkt en wat je be
 
 Europese AI-bedrijven opereren onder de AVG, het sterkste privacykader ter wereld. Dat betekent:
 
-- **Je data blijft in Europa.** Geen overdrachten naar Amerikaanse servers, geen blootstelling aan buitenlandse surveillancewetten.
-- **Geen training op je gesprekken.** EU-alternatieven zoals Mistral en Proton gebruiken je chats niet om hun modellen te verbeteren.
-- **Echte datarechten.** Je kunt je persoonlijke gegevens inzien, corrigeren en verwijderen. Dit zijn geen optionele functies — het zijn wettelijke vereisten.
+- **Je data staat standaard in Europa.** Mistral host gesprekken in de EU, maar gebruikt Amerikaanse leveranciers voor zoeken op het web en het maken van afbeeldingen. Volgens Proton draait Lumo op eigen servers in Europa.
+- **Jij beslist over training.** Volgens Proton traint Lumo nooit op je chats. Mistral traint standaard op chats in Vibe, maar je kunt dat in je instellingen uitzetten.
+- **Echte datarechten.** Je kunt je persoonlijke gegevens inzien, corrigeren en verwijderen. Dit zijn wettelijke vereisten, geen optionele functies.
 - **Transparante bedrijfsvoering.** Europese bedrijven zijn onderworpen aan strengere verantwoordings- en transparantieverplichtingen onder de EU AI Act.
 
 Overstappen naar een Europese AI-assistent gaat niet alleen over privacy. Het gaat om het ondersteunen van een onafhankelijk Europees tech-ecosysteem dat gebruikers op de eerste plaats zet.
 
 ## Hoe ChatGPT zich verhoudt tot EU-alternatieven
 
-| Functie | ChatGPT | Mistral Le Chat | Proton Lumo |\
-|---|---|---|---|\
-| **Hoofdkantoor** | San Francisco, VS | Parijs, Frankrijk | Geneve, Zwitserland |\
-| **Datalocatie** | Amerikaanse servers | EU-servers | EU-servers |\
-| **AVG-conform** | Onder onderzoek | Ja | Ja |\
-| **Traint op je data** | Ja (standaard) | Nee | Nee |\
-| **Gratis versie** | Ja | Ja | Ja |\
-| **Open-source modellen** | Nee | Ja (open-weight) | Ja |\
-| **End-to-end encryptie** | Nee | Nee | Ja (zero-access) |\
-| **Zoeken op web** | Ja | Ja | Binnenkort |\
-| **Afbeeldingen genereren** | Ja (DALL-E) | Ja (Flux) | Nee |\
+| Functie | ChatGPT | Mistral Vibe (voorheen Le Chat) | Proton Lumo |
+|---|---|---|---|
+| **Hoofdkantoor** | San Francisco, VS | Parijs, Frankrijk | Geneve, Zwitserland |
+| **Datalocatie** | Amerikaanse servers | Standaard EU (VS voor zoeken en afbeeldingen) | Europa (Zwitserland en EU) |
+| **AVG-conform** | Onder onderzoek | Ja | Ja |
+| **Traint op je data** | Ja (standaard, uit te zetten) | Ja (standaard, uit te zetten) | Nee (volgens Proton) |
+| **Gratis versie** | Ja | Ja | Ja |
+| **Open-source modellen** | Nee | Ja (open-weight) | Ja |
+| **End-to-end encryptie** | Nee | Nee | Ja (zero-access) |
+| **Zoeken op web** | Ja | Ja | Binnenkort |
+| **Afbeeldingen genereren** | Ja (DALL-E) | Ja (Flux) | Nee |
 | **Code interpreter** | Ja | Ja | Ja |
 
 ## Hoe je je ChatGPT-abonnement opzegt
@@ -67,6 +67,6 @@ Houd er rekening mee: OpenAI kan sommige data bewaren, zelfs na verwijdering, en
 
 ## Maak vandaag nog de switch
 
-Je hoeft geen afstand te doen van AI om je privacy te beschermen. Europese alternatieven zoals Mistral Le Chat en Proton Lumo bieden vergelijkbare functies met echte privacybescherming.
+Je hoeft geen afstand te doen van AI om je privacy te beschermen. Europese alternatieven zoals Mistral Vibe (voorheen Le Chat) en Proton Lumo bieden vergelijkbare functies. Kies je Mistral, zet dan eerst training uit in de instellingen.
 
 Probeer een van de aanbevolen alternatieven hieronder en oordeel zelf.
