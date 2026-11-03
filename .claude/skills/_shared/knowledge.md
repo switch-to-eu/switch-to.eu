@@ -39,14 +39,7 @@ Graph node ids: knowledge slugs are bare (`microsoft`, `2026-11-02-dutch-cloud-t
 Validate frontmatter on every file you touched (prints `ok`):
 
 ```bash
-python3 -c '
-import re, sys, yaml
-for f in sys.argv[1:]:
-    m = re.match(r"---\n(.*?)^---\n", open(f, encoding="utf-8").read(), re.S | re.M)
-    assert m, f + ": no frontmatter block"
-    assert isinstance(yaml.safe_load(m.group(1)) or {}, dict), f + ": frontmatter is not a mapping"
-print("ok", len(sys.argv) - 1, "files")
-' <files>
+uv run .claude/skills/_shared/check-frontmatter.py <files>
 ```
 
 ## Closing every knowledge-changing run

@@ -158,19 +158,13 @@ Enum values:
 - **Don't touch keys you weren't asked to change.**
 - **Bump `updatedAt`** in en.md to today (`'YYYY-MM-DD'`) whenever you change en.md or nl.md for an item.
 
-Validate after every write. This must print `ok`:
+Validate after every write. Pass every file you changed (add `nl.md` only if it exists). This must print `ok`:
 
 ```bash
-python3 -c '
-import re, sys, yaml
-for f in sys.argv[1:]:
-    m = re.match(r"---\n(.*?)^---\n", open(f, encoding="utf-8").read(), re.S | re.M)
-    assert m, f + ": no frontmatter block"
-    d = yaml.safe_load(m.group(1)) or {}
-    assert isinstance(d, dict), f + ": frontmatter is not a mapping"
-print("ok", len(sys.argv) - 1, "files")
-' content/services/<slug>/en.md content/services/<slug>/nl.md
+uv run .claude/skills/_shared/check-frontmatter.py content/services/<slug>/en.md
 ```
+
+`uv` gets PyYAML by itself. Without `uv`, run the script with a `python3` that has PyYAML installed.
 
 ## Localized fields and nl.md
 
