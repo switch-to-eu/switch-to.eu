@@ -48,8 +48,27 @@ export interface Category extends BaseDoc {
   shortTitle: string;
   description: string;
   icon?: string | null;
-  /** Markdown */
+  /** Markdown. On a buyer's-guide category this is the "How to choose" text. */
   content?: string | null;
+  /** Editorial picks, one per need. Present only on buyer's-guide categories. */
+  picks?: CategoryPick[];
+  /** Category-specific comparison columns, read from each service's `specs`. */
+  compare?: CompareColumn[];
+}
+
+export interface CategoryPick {
+  /** The need this pick answers, e.g. "Best free plan". */
+  label: string;
+  /** Service slug. */
+  service: string;
+  reason: string;
+  tradeoff: string;
+}
+
+export interface CompareColumn {
+  /** Key into `Service.specs`. */
+  key: string;
+  label: string;
 }
 
 export interface PricingTier {
@@ -68,6 +87,8 @@ export interface Faq {
 export interface SourceUrl {
   url: string;
   label?: string | null;
+  /** ISO date the page was last read (evidence rules). */
+  checkedAt?: string | null;
 }
 
 export interface UserSentiment {
@@ -111,6 +132,8 @@ export interface Service extends BaseDoc {
   screenshot?: string | null;
   logo?: string | null;
   features?: string[];
+  /** Short comparison values keyed by the category's `compare` columns. */
+  specs?: Record<string, string>;
   pricingTiers?: PricingTier[];
   tags?: string[];
   angle?: string | null;

@@ -18,6 +18,11 @@ features:
 - Cross-platform sync
 - Photo backup
 - Open source
+specs:
+  freeStorage: 2 GB, 5 GB after setup steps
+  paidFrom: €3.99/month for 200 GB, billed yearly
+  e2eEncryption: All files
+  storageLocation: Switzerland, Germany
 pricingTiers:
 - name: Free
   price: Free

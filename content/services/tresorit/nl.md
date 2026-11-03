@@ -1,5 +1,5 @@
 ---
-startingPrice: $11,99/maand
+startingPrice: Gratis (3 GB)
 description: Bewaar en deel bestanden met zero-knowledge encryptie die je data privat houdt, zelfs voor Tresorit zelf.
 features:
 - End-to-end encryptie
@@ -7,9 +7,28 @@ features:
 - EU dataopslag
 - Veilig bestanden delen
 - Synchronisatie op alle apparaten
+specs:
+  freeStorage: 3 GB (Basic-abonnement)
+  paidFrom: €3,99/maand voor 50 GB, jaarabonnement
+  e2eEncryption: Alle bestanden
+  storageLocation: Standaard Ierland (EU)
 pricingTiers:
-- name: Personal
-  price: $11,99/maand
+- name: Basic
+  price: Gratis
+  features:
+  - 3 GB versleutelde opslag
+  - Bestanden tot 500 MB
+  - Synchronisatie op 2 apparaten
+  - Veilig delen via links
+- name: Personal Lite
+  price: €3,99/maand
+  billingNote: Jaarlijks gefactureerd
+  features:
+  - 50 GB versleutelde opslag
+  - Bestanden tot 2 GB
+  - Veilig bestanden delen
+- name: Personal Essential
+  price: €9,99/maand
   billingNote: Jaarlijks gefactureerd
   features:
   - 1 TB versleutelde opslag
@@ -17,39 +36,38 @@ pricingTiers:
   - Veilig bestanden delen
   - Toegang vanaf al je apparaten
 - name: Professional
-  price: $27,49/maand
+  price: €23,99/maand
   billingNote: Jaarlijks gefactureerd
   features:
   - 4 TB versleutelde opslag
+  - Bestanden tot 10 GB
+  - Documenten bewerken
+  - Eigen huisstijl
+- name: Business
+  price: €16/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, min. 3 gebruikers
+  features:
+  - Vanaf 6 TB opslag (2 TB per gebruiker)
   - Bestanden tot 15 GB
-  - Versleutelde bestandsverzoeken
-  - Delen met eigen huisstijl
-- name: Business Standard
-  price: $14,50/gebruiker/maand
-  billingNote: Jaarlijks gefactureerd, min. 3 gebruikers
-  features:
-  - 1 TB opslag per gebruiker
-  - Plug-ins voor Outlook en Gmail
-  - Activiteitenlogs
-  - Beheeropties
-- name: Business Plus
-  price: $19/gebruiker/maand
-  billingNote: Jaarlijks gefactureerd, min. 3 gebruikers
-  features:
-  - 2 TB opslag per gebruiker
-  - Geavanceerde beheerfuncties
   - Keuze voor datalocatie
-  - Voorrang bij support
+  - Single sign-on
+- name: Business Pro
+  price: €20/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, min. 5 gebruikers
+  features:
+  - Vanaf 15 TB opslag
+  - Bestanden tot 20 GB
+  - Datalocatie per gebruiker
+  - Active Directory
 - name: Enterprise
   price: Prijs op aanvraag
-  billingNote: 50+ gebruikers, neem contact op met sales
+  billingNote: Jaarlijks gefactureerd, neem contact op met sales
   features:
-  - Schaalbare opslag
-  - SSO en directorysynchronisatie
+  - Aantal gebruikers en opslag naar wens
   - Persoonlijke accountmanager
-  - Persoonlijke onboarding
+  - Eigen Azure-omgeving
 metaTitle: 'Tresorit: Versleutelde cloudopslag uit Zwitserland'
-metaDescription: Tresorit biedt zero-knowledge versleutelde cloudopslag, eigendom van Swiss Post. Bestanden worden versleuteld op je apparaat. Kies EU-datacenters. Vanaf $11,99/maand.
+metaDescription: Tresorit biedt zero-knowledge versleutelde cloudopslag, eigendom van Swiss Post. Bestanden worden versleuteld op je apparaat. Gratis 3 GB, betaald vanaf €3,99/maand.
 keywords:
 - Tresorit
 - versleutelde cloudopslag
@@ -70,7 +88,7 @@ Het bedrijf werd opgericht in Boedapest in 2011 en heeft nu het hoofdkantoor in 
 
 Je krijgt synchronisatie op al je apparaten, veilig delen van links met wachtwoordbeveiliging en vervaldatums, en gedetailleerde machtigingen voor gedeelde mappen. Zakelijke abonnementen voegen beheerdersdashboards, activiteitenlogboeken, Outlook- en Gmail-plugins toe, en de mogelijkheid om te kiezen waar je data fysiek wordt opgeslagen binnen Europa.
 
-Abonnementen beginnen bij $11,99 per maand voor 1 TB persoonlijke opslag. Zakelijke abonnementen starten vanaf $14,50 per gebruiker per maand. Er is geen gratis versie, maar alle abonnementen hebben een proefperiode van 14 dagen.
+Het gratis Basic-abonnement geeft je 3 GB, met bestanden tot 500 MB op twee apparaten. Betaalde abonnementen beginnen bij €3,99 per maand voor 50 GB, en 1 TB kost €9,99 per maand, allebei bij een jaarabonnement. Zakelijke abonnementen beginnen bij €16 per gebruiker per maand, voor minstens 3 gebruikers. Elk betaald abonnement heeft een proefperiode van 14 dagen.
 
 ## Goed om te weten
 

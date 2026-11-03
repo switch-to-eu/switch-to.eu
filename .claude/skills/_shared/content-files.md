@@ -52,7 +52,7 @@ Frontmatter is grouped with YAML comment lines. Keep the comments, keep the grou
 ---
 # Listing
 name, region (eu | non-eu | eu-friendly), category, featured, location, url, affiliateUrl,
-freeOption, startingPrice, description, screenshot, features, pricingTiers, tags, angle
+freeOption, startingPrice, description, screenshot, features, specs, pricingTiers, tags, angle
 # Non-EU page (only used when region is non-eu)
 issues, recommendedAlternative, oneLineProblem, whatYoudGain, whatYoudLose, faqs
 # SEO
@@ -85,6 +85,7 @@ draft, contentPipelineStatus, updatedAt, seoScore, seoNotes, lastSeoReviewAt
 ```text
 ---
 title, description, icon (categories), category / recommendedServices / relatedService (landing pages)
+picks, compare (categories in buyer's-guide form)
 # SEO
 metaTitle, metaDescription, keywords, ogTitle, ogDescription
 # Workflow
@@ -142,6 +143,34 @@ researchNotes: |-
   Markdown narrative...
 ```
 
+### Buyer's-guide categories
+
+A category with `picks` or `compare` renders as a buyer's guide (brief: `docs/design/2026-11-03-category-buyers-guide.md`): header, our picks, a comparison table, "How to choose" (the body), switching guides, all services. Without them the page keeps the plain layout. The editorial parts live in the category. Every fact lives in the listings, so a price fix updates the category page too.
+
+```yaml
+# content/categories/storage/en.md
+picks:                      # 2 or 3, one per need
+- label: Best overall
+  service: proton-drive     # service slug in this category
+  reason: One or two specific sentences, with a number or feature.
+  tradeoff: One sentence, the main downside (the page adds "Worth knowing:").
+compare:                    # category-specific table columns
+- key: freeStorage          # key into each listing's specs
+  label: Free storage
+```
+
+```yaml
+# content/services/proton-drive/en.md
+specs:                      # one short value (under 40 characters) per compare key
+  freeStorage: 5 GB
+  e2eEncryption: All files
+```
+
+- The table also shows head office (`headquarters`, else `location`) and `openSource` for every category.
+- A `specs` key with no sourced value is left out. The page shows "Not listed", never "No" (evidence rule 1). Every value traces to a `sourceUrls` entry with `checkedAt`. The page header shows the newest `checkedAt` across the category's listings.
+- The body has no `##` heading (the page adds "How to choose"). Use `###` per question.
+- An affiliate link never decides a pick.
+
 Enum values:
 - `region` (decided 2026-11-03), by where the company has its head office:
   - `eu`: an EU member state.
@@ -178,13 +207,13 @@ Only these fields may appear in `nl.md`. Everything else lives only in `en.md`.
 
 | Type | Localized fields |
 |---|---|
-| Services | name, startingPrice, description, features, angle, issues, oneLineProblem, whatYoudGain, whatYoudLose, faqs, gdprNotes, userSentiment, recentNews, pricingTiers, metaTitle, metaDescription, keywords, ogTitle, ogDescription + body |
+| Services | name, startingPrice, description, features, specs, angle, issues, oneLineProblem, whatYoudGain, whatYoudLose, faqs, gdprNotes, userSentiment, recentNews, pricingTiers, metaTitle, metaDescription, keywords, ogTitle, ogDescription + body |
 | Guides | title, description, missingFeatures, SEO fields + body |
-| Categories, pages, landing pages | title, description, SEO fields + body |
+| Categories, pages, landing pages | title, description, picks, compare (categories), SEO fields + body |
 
 Rules:
 - `nl.md` holds only the localized fields whose Dutch value **differs** from English. A missing key falls back to `en.md`. If the Dutch value would be identical (a brand name, a price in the same format), leave the key out.
-- Fallback is per top-level key. A localized object or list (`pricingTiers`, `userSentiment`, `recentNews`, `faqs`) goes into `nl.md` whole, with untranslated parts copied from `en.md`.
+- Fallback is per top-level key. A localized object or list (`pricingTiers`, `specs`, `picks`, `compare`, `userSentiment`, `recentNews`, `faqs`) goes into `nl.md` whole, with untranslated parts (such as a pick's `service` slug or a `compare` key) copied from `en.md`.
 - `nl.md` has no group comments. Keep the keys in the same relative order as `en.md`.
 - `nl.md` always carries the full translated body. If there is no Dutch body, there is no `nl.md`.
 - Never put research, workflow, relation or URL fields in `nl.md`.

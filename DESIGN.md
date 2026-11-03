@@ -285,7 +285,10 @@ Calm, solid and round. Buttons do not change size or colour loudly.
 The homepage starts with this panel. It is forest green with a marigold Bonbance heading, a dateline with a marigold dot, the search field and the quick-switch chips. Two sage shapes float at the edges at 10 to 12% opacity.
 
 ### Content Table
-Tables in markdown content are white panels with a 16px radius and a hairline border. The column headers are Bonbance in forest green above a 2px green rule, and hairlines separate the rows. On narrow screens the table scrolls sideways and the first column stays in place.
+Tables in markdown content and the category comparison are white panels with a 16px radius and a hairline border. The column headers are Bonbance in forest green above a 2px green rule, and hairlines separate the rows. Row headers are semibold Hanken labels. On narrow screens the table scrolls sideways and the first column stays in place.
+
+### Pick Card
+On a buyer's-guide category page, each editorial pick is a card: the colour strip, the need as a soft green pill ("Best overall"), the service name as a title, the region badge and head office, the reason, two facts from the listing, a "Worth knowing:" line above a hairline, and one green pill action. Picks never carry scores, stars or rankings.
 
 ## Do's and Don'ts
 

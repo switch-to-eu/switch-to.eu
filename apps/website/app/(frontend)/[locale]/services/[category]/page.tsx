@@ -1,4 +1,14 @@
-import { getAllCategories } from "@/lib/content/loader";
+import { getAllCategories, getAllGuides } from "@/lib/content/loader";
+import { CategoryPicks } from "@/components/category/CategoryPicks";
+import { CategoryComparison } from "@/components/category/CategoryComparison";
+import { CategoryGuides } from "@/components/category/CategoryGuides";
+import {
+  formatCheckedDate,
+  isBuyersGuide,
+  latestCheckedAt,
+  resolvePicks,
+  sortForComparison,
+} from "@/lib/buyers-guide";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -103,6 +113,88 @@ export default async function ServicesCategoryPage({
   const pageDescription =
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
+
+  if (isBuyersGuide(categoryData)) {
+    const tGuide = await getTranslations("services.buyersGuide");
+    const guides = getAllGuides(locale).filter(
+      (guide) => guide.category.slug === categoryData.slug
+    );
+    const picks = resolvePicks(categoryData, euServices, guides);
+    const compare = categoryData.compare ?? [];
+    const checkedAt = latestCheckedAt(euServices);
+    const categoryName = categoryData.shortTitle;
+
+    return (
+      <PageLayout>
+        <Container noPaddingMobile>
+          <Banner color="bg-white border-y md:border border-black/10">
+            <div className="max-w-3xl">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green text-balance mb-4">
+                {pageTitle}
+              </h1>
+              <p className="text-[#1a1a1a] text-base sm:text-lg">
+                {pageDescription}
+              </p>
+              {checkedAt && (
+                <p className="mt-4 text-sm text-[#1a1a1a]">
+                  {tGuide("checkedOn", {
+                    date: formatCheckedDate(checkedAt, locale),
+                  })}
+                </p>
+              )}
+            </div>
+          </Banner>
+        </Container>
+
+        {picks.length > 0 && <CategoryPicks picks={picks} compare={compare} />}
+
+        <CategoryComparison
+          services={sortForComparison(euServices)}
+          compare={compare}
+          categoryName={categoryName}
+        />
+
+        {categoryData.content && (
+          <section>
+            <Container noPaddingMobile>
+              <div className="bg-white border-y md:border border-black/10 md:rounded-3xl px-6 sm:px-10 md:px-14 py-10 sm:py-12">
+                <div className="max-w-3xl">
+                  <h2 className="font-heading text-3xl sm:text-4xl text-brand-green mb-2">
+                    {tGuide("howToChoose")}
+                  </h2>
+                  <RichText
+                    data={categoryData.content}
+                    className="mdx-content text-[#1a1a1a] [&_h3]:text-brand-green"
+                  />
+                </div>
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {guides.length > 0 && <CategoryGuides guides={guides} />}
+
+        <Container noPaddingMobile>
+          <SectionHeading>
+            {tGuide("allServices", { category: categoryName })}
+          </SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {euServices.map((service, index) => (
+              <ServiceCard
+                key={service.name}
+                service={service}
+                showCategory={false}
+                colorIndex={index}
+              />
+            ))}
+            <SuggestServiceCard colorIndex={euServices.length} />
+          </div>
+        </Container>
+
+        <NewsletterCta />
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout>

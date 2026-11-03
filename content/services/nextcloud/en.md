@@ -6,7 +6,7 @@ category: storage
 location: Germany
 url: https://nextcloud.com/
 freeOption: true
-startingPrice: €4/month (hosted)
+startingPrice: Free (self-hosted)
 description: Store, sync, and collaborate on your own terms with a fully open-source platform built in Germany. Self-host for free or choose managed European hosting.
 screenshot: /images/services/nextcloud.png
 features:
@@ -16,6 +16,11 @@ features:
 - Calendar, contacts, and email
 - 400+ apps and integrations
 - End-to-end encryption
+specs:
+  freeStorage: 2-5 GB at a host, or self-host
+  paidFrom: Set by the host you choose
+  e2eEncryption: Optional, per folder
+  storageLocation: Your own server or your host's
 pricingTiers:
 - name: Community (self-hosted)
   price: Free
@@ -26,24 +31,24 @@ pricingTiers:
   - All community apps
   - Support via the community forum
 - name: Enterprise Standard
-  price: ~€68/user/year
-  billingNote: Minimum 100 users, billed annually
+  price: €71.29/user/year
+  billingNote: Minimum 100 users, billed annually, excl. VAT
   features:
   - Everything in Community
   - 'Response time: 2 business days'
   - Security hardening
   - Branding and theming
 - name: Enterprise Premium
-  price: ~€100/user/year
-  billingNote: Minimum 100 users, billed annually
+  price: €104.99/user/year
+  billingNote: Minimum 100 users, billed annually, excl. VAT
   features:
   - Everything in Standard
   - 'Response time: 1 business day'
   - Clustering and high availability
   - Push notification service
 - name: Enterprise Ultimate
-  price: ~€195/user/year
-  billingNote: Minimum 100 users, billed annually
+  price: €204.75/user/year
+  billingNote: Minimum 100 users, billed annually, excl. VAT
   features:
   - Everything in Premium
   - 'Response time: 1 hour for critical issues'
@@ -71,9 +76,9 @@ ogDescription: Store, sync, and collaborate with Nextcloud. Fully open source, b
 researchStatus: complete
 lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
-gdprNotes: Nextcloud is designed so the company never touches your data. When you self-host, you are the sole data controller. No data processing agreement with Nextcloud GmbH is needed because they have no access to your files. The platform includes built-in tools for data export, account deletion requests, and privacy policy display. Supports server-side AES-256 encryption and optional end-to-end encryption for individual folders. For managed hosting, Nextcloud One runs entirely in German data centers.
+gdprNotes: Nextcloud is designed so the company never touches your data. When you self-host, you are the sole data controller. No data processing agreement with Nextcloud GmbH is needed because they have no access to your files. The platform includes built-in tools for data export, account deletion requests, and privacy policy display. Supports server-side AES-256 encryption and optional end-to-end encryption for individual folders. Nextcloud GmbH says it does not offer hosting. Hosted accounts run at partner providers, and the provider you pick decides where your data is stored.
 privacyPolicyUrl: https://nextcloud.com/privacy/
-pricingDetails: 'Self-hosted community edition is completely free. Enterprise subscriptions start at 100 users minimum: Standard (~€68/user/year, 2 business day support), Premium (~€100/user/year, 1 business day support), Ultimate (~€195/user/year, 1-hour critical response). Nextcloud One is a fully managed hosting option in Germany. All prices in EUR excl. VAT.'
+pricingDetails: 'Prices as of November 2026. Self-hosted community edition is free. Enterprise subscriptions start at 100 users: Standard €71.29/user/year, Premium €104.99/user/year, Ultimate €204.75/user/year (from 200 users: €53.17, €81.99 and €183.75). All in EUR per year, excl. VAT. Nextcloud GmbH says it does not offer hosting. Its Simple Signup partner hosts give a free account with 2-5 GB (at least 2 GB) and sell larger plans at their own prices, so there is no Nextcloud price for a hosted personal account. The earlier startingPrice of €4/month (hosted) had no source.'
 pricingUrl: https://nextcloud.com/pricing/
 headquarters: Stuttgart, Germany
 parentCompany: Nextcloud GmbH
@@ -82,7 +87,6 @@ employeeCount: 100-150
 dataStorageLocations:
 - Self-hosted (user choice)
 - EU (managed hosting options)
-- Germany (Nextcloud One)
 certifications:
 - ISO 27001 (available for enterprise)
 - SOC 2
@@ -93,7 +97,17 @@ sourceUrls:
 - url: https://nextcloud.com/about/
   label: Official About page
 - url: https://nextcloud.com/pricing/
-  label: Enterprise pricing
+  label: Enterprise pricing (and "we do not offer hosting")
+  checkedAt: '2026-11-03'
+- url: https://nextcloud.com/sign-up/
+  label: Free accounts at partner hosts (2-5 GB)
+  checkedAt: '2026-11-03'
+- url: https://nextcloud.com/providers/
+  label: Nextcloud providers for home users and enterprises
+  checkedAt: '2026-11-03'
+- url: https://nextcloud.com/endtoend/
+  label: End-to-end encryption for folders you pick
+  checkedAt: '2026-11-03'
 - url: https://nextcloud.com/compliance/
   label: Compliance overview
 - url: https://nextcloud.com/hub/
@@ -111,7 +125,7 @@ researchNotes: |-
 
   ## Pricing
 
-  Community edition: free, self-hosted. Enterprise subscriptions (100+ users): Standard ~€68/user/year, Premium ~€100/user/year, Ultimate ~€195/user/year. Main differentiator is support response times. Nextcloud One: fully managed German hosting option.
+  Community edition: free, self-hosted. Enterprise subscriptions (100+ users, as of November 2026): Standard €71.29/user/year, Premium €104.99/user/year, Ultimate €204.75/user/year. Main differentiator is support response times. Nextcloud GmbH says it does not offer hosting. Home users get a free 2-5 GB account at a Simple Signup partner host, and hosts set their own prices for more. An earlier version of this note named a "Nextcloud One" hosting option. nextcloud.com/one/ returned 404 on 2026-11-03, and no Nextcloud page we read mentions it.
 
   ## User Sentiment
 
@@ -130,8 +144,8 @@ The platform is built around Nextcloud Hub, which bundles Files, Talk, Office, G
 
 The app store adds over 400 extensions for things like task boards, notes, password managers, and workflow automation. Because the code is fully open source, you can inspect exactly what runs on your server.
 
-For organizations that need professional support, enterprise subscriptions start at 100 users and include guaranteed response times, security hardening, and clustering features. Nextcloud One offers a fully managed instance hosted in Germany if you want the benefits without running your own hardware.
+For organizations that need professional support, enterprise subscriptions start at 100 users and include guaranteed response times, security hardening, and clustering features. If you don't want to run your own hardware, a Nextcloud partner host runs an instance for you. Nextcloud GmbH doesn't sell hosting itself, so prices come from the host.
 
 ## Worth knowing
 
-Self-hosting requires some technical knowledge. Setup is straightforward if you are comfortable with a Linux server, but it is not a one-click process for beginners. The Android app works but can feel sluggish, and large file uploads (over 4 GB) occasionally need a retry. Sync conflicts between devices sometimes require manual resolution. If you want hands-off management, Nextcloud One or a third-party European host removes most of that overhead.
+Self-hosting requires some technical knowledge. Setup is straightforward if you are comfortable with a Linux server, but it is not a one-click process for beginners. The Android app works but can feel sluggish, and large file uploads (over 4 GB) occasionally need a retry. Sync conflicts between devices sometimes require manual resolution. If you want hands-off management, a European Nextcloud host removes most of that overhead.

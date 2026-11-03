@@ -599,6 +599,25 @@
           "keyFeatures": "Key features"
         }
       }
+    },
+    "buyersGuide": {
+      "checkedOn": "Prices and facts checked on {date}, on each company's own pages.",
+      "picksTitle": "Our picks",
+      "worthKnowing": "Worth knowing:",
+      "readGuide": "Read the switching guide",
+      "fullReview": "See the full review",
+      "compareTitle": "Compare all options",
+      "tableLabel": "Comparison of {category} services",
+      "colService": "Service",
+      "colHeadOffice": "Head office",
+      "colOpenSource": "Open source",
+      "yes": "Yes",
+      "no": "No",
+      "notListed": "Not listed",
+      "howToChoose": "How to choose",
+      "guidesTitle": "Switching guides",
+      "guideTime": "{time} · {difficulty}",
+      "allServices": "All {category} services"
     }
   },
   "guides": {

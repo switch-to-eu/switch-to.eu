@@ -287,12 +287,13 @@
 }
 
 /*
- * Markdown tables. renderMarkdown wraps each table in .mdx-table, a white
- * panel that scrolls sideways on narrow screens. The first column (the row
- * label) stays in place while the other columns scroll.
+ * Tables. renderMarkdown wraps each markdown table in .mdx-table, and the
+ * category comparison uses the same wrapper: a white panel that scrolls
+ * sideways on narrow screens. The first column (the row label) stays in
+ * place while the other columns scroll. Row headers (tbody th) look like
+ * labels, not like column headers.
  */
-.mdx-content .mdx-table {
-  margin: 1.75rem 0 2.25rem;
+.mdx-table {
   padding-block: 0.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -301,12 +302,16 @@
   border-radius: 1rem;
 }
 
-.mdx-content .mdx-table:focus-visible {
+.mdx-content .mdx-table {
+  margin: 1.75rem 0 2.25rem;
+}
+
+.mdx-table:focus-visible {
   outline: 2px solid var(--brand-green);
   outline-offset: 2px;
 }
 
-.mdx-content table {
+.mdx-table table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-hanken-grotesk);
@@ -315,26 +320,26 @@
   color: #1a1a1a;
 }
 
-.mdx-content th,
-.mdx-content td {
+.mdx-table th,
+.mdx-table td {
   min-width: 9rem;
   padding: 0.75rem 1rem;
   text-align: left;
   vertical-align: top;
 }
 
-.mdx-content th:first-child,
-.mdx-content td:first-child {
+.mdx-table th:first-child,
+.mdx-table td:first-child {
   min-width: 8rem;
   padding-left: 1.25rem;
 }
 
-.mdx-content th:last-child,
-.mdx-content td:last-child {
+.mdx-table th:last-child,
+.mdx-table td:last-child {
   padding-right: 1.25rem;
 }
 
-.mdx-content th {
+.mdx-table thead th {
   padding-top: 1rem;
   font-family: var(--font-heading);
   font-size: 1.125rem;
@@ -345,21 +350,24 @@
   border-bottom: 2px solid var(--brand-green);
 }
 
-.mdx-content td {
+.mdx-table tbody th,
+.mdx-table td {
   border-bottom: 1px solid rgb(0 0 0 / 0.08);
 }
 
-.mdx-content tr:last-child td {
+.mdx-table tbody tr:last-child th,
+.mdx-table tbody tr:last-child td {
   border-bottom: 0;
 }
 
-.mdx-content td:first-child {
+.mdx-table tbody th,
+.mdx-table td:first-child {
   font-weight: 600;
 }
 
 /* Keep the row label in view while the other columns scroll. */
-.mdx-content th:first-child,
-.mdx-content td:first-child {
+.mdx-table th:first-child,
+.mdx-table td:first-child {
   position: sticky;
   left: 0;
   z-index: 1;
@@ -367,8 +375,8 @@
 }
 
 @media (max-width: 40rem) {
-  .mdx-content th:first-child,
-  .mdx-content td:first-child {
+  .mdx-table th:first-child,
+  .mdx-table td:first-child {
     box-shadow: inset -1px 0 0 rgb(0 0 0 / 0.1);
   }
 }

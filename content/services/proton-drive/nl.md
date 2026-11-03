@@ -8,6 +8,11 @@ features:
 - Synchronisatie op alle platformen
 - Fotoback-up
 - Open source
+specs:
+  freeStorage: 2 GB, 5 GB na instelstappen
+  paidFrom: €3,99/maand voor 200 GB, jaarabonnement
+  e2eEncryption: Alle bestanden
+  storageLocation: Zwitserland, Duitsland
 pricingTiers:
 - name: Gratis
   price: Gratis

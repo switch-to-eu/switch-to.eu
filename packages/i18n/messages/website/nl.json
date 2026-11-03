@@ -593,6 +593,25 @@
           "keyFeatures": "Belangrijkste functies"
         }
       }
+    },
+    "buyersGuide": {
+      "checkedOn": "Prijzen en feiten gecontroleerd op {date}, op de eigen pagina's van elk bedrijf.",
+      "picksTitle": "Onze keuzes",
+      "worthKnowing": "Goed om te weten:",
+      "readGuide": "Lees de overstapgids",
+      "fullReview": "Bekijk de volledige review",
+      "compareTitle": "Vergelijk alle opties",
+      "tableLabel": "Vergelijking van {category}",
+      "colService": "Dienst",
+      "colHeadOffice": "Hoofdkantoor",
+      "colOpenSource": "Open source",
+      "yes": "Ja",
+      "no": "Nee",
+      "notListed": "Niet vermeld",
+      "howToChoose": "Zo kies je",
+      "guidesTitle": "Overstapgidsen",
+      "guideTime": "{time} · {difficulty}",
+      "allServices": "Alle diensten voor {category}"
     }
   },
   "tools": {
