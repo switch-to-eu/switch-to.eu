@@ -21,3 +21,12 @@ Append-only. One line per operation: `YYYY-MM-DD <op> | <target> | <note>`.
 2026-11-03 write   | content/articles/app-builders-ask-eu-for-portable-followers/en.md | story eu-digital-fairness-act-social-switching, last_covered set on write (draft)
 2026-11-03 check   | content/articles/app-builders-ask-eu-for-portable-followers/en.md | 19 claims ok, 2 reworded (humanize), 0 cut · SEO 95
 2026-11-03 research | docs/seo/opportunities/2026-11-03-ai-services.md | +42 sources (AI services shortlist: alternatives and non-EU starting points)
+2026-11-03 ingest  | sources/2026/11/2026-11-03-reddit-andy-yen-message-to-community.md, 2026-11-03-proton-ai-manifesto.md | +2 sources, ~1 entity (proton), +1 story
+2026-11-03 write   | content/articles/proton-ceo-ai-push-security-checks/en.md | story proton-ai-push-security-concerns, last_covered set on write (draft)
+2026-11-03 check   | content/articles/proton-ceo-ai-push-security-checks/en.md | 34 claims ok, 1 reworded, 0 cut · SEO 95
+2026-11-03 write   | content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md | story european-public-sector-leaves-us-software, last_covered set on write (draft)
+2026-11-03 check   | content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md | 60 claims ok, 6 reworded, 0 cut · SEO 90
+2026-11-03 write   | content/articles/openai-retires-custom-gpts/en.md | story openai-custom-gpt-retirement, last_covered set on write (draft)
+2026-11-03 check   | content/articles/openai-retires-custom-gpts/en.md | 34 claims ok, 1 reworded, 0 cut · SEO 95
+2026-11-03 write   | content/articles/eu-governments-back-ai-training-on-your-data/en.md | story eu-digital-omnibus-gdpr-changes, last_covered set on write (draft)
+2026-11-03 check   | content/articles/eu-governments-back-ai-training-on-your-data/en.md | 50 claims ok, 4 reworded, 1 cut · SEO 90

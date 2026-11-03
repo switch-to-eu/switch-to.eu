@@ -363,6 +363,38 @@
    "published": "2026-11-03",
    "draft": true
   },
+  "articles/eu-governments-back-ai-training-on-your-data": {
+   "type": "article",
+   "title": "EU governments back AI training on your data without consent. What changes, and what to switch off today",
+   "path": "content/articles/eu-governments-back-ai-training-on-your-data/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-09",
+   "draft": true
+  },
+  "articles/german-schools-dutch-tax-office-sovereign-cloud": {
+   "type": "article",
+   "title": "Six German states and the Dutch tax office pick alternatives to US office clouds, while Merz defends Google for spies",
+   "path": "content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-06",
+   "draft": true
+  },
+  "articles/openai-retires-custom-gpts": {
+   "type": "article",
+   "title": "Custom GPTs are scheduled to retire on 11 December. Your options, including leaving",
+   "path": "content/articles/openai-retires-custom-gpts/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-10",
+   "draft": true
+  },
+  "articles/proton-ceo-ai-push-security-checks": {
+   "type": "article",
+   "title": "Proton's CEO apologises after leaked messages on AI and security testing. What it means if you use Proton",
+   "path": "content/articles/proton-ceo-ai-push-security-checks/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-05",
+   "draft": true
+  },
   "landing-pages/quit-chatgpt": {
    "type": "landing-page",
    "title": "Quit ChatGPT: Switch to European AI Alternatives",
@@ -595,6 +627,22 @@
    "path": "knowledge/sources/2026/11/2026-11-03-computing-startpage-system1-investment.md",
    "reliability": "medium",
    "published": "2020-07-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-council-digital-omnibus-mandate": {
+   "type": "source",
+   "title": "Digital Omnibus: mandate for negotiations with the European Parliament (Council document ST 14756/26)",
+   "path": "knowledge/sources/2026/11/2026-11-03-council-digital-omnibus-mandate.md",
+   "reliability": "high",
+   "published": "2026-10-22",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-council-digital-omnibus-press-release": {
+   "type": "source",
+   "title": "Digital rulebook: Council agrees position to simplify data protection, privacy and cyber reporting rules",
+   "path": "knowledge/sources/2026/11/2026-11-03-council-digital-omnibus-press-release.md",
+   "reliability": "high",
+   "published": "2026-10-21",
    "updated": "2026-11-03"
   },
   "2026-11-03-datatilsynet-gdpr-norway": {
@@ -889,6 +937,14 @@
    "type": "source",
    "title": "Regulation (EU) 2016/679 (GDPR), Article 3 Territorial scope",
    "path": "knowledge/sources/2026/11/2026-11-03-gdpr-article-3-territorial-scope.md",
+   "reliability": "high",
+   "published": "2016-04-27",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection": {
+   "type": "source",
+   "title": "Regulation (EU) 2016/679 (GDPR), Article 6(1)(f) and Article 21 as in force",
+   "path": "knowledge/sources/2026/11/2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection.md",
    "reliability": "high",
    "published": "2016-04-27",
    "updated": "2026-11-03"
@@ -1189,6 +1245,14 @@
    "published": "2025-04-14",
    "updated": "2026-11-03"
   },
+  "2026-11-03-meta-privacy-center-genai": {
+   "type": "source",
+   "title": "How Meta uses information for generative AI models and features (Meta Privacy Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-meta-privacy-center-genai.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-microsoft-copilot-privacy-controls": {
    "type": "source",
    "title": "Microsoft Copilot for individuals: your privacy controls and choices",
@@ -1469,6 +1533,14 @@
    "published": "2026-10-31",
    "updated": "2026-11-03"
   },
+  "2026-11-03-openai-custom-gpt-faq-full-text": {
+   "type": "source",
+   "title": "Custom GPT retirement and migration FAQ, full reading (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-custom-gpt-faq-full-text.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-openai-custom-gpt-retirement-faq": {
    "type": "source",
    "title": "Custom GPT retirement and migration FAQ (OpenAI Help Center)",
@@ -1481,6 +1553,14 @@
    "type": "source",
    "title": "GPTs in ChatGPT (OpenAI Help Center)",
    "path": "knowledge/sources/2026/11/2026-11-03-openai-gpts-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-openai-plugins-in-chatgpt-help": {
+   "type": "source",
+   "title": "Plugins in ChatGPT (OpenAI Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-openai-plugins-in-chatgpt-help.md",
    "reliability": "high",
    "published": "2026-11-03",
    "updated": "2026-11-03"
@@ -1635,6 +1715,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-politico-kids-act-national-bans-paused.md",
    "reliability": "high",
    "published": "2026-10-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-ai-manifesto": {
+   "type": "source",
+   "title": "Proton's AI manifesto for software engineering",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-ai-manifesto.md",
+   "reliability": "medium",
+   "published": "2026-11-01",
    "updated": "2026-11-03"
   },
   "2026-11-03-proton-autumn-winter-2026-roadmap": {
@@ -1805,6 +1893,30 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-proton-lumo-2-announcement": {
+   "type": "source",
+   "title": "Introducing Lumo 2.0 (Proton blog)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-2-announcement.md",
+   "reliability": "medium",
+   "published": "2026-06-30",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-pricing-page": {
+   "type": "source",
+   "title": "Lumo pricing and plans (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-privacy-help": {
+   "type": "source",
+   "title": "Lumo privacy (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-privacy-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-proton-plans-help": {
    "type": "source",
    "title": "Proton plans explained: Free, Mail Plus, Unlimited, Duo, Family and Visionary (Proton Support)",
@@ -1915,6 +2027,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-rclone-proton-drive-backend-docs.md",
    "reliability": "high",
    "published": "2026-10-09",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-reddit-andy-yen-message-to-community": {
+   "type": "source",
+   "title": "A message to the community (Andy Yen on r/ProtonMail)",
+   "path": "knowledge/sources/2026/11/2026-11-03-reddit-andy-yen-message-to-community.md",
+   "reliability": "medium",
+   "published": "2026-10-30",
    "updated": "2026-11-03"
   },
   "2026-11-03-reddit-proton-drive-roadmap-h2-2026": {
@@ -2512,6 +2632,16 @@
    "last_covered": "2026-11-03",
    "heat": 5
   },
+  "eu-digital-omnibus-gdpr-changes": {
+   "type": "story",
+   "title": "The Digital Omnibus and changes to the GDPR, including AI training on personal data",
+   "path": "knowledge/stories/eu-digital-omnibus-gdpr-changes.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-10-23",
+   "last_covered": "2026-11-03",
+   "heat": 6.5
+  },
   "eu-kids-act-social-media-age-limits": {
    "type": "story",
    "title": "EU Kids Act and national social media bans for minors",
@@ -2528,6 +2658,7 @@
    "status": "active",
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
+   "last_covered": "2026-11-03",
    "heat": 5.3
   },
   "german-government-google-cloud": {
@@ -2538,6 +2669,26 @@
    "updated": "2026-11-03",
    "last_event": "2026-11-02",
    "heat": 2.9
+  },
+  "openai-custom-gpt-retirement": {
+   "type": "story",
+   "title": "OpenAI retires custom GPTs in ChatGPT and moves creators to plugins",
+   "path": "knowledge/stories/openai-custom-gpt-retirement.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-10-26",
+   "last_covered": "2026-11-03",
+   "heat": 6
+  },
+  "proton-ai-push-security-concerns": {
+   "type": "story",
+   "title": "Proton's AI push and questions about security",
+   "path": "knowledge/stories/proton-ai-push-security-concerns.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-11-01",
+   "last_covered": "2026-11-03",
+   "heat": 3.6
   }
  },
  "edges": [
@@ -2817,6 +2968,226 @@
    "rel": "links"
   },
   {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "eu-digital-omnibus-gdpr-changes",
+   "rel": "covers"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "services/chatgpt",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "services/mistral-le-chat",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "services/instagram",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "services/facebook",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "services/mastodon",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/eu-governments-back-ai-training-on-your-data",
+   "to": "guides/chatgpt-to-mistral",
+   "rel": "links"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "european-public-sector-leaves-us-software",
+   "rel": "covers"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "nextcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "ionos",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "german-federal-government",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "services/nextcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "services/google-drive",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "services/pcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "to": "guides/google-drive-to-pcloud",
+   "rel": "links"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "openai-custom-gpt-retirement",
+   "rel": "covers"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "services/chatgpt",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "services/mistral-le-chat",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "services/proton-lumo",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/openai-retires-custom-gpts",
+   "to": "guides/chatgpt-to-mistral",
+   "rel": "links"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "proton-ai-push-security-concerns",
+   "rel": "covers"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/proton-mail",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/proton-drive",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/proton-lumo",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/tuta",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/mailbox.org",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "services/nextcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/proton-ceo-ai-push-security-checks",
+   "to": "guides/gmail-to-protonmail",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-404media-proton-ai-reckoning",
    "to": "proton",
    "rel": "mentions"
@@ -2920,6 +3291,26 @@
    "from": "2026-11-03-computing-startpage-system1-investment",
    "to": "system1",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-mandate",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-mandate",
+   "to": "eu-digital-omnibus-gdpr-changes",
+   "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-press-release",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-press-release",
+   "to": "eu-digital-omnibus-gdpr-changes",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-decrypt-quitgpt-data-guide",
@@ -3122,6 +3513,11 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection",
+   "to": "eu-digital-omnibus-gdpr-changes",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-google-drive-desktop-stream-mirror-help",
    "to": "alphabet",
    "rel": "mentions"
@@ -3275,6 +3671,11 @@
    "from": "2026-11-03-mammouth-privacy-model-providers",
    "to": "alphabet",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-meta-privacy-center-genai",
+   "to": "eu-digital-omnibus-gdpr-changes",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-microsoft-copilot-privacy-controls",
@@ -3462,6 +3863,16 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "to": "openai-custom-gpt-retirement",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-openai-custom-gpt-retirement-faq",
    "to": "openai",
    "rel": "mentions"
@@ -3470,6 +3881,16 @@
    "from": "2026-11-03-openai-gpts-help",
    "to": "openai",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-plugins-in-chatgpt-help",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-openai-plugins-in-chatgpt-help",
+   "to": "openai-custom-gpt-retirement",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-organic-maps-12m-installs",
@@ -3569,6 +3990,16 @@
   {
    "from": "2026-11-03-politico-kids-act-national-bans-paused",
    "to": "eu-kids-act-social-media-age-limits",
+   "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-proton-ai-manifesto",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-ai-manifesto",
+   "to": "proton-ai-push-security-concerns",
    "rel": "part-of"
   },
   {
@@ -3677,6 +4108,21 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-proton-lumo-2-announcement",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-pricing-page",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-privacy-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-proton-plans-help",
    "to": "proton",
    "rel": "mentions"
@@ -3755,6 +4201,16 @@
    "from": "2026-11-03-rclone-proton-drive-backend-docs",
    "to": "proton",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-reddit-andy-yen-message-to-community",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-reddit-andy-yen-message-to-community",
+   "to": "proton-ai-push-security-concerns",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
@@ -4282,6 +4738,51 @@
    "rel": "in-category"
   },
   {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "european-commission",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "openai",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "mistral-ai",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "services/chatgpt",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "services/mistral-le-chat",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "services/instagram",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "services/facebook",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
    "from": "eu-kids-act-social-media-age-limits",
    "to": "kids-act",
    "rel": "involves"
@@ -4345,6 +4846,71 @@
    "from": "german-government-google-cloud",
    "to": "european-commission",
    "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "openai",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "mistral-ai",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "proton",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/chatgpt",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/mistral-le-chat",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/proton-lumo",
+   "rel": "involves"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "proton",
+   "rel": "involves"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "services/proton-mail",
+   "rel": "involves"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "services/proton-drive",
+   "rel": "involves"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "services/proton-lumo",
+   "rel": "involves"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "categories/email",
+   "rel": "in-category"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "categories/storage",
+   "rel": "in-category"
   },
   {
    "from": "2026-11-03-404media-proton-ai-reckoning",
@@ -4514,6 +5080,21 @@
   {
    "from": "2026-11-03-computing-startpage-system1-investment",
    "to": "services/startpage",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-mandate",
+   "to": "2026-11-03-noyb-council-omnibus-ai-training",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-mandate",
+   "to": "2026-11-03-netzpolitik-council-data-omnibus",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-council-digital-omnibus-press-release",
+   "to": "2026-11-03-council-digital-omnibus-mandate",
    "rel": "links"
   },
   {
@@ -4722,6 +5303,11 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-meta-privacy-center-genai",
+   "to": "2026-11-03-meta-ai-eu-training-announcement",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-mistral-docs-choose-work-code",
    "to": "services/mistral-le-chat",
    "rel": "links"
@@ -4872,12 +5458,27 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "to": "2026-11-03-openai-custom-gpt-retirement-faq",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-openai-custom-gpt-retirement-faq",
    "to": "services/chatgpt",
    "rel": "links"
   },
   {
    "from": "2026-11-03-openai-gpts-help",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-openai-plugins-in-chatgpt-help",
    "to": "services/chatgpt",
    "rel": "links"
   },
@@ -5104,6 +5705,21 @@
   {
    "from": "2026-11-03-proton-google-photos-import-help",
    "to": "services/proton-drive",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-2-announcement",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-pricing-page",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-privacy-help",
+   "to": "services/proton-lumo",
    "rel": "links"
   },
   {
@@ -5713,6 +6329,21 @@
   },
   {
    "from": "openai",
+   "to": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
+   "to": "openai-custom-gpt-retirement",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
+   "to": "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "rel": "links"
+  },
+  {
+   "from": "openai",
    "to": "2026-11-03-decrypt-quitgpt-data-guide",
    "rel": "links"
   },
@@ -5788,7 +6419,22 @@
   },
   {
    "from": "proton",
+   "to": "2026-11-03-404media-proton-ai-reckoning",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
    "to": "2026-11-03-heise-proton-slack-leak",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-reddit-andy-yen-message-to-community",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-proton-ai-manifesto",
    "rel": "links"
   },
   {
@@ -5908,7 +6554,17 @@
   },
   {
    "from": "european-commission",
+   "to": "2026-11-03-council-digital-omnibus-mandate",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
    "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
+   "to": "2026-11-03-council-digital-omnibus-press-release",
    "rel": "links"
   },
   {
@@ -5967,6 +6623,46 @@
    "rel": "links"
   },
   {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-council-digital-omnibus-press-release",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-council-digital-omnibus-mandate",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-netzpolitik-council-data-omnibus",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-noyb-council-omnibus-ai-training",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-mistral-help-training-opt-out",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "2026-11-03-mistral-pricing-page",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-omnibus-gdpr-changes",
+   "to": "articles/eu-governments-back-ai-training-on-your-data",
+   "rel": "links"
+  },
+  {
    "from": "eu-kids-act-social-media-age-limits",
    "to": "2026-11-03-politico-kids-act-national-bans-paused",
    "rel": "links"
@@ -5982,8 +6678,108 @@
    "rel": "links"
   },
   {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "rel": "links"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "2026-11-03-register-dutch-tax-office-drops-m365",
+   "rel": "links"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "rel": "links"
+  },
+  {
    "from": "german-government-google-cloud",
    "to": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-openai-custom-gpt-faq-full-text",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-mistral-docs-skills",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-proton-lumo-2-announcement",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-openai-custom-gpt-retirement-faq",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-openai-gpts-help",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "2026-11-03-openai-plugins-in-chatgpt-help",
+   "rel": "links"
+  },
+  {
+   "from": "openai-custom-gpt-retirement",
+   "to": "articles/openai-retires-custom-gpts",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "2026-11-03-404media-proton-ai-reckoning",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "2026-11-03-heise-proton-slack-leak",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "2026-11-03-reddit-andy-yen-message-to-community",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "2026-11-03-proton-ai-manifesto",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "rel": "links"
+  },
+  {
+   "from": "proton-ai-push-security-concerns",
+   "to": "articles/proton-ceo-ai-push-security-checks",
    "rel": "links"
   }
  ],
@@ -5999,7 +6795,9 @@
   ],
   "categories/social-media": [
    "articles/app-builders-ask-eu-for-portable-followers",
+   "articles/eu-governments-back-ai-training-on-your-data",
    "eu-digital-fairness-act-social-switching",
+   "eu-digital-omnibus-gdpr-changes",
    "eu-kids-act-social-media-age-limits",
    "services/bluesky",
    "services/facebook",
@@ -6017,7 +6815,11 @@
    "services/waterfox"
   ],
   "categories/artificial-intelligence": [
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts",
    "cjeu-ai-press-publisher-case",
+   "eu-digital-omnibus-gdpr-changes",
+   "openai-custom-gpt-retirement",
    "services/chatgpt",
    "services/claude",
    "services/google-gemini",
@@ -6032,6 +6834,8 @@
    "services/whatsapp"
   ],
   "categories/email": [
+   "articles/proton-ceo-ai-push-security-checks",
+   "proton-ai-push-security-concerns",
    "services/gmail",
    "services/infomaniak-mail",
    "services/mailbox.org",
@@ -6039,7 +6843,10 @@
    "services/tuta"
   ],
   "categories/storage": [
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "articles/proton-ceo-ai-push-security-checks",
    "european-public-sector-leaves-us-software",
+   "proton-ai-push-security-concerns",
    "services/google-drive",
    "services/nextcloud",
    "services/pcloud",
@@ -6068,6 +6875,8 @@
    "eu-digital-fairness-act-social-switching"
   ],
   "european-commission": [
+   "2026-11-03-council-digital-omnibus-mandate",
+   "2026-11-03-council-digital-omnibus-press-release",
    "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
@@ -6076,9 +6885,12 @@
    "2026-11-03-noyb-council-omnibus-ai-training",
    "2026-11-03-politico-kids-act-national-bans-paused",
    "articles/app-builders-ask-eu-for-portable-followers",
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
    "digital-fairness-act",
    "digital-markets-act",
    "eu-digital-fairness-act-social-switching",
+   "eu-digital-omnibus-gdpr-changes",
    "eu-kids-act-social-media-age-limits",
    "german-government-google-cloud",
    "kids-act"
@@ -6092,6 +6904,7 @@
   ],
   "services/mastodon": [
    "articles/app-builders-ask-eu-for-portable-followers",
+   "articles/eu-governments-back-ai-training-on-your-data",
    "eu-digital-fairness-act-social-switching"
   ],
   "services/bluesky": [
@@ -6104,39 +6917,40 @@
   ],
   "services/instagram": [
    "articles/app-builders-ask-eu-for-portable-followers",
-   "eu-digital-fairness-act-social-switching"
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "eu-digital-fairness-act-social-switching",
+   "eu-digital-omnibus-gdpr-changes"
   ],
   "guides/x-to-bluesky": [
    "articles/app-builders-ask-eu-for-portable-followers"
   ],
-  "proton": [
-   "2026-11-03-404media-proton-ai-reckoning",
-   "2026-11-03-404media-proton-ceo-cancels-reinterviews",
-   "2026-11-03-heise-proton-slack-leak",
-   "2026-11-03-proton-autumn-winter-2026-roadmap",
-   "2026-11-03-proton-docs-create-edit-help",
-   "2026-11-03-proton-docs-import-export-help",
-   "2026-11-03-proton-drive-cli-help",
-   "2026-11-03-proton-drive-download-page",
-   "2026-11-03-proton-drive-faq",
-   "2026-11-03-proton-drive-free-storage-help",
-   "2026-11-03-proton-drive-import-google-drive-help",
-   "2026-11-03-proton-drive-macos-setup-help",
-   "2026-11-03-proton-drive-previewable-file-types",
-   "2026-11-03-proton-drive-pricing-page",
-   "2026-11-03-proton-drive-release-notes",
-   "2026-11-03-proton-drive-roadmap-page",
-   "2026-11-03-proton-drive-setup-help",
-   "2026-11-03-proton-drive-support-hub",
-   "2026-11-03-proton-drive-version-history-help",
-   "2026-11-03-proton-drive-web-guide",
-   "2026-11-03-proton-drive-windows-app-help",
-   "2026-11-03-proton-easy-switch-help",
-   "2026-11-03-proton-google-photos-import-help",
-   "2026-11-03-proton-plans-help",
-   "2026-11-03-proton-sheets-import-export-help",
-   "2026-11-03-rclone-proton-drive-backend-docs",
-   "2026-11-03-reddit-proton-drive-roadmap-h2-2026"
+  "eu-digital-omnibus-gdpr-changes": [
+   "2026-11-03-council-digital-omnibus-mandate",
+   "2026-11-03-council-digital-omnibus-press-release",
+   "2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection",
+   "2026-11-03-meta-privacy-center-genai",
+   "articles/eu-governments-back-ai-training-on-your-data"
+  ],
+  "openai": [
+   "2026-11-03-decrypt-quitgpt-data-guide",
+   "2026-11-03-mammouth-privacy-model-providers",
+   "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "2026-11-03-openai-chatgpt-data-controls-help",
+   "2026-11-03-openai-chatgpt-data-export-help",
+   "2026-11-03-openai-chatgpt-delete-account-help",
+   "2026-11-03-openai-chatgpt-memory-help",
+   "2026-11-03-openai-chatgpt-projects-help",
+   "2026-11-03-openai-custom-gpt-faq-full-text",
+   "2026-11-03-openai-custom-gpt-retirement-faq",
+   "2026-11-03-openai-gpts-help",
+   "2026-11-03-openai-plugins-in-chatgpt-help",
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts",
+   "eu-digital-omnibus-gdpr-changes",
+   "openai-custom-gpt-retirement"
   ],
   "mistral-ai": [
    "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
@@ -6168,6 +6982,115 @@
    "2026-11-03-mistral-vibe-product-page",
    "2026-11-03-vibe-app-store-listing",
    "2026-11-03-vibe-google-play-listing",
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts",
+   "eu-digital-omnibus-gdpr-changes",
+   "openai-custom-gpt-retirement",
+   "qwant"
+  ],
+  "services/chatgpt": [
+   "2026-11-03-decrypt-quitgpt-data-guide",
+   "2026-11-03-openai-chatgpt-custom-instructions-help",
+   "2026-11-03-openai-chatgpt-data-controls-help",
+   "2026-11-03-openai-chatgpt-data-export-help",
+   "2026-11-03-openai-chatgpt-delete-account-help",
+   "2026-11-03-openai-chatgpt-memory-help",
+   "2026-11-03-openai-chatgpt-projects-help",
+   "2026-11-03-openai-custom-gpt-faq-full-text",
+   "2026-11-03-openai-custom-gpt-retirement-faq",
+   "2026-11-03-openai-gpts-help",
+   "2026-11-03-openai-plugins-in-chatgpt-help",
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts",
+   "eu-digital-omnibus-gdpr-changes",
+   "openai",
+   "openai-custom-gpt-retirement",
+   "openai-custom-gpt-retirement"
+  ],
+  "services/mistral-le-chat": [
+   "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
+   "2026-11-03-clubic-mistral-cnil-complaint",
+   "2026-11-03-mistral-docs-choose-work-code",
+   "2026-11-03-mistral-docs-custom-instructions",
+   "2026-11-03-mistral-docs-knowledge-base",
+   "2026-11-03-mistral-docs-libraries",
+   "2026-11-03-mistral-docs-memories-legacy",
+   "2026-11-03-mistral-docs-projects",
+   "2026-11-03-mistral-docs-skills",
+   "2026-11-03-mistral-docs-vibe-overview",
+   "2026-11-03-mistral-docs-voice-mode",
+   "2026-11-03-mistral-help-data-export",
+   "2026-11-03-mistral-help-data-storage-location",
+   "2026-11-03-mistral-help-delete-account",
+   "2026-11-03-mistral-help-le-chat-is-now-vibe",
+   "2026-11-03-mistral-help-training-data-use",
+   "2026-11-03-mistral-help-training-opt-out",
+   "2026-11-03-mistral-help-zero-data-retention",
+   "2026-11-03-mistral-memories-launch-2025",
+   "2026-11-03-mistral-pricing-page",
+   "2026-11-03-mistral-privacy-policy",
+   "2026-11-03-mistral-release-notes-vibe",
+   "2026-11-03-mistral-trust-center-subprocessors",
+   "2026-11-03-mistral-vibe-agent-launch",
+   "2026-11-03-mistral-vibe-product-page",
+   "2026-11-03-vibe-app-store-listing",
+   "2026-11-03-vibe-google-play-listing",
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts",
+   "eu-digital-omnibus-gdpr-changes",
+   "mistral-ai",
+   "openai-custom-gpt-retirement",
+   "openai-custom-gpt-retirement"
+  ],
+  "services/facebook": [
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "eu-digital-omnibus-gdpr-changes"
+  ],
+  "guides/chatgpt-to-mistral": [
+   "articles/eu-governments-back-ai-training-on-your-data",
+   "articles/openai-retires-custom-gpts"
+  ],
+  "european-public-sector-leaves-us-software": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "2026-11-03-register-dutch-tax-office-drops-m365",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud"
+  ],
+  "nextcloud": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "european-public-sector-leaves-us-software",
+   "ionos"
+  ],
+  "ionos": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "european-public-sector-leaves-us-software",
+   "nextcloud"
+  ],
+  "microsoft": [
+   "2026-11-03-ec-bing-edge-not-gatekeepers",
+   "2026-11-03-ec-dma-review-2026-choice-screens",
+   "2026-11-03-edge-default-search-engine-help",
+   "2026-11-03-edge-mobile-faq-search-engine",
+   "2026-11-03-euobserver-microsoft-ireland-israeli-app",
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "2026-11-03-microsoft-copilot-privacy-controls",
+   "2026-11-03-microsoft-copilot-privacy-faq",
+   "2026-11-03-office365itpros-copilot-flex-routing",
+   "2026-11-03-register-dutch-tax-office-drops-m365",
+   "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "2026-11-03-windows-dma-updates-2025",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "ecosia",
+   "european-public-sector-leaves-us-software",
+   "nextcloud",
    "qwant"
   ],
   "alphabet": [
@@ -6201,10 +7124,150 @@
    "2026-11-03-mammouth-privacy-model-providers",
    "2026-11-03-rclone-google-drive-backend-docs",
    "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
    "cjeu-ai-press-publisher-case",
    "ecosia",
    "european-public-sector-leaves-us-software",
    "german-government-google-cloud"
+  ],
+  "german-federal-government": [
+   "2026-11-03-heise-merz-google-cloud-sovereign",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "german-government-google-cloud"
+  ],
+  "services/nextcloud": [
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "articles/proton-ceo-ai-push-security-checks",
+   "european-public-sector-leaves-us-software",
+   "nextcloud"
+  ],
+  "services/google-drive": [
+   "2026-11-03-google-drive-desktop-stream-mirror-help",
+   "2026-11-03-google-drive-download-file-help",
+   "2026-11-03-google-drive-for-desktop-help",
+   "2026-11-03-google-drive-takeout-contents-help",
+   "2026-11-03-google-storage-quota-help",
+   "2026-11-03-google-takeout-download-data-help",
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-rclone-google-drive-backend-docs",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "alphabet",
+   "articles/german-schools-dutch-tax-office-sovereign-cloud",
+   "european-public-sector-leaves-us-software"
+  ],
+  "services/pcloud": [
+   "articles/german-schools-dutch-tax-office-sovereign-cloud"
+  ],
+  "guides/google-drive-to-pcloud": [
+   "articles/german-schools-dutch-tax-office-sovereign-cloud"
+  ],
+  "openai-custom-gpt-retirement": [
+   "2026-11-03-openai-custom-gpt-faq-full-text",
+   "2026-11-03-openai-plugins-in-chatgpt-help",
+   "articles/openai-retires-custom-gpts",
+   "openai"
+  ],
+  "proton": [
+   "2026-11-03-404media-proton-ai-reckoning",
+   "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "2026-11-03-heise-proton-slack-leak",
+   "2026-11-03-proton-ai-manifesto",
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-docs-create-edit-help",
+   "2026-11-03-proton-docs-import-export-help",
+   "2026-11-03-proton-drive-cli-help",
+   "2026-11-03-proton-drive-download-page",
+   "2026-11-03-proton-drive-faq",
+   "2026-11-03-proton-drive-free-storage-help",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-drive-macos-setup-help",
+   "2026-11-03-proton-drive-previewable-file-types",
+   "2026-11-03-proton-drive-pricing-page",
+   "2026-11-03-proton-drive-release-notes",
+   "2026-11-03-proton-drive-roadmap-page",
+   "2026-11-03-proton-drive-setup-help",
+   "2026-11-03-proton-drive-support-hub",
+   "2026-11-03-proton-drive-version-history-help",
+   "2026-11-03-proton-drive-web-guide",
+   "2026-11-03-proton-drive-windows-app-help",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-proton-google-photos-import-help",
+   "2026-11-03-proton-lumo-2-announcement",
+   "2026-11-03-proton-lumo-pricing-page",
+   "2026-11-03-proton-lumo-privacy-help",
+   "2026-11-03-proton-plans-help",
+   "2026-11-03-proton-sheets-import-export-help",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "2026-11-03-reddit-andy-yen-message-to-community",
+   "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
+   "articles/openai-retires-custom-gpts",
+   "articles/proton-ceo-ai-push-security-checks",
+   "openai-custom-gpt-retirement",
+   "proton-ai-push-security-concerns"
+  ],
+  "services/proton-lumo": [
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "2026-11-03-proton-lumo-2-announcement",
+   "2026-11-03-proton-lumo-pricing-page",
+   "2026-11-03-proton-lumo-privacy-help",
+   "articles/openai-retires-custom-gpts",
+   "articles/proton-ceo-ai-push-security-checks",
+   "openai-custom-gpt-retirement",
+   "openai-custom-gpt-retirement",
+   "proton",
+   "proton-ai-push-security-concerns"
+  ],
+  "proton-ai-push-security-concerns": [
+   "2026-11-03-proton-ai-manifesto",
+   "2026-11-03-reddit-andy-yen-message-to-community",
+   "articles/proton-ceo-ai-push-security-checks"
+  ],
+  "services/proton-mail": [
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-proton-plans-help",
+   "articles/proton-ceo-ai-push-security-checks",
+   "proton",
+   "proton-ai-push-security-concerns"
+  ],
+  "services/proton-drive": [
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-docs-create-edit-help",
+   "2026-11-03-proton-docs-import-export-help",
+   "2026-11-03-proton-drive-cli-help",
+   "2026-11-03-proton-drive-download-page",
+   "2026-11-03-proton-drive-faq",
+   "2026-11-03-proton-drive-free-storage-help",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-drive-macos-setup-help",
+   "2026-11-03-proton-drive-previewable-file-types",
+   "2026-11-03-proton-drive-pricing-page",
+   "2026-11-03-proton-drive-release-notes",
+   "2026-11-03-proton-drive-roadmap-page",
+   "2026-11-03-proton-drive-setup-help",
+   "2026-11-03-proton-drive-support-hub",
+   "2026-11-03-proton-drive-version-history-help",
+   "2026-11-03-proton-drive-web-guide",
+   "2026-11-03-proton-drive-windows-app-help",
+   "2026-11-03-proton-google-photos-import-help",
+   "2026-11-03-proton-plans-help",
+   "2026-11-03-proton-sheets-import-export-help",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
+   "articles/proton-ceo-ai-push-security-checks",
+   "proton",
+   "proton-ai-push-security-concerns"
+  ],
+  "services/tuta": [
+   "articles/proton-ceo-ai-push-security-checks"
+  ],
+  "services/mailbox.org": [
+   "articles/proton-ceo-ai-push-security-checks"
+  ],
+  "guides/gmail-to-protonmail": [
+   "articles/proton-ceo-ai-push-security-checks"
   ],
   "apple": [
    "2026-11-03-apple-default-apps-choice-screens",
@@ -6268,45 +7331,11 @@
    "2026-11-03-system1-10k-2022-subsidiaries",
    "surfboard"
   ],
-  "openai": [
-   "2026-11-03-decrypt-quitgpt-data-guide",
-   "2026-11-03-mammouth-privacy-model-providers",
-   "2026-11-03-openai-chatgpt-custom-instructions-help",
-   "2026-11-03-openai-chatgpt-data-controls-help",
-   "2026-11-03-openai-chatgpt-data-export-help",
-   "2026-11-03-openai-chatgpt-delete-account-help",
-   "2026-11-03-openai-chatgpt-memory-help",
-   "2026-11-03-openai-chatgpt-projects-help",
-   "2026-11-03-openai-custom-gpt-retirement-faq",
-   "2026-11-03-openai-gpts-help",
-   "2026-11-03-proton-delete-chatgpt-account-guide",
-   "2026-11-03-statcounter-ai-chatbot-share-europe",
-   "2026-11-03-virtualizationreview-custom-gpt-retirement"
-  ],
   "duck-duck-go": [
    "2026-11-03-duckduckgo-privacy-policy",
    "2026-11-03-duckduckgo-privacy-rights-gdpr-representative",
    "2026-11-03-duckduckgo-results-sources",
    "vivaldi-technologies"
-  ],
-  "microsoft": [
-   "2026-11-03-ec-bing-edge-not-gatekeepers",
-   "2026-11-03-ec-dma-review-2026-choice-screens",
-   "2026-11-03-edge-default-search-engine-help",
-   "2026-11-03-edge-mobile-faq-search-engine",
-   "2026-11-03-euobserver-microsoft-ireland-israeli-app",
-   "2026-11-03-heise-nextcloud-ionos-school-platform",
-   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
-   "2026-11-03-microsoft-copilot-privacy-controls",
-   "2026-11-03-microsoft-copilot-privacy-faq",
-   "2026-11-03-office365itpros-copilot-flex-routing",
-   "2026-11-03-register-dutch-tax-office-drops-m365",
-   "2026-11-03-statcounter-ai-chatbot-share-europe",
-   "2026-11-03-windows-dma-updates-2025",
-   "ecosia",
-   "european-public-sector-leaves-us-software",
-   "nextcloud",
-   "qwant"
   ],
   "ecosia": [
    "2026-11-03-ecosia-ai-help",
@@ -6373,30 +7402,8 @@
   "cjeu-ai-press-publisher-case": [
    "2026-11-03-euractiv-ag-opinion-ai-news-reuse"
   ],
-  "german-federal-government": [
-   "2026-11-03-heise-merz-google-cloud-sovereign",
-   "german-government-google-cloud"
-  ],
   "german-government-google-cloud": [
    "2026-11-03-heise-merz-google-cloud-sovereign"
-  ],
-  "nextcloud": [
-   "2026-11-03-heise-nextcloud-ionos-school-platform",
-   "2026-11-03-nextcloud-six-states-school-cloud",
-   "european-public-sector-leaves-us-software",
-   "ionos"
-  ],
-  "ionos": [
-   "2026-11-03-heise-nextcloud-ionos-school-platform",
-   "2026-11-03-nextcloud-six-states-school-cloud",
-   "european-public-sector-leaves-us-software",
-   "nextcloud"
-  ],
-  "european-public-sector-leaves-us-software": [
-   "2026-11-03-heise-nextcloud-ionos-school-platform",
-   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
-   "2026-11-03-nextcloud-six-states-school-cloud",
-   "2026-11-03-register-dutch-tax-office-drops-m365"
   ],
   "kids-act": [
    "2026-11-03-politico-kids-act-national-bans-paused",
@@ -6431,21 +7438,6 @@
   ],
   "services/gmail": [
    "alphabet"
-  ],
-  "services/google-drive": [
-   "2026-11-03-google-drive-desktop-stream-mirror-help",
-   "2026-11-03-google-drive-download-file-help",
-   "2026-11-03-google-drive-for-desktop-help",
-   "2026-11-03-google-drive-takeout-contents-help",
-   "2026-11-03-google-storage-quota-help",
-   "2026-11-03-google-takeout-download-data-help",
-   "2026-11-03-proton-autumn-winter-2026-roadmap",
-   "2026-11-03-proton-drive-import-google-drive-help",
-   "2026-11-03-proton-easy-switch-help",
-   "2026-11-03-rclone-google-drive-backend-docs",
-   "2026-11-03-rclone-proton-drive-backend-docs",
-   "alphabet",
-   "european-public-sector-leaves-us-software"
   ],
   "services/google-gemini": [
    "alphabet",
@@ -6512,54 +7504,6 @@
    "2026-11-03-windows-dma-updates-2025",
    "microsoft"
   ],
-  "services/mistral-le-chat": [
-   "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
-   "2026-11-03-clubic-mistral-cnil-complaint",
-   "2026-11-03-mistral-docs-choose-work-code",
-   "2026-11-03-mistral-docs-custom-instructions",
-   "2026-11-03-mistral-docs-knowledge-base",
-   "2026-11-03-mistral-docs-libraries",
-   "2026-11-03-mistral-docs-memories-legacy",
-   "2026-11-03-mistral-docs-projects",
-   "2026-11-03-mistral-docs-skills",
-   "2026-11-03-mistral-docs-vibe-overview",
-   "2026-11-03-mistral-docs-voice-mode",
-   "2026-11-03-mistral-help-data-export",
-   "2026-11-03-mistral-help-data-storage-location",
-   "2026-11-03-mistral-help-delete-account",
-   "2026-11-03-mistral-help-le-chat-is-now-vibe",
-   "2026-11-03-mistral-help-training-data-use",
-   "2026-11-03-mistral-help-training-opt-out",
-   "2026-11-03-mistral-help-zero-data-retention",
-   "2026-11-03-mistral-memories-launch-2025",
-   "2026-11-03-mistral-pricing-page",
-   "2026-11-03-mistral-privacy-policy",
-   "2026-11-03-mistral-release-notes-vibe",
-   "2026-11-03-mistral-trust-center-subprocessors",
-   "2026-11-03-mistral-vibe-agent-launch",
-   "2026-11-03-mistral-vibe-product-page",
-   "2026-11-03-vibe-app-store-listing",
-   "2026-11-03-vibe-google-play-listing",
-   "mistral-ai"
-  ],
-  "services/nextcloud": [
-   "european-public-sector-leaves-us-software",
-   "nextcloud"
-  ],
-  "services/chatgpt": [
-   "2026-11-03-decrypt-quitgpt-data-guide",
-   "2026-11-03-openai-chatgpt-custom-instructions-help",
-   "2026-11-03-openai-chatgpt-data-controls-help",
-   "2026-11-03-openai-chatgpt-data-export-help",
-   "2026-11-03-openai-chatgpt-delete-account-help",
-   "2026-11-03-openai-chatgpt-memory-help",
-   "2026-11-03-openai-chatgpt-projects-help",
-   "2026-11-03-openai-custom-gpt-retirement-faq",
-   "2026-11-03-openai-gpts-help",
-   "2026-11-03-proton-delete-chatgpt-account-guide",
-   "2026-11-03-virtualizationreview-custom-gpt-retirement",
-   "openai"
-  ],
   "services/organic-maps": [
    "2026-11-03-comaps-homepage",
    "2026-11-03-estonian-register-organic-maps-ou",
@@ -6582,42 +7526,6 @@
    "2026-11-03-organic-maps-search-faq",
    "2026-11-03-organic-maps-supported-versions-faq",
    "organic-maps"
-  ],
-  "services/proton-drive": [
-   "2026-11-03-proton-autumn-winter-2026-roadmap",
-   "2026-11-03-proton-docs-create-edit-help",
-   "2026-11-03-proton-docs-import-export-help",
-   "2026-11-03-proton-drive-cli-help",
-   "2026-11-03-proton-drive-download-page",
-   "2026-11-03-proton-drive-faq",
-   "2026-11-03-proton-drive-free-storage-help",
-   "2026-11-03-proton-drive-import-google-drive-help",
-   "2026-11-03-proton-drive-macos-setup-help",
-   "2026-11-03-proton-drive-previewable-file-types",
-   "2026-11-03-proton-drive-pricing-page",
-   "2026-11-03-proton-drive-release-notes",
-   "2026-11-03-proton-drive-roadmap-page",
-   "2026-11-03-proton-drive-setup-help",
-   "2026-11-03-proton-drive-support-hub",
-   "2026-11-03-proton-drive-version-history-help",
-   "2026-11-03-proton-drive-web-guide",
-   "2026-11-03-proton-drive-windows-app-help",
-   "2026-11-03-proton-google-photos-import-help",
-   "2026-11-03-proton-plans-help",
-   "2026-11-03-proton-sheets-import-export-help",
-   "2026-11-03-rclone-proton-drive-backend-docs",
-   "2026-11-03-reddit-proton-drive-roadmap-h2-2026",
-   "proton"
-  ],
-  "services/proton-mail": [
-   "2026-11-03-proton-autumn-winter-2026-roadmap",
-   "2026-11-03-proton-easy-switch-help",
-   "2026-11-03-proton-plans-help",
-   "proton"
-  ],
-  "services/proton-lumo": [
-   "2026-11-03-proton-delete-chatgpt-account-guide",
-   "proton"
   ],
   "services/qwant": [
    "2026-11-03-android-dma-search-choice-eligibility",
@@ -6694,10 +7602,13 @@
   ],
   "2026-11-03-heise-proton-slack-leak": [
    "2026-11-03-404media-proton-ai-reckoning",
-   "proton"
+   "proton",
+   "proton-ai-push-security-concerns"
   ],
   "2026-11-03-404media-proton-ai-reckoning": [
-   "2026-11-03-404media-proton-ceo-cancels-reinterviews"
+   "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "proton",
+   "proton-ai-push-security-concerns"
   ],
   "2026-11-03-apple-iphone-safari-search-help": [
    "2026-11-03-apple-iphone-default-search-engine-help"
@@ -6709,15 +7620,32 @@
    "2026-11-03-brave-default-search-engine-help",
    "2026-11-03-brave-search-faq-default-mobile"
   ],
-  "2026-11-03-netzpolitik-council-data-omnibus": [
-   "2026-11-03-noyb-council-omnibus-ai-training"
+  "2026-11-03-noyb-council-omnibus-ai-training": [
+   "2026-11-03-council-digital-omnibus-mandate",
+   "eu-digital-omnibus-gdpr-changes"
   ],
-  "2026-11-03-kamerbrief-belastingdienst-m365-on-premises": [
-   "2026-11-03-register-dutch-tax-office-drops-m365"
+  "2026-11-03-netzpolitik-council-data-omnibus": [
+   "2026-11-03-council-digital-omnibus-mandate",
+   "2026-11-03-noyb-council-omnibus-ai-training",
+   "eu-digital-omnibus-gdpr-changes"
+  ],
+  "2026-11-03-council-digital-omnibus-mandate": [
+   "2026-11-03-council-digital-omnibus-press-release",
+   "eu-digital-omnibus-gdpr-changes",
+   "european-commission"
+  ],
+  "2026-11-03-meta-ai-eu-training-announcement": [
+   "2026-11-03-meta-privacy-center-genai"
   ],
   "2026-11-03-openai-custom-gpt-retirement-faq": [
+   "2026-11-03-openai-custom-gpt-faq-full-text",
    "2026-11-03-virtualizationreview-custom-gpt-retirement",
-   "openai"
+   "openai",
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-kamerbrief-belastingdienst-m365-on-premises": [
+   "2026-11-03-register-dutch-tax-office-drops-m365",
+   "european-public-sector-leaves-us-software"
   ],
   "2026-11-03-ec-dma-review-2026-choice-screens": [
    "alphabet",
@@ -6824,6 +7752,7 @@
    "mistral-ai"
   ],
   "2026-11-03-mistral-pricing-page": [
+   "eu-digital-omnibus-gdpr-changes",
    "mistral-ai"
   ],
   "2026-11-03-mistral-release-notes-vibe": [
@@ -6839,7 +7768,16 @@
    "mistral-ai"
   ],
   "2026-11-03-openai-gpts-help": [
-   "openai"
+   "openai",
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-openai-custom-gpt-faq-full-text": [
+   "openai",
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-virtualizationreview-custom-gpt-retirement": [
+   "openai",
+   "openai-custom-gpt-retirement"
   ],
   "2026-11-03-decrypt-quitgpt-data-guide": [
    "openai"
@@ -6885,6 +7823,14 @@
   ],
   "2026-11-03-proton-autumn-winter-2026-roadmap": [
    "proton"
+  ],
+  "2026-11-03-reddit-andy-yen-message-to-community": [
+   "proton",
+   "proton-ai-push-security-concerns"
+  ],
+  "2026-11-03-proton-ai-manifesto": [
+   "proton",
+   "proton-ai-push-security-concerns"
   ],
   "2026-11-03-proton-drive-release-notes": [
    "proton"
@@ -6939,6 +7885,10 @@
    "european-commission",
    "kids-act"
   ],
+  "2026-11-03-council-digital-omnibus-press-release": [
+   "eu-digital-omnibus-gdpr-changes",
+   "european-commission"
+  ],
   "2026-11-03-dfom-joint-position-paper": [
    "digital-fairness-act",
    "digital-markets-act",
@@ -6946,6 +7896,39 @@
   ],
   "articles/app-builders-ask-eu-for-portable-followers": [
    "eu-digital-fairness-act-social-switching"
+  ],
+  "2026-11-03-gdpr-articles-6-and-21-legitimate-interest-objection": [
+   "eu-digital-omnibus-gdpr-changes"
+  ],
+  "2026-11-03-mistral-help-training-opt-out": [
+   "eu-digital-omnibus-gdpr-changes"
+  ],
+  "articles/eu-governments-back-ai-training-on-your-data": [
+   "eu-digital-omnibus-gdpr-changes"
+  ],
+  "2026-11-03-register-dutch-tax-office-drops-m365": [
+   "european-public-sector-leaves-us-software"
+  ],
+  "articles/german-schools-dutch-tax-office-sovereign-cloud": [
+   "european-public-sector-leaves-us-software"
+  ],
+  "2026-11-03-mistral-docs-skills": [
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-proton-lumo-2-announcement": [
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-openai-plugins-in-chatgpt-help": [
+   "openai-custom-gpt-retirement"
+  ],
+  "articles/openai-retires-custom-gpts": [
+   "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-404media-proton-ceo-cancels-reinterviews": [
+   "proton-ai-push-security-concerns"
+  ],
+  "articles/proton-ceo-ai-push-security-checks": [
+   "proton-ai-push-security-concerns"
   ]
  }
 }

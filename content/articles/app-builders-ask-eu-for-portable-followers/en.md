@@ -1,6 +1,6 @@
 ---
 title: Social app builders ask the EU for a right to take your network with you
-description: More than 35 social app builders want the EU's Digital Fairness Act, due on 11 November, to let you leave a platform without losing your followers.
+description: More than 35 social app builders want the EU's Digital Fairness Act, expected on 11 November, to let you leave a platform without losing your followers.
 date: '2026-11-03'
 type: news
 story: eu-digital-fairness-act-social-switching
@@ -11,6 +11,7 @@ guides: [x-to-bluesky]
 sources:
   - {title: 'EU urged to ease social media switching', publisher: Rapporteur, url: 'https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/', date: '2026-11-03'}
   - {title: 'Freedom of movement in digital Europe (joint position paper)', publisher: Modal Foundation, url: 'https://digitalfreedomofmovement.eu/', date: '2026-11-03'}
+  - {title: 'Digital Fairness Act targeted for 11 November 2026', publisher: Digital Fairness Act newsletter, url: 'https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for', date: '2026-09-29'}
 author: Switch-to.eu
 image: /images/articles/app-builders-ask-eu-for-portable-followers.jpg
 imageAlt: 'The Berlaymont building in Brussels, headquarters of the European Commission, with EU flags in front'
@@ -24,7 +25,7 @@ draft: true
 updatedAt: '2026-11-03'
 ---
 
-More than 35 builders of alternative social apps have asked the European Commission for a right to take your social network with you when you leave a platform. They signed a joint statement ahead of the Digital Fairness Act, the EU's planned update of online consumer law, [Rapporteur reports](https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/). The Commission is due to present that proposal on 11 November.
+More than 35 builders of alternative social apps have asked the European Commission for a right to take your social network with you when you leave a platform. They signed a joint statement ahead of the Digital Fairness Act, the EU's planned update of online consumer law, [Rapporteur reports](https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/). The Commission is expected to present that proposal on 11 November, [according to its provisional agenda](https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for).
 
 The core idea: every social platform would keep each account in a "personal data server" built to one common standard. Any app you authorise would read and write to the same account, and you'd be able to move the server to another host without losing your network, according to [the coalition's position paper](https://digitalfreedomofmovement.eu/).
 
