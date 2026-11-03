@@ -54,7 +54,7 @@ pricingTiers:
   - Alleen jij hebt de sleutel
   - Werkt naast gewone opslag
 metaTitle: 'pCloud: Zwitserse cloudopslag met EU-datacenter'
-metaDescription: pCloud bewaart je bestanden in Luxemburg of de VS. Tot 10 GB gratis, levenslange abonnementen vanaf €219, en optionele zero-knowledge encryptie. Zwitsers bedrijf, GDPR-conform.
+metaDescription: pCloud bewaart je bestanden in Luxemburg of de VS. Tot 10 GB gratis, levenslange abonnementen vanaf €219, en optionele zero-knowledge encryptie.
 keywords:
 - pCloud
 - EU cloudopslag

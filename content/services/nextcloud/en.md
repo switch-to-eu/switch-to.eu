@@ -59,8 +59,8 @@ tags:
 - GDPR-compliant
 - self-hosted
 # SEO
-metaTitle: 'Nextcloud: Open-Source File Sync and Collaboration from Germany'
-metaDescription: Nextcloud is a free, open-source platform for file storage, video calls, and document editing. Self-host or use managed EU hosting. Built by Nextcloud GmbH in Stuttgart, Germany.
+metaTitle: 'Nextcloud: Open-Source File Sync from Germany'
+metaDescription: Nextcloud is a free, open-source platform for file storage, video calls and document editing. Self-host or use managed EU hosting. Built in Stuttgart, Germany.
 keywords:
 - Nextcloud
 - open source cloud storage

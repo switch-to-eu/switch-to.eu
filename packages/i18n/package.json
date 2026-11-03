@@ -23,6 +23,10 @@
       "types": "./src/utils.ts",
       "default": "./src/utils.ts"
     },
+    "./seo": {
+      "types": "./src/seo.ts",
+      "default": "./src/seo.ts"
+    },
     "./messages/*": "./messages/*"
   },
   "scripts": {

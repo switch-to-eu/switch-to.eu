@@ -61,7 +61,7 @@ issues:
 - Onderworpen aan Amerikaanse surveillancewetten (FISA, CLOUD Act)
 - Onderzocht door meerdere EU-gegevensbeschermingsautoriteiten
 metaTitle: 'ChatGPT Review: Privacy, Prijzen & EU-dataproblemen (2026)'
-metaDescription: ChatGPT van OpenAI traint standaard op je gesprekken. Bekijk prijzen (Gratis tot $200/maand), GDPR-problemen, EU-dataresidentie beperkingen en privacyvriendelijke alternatieven.
+metaDescription: ChatGPT van OpenAI traint standaard op je gesprekken. Bekijk prijzen (gratis tot $200/maand), GDPR-problemen en privacyvriendelijke alternatieven.
 keywords:
 - ChatGPT privacy
 - ChatGPT GDPR

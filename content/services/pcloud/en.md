@@ -67,7 +67,7 @@ tags:
 - user-friendly
 # SEO
 metaTitle: 'pCloud: Swiss Cloud Storage with EU Data Center'
-metaDescription: pCloud stores your files in Luxembourg or the US. Up to 10 GB free, lifetime plans from €219, and optional zero-knowledge encryption. Swiss company, GDPR compliant.
+metaDescription: pCloud stores your files in Luxembourg or the US. Up to 10 GB free, lifetime plans from €219, and optional zero-knowledge encryption. Swiss company.
 keywords:
 - pCloud
 - EU cloud storage

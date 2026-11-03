@@ -76,7 +76,7 @@ issues:
 recommendedAlternative: mistral-le-chat
 # SEO
 metaTitle: 'ChatGPT Review: Privacy, Pricing & EU Data Concerns (2026)'
-metaDescription: ChatGPT by OpenAI trains on your conversations by default. See pricing (Free to $200/mo), GDPR issues, EU data residency limits, and privacy-focused alternatives.
+metaDescription: ChatGPT by OpenAI trains on your conversations by default. See pricing (Free to $200/mo), GDPR issues, EU data residency limits and private alternatives.
 keywords:
 - ChatGPT privacy
 - ChatGPT GDPR
@@ -127,7 +127,7 @@ sourceUrls:
   label: OpenAI Security and Privacy
 - url: https://help.openai.com/en/articles/9903489-data-residency-and-inference-residency-for-chatgpt
   label: ChatGPT Data Residency
-- url: https://www.euronews.com/next/2024/12/20/italys-privacy-watchdog-fines-openai-15-million-after-probe-into-chatgpt-data-collection
+- url: https://www.euronews.com/2024/12/20/italys-privacy-watchdog-fines-openai-15-million-after-probe-into-chatgpt-data-collection
   label: Italy EUR 15M Fine (Euronews)
 - url: https://terms.law/Privacy-Watchdog/ai-services/openai/
   label: OpenAI Privacy Score Review

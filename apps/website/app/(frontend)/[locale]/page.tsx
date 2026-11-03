@@ -1,6 +1,7 @@
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations, getLocale } from "next-intl/server";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import type { Metadata, ResolvingMetadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 import { getToolById } from "@switch-to-eu/blocks/data/tools";
 
@@ -21,21 +22,20 @@ import type { Category, Guide, Service } from "@/lib/content/types";
 type Locale = "en" | "nl";
 
 
-export async function generateMetadata() {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("common");
   const locale = await getLocale();
-  const title = `${t("title")} - ${t("subtitle")}`;
-  const description = t("description");
 
-  return {
-    title,
-    description,
-    alternates: generateLanguageAlternates("", locale),
-    openGraph: {
-      title,
-      description,
-    },
-  };
+  return pageMetadata({
+    parent,
+    path: "",
+    locale,
+    title: t("title"),
+    description: t("description"),
+  });
 }
 
 function fetchHomepageGuides(

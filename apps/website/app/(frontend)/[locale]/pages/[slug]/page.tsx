@@ -9,7 +9,8 @@ export function generateStaticParams() {
     docs.map((p) => ({ locale, slug: p.slug }))
   );
 }
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
+import { inheritedOpenGraph } from "@/lib/seo";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
@@ -22,11 +23,14 @@ import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading"
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { getCategorySlug } from "@/lib/services";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ slug: string; locale: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { slug, locale } = await params;
 
   const page = findLandingPage(slug, locale);
@@ -35,12 +39,16 @@ export async function generateMetadata({
     return { title: "Not Found" };
   }
 
+  const alternates = generateLanguageAlternates(`pages/${slug}`, locale as Locale);
+
   return {
-    title: `${page.ogTitle || page.title} | switch-to.eu`,
-    description: page.ogDescription || page.description,
+    title: page.metaTitle || `${page.ogTitle || page.title} | switch-to.eu`,
+    description:
+      page.metaDescription || page.ogDescription || page.description,
     keywords: page.keywords,
-    alternates: generateLanguageAlternates(`pages/${slug}`, locale as Locale),
+    alternates,
     openGraph: {
+      ...(await inheritedOpenGraph(parent, alternates.canonical)),
       title: page.ogTitle || page.title,
       description: page.ogDescription || page.description,
       type: "article",

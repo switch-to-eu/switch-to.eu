@@ -14,7 +14,7 @@ issues:
 - ConnectID-systeem volgt naar verluidt 300 miljoen gebruikers zonder melding
 - Geschiedenis van grote datalekken die 3 miljard accounts troffen
 - Bewaart zoeklogs 18 maanden, IP-adressen 6 maanden
-metaTitle: Yahoo Search Privacy Review - Gegevensverzameling en GDPR-problemen
+metaTitle: 'Yahoo Search privacy: gegevensverzameling en GDPR-problemen'
 metaDescription: Yahoo Search wordt aangedreven door Microsoft Bing en verzamelt uitgebreide gebruikersgegevens. Beboet door de Franse CNIL voor cookieschendingen.
 ogTitle: Yahoo Search - Privacy en gegevensverzameling review
 ogDescription: Lees over de gegevensverzameling van Yahoo Search, GDPR-boetes en waarom EU-gebruikers alternatieven kunnen overwegen. Aangedreven door Bing met opslag in de VS.

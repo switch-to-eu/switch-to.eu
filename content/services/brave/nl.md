@@ -23,7 +23,7 @@ pricingTiers:
   - Brave Search
   - Werkt met Chrome-extensies
   - Synchronisatie tussen apparaten
-metaTitle: 'Brave Browser: Priv\u00e9 Browsen Met Ingebouwde Adblocker'
+metaTitle: 'Brave Browser: Privé Browsen Met Ingebouwde Adblocker'
 metaDescription: Brave blokkeert advertenties en trackers standaard. Gratis, open source en compatibel met Chrome-extensies. Inclusief Brave Search, Leo AI en optionele VPN.
 keywords:
 - Brave browser
@@ -33,7 +33,7 @@ keywords:
 - open source browser
 - tracker blokkering
 - Brave vs Chrome
-ogTitle: 'Brave Browser: Priv\u00e9 Browsen Met Ingebouwde Adblocker'
+ogTitle: 'Brave Browser: Privé Browsen Met Ingebouwde Adblocker'
 ogDescription: Gratis privacybrowser die advertenties en trackers direct blokkeert. Open source, compatibel met Chrome-extensies, met eigen zoekmachine en AI-assistent.
 gdprNotes: Brave voldoet aan de GDPR en heeft een aangestelde EU-vertegenwoordiger. De browser verwerkt vrijwel alle gegevens lokaal op je apparaat. Browsegeschiedenis, zoekopdrachten en pagina-inhoud verlaten je computer niet. Synchronisatie tussen apparaten gebruikt end-to-end-encryptie die Brave niet kan lezen. Het bedrijf verzamelt, deelt of verkoopt geen persoonlijke gegevens. Onafhankelijk onderzoek toont aan dat Brave de minste gegevens terugstuurt naar zijn servers van alle grote browsers. Optionele functies zoals Brave Rewards vereisen enige gegevensverzameling, maar je moet ze zelf inschakelen.
 ---

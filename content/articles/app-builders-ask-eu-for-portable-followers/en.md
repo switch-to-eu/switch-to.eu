@@ -5,7 +5,7 @@ date: '2026-11-03'
 type: news
 story: eu-digital-fairness-act-social-switching
 entities: [digital-fairness-act, european-commission, digital-markets-act]
-services: [mastodon, bluesky, x-(twitter), instagram]
+services: [mastodon, bluesky, x-twitter, instagram]
 categories: [social-media]
 guides: [x-to-bluesky]
 sources:

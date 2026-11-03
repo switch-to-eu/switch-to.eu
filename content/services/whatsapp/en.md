@@ -91,13 +91,13 @@ certifications:
 sourceUrls:
 - url: https://www.whatsapp.com/legal/privacy-policy-eea
   label: WhatsApp EEA Privacy Policy
-- url: https://heydata.eu/en/magazine/whatsapp-privacy-2025/
+- url: https://heydata.eu/en/magazine/whatsapp-privacy-2025
   label: WhatsApp & Data Privacy 2025 - heyData
 - url: https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-conclusion-inquiry-whatsapp
   label: Ireland DPC WhatsApp inquiry conclusion
 - url: https://www.bleepingcomputer.com/news/security/whatsapp-fined-55-million-by-irish-dpc-for-gdpr-violation/
   label: WhatsApp EUR 5.5M GDPR fine
-- url: https://www.hunton.com/privacy-and-information-security-law/irish-commissioner-fines-whatsapp-e225-million-for-gdpr-violations
+- url: https://www.hunton.com/privacy-and-cybersecurity-law-blog/irish-commissioner-fines-whatsapp-e225-million-for-gdpr-violations
   label: WhatsApp EUR 225M GDPR fine
 - url: https://socradar.io/blog/cve-2025-55177-0-click-whatsapp-exploit-spyware-apple/
   label: CVE-2025-55177 zero-click exploit

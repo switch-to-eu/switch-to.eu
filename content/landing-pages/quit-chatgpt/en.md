@@ -7,6 +7,8 @@ recommendedServices:
 - proton-lumo
 relatedService: chatgpt
 # SEO
+metaTitle: 'Quit ChatGPT: European AI Alternatives | switch-to.eu'
+metaDescription: Join millions leaving ChatGPT. Compare European AI alternatives like Mistral Vibe (formerly Le Chat) and Proton Lumo, and what each does with your data.
 keywords:
 - quit chatgpt
 - chatgpt european alternative

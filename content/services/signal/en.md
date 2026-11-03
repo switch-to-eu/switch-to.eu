@@ -28,7 +28,7 @@ tags:
 - privacy-focused
 # SEO
 metaTitle: 'Signal: Free Encrypted Messaging App from a Nonprofit'
-metaDescription: Signal offers free end-to-end encrypted messaging, voice calls, and video calls. Run by a nonprofit with no ads or tracking. Open-source and available on all platforms.
+metaDescription: Signal offers free end-to-end encrypted messaging, voice calls and video calls. Run by a nonprofit with no ads or tracking. Open-source, on all platforms.
 keywords:
 - Signal messenger
 - encrypted messaging app

@@ -1,8 +1,8 @@
 {
   "layout": {
     "metadata": {
-      "title": "PrivNote — Zelfvernietigende Versleutelde Notities | switch-to.eu",
-      "description": "Verstuur privénotities die zichzelf vernietigen na het lezen. End-to-end versleuteld, geen account nodig."
+      "title": "PrivNote: zelfvernietigende notities | switch-to.eu",
+      "description": "Verstuur privénotities die zichzelf verwijderen na het lezen, of na een tijd die je kiest van 5 minuten tot 30 dagen. End-to-end versleuteld, zonder account."
     },
     "header": {
       "createNote": "Nieuwe Notitie",

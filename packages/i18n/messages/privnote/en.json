@@ -1,8 +1,8 @@
 {
   "layout": {
     "metadata": {
-      "title": "PrivNote — Self-Destructing Encrypted Notes | switch-to.eu",
-      "description": "Send private notes that self-destruct after reading. End-to-end encrypted, no account needed."
+      "title": "PrivNote: Self-Destructing Encrypted Notes | switch-to.eu",
+      "description": "Send private notes that delete themselves after reading, or after a time you set from 5 minutes to 30 days. End-to-end encrypted, with no account."
     },
     "header": {
       "createNote": "New Note",

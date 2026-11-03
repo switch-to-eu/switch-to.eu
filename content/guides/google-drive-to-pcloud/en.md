@@ -12,6 +12,9 @@ missingFeatures:
 - 'Real-time collaboration: pCloud does not offer the same capabilities for real-time document collaboration as Google Drive'
 - 'Fewer integrations: pCloud has fewer integrations with other services compared to Google'
 - 'Google Docs format: Google Docs must be converted to other formats such as Word or PDF'
+# SEO
+metaTitle: 'Google Drive to pCloud: Move Your Files Step by Step'
+metaDescription: Move from Google Drive to pCloud step by step. Transfer your files with MultCloud, see what happens to your Google Docs, and fix common problems.
 # Workflow
 contentPipelineStatus: not-started
 updatedAt: '2026-04-20'
@@ -199,7 +202,7 @@ Check your Google Drive weekly to see if there are any new files that you need t
 
 If you have problems during the transfer:
 
-- Visit the [pCloud Help page](https://www.pcloud.com/help)
+- Visit the [pCloud Help page](https://help.pcloud.com/)
 - Send an email to [support@pCloud.com](mailto:support@pcloud.com)
 - Call a family member or friend who is good with computers
 

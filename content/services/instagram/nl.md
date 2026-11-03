@@ -15,8 +15,8 @@ issues:
 - Meta AI-gesprekken worden sinds december 2025 gebruikt voor advertentiepersonalisatie zonder opt-out
 - Gegevens worden voornamelijk opgeslagen op Amerikaanse servers, onderworpen aan Amerikaanse surveillancewetten
 - AI-modellen getraind op gegevens van meer dan 400 miljoen Europese gebruikers zonder zinvolle toestemming
-metaTitle: 'Instagram privacyproblemen: waarom overstappen naar een EU-alternatief'
-metaDescription: Instagram verzamelt je gegevens over alle Meta-apps voor advertentietargeting. Meer dan 2,2 miljard euro aan GDPR-boetes. Vind privacyvriendelijke EU-alternatieven.
+metaTitle: Instagram-privacyproblemen en EU-alternatieven
+metaDescription: Instagram verzamelt je gegevens over alle Meta-apps voor advertenties. Meer dan 2,2 miljard euro aan GDPR-boetes. Vind privacyvriendelijke EU-alternatieven.
 keywords:
 - Instagram privacy
 - Instagram alternatief EU

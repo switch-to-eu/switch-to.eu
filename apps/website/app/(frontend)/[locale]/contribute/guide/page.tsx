@@ -4,19 +4,24 @@ import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Button } from "@switch-to-eu/ui/components/button";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("contribute");
   const locale = await getLocale();
 
-  return {
-    title: t("title"),
-    description: t("description"),
-    alternates: generateLanguageAlternates("contribute/guide", locale),
-  };
+  return pageMetadata({
+    parent,
+    path: "contribute/guide",
+    locale,
+    title: t("guide.meta.title"),
+    description: t("guide.meta.description"),
+  });
 }
 
 export default async function ContributeGuidePage() {

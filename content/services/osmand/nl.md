@@ -37,7 +37,7 @@ pricingTiers:
   - 3D-terrein en weerlagen
   - Kaartupdates elk uur
 metaTitle: 'OsmAnd: Offline kaarten en navigatie uit Nederland'
-metaDescription: OsmAnd is een open-source offline navigatie-app gebouwd op OpenStreetMap. Gevestigd in Nederland, met GPS-tracking, topografische kaarten en geen dataverzameling.
+metaDescription: OsmAnd is een open-source offline navigatie-app op OpenStreetMap. Gevestigd in Nederland, met GPS-tracking, topografische kaarten en geen dataverzameling.
 keywords:
 - OsmAnd
 - offline kaarten

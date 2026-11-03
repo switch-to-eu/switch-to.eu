@@ -13,8 +13,8 @@ issues:
 - Slaat gegevens op Amerikaanse servers op, onderworpen aan Amerikaanse surveillancewetten waaronder FISA Section 702
 - Standaardinstellingen gericht op maximale dataverzameling. Je moet handmatig via meerdere menu's afmelden
 - Gebruikt verzamelde data voor het trainen van AI-modellen, met beperkte opt-out voor EU-gebruikers
-metaTitle: 'Facebook van Meta: Privacyproblemen, GDPR-boetes en EU-alternatieven'
-metaDescription: Facebook verzamelt surfgegevens, locatie, contacten en foto's voor advertenties. Meer dan 2,5 miljard euro aan EU-boetes. Bekijk Europese alternatieven voor sociale netwerken.
+metaTitle: 'Facebook: privacyproblemen, GDPR-boetes en EU-alternatieven'
+metaDescription: 'Facebook verzamelt surfgegevens, locatie, contacten en foto''s voor advertenties. Meer dan 2,5 miljard euro aan EU-boetes. Bekijk Europese alternatieven.'
 keywords:
 - Facebook privacy
 - Facebook GDPR boetes

@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@/lib/quiet-palette";
 import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
@@ -19,15 +19,20 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("tools");
   const locale = await getLocale();
 
-  return {
-    title: t("title"),
-    description: t("description"),
-    alternates: generateLanguageAlternates("tools", locale),
-  };
+  return pageMetadata({
+    parent,
+    path: "tools",
+    locale,
+    title: t("meta.title"),
+    description: t("meta.description"),
+  });
 }
 
 const i18nKeyMap: Record<string, string> = {

@@ -12,6 +12,9 @@ missingFeatures:
 - 'Cloud backup limitations: Unlike WhatsApp, Signal does not offer cloud backups to Google Drive or iCloud'
 - 'Polls: Signal does not have a poll feature'
 - 'Contact discovery: Signal requires both users to have the app installed before they can communicate with each other'
+# SEO
+metaTitle: 'WhatsApp to Signal: Move Your Contacts and Groups'
+metaDescription: Switch from WhatsApp to Signal in about 30 minutes. Install the app, find your contacts, recreate your groups, and tell people you moved to Signal.
 # Workflow
 contentPipelineStatus: not-started
 updatedAt: '2026-04-20'

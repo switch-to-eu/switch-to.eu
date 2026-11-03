@@ -30,7 +30,7 @@ tags:
 - fediverse
 # SEO
 metaTitle: 'Mastodon: Free Decentralized Social Network from Germany'
-metaDescription: Mastodon is a free, open-source social network built in Germany. No ads, no algorithms, no data selling. Over 10 million accounts across 10,500 independent servers.
+metaDescription: Mastodon is a free, open-source social network built in Germany. No ads, no algorithms, no data selling. Over 10 million accounts on 10,500 servers.
 keywords:
 - Mastodon
 - decentralized social network

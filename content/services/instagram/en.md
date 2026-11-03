@@ -64,7 +64,7 @@ sourceUrls:
   label: DPC fines Meta €251M (2024)
 - url: https://gdprlocal.com/metas-e1-2-billion-gdpr-fine-why-it-still-matters-in-2025/
   label: Meta €1.2B GDPR fine analysis
-- url: https://hnksolicitors.com/news/instagram-fined-record-e405-million-over-childrens-data-privacy/
+- url: https://www.bbc.com/news/technology-62800884
   label: Instagram €405M children's data fine
 - url: https://dgtlinfra.com/meta-data-center-locations-facebook/
   label: Meta data center locations

@@ -38,7 +38,7 @@ pricingTiers:
   - SSO-integratie
   - Implementatie op maat
 metaTitle: 'Mistral Le Chat: EU AI-assistent uit Parijs | Switch to EU'
-metaDescription: Le Chat van Mistral AI is een GDPR-conforme AI-assistent gebouwd in Parijs. Gratis versie beschikbaar. Deep Research, beeldgeneratie, codetools en EU-dataopslag.
+metaDescription: Le Chat van Mistral AI is een GDPR-conforme AI-assistent uit Parijs. Gratis versie beschikbaar. Deep Research, beeldgeneratie, codetools en EU-dataopslag.
 keywords:
 - Mistral Le Chat
 - EU AI-assistent

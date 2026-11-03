@@ -1,7 +1,8 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations, getLocale } from "next-intl/server";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import type { Metadata, ResolvingMetadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
 import { getCardColor } from "@/lib/quiet-palette";
@@ -16,15 +17,20 @@ const CONTRIBUTION_CARDS = [
   { titleKey: "cards.translate.title", descKey: "cards.translate.description", ctaKey: "cards.translate.cta", href: "mailto:hi@switch-to.eu", external: true, colorIndex: 5, shape: "sunburst" },
 ] as const;
 
-export async function generateMetadata() {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("contribute");
   const locale = await getLocale();
 
-  return {
-    title: t("title"),
-    description: t("description"),
-    alternates: generateLanguageAlternates("contribute", locale),
-  };
+  return pageMetadata({
+    parent,
+    path: "contribute",
+    locale,
+    title: t("meta.title"),
+    description: t("meta.description"),
+  });
 }
 
 export default async function ContributePage() {

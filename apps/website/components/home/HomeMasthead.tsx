@@ -13,7 +13,7 @@ const QUICK_SWITCHES = [
   { slug: "whatsapp", name: "WhatsApp" },
   { slug: "google-drive", name: "Google Drive" },
   { slug: "chatgpt", name: "ChatGPT" },
-  { slug: "x-(twitter)", name: "X" },
+  { slug: "x-twitter", name: "X" },
 ];
 
 /**

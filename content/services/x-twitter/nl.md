@@ -39,7 +39,7 @@ issues:
 - Bijgewerkte Servicevoorwaarden (januari 2026) bestempelen je AI-invoer als platformcontent.
 - Alle gebruikersgegevens staan op Amerikaanse servers, onderworpen aan Amerikaanse surveillancewetten.
 - Contentmoderatie sterk verminderd na de overname in 2022.
-metaTitle: X (Twitter) privacyproblemen, datagebruik en EU-alternatieven
+metaTitle: 'X (Twitter): privacyproblemen, datagebruik, EU-alternatieven'
 metaDescription: X (voorheen Twitter) traint Grok AI standaard op je berichten. Bekijk GDPR-zorgen, datalekken en Europese sociale media-alternatieven.
 keywords:
 - X Twitter privacy

@@ -15,7 +15,7 @@ issues:
 - Kan niet verwijderd worden van Windows, draait achtergrondprocessen zelfs als je het niet actief gebruikt
 - Gegevens worden verwerkt op servers in de VS, onderworpen aan Amerikaanse surveillancewetten waaronder FISA en CLOUD Act
 - Edge3P Telemetry verzamelt standaard zoekgegevens van externe zoekmachines
-metaTitle: 'Microsoft Edge Browser: Privacy, Gegevensverzameling & EU-alternatieven'
+metaTitle: 'Microsoft Edge: privacy, dataverzameling en EU-alternatieven'
 metaDescription: Microsoft Edge verzamelt standaard telemetriegegevens en deelt browseactiviteit via Copilot AI. Lees over privacyzorgen, GDPR-status en EU-browseralternatieven.
 keywords:
 - Microsoft Edge privacy

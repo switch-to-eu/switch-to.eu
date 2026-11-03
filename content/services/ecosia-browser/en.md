@@ -26,7 +26,7 @@ tags:
 - tree planting
 # SEO
 metaTitle: 'Ecosia Browser: Free EU Browser That Plants Trees'
-metaDescription: Ecosia Browser is a free, privacy-focused Chromium browser from Berlin. It blocks trackers by default and uses search ad revenue to plant trees. Over 230 million funded.
+metaDescription: Ecosia Browser is a free Chromium browser from Berlin. It blocks trackers by default and uses search ad revenue to plant trees. Over 230 million funded.
 keywords:
 - Ecosia Browser
 - EU browser

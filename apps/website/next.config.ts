@@ -113,6 +113,29 @@ const nextConfig: NextConfig = {
         destination: "/:locale/services/eu/tuta/:path*",
         permanent: true,
       },
+      // Renamed slug: protonmail → proton-mail
+      {
+        source: "/:locale/services/eu/protonmail",
+        destination: "/:locale/services/eu/proton-mail",
+        permanent: true,
+      },
+      // Renamed slug: x-(twitter) → x-twitter
+      {
+        source: "/:locale/services/non-eu/x-\\(twitter\\)",
+        destination: "/:locale/services/non-eu/x-twitter",
+        permanent: true,
+      },
+      {
+        source: "/:locale/services/non-eu/x-%28twitter%29",
+        destination: "/:locale/services/non-eu/x-twitter",
+        permanent: true,
+      },
+      // Removed service: koofr → its category
+      {
+        source: "/:locale/services/eu/koofr",
+        destination: "/:locale/services/storage",
+        permanent: true,
+      },
       // /llm.txt → /llms.txt (common alternative URL)
       {
         source: "/llm.txt",

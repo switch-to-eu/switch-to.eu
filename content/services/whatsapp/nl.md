@@ -41,7 +41,7 @@ issues:
 - Zero-click spyware-exploit (CVE-2025-55177) ontdekt in 2025
 - Primaire dataopslag in de Verenigde Staten, onderworpen aan Amerikaanse surveillancewetten
 metaTitle: 'WhatsApp: Privacyzorgen en EU-alternatieven'
-metaDescription: WhatsApp heeft 2 miljard+ gebruikers en end-to-end versleuteling, maar Meta verzamelt uitgebreide metadata. Beboet met EUR 230M voor GDPR. Bekijk EU-alternatieven.
+metaDescription: WhatsApp heeft 2 miljard+ gebruikers en end-to-end versleuteling, maar Meta verzamelt veel metadata. Beboet met EUR 230M voor GDPR. Bekijk EU-alternatieven.
 keywords:
 - WhatsApp privacy
 - WhatsApp GDPR

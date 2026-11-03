@@ -53,7 +53,7 @@ issues:
 - Gratis accounts krijgen minder privacybescherming dan betaalde Workspace-abonnementen
 - Beboet met 325 miljoen euro door de Franse CNIL voor toestemmingsovertredingen in 2025
 metaTitle: 'Gmail Review: Privacy, Prijzen en EU-gegevensproblemen'
-metaDescription: Gmail heeft 1,8 miljard gebruikers en 15 GB gratis opslag, maar je e-mailgegevens voeden het advertentieprofiel van Google. Bekijk prijzen, GDPR-status en privacyafwegingen.
+metaDescription: Gmail heeft 1,8 miljard gebruikers en 15 GB gratis opslag, maar je e-mail voedt het advertentieprofiel van Google. Bekijk prijzen, GDPR-status en afwegingen.
 keywords:
 - Gmail privacy
 - Gmail GDPR

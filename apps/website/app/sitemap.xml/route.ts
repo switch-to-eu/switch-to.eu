@@ -67,6 +67,7 @@ function buildEntries(): SitemapEntry[] {
   const staticRoutes = [
     "/about",
     "/contribute",
+    "/contribute/guide",
     "/tools",
     "/privacy",
     "/terms",

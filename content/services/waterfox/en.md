@@ -4,7 +4,7 @@ name: Waterfox
 region: eu-friendly
 category: browsers
 location: United Kingdom
-url: https://www.waterfox.net
+url: https://www.waterfox.com/
 freeOption: true
 description: Browse privately with zero telemetry, built-in ad blocking, and encrypted DNS from a UK-based independent Firefox fork.
 screenshot: /images/services/waterfox.png
@@ -26,8 +26,8 @@ tags:
 - open source
 - firefox alternative
 # SEO
-metaTitle: 'Waterfox Review: Privacy-First Firefox Fork with Zero Telemetry'
-metaDescription: Waterfox is a free, open-source Firefox fork from the UK with zero telemetry, built-in ad blocking, and encrypted DNS. Independent since 2023 under BrowserWorks Ltd.
+metaTitle: 'Waterfox Review: Firefox Fork with Zero Telemetry'
+metaDescription: Waterfox is a free, open-source Firefox fork from the UK with zero telemetry, built-in ad blocking and encrypted DNS. Independent since 2023.
 keywords:
 - Waterfox
 - privacy browser

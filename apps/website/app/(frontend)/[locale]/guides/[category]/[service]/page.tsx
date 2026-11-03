@@ -1,6 +1,6 @@
 import { getAllGuides } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
@@ -8,8 +8,9 @@ import { getTranslations } from "next-intl/server";
 import { GuideProgressWithI18n as GuideProgress } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd, isoDuration } from "@/lib/structured-data";
 import { notFound } from "next/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
@@ -36,11 +37,14 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; category: string; service: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; category: string; service: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { category, service, locale } = await params;
 
   const t = await getTranslations("guides.service.meta");
@@ -60,9 +64,16 @@ export async function generateMetadata({
   const title = guide.metaTitle || t("title", { title: guide.title });
   const description = guide.metaDescription || guide.description;
 
-  return {
+  const metadata = await pageMetadata({
+    parent,
+    path: `guides/${category}/${service}`,
+    locale,
     title,
     description,
+  });
+
+  return {
+    ...metadata,
     keywords: [
       sourceServiceName,
       targetServiceName,
@@ -71,11 +82,7 @@ export async function generateMetadata({
       category,
     ],
     authors: guide.author ? [{ name: guide.author }] : undefined,
-    alternates: generateLanguageAlternates(`guides/${category}/${service}`, locale as AppLocale),
-    openGraph: {
-      title,
-      description,
-    },
+    openGraph: { ...metadata.openGraph, type: "article" },
   };
 }
 
@@ -125,14 +132,18 @@ export default async function GuideServicePage({
   // Count steps that have the "complete" flag for progress tracking
   const completableStepCount = guideSteps.filter((s) => s.complete).length;
 
+  const navT = await getTranslations("navigation");
+  const guidePath = `guides/${category}/${service}`;
+
   // HowTo JSON-LD structured data
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
+  const totalTime = isoDuration(guide.timeRequired);
   const howToJsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: guide.title,
     description: guide.description,
-    totalTime: guide.timeRequired,
+    ...(totalTime ? { totalTime } : {}),
     ...(guide.difficulty === "beginner"
       ? { educationalLevel: "Beginner" }
       : guide.difficulty === "intermediate"
@@ -148,9 +159,23 @@ export default async function GuideServicePage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      <JsonLd data={howToJsonLd} />
+      <JsonLd
+        data={articleJsonLd({
+          locale,
+          path: guidePath,
+          headline: guide.title,
+          description: guide.description,
+          datePublished: guide.date,
+          dateModified: guide.updatedAt,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: navT("home"), path: "" },
+          { name: guide.category.title, path: `services/${category}` },
+          { name: guide.title, path: guidePath },
+        ])}
       />
       {/* Mobile sidebar drawer - Only visible on mobile */}
       <MobileGuideSidebar

@@ -5,6 +5,8 @@ missingFeatures:
 - 'Minder opslagruimte in gratis versie: ProtonMail''s gratis versie biedt minder opslagruimte dan Gmail'
 - 'Beperkte zoekfunctionaliteit: Zoeken binnen e-mails werkt anders vanwege de encryptie'
 - 'Minder integraties: ProtonMail heeft minder integratie met andere diensten vergeleken met Google'
+metaTitle: 'Gmail naar Proton Mail: verhuis je e-mail met Easy Switch'
+metaDescription: 'Stap over van Gmail naar Proton Mail (ProtonMail) met Easy Switch. Importeer je e-mails, contacten en agenda''s, en stuur nieuwe mail door naar je nieuwe adres.'
 ---
 
 <!-- section:intro -->

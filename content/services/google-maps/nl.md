@@ -13,7 +13,7 @@ issues:
 - Standaardinstellingen geven voorrang aan gegevensverzameling boven privacy
 - Locatiegegevens gedeeld met alle Google-diensten
 - Privacybeleid van 32 pagina's dat de meeste gebruikers niet volledig begrijpen
-metaTitle: 'Google Maps Privacy: Locatietracking & Zorgen voor EU-gebruikers'
+metaTitle: 'Google Maps privacy: locatietracking en zorgen voor de EU'
 metaDescription: Google Maps volgt je locatie voor advertentietargeting en slaat gegevens op Amerikaanse servers op. Lees over privacyzorgen, GDPR-problemen en EU-alternatieven.
 keywords:
 - Google Maps privacy

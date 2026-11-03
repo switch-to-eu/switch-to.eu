@@ -14,7 +14,7 @@ specs:
   liveTraffic: Niet beschikbaar
   publicTransport: Bus, tram, metro, geen actuele tijden
 metaTitle: 'Organic Maps: Gratis Offline Navigatie Zonder Tracking'
-metaDescription: Organic Maps is een gratis, open-source offline navigatie-app op basis van OpenStreetMap. Geen tracking, geen advertenties, geen gegevensverzameling. Voor iOS, Android en Linux.
+metaDescription: Organic Maps is een gratis, open-source offline navigatie-app op basis van OpenStreetMap. Geen tracking, geen advertenties. Voor iOS, Android en Linux.
 keywords:
 - organic maps
 - offline kaarten app

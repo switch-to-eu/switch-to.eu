@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
@@ -33,7 +33,10 @@ import {
   hasPricingData,
   hasSecurityData,
   getAllEuServiceSlugs,
+  getServicesReplacedBy,
 } from "@/lib/services";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { generateServiceMetadata } from "@/lib/service-metadata";
 import type { Service, Guide } from "@/lib/content/types";
 
@@ -43,13 +46,16 @@ export function generateStaticParams() {
   return getAllEuServiceSlugs();
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; service_name: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; service_name: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { service_name, locale } = await params;
-  return generateServiceMetadata({ serviceName: service_name, locale });
+  return generateServiceMetadata({ serviceName: service_name, locale, parent });
 }
 
 interface TabSpec {
@@ -217,8 +223,18 @@ export default async function ServiceDetailPage({
     return source ? [{ guide, nonEuService: source }] : [];
   });
 
+  const replacedServices = getServicesReplacedBy(service.slug, locale);
+  const tNav = await getTranslations("navigation");
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: service.category.title, path: `services/${categorySlug}` },
+          { name: service.name, path: `services/eu/${service_name}` },
+        ])}
+      />
       {/* Hero */}
       <Container noPaddingMobile>
         <Link
@@ -274,6 +290,21 @@ export default async function ServiceDetailPage({
                   </span>
                 )}
               </div>
+
+              {replacedServices.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mb-4 text-sm">
+                  <span className="text-[#1a1a1a]">{t("alternativeTo")}</span>
+                  {replacedServices.map((replaced) => (
+                    <Link
+                      key={replaced.slug}
+                      href={`/services/non-eu/${replaced.slug}`}
+                      className="rounded-full border border-brand-green/40 px-3 py-1 font-semibold text-brand-green no-underline hover:bg-brand-green hover:text-white transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
+                    >
+                      {replaced.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
 
               <div className="flex flex-row gap-2">
                 <a

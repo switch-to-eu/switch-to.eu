@@ -5,6 +5,8 @@ missingFeatures:
 - 'Directe berichten: Bluesky ondersteunt momenteel geen privéberichten'
 - 'Polls: Het maken van polls is nog niet beschikbaar op Bluesky'
 - 'Geavanceerd zoeken: De zoekfunctie van Bluesky is beperkter vergeleken met X'
+metaTitle: 'X naar Bluesky: vind volgers en importeer tweets met Porto'
+metaDescription: Stap over van X (Twitter) naar Bluesky. Vind wie je volgt met Sky Follower Bridge, importeer je tweetarchief met Porto en zie wat niet meekomt.
 ---
 
 <!-- section:intro -->

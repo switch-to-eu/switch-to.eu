@@ -3,7 +3,7 @@ type: story
 title: EU Digital Fairness Act and the right to take your social network with you
 status: active
 entities: [digital-fairness-act, european-commission, digital-markets-act]
-services: [x-(twitter), instagram, bluesky, mastodon]
+services: [x-twitter, instagram, bluesky, mastodon]
 categories: [social-media]
 started: '2026-11-03'
 last_event: '2026-11-03'

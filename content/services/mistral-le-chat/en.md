@@ -5,7 +5,7 @@ region: eu
 category: artificial-intelligence
 featured: true
 location: France
-url: https://chat.mistral.ai/
+url: https://chat.mistral.ai/chat
 freeOption: true
 startingPrice: $14.99/month
 description: Get AI chat, research, and image generation from a Paris-based company that keeps your data in the EU.

@@ -5,7 +5,7 @@ region: non-eu
 category: email
 featured: true
 location: United States
-url: https://gmail.com
+url: https://workspace.google.com/products/gmail/
 freeOption: true
 startingPrice: $7/user/month
 description: Free email by Google with 15 GB storage. Processes your emails for features and uses your data to build advertising profiles across Google services.
@@ -111,8 +111,6 @@ sourceUrls:
   label: Gmail Statistics 2026
 - url: https://massivegrid.com/blog/us-cloud-act-explained-europe/
   label: CLOUD Act Explained
-- url: https://www.simpleanalytics.com/is-gdpr-compliant/gmail
-  label: Is Gmail GDPR Compliant?
 - url: https://support.google.com/mail/answer/6603
   label: How Gmail Ads Work
 researchNotes: |-

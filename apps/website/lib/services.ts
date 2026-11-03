@@ -122,6 +122,27 @@ export const getEuServicesByCategory = (
       .slice(0, limit),
   );
 
+/** Non-EU services in a category. People who leave one read its page first. */
+export const getNonEuServicesByCategory = (
+  categorySlug: string,
+  locale: string,
+): Service[] =>
+  getAllServices(locale)
+    .filter((s) => s.category.slug === categorySlug && s.region === "non-eu")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+/** Non-EU services that recommend this service as their alternative. */
+export const getServicesReplacedBy = (
+  serviceSlug: string,
+  locale: string,
+): Service[] =>
+  getAllServices(locale)
+    .filter(
+      (s) =>
+        s.region === "non-eu" && s.recommendedAlternative?.slug === serviceSlug,
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+
 // ---------------------------------------------------------------------------
 // Static params helper
 // ---------------------------------------------------------------------------

@@ -2,19 +2,24 @@ import FeedbackForm from "@/components/FeedbackForm";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const t = await getTranslations("feedback");
   const locale = await getLocale();
 
-  return {
-    title: `${t("meta.title")} - ${t("meta.description")}`,
+  return pageMetadata({
+    parent,
+    path: "feedback",
+    locale,
+    title: t("meta.title"),
     description: t("meta.description"),
-    alternates: generateLanguageAlternates("feedback", locale),
-  };
+  });
 }
 
 export default async function FeedbackPage() {

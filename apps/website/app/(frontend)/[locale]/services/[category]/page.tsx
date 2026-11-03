@@ -9,7 +9,7 @@ import {
   sortForComparison,
 } from "@/lib/buyers-guide";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
@@ -18,8 +18,10 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getTranslations } from "next-intl/server";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/lib/structured-data";
+import { CategoryLeaving } from "@/components/category/CategoryLeaving";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -27,13 +29,17 @@ import { RichText } from "@/components/rich-text";
 import {
   getCategoryBySlug,
   getEuServicesByCategory,
+  getNonEuServicesByCategory,
 } from "@/lib/services";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ category: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ category: string; locale: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { category, locale } = await params;
 
   const capitalizedCategory =
@@ -51,8 +57,13 @@ export async function generateMetadata({
   const description = categoryData?.metaDescription || pageDescription;
 
   return {
-    title,
-    description,
+    ...(await pageMetadata({
+      parent,
+      path: `services/${category}`,
+      locale,
+      title,
+      description,
+    })),
     keywords: [
       capitalizedCategory,
       "EU alternatives",
@@ -60,11 +71,6 @@ export async function generateMetadata({
       "GDPR compliant",
       category,
     ],
-    alternates: generateLanguageAlternates(`services/${category}`, locale as AppLocale),
-    openGraph: {
-      title,
-      description,
-    },
   };
 }
 
@@ -113,6 +119,30 @@ export default async function ServicesCategoryPage({
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
+  const tNav = await getTranslations("navigation");
+  const nonEuServices = getNonEuServicesByCategory(categoryData.slug, locale);
+
+  const structuredData = (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: pageTitle, path: `services/${category}` },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          locale,
+          pageTitle,
+          euServices.map((s) => ({
+            name: s.name,
+            path: `services/eu/${s.slug}`,
+          }))
+        )}
+      />
+    </>
+  );
+
   if (isBuyersGuide(categoryData)) {
     const tGuide = await getTranslations("services.buyersGuide");
     const guides = getAllGuides(locale).filter(
@@ -124,6 +154,7 @@ export default async function ServicesCategoryPage({
 
     return (
       <PageLayout>
+        {structuredData}
         <CategoryHeader
           headline={categoryData.headline || pageTitle}
           description={pageDescription}
@@ -159,6 +190,8 @@ export default async function ServicesCategoryPage({
 
         {guides.length > 0 && <CategoryGuides guides={guides} />}
 
+        {nonEuServices.length > 0 && <CategoryLeaving services={nonEuServices} />}
+
         <Container noPaddingMobile>
           <SectionHeading>
             {tGuide("allServices", { category: categoryName })}
@@ -183,6 +216,7 @@ export default async function ServicesCategoryPage({
 
   return (
     <PageLayout>
+      {structuredData}
       {/* Hero — large navy block with title, description, and stats */}
         <Container noPaddingMobile>
           <Banner
@@ -242,6 +276,8 @@ export default async function ServicesCategoryPage({
             <SuggestServiceCard colorIndex={regularServices.length} />
           </div>
         </Container>
+
+      {nonEuServices.length > 0 && <CategoryLeaving services={nonEuServices} />}
 
       {/* Newsletter Section */}
       <NewsletterCta />

@@ -44,7 +44,7 @@ issues:
 - Geen end-to-end-encryptie op consumentenabonnementen
 - Gratis accounts bieden geen optie voor EU-dataopslag
 metaTitle: 'Google Drive Review: Privacy, Prijzen & EU-datazorgen'
-metaDescription: Google Drive biedt 15 GB gratis cloudopslag met Workspace-integratie. Maar voor EU-gebruikers roepen de Amerikaanse jurisdictie en de CLOUD Act privacyvragen op.
+metaDescription: Google Drive biedt 15 GB gratis opslag met Workspace-integratie. Maar voor EU-gebruikers roepen de Amerikaanse jurisdictie en de CLOUD Act privacyvragen op.
 keywords:
 - Google Drive
 - Google Drive privacy

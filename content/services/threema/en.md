@@ -4,7 +4,7 @@ name: Threema
 region: eu-friendly
 category: messaging
 location: Switzerland
-url: https://threema.ch/
+url: https://threema.com/en
 startingPrice: €6 one-time
 description: Message privately without sharing your phone number. Swiss-built, open source, and designed to collect as little data as possible.
 screenshot: /images/services/threema.png
