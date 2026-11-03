@@ -1,7 +1,7 @@
 ---
 # Listing
 name: pCloud
-region: eu
+region: eu-friendly
 category: storage
 location: Switzerland
 url: https://www.pcloud.com/
@@ -118,7 +118,7 @@ researchNotes: |-
   Sentiment: Generally positive. Fast uploads/downloads, no file size limits, good cross-platform sync, solid media player. Cons: Crypto is a paid add-on, not open source (no code audit possible), email-only support can be slow, some 2026 reports of sync issues on Trustpilot. Lifetime plans seen as excellent value long-term.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong points: description under 200 chars and benefit-led, content includes specific pricing and trade-offs, Worth knowing section present, good keyword density for EU/Swiss cloud storage terms, meta title under 60 chars, meta description 155 chars. Minor gaps: no internal links to comparison or guide pages yet (depends on related content existing), could add more long-tail keywords once guides are written. Overall solid for a service listing page.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

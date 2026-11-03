@@ -26,7 +26,7 @@ issues:
 - Telemetry and usage reporting run by default with limited opt-out
 - Google fined EUR 325 million by CNIL in 2025 for consent dark patterns
 - Privacy controls limit data sharing between Google services, not collection itself
-recommendedAlternative: brave
+recommendedAlternative: vivaldi
 # SEO
 metaTitle: 'Chrome by Google: Privacy, Data Collection and EU Alternatives'
 metaDescription: Chrome collects 20 types of user data, more than any major browser. Learn about Google Chrome's privacy practices, GDPR issues, and EU-based browser alternatives.
@@ -72,7 +72,7 @@ researchNotes: |-
   Key privacy concerns: (1) Third-party cookies remain enabled by default after Google abandoned its Privacy Sandbox deprecation plan in 2024-2025. (2) Sync data is not end-to-end encrypted by default. (3) Google retired the Topics API and most Privacy Sandbox APIs. (4) Privacy controls affect data sharing between platforms, not collection itself. (5) CNIL fined Google EUR 325M in September 2025 for consent design dark patterns. (6) Chrome telemetry is enabled by default with limited opt-out options. (7) The Chromium source is open, but Chrome itself bundles proprietary Google services and telemetry.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong factual content with specific numbers (3.8B users, 20 data types, EUR 325M fine). Good H2 structure with Worth knowing section. Description is concise and factual. Issues array covers key privacy concerns with specifics. Keywords target high-intent search terms around Chrome privacy. Minor improvement areas: body text could use slightly more keyword variation for long-tail queries.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

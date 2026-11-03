@@ -143,6 +143,12 @@ researchNotes: |-
 ```
 
 Enum values:
+- `region` (decided 2026-11-03), by where the company has its head office:
+  - `eu`: an EU member state.
+  - `eu-friendly`: a service we recommend whose head office is outside the EU. That covers Switzerland, the UK, Norway and the rest of the EEA, and non-European organisations we still recommend (Signal, Brave, Bluesky).
+  - `non-eu`: a service people switch away from.
+  Both `eu` and `eu-friendly` show as alternatives and use `/services/eu/` URLs, so changing between them moves no page. An owner abroad doesn't change the label, but the page says so (for example Startpage, owned through System1).
+- `recommendedAlternative` (decided 2026-11-03): pick an `eu` service where a good one exists, and fall back to `eu-friendly` only when no `eu` service fits the reader as well. Say why in the page when the pick is `eu-friendly`.
 - `researchStatus`: `not-started | in-progress | needs-update | complete`
 - `gdprCompliance`: `compliant | partial | non-compliant | unknown`
 - `contentPipelineStatus`: `not-started | in-progress | written | humanized | seo-checked | translated | complete`

@@ -1,7 +1,7 @@
 ---
 # Listing
 name: Tresorit
-region: eu
+region: eu-friendly
 category: storage
 location: Switzerland
 url: https://tresorit.com/

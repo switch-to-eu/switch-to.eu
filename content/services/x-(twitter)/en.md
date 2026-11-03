@@ -52,7 +52,7 @@ issues:
 - Updated Terms of Service (January 2026) classify your AI inputs as platform content.
 - All user data stored on US servers, subject to US surveillance laws.
 - Content moderation reduced significantly after the 2022 acquisition.
-recommendedAlternative: bluesky
+recommendedAlternative: mastodon
 # SEO
 metaTitle: X (Twitter) Privacy Issues, Data Use & EU Alternatives
 metaDescription: X (formerly Twitter) trains Grok AI on your posts by default. See GDPR concerns, data breaches, and EU-based social media alternatives.
@@ -113,7 +113,7 @@ researchNotes: |-
   Grok faced multiple content safety failures in 2025: generating antisemitic content, creating non-consensual intimate imagery, and producing harmful content involving minors. xAI issued public apology for 'horrific behavior' in July 2025. Platform still reserves right to use posts internally for AI training even after banning external use.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong factual content with specific data points (500M posts/day, 73% unaware, 2.8B breach, 7M user exodus). Good keyword density for X/Twitter privacy queries. Description is under 200 chars. Content has clear H2 structure with Worth knowing section. Areas for improvement: could add internal links to recommended alternative, and the slug contains parentheses which is suboptimal for URLs. Meta title at 53 chars, meta description at 139 chars, both within ideal range.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

@@ -1,7 +1,7 @@
 ---
 # Listing
 name: Element
-region: eu
+region: eu-friendly
 category: messaging
 location: UK/EU
 url: https://element.io
@@ -99,7 +99,7 @@ researchNotes: |-
   User sentiment is positive: praised for security, open-source nature, clean UX, and active development. Criticism focuses on occasional complexity for non-technical users and resource usage of the Synapse homeserver. Element X (next-gen client) addresses performance concerns with a Rust-based SDK.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong SEO profile. Description leads with user benefit, content hits target word count (195 words), Worth knowing section present. Keywords cover primary search intents: Element messenger, Matrix protocol, encrypted messaging, self-hosted chat. Meta title at 47 chars (good). Meta description at 156 chars (ideal). Minor opportunity: could add a comparison angle for users searching ''Element vs Signal'' or similar.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

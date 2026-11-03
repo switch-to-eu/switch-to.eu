@@ -25,7 +25,7 @@ issues:
 - Stores data on US servers, subject to US surveillance laws including FISA Section 702
 - Default settings favor maximum data collection. Users must opt out manually across multiple menus
 - Uses collected data to train AI models, with limited opt-out options for EU users
-recommendedAlternative: bluesky
+recommendedAlternative: mastodon
 # SEO
 metaTitle: 'Facebook by Meta: Privacy Issues, GDPR Fines, EU Alternatives'
 metaDescription: Facebook collects browsing data, location, contacts, and photos for ad targeting. Fined over 2.5 billion euros by EU regulators. See EU-based social network alternatives.
@@ -82,7 +82,7 @@ researchNotes: |-
   Cambridge Analytica (2018): 87 million profiles harvested. 2019: 600 million passwords stored in plaintext, 419 million records exposed on public server. 2021: 533 million user records leaked across 106 countries. Feb 2024: millions of 2FA codes exposed. May 2025: hacker claimed 1.2 billion scraped records. Over $3 billion in class action settlements paid.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Score: 82/100. Strengths: specific data points (fine amounts, user counts, revenue figures), clear Worth knowing section, strong keyword targeting for Facebook privacy queries. Content hits 200+ words with good paragraph variety. Meta title at 57 chars (good). Meta description at 155 chars (optimal). Issues array provides strong factual detail. Areas to improve: could add internal links to EU social network alternatives once available. Missing recommended alternative link. No screenshot or logo uploaded yet.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

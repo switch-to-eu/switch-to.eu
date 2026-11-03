@@ -25,7 +25,7 @@ issues:
 - '2022: allowed Microsoft tracking scripts to bypass its own blocking'
 - No independent search index. Core functionality depends on Microsoft
 - Data stored on US servers, outside EU jurisdiction
-recommendedAlternative: startpage
+recommendedAlternative: qwant
 # SEO
 metaTitle: 'DuckDuckGo Review: Privacy, US Jurisdiction, and Issues'
 metaDescription: DuckDuckGo is a US-based privacy search engine that does not track searches. But it runs on Microsoft Bing, stores data in the US, and falls outside GDPR.
@@ -83,7 +83,7 @@ researchNotes: |-
   Free: search, browser, tracker blocking, limited AI chat. Privacy Pro ($9.99/month or $99/year): VPN, personal information removal, identity theft restoration, premium AI models. Pro plan: extended AI with GPT-5.2, Claude Opus 4.6. Recent additions include Email Protection, bookmark/password sync, Scam Blocker, Burn on Exit feature.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strengths: Clear description under 160 chars. Unique content with specific facts (3B queries, 2022 Microsoft incident, pricing). Good keyword density for ''DuckDuckGo privacy'' and ''private search engine''. Worth knowing section adds E-E-A-T signals. Issues array covers key concerns for comparison pages. Areas to improve: Could benefit from a screenshot/logo for rich results. No structured pricing tiers populated yet. Content word count (~220 words) is on the shorter side but acceptable for a non-EU service listing.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

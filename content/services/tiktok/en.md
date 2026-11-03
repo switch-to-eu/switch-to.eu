@@ -28,7 +28,7 @@ issues:
 - Initially denied storing European data in China, later admitted it
 - Banned from EU institution devices over security concerns
 - 2026 privacy policy expanded precise GPS location collection
-recommendedAlternative: bluesky
+recommendedAlternative: mastodon
 # SEO
 metaTitle: 'TikTok Privacy Review: GDPR Fines, Data Collection & EU Concerns'
 metaDescription: TikTok faces EUR 875M in GDPR fines for transferring EU data to China and mishandling children's privacy. See what data TikTok collects and how Project Clover works.
@@ -93,7 +93,7 @@ researchNotes: |-
   Free to use. Revenue from advertising (In-Feed ads, TopView, branded effects), in-app purchases (TikTok Coins), brand partnerships, and eCommerce (TikTok Shop). Approximately 38,000 employees globally.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strengths: Strong keyword targeting for TikTok privacy and GDPR queries. Content includes specific numbers (EUR 875M, EUR 530M, EUR 345M, 95 min/day) which build credibility and attract clicks. Worth knowing section adds unique value. Issues array covers key concerns factually. Description under 160 chars. Good internal linking potential to EU alternatives.\n\nAreas for improvement: Could benefit from a comparison table with EU alternatives once those are published. Missing structured data opportunities (FAQ schema). Content could include more long-tail keywords around specific concerns (e.g. ''does TikTok collect biometric data''). No screenshots or visual content yet. Consider adding the privacy policy URL as a visible outbound link for trust signals.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

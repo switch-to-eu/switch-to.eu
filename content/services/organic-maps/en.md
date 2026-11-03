@@ -1,7 +1,7 @@
 ---
 # Listing
 name: Organic Maps
-region: eu-friendly
+region: eu
 category: navigation
 location: Community (Open Source)
 url: https://organicmaps.app/
@@ -83,7 +83,7 @@ researchNotes: |-
   Region: EU-friendly (registered in Estonia). Founders: Alexander Borsuk, Viktar Havaka. Company: Organic Maps OÜ (Estonian registry #16225385). 6M+ installs. Maps updated from OpenStreetMap every two weeks. Available on F-Droid, Google Play, Apple App Store. Linux desktop version also available.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Sterk SEO-profiel. Titel onder 60 tekens, metabeschrijving 158 tekens. Primair zoekwoord ''Organic Maps'' in titel, beschrijving en H1. Secundaire zoekwoorden (offline kaarten, privacy, OpenStreetMap) natuurlijk verwerkt in de content. Sectie ''Goed om te weten'' voegt diepgang toe. Kleine verbeterpunten: nog geen interne links naar gerelateerde diensten, geen schema-markup voor softwareapplicatie.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

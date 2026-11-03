@@ -1,7 +1,7 @@
 ---
 # Listing
 name: Threema
-region: eu
+region: eu-friendly
 category: messaging
 location: Switzerland
 url: https://threema.ch/
@@ -116,7 +116,7 @@ researchNotes: |-
   Generally positive among privacy-conscious users. Praised for encryption, metadata handling, Swiss jurisdiction, and transparency. Criticisms include: limited user base compared to Signal/WhatsApp, occasional audio/call issues, some users find the interface dated, and the paid model (while appreciated by privacy advocates) limits adoption. The 2026 Comitis Capital acquisition raised some community concerns about future direction, but Threema has committed to maintaining its privacy-first approach.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong SEO profile. Description leads with user benefit (131 chars). Content is 190 words with good keyword density for ''Threema'', ''messaging'', ''encrypted'', ''privacy''. H2 ''Worth knowing'' section adds authenticity. Meta title is 52 chars (good). Meta description is 148 chars (good). Deductions: -5 for no internal links to related services, -4 for limited long-tail keyword coverage (e.g., ''Threema vs Signal''), -3 for missing structured FAQ content. Strengths: natural tone, clear value proposition, honest trade-offs section builds trust.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

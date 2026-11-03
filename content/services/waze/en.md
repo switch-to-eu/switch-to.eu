@@ -29,7 +29,7 @@ issues:
 - No offline mode. Requires constant internet and GPS connection.
 - 'Collects driving behavior data: speed, braking, acceleration, and route patterns.'
 - Data stored on US servers, subject to US surveillance laws including FISA 702.
-recommendedAlternative: organic-maps
+recommendedAlternative: magic-earth
 # SEO
 metaTitle: 'Waze: Privacy Concerns and EU Alternatives'
 metaDescription: Waze is a free Google-owned navigation app that tracks your location, driving behavior, and shares data with advertisers. See privacy-friendly EU alternatives.
@@ -86,7 +86,7 @@ researchNotes: |-
   Google merged Waze and Maps teams in December 2022 into the Geo division. Waze CEO Neha Parikh left and was not replaced. Layoffs followed in June 2023 as Waze ads were transitioned to Google Ads. Waze Carpool was shut down in August 2022. The app continues as a separate product but shares infrastructure and advertising systems with Google Maps.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strengths: Clear description under 160 chars. Specific claims backed by facts (acquisition price, dates, data breach numbers). Natural keyword usage throughout content. Worth knowing section adds unique value with recent 2026 privacy policy update and 2025 breach claim. Issues array is factual and specific. Good internal linking opportunity via recommended alternative (Magic Earth). Areas to improve: Could benefit from a screenshot. No logo uploaded yet. Content could mention the category term "navigation" more explicitly for category page relevance. The description is 142 chars, within target. Meta title is 47 chars, good length.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

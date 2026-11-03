@@ -27,7 +27,7 @@ issues:
 - Cannot be uninstalled from Windows, runs background processes even when not actively used
 - Data processed on US servers, subject to US surveillance laws including FISA and CLOUD Act
 - Edge3P Telemetry collects third-party search data by default
-recommendedAlternative: brave
+recommendedAlternative: vivaldi
 # SEO
 metaTitle: 'Microsoft Edge Browser: Privacy, Data Collection & EU Alternatives'
 metaDescription: Microsoft Edge collects telemetry data by default and shares browsing activity through Copilot AI. Learn about privacy concerns, GDPR status, and EU browser alternatives.
@@ -88,7 +88,7 @@ researchNotes: |-
   Common complaints: cannot uninstall Edge from Windows, runs multiple background processes, aggressive default browser prompts, closed-source code limits transparency, telemetry erodes trust. Positive notes: good performance, energy efficiency (465.24 mW power consumption), Sleeping Tabs saves memory, strong enterprise management features.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong content with specific data points (Trinity College study, market share numbers, version 122 EEA controls). Good keyword density for ''Microsoft Edge privacy'' and ''telemetry''. Description is factual and under 200 chars. Worth knowing section adds unique value. Could improve with: internal links to the recommended EU alternative, more long-tail keywords around ''switch from Edge''. Issues array is well-written with specific claims (FISA, CLOUD Act, Edge3P). Meta title at 57 chars, meta description at 158 chars, both within limits.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

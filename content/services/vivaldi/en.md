@@ -1,7 +1,7 @@
 ---
 # Listing
 name: Vivaldi
-region: eu
+region: eu-friendly
 category: browsers
 featured: true
 location: Norway

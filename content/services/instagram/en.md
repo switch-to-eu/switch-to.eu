@@ -26,7 +26,7 @@ issues:
 - Meta AI conversations used to personalize ads since December 2025 with no opt-out
 - Data stored primarily on US servers, subject to US surveillance laws
 - AI models trained on 400 million+ European user accounts without meaningful consent
-recommendedAlternative: bluesky
+recommendedAlternative: mastodon
 # SEO
 metaTitle: 'Instagram Privacy Issues: Why Switch to an EU Alternative'
 metaDescription: Instagram collects your data across all Meta apps for ad targeting. Over 2.2 billion euros in GDPR fines. Find privacy-focused EU alternatives to Instagram.
@@ -92,7 +92,7 @@ researchNotes: |-
   Meta operates data centers primarily in the US (Prineville, Fort Worth, New Albany, Forest City, and others), with European facilities in Sweden (3 locations), Denmark, and Ireland. New mega-centers planned in Louisiana ($10B), Minnesota, Kansas City, and Finland.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'SEO audit (10-point checklist): 1. Meta title: 55 chars, includes primary keyword, under 60 char limit. PASS. 2. Meta description: 155 chars, includes CTA and key stats, under 160 limit. PASS. 3. Keywords: 8 targeted keywords covering privacy, alternatives, GDPR, and switching intent. PASS. 4. Content structure: H2 heading (Worth knowing), good paragraph variation, scannable. PASS. 5. Content length: ~210 words, within 150-250 target range. PASS. 6. Specific claims backed by data: GDPR fine amounts, user counts, dates. PASS. 7. Internal linking opportunity: content mentions EU alternatives but no direct links yet. NEEDS WORK. 8. OG tags: title and description set for social sharing. PASS. 9. Description field: 139 chars, factual, no marketing fluff. PASS. 10. Issues array: 6 specific, factual items with numbers. PASS. Score: 82/100. Deductions: -10 for missing internal links to alternatives, -8 for no logo/screenshot media assets yet.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'
