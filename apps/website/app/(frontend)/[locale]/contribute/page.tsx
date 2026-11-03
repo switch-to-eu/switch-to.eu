@@ -4,6 +4,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
+import { getCardColor } from "@/lib/quiet-palette";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
@@ -36,32 +37,34 @@ export default async function ContributePage() {
       <section>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-green"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "tulip", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.1, delay: "-3s" },
+              { shape: "tulip", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.3, delay: "-3s", color: "text-brand-sky" },
             ]}
           >
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-6">
                   {t("hero.title")}
                 </h1>
-                <p className="text-white/90 text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {t("hero.description")}
                 </p>
               </div>
               <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
                 <DecorativeShape
+          color="text-brand-yellow"
                   shape="wide-heart"
                   className="inset-0"
                   opacity={0.3}
                   duration="7s"
                 />
                 <DecorativeShape
+          color="text-brand-sky"
                   shape="clover"
                   className="inset-8"
-                  opacity={0.5}
+                  opacity={0.3}
                   duration="6s"
                   delay="-2s"
                 />
@@ -81,6 +84,7 @@ export default async function ContributePage() {
               <BrandCard
                 key={card.titleKey}
                 colorIndex={card.colorIndex}
+                colors={getCardColor(card.colorIndex)}
                 title={t(card.titleKey)}
                 description={t(card.descKey)}
                 ctaText={t(card.ctaKey)}
@@ -98,16 +102,16 @@ export default async function ContributePage() {
       <section>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
+              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.3, color: "text-brand-yellow" },
             ]}
             contentClassName="text-center max-w-2xl mx-auto"
           >
-            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
+            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4 sm:mb-6">
               {t("whyMatters.title")}
             </h2>
-            <p className="text-brand-cream text-base sm:text-lg">
+            <p className="text-[#1a1a1a] text-base sm:text-lg">
               {t("whyMatters.description")}
             </p>
           </Banner>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { getCardColor } from "@/lib/quiet-palette";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import { getCategorySlug, getScreenshotUrl } from "@/lib/services";
 import type { Service } from "@/lib/content/types";
@@ -66,7 +66,7 @@ export async function ServiceCard({
         className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden`}
       >
         {/* Visual area: screenshot or decorative shape */}
-        <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+        <div className={`${card.band} relative h-36 sm:h-44 flex items-center justify-center overflow-hidden`}>
           {screenshotUrl ? (
             <Image
               src={screenshotUrl}

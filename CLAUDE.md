@@ -296,7 +296,7 @@ Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shame
 
 ### Aesthetic Direction
 
-Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` references: Pride Project posters, Flavour United palette, Vy brand, freeform shape library, Google Labs card grid.
+Calm, warm, approachable, with personality. Light mode only. Toned down on 2026-11-03 at the owner's request: warm off-white page (`#faf8f5`), white cards with hairline borders, brand green for type and actions, other brand colours only as small accents. Energy references in `docs/brand.md` still apply to shapes and display type.
 
 **Things switch-to.eu must NOT look like:**
 
@@ -306,12 +306,12 @@ Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` refere
 
 **Signature moves — use them, don't abandon them:**
 
-- Anton display type at fluid `clamp(3.5rem, 12vw, 14rem)` for the home hero.
+- Anton display type for the home hero at `clamp(3rem, 7vw, 6rem)`, in brand green.
 - Bonbance Bold Condensed, uppercase, weight 800 for every section heading.
 - Organic SVG shapes floating around content, staggered animation, `aria-hidden` + `pointer-events-none`.
-- Fully-saturated brand-colour blocks with `rounded-3xl` as section containers.
+- White or lightly tinted `rounded-3xl` panels with `border-black/10`. No saturated section grounds. At most one tinted section per screen.
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
-- Category / pillar / feature cards rotate through the 8-colour sequence from `getCardColor(index)` — don't break the rotation to be clever.
+- Cards rotate brand colours in small doses (tinted band + shape) via `apps/website/lib/quiet-palette.ts`. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
 
 ### Accessibility
 
@@ -327,9 +327,9 @@ Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` refere
 ### Design Principles
 
 1. **Honesty over polish.** Trade-offs appear on the same surface as recommendations. No asterisks, no hide-behind-a-link.
-2. **Swagger in the visuals, restraint in the claims.** Loud visuals + loud copy reads as marketing. We are not marketing.
-3. **Bold colour is structural, not decorative.** Full-saturation blocks mark section boundaries. Don't sprinkle brand colours as accents on otherwise-neutral cards.
-4. **Organic shapes are mandatory, never arbitrary.** 2–3 per major section, staggered timing, sized to overflow. Scatter them — aligned shapes feel corporate.
+2. **Personality in the details, restraint in the claims.** Display type, shapes and a touch of colour carry character. Loud visuals + loud copy reads as marketing.
+3. **Colour is an accent, not a ground.** Neutral surfaces structure the page. Brand colour lives in tags, tinted bands, shapes and one highlight per screen.
+4. **Organic shapes stay, softly.** 1–3 per major section in brand tints at about 30% opacity, staggered timing, sized to overflow.
 5. **Three audiences, one page.** Hierarchy does the work, not separate sections addressed at each audience.
 
 <!-- skilld -->

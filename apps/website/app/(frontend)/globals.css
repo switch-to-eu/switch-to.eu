@@ -5,7 +5,8 @@
 @source '../../node_modules/@switch-to-eu/blocks/src';
 
 :root {
-  --background: #e5e7eb;
+  /* Warm off-white page. Cards sit on it in white with a hairline border. */
+  --background: #faf8f5;
   --tool-primary: #2d2d2d;
   --tool-primary-foreground: #ffffff;
   --tool-accent: var(--brand-sky);

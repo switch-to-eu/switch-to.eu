@@ -58,7 +58,7 @@ export function ServiceSubNav({
                   <TabsTrigger
                     key={tab.key}
                     value={tab.key}
-                    className="flex-none whitespace-nowrap rounded-lg px-3.5 sm:px-4 py-2 text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-brand-navy/80 shadow-none transition-colors hover:text-brand-navy data-[state=active]:bg-brand-navy data-[state=active]:text-white data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="flex-none whitespace-nowrap rounded-lg px-3.5 sm:px-4 py-2 text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-brand-green/80 shadow-none transition-colors hover:text-brand-green data-[state=active]:bg-brand-green data-[state=active]:text-white data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   >
                     {tab.label}
                   </TabsTrigger>

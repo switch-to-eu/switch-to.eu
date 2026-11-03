@@ -141,32 +141,34 @@ export default async function ContributeGuidePage() {
       <section>
         <Container>
           <Banner
-            color="bg-brand-green"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "star", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.1, delay: "-3s" },
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "star", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.3, delay: "-3s", color: "text-brand-sky" },
             ]}
           >
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-6">
                   {t("guide.hero.title")}
                 </h1>
-                <p className="text-white/90 text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {t("guide.hero.description")}
                 </p>
               </div>
               <div className="w-40 h-40 sm:w-56 sm:h-56 relative flex-shrink-0">
                 <DecorativeShape
+          color="text-brand-yellow"
                   shape="cross"
                   className="inset-0"
                   opacity={0.3}
                   duration="7s"
                 />
                 <DecorativeShape
+          color="text-brand-sky"
                   shape="diamond-4"
                   className="inset-8"
-                  opacity={0.5}
+                  opacity={0.3}
                   duration="6s"
                   delay="-2s"
                 />
@@ -280,22 +282,22 @@ export default async function ContributeGuidePage() {
       <section>
         <Container>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
+              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.3, color: "text-brand-yellow" },
             ]}
             contentClassName="text-center max-w-2xl mx-auto"
           >
-            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
+            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4 sm:mb-6">
               {t("guide.callToAction.title")}
             </h2>
-            <p className="text-brand-cream text-base sm:text-lg mb-8">
+            <p className="text-[#1a1a1a] text-base sm:text-lg mb-8">
               {t("guide.callToAction.description")}
             </p>
             <Button
               variant="red"
               asChild
-              className="bg-brand-yellow text-brand-green hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
+              className="bg-brand-green text-white hover:bg-brand-green/90 rounded-full px-8 py-3 font-semibold"
             >
               <Link
                 href="https://github.com/switch-to-eu/content"

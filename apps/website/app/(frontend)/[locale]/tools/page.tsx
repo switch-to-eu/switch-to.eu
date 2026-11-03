@@ -4,7 +4,7 @@ import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
-import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { getCardColor } from "@/lib/quiet-palette";
 import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
@@ -195,7 +195,7 @@ export default async function ToolsPage() {
                   key={feature.key}
                   className={`${card.bg} md:rounded-3xl overflow-hidden`}
                 >
-                  <div className="relative h-28 flex items-center justify-center p-6">
+                  <div className={`${card.band} relative h-28 flex items-center justify-center p-6`}>
                     {shapeData && (
                       <svg
                         viewBox={shapeData.viewBox}

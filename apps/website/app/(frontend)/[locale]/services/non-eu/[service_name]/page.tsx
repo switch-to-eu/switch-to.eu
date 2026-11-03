@@ -211,25 +211,23 @@ export default async function ServiceDetailPage({
         </Link>
 
         <Banner
-          color="bg-brand-red"
+          color="bg-white border-y md:border border-black/10"
           className="[&>div]:py-8 [&>div]:sm:py-10"
           shapes={[
             {
               shape: "starburst",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48",
-            },
+              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
             {
               shape: "blob",
               className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.1,
+              opacity: 0.3,
               duration: "9s",
-              delay: "-3s",
-            },
+              delay: "-3s", color: "text-brand-sky" },
           ]}
         >
           <div className="max-w-3xl">
             <div className="flex items-start gap-3 mb-3">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-[#1a1a1a]">
                 {t("redesign.h1Template", { name: service.name })}
               </h1>
               <div className="flex-shrink-0 mt-2">
@@ -237,12 +235,12 @@ export default async function ServiceDetailPage({
               </div>
             </div>
 
-            <p className="text-white text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
+            <p className="text-[#1a1a1a] text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
               {service.oneLineProblem || service.description}
             </p>
 
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 bg-black/15 text-white rounded-full px-3 py-1 text-sm">
+              <span className="inline-flex items-center gap-2 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                 <span
                   aria-hidden
                   className={`w-2 h-2 rounded-full ${gdprDotClass}`}
@@ -250,12 +248,12 @@ export default async function ServiceDetailPage({
                 {t(`redesign.gdprBadge.${gdpr}`)}
               </span>
               {service.headquarters && (
-                <span className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {service.headquarters}
                 </span>
               )}
               {lastReviewedLabel && (
-                <span className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {t("redesign.trustStrip.lastReviewed", {
                     date: lastReviewedLabel,
                   })}
@@ -264,7 +262,7 @@ export default async function ServiceDetailPage({
               {(service.sourceUrls?.length ?? 0) > 0 && (
                 <a
                   href="?tab=sources"
-                  className="inline-flex items-center bg-black/15 text-white rounded-full px-3 py-1 text-sm no-underline hover:bg-black/25 transition-colors"
+                  className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm no-underline hover:bg-black/10 transition-colors"
                 >
                   {t("redesign.trustStrip.sourcesCount", {
                     count: service.sourceUrls?.length ?? 0,

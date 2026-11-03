@@ -30,7 +30,7 @@ See `.claude/skills/informational-copy` for the written tone-of-voice rules (no 
 
 ### Aesthetic Direction
 
-**Bold, colourful, optimistic — never corporate, bureaucratic, or technical-for-technical's-sake.**
+**Calm, warm, approachable, with personality. Never corporate, bureaucratic, or technical-for-technical's-sake.** (Toned down on 2026-11-03 at the owner's request: the earlier all-saturated look felt off-putting.)
 
 Draw energy from the references documented in `docs/brand.md`: Pride Project posters (oversized uppercase display + organic shapes), Flavour United (structured 8-colour semantic palette), Vy brand (ultra-black condensed display, floating badges, pill CTAs), freeform quirky shapes library, Google Labs card grid.
 
@@ -42,12 +42,12 @@ Draw energy from the references documented in `docs/brand.md`: Pride Project pos
 - **Generic developer tools**: monospace everywhere, dark terminal aesthetic, cyan/purple neon. Some of our users are technical; none of them came here because they wanted another terminal.
 
 **Signature moves** (use them, don't abandon them):
-- Anton display type at fluid `clamp(3.5rem, 12vw, 14rem)` for the home hero — confidently oversized.
+- Anton display type for the home hero at `clamp(3rem, 7vw, 6rem)`: large and confident, not shouting (reduced from 14rem with the 2026-11-03 calm pass).
 - Bonbance Bold Condensed, uppercase, at weight 800 for every section heading.
 - Organic SVG shapes (from the 36-shape library) floating behind or around content blocks, staggered animation, always `aria-hidden` and `pointer-events-none`.
-- Fully-saturated brand-colour blocks with `rounded-3xl` corners as section containers — not inline borders, not subtle cards.
+- White or lightly tinted panels with `rounded-3xl` corners and a hairline border (`border-black/10`) on a warm off-white page (`#faf8f5`). Brand green carries headings, buttons and links. At most one tinted section per screen. No full-saturation colour blocks as section grounds.
 - Pill-shaped `rounded-full` buttons only. No square or slightly-rounded buttons anywhere.
-- Category/pillar/feature cards rotate through the 8-colour sequence defined in `getCardColor(index)`. Do not break the rotation to be clever.
+- Cards rotate through the brand colours in small doses: a tinted band behind the shape or image and the shape itself (`apps/website/lib/quiet-palette.ts`). The card itself stays white with dark text.
 
 ### Accessibility
 
@@ -67,9 +67,9 @@ Non-negotiable rules for every design decision:
 These five override every other temptation. When a design choice feels clever but breaks one of these, drop the choice.
 
 1. **Honesty over polish.** If something is more expensive, less featureful, or has a worse iOS app, show it on the same surface you recommend it. No asterisks, no "learn more" hides. The trade-off section is a first-class UI element, not a footnote.
-2. **Swagger in the visuals, restraint in the claims.** The brand is loud: giant display type, saturated colour blocks, organic shapes. The copy is quiet: specific, factual, short. Never combine loud visuals with loud copy — that reads as marketing, which is the one thing we are not.
-3. **Bold colour is a structural tool, not a decoration.** Use full-saturation brand blocks to mark where a section begins and ends. Do not sprinkle brand colours as accents on otherwise-neutral cards — that is the SaaS aesthetic we are avoiding.
-4. **Organic shapes are mandatory, never arbitrary.** Every major section gets 2–3 floating shapes, staggered animation delays, sized to overflow the container. Without them, the layout feels templated. With them placed aligned to a grid, they feel corporate. Scatter them.
+2. **Personality in the details, restraint in the claims.** Display type, organic shapes and a touch of brand colour carry the character. Copy stays quiet: specific, factual, short.
+3. **Colour is an accent, not a ground.** Neutral surfaces do the structural work. Brand colours appear in tags, tinted bands, shapes and one highlight per screen, never as a wall of saturated blocks.
+4. **Organic shapes stay, softly.** Major sections get 1–3 floating shapes in brand tints at about 30% opacity, staggered timing, sized to overflow. They add warmth without competing with content.
 5. **Three audiences, one page.** Every page should read correctly whether the visitor arrived curious, committed, or already-converted. Hierarchy and progressive disclosure (per `docs/brand.md` layout patterns) do this work — not separate sections addressed at each audience.
 
 ### When in Doubt

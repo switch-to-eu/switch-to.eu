@@ -56,33 +56,35 @@ export async function SidebarAlternative({
 
   return (
     <aside className="lg:sticky lg:top-24 lg:self-start">
-      <div className="bg-brand-green rounded-3xl overflow-hidden relative">
+      <div className="bg-white border border-black/10 rounded-3xl overflow-hidden relative">
         <DecorativeShape
           shape="swirl"
           className="-top-6 -right-6 w-28 h-28"
-          opacity={0.12}
+          color="text-brand-yellow"
+          opacity={0.35}
           duration="11s"
           delay="-2s"
         />
         <DecorativeShape
           shape="blob"
           className="-bottom-8 -left-8 w-24 h-24"
-          opacity={0.1}
+          color="text-brand-sky"
+          opacity={0.4}
           duration="14s"
           delay="-4s"
         />
 
         <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-5 sm:pb-6">
-          <span className="text-brand-cream/60 text-[11px] font-semibold uppercase tracking-widest mb-2 block">
+          <span className="text-[#1a1a1a] text-[11px] font-semibold uppercase tracking-widest mb-2 block">
             {t("featured")}
           </span>
 
-          <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-yellow leading-[1.05] mb-4">
+          <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green leading-[1.05] mb-4">
             {service.name}
           </h2>
 
           {screenshotUrl && (
-            <div className="rounded-2xl overflow-hidden mb-4 bg-brand-cream/5">
+            <div className="rounded-2xl overflow-hidden mb-4 bg-black/5">
               <Image
                 src={screenshotUrl}
                 alt={service.name}
@@ -94,29 +96,29 @@ export async function SidebarAlternative({
             </div>
           )}
 
-          <p className="text-brand-cream/85 text-sm mb-4 leading-relaxed">
+          <p className="text-[#1a1a1a] text-sm mb-4 leading-relaxed">
             {service.description}
           </p>
 
           <div className="flex flex-wrap gap-1.5 mb-5">
             {service.location && (
-              <span className="inline-flex items-center bg-white/10 text-brand-cream/90 rounded-full px-2.5 py-0.5 text-xs">
+              <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-2.5 py-0.5 text-xs">
                 {service.location}
               </span>
             )}
             {service.gdprCompliance === "compliant" && (
-              <span className="inline-flex items-center gap-1.5 bg-white/10 text-brand-cream/90 rounded-full px-2.5 py-0.5 text-xs">
+              <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-2.5 py-0.5 text-xs">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
                 GDPR
               </span>
             )}
             {service.freeOption && (
-              <span className="inline-flex items-center bg-white/10 text-brand-cream/90 rounded-full px-2.5 py-0.5 text-xs">
+              <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-2.5 py-0.5 text-xs">
                 {tDetail("freeOption") || "Free plan"}
               </span>
             )}
             {service.startingPrice && (
-              <span className="inline-flex items-center bg-white/10 text-brand-cream/90 rounded-full px-2.5 py-0.5 text-xs">
+              <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-2.5 py-0.5 text-xs">
                 {service.startingPrice}
               </span>
             )}
@@ -128,7 +130,7 @@ export async function SidebarAlternative({
                 href={outboundUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
               >
                 {t("tryService", { name: service.name })}{" "}
                 <span aria-hidden className="ml-1.5">&rarr;</span>
@@ -138,7 +140,7 @@ export async function SidebarAlternative({
             {firstGuide && firstGuideCategory && (
               <Link
                 href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
-                className="inline-flex items-center justify-center px-4 py-2.5 border-2 border-brand-yellow text-white rounded-full font-semibold text-sm hover:bg-brand-yellow hover:text-brand-green transition-colors no-underline"
+                className="inline-flex items-center justify-center px-4 py-2.5 border-2 border-brand-green text-brand-green rounded-full font-semibold text-sm hover:bg-brand-green hover:text-white transition-colors no-underline"
               >
                 {t("switchGuide", { source: sourceService })}{" "}
                 <span aria-hidden className="ml-1.5">&rarr;</span>
@@ -147,7 +149,7 @@ export async function SidebarAlternative({
 
             <Link
               href={`/services/eu/${service.slug}`}
-              className="inline-flex items-center justify-center text-brand-cream hover:text-brand-yellow text-xs sm:text-sm py-1.5 transition-colors underline underline-offset-2 decoration-brand-cream/50 hover:decoration-current"
+              className="inline-flex items-center justify-center text-[#1a1a1a] hover:text-brand-green text-xs sm:text-sm py-1.5 transition-colors underline underline-offset-2 decoration-brand-cream/50 hover:decoration-current"
             >
               {t("learnMore", { name: service.name })}{" "}
               <span aria-hidden className="ml-1">&rarr;</span>
@@ -155,13 +157,13 @@ export async function SidebarAlternative({
           </div>
 
           {outboundUrl && service.affiliateUrl && (
-            <AffiliateDisclosure className="mt-3 text-brand-cream hover:text-white decoration-brand-cream/60" />
+            <AffiliateDisclosure className="mt-3 text-[#1a1a1a] hover:text-[#1a1a1a] decoration-brand-cream/60" />
           )}
         </div>
 
         {otherAlternatives.length > 0 && (
-          <div className="relative border-t border-brand-yellow/15 px-5 sm:px-6 py-4 sm:py-5">
-            <p className="text-brand-cream/55 text-[10px] font-semibold uppercase tracking-widest mb-3">
+          <div className="relative border-t border-brand-green/15 px-5 sm:px-6 py-4 sm:py-5">
+            <p className="text-[#1a1a1a] text-[10px] font-semibold uppercase tracking-widest mb-3">
               {t("otherAlternatives")}
             </p>
             <ul className="space-y-1">
@@ -169,11 +171,11 @@ export async function SidebarAlternative({
                 <li key={alt.slug}>
                   <Link
                     href={`/services/eu/${alt.slug}`}
-                    className="flex items-baseline justify-between gap-3 py-1.5 text-sm text-brand-cream/90 hover:text-brand-yellow transition-colors no-underline group"
+                    className="flex items-baseline justify-between gap-3 py-1.5 text-sm text-[#1a1a1a] hover:text-brand-green transition-colors no-underline group"
                   >
                     <span className="font-medium">{alt.name}</span>
                     {alt.location && (
-                      <span className="text-[11px] text-brand-cream/45 group-hover:text-brand-cream/70 transition-colors whitespace-nowrap">
+                      <span className="text-[11px] text-[#1a1a1a] group-hover:text-[#1a1a1a] transition-colors whitespace-nowrap">
                         {alt.location}
                       </span>
                     )}
@@ -184,7 +186,7 @@ export async function SidebarAlternative({
             {categoryTitle && categorySlug && (
               <Link
                 href={`/services/${categorySlug}`}
-                className="inline-flex items-center text-brand-yellow/80 hover:text-brand-yellow text-xs font-semibold uppercase tracking-wide mt-3 no-underline"
+                className="inline-flex items-center text-brand-green/80 hover:text-brand-green text-xs font-semibold uppercase tracking-wide mt-3 no-underline"
               >
                 {t("seeAll", { category: categoryTitle })}{" "}
                 <span aria-hidden className="ml-1">&rarr;</span>

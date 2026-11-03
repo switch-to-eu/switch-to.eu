@@ -109,27 +109,27 @@ export default async function ServicesCategoryPage({
       {/* Hero — large navy block with title, description, and stats */}
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.1, duration: "8s", delay: "-2s" },
-              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.3, duration: "8s", delay: "-2s", color: "text-brand-sky" },
+              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.3, duration: "7s", delay: "-4s", color: "text-brand-pink" },
             ]}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
               {/* Left: Title + subtitle */}
               <div>
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-green mb-4">
                   {pageTitle}
                 </h1>
-                <p className="text-brand-cream text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {pageDescription}
                 </p>
               </div>
 
               {/* Right: Description */}
               {categoryData.content && (
-                <div className="text-white/70 text-sm sm:text-base leading-relaxed [&>p+p]:mt-3">
+                <div className="text-[#1a1a1a] text-sm sm:text-base leading-relaxed [&>p+p]:mt-3">
                   <RichText data={categoryData.content} />
                 </div>
               )}

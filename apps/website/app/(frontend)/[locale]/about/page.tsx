@@ -6,6 +6,7 @@ import { Link } from "@switch-to-eu/i18n/navigation";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { BrandCard } from "@switch-to-eu/blocks/components/brand-card";
+import { getCardColor } from "@/lib/quiet-palette";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { shapes } from "@switch-to-eu/blocks/shapes";
@@ -42,39 +43,42 @@ export default async function AboutPage() {
     <PageLayout gapMobile>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "blob", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.2 },
-              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s" },
+              { shape: "blob", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "pebble", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s", opacity: 0.3, color: "text-brand-sky" },
             ]}
           >
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-6">
                   {t("initiative.heading")}
                 </h1>
-                <p className="text-brand-cream text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {t("initiative.intro")}
                 </p>
               </div>
               <div className="w-48 h-48 sm:w-64 sm:h-64 relative flex-shrink-0">
                 <DecorativeShape
+          color="text-brand-yellow"
                   shape="circle"
                   className="inset-0"
-                  opacity={0.25}
+                  opacity={0.3}
                   duration="8s"
                 />
                 <DecorativeShape
+          color="text-brand-sky"
                   shape="star"
                   className="inset-6"
-                  opacity={0.5}
+                  opacity={0.3}
                   duration="6s"
                   delay="-2s"
                 />
                 <DecorativeShape
+          color="text-brand-pink"
                   shape="fleur"
                   className="bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20"
-                  opacity={0.35}
+                  opacity={0.3}
                   duration="7s"
                   delay="-4s"
                 />
@@ -163,6 +167,7 @@ export default async function AboutPage() {
               <BrandCard
                 key={card.titleKey}
                 colorIndex={card.colorIndex}
+                colors={getCardColor(card.colorIndex)}
                 title={t(card.titleKey)}
                 description={t(card.descKey)}
                 shape={card.shape}
@@ -184,6 +189,7 @@ export default async function AboutPage() {
               <BrandCard
                 key={card.titleKey}
                 colorIndex={card.colorIndex}
+                colors={getCardColor(card.colorIndex)}
                 title={t(card.titleKey)}
                 description={t(card.descKey)}
                 shape={card.shape}

@@ -7,7 +7,6 @@ import { getToolUrl, type Tool } from "@switch-to-eu/blocks/data/tools";
 import {
   BRAND_COLORS,
   TOOL_SCHEMES,
-  getToolCardColor,
 } from "@switch-to-eu/ui/lib/tool-colors";
 
 interface Props {
@@ -22,9 +21,16 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
   const toolHref = getToolUrl(tool, locale);
 
   const scheme = TOOL_SCHEMES[tool.id];
-  const card = getToolCardColor(tool.id);
   const accent = scheme ? BRAND_COLORS[scheme.accent] : BRAND_COLORS.yellow;
   const primary = scheme ? BRAND_COLORS[scheme.primary] : BRAND_COLORS.green;
+  // Calm surface: white card, dark text, green CTA. The tool's own colours
+  // only appear in its icon badge and the floating shapes.
+  const card = {
+    bg: "bg-white border-y md:border border-black/10",
+    text: "text-[#1a1a1a]",
+    button: "bg-brand-green text-white",
+    shapeColor: `text-${primary.tw}`,
+  };
 
   let hostHint: string | null = null;
   try {
@@ -72,7 +78,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={ariaLabel}
-              className="absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
+              className="absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-brand-green"
             />
           )}
 
@@ -107,7 +113,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
               {isActive ? (
                 <>
                   <span
-                    className={`inline-flex items-center gap-3 rounded-full px-9 py-4 font-heading text-base uppercase tracking-[0.12em] transition-transform duration-200 ease-out group-hover:scale-105 group-active:scale-95 motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100 sm:px-10 sm:py-5 sm:text-lg ${card.button}`}
+                    className={`inline-flex items-center gap-3 rounded-full px-7 py-3 text-base font-semibold transition-transform duration-200 ease-out group-hover:scale-105 group-active:scale-95 motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100 sm:px-8 sm:py-3.5 ${card.button}`}
                   >
                     {ctaLabel}
                     <ArrowUpRightIcon
@@ -125,7 +131,7 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                 </>
               ) : (
                 <span
-                  className={`inline-flex items-center rounded-full px-5 py-2 text-xs font-medium italic ${card.text} bg-white/15`}
+                  className={`inline-flex items-center rounded-full px-5 py-2 text-xs font-medium italic ${card.text} bg-black/5`}
                 >
                   {t("highlightedToolComingSoon")}
                 </span>

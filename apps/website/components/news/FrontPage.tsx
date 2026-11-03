@@ -58,12 +58,12 @@ export async function FrontPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-5">
           {/* Lead story */}
-          <article className="relative overflow-hidden lg:col-span-8 bg-brand-yellow text-brand-green md:rounded-3xl px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
+          <article className="relative overflow-hidden lg:col-span-8 bg-white border-y md:border border-black/10 text-brand-green md:rounded-3xl px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
             <DecorativeShape
               shape="starburst"
               className="-bottom-14 -right-14 w-48 h-48 sm:w-64 sm:h-64"
-              color="text-white"
-              opacity={0.35}
+              color="text-brand-yellow"
+              opacity={0.3}
               duration="12s"
             />
             <DecorativeShape
@@ -80,7 +80,7 @@ export async function FrontPage({
               <Heading className="font-heading uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl mt-5 mb-5 text-balance">
                 <Link
                   href={`/news/${lead.slug}`}
-                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-brand-yellow"
+                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-white"
                 >
                   {lead.title}
                 </Link>
@@ -105,7 +105,7 @@ export async function FrontPage({
           {/* Briefing column */}
           <aside
             aria-labelledby="briefing-title"
-            className="lg:col-span-4 bg-brand-cream md:rounded-3xl border border-brand-green/10 px-6 sm:px-8 py-8"
+            className="lg:col-span-4 bg-white md:rounded-3xl border-y md:border border-black/10 px-6 sm:px-8 py-8"
           >
             <Heading id="briefing-title" className="font-heading uppercase text-brand-green text-2xl sm:text-3xl mb-4">
               {t("briefing")}
@@ -173,7 +173,7 @@ export function ArticleMeta({
   t: T;
   tone?: "dark" | "light";
 }) {
-  const pill = tone === "dark" ? "bg-brand-green text-white" : "bg-brand-yellow text-brand-green";
+  const pill = tone === "dark" ? "bg-brand-green text-white" : "bg-brand-sage/50 text-brand-green";
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold">
       <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs uppercase tracking-wider ${pill}`}>

@@ -78,24 +78,24 @@ export default async function LandingPage({
       <section>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.1, duration: "8s", delay: "-2s" },
-              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.3, duration: "8s", delay: "-2s", color: "text-brand-sky" },
+              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.3, duration: "7s", delay: "-4s", color: "text-brand-pink" },
             ]}
           >
             <div className="max-w-3xl">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-green mb-4">
                 {page.title}
               </h1>
-              <p className="text-brand-cream text-base sm:text-lg mb-6">
+              <p className="text-[#1a1a1a] text-base sm:text-lg mb-6">
                 {page.description}
               </p>
               {categorySlug && (
                 <Link
                   href={`/services/${categorySlug}`}
-                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-green rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                  className="inline-block py-2.5 px-6 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
                 >
                   {t("exploreAlternatives")}
                 </Link>

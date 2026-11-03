@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { ServiceRequestModal } from "@/components/ServiceRequestModal";
 import { shapes } from "@switch-to-eu/blocks/shapes";
-import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { getCardColor } from "@/lib/quiet-palette";
 
 export function SuggestServiceCard({ colorIndex = 0 }: { colorIndex?: number }) {
   const t = useTranslations("contribute");
@@ -15,7 +15,7 @@ export function SuggestServiceCard({ colorIndex = 0 }: { colorIndex?: number }) 
       className={`${card.bg} flex flex-col h-full md:rounded-3xl overflow-hidden`}
     >
       {/* Visual area with decorative shape */}
-      <div className="relative h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+      <div className={`${card.band} relative h-36 sm:h-44 flex items-center justify-center overflow-hidden`}>
         <div className="w-full h-full flex items-center justify-center p-8 sm:p-10">
           {shapeData && (
             <svg

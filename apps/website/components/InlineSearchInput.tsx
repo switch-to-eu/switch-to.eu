@@ -277,7 +277,7 @@ export function InlineSearchInput({
     <Popover open={popoverOpen} onOpenChange={setShowDropdown}>
       <PopoverAnchor asChild>
         <div ref={containerRef} className="relative w-full">
-          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 focus-within:ring-4 focus-within:ring-brand-yellow transition-colors">
+          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green focus-within:ring-4 focus-within:ring-brand-green/20 transition-colors">
             <Search
               className="h-5 w-5 text-brand-green/50 shrink-0 transition-all duration-300 group-focus-within:text-brand-green group-focus-within:scale-110"
               aria-hidden="true"

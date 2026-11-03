@@ -5,7 +5,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
+import { getCardColor } from "@/lib/quiet-palette";
 
 import type { HomepagePick } from "@/app/(frontend)/[locale]/page";
 
@@ -101,7 +101,7 @@ function PickCard({
 
       <div className="relative z-10 pointer-events-none flex flex-col h-full">
         {shapeData && (
-          <div className="relative h-16 sm:h-32 md:h-36 flex items-center justify-start sm:justify-center px-5 pt-5 sm:p-6">
+          <div className={`${card.band} relative h-16 sm:h-32 md:h-36 flex items-center justify-start sm:justify-center px-5 py-3 sm:p-6`}>
             <svg
               viewBox={shapeData.viewBox}
               className={`w-16 sm:w-full h-full select-none animate-shape-float ${card.shapeColor}`}
@@ -116,7 +116,7 @@ function PickCard({
           </div>
         )}
 
-        <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
+        <div className="flex flex-col flex-1 px-5 pt-4 pb-5 sm:px-6 sm:pt-5 sm:pb-6">
           <h3
             className={`${card.text} font-heading uppercase font-bold leading-tight text-xl sm:text-2xl mb-2`}
           >

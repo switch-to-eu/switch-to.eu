@@ -109,31 +109,31 @@ export default async function NewsArticlePage({
       <section>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.12 },
-              { shape: "petal", className: "bottom-6 right-16 hidden sm:block w-24 h-24", opacity: 0.1, duration: "8s", delay: "-2s" },
+              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "petal", className: "bottom-6 right-16 hidden sm:block w-24 h-24", opacity: 0.3, duration: "8s", delay: "-2s", color: "text-brand-sky" },
             ]}
           >
             <div className="max-w-3xl">
               <Link
                 href="/news"
-                className="inline-block py-1 mb-5 text-sm font-semibold text-brand-sky hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky"
+                className="inline-block py-1 mb-5 text-sm font-semibold text-brand-green hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky"
               >
                 ← {t("backToNews")}
               </Link>
-              <div className="text-white mb-5">
+              <div className="text-[#1a1a1a] mb-5">
                 <ArticleMeta article={article} locale={locale} t={t} tone="light" />
                 {updated && (
-                  <p className="mt-2 text-sm text-brand-sky">
+                  <p className="mt-2 text-sm text-brand-green">
                     {t("updatedOn", { date: formatArticleDate(updated, locale) })}
                   </p>
                 )}
               </div>
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-5 leading-[0.95] text-balance">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-5 leading-[0.95] text-balance">
                 {article.title}
               </h1>
-              <p className="text-white text-lg sm:text-xl leading-relaxed max-w-[60ch]">{article.description}</p>
+              <p className="text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[60ch]">{article.description}</p>
             </div>
           </Banner>
         </Container>

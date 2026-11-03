@@ -26,10 +26,10 @@ export default async function FeedbackPage() {
       {/* Hero Section */}
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-pink"
+            color="bg-white border-y md:border border-black/10"
             shapes={[
-              { shape: "spark", className: "-top-6 -right-6 w-36 h-36 sm:w-48 sm:h-48", duration: "7s" },
-              { shape: "blob", className: "-bottom-8 -left-8 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.1, duration: "9s", delay: "1.5s" },
+              { shape: "spark", className: "-top-6 -right-6 w-36 h-36 sm:w-48 sm:h-48", duration: "7s", opacity: 0.3, color: "text-brand-yellow" },
+              { shape: "blob", className: "-bottom-8 -left-8 w-32 h-32 sm:w-44 sm:h-44", opacity: 0.3, duration: "9s", delay: "1.5s", color: "text-brand-sky" },
             ]}
           >
             <div className="flex flex-col md:flex-row items-center gap-8">
@@ -46,15 +46,17 @@ export default async function FeedbackPage() {
               </div>
               <div className="w-full max-w-[240px] h-[180px] relative flex-shrink-0">
                 <DecorativeShape
+          color="text-brand-yellow"
                   shape="speech"
                   className="inset-0"
-                  opacity={0.35}
+                  opacity={0.3}
                   duration="7s"
                 />
                 <DecorativeShape
+          color="text-brand-sky"
                   shape="spark"
                   className="inset-8"
-                  opacity={0.5}
+                  opacity={0.3}
                   duration="6s"
                   delay="-2s"
                 />

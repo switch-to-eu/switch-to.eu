@@ -4,8 +4,19 @@ import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { shapes } from "../shapes";
 
+export interface BrandCardColors {
+  bg: string;
+  text: string;
+  button: string;
+  shapeColor: string;
+  /** Optional tint for the shape/visual area (calm palettes). */
+  band?: string;
+}
+
 export interface BrandCardProps {
   colorIndex: number;
+  /** Override the default saturated brand rotation (e.g. a calmer palette). */
+  colors?: BrandCardColors;
   title: string;
   description: string;
   href?: string;
@@ -70,8 +81,9 @@ export function BrandCard({
   recommendationLabel,
   secondaryLink,
   primaryAriaLabel,
+  colors,
 }: BrandCardProps) {
-  const card = getCardColor(colorIndex);
+  const card: BrandCardColors = colors ?? getCardColor(colorIndex);
 
   const content = (
     <div
@@ -98,7 +110,7 @@ export function BrandCard({
           )}
         </div>
       ) : shape && shapePosition === "top" ? (
-        <div className="relative h-40 sm:h-48 flex items-center justify-center p-4 sm:p-6">
+        <div className={cn("relative h-40 sm:h-48 flex items-center justify-center p-4 sm:p-6", card.band)}>
           <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       ) : null}

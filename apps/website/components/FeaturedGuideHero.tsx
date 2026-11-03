@@ -64,7 +64,7 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
   return (
     <section>
       <Container noPaddingMobile>
-        <div className="md:rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
+        <div className="bg-white border-y md:border border-black/10 md:rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
           <OrientationColumn
             title={t("guidesBand.title")}
             body={t("guidesBand.body")}
@@ -95,36 +95,36 @@ interface OrientationColumnProps {
 /** Intro panel for the guides band (the masthead above owns the page h1). */
 function OrientationColumn({ title, body, ctaLabel }: OrientationColumnProps) {
   return (
-    <div className="relative bg-brand-red overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-5">
+    <div className="relative overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-5">
       <DecorativeShape
         shape="sunburst"
         className="-top-14 -left-10 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60"
         color="text-brand-yellow"
-        opacity={0.2}
+        opacity={0.3}
         duration="13s"
       />
       <DecorativeShape
         shape="pebble"
         className="-bottom-12 -right-10 w-36 h-36 sm:w-48 sm:h-48 rotate-12"
-        color="text-white"
-        opacity={0.12}
+        color="text-brand-pink"
+        opacity={0.2}
         duration="15s"
         delay="-4s"
       />
 
       <div className="relative z-10 flex flex-col h-full">
-        <h2 className="font-heading uppercase text-white leading-none text-5xl sm:text-6xl md:text-7xl">
+        <h2 className="font-heading uppercase text-brand-green leading-none text-5xl sm:text-6xl md:text-7xl">
           {title}
         </h2>
 
-        <p className="text-white text-base sm:text-lg md:text-xl mt-5 sm:mt-6 max-w-xl leading-snug">
+        <p className="text-[#1a1a1a] text-base sm:text-lg md:text-xl mt-5 sm:mt-6 max-w-xl leading-snug">
           {body}
         </p>
 
         <div className="mt-auto pt-6 sm:pt-8">
           <a
             href="#picks"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-white text-brand-red font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-red"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
           >
             {ctaLabel}
             <span aria-hidden="true">→</span>
@@ -155,7 +155,7 @@ function GuidesColumn({
   difficultyLabels,
 }: GuidesColumnProps) {
   return (
-    <div className="relative bg-brand-sky overflow-hidden px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 md:col-span-7">
+    <div className="relative bg-brand-sky/25 overflow-hidden px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 md:col-span-7">
       <DecorativeShape
         shape="spark"
         className="-top-10 -right-8 w-32 h-32 sm:w-44 sm:h-44"
@@ -231,7 +231,7 @@ function FeaturedPoster({
       >
         {guide.sourceName}
         <span
-          className="text-brand-pink mx-2 sm:mx-3 inline-block"
+          className="text-brand-green/70 mx-2 sm:mx-3 inline-block"
           aria-hidden="true"
           style={{
             fontSize: "0.75em",
@@ -253,7 +253,7 @@ function FeaturedPoster({
       <div className="mt-5 sm:mt-6">
         <Link
           href={guide.href}
-          className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-brand-green text-brand-yellow font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-sky"
+          className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-sky"
         >
           {primaryCta}
           <span aria-hidden="true">→</span>

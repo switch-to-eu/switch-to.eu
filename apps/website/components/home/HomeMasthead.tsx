@@ -31,19 +31,19 @@ export async function HomeMasthead({
   return (
     <section>
       <Container noPaddingMobile>
-        <div className="relative overflow-hidden bg-brand-green md:rounded-3xl px-6 sm:px-10 md:px-14 pt-6 pb-10 sm:pb-12 md:pb-14">
+        <div className="relative overflow-hidden bg-white border-y md:border border-black/10 md:rounded-3xl px-6 sm:px-10 md:px-14 pt-6 pb-10 sm:pb-12 md:pb-14">
           <DecorativeShape
             shape="sunburst"
             className="-top-16 -right-16 w-56 h-56 sm:w-72 sm:h-72"
             color="text-brand-yellow"
-            opacity={0.12}
+            opacity={0.3}
             duration="14s"
           />
           <DecorativeShape
             shape="bumpy-cloud"
             className="-bottom-20 left-1/3 w-48 h-48 sm:w-64 sm:h-64 hidden sm:block"
             color="text-brand-sky"
-            opacity={0.1}
+            opacity={0.35}
             duration="11s"
             delay="-5s"
           />
@@ -57,8 +57,8 @@ export async function HomeMasthead({
           />
 
           <div className="relative z-10">
-            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-brand-sky/25 pb-4 mb-8 sm:mb-10 text-sm text-brand-sky">
-              <span className="font-semibold text-white">{t("masthead.dateline")}</span>
+            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-black/10 pb-4 mb-8 sm:mb-10 text-sm text-[#1a1a1a]/80">
+              <span className="font-semibold text-brand-green">{t("masthead.dateline")}</span>
               {latestDate && (
                 <>
                   <span aria-hidden="true" className="hidden sm:inline">·</span>
@@ -72,28 +72,28 @@ export async function HomeMasthead({
 
             <h1
               style={{ fontFamily: "var(--font-anton)" }}
-              className="uppercase text-brand-yellow leading-[0.9] tracking-[-0.02em] text-[clamp(3.5rem,12vw,14rem)] text-balance mb-8 sm:mb-10"
+              className="uppercase text-brand-green leading-[0.9] tracking-[-0.02em] text-[clamp(3rem,7vw,6rem)] text-balance mb-8 sm:mb-10"
             >
               {t("heroTaglineLine1")} {t("heroTaglineLine2")} {t("heroTaglineLine3")}
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
-              <p className="lg:col-span-5 text-white text-lg sm:text-xl leading-relaxed max-w-[42ch]">
+              <p className="lg:col-span-5 text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[42ch]">
                 {t("heroSubtitle")}
               </p>
 
               <div className="lg:col-span-7">
-                <h2 className="font-heading uppercase text-brand-yellow text-xl sm:text-2xl mb-3">
+                <h2 className="font-heading uppercase text-brand-green text-xl sm:text-2xl mb-3">
                   {t("masthead.searchLabel")}
                 </h2>
                 <InlineSearchInput placeholder={t("masthead.searchPlaceholder")} />
                 <div className="mt-5 flex flex-wrap items-center gap-2 text-sm">
-                  <span className="text-brand-sky mr-1">{t("masthead.quickLabel")}</span>
+                  <span className="text-[#1a1a1a]/80 mr-1">{t("masthead.quickLabel")}</span>
                   {QUICK_SWITCHES.map((s) => (
                     <Link
                       key={s.slug}
                       href={`/services/non-eu/${s.slug}`}
-                      className="rounded-full border border-brand-sky/40 px-3 py-1 text-white hover:bg-white hover:text-brand-green transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow"
+                      className="rounded-full border border-brand-green/30 bg-brand-sage/20 px-3 py-1 text-brand-green hover:bg-brand-green hover:text-white transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
                     >
                       {s.name}
                     </Link>

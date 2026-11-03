@@ -91,18 +91,18 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
     <section>
       <Wrapper>
         <Banner
-          color="bg-brand-navy"
+          color="bg-white border-y md:border border-black/10"
           shapes={[
-            { shape: "sunburst", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.2 },
-            { shape: "blob", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s" },
-            { shape: "spark", className: "top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 -translate-y-1/2", opacity: 0.1, delay: "-5s" },
+            { shape: "sunburst", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
+            { shape: "blob", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s", opacity: 0.35, color: "text-brand-sky" },
+            { shape: "spark", className: "top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 -translate-y-1/2", opacity: 0.15, delay: "-5s", color: "text-brand-pink" },
           ]}
           contentClassName="max-w-2xl mx-auto text-center"
         >
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
+          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green mb-8 sm:mb-10">
             {t("title")}
           </h2>
-          <p className="text-brand-cream text-base sm:text-lg mb-8 sm:mb-10">
+          <p className="text-[#1a1a1a] text-base sm:text-lg mb-8 sm:mb-10">
             {t("description")}
           </p>
 
@@ -118,14 +118,14 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                     name="firstname"
                     render={({ field }) => (
                       <FormItem className="text-left">
-                        <FormLabel className="text-brand-cream/80 text-sm">
+                        <FormLabel className="text-[#1a1a1a] text-sm font-semibold">
                           {t("firstNameLabel")}
                         </FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t("firstNamePlaceholder")}
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white border-black/20 text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
                           />
                         </FormControl>
                         <FormMessage />
@@ -137,7 +137,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                     name="email"
                     render={({ field }) => (
                       <FormItem className="text-left">
-                        <FormLabel className="text-brand-cream/80 text-sm">
+                        <FormLabel className="text-[#1a1a1a] text-sm font-semibold">
                           {t("emailLabel")}
                         </FormLabel>
                         <FormControl>
@@ -145,7 +145,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                             type="email"
                             placeholder={t("emailPlaceholder")}
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white border-black/20 text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
                           />
                         </FormControl>
                         <FormMessage />
@@ -154,7 +154,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                   />
                 </div>
                 {error && (
-                  <div role="alert" className="bg-white text-brand-red font-semibold px-5 py-3 rounded-full text-sm">
+                  <div role="alert" className="bg-brand-red/10 text-brand-red font-semibold px-5 py-3 rounded-full text-sm">
                     {t("errorMessage")}
                   </div>
                 )}
@@ -162,15 +162,15 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                   variant="cta"
                   type="submit"
                   disabled={isSubmitting}
-                  className="h-12 px-8 text-base bg-brand-yellow text-brand-green hover:bg-brand-yellow/90 rounded-full font-semibold"
+                  className="h-12 px-8 text-base bg-brand-green text-white hover:bg-brand-green/90 rounded-full font-semibold"
                 >
                   {isSubmitting ? "..." : t("submitLabel")}
                 </Button>
               </form>
             </Form>
           ) : (
-            <div className="bg-brand-green/30 p-6 rounded-3xl">
-              <p className="text-white text-lg font-medium">
+            <div className="bg-brand-sage/40 p-6 rounded-3xl">
+              <p className="text-brand-green text-lg font-medium">
                 {t("successMessage")}
               </p>
             </div>

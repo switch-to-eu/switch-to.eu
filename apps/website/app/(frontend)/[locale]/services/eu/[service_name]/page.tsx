@@ -222,29 +222,26 @@ export default async function ServiceDetailPage({
         </Link>
 
         <Banner
-          color="bg-brand-navy"
+          color="bg-white border-y md:border border-black/10"
           {...(!screenshotUrl && {
             className: "[&>div]:py-8 [&>div]:sm:py-10",
           })}
           shapes={[
             {
               shape: "spark",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48",
-            },
+              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.3, color: "text-brand-yellow" },
             {
               shape: "blob",
               className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.1,
+              opacity: 0.3,
               duration: "9s",
-              delay: "-3s",
-            },
+              delay: "-3s", color: "text-brand-sky" },
             {
               shape: "diamond-4",
               className: "top-1/3 -left-4 hidden md:block w-16 h-16",
-              opacity: 0.1,
+              opacity: 0.3,
               duration: "7s",
-              delay: "-5s",
-            },
+              delay: "-5s", color: "text-brand-pink" },
           ]}
         >
           <div
@@ -256,7 +253,7 @@ export default async function ServiceDetailPage({
           >
             <div>
               <div className="flex items-start gap-3 mb-3">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-green">
                   {service.name}
                 </h1>
                 <div className="flex-shrink-0 mt-2">
@@ -264,21 +261,21 @@ export default async function ServiceDetailPage({
                 </div>
               </div>
 
-              <p className="text-brand-cream text-base sm:text-lg mb-4 max-w-2xl leading-relaxed">
+              <p className="text-[#1a1a1a] text-base sm:text-lg mb-4 max-w-2xl leading-relaxed">
                 {service.description}
               </p>
 
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {service.location}
                 </span>
                 {service.freeOption && (
-                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                  <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                     {t("freePlanPill")}
                   </span>
                 )}
                 {service.startingPrice && (
-                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                  <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                     {t("fromPrice", { price: service.startingPrice })}
                   </span>
                 )}
@@ -289,20 +286,20 @@ export default async function ServiceDetailPage({
                   href={getOutboundUrl(service)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-green font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+                  className="inline-block px-4 sm:px-6 py-2 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
                 >
                   {t("tryService", { service: service.name })} &rarr;
                 </a>
                 {firstGuide && firstGuideCategory && (
                   <Link
                     href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
-                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-yellow text-white font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-green transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-green text-brand-green font-semibold rounded-full hover:bg-brand-green hover:text-white transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
                   >
                     {t("switchFrom", { service: firstSourceName ?? "" })}
                   </Link>
                 )}
               </div>
-              <AffiliateDisclosure className="mt-2 text-brand-cream hover:text-white decoration-brand-cream/60" />
+              <AffiliateDisclosure className="mt-2 text-gray-700 hover:text-gray-900 decoration-gray-400" />
             </div>
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
@@ -328,7 +325,7 @@ export default async function ServiceDetailPage({
                           fill="currentColor"
                         />
                       </svg>
-                      <span className="absolute text-white text-[11px] sm:text-xs font-bold uppercase leading-tight text-center px-2">
+                      <span className="absolute text-[#1a1a1a] text-[11px] sm:text-xs font-bold uppercase leading-tight text-center px-2">
                         {t("recommended")}
                         <br />
                         {t("recommendedBy")}

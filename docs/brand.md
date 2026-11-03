@@ -133,12 +133,12 @@ The home hero uses Anton at a fluid size for maximum impact:
 
 ```css
 font-family: var(--font-anton);
-font-size: clamp(3.5rem, 12vw, 14rem);
+font-size: clamp(3rem, 7vw, 6rem); /* was clamp(3.5rem, 12vw, 14rem) before the 2026-11-03 calm pass */
 font-weight: 400;
 line-height: 0.9;
 letter-spacing: -0.02em;
 text-transform: uppercase;
-color: var(--brand-yellow);
+color: var(--brand-green); /* yellow before the calm pass */
 ```
 
 ### Logo
@@ -458,9 +458,20 @@ Measured contrast for body text (WCAG AA needs 4.5:1): white on orange is 3.79:1
 
 Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, white on navy 8.5, green on sage 6.6, white on red 4.7, sky on green 6.0, sky on navy 4.9.
 
+## Calm surface system (website, 2026-11-03)
+
+The owner asked for a toned-down, more approachable website. This supersedes the "Section Blocks" and colour-pairing guidance below for the **website** (the tool apps keep their saturated tool colours):
+
+- **Page:** warm off-white `--background: #faf8f5`. Header on the same ground with a `border-black/10` bottom rule. The logo's `.eu` uses brand orange instead of yellow.
+- **Panels and cards:** `bg-white border border-black/10` with `md:rounded-3xl` (top and bottom borders only on mobile, where panels run edge to edge). One tinted section per screen at most (for example "How we work" on `bg-brand-sage/25`).
+- **Type:** headings in brand green (Bonbance, uppercase). Body `#1a1a1a`. The Anton hero is brand green on white.
+- **Actions:** green pills (`bg-brand-green text-white`), green outline pills for secondary actions, links in green.
+- **Colour in small doses:** card rotation through `apps/website/lib/quiet-palette.ts`, with a tinted band (`bg-brand-sky/35`, `bg-brand-orange/15`, …) behind the shape or image and the shape in the brand colour. Tags and region badges keep their colours.
+- **Shapes:** 1–3 per section in yellow, sky or pink at about 30% opacity.
+
 ## Editorial components (homepage and news)
 
-The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton at the hero clamp `clamp(3.5rem, 12vw, 14rem)`, full width, and the search as the primary action), then the guides band, picks, `FrontPage` (lead story on yellow, dated briefing column on cream; the masthead's "last update" ignores `sample: true` articles), `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
+The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton at `clamp(3rem, 7vw, 6rem)`, full width, and the search as the primary action), then the guides band, picks, `FrontPage` (lead story on yellow, dated briefing column on cream; the masthead's "last update" ignores `sample: true` articles), `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
 
 ---
 
