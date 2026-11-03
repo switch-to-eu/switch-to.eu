@@ -320,7 +320,7 @@ export default async function ServiceDetailPage({
                       </ul>
                     )}
                     {service.content && (
-                      <div className="mdx-content prose prose-sm sm:prose max-w-none">
+                      <div className="mdx-content prose prose-sm sm:prose max-w-[38rem]">
                         <RichText data={service.content} />
                       </div>
                     )}

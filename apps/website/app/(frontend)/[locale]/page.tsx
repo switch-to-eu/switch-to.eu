@@ -106,7 +106,10 @@ export default async function Home() {
 
   return (
     <PageLayout>
-      <HomeMasthead locale={locale} latestDate={articles[0]?.date ?? null} />
+      <HomeMasthead
+        locale={locale}
+        latestDate={articles.find((a) => !a.sample)?.date ?? null}
+      />
 
       <FeaturedGuideHero featured={featured} others={others} />
 

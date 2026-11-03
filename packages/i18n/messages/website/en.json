@@ -53,7 +53,7 @@
     "heading": "Moving away from big tech? Make the switch.",
     "subheading": "Find EU alternatives to global services and protect your data under EU law",
     "picksSectionTitle": "Our picks",
-    "picksSectionSubtitle": "One EU alternative per category, chosen for honest trade-offs.",
+    "picksSectionSubtitle": "One pick per category. EU-based where a good option exists, EU-friendly where one doesn't yet.",
     "picksOurPick": "Our pick: {name}",
     "picksLearnMoreCta": "Learn more",
     "picksLearnMoreAria": "Learn more about {name}",
@@ -89,7 +89,8 @@
       "searchLabel": "Which service do you want to leave?",
       "quickLabel": "Or start with",
       "picksLink": "See our picks",
-      "lastUpdate": "Last update"
+      "lastUpdate": "Last update",
+      "searchPlaceholder": "Search services or guides"
     },
     "guidesBand": {
       "title": "Make the switch",
@@ -108,7 +109,8 @@
       "affiliateBody": "Some outbound links earn us a small commission. They are marked where they appear.",
       "githubCta": "See the source on GitHub"
     },
-    "latestNews": "Latest news"
+    "latestNews": "Latest news",
+    "picksMoreInCategory": "More {category}"
   },
   "footer": {
     "copyright": "{year} <link>Switch-to.eu</link>.",
@@ -793,7 +795,10 @@
     "firstNameLabel": "First name",
     "emailLabel": "Email address",
     "submitLabel": "Subscribe",
-    "successMessage": "Thank you for subscribing! You will receive our next update in your inbox."
+    "successMessage": "Thank you for subscribing! You will receive our next update in your inbox.",
+    "errorMessage": "We couldn't subscribe you just now. Check your email address and try again, or come back in a few minutes.",
+    "firstNamePlaceholder": "Your first name",
+    "emailPlaceholder": "you@example.com"
   },
   "notFound": {
     "title": "Page not found | switch-to.eu",
@@ -833,6 +838,7 @@
     "moreNews": "More news",
     "readingTime": "{minutes} min read",
     "sourcesCount": "{count, plural, one {# source} other {# sources}}",
-    "sampleLabel": "Sample"
+    "sampleLabel": "Sample",
+    "samplesIntro": "Our news section launches soon. Until then, these sample pieces show the format: real events, with sources, but not yet through our full review."
   }
 }

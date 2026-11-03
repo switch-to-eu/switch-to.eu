@@ -70,19 +70,23 @@ export async function HomeMasthead({
               )}
             </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-              <h1
-                style={{ fontFamily: "var(--font-anton)" }}
-                className="lg:col-span-7 uppercase text-brand-yellow leading-[0.92] tracking-[-0.01em] text-[clamp(3rem,7.5vw,6rem)] text-balance">
-                {t("heroTaglineLine1")} {t("heroTaglineLine2")} {t("heroTaglineLine3")}
-              </h1>
+            <h1
+              style={{ fontFamily: "var(--font-anton)" }}
+              className="uppercase text-brand-yellow leading-[0.9] tracking-[-0.02em] text-[clamp(3.5rem,12vw,14rem)] text-balance mb-8 sm:mb-10"
+            >
+              {t("heroTaglineLine1")} {t("heroTaglineLine2")} {t("heroTaglineLine3")}
+            </h1>
 
-              <div className="lg:col-span-5">
-                <p className="text-white text-lg leading-relaxed mb-6 max-w-[42ch]">{t("heroSubtitle")}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
+              <p className="lg:col-span-5 text-white text-lg sm:text-xl leading-relaxed max-w-[42ch]">
+                {t("heroSubtitle")}
+              </p>
+
+              <div className="lg:col-span-7">
                 <h2 className="font-heading uppercase text-brand-yellow text-xl sm:text-2xl mb-3">
                   {t("masthead.searchLabel")}
                 </h2>
-                <InlineSearchInput />
+                <InlineSearchInput placeholder={t("masthead.searchPlaceholder")} />
                 <div className="mt-5 flex flex-wrap items-center gap-2 text-sm">
                   <span className="text-brand-sky mr-1">{t("masthead.quickLabel")}</span>
                   {QUICK_SWITCHES.map((s) => (

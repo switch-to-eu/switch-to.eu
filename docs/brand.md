@@ -460,7 +460,7 @@ Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, whi
 
 ## Editorial components (homepage and news)
 
-The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton capped at 6rem, and the search as the primary action), then `FrontPage` (lead story on yellow, dated briefing column on cream), the guides band, picks, `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
+The homepage is a front page: `HomeMasthead` (dateline, the promise in Anton at the hero clamp `clamp(3.5rem, 12vw, 14rem)`, full width, and the search as the primary action), then the guides band, picks, `FrontPage` (lead story on yellow, dated briefing column on cream; the masthead's "last update" ignores `sample: true` articles), `HowWeWork` (concrete trust signals on navy), tools and newsletter. Article pages keep the coloured frame (navy hero) around a calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. No eyebrow labels above headings.
 
 ---
 

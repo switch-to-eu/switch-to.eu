@@ -95,7 +95,7 @@ interface OrientationColumnProps {
 /** Intro panel for the guides band (the masthead above owns the page h1). */
 function OrientationColumn({ title, body, ctaLabel }: OrientationColumnProps) {
   return (
-    <div className="relative bg-brand-red overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-7">
+    <div className="relative bg-brand-red overflow-hidden px-6 sm:px-10 md:px-12 py-10 sm:py-12 md:py-14 md:col-span-5">
       <DecorativeShape
         shape="sunburst"
         className="-top-14 -left-10 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60"
@@ -155,7 +155,7 @@ function GuidesColumn({
   difficultyLabels,
 }: GuidesColumnProps) {
   return (
-    <div className="relative bg-brand-sky overflow-hidden px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 md:col-span-5">
+    <div className="relative bg-brand-sky overflow-hidden px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 md:col-span-7">
       <DecorativeShape
         shape="spark"
         className="-top-10 -right-8 w-32 h-32 sm:w-44 sm:h-44"

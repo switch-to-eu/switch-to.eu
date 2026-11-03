@@ -205,7 +205,7 @@ export default async function GuideServicePage({
               {/* Guide content with styling applied */}
               <article className="mdx-content">
                 {guide.intro && (
-                  <section id="section-intro" className="mb-10">
+                  <section id="section-intro" className="mb-10 max-w-[38rem]">
                     <RichText
                       data={guide.intro}
                       disableContainer
@@ -214,7 +214,7 @@ export default async function GuideServicePage({
                 )}
 
                 {guide.beforeYouStart && (
-                  <section id="section-before" className="mb-10">
+                  <section id="section-before" className="mb-10 max-w-[38rem]">
                     <RichText
                       data={guide.beforeYouStart}
                       disableContainer
@@ -249,7 +249,7 @@ export default async function GuideServicePage({
                 )}
 
                 {guide.troubleshooting && (
-                  <section id="section-troubleshooting" className="mb-10">
+                  <section id="section-troubleshooting" className="mb-10 max-w-[38rem]">
                     <RichText
                       data={guide.troubleshooting}
                       disableContainer
@@ -258,7 +258,7 @@ export default async function GuideServicePage({
                 )}
 
                 {guide.outro && (
-                  <section id="section-outro" className="mb-10">
+                  <section id="section-outro" className="mb-10 max-w-[38rem]">
                     <RichText
                       data={guide.outro}
                       disableContainer
@@ -282,7 +282,7 @@ export default async function GuideServicePage({
               </div>
 
               <div className="mt-12 p-6 sm:p-8 bg-brand-sage/30 rounded-3xl">
-                <h2 className="font-heading text-xl uppercase text-brand-green mb-4">
+                <h2 className="font-heading text-xl uppercase text-brand-green mb-4 text-balance">
                   {serviceT("editGuide.title")}
                 </h2>
                 <p className="mb-4 text-brand-green/80">

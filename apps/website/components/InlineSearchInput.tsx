@@ -57,7 +57,7 @@ export function InlineSearchInput({
       "dropbox",
     ].map((example) => t(`searchAnimationExamples.${example as "whatsapp"}`));
 
-    const defaultText = t("searchDefaultText");
+    const defaultText = placeholder || t("searchDefaultText");
     let currentIndex = 0;
     let showingDefault = true;
     const pauseDuration = 1500;

@@ -71,7 +71,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
       if (!response.ok) {
         const errorData = (await response.json()) as { message?: string };
         throw new Error(
-          errorData.message ?? "Failed to subscribe to newsletter"
+          errorData.message ?? "subscribe-failed"
         );
       }
 
@@ -123,7 +123,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="John"
+                            placeholder={t("firstNamePlaceholder")}
                             {...field}
                             className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
@@ -143,7 +143,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="john.doe@example.com"
+                            placeholder={t("emailPlaceholder")}
                             {...field}
                             className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
@@ -154,8 +154,8 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                   />
                 </div>
                 {error && (
-                  <div className="bg-brand-red/20 text-brand-red p-3 rounded-full text-sm">
-                    {error}
+                  <div role="alert" className="bg-white text-brand-red font-semibold px-5 py-3 rounded-full text-sm">
+                    {t("errorMessage")}
                   </div>
                 )}
                 <Button

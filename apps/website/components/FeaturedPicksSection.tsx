@@ -1,3 +1,4 @@
+import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { getTranslations } from "next-intl/server";
 import { MapPin } from "lucide-react";
 import { Container } from "@switch-to-eu/blocks/components/container";
@@ -38,13 +39,14 @@ export async function FeaturedPicksSection({ picks }: Props) {
           {t("picksSectionSubtitle")}
         </p>
 
-        <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-0 md:gap-5 sm:auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {picks.map((entry, index) => (
             <PickCard
               key={entry.category.slug}
               entry={entry}
               colorIndex={index}
               learnMoreLabel={t("picksLearnMoreCta")}
+              moreInCategoryLabel={t("picksMoreInCategory", { category: entry.category.title })}
               learnMoreAria={
                 entry.pick
                   ? t("picksLearnMoreAria", { name: entry.pick.name })
@@ -63,6 +65,7 @@ interface PickCardProps {
   colorIndex: number;
   learnMoreLabel: string;
   learnMoreAria: string;
+  moreInCategoryLabel: string;
 }
 
 function PickCard({
@@ -70,6 +73,7 @@ function PickCard({
   colorIndex,
   learnMoreLabel,
   learnMoreAria,
+  moreInCategoryLabel,
 }: PickCardProps) {
   const { category, pick } = entry;
   const card = getCardColor(colorIndex);
@@ -92,15 +96,15 @@ function PickCard({
       <Link
         href={primaryHref}
         aria-label={learnMoreAria}
-        className="absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-green"
+        className={`${card.text} absolute inset-0 z-0 md:rounded-3xl focus-visible:outline-solid focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-current`}
       />
 
       <div className="relative z-10 pointer-events-none flex flex-col h-full">
         {shapeData && (
-          <div className="relative h-28 sm:h-32 md:h-36 flex items-center justify-center p-5 sm:p-6">
+          <div className="relative h-16 sm:h-32 md:h-36 flex items-center justify-start sm:justify-center px-5 pt-5 sm:p-6">
             <svg
               viewBox={shapeData.viewBox}
-              className={`w-full h-full select-none animate-shape-float ${card.shapeColor}`}
+              className={`w-16 sm:w-full h-full select-none animate-shape-float ${card.shapeColor}`}
               style={{
                 animationDuration: `${6 + (colorIndex % 4) * 1.5}s`,
                 animationDelay: `${(colorIndex % 4) * -1.5}s`,
@@ -113,28 +117,21 @@ function PickCard({
         )}
 
         <div className="flex flex-col flex-1 px-5 pb-5 sm:px-6 sm:pb-6">
-          {pick && (
-            <Link
-              href={categoryHref}
-              className={`${card.text} pointer-events-auto relative self-start font-heading uppercase tracking-[0.14em] text-xs hover:underline mb-1 py-1 inline-flex items-center gap-1 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded`}
-            >
-              {category.title}
-              <span aria-hidden="true">→</span>
-            </Link>
-          )}
-
           <h3
             className={`${card.text} font-heading uppercase font-bold leading-tight text-xl sm:text-2xl mb-2`}
           >
             {heading}
           </h3>
 
-          {location && (
-            <div
-              className={`${card.text} inline-flex items-center gap-1.5 mb-3 text-xs uppercase tracking-wider`}
-            >
-              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>{location}</span>
+          {(location || pick) && (
+            <div className={`${card.text} flex flex-wrap items-center gap-x-2 gap-y-1 mb-3 text-xs uppercase tracking-wider`}>
+              {pick && <RegionBadge region={pick.region} showTooltip={false} />}
+              {location && (
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                  {location}
+                </span>
+              )}
             </div>
           )}
 
@@ -143,6 +140,15 @@ function PickCard({
           >
             {description}
           </p>
+
+          {pick && (
+            <Link
+              href={categoryHref}
+              className={`${card.text} pointer-events-auto relative self-start text-sm font-semibold underline underline-offset-2 hover:no-underline mb-4 py-1 rounded focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current`}
+            >
+              {moreInCategoryLabel} <span aria-hidden="true">→</span>
+            </Link>
+          )}
 
           <span
             className={`${card.button} mt-auto self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold`}

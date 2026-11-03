@@ -50,22 +50,27 @@ export async function FrontPage({
             {title}
           </h2>
         )}
+        {articles.every((a) => a.sample) && (
+          <p className="px-3 md:px-0 -mt-3 mb-6 sm:mb-8 max-w-2xl text-brand-green text-base sm:text-lg">
+            {t("samplesIntro")}
+          </p>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-5">
           {/* Lead story */}
-          <article className="relative overflow-hidden lg:col-span-8 bg-white text-brand-green md:rounded-3xl border border-brand-green/10 px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
+          <article className="relative overflow-hidden lg:col-span-8 bg-brand-yellow text-brand-green md:rounded-3xl px-6 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 flex flex-col">
             <DecorativeShape
               shape="starburst"
               className="-bottom-14 -right-14 w-48 h-48 sm:w-64 sm:h-64"
-              color="text-brand-yellow"
+              color="text-white"
               opacity={0.35}
               duration="12s"
             />
             <DecorativeShape
               shape="pebble"
               className="-top-10 right-1/4 w-28 h-28 hidden sm:block"
-              color="text-brand-sky"
-              opacity={0.35}
+              color="text-brand-green"
+              opacity={0.12}
               duration="9s"
               delay="-3s"
             />
@@ -75,7 +80,7 @@ export async function FrontPage({
               <Heading className="font-heading uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl mt-5 mb-5 text-balance">
                 <Link
                   href={`/news/${lead.slug}`}
-                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+                  className="rounded-sm hover:underline decoration-[0.06em] underline-offset-[0.12em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-4 focus-visible:ring-offset-brand-yellow"
                 >
                   {lead.title}
                 </Link>
