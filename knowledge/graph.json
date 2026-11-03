@@ -319,6 +319,14 @@
    "path": "content/categories/storage/en.md",
    "updated": "2026-03-30"
   },
+  "guides/chatgpt-to-mistral": {
+   "type": "guide",
+   "title": "Switching from ChatGPT to Mistral Vibe (formerly Le Chat)",
+   "path": "content/guides/chatgpt-to-mistral/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-03",
+   "draft": true
+  },
   "guides/gmail-to-protonmail": {
    "type": "guide",
    "title": "Migrating from Gmail to ProtonMail",
@@ -347,17 +355,25 @@
    "updated": "2026-04-23",
    "published": "2025-04-15"
   },
+  "articles/app-builders-ask-eu-for-portable-followers": {
+   "type": "article",
+   "title": "Social app builders ask the EU for a right to take your network with you",
+   "path": "content/articles/app-builders-ask-eu-for-portable-followers/en.md",
+   "updated": "2026-11-03",
+   "published": "2026-11-03",
+   "draft": true
+  },
   "landing-pages/quit-chatgpt": {
    "type": "landing-page",
    "title": "Quit ChatGPT: Switch to European AI Alternatives",
    "path": "content/landing-pages/quit-chatgpt/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "pages/privacy": {
    "type": "page",
    "title": "Privacy",
    "path": "content/pages/privacy/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "pages/terms": {
    "type": "page",
@@ -557,6 +573,14 @@
    "published": "2026-01-30",
    "updated": "2026-11-03"
   },
+  "2026-11-03-dfom-joint-position-paper": {
+   "type": "source",
+   "title": "Freedom of movement in digital Europe: joint position paper on taking your social network with you",
+   "path": "knowledge/sources/2026/11/2026-11-03-dfom-joint-position-paper.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-duckduckgo-privacy-policy": {
    "type": "source",
    "title": "DuckDuckGo Privacy Policy",
@@ -677,10 +701,34 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-euobserver-microsoft-ireland-israeli-app": {
+   "type": "source",
+   "title": "Report says Microsoft hosts parts of an Israeli permit app for Palestinians in Irish data centres",
+   "path": "knowledge/sources/2026/11/2026-11-03-euobserver-microsoft-ireland-israeli-app.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-eur-lex-eea-glossary": {
    "type": "source",
    "title": "European Economic Area (EEA) (EUR-Lex glossary)",
    "path": "knowledge/sources/2026/11/2026-11-03-eur-lex-eea-glossary.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-euractiv-ag-opinion-ai-news-reuse": {
+   "type": "source",
+   "title": "Advocate General says AI training on copyrighted works is allowed, but chatbots face limits on reusing news",
+   "path": "knowledge/sources/2026/11/2026-11-03-euractiv-ag-opinion-ai-news-reuse.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-euractiv-dfa-social-media-switching": {
+   "type": "source",
+   "title": "Alternative social apps urge the EU to make social media switching easier",
+   "path": "knowledge/sources/2026/11/2026-11-03-euractiv-dfa-social-media-switching.md",
    "reliability": "high",
    "published": "2026-11-03",
    "updated": "2026-11-03"
@@ -811,6 +859,38 @@
    "path": "knowledge/sources/2026/11/2026-11-03-google-takeout-saved-schema.md",
    "reliability": "high",
    "published": "2025-03-26",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-heise-merz-google-cloud-sovereign": {
+   "type": "source",
+   "title": "Merz says Google Cloud is sovereign enough for German intelligence services",
+   "path": "knowledge/sources/2026/11/2026-11-03-heise-merz-google-cloud-sovereign.md",
+   "reliability": "high",
+   "published": "2026-11-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-heise-nextcloud-ionos-school-platform": {
+   "type": "source",
+   "title": "Six German states sign up for an open-source school platform from Nextcloud and IONOS",
+   "path": "knowledge/sources/2026/11/2026-11-03-heise-nextcloud-ionos-school-platform.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-heise-proton-slack-leak": {
+   "type": "source",
+   "title": "Leaked Slack messages suggest Proton's CEO puts AI-driven growth before security",
+   "path": "knowledge/sources/2026/11/2026-11-03-heise-proton-slack-leak.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-lmi-mistral-large-4-open-weights": {
+   "type": "source",
+   "title": "Mistral AI publishes the weights of Mistral Large 4",
+   "path": "knowledge/sources/2026/11/2026-11-03-lmi-mistral-large-4-open-weights.md",
+   "reliability": "medium",
+   "published": "2026-10-30",
    "updated": "2026-11-03"
   },
   "2026-11-03-lwn-comaps-organic-maps-fork": {
@@ -1002,6 +1082,14 @@
    "title": "Mistral Vibe (formerly Le Chat), AI chat and coding agent (product page)",
    "path": "knowledge/sources/2026/11/2026-11-03-mistral-vibe-product-page.md",
    "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-nextcloud-six-states-school-cloud": {
+   "type": "source",
+   "title": "Six German states gain access to sovereign school cloud based on Nextcloud",
+   "path": "knowledge/sources/2026/11/2026-11-03-nextcloud-six-states-school-cloud.md",
+   "reliability": "medium",
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
@@ -1203,6 +1291,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-supported-versions-faq.md",
    "reliability": "high",
    "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-politico-kids-act-national-bans-paused": {
+   "type": "source",
+   "title": "Commission tells member states to pause national social media bans for a year",
+   "path": "knowledge/sources/2026/11/2026-11-03-politico-kids-act-national-bans-paused.md",
+   "reliability": "high",
+   "published": "2026-10-29",
    "updated": "2026-11-03"
   },
   "2026-11-03-proton-autumn-winter-2026-roadmap": {
@@ -1861,6 +1957,14 @@
    "summary": "Paris-based joint venture of Ecosia and Qwant that runs the Staan European search index.",
    "updated": "2026-11-03"
   },
+  "ionos": {
+   "type": "entity",
+   "kind": "company",
+   "title": "IONOS",
+   "path": "knowledge/entities/company/ionos.md",
+   "summary": "German hosting and cloud provider that runs IONOS Nextcloud Workspace in German data centres.",
+   "updated": "2026-11-03"
+  },
   "microsoft": {
    "type": "entity",
    "kind": "company",
@@ -1875,6 +1979,14 @@
    "title": "Mistral AI",
    "path": "knowledge/entities/company/mistral-ai.md",
    "summary": "French AI company behind the Vibe assistant (formerly Le Chat) and the Mistral models.",
+   "updated": "2026-11-03"
+  },
+  "nextcloud": {
+   "type": "entity",
+   "kind": "company",
+   "title": "Nextcloud",
+   "path": "knowledge/entities/company/nextcloud.md",
+   "summary": "Stuttgart-based maker of the open-source Nextcloud collaboration platform, sold self-hosted or through hosting partners such as IONOS.",
    "updated": "2026-11-03"
   },
   "openai": {
@@ -1932,6 +2044,100 @@
    "path": "knowledge/entities/company/vivaldi-technologies.md",
    "summary": "Norwegian browser maker behind Vivaldi, funded by search and bookmark partner deals.",
    "updated": "2026-11-03"
+  },
+  "court-of-justice-of-the-eu": {
+   "type": "entity",
+   "kind": "institution",
+   "title": "Court of Justice of the European Union",
+   "path": "knowledge/entities/institution/court-of-justice-of-the-eu.md",
+   "summary": "The EU's highest court. Its advocates general issue non-binding opinions that the court usually follows.",
+   "updated": "2026-11-03"
+  },
+  "european-commission": {
+   "type": "entity",
+   "kind": "institution",
+   "title": "European Commission",
+   "path": "knowledge/entities/institution/european-commission.md",
+   "summary": "The EU's executive. Proposes EU laws such as the Digital Fairness Act and the Kids Act, and enforces the Digital Markets Act.",
+   "updated": "2026-11-03"
+  },
+  "german-federal-government": {
+   "type": "entity",
+   "kind": "institution",
+   "title": "German federal government",
+   "path": "knowledge/entities/institution/german-federal-government.md",
+   "summary": "Germany's federal government under Chancellor Friedrich Merz. heise reports its intelligence services plan an offline cloud with Google as project partner.",
+   "updated": "2026-11-03"
+  },
+  "digital-fairness-act": {
+   "type": "entity",
+   "kind": "regulation",
+   "title": "Digital Fairness Act",
+   "path": "knowledge/entities/regulation/digital-fairness-act.md",
+   "summary": "Planned EU law revamping online consumer protection. The Commission is due to propose it in November 2026.",
+   "updated": "2026-11-03"
+  },
+  "digital-markets-act": {
+   "type": "entity",
+   "kind": "regulation",
+   "title": "Digital Markets Act",
+   "path": "knowledge/entities/regulation/digital-markets-act.md",
+   "summary": "EU competition law for large \"gatekeeper\" platforms, enforced by the European Commission. Covers defaults, choice screens, data portability and messaging interoperability.",
+   "updated": "2026-11-03"
+  },
+  "kids-act": {
+   "type": "entity",
+   "kind": "regulation",
+   "title": "Kids Act",
+   "path": "knowledge/entities/regulation/kids-act.md",
+   "summary": "EU proposal from September 2026 to set common limits on social media access for minors, under negotiation.",
+   "updated": "2026-11-03"
+  },
+  "cjeu-ai-press-publisher-case": {
+   "type": "story",
+   "title": "Court of Justice case on AI chatbots and press publishers' rights",
+   "path": "knowledge/stories/cjeu-ai-press-publisher-case.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-11-03",
+   "heat": 3
+  },
+  "eu-digital-fairness-act-social-switching": {
+   "type": "story",
+   "title": "EU Digital Fairness Act and the right to take your social network with you",
+   "path": "knowledge/stories/eu-digital-fairness-act-social-switching.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-11-03",
+   "last_covered": "2026-11-03",
+   "heat": 5
+  },
+  "eu-kids-act-social-media-age-limits": {
+   "type": "story",
+   "title": "EU Kids Act and national social media bans for minors",
+   "path": "knowledge/stories/eu-kids-act-social-media-age-limits.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-10-29",
+   "heat": 2.5
+  },
+  "european-public-sector-leaves-us-software": {
+   "type": "story",
+   "title": "European public sector moves off US office and cloud software",
+   "path": "knowledge/stories/european-public-sector-leaves-us-software.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-11-03",
+   "heat": 5
+  },
+  "german-government-google-cloud": {
+   "type": "story",
+   "title": "German government turns to Google Cloud for sensitive workloads",
+   "path": "knowledge/stories/german-government-google-cloud.md",
+   "status": "active",
+   "updated": "2026-11-03",
+   "last_event": "2026-11-02",
+   "heat": 2.9
   }
  },
  "edges": [
@@ -2161,6 +2367,56 @@
    "rel": "in-category"
   },
   {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "eu-digital-fairness-act-social-switching",
+   "rel": "covers"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "digital-fairness-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "digital-markets-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "services/mastodon",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "services/bluesky",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "services/x-(twitter)",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "services/instagram",
+   "rel": "mentions"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "articles/app-builders-ask-eu-for-portable-followers",
+   "to": "guides/x-to-bluesky",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
    "to": "mistral-ai",
    "rel": "mentions"
@@ -2266,6 +2522,26 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-dfom-joint-position-paper",
+   "to": "digital-fairness-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfom-joint-position-paper",
+   "to": "digital-markets-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfom-joint-position-paper",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfom-joint-position-paper",
+   "to": "eu-digital-fairness-act-social-switching",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-duckduckgo-privacy-policy",
    "to": "duck-duck-go",
    "rel": "mentions"
@@ -2361,6 +2637,46 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-euobserver-microsoft-ireland-israeli-app",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "to": "court-of-justice-of-the-eu",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "to": "cjeu-ai-press-publisher-case",
+   "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-euractiv-dfa-social-media-switching",
+   "to": "digital-fairness-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-dfa-social-media-switching",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-dfa-social-media-switching",
+   "to": "digital-markets-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-euractiv-dfa-social-media-switching",
+   "to": "eu-digital-fairness-act-social-switching",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-google-drive-desktop-stream-mirror-help",
    "to": "alphabet",
    "rel": "mentions"
@@ -2428,6 +2744,61 @@
   {
    "from": "2026-11-03-google-takeout-saved-schema",
    "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "to": "german-federal-government",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "to": "german-government-google-cloud",
+   "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "to": "nextcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "to": "ionos",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "to": "european-public-sector-leaves-us-software",
+   "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-heise-proton-slack-leak",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-lmi-mistral-large-4-open-weights",
+   "to": "mistral-ai",
    "rel": "mentions"
   },
   {
@@ -2549,6 +2920,21 @@
    "from": "2026-11-03-mistral-vibe-product-page",
    "to": "mistral-ai",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-nextcloud-six-states-school-cloud",
+   "to": "nextcloud",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-nextcloud-six-states-school-cloud",
+   "to": "ionos",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-nextcloud-six-states-school-cloud",
+   "to": "european-public-sector-leaves-us-software",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-openai-chatgpt-custom-instructions-help",
@@ -2674,6 +3060,21 @@
    "from": "2026-11-03-organic-maps-supported-versions-faq",
    "to": "organic-maps",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-politico-kids-act-national-bans-paused",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-politico-kids-act-national-bans-paused",
+   "to": "kids-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-politico-kids-act-national-bans-paused",
+   "to": "eu-kids-act-social-media-age-limits",
+   "rel": "part-of"
   },
   {
    "from": "2026-11-03-proton-autumn-winter-2026-roadmap",
@@ -3156,6 +3557,11 @@
    "rel": "owned-by"
   },
   {
+   "from": "ionos",
+   "to": "nextcloud",
+   "rel": "partners-with"
+  },
+  {
    "from": "microsoft",
    "to": "services/bing-search",
    "rel": "provides"
@@ -3169,6 +3575,21 @@
    "from": "mistral-ai",
    "to": "services/mistral-le-chat",
    "rel": "provides"
+  },
+  {
+   "from": "nextcloud",
+   "to": "services/nextcloud",
+   "rel": "provides"
+  },
+  {
+   "from": "nextcloud",
+   "to": "ionos",
+   "rel": "partners-with"
+  },
+  {
+   "from": "nextcloud",
+   "to": "microsoft",
+   "rel": "competes-with"
   },
   {
    "from": "openai",
@@ -3254,6 +3675,151 @@
    "from": "vivaldi-technologies",
    "to": "qwant",
    "rel": "partners-with"
+  },
+  {
+   "from": "european-commission",
+   "to": "digital-markets-act",
+   "rel": "enforces"
+  },
+  {
+   "from": "digital-fairness-act",
+   "to": "european-commission",
+   "rel": "regulated-by"
+  },
+  {
+   "from": "digital-markets-act",
+   "to": "european-commission",
+   "rel": "regulated-by"
+  },
+  {
+   "from": "kids-act",
+   "to": "european-commission",
+   "rel": "regulated-by"
+  },
+  {
+   "from": "cjeu-ai-press-publisher-case",
+   "to": "court-of-justice-of-the-eu",
+   "rel": "involves"
+  },
+  {
+   "from": "cjeu-ai-press-publisher-case",
+   "to": "alphabet",
+   "rel": "involves"
+  },
+  {
+   "from": "cjeu-ai-press-publisher-case",
+   "to": "services/google-gemini",
+   "rel": "involves"
+  },
+  {
+   "from": "cjeu-ai-press-publisher-case",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "digital-fairness-act",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "european-commission",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "digital-markets-act",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "services/x-(twitter)",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "services/instagram",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "services/bluesky",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "services/mastodon",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "eu-kids-act-social-media-age-limits",
+   "to": "kids-act",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-kids-act-social-media-age-limits",
+   "to": "european-commission",
+   "rel": "involves"
+  },
+  {
+   "from": "eu-kids-act-social-media-age-limits",
+   "to": "categories/social-media",
+   "rel": "in-category"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "nextcloud",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "ionos",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "microsoft",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "alphabet",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "services/nextcloud",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "services/google-drive",
+   "rel": "involves"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "categories/storage",
+   "rel": "in-category"
+  },
+  {
+   "from": "german-government-google-cloud",
+   "to": "german-federal-government",
+   "rel": "involves"
+  },
+  {
+   "from": "german-government-google-cloud",
+   "to": "alphabet",
+   "rel": "involves"
+  },
+  {
+   "from": "german-government-google-cloud",
+   "to": "european-commission",
+   "rel": "involves"
   },
   {
    "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
@@ -4387,6 +4953,16 @@
   },
   {
    "from": "alphabet",
+   "to": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
+   "to": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "rel": "links"
+  },
+  {
+   "from": "alphabet",
    "to": "2026-11-03-chrome-sign-in-help",
    "rel": "links"
   },
@@ -4476,6 +5052,16 @@
    "rel": "links"
   },
   {
+   "from": "ionos",
+   "to": "2026-11-03-nextcloud-six-states-school-cloud",
+   "rel": "links"
+  },
+  {
+   "from": "ionos",
+   "to": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "rel": "links"
+  },
+  {
    "from": "microsoft",
    "to": "2026-11-03-ec-bing-edge-not-gatekeepers",
    "rel": "links"
@@ -4488,6 +5074,11 @@
   {
    "from": "microsoft",
    "to": "2026-11-03-windows-dma-updates-2025",
+   "rel": "links"
+  },
+  {
+   "from": "microsoft",
+   "to": "2026-11-03-euobserver-microsoft-ireland-israeli-app",
    "rel": "links"
   },
   {
@@ -4508,6 +5099,11 @@
   {
    "from": "mistral-ai",
    "to": "2026-11-03-mistral-trust-center-subprocessors",
+   "rel": "links"
+  },
+  {
+   "from": "mistral-ai",
+   "to": "2026-11-03-lmi-mistral-large-4-open-weights",
    "rel": "links"
   },
   {
@@ -4533,6 +5129,16 @@
   {
    "from": "mistral-ai",
    "to": "2026-11-03-clubic-mistral-cnil-complaint",
+   "rel": "links"
+  },
+  {
+   "from": "nextcloud",
+   "to": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "rel": "links"
+  },
+  {
+   "from": "nextcloud",
+   "to": "2026-11-03-nextcloud-six-states-school-cloud",
    "rel": "links"
   },
   {
@@ -4618,6 +5224,11 @@
   {
    "from": "proton",
    "to": "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "rel": "links"
+  },
+  {
+   "from": "proton",
+   "to": "2026-11-03-heise-proton-slack-leak",
    "rel": "links"
   },
   {
@@ -4714,6 +5325,106 @@
    "from": "vivaldi-technologies",
    "to": "2026-11-03-vivaldi-ad-attribution-help",
    "rel": "links"
+  },
+  {
+   "from": "court-of-justice-of-the-eu",
+   "to": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
+   "to": "2026-11-03-euractiv-dfa-social-media-switching",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
+   "to": "2026-11-03-politico-kids-act-national-bans-paused",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
+   "to": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "rel": "links"
+  },
+  {
+   "from": "european-commission",
+   "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "german-federal-government",
+   "to": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "rel": "links"
+  },
+  {
+   "from": "digital-fairness-act",
+   "to": "2026-11-03-euractiv-dfa-social-media-switching",
+   "rel": "links"
+  },
+  {
+   "from": "digital-fairness-act",
+   "to": "2026-11-03-dfom-joint-position-paper",
+   "rel": "links"
+  },
+  {
+   "from": "digital-markets-act",
+   "to": "2026-11-03-ec-dma-review-2026-choice-screens",
+   "rel": "links"
+  },
+  {
+   "from": "digital-markets-act",
+   "to": "2026-11-03-dfom-joint-position-paper",
+   "rel": "links"
+  },
+  {
+   "from": "digital-markets-act",
+   "to": "2026-11-03-euractiv-dfa-social-media-switching",
+   "rel": "links"
+  },
+  {
+   "from": "kids-act",
+   "to": "2026-11-03-politico-kids-act-national-bans-paused",
+   "rel": "links"
+  },
+  {
+   "from": "cjeu-ai-press-publisher-case",
+   "to": "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "2026-11-03-euractiv-dfa-social-media-switching",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "2026-11-03-dfom-joint-position-paper",
+   "rel": "links"
+  },
+  {
+   "from": "eu-digital-fairness-act-social-switching",
+   "to": "articles/app-builders-ask-eu-for-portable-followers",
+   "rel": "links"
+  },
+  {
+   "from": "eu-kids-act-social-media-age-limits",
+   "to": "2026-11-03-politico-kids-act-national-bans-paused",
+   "rel": "links"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "rel": "links"
+  },
+  {
+   "from": "european-public-sector-leaves-us-software",
+   "to": "2026-11-03-nextcloud-six-states-school-cloud",
+   "rel": "links"
+  },
+  {
+   "from": "german-government-google-cloud",
+   "to": "2026-11-03-heise-merz-google-cloud-sovereign",
+   "rel": "links"
   }
  ],
  "backlinks": {
@@ -4727,6 +5438,9 @@
    "services/yahoo-search"
   ],
   "categories/social-media": [
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching",
+   "eu-kids-act-social-media-age-limits",
    "services/bluesky",
    "services/facebook",
    "services/instagram",
@@ -4743,6 +5457,7 @@
    "services/waterfox"
   ],
   "categories/artificial-intelligence": [
+   "cjeu-ai-press-publisher-case",
    "services/chatgpt",
    "services/claude",
    "services/google-gemini",
@@ -4764,6 +5479,7 @@
    "services/tuta"
   ],
   "categories/storage": [
+   "european-public-sector-leaves-us-software",
    "services/google-drive",
    "services/nextcloud",
    "services/pcloud",
@@ -4778,9 +5494,60 @@
    "services/osmand",
    "services/waze"
   ],
+  "eu-digital-fairness-act-social-switching": [
+   "2026-11-03-dfom-joint-position-paper",
+   "2026-11-03-euractiv-dfa-social-media-switching",
+   "articles/app-builders-ask-eu-for-portable-followers"
+  ],
+  "digital-fairness-act": [
+   "2026-11-03-dfom-joint-position-paper",
+   "2026-11-03-euractiv-dfa-social-media-switching",
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "european-commission": [
+   "2026-11-03-dfom-joint-position-paper",
+   "2026-11-03-euractiv-dfa-social-media-switching",
+   "2026-11-03-heise-merz-google-cloud-sovereign",
+   "2026-11-03-politico-kids-act-national-bans-paused",
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "digital-fairness-act",
+   "digital-markets-act",
+   "eu-digital-fairness-act-social-switching",
+   "eu-kids-act-social-media-age-limits",
+   "german-government-google-cloud",
+   "kids-act"
+  ],
+  "digital-markets-act": [
+   "2026-11-03-dfom-joint-position-paper",
+   "2026-11-03-euractiv-dfa-social-media-switching",
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching",
+   "european-commission"
+  ],
+  "services/mastodon": [
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "services/bluesky": [
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "services/x-(twitter)": [
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "services/instagram": [
+   "articles/app-builders-ask-eu-for-portable-followers",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "guides/x-to-bluesky": [
+   "articles/app-builders-ask-eu-for-portable-followers"
+  ],
   "mistral-ai": [
    "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
    "2026-11-03-clubic-mistral-cnil-complaint",
+   "2026-11-03-lmi-mistral-large-4-open-weights",
    "2026-11-03-mistral-docs-choose-work-code",
    "2026-11-03-mistral-docs-custom-instructions",
    "2026-11-03-mistral-docs-knowledge-base",
@@ -4819,6 +5586,7 @@
    "2026-11-03-chrome-password-import-export-help",
    "2026-11-03-chrome-sign-in-help",
    "2026-11-03-ec-dma-review-2026-choice-screens",
+   "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
    "2026-11-03-google-drive-desktop-stream-mirror-help",
    "2026-11-03-google-drive-download-file-help",
    "2026-11-03-google-drive-for-desktop-help",
@@ -4833,8 +5601,13 @@
    "2026-11-03-google-takeout-maps-schema",
    "2026-11-03-google-takeout-maps-your-places-schema",
    "2026-11-03-google-takeout-saved-schema",
+   "2026-11-03-heise-merz-google-cloud-sovereign",
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
    "2026-11-03-rclone-google-drive-backend-docs",
-   "ecosia"
+   "cjeu-ai-press-publisher-case",
+   "ecosia",
+   "european-public-sector-leaves-us-software",
+   "german-government-google-cloud"
   ],
   "apple": [
    "2026-11-03-apple-default-apps-choice-screens",
@@ -4919,8 +5692,12 @@
    "2026-11-03-ec-dma-review-2026-choice-screens",
    "2026-11-03-edge-default-search-engine-help",
    "2026-11-03-edge-mobile-faq-search-engine",
+   "2026-11-03-euobserver-microsoft-ireland-israeli-app",
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
    "2026-11-03-windows-dma-updates-2025",
    "ecosia",
+   "european-public-sector-leaves-us-software",
+   "nextcloud",
    "qwant"
   ],
   "european-search-perspective": [
@@ -4979,7 +5756,38 @@
    "2026-11-03-organic-maps-search-faq",
    "2026-11-03-organic-maps-supported-versions-faq"
   ],
+  "court-of-justice-of-the-eu": [
+   "2026-11-03-euractiv-ag-opinion-ai-news-reuse",
+   "cjeu-ai-press-publisher-case"
+  ],
+  "cjeu-ai-press-publisher-case": [
+   "2026-11-03-euractiv-ag-opinion-ai-news-reuse"
+  ],
+  "german-federal-government": [
+   "2026-11-03-heise-merz-google-cloud-sovereign",
+   "german-government-google-cloud"
+  ],
+  "german-government-google-cloud": [
+   "2026-11-03-heise-merz-google-cloud-sovereign"
+  ],
+  "nextcloud": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "european-public-sector-leaves-us-software",
+   "ionos"
+  ],
+  "ionos": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "european-public-sector-leaves-us-software",
+   "nextcloud"
+  ],
+  "european-public-sector-leaves-us-software": [
+   "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-nextcloud-six-states-school-cloud"
+  ],
   "proton": [
+   "2026-11-03-heise-proton-slack-leak",
    "2026-11-03-proton-autumn-winter-2026-roadmap",
    "2026-11-03-proton-docs-create-edit-help",
    "2026-11-03-proton-docs-import-export-help",
@@ -5004,6 +5812,13 @@
    "2026-11-03-proton-sheets-import-export-help",
    "2026-11-03-rclone-proton-drive-backend-docs",
    "2026-11-03-reddit-proton-drive-roadmap-h2-2026"
+  ],
+  "kids-act": [
+   "2026-11-03-politico-kids-act-national-bans-paused",
+   "eu-kids-act-social-media-age-limits"
+  ],
+  "eu-kids-act-social-media-age-limits": [
+   "2026-11-03-politico-kids-act-national-bans-paused"
   ],
   "services/chrome": [
    "2026-11-03-android-dma-choice-screen",
@@ -5044,10 +5859,12 @@
    "2026-11-03-proton-easy-switch-help",
    "2026-11-03-rclone-google-drive-backend-docs",
    "2026-11-03-rclone-proton-drive-backend-docs",
-   "alphabet"
+   "alphabet",
+   "european-public-sector-leaves-us-software"
   ],
   "services/google-gemini": [
-   "alphabet"
+   "alphabet",
+   "cjeu-ai-press-publisher-case"
   ],
   "services/google-maps": [
    "2026-11-03-google-maps-lists-help",
@@ -5138,6 +5955,10 @@
    "2026-11-03-vibe-app-store-listing",
    "2026-11-03-vibe-google-play-listing",
    "mistral-ai"
+  ],
+  "services/nextcloud": [
+   "european-public-sector-leaves-us-software",
+   "nextcloud"
   ],
   "services/chatgpt": [
    "2026-11-03-decrypt-quitgpt-data-guide",
@@ -5297,6 +6118,8 @@
   "2026-11-03-ec-dma-review-2026-choice-screens": [
    "alphabet",
    "apple",
+   "digital-markets-act",
+   "european-commission",
    "microsoft"
   ],
   "2026-11-03-google-storage-quota-help": [
@@ -5304,6 +6127,17 @@
   ],
   "2026-11-03-google-takeout-download-data-help": [
    "alphabet"
+  ],
+  "2026-11-03-heise-merz-google-cloud-sovereign": [
+   "alphabet",
+   "european-commission",
+   "german-federal-government",
+   "german-government-google-cloud"
+  ],
+  "2026-11-03-euractiv-ag-opinion-ai-news-reuse": [
+   "alphabet",
+   "cjeu-ai-press-publisher-case",
+   "court-of-justice-of-the-eu"
   ],
   "2026-11-03-chrome-sign-in-help": [
    "alphabet"
@@ -5354,7 +6188,20 @@
    "european-search-perspective",
    "qwant"
   ],
+  "2026-11-03-nextcloud-six-states-school-cloud": [
+   "european-public-sector-leaves-us-software",
+   "ionos",
+   "nextcloud"
+  ],
+  "2026-11-03-heise-nextcloud-ionos-school-platform": [
+   "european-public-sector-leaves-us-software",
+   "ionos",
+   "nextcloud"
+  ],
   "2026-11-03-windows-dma-updates-2025": [
+   "microsoft"
+  ],
+  "2026-11-03-euobserver-microsoft-ireland-israeli-app": [
    "microsoft"
   ],
   "2026-11-03-mistral-privacy-policy": [
@@ -5367,6 +6214,9 @@
    "mistral-ai"
   ],
   "2026-11-03-mistral-trust-center-subprocessors": [
+   "mistral-ai"
+  ],
+  "2026-11-03-lmi-mistral-large-4-open-weights": [
    "mistral-ai"
   ],
   "2026-11-03-mistral-pricing-page": [
@@ -5435,6 +6285,9 @@
   "2026-11-03-proton-autumn-winter-2026-roadmap": [
    "proton"
   ],
+  "2026-11-03-heise-proton-slack-leak": [
+   "proton"
+  ],
   "2026-11-03-proton-drive-release-notes": [
    "proton"
   ],
@@ -5476,6 +6329,25 @@
   ],
   "2026-11-03-vivaldi-ad-attribution-help": [
    "vivaldi-technologies"
+  ],
+  "2026-11-03-euractiv-dfa-social-media-switching": [
+   "digital-fairness-act",
+   "digital-markets-act",
+   "eu-digital-fairness-act-social-switching",
+   "european-commission"
+  ],
+  "2026-11-03-politico-kids-act-national-bans-paused": [
+   "eu-kids-act-social-media-age-limits",
+   "european-commission",
+   "kids-act"
+  ],
+  "2026-11-03-dfom-joint-position-paper": [
+   "digital-fairness-act",
+   "digital-markets-act",
+   "eu-digital-fairness-act-social-switching"
+  ],
+  "articles/app-builders-ask-eu-for-portable-followers": [
+   "eu-digital-fairness-act-social-switching"
   ]
  }
 }
