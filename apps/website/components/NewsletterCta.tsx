@@ -125,7 +125,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                           <Input
                             placeholder="John"
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
                         </FormControl>
                         <FormMessage />
@@ -145,7 +145,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
                             type="email"
                             placeholder="john.doe@example.com"
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/85 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
                           />
                         </FormControl>
                         <FormMessage />

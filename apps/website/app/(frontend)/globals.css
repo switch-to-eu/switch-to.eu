@@ -70,3 +70,14 @@
   line-height: 1.6;
   color: var(--brand-green);
 }
+
+/*
+ * Avoid single-word last lines ("stragglers") in running text, flagged by
+ * the impeccable detector. Headings already use text-balance.
+ */
+p,
+dd,
+li,
+blockquote {
+  text-wrap: pretty;
+}

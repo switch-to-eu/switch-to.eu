@@ -146,7 +146,7 @@ export default async function NewsArticlePage({
             {article.sample && (
               <p
                 role="note"
-                className="mb-8 rounded-2xl bg-brand-cream border border-brand-green/20 px-5 py-4 text-brand-green leading-relaxed"
+                className="mb-8 max-w-[36rem] rounded-2xl bg-brand-cream border border-brand-green/20 px-5 py-4 text-brand-green leading-relaxed"
               >
                 {t("sampleNotice")}
               </p>

@@ -286,7 +286,7 @@ export function InlineSearchInput({
               ref={searchInputRef}
               type="text"
               placeholder={currentPlaceholder}
-              className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/40 bg-transparent focus:outline-none ${className}`}
+              className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/75 bg-transparent focus:outline-none ${className}`}
               value={query}
               onChange={handleSearchChange}
               onKeyDown={handleKeyDown}
