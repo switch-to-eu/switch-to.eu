@@ -20,3 +20,4 @@ Append-only. One line per operation: `YYYY-MM-DD <op> | <target> | <note>`.
 2026-11-03 pick    | eu-digital-fairness-act-social-switching | angle: builders ask the DFA for a right to take your followers with you, proposal due 11 Nov · backups: european-public-sector-leaves-us-software, cjeu-ai-press-publisher-case
 2026-11-03 write   | content/articles/app-builders-ask-eu-for-portable-followers/en.md | story eu-digital-fairness-act-social-switching, last_covered set on write (draft)
 2026-11-03 check   | content/articles/app-builders-ask-eu-for-portable-followers/en.md | 19 claims ok, 2 reworded (humanize), 0 cut · SEO 95
+2026-11-03 research | docs/seo/opportunities/2026-11-03-ai-services.md | +42 sources (AI services shortlist: alternatives and non-EU starting points)

@@ -6,8 +6,8 @@
 
 | Story | Slug | Heat | Last event | Last covered | Sources |
 |---|---|---|---|---|---|
-| [EU Digital Fairness Act and the right to take your social network with you](stories/eu-digital-fairness-act-social-switching.md) | `eu-digital-fairness-act-social-switching` | 5 | 2026-11-03 | 2026-11-03 | 2 |
-| [European public sector moves off US office and cloud software](stories/european-public-sector-leaves-us-software.md) | `european-public-sector-leaves-us-software` | 5 | 2026-11-03 | never | 2 |
+| [European public sector moves off US office and cloud software](stories/european-public-sector-leaves-us-software.md) | `european-public-sector-leaves-us-software` | 5.3 | 2026-11-03 | never | 4 |
+| [EU Digital Fairness Act and the right to take your social network with you](stories/eu-digital-fairness-act-social-switching.md) | `eu-digital-fairness-act-social-switching` | 5 | 2026-11-03 | 2026-11-03 | 3 |
 | [Court of Justice case on AI chatbots and press publishers' rights](stories/cjeu-ai-press-publisher-case.md) | `cjeu-ai-press-publisher-case` | 3 | 2026-11-03 | never | 1 |
 | [German government turns to Google Cloud for sensitive workloads](stories/german-government-google-cloud.md) | `german-government-google-cloud` | 2.9 | 2026-11-02 | never | 1 |
 | [EU Kids Act and national social media bans for minors](stories/eu-kids-act-social-media-age-limits.md) | `eu-kids-act-social-media-age-limits` | 2.5 | 2026-10-29 | never | 1 |
@@ -16,18 +16,18 @@
 
 ### company
 
-- [Alphabet](entities/company/alphabet.md) `alphabet` · 32 refs · US parent of Google; Android, Chrome and Google Search fall under the DMA rules on defaults and choice screens.
-- [Apple](entities/company/apple.md) `apple` · 7 refs · US maker of iOS, iPadOS and Safari, which fall under the DMA rules on defaults and choice screens.
+- [Alphabet](entities/company/alphabet.md) `alphabet` · 34 refs · US parent of Google; Android, Chrome and Google Search fall under the DMA rules on defaults and choice screens.
+- [Apple](entities/company/apple.md) `apple` · 9 refs · US maker of iOS, iPadOS and Safari, which fall under the DMA rules on defaults and choice screens.
 - [DuckDuckGo](entities/company/duck-duck-go.md) `duck-duck-go` · 4 refs · Company behind the DuckDuckGo search engine, which largely sources its web results from Bing.
-- [Ecosia](entities/company/ecosia.md) `ecosia` · 10 refs · German search company that funds climate projects from ad revenue and co-owns the EUSP search index with Qwant.
+- [Ecosia](entities/company/ecosia.md) `ecosia` · 12 refs · German search company that funds climate projects from ad revenue and co-owns the EUSP search index with Qwant.
 - [European Search Perspective](entities/company/european-search-perspective.md) `european-search-perspective` · 5 refs · Paris-based joint venture of Ecosia and Qwant that runs the Staan European search index.
 - [IONOS](entities/company/ionos.md) `ionos` · 4 refs · German hosting and cloud provider that runs IONOS Nextcloud Workspace in German data centres.
-- [Microsoft](entities/company/microsoft.md) `microsoft` · 11 refs · US software and cloud vendor; Windows falls under the DMA rules on defaults, Bing and Edge do not.
-- [Mistral AI](entities/company/mistral-ai.md) `mistral-ai` · 29 refs · French AI company behind the Vibe assistant (formerly Le Chat) and the Mistral models.
+- [Microsoft](entities/company/microsoft.md) `microsoft` · 17 refs · US software and cloud vendor; Windows falls under the DMA rules on defaults, Bing and Edge do not.
+- [Mistral AI](entities/company/mistral-ai.md) `mistral-ai` · 30 refs · French AI company behind the Vibe assistant (formerly Le Chat) and the Mistral models.
 - [Nextcloud](entities/company/nextcloud.md) `nextcloud` · 4 refs · Stuttgart-based maker of the open-source Nextcloud collaboration platform, sold self-hosted or through hosting partners such as IONOS.
-- [OpenAI](entities/company/openai.md) `openai` · 10 refs · US AI company behind ChatGPT.
+- [OpenAI](entities/company/openai.md) `openai` · 13 refs · US AI company behind ChatGPT.
 - [Organic Maps](entities/company/organic-maps.md) `organic-maps` · 19 refs · Estonian company behind the Organic Maps offline maps app, with a sole shareholder since August 2025.
-- [Proton](entities/company/proton.md) `proton` · 25 refs · Swiss company behind Proton Mail, Proton Drive and Lumo, sold alone or in bundles.
+- [Proton](entities/company/proton.md) `proton` · 27 refs · Swiss company behind Proton Mail, Proton Drive and Lumo, sold alone or in bundles.
 - [Qwant](entities/company/qwant.md) `qwant` · 14 refs · Company behind the Qwant search engine; co-owns the EUSP search index with Ecosia and uses Microsoft for results it can't answer itself.
 - [Surfboard Holding B.V.](entities/company/surfboard.md) `surfboard` · 12 refs · Dutch holding company that owns Startpage, listed as a subsidiary of the US company System1.
 - [System1](entities/company/system1.md) `system1` · 3 refs · Publicly traded US company whose subsidiaries include Startpage's owner, Surfboard Holding B.V.
@@ -35,30 +35,36 @@
 
 ### regulation
 
-- [Digital Fairness Act](entities/regulation/digital-fairness-act.md) `digital-fairness-act` · 4 refs · Planned EU law revamping online consumer protection. The Commission is due to propose it in November 2026.
+- [Digital Fairness Act](entities/regulation/digital-fairness-act.md) `digital-fairness-act` · 5 refs · Planned EU law revamping online consumer protection. The Commission is due to propose it in November 2026.
 - [Digital Markets Act](entities/regulation/digital-markets-act.md) `digital-markets-act` · 5 refs · EU competition law for large "gatekeeper" platforms, enforced by the European Commission. Covers defaults, choice screens, data portability and messaging interoperability.
 - [Kids Act](entities/regulation/kids-act.md) `kids-act` · 2 refs · EU proposal from September 2026 to set common limits on social media access for minors, under negotiation.
 
 ### institution
 
 - [Court of Justice of the European Union](entities/institution/court-of-justice-of-the-eu.md) `court-of-justice-of-the-eu` · 2 refs · The EU's highest court. Its advocates general issue non-binding opinions that the court usually follows.
-- [European Commission](entities/institution/european-commission.md) `european-commission` · 11 refs · The EU's executive. Proposes EU laws such as the Digital Fairness Act and the Kids Act, and enforces the Digital Markets Act.
+- [European Commission](entities/institution/european-commission.md) `european-commission` · 14 refs · The EU's executive. Proposes EU laws such as the Digital Fairness Act and the Kids Act, and enforces the Digital Markets Act.
 - [German federal government](entities/institution/german-federal-government.md) `german-federal-government` · 2 refs · Germany's federal government under Chancellor Friedrich Merz. heise reports its intelligence services plan an offline cloud with Google as project partner.
 
 ## Articles (1)
 
 - 2026-11-03 · [Social app builders ask the EU for a right to take your network with you](../content/articles/app-builders-ask-eu-for-portable-followers/en.md) · draft
 
-## Sources (192)
+## Sources (242)
 
-- 2026-11: 192
+- 2026-11: 242
 
 ## Health
 
+- **warning** `uncited-source` 2026-11-03-404media-proton-ai-reckoning: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-404media-proton-ceo-cancels-reinterviews: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-android-dma-search-choice-eligibility: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-apple-iphone-default-search-engine-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-apple-iphone-safari-search-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-apple-safari-mac-search-settings: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-bfl-api-pricing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-bfl-homepage: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-bfl-imprint: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-bfl-privacy-policy: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-brave-default-search-engine-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-brave-search-faq-default-mobile: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-chrome-bookmarks-import-export-help: no entity, story or article cites this source
@@ -71,15 +77,28 @@
 - **warning** `uncited-source` 2026-11-03-computerworld-chrome-to-vivaldi: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-datatilsynet-gdpr-norway: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-deepakness-vivaldi-migration-blog: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-app-store-nl: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-blog-aws-infrastructure: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-help-infrastructure-aws: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-imprint: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-privacy-policy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepl-pro-plans: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-deepseek-privacy-policy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-dfa-newsletter-commission-agenda-11-november: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-dust-homepage: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-ec-dma-citizens-qa: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ecosia-ai-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-ecosia-blog-eusp-index: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-ecosia-default-desktop-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-ecosia-default-mobile-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-ecosia-imprint: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-edge-default-search-engine-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-edge-mobile-faq-search-engine: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-eur-lex-eea-glossary: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-euria-app-store-nl: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-firefox-140-custom-search-engines: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-gdpr-article-3-territorial-scope: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-good-tape-pricing: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-google-drive-desktop-stream-mirror-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-google-drive-download-file-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-google-drive-for-desktop-help: no entity, story or article cites this source
@@ -92,6 +111,25 @@
 - **warning** `uncited-source` 2026-11-03-google-takeout-maps-schema: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-google-takeout-maps-your-places-schema: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-google-takeout-saved-schema: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-heise-deepl-aws: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-huggingchat-homepage: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-infomaniak-euria-download-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-infomaniak-euria-getting-started: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-infomaniak-my-ksuite-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-jetbrains-ai-pricing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-jetbrains-company-contacts: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-kamerbrief-belastingdienst-m365-on-premises: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-langdock-imprint: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-langdock-pricing-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-languagetool-legal-notice: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-lara-translate-pricing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-lara-translate-privacy-policy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mammouth-legal-notice: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mammouth-pricing-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-mammouth-privacy-model-providers: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-meta-ai-eu-training-announcement: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-microsoft-copilot-privacy-controls: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-microsoft-copilot-privacy-faq: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-mistral-docs-choose-work-code: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-mistral-docs-custom-instructions: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-mistral-docs-knowledge-base: no entity, story or article cites this source
@@ -108,6 +146,9 @@
 - **warning** `uncited-source` 2026-11-03-mistral-help-training-opt-out: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-mistral-help-zero-data-retention: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-mistral-vibe-product-page: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-netzpolitik-council-data-omnibus: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-noyb-council-omnibus-ai-training: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-office365itpros-copilot-flex-routing: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-openai-chatgpt-custom-instructions-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-openai-chatgpt-data-controls-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-openai-chatgpt-data-export-help: no entity, story or article cites this source
@@ -123,6 +164,7 @@
 - **warning** `uncited-source` 2026-11-03-organic-maps-route-faq: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-organic-maps-search-faq: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-organic-maps-supported-versions-faq: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-perplexity-privacy-notice: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-proton-delete-chatgpt-account-guide: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-proton-docs-create-edit-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-proton-docs-import-export-help: no entity, story or article cites this source
@@ -152,6 +194,9 @@
 - **warning** `uncited-source` 2026-11-03-rclone-google-drive-backend-docs: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-rclone-proton-drive-backend-docs: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-reddit-proton-drive-roadmap-h2-2026: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-register-dutch-tax-office-drops-m365: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-scaleway-generative-apis: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-siliconangle-cohere-aleph-alpha-merger: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-startpage-chrome-android-default-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-startpage-chrome-default-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-startpage-chrome-ios-default-help: no entity, story or article cites this source
@@ -159,8 +204,12 @@
 - **warning** `uncited-source` 2026-11-03-startpage-firefox-ios-default-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-startpage-safari-ios-homescreen-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-startpage-safari-not-default-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-statcounter-ai-chatbot-share-europe: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-tldv-imprint: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-tldv-pricing-page: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vibe-app-store-listing: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vibe-google-play-listing: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-virtualizationreview-custom-gpt-retirement: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-android-bookmarks-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-android-passwords-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-browser-privacy-policy: no entity, story or article cites this source
@@ -180,3 +229,4 @@
 - **warning** `uncited-source` 2026-11-03-vivaldi-sync-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-third-party-search-engines: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-tracker-ad-blocking-help: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-03-xai-grok-privacy-policy: no entity, story or article cites this source

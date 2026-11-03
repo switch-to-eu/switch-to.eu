@@ -11,13 +11,13 @@
    "type": "service",
    "title": "Bluesky",
    "path": "content/services/bluesky/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/brave": {
    "type": "service",
    "title": "Brave",
    "path": "content/services/brave/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/chatgpt": {
    "type": "service",
@@ -47,7 +47,7 @@
    "type": "service",
    "title": "Ecosia",
    "path": "content/services/ecosia/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/ecosia-browser": {
    "type": "service",
@@ -119,7 +119,7 @@
    "type": "service",
    "title": "Magic Earth",
    "path": "content/services/magic-earth/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/mailbox.org": {
    "type": "service",
@@ -131,7 +131,7 @@
    "type": "service",
    "title": "Mastodon",
    "path": "content/services/mastodon/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/microsoft-edge": {
    "type": "service",
@@ -161,7 +161,7 @@
    "type": "service",
    "title": "OsmAnd",
    "path": "content/services/osmand/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/pcloud": {
    "type": "service",
@@ -197,19 +197,19 @@
    "type": "service",
    "title": "Session",
    "path": "content/services/session/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/signal": {
    "type": "service",
    "title": "Signal",
    "path": "content/services/signal/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/startpage": {
    "type": "service",
    "title": "Startpage",
    "path": "content/services/startpage/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/threema": {
    "type": "service",
@@ -233,7 +233,7 @@
    "type": "service",
    "title": "Tuta",
    "path": "content/services/tuta/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/vivaldi": {
    "type": "service",
@@ -245,7 +245,7 @@
    "type": "service",
    "title": "Waterfox",
    "path": "content/services/waterfox/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/waze": {
    "type": "service",
@@ -281,43 +281,43 @@
    "type": "category",
    "title": "Web Browsers",
    "path": "content/categories/browsers/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/email": {
    "type": "category",
    "title": "Email Services",
    "path": "content/categories/email/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/messaging": {
    "type": "category",
    "title": "Messaging Apps",
    "path": "content/categories/messaging/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/navigation": {
    "type": "category",
    "title": "Navigation",
    "path": "content/categories/navigation/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/search-engines": {
    "type": "category",
    "title": "Search Engines",
    "path": "content/categories/search-engines/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/social-media": {
    "type": "category",
    "title": "Social Media",
    "path": "content/categories/social-media/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/storage": {
    "type": "category",
    "title": "Cloud Storage Services",
    "path": "content/categories/storage/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "guides/chatgpt-to-mistral": {
    "type": "guide",
@@ -381,6 +381,22 @@
    "path": "content/pages/terms/en.md",
    "updated": "2026-04-27"
   },
+  "2026-11-03-404media-proton-ai-reckoning": {
+   "type": "source",
+   "title": "Manifestos, fear and \"loser thinking\": inside Proton's AI reckoning",
+   "path": "knowledge/sources/2026/11/2026-11-03-404media-proton-ai-reckoning.md",
+   "reliability": "high",
+   "published": "2026-10-29",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-404media-proton-ceo-cancels-reinterviews": {
+   "type": "source",
+   "title": "Proton's CEO cancels AI \"re-interviews\"",
+   "path": "knowledge/sources/2026/11/2026-11-03-404media-proton-ceo-cancels-reinterviews.md",
+   "reliability": "high",
+   "published": "2026-10-30",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-agcm-mistral-le-chat-hallucination-commitments": {
    "type": "source",
    "title": "AGCM decision PS12968 accepting Mistral AI commitments on hallucination warnings in Le Chat",
@@ -441,6 +457,38 @@
    "type": "source",
    "title": "Change Search settings in Safari on Mac (Safari User Guide)",
    "path": "knowledge/sources/2026/11/2026-11-03-apple-safari-mac-search-settings.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-bfl-api-pricing": {
+   "type": "source",
+   "title": "FLUX API Pricing (Black Forest Labs)",
+   "path": "knowledge/sources/2026/11/2026-11-03-bfl-api-pricing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-bfl-homepage": {
+   "type": "source",
+   "title": "Black Forest Labs homepage",
+   "path": "knowledge/sources/2026/11/2026-11-03-bfl-homepage.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-bfl-imprint": {
+   "type": "source",
+   "title": "Black Forest Labs imprint",
+   "path": "knowledge/sources/2026/11/2026-11-03-bfl-imprint.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-bfl-privacy-policy": {
+   "type": "source",
+   "title": "Black Forest Labs privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-bfl-privacy-policy.md",
    "reliability": "high",
    "published": "2026-11-03",
    "updated": "2026-11-03"
@@ -573,6 +621,70 @@
    "published": "2026-01-30",
    "updated": "2026-11-03"
   },
+  "2026-11-03-deepl-app-store-nl": {
+   "type": "source",
+   "title": "DeepL Translate and Write on the Dutch App Store",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-app-store-nl.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepl-blog-aws-infrastructure": {
+   "type": "source",
+   "title": "We're expanding DeepL's data infrastructure, here's what's changing and why",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-blog-aws-infrastructure.md",
+   "reliability": "medium",
+   "published": "2026-04-23",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepl-help-infrastructure-aws": {
+   "type": "source",
+   "title": "DeepL infrastructure and data protection (DeepL Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-help-infrastructure-aws.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepl-imprint": {
+   "type": "source",
+   "title": "DeepL publisher information (imprint)",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-imprint.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepl-privacy-policy": {
+   "type": "source",
+   "title": "DeepL privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepl-pro-plans": {
+   "type": "source",
+   "title": "DeepL Pro plans and pricing page",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepl-pro-plans.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-deepseek-privacy-policy": {
+   "type": "source",
+   "title": "DeepSeek privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-deepseek-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-02-10",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-dfa-newsletter-commission-agenda-11-november": {
+   "type": "source",
+   "title": "Digital Fairness Act targeted for 11 November 2026",
+   "path": "knowledge/sources/2026/11/2026-11-03-dfa-newsletter-commission-agenda-11-november.md",
+   "reliability": "medium",
+   "published": "2026-09-29",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-dfom-joint-position-paper": {
    "type": "source",
    "title": "Freedom of movement in digital Europe: joint position paper on taking your social network with you",
@@ -605,6 +717,14 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-dust-homepage": {
+   "type": "source",
+   "title": "Dust homepage",
+   "path": "knowledge/sources/2026/11/2026-11-03-dust-homepage.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-ec-bing-edge-not-gatekeepers": {
    "type": "source",
    "title": "Commission closes market investigations on Microsoft's and Apple's services under the Digital Markets Act",
@@ -627,6 +747,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-ec-dma-review-2026-choice-screens.md",
    "reliability": "high",
    "published": "2026-04-28",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-ai-help": {
+   "type": "source",
+   "title": "Generative AI on Ecosia Search (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-ai-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
    "updated": "2026-11-03"
   },
   "2026-11-03-ecosia-blog-eusp-index": {
@@ -659,6 +787,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-ecosia-how-it-makes-money.md",
    "reliability": "high",
    "published": "2025-07-14",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-imprint": {
+   "type": "source",
+   "title": "Ecosia imprint",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-imprint.md",
+   "reliability": "high",
+   "published": "2026-11-03",
    "updated": "2026-11-03"
   },
   "2026-11-03-ecosia-privacy-policy": {
@@ -733,6 +869,14 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-euria-app-store-nl": {
+   "type": "source",
+   "title": "Infomaniak Euria on the Dutch App Store",
+   "path": "knowledge/sources/2026/11/2026-11-03-euria-app-store-nl.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-firefox-140-custom-search-engines": {
    "type": "source",
    "title": "Firefox 140.0 release notes",
@@ -747,6 +891,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-gdpr-article-3-territorial-scope.md",
    "reliability": "high",
    "published": "2016-04-27",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-good-tape-pricing": {
+   "type": "source",
+   "title": "Good Tape pricing",
+   "path": "knowledge/sources/2026/11/2026-11-03-good-tape-pricing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
    "updated": "2026-11-03"
   },
   "2026-11-03-google-drive-desktop-stream-mirror-help": {
@@ -861,6 +1013,14 @@
    "published": "2025-03-26",
    "updated": "2026-11-03"
   },
+  "2026-11-03-heise-deepl-aws": {
+   "type": "source",
+   "title": "DeepL: German translation service now relies on AWS",
+   "path": "knowledge/sources/2026/11/2026-11-03-heise-deepl-aws.md",
+   "reliability": "high",
+   "published": "2026-05-18",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-heise-merz-google-cloud-sovereign": {
    "type": "source",
    "title": "Merz says Google Cloud is sovereign enough for German intelligence services",
@@ -885,6 +1045,102 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-huggingchat-homepage": {
+   "type": "source",
+   "title": "HuggingChat",
+   "path": "knowledge/sources/2026/11/2026-11-03-huggingchat-homepage.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-euria-download-page": {
+   "type": "source",
+   "title": "Download Euria: a sovereign, ethical and GDPR-compliant AI Assistant (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-download-page.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-euria-getting-started": {
+   "type": "source",
+   "title": "Getting Started Guide: Euria, the sovereign and free AI assistant (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-getting-started.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-my-ksuite-page": {
+   "type": "source",
+   "title": "my kSuite, the ethical solution to protect your personal data (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-my-ksuite-page.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-jetbrains-ai-pricing": {
+   "type": "source",
+   "title": "JetBrains AI plans (store)",
+   "path": "knowledge/sources/2026/11/2026-11-03-jetbrains-ai-pricing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-jetbrains-company-contacts": {
+   "type": "source",
+   "title": "JetBrains company contacts",
+   "path": "knowledge/sources/2026/11/2026-11-03-jetbrains-company-contacts.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-kamerbrief-belastingdienst-m365-on-premises": {
+   "type": "source",
+   "title": "Letter to parliament on the future of the Dutch Tax Administration (Kamerstuk 31066-1579)",
+   "path": "knowledge/sources/2026/11/2026-11-03-kamerbrief-belastingdienst-m365-on-premises.md",
+   "reliability": "high",
+   "published": "2026-10-05",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-langdock-imprint": {
+   "type": "source",
+   "title": "Langdock imprint",
+   "path": "knowledge/sources/2026/11/2026-11-03-langdock-imprint.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-langdock-pricing-page": {
+   "type": "source",
+   "title": "Langdock pricing page",
+   "path": "knowledge/sources/2026/11/2026-11-03-langdock-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-languagetool-legal-notice": {
+   "type": "source",
+   "title": "LanguageTool legal notice",
+   "path": "knowledge/sources/2026/11/2026-11-03-languagetool-legal-notice.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-lara-translate-pricing": {
+   "type": "source",
+   "title": "Lara Translate pricing",
+   "path": "knowledge/sources/2026/11/2026-11-03-lara-translate-pricing.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-lara-translate-privacy-policy": {
+   "type": "source",
+   "title": "Lara Translate privacy policy",
+   "path": "knowledge/sources/2026/11/2026-11-03-lara-translate-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-lmi-mistral-large-4-open-weights": {
    "type": "source",
    "title": "Mistral AI publishes the weights of Mistral Large 4",
@@ -899,6 +1155,54 @@
    "path": "knowledge/sources/2026/11/2026-11-03-lwn-comaps-organic-maps-fork.md",
    "reliability": "medium",
    "published": "2025-06-18",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mammouth-legal-notice": {
+   "type": "source",
+   "title": "Mammouth legal notice",
+   "path": "knowledge/sources/2026/11/2026-11-03-mammouth-legal-notice.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mammouth-pricing-page": {
+   "type": "source",
+   "title": "Mammouth pricing page",
+   "path": "knowledge/sources/2026/11/2026-11-03-mammouth-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mammouth-privacy-model-providers": {
+   "type": "source",
+   "title": "Privacy with model providers (Mammouth docs)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mammouth-privacy-model-providers.md",
+   "reliability": "medium",
+   "published": "2026-09-28",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-meta-ai-eu-training-announcement": {
+   "type": "source",
+   "title": "Making AI Work Harder for Europeans (Meta)",
+   "path": "knowledge/sources/2026/11/2026-11-03-meta-ai-eu-training-announcement.md",
+   "reliability": "medium",
+   "published": "2025-04-14",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-microsoft-copilot-privacy-controls": {
+   "type": "source",
+   "title": "Microsoft Copilot for individuals: your privacy controls and choices",
+   "path": "knowledge/sources/2026/11/2026-11-03-microsoft-copilot-privacy-controls.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-microsoft-copilot-privacy-faq": {
+   "type": "source",
+   "title": "Privacy FAQ for Microsoft Copilot",
+   "path": "knowledge/sources/2026/11/2026-11-03-microsoft-copilot-privacy-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
    "updated": "2026-11-03"
   },
   "2026-11-03-mistral-docs-choose-work-code": {
@@ -1085,12 +1389,36 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-netzpolitik-council-data-omnibus": {
+   "type": "source",
+   "title": "EU countries agree on the data omnibus with more AI training and less data protection",
+   "path": "knowledge/sources/2026/11/2026-11-03-netzpolitik-council-data-omnibus.md",
+   "reliability": "medium",
+   "published": "2026-10-22",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-nextcloud-six-states-school-cloud": {
    "type": "source",
    "title": "Six German states gain access to sovereign school cloud based on Nextcloud",
    "path": "knowledge/sources/2026/11/2026-11-03-nextcloud-six-states-school-cloud.md",
    "reliability": "medium",
    "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-noyb-council-omnibus-ai-training": {
+   "type": "source",
+   "title": "AI: EU member states approve \"digital expropriation\" for AI companies",
+   "path": "knowledge/sources/2026/11/2026-11-03-noyb-council-omnibus-ai-training.md",
+   "reliability": "high",
+   "published": "2026-10-23",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-office365itpros-copilot-flex-routing": {
+   "type": "source",
+   "title": "Flex Routing Dilemma for European Copilot Customers",
+   "path": "knowledge/sources/2026/11/2026-11-03-office365itpros-copilot-flex-routing.md",
+   "reliability": "medium",
+   "published": "2026-04-07",
    "updated": "2026-11-03"
   },
   "2026-11-03-openai-chatgpt-custom-instructions-help": {
@@ -1291,6 +1619,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-organic-maps-supported-versions-faq.md",
    "reliability": "high",
    "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-perplexity-privacy-notice": {
+   "type": "source",
+   "title": "Perplexity privacy notice",
+   "path": "knowledge/sources/2026/11/2026-11-03-perplexity-privacy-notice.md",
+   "reliability": "high",
+   "published": "2026-10-23",
    "updated": "2026-11-03"
   },
   "2026-11-03-politico-kids-act-national-bans-paused": {
@@ -1589,6 +1925,30 @@
    "published": "2026-08-26",
    "updated": "2026-11-03"
   },
+  "2026-11-03-register-dutch-tax-office-drops-m365": {
+   "type": "source",
+   "title": "Dutch tax office drops Microsoft 365 rollout for its own servers and open source",
+   "path": "knowledge/sources/2026/11/2026-11-03-register-dutch-tax-office-drops-m365.md",
+   "reliability": "medium",
+   "published": "2026-10-07",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-scaleway-generative-apis": {
+   "type": "source",
+   "title": "Scaleway Generative APIs",
+   "path": "knowledge/sources/2026/11/2026-11-03-scaleway-generative-apis.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-siliconangle-cohere-aleph-alpha-merger": {
+   "type": "source",
+   "title": "Cohere and Aleph Alpha agree to merge in reported $20B deal",
+   "path": "knowledge/sources/2026/11/2026-11-03-siliconangle-cohere-aleph-alpha-merger.md",
+   "reliability": "medium",
+   "published": "2026-09-16",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-startpage-chrome-android-default-help": {
    "type": "source",
    "title": "Make Startpage the default search engine in Chrome (Android) (Startpage Support)",
@@ -1653,6 +2013,14 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-statcounter-ai-chatbot-share-europe": {
+   "type": "source",
+   "title": "AI Chatbot Market Share Europe (Statcounter Global Stats)",
+   "path": "knowledge/sources/2026/11/2026-11-03-statcounter-ai-chatbot-share-europe.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-system1-10k-2022-subsidiaries": {
    "type": "source",
    "title": "Subsidiaries of System1, Inc. (Exhibit 21.1 to Form 10-K, fiscal year 2022)",
@@ -1669,6 +2037,22 @@
    "published": "2025-08-06",
    "updated": "2026-11-03"
   },
+  "2026-11-03-tldv-imprint": {
+   "type": "source",
+   "title": "tl;dv imprint",
+   "path": "knowledge/sources/2026/11/2026-11-03-tldv-imprint.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-tldv-pricing-page": {
+   "type": "source",
+   "title": "tl;dv pricing page",
+   "path": "knowledge/sources/2026/11/2026-11-03-tldv-pricing-page.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-vibe-app-store-listing": {
    "type": "source",
    "title": "Vibe by Mistral (ex-Le Chat) on the App Store",
@@ -1683,6 +2067,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-vibe-google-play-listing.md",
    "reliability": "high",
    "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-virtualizationreview-custom-gpt-retirement": {
+   "type": "source",
+   "title": "OpenAI to retire custom GPTs, replace them with plugins",
+   "path": "knowledge/sources/2026/11/2026-11-03-virtualizationreview-custom-gpt-retirement.md",
+   "reliability": "medium",
+   "published": "2026-09-28",
    "updated": "2026-11-03"
   },
   "2026-11-03-vivaldi-7-1-release-search-partners": {
@@ -1917,6 +2309,14 @@
    "published": "2025-06-02",
    "updated": "2026-11-03"
   },
+  "2026-11-03-xai-grok-privacy-policy": {
+   "type": "source",
+   "title": "Grok privacy policy (SpaceX Super Intelligence)",
+   "path": "knowledge/sources/2026/11/2026-11-03-xai-grok-privacy-policy.md",
+   "reliability": "high",
+   "published": "2026-10-27",
+   "updated": "2026-11-03"
+  },
   "alphabet": {
    "type": "entity",
    "kind": "company",
@@ -2128,7 +2528,7 @@
    "status": "active",
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
-   "heat": 5
+   "heat": 5.3
   },
   "german-government-google-cloud": {
    "type": "story",
@@ -2417,6 +2817,16 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-404media-proton-ai-reckoning",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
    "to": "mistral-ai",
    "rel": "mentions"
@@ -2522,6 +2932,26 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-deepl-app-store-nl",
+   "to": "apple",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfa-newsletter-commission-agenda-11-november",
+   "to": "digital-fairness-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfa-newsletter-commission-agenda-11-november",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-dfa-newsletter-commission-agenda-11-november",
+   "to": "eu-digital-fairness-act-social-switching",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-dfom-joint-position-paper",
    "to": "digital-fairness-act",
    "rel": "mentions"
@@ -2582,6 +3012,11 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-ecosia-ai-help",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-ecosia-blog-eusp-index",
    "to": "european-search-perspective",
    "rel": "mentions"
@@ -2608,6 +3043,11 @@
   },
   {
    "from": "2026-11-03-ecosia-how-it-makes-money",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-imprint",
    "to": "ecosia",
    "rel": "mentions"
   },
@@ -2675,6 +3115,11 @@
    "from": "2026-11-03-euractiv-dfa-social-media-switching",
    "to": "eu-digital-fairness-act-social-switching",
    "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-euria-app-store-nl",
+   "to": "apple",
+   "rel": "mentions"
   },
   {
    "from": "2026-11-03-google-drive-desktop-stream-mirror-help",
@@ -2797,6 +3242,16 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "to": "european-public-sector-leaves-us-software",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-lmi-mistral-large-4-open-weights",
    "to": "mistral-ai",
    "rel": "mentions"
@@ -2804,6 +3259,31 @@
   {
    "from": "2026-11-03-lwn-comaps-organic-maps-fork",
    "to": "organic-maps",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mammouth-privacy-model-providers",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mammouth-privacy-model-providers",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mammouth-privacy-model-providers",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-microsoft-copilot-privacy-controls",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-microsoft-copilot-privacy-faq",
+   "to": "microsoft",
    "rel": "mentions"
   },
   {
@@ -2922,6 +3402,11 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-netzpolitik-council-data-omnibus",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-nextcloud-six-states-school-cloud",
    "to": "nextcloud",
    "rel": "mentions"
@@ -2935,6 +3420,16 @@
    "from": "2026-11-03-nextcloud-six-states-school-cloud",
    "to": "european-public-sector-leaves-us-software",
    "rel": "part-of"
+  },
+  {
+   "from": "2026-11-03-noyb-council-omnibus-ai-training",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-office365itpros-copilot-flex-routing",
+   "to": "microsoft",
+   "rel": "mentions"
   },
   {
    "from": "2026-11-03-openai-chatgpt-custom-instructions-help",
@@ -3267,6 +3762,16 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-register-dutch-tax-office-drops-m365",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-register-dutch-tax-office-drops-m365",
+   "to": "european-public-sector-leaves-us-software",
+   "rel": "part-of"
+  },
+  {
    "from": "2026-11-03-startpage-chrome-android-default-help",
    "to": "surfboard",
    "rel": "mentions"
@@ -3307,6 +3812,21 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "to": "openai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "to": "alphabet",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "to": "microsoft",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-system1-10k-2022-subsidiaries",
    "to": "system1",
    "rel": "mentions"
@@ -3339,6 +3859,11 @@
   {
    "from": "2026-11-03-vibe-google-play-listing",
    "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "to": "openai",
    "rel": "mentions"
   },
   {
@@ -3822,6 +4347,16 @@
    "rel": "involves"
   },
   {
+   "from": "2026-11-03-404media-proton-ai-reckoning",
+   "to": "2026-11-03-heise-proton-slack-leak",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "to": "2026-11-03-404media-proton-ai-reckoning",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
    "to": "services/mistral-le-chat",
    "rel": "links"
@@ -4019,6 +4554,11 @@
   {
    "from": "2026-11-03-ec-bing-edge-not-gatekeepers",
    "to": "services/microsoft-edge",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-ai-help",
+   "to": "services/ecosia",
    "rel": "links"
   },
   {
@@ -4294,6 +4834,11 @@
   {
    "from": "2026-11-03-mistral-vibe-product-page",
    "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-noyb-council-omnibus-ai-training",
+   "to": "2026-11-03-netzpolitik-council-data-omnibus",
    "rel": "links"
   },
   {
@@ -4662,6 +5207,11 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-register-dutch-tax-office-drops-m365",
+   "to": "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-startpage-chrome-android-default-help",
    "to": "services/startpage",
    "rel": "links"
@@ -4739,6 +5289,16 @@
   {
    "from": "2026-11-03-vibe-google-play-listing",
    "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "to": "services/chatgpt",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "to": "2026-11-03-openai-custom-gpt-retirement-faq",
    "rel": "links"
   },
   {
@@ -5495,20 +6055,25 @@
    "services/waze"
   ],
   "eu-digital-fairness-act-social-switching": [
+   "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
    "articles/app-builders-ask-eu-for-portable-followers"
   ],
   "digital-fairness-act": [
+   "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
    "articles/app-builders-ask-eu-for-portable-followers",
    "eu-digital-fairness-act-social-switching"
   ],
   "european-commission": [
+   "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
    "2026-11-03-heise-merz-google-cloud-sovereign",
+   "2026-11-03-netzpolitik-council-data-omnibus",
+   "2026-11-03-noyb-council-omnibus-ai-training",
    "2026-11-03-politico-kids-act-national-bans-paused",
    "articles/app-builders-ask-eu-for-portable-followers",
    "digital-fairness-act",
@@ -5544,10 +6109,40 @@
   "guides/x-to-bluesky": [
    "articles/app-builders-ask-eu-for-portable-followers"
   ],
+  "proton": [
+   "2026-11-03-404media-proton-ai-reckoning",
+   "2026-11-03-404media-proton-ceo-cancels-reinterviews",
+   "2026-11-03-heise-proton-slack-leak",
+   "2026-11-03-proton-autumn-winter-2026-roadmap",
+   "2026-11-03-proton-docs-create-edit-help",
+   "2026-11-03-proton-docs-import-export-help",
+   "2026-11-03-proton-drive-cli-help",
+   "2026-11-03-proton-drive-download-page",
+   "2026-11-03-proton-drive-faq",
+   "2026-11-03-proton-drive-free-storage-help",
+   "2026-11-03-proton-drive-import-google-drive-help",
+   "2026-11-03-proton-drive-macos-setup-help",
+   "2026-11-03-proton-drive-previewable-file-types",
+   "2026-11-03-proton-drive-pricing-page",
+   "2026-11-03-proton-drive-release-notes",
+   "2026-11-03-proton-drive-roadmap-page",
+   "2026-11-03-proton-drive-setup-help",
+   "2026-11-03-proton-drive-support-hub",
+   "2026-11-03-proton-drive-version-history-help",
+   "2026-11-03-proton-drive-web-guide",
+   "2026-11-03-proton-drive-windows-app-help",
+   "2026-11-03-proton-easy-switch-help",
+   "2026-11-03-proton-google-photos-import-help",
+   "2026-11-03-proton-plans-help",
+   "2026-11-03-proton-sheets-import-export-help",
+   "2026-11-03-rclone-proton-drive-backend-docs",
+   "2026-11-03-reddit-proton-drive-roadmap-h2-2026"
+  ],
   "mistral-ai": [
    "2026-11-03-agcm-mistral-le-chat-hallucination-commitments",
    "2026-11-03-clubic-mistral-cnil-complaint",
    "2026-11-03-lmi-mistral-large-4-open-weights",
+   "2026-11-03-mammouth-privacy-model-providers",
    "2026-11-03-mistral-docs-choose-work-code",
    "2026-11-03-mistral-docs-custom-instructions",
    "2026-11-03-mistral-docs-knowledge-base",
@@ -5603,7 +6198,9 @@
    "2026-11-03-google-takeout-saved-schema",
    "2026-11-03-heise-merz-google-cloud-sovereign",
    "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-mammouth-privacy-model-providers",
    "2026-11-03-rclone-google-drive-backend-docs",
+   "2026-11-03-statcounter-ai-chatbot-share-europe",
    "cjeu-ai-press-publisher-case",
    "ecosia",
    "european-public-sector-leaves-us-software",
@@ -5615,8 +6212,10 @@
    "2026-11-03-apple-iphone-default-search-engine-help",
    "2026-11-03-apple-iphone-safari-search-help",
    "2026-11-03-apple-safari-mac-search-settings",
+   "2026-11-03-deepl-app-store-nl",
    "2026-11-03-ec-bing-edge-not-gatekeepers",
-   "2026-11-03-ec-dma-review-2026-choice-screens"
+   "2026-11-03-ec-dma-review-2026-choice-screens",
+   "2026-11-03-euria-app-store-nl"
   ],
   "vivaldi-technologies": [
    "2026-11-03-computerworld-chrome-to-vivaldi",
@@ -5671,6 +6270,7 @@
   ],
   "openai": [
    "2026-11-03-decrypt-quitgpt-data-guide",
+   "2026-11-03-mammouth-privacy-model-providers",
    "2026-11-03-openai-chatgpt-custom-instructions-help",
    "2026-11-03-openai-chatgpt-data-controls-help",
    "2026-11-03-openai-chatgpt-data-export-help",
@@ -5679,7 +6279,9 @@
    "2026-11-03-openai-chatgpt-projects-help",
    "2026-11-03-openai-custom-gpt-retirement-faq",
    "2026-11-03-openai-gpts-help",
-   "2026-11-03-proton-delete-chatgpt-account-guide"
+   "2026-11-03-proton-delete-chatgpt-account-guide",
+   "2026-11-03-statcounter-ai-chatbot-share-europe",
+   "2026-11-03-virtualizationreview-custom-gpt-retirement"
   ],
   "duck-duck-go": [
    "2026-11-03-duckduckgo-privacy-policy",
@@ -5694,11 +6296,31 @@
    "2026-11-03-edge-mobile-faq-search-engine",
    "2026-11-03-euobserver-microsoft-ireland-israeli-app",
    "2026-11-03-heise-nextcloud-ionos-school-platform",
+   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "2026-11-03-microsoft-copilot-privacy-controls",
+   "2026-11-03-microsoft-copilot-privacy-faq",
+   "2026-11-03-office365itpros-copilot-flex-routing",
+   "2026-11-03-register-dutch-tax-office-drops-m365",
+   "2026-11-03-statcounter-ai-chatbot-share-europe",
    "2026-11-03-windows-dma-updates-2025",
    "ecosia",
    "european-public-sector-leaves-us-software",
    "nextcloud",
    "qwant"
+  ],
+  "ecosia": [
+   "2026-11-03-ecosia-ai-help",
+   "2026-11-03-ecosia-blog-eusp-index",
+   "2026-11-03-ecosia-default-desktop-help",
+   "2026-11-03-ecosia-default-mobile-help",
+   "2026-11-03-ecosia-how-it-makes-money",
+   "2026-11-03-ecosia-imprint",
+   "2026-11-03-ecosia-privacy-policy",
+   "2026-11-03-ecosia-search-results-providers",
+   "2026-11-03-qwant-ecosia-eusp-announcement",
+   "2026-11-03-techcrunch-staan-launch",
+   "european-search-perspective",
+   "vivaldi-technologies"
   ],
   "european-search-perspective": [
    "2026-11-03-ecosia-blog-eusp-index",
@@ -5706,18 +6328,6 @@
    "2026-11-03-techcrunch-staan-launch",
    "ecosia",
    "qwant"
-  ],
-  "ecosia": [
-   "2026-11-03-ecosia-blog-eusp-index",
-   "2026-11-03-ecosia-default-desktop-help",
-   "2026-11-03-ecosia-default-mobile-help",
-   "2026-11-03-ecosia-how-it-makes-money",
-   "2026-11-03-ecosia-privacy-policy",
-   "2026-11-03-ecosia-search-results-providers",
-   "2026-11-03-qwant-ecosia-eusp-announcement",
-   "2026-11-03-techcrunch-staan-launch",
-   "european-search-perspective",
-   "vivaldi-technologies"
   ],
   "qwant": [
    "2026-11-03-ecosia-blog-eusp-index",
@@ -5784,34 +6394,9 @@
   ],
   "european-public-sector-leaves-us-software": [
    "2026-11-03-heise-nextcloud-ionos-school-platform",
-   "2026-11-03-nextcloud-six-states-school-cloud"
-  ],
-  "proton": [
-   "2026-11-03-heise-proton-slack-leak",
-   "2026-11-03-proton-autumn-winter-2026-roadmap",
-   "2026-11-03-proton-docs-create-edit-help",
-   "2026-11-03-proton-docs-import-export-help",
-   "2026-11-03-proton-drive-cli-help",
-   "2026-11-03-proton-drive-download-page",
-   "2026-11-03-proton-drive-faq",
-   "2026-11-03-proton-drive-free-storage-help",
-   "2026-11-03-proton-drive-import-google-drive-help",
-   "2026-11-03-proton-drive-macos-setup-help",
-   "2026-11-03-proton-drive-previewable-file-types",
-   "2026-11-03-proton-drive-pricing-page",
-   "2026-11-03-proton-drive-release-notes",
-   "2026-11-03-proton-drive-roadmap-page",
-   "2026-11-03-proton-drive-setup-help",
-   "2026-11-03-proton-drive-support-hub",
-   "2026-11-03-proton-drive-version-history-help",
-   "2026-11-03-proton-drive-web-guide",
-   "2026-11-03-proton-drive-windows-app-help",
-   "2026-11-03-proton-easy-switch-help",
-   "2026-11-03-proton-google-photos-import-help",
-   "2026-11-03-proton-plans-help",
-   "2026-11-03-proton-sheets-import-export-help",
-   "2026-11-03-rclone-proton-drive-backend-docs",
-   "2026-11-03-reddit-proton-drive-roadmap-h2-2026"
+   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises",
+   "2026-11-03-nextcloud-six-states-school-cloud",
+   "2026-11-03-register-dutch-tax-office-drops-m365"
   ],
   "kids-act": [
    "2026-11-03-politico-kids-act-national-bans-paused",
@@ -5897,6 +6482,7 @@
    "2026-11-03-android-dma-search-choice-eligibility",
    "2026-11-03-apple-eu-browser-choice-screen",
    "2026-11-03-chrome-default-search-engine-help",
+   "2026-11-03-ecosia-ai-help",
    "2026-11-03-ecosia-blog-eusp-index",
    "2026-11-03-ecosia-default-desktop-help",
    "2026-11-03-ecosia-default-mobile-help",
@@ -5971,6 +6557,7 @@
    "2026-11-03-openai-custom-gpt-retirement-faq",
    "2026-11-03-openai-gpts-help",
    "2026-11-03-proton-delete-chatgpt-account-guide",
+   "2026-11-03-virtualizationreview-custom-gpt-retirement",
    "openai"
   ],
   "services/organic-maps": [
@@ -6105,6 +6692,13 @@
    "2026-11-03-vivaldi-tracker-ad-blocking-help",
    "vivaldi-technologies"
   ],
+  "2026-11-03-heise-proton-slack-leak": [
+   "2026-11-03-404media-proton-ai-reckoning",
+   "proton"
+  ],
+  "2026-11-03-404media-proton-ai-reckoning": [
+   "2026-11-03-404media-proton-ceo-cancels-reinterviews"
+  ],
   "2026-11-03-apple-iphone-safari-search-help": [
    "2026-11-03-apple-iphone-default-search-engine-help"
   ],
@@ -6114,6 +6708,16 @@
   "services/brave": [
    "2026-11-03-brave-default-search-engine-help",
    "2026-11-03-brave-search-faq-default-mobile"
+  ],
+  "2026-11-03-netzpolitik-council-data-omnibus": [
+   "2026-11-03-noyb-council-omnibus-ai-training"
+  ],
+  "2026-11-03-kamerbrief-belastingdienst-m365-on-premises": [
+   "2026-11-03-register-dutch-tax-office-drops-m365"
+  ],
+  "2026-11-03-openai-custom-gpt-retirement-faq": [
+   "2026-11-03-virtualizationreview-custom-gpt-retirement",
+   "openai"
   ],
   "2026-11-03-ec-dma-review-2026-choice-screens": [
    "alphabet",
@@ -6237,9 +6841,6 @@
   "2026-11-03-openai-gpts-help": [
    "openai"
   ],
-  "2026-11-03-openai-custom-gpt-retirement-faq": [
-   "openai"
-  ],
   "2026-11-03-decrypt-quitgpt-data-guide": [
    "openai"
   ],
@@ -6283,9 +6884,6 @@
    "proton"
   ],
   "2026-11-03-proton-autumn-winter-2026-roadmap": [
-   "proton"
-  ],
-  "2026-11-03-heise-proton-slack-leak": [
    "proton"
   ],
   "2026-11-03-proton-drive-release-notes": [
