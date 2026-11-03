@@ -1,14 +1,13 @@
 ---
-name: ProtonMail
-description: E-mail waarbij alleen jij je inbox kunt lezen. Gevestigd in Zwitserland, buiten bereik van Amerikaanse en Europese dataverzoeken.
+description: E-mail waarbij alleen jij je inbox kunt lezen. Gevestigd in Zwitserland, waar buitenlandse dataverzoeken via de Zwitserse autoriteiten moeten lopen.
 features:
 - End-to-end versleuteld
 - Gratis abonnement
 - Open source apps
 - GDPR-conform
-- Non-profit eigenaar
+- Onder toezicht van non-profit
 metaTitle: 'Proton Mail: Versleutelde e-mail uit Zwitserland'
-metaDescription: Proton Mail biedt end-to-end versleutelde e-mail vanuit Zwitserland. Gratis abonnement beschikbaar. Open source apps, non-profit eigenaar. Vergelijk met andere EU e-mailalternatieven.
+metaDescription: 'Proton Mail: end-to-end versleutelde e-mail uit Zwitserland. Gratis abonnement, open source apps, onder toezicht van een non-profit. Vergelijk EU-alternatieven.'
 keywords:
 - Proton Mail
 - versleutelde e-mail
@@ -16,20 +15,20 @@ keywords:
 - EU e-mail alternatief
 - privé e-maildienst
 ogTitle: 'Proton Mail: Versleutelde e-mail uit Zwitserland'
-ogDescription: Proton Mail biedt end-to-end versleutelde e-mail vanuit Zwitserland. Gratis abonnement beschikbaar. Open source apps, non-profit eigenaar. Vergelijk met andere EU e-mailalternatieven.
-gdprNotes: Proton volgt de Europese privacyregels. Al je gegevens worden versleuteld opgeslagen op servers in Zwitserland, Duitsland en Noorwegen. Zelfs het team van Proton kan je e-mails niet lezen. Het bedrijf biedt een verwerkersovereenkomst voor zakelijke klanten. Onder Zwitsers recht kan Proton verplicht worden om metadata zoals IP-adressen en accountaanmaakdatums te overhandigen als een rechtbank dat beveelt. Dit is gebeurd in zaken met activisten. Je e-mailinhoud blijft versleuteld en onleesbaar, maar metadata wordt niet beschermd door versleuteling.
+ogDescription: 'Proton Mail: end-to-end versleutelde e-mail uit Zwitserland. Gratis abonnement, open source apps, onder toezicht van een non-profit. Vergelijk EU-alternatieven.'
+gdprNotes: Proton volgt de Europese privacyregels. Je e-mails worden versleuteld opgeslagen op servers in Zwitserland, Duitsland en Noorwegen. Volgens Proton kan zelfs het eigen team ze niet lezen. Het bedrijf biedt een verwerkersovereenkomst voor zakelijke klanten. Onder Zwitsers recht kan Proton verplicht worden om metadata zoals IP-adressen en accountaanmaakdatums te overhandigen als een rechtbank dat beveelt. Dit is gebeurd in zaken met activisten. Je e-mailinhoud blijft versleuteld en onleesbaar, maar metadata wordt niet beschermd door versleuteling.
 ---
 
-Proton Mail is een versleutelde e-maildienst uit Genève, Zwitserland. Het bedrijf werd in 2014 opgericht door wetenschappers die elkaar bij CERN ontmoetten en heeft inmiddels meer dan 100 miljoen accounts. Proton AG is eigendom van de Proton Foundation, een Zwitserse non-profit. Er zitten geen durfkapitalisten achter, dus er is geen druk om geld te verdienen met je gegevens.
+Proton Mail is een versleutelde e-maildienst uit Genève, Zwitserland. Wetenschappers die elkaar bij CERN ontmoetten, richtten het in 2014 op. In 2023 passeerde Proton de 100 miljoen accounts, verdeeld over al zijn diensten. Het bedrijf erachter, Proton AG, staat onder toezicht van de Proton Foundation, een Zwitserse non-profit en de grootste aandeelhouder. Er zitten geen durfkapitalisten achter. Volgens Proton betalen de abonnementen het bedrijf en verkoopt het je gegevens niet.
 
-Alleen jij kunt je e-mails lezen. Proton versleutelt alles op je apparaat voordat het hun servers bereikt. Zelfs het Proton-team zelf kan niet bij je berichten. E-mails tussen Proton-gebruikers worden automatisch end-to-end versleuteld. Voor berichten naar andere providers kun je wachtwoordbeveiligde e-mails sturen die na een bepaalde tijd verlopen.
+Alleen jij kunt je e-mails lezen. Proton slaat je mailbox versleuteld op en zegt dat zelfs het eigen team je berichten niet kan lezen. E-mails tussen Proton-gebruikers worden automatisch end-to-end versleuteld. Mail van andere providers wordt versleuteld zodra die bij de servers van Proton aankomt. Voor berichten naar andere providers kun je wachtwoordbeveiligde e-mails sturen die na een bepaalde tijd verlopen.
 
-Betaalde abonnementen geven toegang tot het hele Proton-ecosysteem: een VPN, versleutelde cloudopslag, een agenda en een wachtwoordmanager. Alle apps zijn open source, dus iedereen kan de code controleren. De servers staan in Zwitserland, Duitsland en Noorwegen.
+Elk account, ook het gratis account, krijgt basisversies van de VPN, cloudopslag, agenda en wachtwoordmanager van Proton. Met Proton Unlimited krijg je van elk de betaalde versie. Alle apps van Proton zijn open source, dus iedereen kan de code controleren. De servers staan in Zwitserland, Duitsland en Noorwegen.
 
 ## Goed om te weten
 
-Het gratis abonnement geeft je maar 1 GB opslag en maximaal 150 berichten per dag. Dat is krap als je veel e-mail krijgt. Upgraden naar Mail Plus kost minimaal €3,99 per maand.
+Het gratis abonnement begint met 500 MB opslag. Dat groeit naar 1 GB als je een paar instelstappen afrondt. Je kunt 150 berichten per dag versturen. Dat is krap als je veel e-mail krijgt. Mail Plus kost €3,99 per maand bij een jaarabonnement.
 
-Proton is een Zwitsers bedrijf, geen EU-bedrijf. Zwitserland heeft sterke privacywetten, maar maakt geen deel uit van de EU. Als Zwitserse rechtbanken een geldig bevel uitvaardigen, moet Proton meewerken. Dat is meerdere keren gebeurd bij accounts van activisten, waarbij Proton metadata zoals IP-adressen en betalingsgegevens moest overhandigen. Je e-mailinhoud blijft versleuteld en onleesbaar, maar metadata valt niet onder die bescherming. Onderwerpregels zijn ook niet versleuteld.
+Proton is een Zwitsers bedrijf, geen EU-bedrijf. Zwitserland heeft sterke privacywetten, maar maakt geen deel uit van de EU. Als Zwitserse rechtbanken een geldig bevel uitvaardigen, moet Proton meewerken. Dat is meerdere keren gebeurd bij accounts van activisten, waarbij Proton metadata zoals IP-adressen en betalingsgegevens moest overhandigen. Je e-mailinhoud blijft versleuteld en onleesbaar, maar metadata valt niet onder die bescherming. Onderwerpregels zijn ook niet end-to-end versleuteld.
 
-Klantenservice kan traag zijn, vooral bij het gratis abonnement. Sommige gebruikers melden accountblokkades zonder duidelijke uitleg. Nieuwe functies verschijnen langzamer dan je zou verwachten van een bedrijf van deze omvang.
+Sommige gebruikers melden trage antwoorden van de klantenservice, vooral bij het gratis abonnement. Betaalde abonnementen krijgen voorrang bij de klantenservice. Een paar gebruikers melden ook accountblokkades zonder duidelijke uitleg.
