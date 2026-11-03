@@ -43,7 +43,7 @@ issues:
 - Gesprekken blijven minstens 72 uur bewaard, ook met activiteitenregistratie uit
 - Onderworpen aan Amerikaanse surveillancewetten (FISA, CLOUD Act)
 metaTitle: 'Google Gemini: Privacy, prijzen en EU-alternatieven'
-metaDescription: Google Gemini AI-review voor EU-gebruikers. Consumentendata wordt gebruikt voor training, geen EU-dataopslag bij gratis abonnementen. Vergelijk prijzen en EU-alternatieven.
+metaDescription: 'Google Gemini voor EU-gebruikers: consumentendata wordt gebruikt voor training, geen EU-opslag bij gratis abonnementen. Vergelijk prijzen en EU-alternatieven.'
 keywords:
 - Google Gemini privacy
 - Gemini AI EU-alternatief

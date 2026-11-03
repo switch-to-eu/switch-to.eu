@@ -46,7 +46,7 @@ tags:
 - traffic
 # SEO
 metaTitle: 'Magic Earth: Private Navigation App from the EU'
-metaDescription: Magic Earth offers turn-by-turn navigation, offline maps, and public transit routing without tracking. Built by Magic Lane in the Netherlands. Free and premium plans.
+metaDescription: Magic Earth offers turn-by-turn navigation, offline maps and transit routing without tracking. Built by Magic Lane in the Netherlands. Free and premium plans.
 keywords:
 - Magic Earth
 - private navigation app

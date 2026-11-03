@@ -13,8 +13,8 @@ issues:
 - Telemetrie en gebruiksrapportage draaien standaard met beperkte uitschakelmogelijkheden
 - Google kreeg in 2025 een boete van 325 miljoen euro van CNIL voor misleidende toestemmingsschermen
 - Privacyinstellingen beperken het delen van gegevens tussen Google-diensten, niet het verzamelen zelf
-metaTitle: 'Chrome van Google: privacy, dataverzameling en EU-alternatieven'
-metaDescription: Chrome verzamelt 20 soorten gebruikersgegevens, meer dan elke andere grote browser. Lees over de privacypraktijken van Google Chrome, GDPR-problemen en Europese browseralternatieven.
+metaTitle: 'Chrome van Google: privacy, data en EU-alternatieven'
+metaDescription: Chrome verzamelt 20 soorten gebruikersgegevens, meer dan elke andere grote browser. Lees over de privacy van Google Chrome en Europese browseralternatieven.
 keywords:
 - Google Chrome privacy
 - Chrome dataverzameling

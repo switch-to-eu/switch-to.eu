@@ -27,8 +27,8 @@ issues:
 - Uses collected data to train AI models, with limited opt-out options for EU users
 recommendedAlternative: mastodon
 # SEO
-metaTitle: 'Facebook by Meta: Privacy Issues, GDPR Fines, EU Alternatives'
-metaDescription: Facebook collects browsing data, location, contacts, and photos for ad targeting. Fined over 2.5 billion euros by EU regulators. See EU-based social network alternatives.
+metaTitle: 'Facebook by Meta: Privacy Issues, GDPR Fines, Alternatives'
+metaDescription: Facebook collects browsing data, location, contacts and photos for ad targeting. Fined over 2.5 billion euros by EU regulators. See EU social networks.
 keywords:
 - Facebook privacy
 - Facebook GDPR fines

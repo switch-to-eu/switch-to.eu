@@ -5,6 +5,8 @@ missingFeatures:
 - 'Cloudback-upbeperkingen: In tegenstelling tot WhatsApp biedt Signal geen cloudback-ups naar Google Drive of iCloud'
 - 'Polls: Signal heeft geen poll-functie'
 - 'Contactontdekking: Signal vereist dat beide gebruikers de app hebben geïnstalleerd voordat ze met elkaar kunnen communiceren'
+metaTitle: 'WhatsApp naar Signal: neem je contacten en groepen mee'
+metaDescription: 'Stap in zo''n 30 minuten over van WhatsApp naar Signal. Installeer de app, vind je contacten, maak je groepen opnieuw aan en laat mensen weten waar je zit.'
 ---
 
 <!-- section:intro -->

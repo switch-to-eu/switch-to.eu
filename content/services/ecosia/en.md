@@ -28,7 +28,7 @@ tags:
 - european
 # SEO
 metaTitle: 'Ecosia: EU Search Engine That Plants Trees | Switch to EU'
-metaDescription: Ecosia is a free, Berlin-based search engine that uses 100% of profits to plant trees and fund climate action. GDPR compliant, carbon negative, 230M+ trees planted.
+metaDescription: Ecosia is a free, Berlin-based search engine that uses 100% of profits to plant trees and fund climate action. GDPR compliant, with 230M+ trees planted.
 keywords:
 - Ecosia
 - EU search engine

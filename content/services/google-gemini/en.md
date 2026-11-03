@@ -96,12 +96,10 @@ sourceUrls:
   label: Gemini Apps Privacy Hub
 - url: https://one.google.com/about/google-ai-plans/
   label: Google AI Plans pricing
-- url: https://knowledge.workspace.google.com/admin/gemini/generative-ai-in-google-workspace-privacy-hub
+- url: https://knowledge.workspace.google.com/admin/generative-ai/generative-ai-in-google-workspace-privacy-hub
   label: Workspace Gemini Privacy Hub
 - url: https://www.datastudios.org/post/google-gemini-gdpr-hipaa-and-enterprise-compliance-standards-explained
   label: Gemini GDPR compliance overview
-- url: https://www.webpronews.com/googles-2026-gmail-update-gemini-3-ai-boosts-productivity-amid-privacy-concerns/
-  label: Gmail Gemini privacy concerns 2026
 - url: https://screenapp.io/blog/gemini-pricing
   label: Gemini pricing breakdown 2026
 researchNotes: |-

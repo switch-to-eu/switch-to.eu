@@ -3,6 +3,9 @@ title: Artificial Intelligence
 shortTitle: AI
 description: EU-built AI assistants, image generators, and language models that don't train on your data without consent.
 icon: brain
+# SEO
+metaTitle: European AI Assistants and ChatGPT Alternatives
+metaDescription: 'EU-built AI assistants, image generators and language models that don''t train on your data without consent. See what Mistral and Proton Lumo offer.'
 # Workflow
 updatedAt: '2026-03-30'
 ---

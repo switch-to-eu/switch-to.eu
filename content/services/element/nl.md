@@ -41,7 +41,7 @@ pricingTiers:
   features:
   - Alles uit Enterprise
   - Draait zonder internetverbinding
-metaTitle: 'Element: Versleuteld berichtenverkeer dat je zelf kunt hosten'
+metaTitle: 'Element: versleutelde berichten die je zelf kunt hosten'
 metaDescription: Element is een veilige, open-source messenger gebouwd op het Matrix-protocol. Gratis voor persoonlijk gebruik. Kies een Matrix-server of draai je eigen server.
 keywords:
 - Element messenger

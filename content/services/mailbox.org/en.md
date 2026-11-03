@@ -4,7 +4,7 @@ name: mailbox
 region: eu
 category: email
 location: Germany
-url: https://mailbox.org
+url: https://mailbox.org/en/
 freeOption: false
 startingPrice: €1/month
 description: mailbox, formerly mailbox.org, is a German email provider from Berlin that keeps your data on servers in Germany. Email starts at €1 a month, billed yearly.

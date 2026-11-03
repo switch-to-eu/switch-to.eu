@@ -46,8 +46,8 @@ pricingTiers:
   - 'Reactietijd: 1 uur bij kritieke problemen'
   - Persoonlijke accountmanager
   - Ondersteuning voor maatwerk
-metaTitle: 'Nextcloud: Open-source cloudopslag en samenwerking uit Duitsland'
-metaDescription: Nextcloud is een gratis, open-source platform voor bestandsopslag, videobellen en documenten bewerken. Zelf hosten of beheerde EU-hosting. Gebouwd door Nextcloud GmbH in Stuttgart.
+metaTitle: 'Nextcloud: open-source cloudopslag uit Duitsland'
+metaDescription: Nextcloud is een gratis, open-source platform voor bestandsopslag, videobellen en documenten. Zelf hosten of beheerde EU-hosting. Gebouwd in Stuttgart.
 keywords:
 - Nextcloud
 - open source cloudopslag

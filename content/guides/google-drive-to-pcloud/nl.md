@@ -5,6 +5,8 @@ missingFeatures:
 - 'Realtime samenwerking: pCloud biedt niet dezelfde mogelijkheden voor realtime samenwerken aan documenten als Google Drive'
 - 'Minder integraties: pCloud heeft minder integraties met andere diensten vergeleken met Google'
 - 'Google Documenten formaat: Google Documenten moeten worden geconverteerd naar andere formaten zoals Word of PDF'
+metaTitle: 'Google Drive naar pCloud: je bestanden verhuizen'
+metaDescription: Stap over van Google Drive naar pCloud. Verplaats je bestanden met MultCloud, zie wat er met je Google Docs gebeurt en los veelvoorkomende problemen op.
 ---
 
 <!-- section:intro -->
@@ -189,7 +191,7 @@ Controleer elke week even uw Google Drive om te zien of er nog nieuwe bestanden 
 
 Als u problemen heeft tijdens het overzetten:
 
-- Bezoek de [pCloud Help pagina](https://www.pcloud.com/help)
+- Bezoek de [pCloud Help pagina](https://help.pcloud.com/)
 - Stuur een e-mail naar [support@pcloud.com](mailto:support@pcloud.com)
 - Bel met een familielid of vriend die handig is met computers
 

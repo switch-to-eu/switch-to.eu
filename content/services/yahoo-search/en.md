@@ -28,7 +28,7 @@ issues:
 - Retains search logs for 18 months, IP addresses for 6 months
 recommendedAlternative: qwant
 # SEO
-metaTitle: Yahoo Search Privacy Review - Data Collection and GDPR Issues
+metaTitle: 'Yahoo Search Privacy Review: Data Collection and GDPR Issues'
 metaDescription: Yahoo Search is powered by Microsoft Bing and collects extensive user data. Fined by French CNIL for cookie violations. EU data stored on US servers.
 keywords:
 - Yahoo Search privacy

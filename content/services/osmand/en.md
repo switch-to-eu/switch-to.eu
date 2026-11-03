@@ -52,7 +52,7 @@ tags:
 - GDPR-compliant
 # SEO
 metaTitle: 'OsmAnd: Offline Maps and Navigation from the Netherlands'
-metaDescription: OsmAnd is an open-source offline navigation app built on OpenStreetMap. Based in the Netherlands, it offers GPS tracking, topographic maps, and zero data collection.
+metaDescription: OsmAnd is an open-source offline navigation app built on OpenStreetMap. Based in the Netherlands, with GPS tracking, topographic maps and no data collection.
 keywords:
 - OsmAnd
 - offline maps EU

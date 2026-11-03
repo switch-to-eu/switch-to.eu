@@ -34,7 +34,7 @@ pricingTiers:
   - Zero-access-versleuteling
   - Ghost mode
 metaTitle: 'Proton Lumo: Prive AI-assistent met versleutelde chats'
-metaDescription: Proton Lumo is een privacy-first AI-assistent die elk gesprek versleutelt. Gebouwd op open-source modellen, gehost in Europa, zonder dataregistratie of training.
+metaDescription: Proton Lumo is een privacy-first AI-assistent die elk gesprek versleutelt. Op open-source modellen, gehost in Europa, zonder dataregistratie of training.
 keywords:
 - Proton Lumo
 - prive AI-assistent

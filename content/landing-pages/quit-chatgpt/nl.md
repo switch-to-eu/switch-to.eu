@@ -3,6 +3,8 @@ title: 'Stop met ChatGPT: Stap over naar Europese AI-alternatieven'
 description: Sluit je aan bij miljoenen die ChatGPT verlaten. Vergelijk Europese AI-alternatieven zoals Mistral Vibe (voorheen Le Chat) en Proton Lumo, en wat elk met je data doet.
 ogTitle: 'Stop met ChatGPT: Europese AI-alternatieven die je privacy respecteren'
 ogDescription: 2,5 miljoen mensen verlaten ChatGPT. Vergelijk Europese AI-alternatieven en wat elk met je data doet.
+metaTitle: 'Stop met ChatGPT: Europese AI-alternatieven | switch-to.eu'
+metaDescription: Sluit je aan bij miljoenen die ChatGPT verlaten. Vergelijk Europese AI-alternatieven zoals Mistral Vibe en Proton Lumo, en wat elk met je data doet.
 ---
 
 ## Waarom mensen stoppen met ChatGPT

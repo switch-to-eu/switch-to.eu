@@ -2,6 +2,8 @@
 title: Kunstmatige Intelligentie
 shortTitle: AI
 description: In de EU gebouwde AI-assistenten, beeldgeneratoren en taalmodellen die niet zonder toestemming op jouw data trainen.
+metaTitle: Europese AI-assistenten en alternatieven voor ChatGPT
+metaDescription: In de EU gebouwde AI-assistenten, beeldgeneratoren en taalmodellen die niet zonder toestemming op je data trainen. Bekijk wat Mistral en Proton Lumo bieden.
 ---
 
 Kunstmatige intelligentie wordt steeds meer geïntegreerd in onze dagelijkse werkprocessen, van chatbots en schrijfassistenten tot beeldgeneratie en data-analyse. Europese AI-platformen geven prioriteit aan gebruikersprivacy, transparantie en naleving van de AVG en de EU AI-verordening.

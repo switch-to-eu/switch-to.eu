@@ -16,7 +16,7 @@ issues:
 - Privacybeleid staat uitgebreide gegevensverzameling toe
 - Niet ontworpen met AVG-compliance als uitgangspunt
 metaTitle: Bing Search Privacy Review voor EU-gebruikers | Switch to EU
-metaDescription: Bing Search verzamelt zoekopdrachten, IP-adressen en locatiegegevens voor advertenties. Beboet met EUR 60 miljoen door Frankrijk. Copilot-zoekopdrachten vallen buiten EU Data Boundary. Bekijk EU-alternatieven.
+metaDescription: Bing Search verzamelt zoekopdrachten, IP-adressen en locatie voor advertenties. Beboet met EUR 60 miljoen door Frankrijk. Bekijk EU-alternatieven.
 keywords:
 - Bing Search privacy
 - Bing GDPR

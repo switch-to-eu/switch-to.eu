@@ -16,7 +16,7 @@ issues:
 - Verboden op apparaten van EU-instellingen vanwege veiligheidszorgen
 - Privacybeleid 2026 breidt het verzamelen van precieze GPS-locatie uit
 metaTitle: 'TikTok Privacy: GDPR-boetes, dataverzameling en EU-zorgen'
-metaDescription: TikTok kreeg EUR 875 miljoen aan GDPR-boetes voor het overdragen van EU-data naar China en schending van kinderprivacy. Bekijk wat TikTok verzamelt en hoe Project Clover werkt.
+metaDescription: TikTok kreeg EUR 875 miljoen aan GDPR-boetes voor EU-data in China en schending van kinderprivacy. Bekijk wat TikTok verzamelt en hoe Project Clover werkt.
 keywords:
 - TikTok privacy
 - TikTok GDPR boete
@@ -28,7 +28,7 @@ keywords:
 - TikTok kinderen privacy
 ogTitle: 'TikTok: EUR 875 miljoen aan EU-boetes voor datatransfers naar China'
 ogDescription: TikTok verzamelt biometrische data, toetsaanslagpatronen en GPS-locatie. Beboet voor EUR 875 miljoen door EU-toezichthouders. Vind privacyvriendelijke EU-alternatieven.
-gdprNotes: TikTok is twee keer beboet door de Ierse gegevensbeschermingsautoriteit. De eerste boete van EUR 345 miljoen (september 2023) was voor het standaard openbaar maken van kinderaccounts en het niet goed verifi\u00ebren van leeftijden. De tweede boete van EUR 530 miljoen (mei 2025) was voor het versturen van gegevens van Europese gebruikers naar servers in China zonder voldoende bescherming. TikTok ontkende aanvankelijk dat Europese data in China werd opgeslagen, maar gaf dit later toe. Het bedrijf kreeg het bevel om binnen zes maanden alle datatransfers naar China te stoppen. TikTok investeert EUR 12 miljard in Project Clover om datacenters te bouwen in Ierland, Noorwegen en Finland voor Europese gebruikers, maar de boetes laten zien dat dit werk nog niet af is.
+gdprNotes: TikTok is twee keer beboet door de Ierse gegevensbeschermingsautoriteit. De eerste boete van EUR 345 miljoen (september 2023) was voor het standaard openbaar maken van kinderaccounts en het niet goed verifiëren van leeftijden. De tweede boete van EUR 530 miljoen (mei 2025) was voor het versturen van gegevens van Europese gebruikers naar servers in China zonder voldoende bescherming. TikTok ontkende aanvankelijk dat Europese data in China werd opgeslagen, maar gaf dit later toe. Het bedrijf kreeg het bevel om binnen zes maanden alle datatransfers naar China te stoppen. TikTok investeert EUR 12 miljard in Project Clover om datacenters te bouwen in Ierland, Noorwegen en Finland voor Europese gebruikers, maar de boetes laten zien dat dit werk nog niet af is.
 ---
 
 Met TikTok maak en deel je korte video's met ingebouwde bewerkingstools, effecten en een bibliotheek van gelicentieerde muziek. Het aanbevelingsalgoritme is opvallend precies. Het komt er binnen een paar minuten achter wat je leuk vindt en bouwt een Voor Jou-feed die de gemiddelde gebruiker 95 minuten per dag laat scrollen.

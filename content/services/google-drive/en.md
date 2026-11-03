@@ -5,7 +5,7 @@ region: non-eu
 category: storage
 featured: true
 location: United States
-url: https://drive.google.com/
+url: https://workspace.google.com/products/drive/
 freeOption: true
 startingPrice: €1.99/month for 100GB
 description: Cloud storage by Google with 15 GB free. Part of Google Workspace with Docs, Sheets, and Slides built in. Subject to US data laws.
@@ -59,7 +59,7 @@ issues:
 recommendedAlternative: proton-drive
 # SEO
 metaTitle: 'Google Drive Review: Privacy, Pricing & EU Data Concerns'
-metaDescription: Google Drive offers 15 GB free cloud storage with Workspace integration. But for EU users, US jurisdiction and the CLOUD Act raise data privacy questions. See alternatives.
+metaDescription: Google Drive offers 15 GB free storage with Workspace integration. For EU users, US jurisdiction and the CLOUD Act raise privacy questions. See alternatives.
 keywords:
 - Google Drive
 - Google Drive privacy

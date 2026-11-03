@@ -67,7 +67,7 @@ pricingTiers:
   - Persoonlijke accountmanager
   - Eigen Azure-omgeving
 metaTitle: 'Tresorit: Versleutelde cloudopslag uit Zwitserland'
-metaDescription: Tresorit biedt zero-knowledge versleutelde cloudopslag, eigendom van Swiss Post. Bestanden worden versleuteld op je apparaat. Gratis 3 GB, betaald vanaf €3,99/maand.
+metaDescription: Tresorit biedt zero-knowledge versleutelde cloudopslag, eigendom van Swiss Post. Versleuteling op je apparaat. Gratis 3 GB, betaald vanaf €3,99/maand.
 keywords:
 - Tresorit
 - versleutelde cloudopslag

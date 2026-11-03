@@ -12,7 +12,7 @@ specs:
   platforms: Windows, macOS, Linux, Android, iOS
   revenue: Deals met zoek- en bladwijzerpartners
 metaTitle: 'Vivaldi Browser: Privacyvriendelijke browser uit Noorwegen'
-metaDescription: Vivaldi is een gratis, aanpasbare browser uit Noorwegen met ingebouwde e-mail, agenda, advertentieblocker en Proton VPN. End-to-end versleutelde synchronisatie. GDPR-conform.
+metaDescription: Vivaldi is een gratis, aanpasbare browser uit Noorwegen met ingebouwde e-mail, agenda, advertentieblocker en Proton VPN. End-to-end versleutelde synchronisatie.
 keywords:
 - Vivaldi browser
 - EU browser alternatief

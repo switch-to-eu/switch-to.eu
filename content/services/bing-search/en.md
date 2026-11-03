@@ -28,7 +28,7 @@ issues:
 recommendedAlternative: qwant
 # SEO
 metaTitle: Bing Search Privacy Review for EU Users | Switch to EU
-metaDescription: Bing Search collects queries, IP addresses, and location data for ad targeting. Fined EUR 60M by France. Copilot queries fall outside EU Data Boundary. See EU alternatives.
+metaDescription: Bing Search collects queries, IP addresses and location data for ads. Fined EUR 60M by France. Copilot queries fall outside the EU Data Boundary.
 keywords:
 - Bing Search privacy
 - Bing GDPR
@@ -62,7 +62,7 @@ sourceUrls:
   label: Bing searches not DPA protected
 - url: https://www.infosecurity-magazine.com/news/france-fines-microsoft-64m-dollars/
   label: France fines Microsoft EUR 60M over Bing cookies
-- url: https://learn.microsoft.com/en-us/copilot/microsoft-365/manage-public-web-access
+- url: https://learn.microsoft.com/en-us/microsoft-365/copilot/manage-public-web-access
   label: 'Microsoft: web search data privacy in Copilot'
 - url: https://nerdynav.com/bing-statistics/
   label: Bing statistics 2025

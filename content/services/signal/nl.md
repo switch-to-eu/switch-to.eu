@@ -14,7 +14,7 @@ specs:
   calls: Ja, groepen tot 75
   serverLocation: VS en andere landen
 metaTitle: 'Signal: Gratis versleutelde berichten-app van een non-profit'
-metaDescription: Signal biedt gratis end-to-end versleutelde berichten, spraakoproepen en videogesprekken. Beheerd door een non-profit zonder advertenties of tracking. Open-source en beschikbaar op alle platforms.
+metaDescription: Signal biedt gratis end-to-end versleutelde berichten, spraak- en videogesprekken. Beheerd door een non-profit zonder advertenties of tracking. Open-source.
 keywords:
 - Signal messenger
 - versleutelde berichten app
@@ -23,7 +23,7 @@ keywords:
 - veilig berichten
 - Signal privacy
 - WhatsApp alternatief
-ogTitle: 'Signal: Priv\u00e9berichten die ook echt priv\u00e9 blijven'
+ogTitle: 'Signal: Privéberichten die ook echt privé blijven'
 ogDescription: Gratis versleutelde berichten van een non-profit. Geen advertenties, geen trackers, geen datamining. Chat, bel en deel bestanden op Android, iOS en desktop.
 gdprNotes: Signal slaat bijna niets over je op. Je telefoonnummer is het enige persoonlijke gegeven op hun servers, en zelfs dat is niet gekoppeld aan je identiteit. Berichten blijven op je apparaat, niet in de cloud. Signal heeft een functionaris voor gegevensbescherming die je kunt bereiken via privacy@signal.org.
 ---

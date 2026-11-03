@@ -11,8 +11,8 @@ specs:
   dataLocation: Hangt af van de server die je kiest
   moveAccount: Volgers gaan mee, berichten niet
   directMessages: Niet versleuteld
-metaTitle: 'Mastodon: Gratis gedecentraliseerd sociaal netwerk uit Duitsland'
-metaDescription: Mastodon is een gratis, open-source sociaal netwerk uit Duitsland. Geen advertenties, geen algoritmes, geen dataverkoop. Meer dan 10 miljoen accounts op 10.500 servers.
+metaTitle: 'Mastodon: gratis sociaal netwerk uit Duitsland'
+metaDescription: Mastodon is een gratis, open-source sociaal netwerk uit Duitsland. Geen advertenties, geen algoritmes, geen dataverkoop. 10 miljoen accounts op 10.500 servers.
 keywords:
 - Mastodon
 - gedecentraliseerd sociaal netwerk

@@ -4,7 +4,7 @@ name: Microsoft Edge
 region: non-eu
 category: browsers
 location: United States
-url: https://www.microsoft.com/edge
+url: https://explore.microsoft.com/en-us/edge/
 freeOption: true
 startingPrice: Free
 description: Chromium-based browser by Microsoft with Copilot AI, tracking protection, and deep Windows integration. Free on all platforms.
@@ -29,8 +29,8 @@ issues:
 - Edge3P Telemetry collects third-party search data by default
 recommendedAlternative: vivaldi
 # SEO
-metaTitle: 'Microsoft Edge Browser: Privacy, Data Collection & EU Alternatives'
-metaDescription: Microsoft Edge collects telemetry data by default and shares browsing activity through Copilot AI. Learn about privacy concerns, GDPR status, and EU browser alternatives.
+metaTitle: 'Microsoft Edge: Privacy, Data Collection and EU Alternatives'
+metaDescription: Microsoft Edge collects telemetry by default and shares browsing activity through Copilot AI. Read about privacy concerns, GDPR status and EU alternatives.
 keywords:
 - Microsoft Edge privacy
 - Edge browser data collection
@@ -68,8 +68,6 @@ sourceUrls:
   label: Microsoft Privacy Statement
 - url: https://learn.microsoft.com/en-us/legal/microsoft-edge/privacy
   label: User data and privacy in Microsoft Edge
-- url: https://kahana.co/blog/microsoft-edge-browser-ongoing-issues-vulnerabilities-2025
-  label: Microsoft Edge ongoing issues 2025
 - url: https://stateofsurveillance.org/articles/surveillance/browser-telemetry-what-browsers-report/
   label: Browser telemetry comparison
 - url: https://securiti.ai/microsoft-copilot-privacy-concerns/

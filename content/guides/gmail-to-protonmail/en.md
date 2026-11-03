@@ -13,6 +13,9 @@ missingFeatures:
 - 'Less storage in free version: ProtonMail''s free version offers less storage than Gmail'
 - 'Limited search functionality: Searching within emails works differently due to encryption'
 - 'Fewer integrations: ProtonMail has fewer integrations with other services compared to Google'
+# SEO
+metaTitle: 'Gmail to Proton Mail: Move Your Email with Easy Switch'
+metaDescription: Move from Gmail to Proton Mail (ProtonMail) with Easy Switch. Import your emails, contacts and calendars, then forward new mail to your new address.
 # Workflow
 contentPipelineStatus: not-started
 updatedAt: '2026-04-27'

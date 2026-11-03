@@ -28,8 +28,8 @@ issues:
 - Privacy controls limit data sharing between Google services, not collection itself
 recommendedAlternative: vivaldi
 # SEO
-metaTitle: 'Chrome by Google: Privacy, Data Collection and EU Alternatives'
-metaDescription: Chrome collects 20 types of user data, more than any major browser. Learn about Google Chrome's privacy practices, GDPR issues, and EU-based browser alternatives.
+metaTitle: 'Chrome by Google: Privacy, Data Collection, EU Alternatives'
+metaDescription: 'Chrome collects 20 types of user data, more than any major browser. Read about Google Chrome''s privacy practices, GDPR issues and EU browser alternatives.'
 keywords:
 - Google Chrome privacy
 - Chrome data collection

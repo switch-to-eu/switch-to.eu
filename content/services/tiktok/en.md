@@ -30,8 +30,8 @@ issues:
 - 2026 privacy policy expanded precise GPS location collection
 recommendedAlternative: mastodon
 # SEO
-metaTitle: 'TikTok Privacy Review: GDPR Fines, Data Collection & EU Concerns'
-metaDescription: TikTok faces EUR 875M in GDPR fines for transferring EU data to China and mishandling children's privacy. See what data TikTok collects and how Project Clover works.
+metaTitle: 'TikTok Privacy Review: GDPR Fines and Data Collection'
+metaDescription: 'TikTok faces EUR 875M in GDPR fines for moving EU data to China and mishandling children''s privacy. See what data TikTok collects and how Project Clover works.'
 keywords:
 - TikTok privacy
 - TikTok GDPR fine
@@ -65,9 +65,9 @@ sourceUrls:
   label: Irish DPC EUR 530M fine (May 2025)
 - url: https://www.dataprotection.ie/en/news-media/press-releases/DPC-announces-345-million-euro-fine-of-TikTok
   label: Irish DPC EUR 345M fine for children's data (Sep 2023)
-- url: https://newsroom.tiktok.com/en-eu/project-clover-update-enhanced-data-security-with-norwegian-data-centre-fully-online
+- url: https://newsroom.tiktok.com/project-clover-update-enhanced-data-security-with-norwegian-data-centre-fully-online?lang=en-150
   label: Project Clover update - Norwegian data centre
-- url: https://newsroom.tiktok.com/en-eu/tiktok-sets-new-standards-for-security-and-sustainability-through-12-bn-project-clover-programme
+- url: https://newsroom.tiktok.com/tiktok-sets-new-standards-for-security-and-sustainability-through-12-bn-project-clover-programme?lang=en-150
   label: Project Clover EUR 12B programme
 - url: https://www.cbsnews.com/news/tiktok-new-terms-of-service-privacy-geolocation-personal-information/
   label: CBS News - 2026 privacy policy changes
