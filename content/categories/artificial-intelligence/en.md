@@ -1,5 +1,6 @@
 ---
 title: Artificial Intelligence
+shortTitle: AI
 description: EU-built AI assistants, image generators, and language models that don't train on your data without consent.
 icon: brain
 # Workflow

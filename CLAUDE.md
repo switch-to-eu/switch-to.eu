@@ -296,7 +296,7 @@ Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shame
 
 ### Aesthetic Direction
 
-Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **a few deliberate brand-colour panels per page** (homepage: green intro, sky guides panel, green "How we work"), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
+Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **deliberate brand-colour panels** (homepage: green intro, sky guides panel, green "How we work", the featured tool in its own surface colour, sage newsletter), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
 
 **Things switch-to.eu must NOT look like:**
 
@@ -309,7 +309,7 @@ Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-0
 - Content first: no big homepage hero. A compact green intro panel (dateline, yellow Bonbance h1, search, quick-switch chips) and the news straight after it.
 - Bonbance Bold Condensed in **sentence case** for headings, at modest sizes (section headings `text-3xl sm:text-4xl`). No uppercase headings, no Anton outside the logo.
 - Real, openly licensed photos for news (credited under the image). Decorative shapes only tone-on-tone inside colour panels (about 8-12% opacity). No blob illustrations on cards.
-- `rounded-3xl` panels: white with `border-black/10`, or a full brand colour (green, sky, navy) for at most three anchor sections per page, never two adjacent.
+- `rounded-3xl` panels: white with `border-black/10`, or a full brand colour for anchor sections (green, sky, sage, a tool's own surface colour), never two adjacent in the same colour.
 - Bold brand colour as accents: card strips, article type pills (news = yellow, analysis = navy), small dots, the logo's `.eu`. No grid of saturated cards.
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
 - No subtitle filler under headings. If a heading needs a sentence to explain it, fix the heading.

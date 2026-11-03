@@ -1,5 +1,6 @@
 ---
 title: E-maildiensten
+shortTitle: e-mail
 description: Jouw inbox, geen advertentieplatform. Europese e-mailproviders met encryptie, eigen domeinen en echte privacy.
 ---
 

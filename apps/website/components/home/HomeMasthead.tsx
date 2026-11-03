@@ -52,7 +52,11 @@ export async function HomeMasthead({
           />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
             <div className="lg:col-span-6">
-              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4 text-sm text-white/85">
+              <h1 className="font-heading text-brand-yellow text-4xl sm:text-5xl leading-[1.02] text-balance mb-4">
+                {t("heroTaglineLine1")} {t("heroTaglineLine2")}{" "}
+                {t("heroTaglineLine3")}
+              </h1>
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/85">
                 <span className="inline-flex items-center gap-2 font-semibold text-white">
                   <span
                     aria-hidden="true"
@@ -72,10 +76,6 @@ export async function HomeMasthead({
                   </span>
                 )}
               </p>
-              <h1 className="font-heading text-brand-yellow text-3xl sm:text-4xl leading-[1.05] text-balance">
-                {t("heroTaglineLine1")} {t("heroTaglineLine2")}{" "}
-                {t("heroTaglineLine3")}
-              </h1>
             </div>
 
             <div className="lg:col-span-6">

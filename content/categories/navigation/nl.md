@@ -1,5 +1,6 @@
 ---
 title: Navigatie
+shortTitle: navigatie
 description: Vind je weg met apps gebouwd op open kaartdata. Geen tracking van waar je heen gaat, woont of werkt.
 ---
 

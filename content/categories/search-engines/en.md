@@ -1,5 +1,6 @@
 ---
 title: Search Engines
+shortTitle: search
 description: Find what you need without being tracked. No filter bubbles, no ad profiles, no surveillance.
 icon: search
 # Workflow

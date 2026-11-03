@@ -46,7 +46,7 @@ Draw energy from the references documented in `docs/brand.md`: Pride Project pos
 - Bonbance Bold Condensed in sentence case for headings, at modest sizes. Anton only in the logo.
 - Real, openly licensed photos on news articles, credited under the image. Decorative shapes only tone-on-tone inside colour panels; no blob illustrations on cards.
 - No subtitle filler under headings.
-- `rounded-3xl` panels on a warm page ground (`#f1eee8`): white with a hairline border for most content, full brand colour (green, sky, navy) for at most three anchor sections per page. Brand green carries headings, buttons and links. Bold accents: card strips, type pills, dots, the logo's `.eu`.
+- `rounded-3xl` panels on a warm page ground (`#f1eee8`): white with a hairline border for most content, full brand colour for anchor sections (green, sky, sage, a tool's own surface colour), never two adjacent in the same colour. Brand green carries headings, buttons and links. Bold accents: card strips, type pills, dots, the logo's `.eu`.
 - Pill-shaped `rounded-full` buttons only. No square or slightly-rounded buttons anywhere.
 - Cards are white with dark text and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`). They get a visual area only for a real screenshot or photo.
 

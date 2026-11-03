@@ -1,5 +1,6 @@
 ---
 title: Email Services
+shortTitle: email
 description: Your inbox, not an ad platform. EU email providers with encryption, custom domains, and real privacy.
 icon: mail
 # Workflow

@@ -4,10 +4,7 @@ import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { getToolIcon } from "@switch-to-eu/blocks/data/tool-icons";
 import { getToolUrl, type Tool } from "@switch-to-eu/blocks/data/tools";
-import {
-  BRAND_COLORS,
-  TOOL_SCHEMES,
-} from "@switch-to-eu/ui/lib/tool-colors";
+import { BRAND_COLORS, TOOL_SCHEMES } from "@switch-to-eu/ui/lib/tool-colors";
 
 interface Props {
   tool: Tool;
@@ -21,15 +18,15 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
   const toolHref = getToolUrl(tool, locale);
 
   const scheme = TOOL_SCHEMES[tool.id];
-  const accent = scheme ? BRAND_COLORS[scheme.accent] : BRAND_COLORS.yellow;
   const primary = scheme ? BRAND_COLORS[scheme.primary] : BRAND_COLORS.green;
-  // Calm surface: white card, dark text, green CTA. The tool's own colours
-  // only appear in its icon badge and the floating shapes.
+  // The tool's own world: its surface colour as the panel, its primary as a
+  // tone-on-tone shape, brand green for the heading and the action. The
+  // composed bg-/text-brand-* classes are emitted because every brand colour
+  // is written out literally in lib/quiet-palette.ts.
+  const surface = scheme ? BRAND_COLORS[scheme.surface] : BRAND_COLORS.yellow;
   const card = {
-    bg: "bg-white border-y md:border border-black/10",
     text: "text-[#1a1a1a]",
     button: "bg-brand-green text-white",
-    shapeColor: `text-${primary.tw}`,
   };
 
   let hostHint: string | null = null;
@@ -50,8 +47,17 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
     <section>
       <Container noPaddingMobile>
         <Banner
-          color={card.bg}
+          color={`bg-${surface.tw}`}
           className="group"
+          shapes={[
+            {
+              shape: "sunburst",
+              className: "-right-16 -bottom-24 w-72 h-72 sm:w-96 sm:h-96",
+              color: `text-${primary.tw}`,
+              opacity: 0.22,
+              duration: "14s",
+            },
+          ]}
         >
           {isActive && (
             <a
@@ -63,28 +69,23 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
             />
           )}
 
-          <div className="pointer-events-none relative grid gap-7 sm:gap-8 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="pointer-events-none relative z-10 grid gap-7 sm:gap-8 md:grid-cols-[1fr_auto] md:items-center">
             <div>
               <div className="mb-5 inline-flex items-center gap-3">
                 <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full sm:h-12 sm:w-12"
-                  style={{
-                    backgroundColor: accent.value,
-                    color: primary.value,
-                  }}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white sm:h-14 sm:w-14"
+                  style={{ color: primary.value }}
                 >
-                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+                  <Icon className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
                 </span>
               </div>
 
-              <h2
-                className={`font-heading text-3xl leading-[1.05] sm:text-3xl md:text-4xl mb-3 ${card.text}`}
-              >
+              <h2 className="font-heading text-4xl leading-[1.02] sm:text-5xl md:text-6xl mb-4 text-brand-green">
                 {tool.name}
               </h2>
 
               <p
-                className={`max-w-xl text-base sm:text-lg ${card.text}`}
+                className={`max-w-xl text-lg sm:text-xl leading-relaxed ${card.text}`}
               >
                 {description}
               </p>

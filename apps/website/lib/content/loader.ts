@@ -193,6 +193,7 @@ function buildStore(locale: Locale): Store {
     categories.set(doc.slug, {
       ...base(doc, data),
       title: str(data.title, doc.slug),
+      shortTitle: str(data.shortTitle) || str(data.title, doc.slug),
       description: str(data.description),
       content: localizedBody(doc, locale) || null,
     } as Category);

@@ -44,6 +44,8 @@ interface BaseDoc extends SeoFields {
 
 export interface Category extends BaseDoc {
   title: string;
+  /** Short name for links like "See all in AI". Falls back to title. */
+  shortTitle: string;
   description: string;
   icon?: string | null;
   /** Markdown */

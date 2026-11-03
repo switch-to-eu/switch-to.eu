@@ -1,5 +1,6 @@
 ---
 title: Berichtenapps
+shortTitle: berichtenapps
 description: End-to-end versleutelde chat, bellen en bestanden delen zonder dat je gesprekken worden gebruikt voor advertenties.
 ---
 

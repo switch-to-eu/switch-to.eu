@@ -1,5 +1,6 @@
 ---
 title: Messaging Apps
+shortTitle: messaging
 description: End-to-end encrypted chat, calls, and file sharing without mining your conversations for ads.
 icon: message-square
 # Workflow

@@ -1,5 +1,6 @@
 ---
 title: Social Media
+shortTitle: social media
 description: Social networks that respect your attention. Less data collection, more control over what you see.
 icon: users
 # Workflow

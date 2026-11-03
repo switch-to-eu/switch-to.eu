@@ -1,5 +1,6 @@
 ---
 title: Webbrowsers
+shortTitle: browsers
 description: Snelle, volledig uitgeruste browsers uit Europa met trackingbescherming die standaard aanstaat.
 ---
 

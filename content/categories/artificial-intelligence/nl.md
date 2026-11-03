@@ -1,5 +1,6 @@
 ---
 title: Kunstmatige Intelligentie
+shortTitle: AI
 description: In de EU gebouwde AI-assistenten, beeldgeneratoren en taalmodellen die niet zonder toestemming op jouw data trainen.
 ---
 

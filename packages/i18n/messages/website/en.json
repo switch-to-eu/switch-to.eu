@@ -110,7 +110,7 @@
       "githubCta": "See the source on GitHub"
     },
     "latestNews": "Latest news",
-    "picksMoreInCategory": "More {category}"
+    "picksMoreInCategory": "See all in {category}"
   },
   "footer": {
     "copyright": "{year} <link>Switch-to.eu</link>.",

@@ -20,7 +20,10 @@ import { useTranslations, useLocale } from "next-intl";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 
-const createFormSchema = (validation: { required: string; invalidEmail: string }) =>
+const createFormSchema = (validation: {
+  required: string;
+  invalidEmail: string;
+}) =>
   z.object({
     firstname: z.string().min(1, { message: validation.required }),
     email: z.string().email({ message: validation.invalidEmail }),
@@ -28,7 +31,11 @@ const createFormSchema = (validation: { required: string; invalidEmail: string }
 
 type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
 
-export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => {
+export const NewsletterCta = ({
+  contained = true,
+}: {
+  contained?: boolean;
+}) => {
   const t = useTranslations("newsletter");
   const v = useTranslations("validation");
   const locale = useLocale();
@@ -37,14 +44,18 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
   const [error, setError] = useState<string | null>(null);
 
   const Wrapper = contained
-    ? (props: { children: React.ReactNode }) => <Container noPaddingMobile>{props.children}</Container>
+    ? (props: { children: React.ReactNode }) => (
+        <Container noPaddingMobile>{props.children}</Container>
+      )
     : "div";
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(createFormSchema({
-      required: v("required"),
-      invalidEmail: v("invalidEmail"),
-    })),
+    resolver: zodResolver(
+      createFormSchema({
+        required: v("required"),
+        invalidEmail: v("invalidEmail"),
+      }),
+    ),
     defaultValues: {
       firstname: "",
       email: "",
@@ -70,9 +81,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
 
       if (!response.ok) {
         const errorData = (await response.json()) as { message?: string };
-        throw new Error(
-          errorData.message ?? "subscribe-failed"
-        );
+        throw new Error(errorData.message ?? "subscribe-failed");
       }
 
       setIsSuccess(true);
@@ -80,7 +89,7 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
     } catch (error) {
       console.error("Error submitting newsletter form:", error);
       setError(
-        error instanceof Error ? error.message : "An unexpected error occurred"
+        error instanceof Error ? error.message : "An unexpected error occurred",
       );
     } finally {
       setIsSubmitting(false);
@@ -91,82 +100,95 @@ export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => 
     <section>
       <Wrapper>
         <Banner
-          color="bg-white border-y md:border border-black/10"
-          contentClassName="max-w-2xl mx-auto text-center"
+          color="bg-brand-sage"
+          shapes={[
+            {
+              shape: "flower",
+              className: "-top-20 -left-20 w-64 h-64 sm:w-80 sm:h-80",
+              color: "text-brand-green",
+              opacity: 0.08,
+              duration: "16s",
+            },
+          ]}
+          contentClassName="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 lg:items-center"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green mb-6 sm:mb-8">
+          <h2 className="lg:col-span-5 font-heading text-4xl sm:text-5xl leading-[1.02] text-brand-green text-balance">
             {t("title")}
           </h2>
-
-          {!isSuccess ? (
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="firstname"
-                    render={({ field }) => (
-                      <FormItem className="text-left">
-                        <FormLabel className="text-[#1a1a1a] text-sm font-semibold">
-                          {t("firstNameLabel")}
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder={t("firstNamePlaceholder")}
-                            {...field}
-                            className="h-12 px-5 bg-white border-black/20 text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="text-left">
-                        <FormLabel className="text-[#1a1a1a] text-sm font-semibold">
-                          {t("emailLabel")}
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            type="email"
-                            placeholder={t("emailPlaceholder")}
-                            {...field}
-                            className="h-12 px-5 bg-white border-black/20 text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                {error && (
-                  <div role="alert" className="bg-brand-red/10 text-brand-red font-semibold px-5 py-3 rounded-full text-sm">
-                    {t("errorMessage")}
-                  </div>
-                )}
-                <Button
-                  variant="cta"
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="h-12 px-8 text-base bg-brand-green text-white hover:bg-brand-green/90 rounded-full font-semibold"
+          <div className="lg:col-span-7">
+            {!isSuccess ? (
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-5"
                 >
-                  {isSubmitting ? "..." : t("submitLabel")}
-                </Button>
-              </form>
-            </Form>
-          ) : (
-            <div className="bg-white border border-black/10 p-6 rounded-3xl">
-              <p className="text-brand-green text-lg font-medium">
-                {t("successMessage")}
-              </p>
-            </div>
-          )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="firstname"
+                      render={({ field }) => (
+                        <FormItem className="text-left">
+                          <FormLabel className="text-brand-green text-sm font-semibold">
+                            {t("firstNameLabel")}
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder={t("firstNamePlaceholder")}
+                              {...field}
+                              className="h-12 px-5 bg-white border-transparent text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="text-left">
+                          <FormLabel className="text-brand-green text-sm font-semibold">
+                            {t("emailLabel")}
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="email"
+                              placeholder={t("emailPlaceholder")}
+                              {...field}
+                              className="h-12 px-5 bg-white border-transparent text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 rounded-full focus:border-brand-green focus:ring-brand-green/30"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  {error && (
+                    <div
+                      role="alert"
+                      className="bg-brand-red/10 text-brand-red font-semibold px-5 py-3 rounded-full text-sm"
+                    >
+                      {t("errorMessage")}
+                    </div>
+                  )}
+                  <Button
+                    variant="cta"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="h-12 px-8 text-base bg-brand-green text-white hover:bg-brand-green/90 rounded-full font-semibold"
+                  >
+                    {isSubmitting ? "..." : t("submitLabel")}
+                  </Button>
+                </form>
+              </Form>
+            ) : (
+              <div className="bg-white p-6 rounded-3xl">
+                <p className="text-brand-green text-lg font-medium">
+                  {t("successMessage")}
+                </p>
+              </div>
+            )}
+          </div>
         </Banner>
       </Wrapper>
     </section>

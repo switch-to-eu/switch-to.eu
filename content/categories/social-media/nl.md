@@ -1,5 +1,6 @@
 ---
 title: Sociale media
+shortTitle: sociale media
 description: Sociale netwerken die je aandacht respecteren. Minder dataverzameling, meer controle over wat je ziet.
 ---
 

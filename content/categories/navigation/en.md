@@ -1,5 +1,6 @@
 ---
 title: Navigation
+shortTitle: navigation
 description: Find your way with apps built on open map data. No tracking where you go, live, or work.
 icon: map-pin
 # Workflow

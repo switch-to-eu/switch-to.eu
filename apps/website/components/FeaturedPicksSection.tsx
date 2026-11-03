@@ -8,7 +8,6 @@ import { getCardColor } from "@/lib/quiet-palette";
 
 import type { HomepagePick } from "@/app/(frontend)/[locale]/page";
 
-
 interface Props {
   picks: HomepagePick[];
 }
@@ -21,9 +20,7 @@ export async function FeaturedPicksSection({ picks }: Props) {
   return (
     <section id="picks">
       <Container noPaddingMobile>
-        <SectionHeading>
-          {t("picksSectionTitle")}
-        </SectionHeading>
+        <SectionHeading>{t("picksSectionTitle")}</SectionHeading>
 
         <div className="grid gap-0 md:gap-5 sm:auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {picks.map((entry, index) => (
@@ -32,7 +29,9 @@ export async function FeaturedPicksSection({ picks }: Props) {
               entry={entry}
               colorIndex={index}
               learnMoreLabel={t("picksLearnMoreCta")}
-              moreInCategoryLabel={t("picksMoreInCategory", { category: entry.category.title })}
+              moreInCategoryLabel={t("picksMoreInCategory", {
+                category: entry.category.shortTitle,
+              })}
               learnMoreAria={
                 entry.pick
                   ? t("picksLearnMoreAria", { name: entry.pick.name })
@@ -93,7 +92,9 @@ function PickCard({
           </h3>
 
           {(location || pick) && (
-            <div className={`${card.text} flex flex-wrap items-center gap-x-2 gap-y-1 mb-3 text-xs uppercase tracking-wider`}>
+            <div
+              className={`${card.text} flex flex-wrap items-center gap-x-2 gap-y-1 mb-3 text-xs uppercase tracking-wider`}
+            >
               {pick && <RegionBadge region={pick.region} showTooltip={false} />}
               {location && (
                 <span className="inline-flex items-center gap-1.5">
@@ -105,19 +106,10 @@ function PickCard({
           )}
 
           <p
-            className={`${card.text} text-sm leading-relaxed line-clamp-3 mb-4`}
+            className={`${card.text} text-sm leading-relaxed line-clamp-3 mb-5`}
           >
             {description}
           </p>
-
-          {pick && (
-            <Link
-              href={categoryHref}
-              className={`${card.text} pointer-events-auto relative self-start text-sm font-semibold underline underline-offset-2 hover:no-underline mb-4 py-1 rounded focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current`}
-            >
-              {moreInCategoryLabel} <span aria-hidden="true">→</span>
-            </Link>
-          )}
 
           <span
             className={`${card.button} mt-auto self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold`}
@@ -130,6 +122,14 @@ function PickCard({
               →
             </span>
           </span>
+          {pick && (
+            <Link
+              href={categoryHref}
+              className={`${card.text} pointer-events-auto relative self-start text-sm font-semibold hover:underline underline-offset-2 mt-3 py-1 rounded focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current`}
+            >
+              {moreInCategoryLabel} <span aria-hidden="true">→</span>
+            </Link>
+          )}
         </div>
       </div>
     </article>

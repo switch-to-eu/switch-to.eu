@@ -1,5 +1,6 @@
 ---
 title: Cloudopslagdiensten
+shortTitle: cloudopslag
 description: Bewaar je bestanden veilig en toegankelijk, met encryptie en hosting die in Europa blijft.
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: Zoekmachines
+shortTitle: zoekmachines
 description: Vind wat je zoekt zonder gevolgd te worden. Geen filterbubbels, geen advertentieprofielen, geen surveillance.
 ---
 

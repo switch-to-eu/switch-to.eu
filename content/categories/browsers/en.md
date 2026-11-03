@@ -1,5 +1,6 @@
 ---
 title: Web Browsers
+shortTitle: browsers
 description: Fast, full-featured browsers built in Europe with tracking protection on from the start.
 icon: globe
 # Workflow
