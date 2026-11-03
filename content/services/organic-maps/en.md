@@ -16,6 +16,11 @@ features:
 - Hiking and cycling trails
 - OpenStreetMap-based
 - Free, no in-app purchases
+specs:
+  price: Free, funded by donations
+  offlineMaps: Free, every feature works offline
+  liveTraffic: Not offered
+  publicTransport: Bus, tram, subway, no live times
 tags:
 - privacy
 - open-source
@@ -52,7 +57,8 @@ openSource: true
 sourceCodeUrl: https://github.com/organicmaps/organicmaps
 sourceUrls:
 - url: https://organicmaps.app/
-  label: Official website
+  label: Official website (free, no ads, no data collection, all features offline)
+  checkedAt: '2026-11-03'
 - url: https://github.com/organicmaps/organicmaps
   label: GitHub repository
 - url: https://organicmaps.app/privacy/
@@ -63,6 +69,21 @@ sourceUrls:
   label: Open Collective
 - url: https://www.inforegister.ee/en/16225385-ORGANIC-MAPS-OU/
   label: Estonian company registry
+- url: https://organicmaps.app/news/2026-06-29/satellite-imagery-public-transport-routes-alternate-routes-new-search-and-route-planning-interface-for-android-large-accessibility-fonts/
+  label: Organic Maps June 2026 release (public transport routing by subway, light rail, bus and tram)
+  checkedAt: '2026-11-03'
+- url: https://organicmaps.app/news/2026-07-23/bugfixes-and-improvements-for-public-transport-routing-search-and-bookmarks-july-2026/
+  label: Organic Maps July 2026 release (live schedules still in development)
+  checkedAt: '2026-11-03'
+- url: https://organicmaps.app/news/2025-12-31/organic-maps-2025-year-in-review/
+  label: Organic Maps 2025 year in review (traffic info second most requested missing feature)
+  checkedAt: '2026-11-03'
+- url: https://organicmaps.app/news/
+  label: Organic Maps news (no 2026 release adds live traffic)
+  checkedAt: '2026-11-03'
+- url: https://lwn.net/Articles/1024387/
+  label: LWN.net, CoMaps emerges as an Organic Maps fork (June 2025)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   Organic Maps is a free, open-source offline navigation app built on OpenStreetMap data. Founded in December 2020 by Alexander Borsuk and Viktar Havaka (former MAPS.ME developers), the project is registered as Organic Maps OÜ in Estonia. As of late 2025, the app has reached over 6 million installs across iOS and Android.
 
@@ -97,4 +118,4 @@ It's lightweight too. Less storage and battery drain than Google Maps, and it ru
 
 ## Worth knowing
 
-Organic Maps is simpler than alternatives like OsmAnd. That's a deliberate choice, but it means no public transit routing, no real-time traffic, and no street-level imagery. Search results can be hit-or-miss depending on how well your area is mapped in OpenStreetMap. The project had a community fork in 2025 (CoMaps) over governance concerns, worth watching if long-term project direction matters to you.
+Organic Maps is simpler than alternatives like OsmAnd. That's a deliberate choice, but it means no real-time traffic and no street-level imagery. Public transport routes by bus, tram, subway and light rail arrived in June 2026, without live departure times so far. Search results can be hit-or-miss depending on how well your area is mapped in OpenStreetMap. The project had a community fork in 2025 (CoMaps) over governance concerns, worth watching if long-term project direction matters to you.

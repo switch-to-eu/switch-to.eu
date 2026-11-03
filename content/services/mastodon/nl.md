@@ -6,6 +6,11 @@ features:
 - Open source en door de community bestuurd
 - Gedetailleerde privacyinstellingen
 - Berichten van 500 tekens met rich media
+specs:
+  feed: Chronologisch, geen algoritme
+  dataLocation: Hangt af van de server die je kiest
+  moveAccount: Volgers gaan mee, berichten niet
+  directMessages: Niet versleuteld
 metaTitle: 'Mastodon: Gratis gedecentraliseerd sociaal netwerk uit Duitsland'
 metaDescription: Mastodon is een gratis, open-source sociaal netwerk uit Duitsland. Geen advertenties, geen algoritmes, geen dataverkoop. Meer dan 10 miljoen accounts op 10.500 servers.
 keywords:

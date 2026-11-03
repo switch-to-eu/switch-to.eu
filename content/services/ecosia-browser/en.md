@@ -15,6 +15,10 @@ features:
 - Tree planting funded by search revenue
 - AI Chat with Green Mode
 - Available on Windows, macOS, Android, iOS
+specs:
+  blocking: Built in
+  platforms: Windows, macOS, Linux, Android, iOS
+  revenue: Ads on Ecosia search results
 tags:
 - privacy
 - environment
@@ -49,11 +53,13 @@ employeeCount: 120-145
 dataStorageLocations:
 - European Union
 - Germany
+openSource: false
 sourceUrls:
 - url: https://www.ecosia.org/privacy
   label: Official privacy policy
 - url: https://www.ecosia.org/browser
   label: Official browser page
+  checkedAt: '2026-11-03'
 - url: https://support.ecosia.org/article/1018-gdpr
   label: Ecosia GDPR help center
 - url: https://blog.ecosia.org/desktop-browser/
@@ -61,7 +67,23 @@ sourceUrls:
 - url: https://en.wikipedia.org/wiki/Ecosia
   label: Wikipedia
 - url: https://support.ecosia.org/article/575-privacy-settings-on-the-ecosia-browser
-  label: Browser privacy settings help
+  label: Browser privacy settings help (ad and tracker blocker, Ecosia allowlisted)
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/572-setting-up-the-ecosia-desktop-browser
+  label: Setting up the Ecosia Browser (Windows, macOS, Linux)
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/653-installing-ecosia-on-your-mobile-device
+  label: Ecosia apps for Android and iOS
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/33-how-does-ecosia-make-money
+  label: How Ecosia makes money
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/765-password-management
+  label: Password management (no password sync between devices)
+  checkedAt: '2026-11-03'
+- url: https://snapcraft.io/ecosia
+  label: Ecosia Browser on Snapcraft (licence listed as proprietary)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   ## Company Overview
 

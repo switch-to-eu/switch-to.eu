@@ -7,7 +7,7 @@ featured: true
 location: United States
 url: https://bsky.app
 freeOption: true
-startingPrice: Free (Bluesky+ planned at ~$8/month)
+startingPrice: Free
 description: Take control of your social feed with an open, decentralized network where you pick the algorithm.
 screenshot: /images/services/bluesky.jpg
 features:
@@ -16,6 +16,11 @@ features:
 - Community moderation
 - Domain-based verification
 - Fully open source
+specs:
+  feed: Pick from 40,000+ feeds
+  dataLocation: Anywhere, says its privacy policy
+  moveAccount: Posts and followers, via tools
+  directMessages: Not encrypted
 tags:
 - social network
 - microblogging
@@ -41,7 +46,7 @@ lastResearchedAt: '2026-04-09T00:00:00.000Z'
 gdprCompliance: partial
 gdprNotes: 'Bluesky has appointed EU and UK data protection representatives (EU: Ametros Ltd, Cork, Ireland). It registered in Belgium for Digital Services Act compliance. Your data is stored on US-based servers. Bluesky provides a supplemental GDPR notice for EU/UK users and processes data as a controller. No EU data storage option exists yet.'
 privacyPolicyUrl: https://bsky.social/about/support/privacy-policy
-pricingDetails: 'Free tier: full access to all core features including posting, custom feeds, moderation tools, and domain-based handles. Bluesky+ (not yet launched): expected ~$8/month or $72/year for profile customizations, higher quality video uploads, post analytics, bookmark folders, and custom app icons. Premium will not boost post visibility. Tip jar for creators also planned.'
+pricingDetails: 'Free, with all core features including posting, custom feeds, moderation tools and domain-based handles (as of November 2026). Bluesky+ has not launched: no price, plan or purchase page on bsky.social or in the Bluesky blog posts up to 30 October 2026 (as of November 2026). A December 2024 mockup reported by TechCrunch showed $8/month or $72/year, and Bluesky staff said then that it was not final (not re-checked). Earlier research recorded that a paid plan would not boost post visibility.'
 pricingUrl: https://bsky.social/about
 headquarters: Seattle, WA, United States
 parentCompany: Bluesky Social PBC
@@ -53,9 +58,20 @@ openSource: true
 sourceCodeUrl: https://github.com/bluesky-social
 sourceUrls:
 - url: https://bsky.social/about/blog/03-19-2026-series-b
-  label: Bluesky Series B announcement
+  label: Bluesky Series B announcement (over 43 million users)
+  checkedAt: '2026-11-03'
 - url: https://bsky.social/about/support/privacy-policy
-  label: Bluesky Privacy Policy
+  label: Bluesky Privacy Policy (data stored anywhere in the world, DMs unencrypted)
+  checkedAt: '2026-11-03'
+- url: https://bsky.social/about/faq
+  label: Bluesky FAQ (40,000+ feeds, change server without losing friends or posts)
+  checkedAt: '2026-11-03'
+- url: https://atproto.com/guides/account-migration
+  label: AT Protocol account migration guide (API calls, tools such as goat and PDS MOOver)
+  checkedAt: '2026-11-03'
+- url: https://bsky.social/about/blog
+  label: Bluesky blog (no Bluesky+ launch in posts up to 30 October 2026)
+  checkedAt: '2026-11-03'
 - url: https://bsky.social/about/blog/01-29-2026-transparency-report-2025
   label: 2025 Transparency Report
 - url: https://github.com/bluesky-social/atproto
@@ -71,7 +87,7 @@ sourceUrls:
 researchNotes: 'Bluesky Social PBC is a US-based public benefit corporation founded in 2021 by Jay Graber, originally incubated at Twitter in 2019. Headquartered in Seattle, WA. Jay Graber stepped down as CEO in March 2026, replaced by interim CEO Toni Schneider. Raised $100M Series B (disclosed March 2026, closed April 2025) led by Bain Capital Crypto. 40.2 million registered users as of late 2025, ~3.5 million daily active users. Built on the AT Protocol, an open federated protocol for social networking. Both the protocol and client app are open source (MIT/Apache 2.0). Bluesky registered a legal entity in Belgium for EU DSA compliance (March 2025). EU data protection representative: Ametros Ltd, Cork, Ireland. Infrastructure hosted on Vultr bare-metal servers (moved off AWS in 2023). Bluesky+ premium subscription planned but not yet launched. Recent product: Attie, an AI-powered app for building custom feeds (March 2026).'
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong points: clean slug, benefit-led description under 200 chars, specific numbers in content (40M users, 300 chars, 25 clips), mandatory Worth knowing section present, natural keyword usage, no stuffing. Meta title 55 chars (good). Meta description 155 chars (good). Areas for improvement: could add internal links to comparison pages or related EU alternatives once available. Content at ~220 words is solid. The eu-friendly region tag is accurate given US data storage but EU legal entity.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

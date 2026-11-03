@@ -16,6 +16,11 @@ features:
 - Brave Search (independent index)
 - Leo AI assistant
 - Chrome extension compatible
+specs:
+  engine: Chromium
+  blocking: Built in, on by default
+  platforms: Windows, macOS, Linux, Android, iOS
+  revenue: Ads and subscriptions
 pricingTiers:
 - name: Brave Browser
   price: Free
@@ -26,15 +31,6 @@ pricingTiers:
   - Brave Search
   - Chrome extension support
   - Cross-device sync
-- name: Brave Premium
-  price: $9.99/month
-  billingNote: $99.99/year (save 17%)
-  features:
-  - Everything in free
-  - Leo AI assistant (advanced models)
-  - Brave VPN (10 devices)
-  - Device-level VPN protection
-  - 7-day free trial
 tags:
 - browser
 - privacy
@@ -58,7 +54,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Brave is GDPR compliant and has an appointed EU representative. The browser processes almost all data locally on your device. Browsing history, search queries, and page content never leave your computer. Sync between devices uses end-to-end encryption that Brave cannot read. The company does not collect, share, or sell personal data. Independent testing found Brave sends the least data back to its servers of any major browser. Optional features like Brave Rewards involve some data collection, but you have to turn them on yourself.
 privacyPolicyUrl: https://brave.com/privacy/browser/
-pricingDetails: 'Free browser with all privacy features included. Brave Premium (Leo AI + VPN): $9.99/month or $99.99/year. VPN covers up to 10 devices. 7-day free trial available.'
+pricingDetails: 'Free browser with all privacy features included. Paid extras are sold separately and brave.com/premium lists them in USD only, with no EUR prices (as of November 2026): Brave VPN $9.99/month or $99.99/year (up to 10 devices, 7-day free trial), Leo AI premium $14.99/month or $149.99/year, Brave Origin $59.99 one-time, Search premium $3.00/month or $29.99/year, Talk premium $7.00/month or $69.99/year. The page lists no bundle of Leo and VPN.'
 pricingUrl: https://brave.com/premium/
 headquarters: San Francisco, United States
 parentCompany: Brave Software, Inc.
@@ -71,15 +67,29 @@ openSource: true
 sourceCodeUrl: https://github.com/brave/brave-browser
 sourceUrls:
 - url: https://brave.com/privacy/browser/
-  label: Brave Browser Privacy Policy
+  label: Brave Browser Privacy Policy (San Francisco office, GDPR representative in Ireland, sync keys on your devices)
+  checkedAt: '2026-11-03'
 - url: https://brave.com/privacy-features/
   label: Brave Privacy Features
 - url: https://brave.com/premium/
-  label: Brave Premium Pricing
+  label: Brave Premium Pricing (USD only)
+  checkedAt: '2026-11-03'
 - url: https://github.com/brave/brave-browser
   label: Brave GitHub Repository
 - url: https://brave.com/leo/
   label: Brave Leo AI Assistant
+- url: https://brave.com/download/
+  label: Download page (Windows, macOS, Linux, Android, iOS)
+  checkedAt: '2026-11-03'
+- url: https://brave.com/shields/
+  label: Brave Shields (on by default for every site)
+  checkedAt: '2026-11-03'
+- url: https://github.com/brave/brave-core
+  label: Brave Core repository (changes to Chromium)
+  checkedAt: '2026-11-03'
+- url: https://brave.com/brave-ads/
+  label: Brave Ads (browser ads and search ads)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   ## Company Overview
 
@@ -102,7 +112,7 @@ researchNotes: |-
   Hosted on Brave-operated infrastructure, Amazon, Heroku, and Fastly CDN. Servers primarily in the US. Translation service deletes content after processing. Safe Browsing proxy does not log IPs. Leo AI does not retain chats or use them for model training.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Score: 82/100. Strong points: benefit-led description (96 chars), clear feature tags, honest Worth knowing section with specific trade-offs (US jurisdiction, feature bloat criticism), good content length (~220 words), specific numbers (97M users, pricing). Deductions: no explicit EU alternative comparison angle in content (-5), could strengthen internal linking to browser category (-3), content could mention specific competitors for comparison search intent (-5), missing structured FAQ potential (-5). Recommendations: consider adding comparison content for search queries like ''Brave vs Firefox privacy''.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

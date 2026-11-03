@@ -7,6 +7,11 @@ features:
 - Containertabs
 - Ondersteuning voor Firefox-extensies
 - Cross-platform (Windows, macOS, Linux, Android)
+specs:
+  engine: Firefox
+  blocking: Ingebouwd, standaard aan op desktop
+  platforms: Windows, macOS, Linux, Android
+  revenue: Zoekdeal met Qwant
 metaTitle: 'Waterfox Review: Privacy-first Firefox-fork zonder telemetrie'
 metaDescription: Waterfox is een gratis, open-source Firefox-fork uit het VK met nul telemetrie, ingebouwde advertentieblokkering en versleutelde DNS. Onafhankelijk sinds 2023.
 keywords:

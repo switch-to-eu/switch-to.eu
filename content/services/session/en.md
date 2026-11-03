@@ -16,6 +16,11 @@ features:
 - Decentralized network
 - Open source
 - Cross-platform
+specs:
+  price: Free, optional paid Pro
+  signUpWith: Random ID, no phone or email
+  calls: Beta, switch on in settings
+  serverLocation: Over 1,500 nodes worldwide
 pricingTiers:
 - name: Free
   price: Free
@@ -49,7 +54,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Session does not ask for your phone number, email, or any personal details when you sign up. Your messages travel through three random nodes using onion routing, so no single server ever sees both sender and recipient. The app is now stewarded by a Swiss foundation, operating under some of the strongest privacy laws in the world.
 privacyPolicyUrl: https://getsession.org/app-privacy-policy
-pricingDetails: Session is free to use for all core messaging features. A future Session Pro tier may add premium features, payable via Session Token or traditional payment methods. No pricing announced yet for premium features.
+pricingDetails: 'Session is free for messaging, including groups, onion routing and attachments up to 10 MB. Session Pro adds longer messages (up to 10,000 characters), unlimited pinned chats, animated display pictures and a badge, from US$2.99 a month (as of November 2026, no EUR price listed).'
 pricingUrl: https://getsession.org/faq
 headquarters: Zug, Switzerland (Session Technology Foundation)
 parentCompany: Session Technology Foundation (STF)
@@ -65,11 +70,13 @@ sourceUrls:
 - url: https://getsession.org
   label: Official website
 - url: https://getsession.org/faq
-  label: Session FAQ
+  label: Session FAQ (no phone number or email, calls in beta, groups up to 100, over 1,500 nodes)
+  checkedAt: '2026-11-03'
 - url: https://getsession.org/app-privacy-policy
   label: Privacy policy
 - url: https://session.foundation/
-  label: Session Technology Foundation
+  label: Session Technology Foundation (Swiss foundation)
+  checkedAt: '2026-11-03'
 - url: https://github.com/session-foundation
   label: GitHub repositories
 - url: https://en.wikipedia.org/wiki/Session_(software)
@@ -78,6 +85,9 @@ sourceUrls:
   label: STF announcement
 - url: https://arxiv.org/pdf/2002.04609
   label: Session protocol whitepaper
+- url: https://getsession.org/pro
+  label: Session Pro (from US$2.99 a month, what stays free)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   Session is a decentralized, end-to-end encrypted messenger originally developed as Loki Messenger in 2018 by the Oxen Privacy Tech Foundation (OPTF), an Australian not-for-profit. It was rebranded to Session in December 2019 and launched publicly in early 2020. The app was forked from Signal but removed the phone number requirement, replacing it with pseudonymous Session IDs (66-character hex strings from Ed25519 keys).
 
@@ -90,7 +100,7 @@ researchNotes: |-
   Quarkslab conducted a security audit in 2021 finding no fundamental flaws but recommending improvements to forward secrecy and key management, both of which are being addressed in the v2 protocol. Session is fully open source with repositories on GitHub under the session-foundation organization.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong SEO profile. Title is 51 chars (good). Meta description is 156 chars (ideal range). Description leads with reader benefit. Content has clear structure with H2 heading. Keywords target high-intent privacy search terms. Worth knowing section adds authenticity and addresses common questions. Minor deductions: could benefit from a second H2 in main content to break up paragraphs, and the slug ''session'' is very generic which may face competition from unrelated search results for ''session'' as a general word.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'
@@ -100,10 +110,10 @@ Most encrypted messengers still need your phone number to get started. Session s
 
 Your messages travel through three random nodes on a decentralized network using onion routing. Each node only knows the previous and next hop, never the full path. That means no single point in the network can link you to your conversation partner or read what you are saying.
 
-Session runs on thousands of community-operated nodes spread across the globe instead of company-owned servers. If a node goes down, the network keeps working. There is no central database of users or messages for anyone to access or breach.
+Session runs on over 1,500 community-operated nodes spread across the globe instead of company-owned servers. If a node goes down, the network keeps working. There is no central database of users or messages for anyone to access or breach.
 
 The app covers the basics well: one-on-one chats, group conversations, voice messages, and file attachments. It works on Android, iOS, Windows, macOS, and Linux. The entire codebase is open source, so anyone can inspect exactly how it works.
 
 ## Worth knowing
 
-Session started as an Australian project in 2018 and moved to a Swiss foundation in 2025. The onion routing adds a small delay compared to direct-connection messengers. Group chats have a size limit, and there are no voice or video calls yet. The user base is smaller than mainstream messengers, so you will likely need to invite your contacts yourself.
+Session started as an Australian project in 2018 and moved to a Swiss foundation in 2025. The onion routing adds a small delay compared to direct-connection messengers. Groups hold up to 100 people, and voice and video calls are a beta feature you switch on in the settings. The user base is smaller than mainstream messengers, so you will likely need to invite your contacts yourself.

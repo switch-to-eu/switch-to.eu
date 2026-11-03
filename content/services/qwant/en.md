@@ -15,6 +15,11 @@ features:
 - EU-hosted infrastructure
 - Building own European search index (Staan)
 - Qwant Junior for kids
+specs:
+  resultsFrom: Own crawler, Bing, EUSP index
+  sharedWithPartners: Search terms, partial IP address
+  inSafari: No, extension on Mac
+  businessModel: Keyword ads, shopping commissions
 tags:
 - search engine
 - privacy
@@ -50,6 +55,18 @@ dataStorageLocations:
 - France
 - European Union
 sourceUrls:
+- url: https://about.qwant.com/en/legal/classement/
+  label: How Qwant indexes and ranks results (own Qwantify crawler, Microsoft Bing among third-party sources, shopping offers paid by Microsoft)
+  checkedAt: '2026-11-03'
+- url: https://about.qwant.com/en/legal/confidentialite/
+  label: Privacy policy (Microsoft gets search terms and the first three bytes of the IP address, the full IP for fraud checks; Staan as a partner; keyword ads without an account)
+  checkedAt: '2026-11-03'
+- url: https://help.qwant.com/hc/en-us/articles/49006221472913-Set-Qwant-on-Safari
+  label: Set Qwant on Safari (not in Safari's list, Qwant for Safari extension on Mac)
+  checkedAt: '2026-11-03'
+- url: https://betterweb.qwant.com/en/2024/11/08/ecosia-and-qwant-join-forces-to-develop-european-search-index/
+  label: EUSP announcement (Paris, owned 50/50 by Ecosia and Qwant)
+  checkedAt: '2026-11-03'
 - url: https://en.wikipedia.org/wiki/Qwant
   label: Wikipedia
 - url: https://about.qwant.com/en/

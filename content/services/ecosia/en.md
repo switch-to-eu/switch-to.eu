@@ -15,6 +15,11 @@ features:
 - 100% renewable energy
 - GDPR compliant
 - European search index
+specs:
+  resultsFrom: Google, Bing, EUSP (France only)
+  sharedWithPartners: Search terms and IP address
+  inSafari: Yes, on iPhone and Mac
+  businessModel: Keyword ads, all profit to climate
 tags:
 - search engine
 - environment
@@ -53,9 +58,11 @@ dataStorageLocations:
 - USA (Microsoft Bing search infrastructure)
 sourceUrls:
 - url: https://www.ecosia.org/privacy
-  label: Ecosia Privacy Policy
+  label: Ecosia Privacy Policy (IP address and search terms go to Bing or Google, IP anonymised within 7 days, Google by default where available, ads not personalised without consent)
+  checkedAt: '2026-11-03'
 - url: https://support.ecosia.org/article/33-how-does-ecosia-make-money
-  label: How Ecosia Makes Money
+  label: How Ecosia Makes Money (ads via Google AdSense and Microsoft Advertising, 100% of profits to climate action)
+  checkedAt: '2026-11-03'
 - url: https://blog.ecosia.org/regeneration-report-24/
   label: Ecosia 2024 Regeneration Report
 - url: https://purpose-economy.org/en/companies/ecosia/
@@ -65,7 +72,17 @@ sourceUrls:
 - url: https://en.wikipedia.org/wiki/Ecosia
   label: Wikipedia - Ecosia
 - url: https://support.ecosia.org/article/579-search-results-providers
-  label: Ecosia Search Result Providers
+  label: Ecosia Search Result Providers (Bing, Google, EUSP only in France)
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/653-installing-ecosia-on-your-mobile-device
+  label: Ecosia on mobile (Safari on iPhone lists Ecosia)
+  checkedAt: '2026-11-03'
+- url: https://support.ecosia.org/article/657-installing-ecosia-on-your-desktop-device
+  label: Ecosia on desktop (Safari on Mac lists Ecosia, Firefox lists Ecosia in 8 countries)
+  checkedAt: '2026-11-03'
+- url: https://blog.ecosia.org/trees-not-profits/
+  label: 'Ecosia blog, 2018: shares not sold at a profit, no profits taken out'
+  checkedAt: '2026-11-03'
 researchNotes: |-
   ## Company Overview
 
@@ -88,7 +105,7 @@ researchNotes: |-
   Generally positive. Users appreciate the environmental mission and transparency. Search quality is considered comparable to DuckDuckGo but not as comprehensive as Google. Some users note occasional need to fall back to other engines for complex queries. Privacy is better than Google but not as strict as privacy-first engines like Startpage. Firefox added Ecosia as a default search option in 7 EU countries in January 2025.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 88
 seoNotes: 'Strong page. Description leads with reader benefit (plant trees by searching). Content hits primary keywords naturally: EU search engine, tree planting, GDPR, Berlin. Worth knowing section addresses common objections (Bing dependency, search quality gaps), which is good for E-E-A-T. Features list is scannable. Areas for improvement: (1) could add internal links to comparison pages once created, (2) no structured pricing section yet since Ecosia is free, (3) could benefit from a FAQ schema targeting ''Is Ecosia safe?'' and ''How many searches to plant a tree?'' queries. Meta title is 56 chars, meta description is 155 chars, both within limits.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

@@ -15,6 +15,11 @@ features:
 - No IP logging
 - Open source apps
 - Anonymous signup
+specs:
+  freePlan: 1 GB
+  paidFrom: €3/month for 20 GB, billed yearly
+  e2eEncryption: Built in, subject lines too
+  customDomain: From €3/month, up to 3 domains
 pricingTiers:
 - name: Free
   price: Free
@@ -64,7 +69,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Tuta follows EU privacy rules and stores all your data on its own servers in Germany. The company doesn't log your IP address by default, so it holds very little data about you. Your email content, subject lines, contacts, and calendar are all encrypted so nobody can read them. Metadata like sender and recipient addresses isn't encrypted because the email protocol needs it to deliver messages. Tuta offers a data processing agreement for businesses.
 privacyPolicyUrl: https://tuta.com/privacy-policy
-pricingDetails: 'Free: 1 GB storage, 1 calendar, 3 labels, standard email addresses only. Revolutionary: €3/month (yearly), 20 GB storage, unlimited calendars and labels, 15 extra addresses, 3 custom domains, calendar sharing, autoresponder. Legend: €8/month (yearly), 500 GB storage, 30 extra addresses, 10 custom domains, priority support. Add-ons: €1/GB/month extra storage, €1/month per additional user.'
+pricingDetails: 'Free: 1 GB storage, 1 calendar, 3 labels, standard email addresses only. Revolutionary: €3/month (yearly), 20 GB storage, unlimited calendars and labels, 15 extra addresses, 3 custom domains, calendar sharing, autoresponder. Legend: €8/month (yearly), 500 GB storage, 30 extra addresses, 10 custom domains, priority support. Free, Revolutionary and Legend prices and limits re-checked on the pricing page (as of November 2026). The plan table lists email import (EML or MBOX files, in the desktop apps) on Legend only (as of November 2026). Add-ons: €1/GB/month extra storage, €1/month per additional user.'
 pricingUrl: https://tuta.com/pricing
 headquarters: Hanover, Germany
 parentCompany: Tutao GmbH (founder-owned)
@@ -87,6 +92,13 @@ sourceUrls:
   label: Tuta GDPR compliance
 - url: https://tuta.com/pricing
   label: Tuta Pricing page
+  checkedAt: '2026-11-03'
+- url: https://tuta.com/encryption
+  label: Tuta encryption page (what is encrypted, subject lines included)
+  checkedAt: '2026-11-03'
+- url: https://tuta.com/blog/tuta-add-on-in-thunderbird
+  label: Tuta blog, Thunderbird add-ons and no IMAP (February 2026)
+  checkedAt: '2026-11-03'
 - url: https://github.com/tutao/tutanota
   label: Tuta GitHub repository
 - url: https://tuta.com/open-source
@@ -125,7 +137,7 @@ researchNotes: |-
   Common praise: Strong encryption, affordable pricing (cheapest paid plans among secure email providers), German jurisdiction and GDPR compliance, no IP logging, open source transparency. Common complaints: Search functionality is slow and limited (due to client-side decryption), UI considered less polished than Proton Mail, no insert link button in email composer, no PGP support (uses own protocol), limited import/export options. Notable: Some users report sudden price increases and contacts being locked until agreeing to new pricing. Generally considered the #2 secure email service after Proton Mail.
 # Workflow
 contentPipelineStatus: seo-checked
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 95
 seoNotes: 'Score: 95/100. Meta title (52 chars, includes brand + location + site), meta description (136 chars, benefit-led with free plan mention), 8 keywords targeting encrypted/private/secure email queries. Heading structure clean (one h2). Content at ~190 words within target. Screenshot present with alt text. OG tags set. Minor deduction: no internal links in body content (would need links to comparison pages or guides once available). Readability strong: short sentences, active voice, natural contractions, honest trade-offs in Worth knowing section.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

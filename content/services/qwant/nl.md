@@ -6,6 +6,11 @@ features:
 - Infrastructuur gehost in de EU
 - Bouwt eigen Europese zoekindex (Staan)
 - Qwant Junior voor kinderen
+specs:
+  resultsFrom: Eigen crawler, Bing, EUSP-index
+  sharedWithPartners: Zoektermen, deel van je IP-adres
+  inSafari: Nee, extensie op Mac
+  businessModel: Zoekadvertenties, shoppingcommissies
 metaTitle: 'Qwant: Privazoekmachine uit Frankrijk | EU-alternatief'
 metaDescription: Qwant is een privacygerichte zoekmachine uit Parijs. Geen tracking, geen profilering, GDPR-conform. Bouwt nu een eigen Europese zoekindex met Ecosia.
 keywords:

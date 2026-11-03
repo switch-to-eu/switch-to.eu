@@ -16,6 +16,11 @@ features:
 - Cloud file storage
 - Custom domain support
 - PGP encryption
+specs:
+  freePlan: 30-day trial only
+  paidFrom: €1/month for 2 GB, billed yearly
+  e2eEncryption: Optional, with PGP
+  customDomain: From €3/month (Standard)
 pricingTiers:
 - name: Light
   price: €1/month
@@ -70,7 +75,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Your data stays in Germany. mailbox says all its servers are in data centres in Berlin, so German data protection law and the GDPR apply. A TÜV-certified data protection officer checks compliance. Business customers get a data processing agreement on every plan. Private customers get one on Standard and Premium.
 privacyPolicyUrl: https://mailbox.org/en/data-protection/
-pricingDetails: 'Private plans (as of November 2026): Light €1/month, billed annually only (€12/year), 2 GB mail, calendar, contacts, 3 aliases, limited support. Standard €4/month paid monthly or €3/month billed annually (€36/year), 20 GB mail, 10 GB Drive, own domain, office, Meet, chat. Premium €12/month paid monthly or €9/month billed annually (€108/year), 50 GB mail, 100 GB Drive, priority support and phone callback. New prices since 15 July 2026 for new customers and 1 September 2026 for existing ones, with doubled storage. 30-day free trial on every plan. Business: €1, €4 and €12 per user/month net, plus Silver (€25), Gold (€75) and Platinum (€250) service packages per month net. The comparison table on the price page still says "12 months for the price of 10", while the plan cards show 25% off for annual payment.'
+pricingDetails: 'Private plans (as of November 2026): Light €1/month, billed annually only (€12/year), 2 GB mail, calendar, contacts, 3 aliases, limited support. Standard €4/month paid monthly or €3/month billed annually (€36/year), 20 GB mail, 10 GB Drive, own domain, office, Meet, chat. Premium €12/month paid monthly or €9/month billed annually (€108/year), 50 GB mail, 100 GB Drive, priority support and phone callback. New prices since 15 July 2026 for new customers and 1 September 2026 for existing ones, with doubled storage. 30-day free trial on every plan. Own domain on Standard and Premium, and on Light only in family accounts. IMAP and POP3 on every plan. Business: €1, €4 and €12 per user/month net, plus Silver (€25), Gold (€75) and Platinum (€250) service packages per month net. The comparison table on the price page still says "12 months for the price of 10", while the plan cards show 25% off for annual payment.'
 pricingUrl: https://mailbox.org/en/prices/
 headquarters: Berlin, Germany
 parentCompany: Heinlein Group (Heinlein Hosting GmbH)

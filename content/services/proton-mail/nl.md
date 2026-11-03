@@ -6,6 +6,11 @@ features:
 - Open source apps
 - GDPR-conform
 - Onder toezicht van non-profit
+specs:
+  freePlan: 500 MB, 1 GB na instelstappen
+  paidFrom: €3,99/maand voor 15 GB, jaarabonnement
+  e2eEncryption: Ingebouwd, behalve onderwerpregels
+  customDomain: Vanaf €3,99/maand, 1 domein
 pricingTiers:
 - name: Gratis
   price: Gratis

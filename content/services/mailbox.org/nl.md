@@ -8,6 +8,11 @@ features:
 - Cloudbestandsopslag
 - Eigen domein mogelijk
 - PGP-versleuteling
+specs:
+  freePlan: Alleen 30 dagen proefperiode
+  paidFrom: €1/maand voor 2 GB, jaarabonnement
+  e2eEncryption: Optioneel, met PGP
+  customDomain: Vanaf €3/maand (Standard)
 pricingTiers:
 - name: Light
   price: €1/maand

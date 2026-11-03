@@ -14,6 +14,11 @@ features:
 - No IP logging
 - No search history stored
 - Free to use
+specs:
+  resultsFrom: Google, Bing and others
+  sharedWithPartners: Search terms, without your IP
+  inSafari: 'No'
+  businessModel: Keyword ads
 tags:
 - search engine
 - privacy
@@ -48,12 +53,19 @@ dataStorageLocations:
 - Netherlands
 - EU
 sourceUrls:
+- url: https://support.startpage.com/hc/en-us/articles/4455217128212-What-is-Startpage
+  label: What is Startpage (owned by a Dutch company, part of System1; results from Google, Bing and others; contextual ads)
+  checkedAt: '2026-11-03'
+- url: https://support.startpage.com/hc/en-us/articles/5321065589652-Startpage-is-not-my-default-search-engine-anymore-in-Safari-What-happened
+  label: Startpage and Safari (Safari users are unable to set Startpage as default)
+  checkedAt: '2026-11-03'
 - url: https://en.wikipedia.org/wiki/Startpage.com
   label: Wikipedia
 - url: https://www.computing.co.uk/news/4017337/privacy-focused-search-engine-startpage-details-system1-investment
   label: Computing.co.uk - System1 investment details
 - url: https://www.startpage.com/en/privacy-policy
-  label: Startpage privacy policy
+  label: Startpage privacy policy (IP address stripped before queries go to providers, searches not logged; updated 2026-08-13)
+  checkedAt: '2026-11-03'
 - url: https://securitydelta.nl/news/overview/private-search-engine-startpage-protects-your-privacy-and-further-strengthens-the-dutch-legal-reputation
   label: Security Delta - Dutch legal reputation
 - url: https://www.trustpilot.com/review/startpage.com
@@ -73,7 +85,7 @@ researchNotes: |-
   - Data stored and processed in EU (Netherlands). US personnel cannot access unredacted data servers.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong points: Clear benefit-led description (under 200 chars). Content uses target keywords naturally (private search, Google results, Anonymous View, Netherlands). Worth knowing section adds trust and transparency. Good keyword density without stuffing. Areas for improvement: Could benefit from a comparison angle vs DuckDuckGo/Brave for long-tail traffic. No structured FAQ content yet. Content length is on the shorter side at ~200 words but adequate for a service listing. The System1 ownership disclosure is an SEO asset since users search for this specifically.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

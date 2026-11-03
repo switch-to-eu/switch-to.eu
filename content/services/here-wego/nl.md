@@ -1,4 +1,5 @@
 ---
+startingPrice: Gratis
 description: Navigeer per auto, fiets, ov of te voet, met offline kaarten die je per regio, land of continent downloadt. Gratis, van een Nederlands bedrijf.
 features:
 - Offline kaarten per regio, land of continent
@@ -7,6 +8,11 @@ features:
 - Multimodale routeplanning
 - Verkeersbewuste routering
 - iOS, Android en web
+specs:
+  price: Gratis, geen in-app aankopen
+  offlineMaps: Gratis, niet in Japan, Korea of China
+  liveTraffic: Gratis, als je je locatie deelt
+  publicTransport: 1.900+ steden
 metaTitle: 'HERE WeGo: Gratis EU-navigatieapp met offline kaarten'
 metaDescription: HERE WeGo is een gratis navigatieapp met offline kaarten, gesproken routebegeleiding en ov in meer dan 1.900 steden. Gemaakt door een Nederlands bedrijf.
 ogTitle: 'HERE WeGo: Gratis navigatie en offline kaarten uit de EU'

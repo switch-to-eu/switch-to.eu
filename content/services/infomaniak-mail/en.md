@@ -18,6 +18,11 @@ features:
 - Calendar and contacts
 - Custom domain support
 - Free migration tools
+specs:
+  freePlan: 20 GB, with an @ik.me address
+  paidFrom: €19/year, unlimited email storage
+  e2eEncryption: Per email, keys held by Infomaniak
+  customDomain: Free, you pay only for the domain
 pricingTiers:
 - name: my kSuite
   price: Free
@@ -136,6 +141,9 @@ sourceUrls:
   checkedAt: '2026-11-03'
 - url: https://www.infomaniak.com/en/support/faq/1582/send-an-encrypted-email-from-infomaniak-mail
   label: 'Help: send an encrypted email'
+  checkedAt: '2026-11-03'
+- url: https://www.infomaniak.com/en/support/faq/2430/configure-thunderbird-with-imap-email
+  label: 'Help: set up Thunderbird with IMAP'
   checkedAt: '2026-11-03'
 - url: https://news.infomaniak.com/en/email-encryption
   label: Infomaniak news, email encryption for all addresses (June 2025)

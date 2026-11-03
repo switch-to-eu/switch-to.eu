@@ -15,6 +15,11 @@ features:
 - Advanced tab stacking and tiling
 - End-to-end encrypted sync
 - Built-in Proton VPN
+specs:
+  engine: Chromium
+  blocking: Built in, 3 levels
+  platforms: Windows, macOS, Linux, Android, iOS
+  revenue: Search and bookmark partner deals
 tags:
 - privacy
 - GDPR-compliant
@@ -50,6 +55,7 @@ foundedYear: 2013
 employeeCount: '60'
 dataStorageLocations:
 - Iceland
+openSource: false
 sourceCodeUrl: https://vivaldi.com/source/
 sourceUrls:
 - url: https://vivaldi.com/privacy/browser/
@@ -57,13 +63,32 @@ sourceUrls:
 - url: https://vivaldi.com/privacy/sync/
   label: Vivaldi Sync Privacy Policy
 - url: https://vivaldi.com/blog/vivaldi-browser-open-source/
-  label: Vivaldi Open Source Explanation
+  label: Vivaldi Open Source Explanation (the UI layer is closed source)
+  checkedAt: '2026-11-03'
 - url: https://en.wikipedia.org/wiki/Vivaldi_Technologies
   label: Vivaldi Technologies Wikipedia
 - url: https://avoidthehack.com/review-vivaldi-browser
   label: AvoidTheHack Privacy Review
 - url: https://privacysavvy.com/security/safe-browsing/is-vivaldi-browser-safe-a-closer-look/
   label: PrivacySavvy Safety Review 2026
+- url: https://vivaldi.com/download/
+  label: Download page (Windows, macOS, Linux, Android, iOS)
+  checkedAt: '2026-11-03'
+- url: https://help.vivaldi.com/desktop/appearance-customization/extensions/
+  label: Extensions help (built on Chromium, Chrome Web Store)
+  checkedAt: '2026-11-03'
+- url: https://help.vivaldi.com/desktop/privacy/tracking-and-ad-blocking/
+  label: Tracker and ad blocking help (three levels)
+  checkedAt: '2026-11-03'
+- url: https://help.vivaldi.com/desktop/privacy/how-ad-attribution-is-implemented/
+  label: Ad attribution help (partner search ads)
+  checkedAt: '2026-11-03'
+- url: https://help.vivaldi.com/desktop/tools/sync/
+  label: Sync help (encryption password, servers in Iceland)
+  checkedAt: '2026-11-03'
+- url: https://vivaldi.com/company/
+  label: Company page (revenue sources)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   ## Company Overview
 

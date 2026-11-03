@@ -1,5 +1,5 @@
 ---
-startingPrice: Gratis (Bluesky+ gepland voor ~$8/maand)
+startingPrice: Gratis
 description: Neem de controle over je sociale feed met een open, gedecentraliseerd netwerk waar je zelf het algoritme kiest.
 features:
 - Open protocol (AT Protocol)
@@ -7,6 +7,11 @@ features:
 - Community-moderatie
 - Domeingebaseerde verificatie
 - Volledig open source
+specs:
+  feed: Kies uit 40.000+ feeds
+  dataLocation: Overal, volgens het privacybeleid
+  moveAccount: Berichten en volgers, met tools
+  directMessages: Niet versleuteld
 metaTitle: 'Bluesky: Open, gedecentraliseerd sociaal netwerk | Switch to EU'
 metaDescription: Bluesky is een gratis, open-source sociaal netwerk op het AT Protocol. Kies je eigen algoritme, bepaal je eigen moderatie en verifieer met je domeinnaam.
 keywords:

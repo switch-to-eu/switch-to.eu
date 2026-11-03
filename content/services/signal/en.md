@@ -17,6 +17,11 @@ features:
 - Open-source code
 - Group chats up to 1,000 people
 - Desktop and mobile apps
+specs:
+  price: Free, paid media backup optional
+  signUpWith: Phone number, username optional
+  calls: Yes, groups up to 75
+  serverLocation: US and other countries
 tags:
 - encryption
 - open-source
@@ -40,7 +45,7 @@ lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Signal stores almost nothing about you. Your phone number is the only personal data on their servers, and even that is not linked to your identity. Messages stay on your device, not in the cloud. Signal has a dedicated data protection officer you can contact at privacy@signal.org.
 privacyPolicyUrl: https://signal.org/legal/
-pricingDetails: Signal is completely free for all users. No premium tiers, no ads, no in-app purchases. Funded entirely by donations and grants through the Signal Technology Foundation, a 501(c)(3) nonprofit.
+pricingDetails: 'Signal is free to use, with no ads. Its one paid feature is Secure Backups for media: the free backup covers all text messages and the last 45 days of media, and the paid plan keeps all media up to 100 GB for US$1.99 a month (as of November 2026, no EUR price listed). Funded by donations and grants through the Signal Technology Foundation, a 501(c)(3) nonprofit.'
 pricingUrl: https://signal.org/
 headquarters: Mountain View, California, US
 parentCompany: Signal Technology Foundation
@@ -56,7 +61,8 @@ openSource: true
 sourceCodeUrl: https://github.com/signalapp
 sourceUrls:
 - url: https://signal.org/legal/
-  label: Signal Privacy Policy & Terms
+  label: Signal Privacy Policy & Terms (phone number required, data transferred to the US and other countries)
+  checkedAt: '2026-11-03'
 - url: https://support.signal.org/hc/en-us/articles/360007059412
   label: Signal GDPR Support Page
 - url: https://github.com/signalapp
@@ -69,6 +75,18 @@ sourceUrls:
   label: Signal Review 2026 (CyberInsider)
 - url: https://www.mozillafoundation.org/en/nothing-personal/signal-privacy-review/
   label: Mozilla Signal Privacy Review
+- url: https://support.signal.org/hc/en-us/articles/6712070553754-Phone-Number-Privacy-and-Usernames
+  label: Signal Support, Phone Number Privacy and Usernames
+  checkedAt: '2026-11-03'
+- url: https://support.signal.org/hc/en-us/articles/360007319331-Group-chats
+  label: Signal Support, Group chats (size limit of 1000)
+  checkedAt: '2026-11-03'
+- url: https://support.signal.org/hc/en-us/articles/360052977792
+  label: Signal Support, Group calls (size limit of 75)
+  checkedAt: '2026-11-03'
+- url: https://signal.org/blog/introducing-secure-backups/
+  label: Signal blog, Introducing Secure Backups (US$1.99 a month for media backup)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   Signal is a free, open-source encrypted messaging app operated by the Signal Technology Foundation, a 501(c)(3) nonprofit based in Mountain View, California. Founded in 2018 by Moxie Marlinspike and Brian Acton (WhatsApp co-founder), the foundation's sole mission is maintaining and improving Signal Messenger.
 
@@ -79,7 +97,7 @@ researchNotes: |-
   User sentiment is overwhelmingly positive for privacy and security. Common criticisms include laggy video calls, occasional message delivery delays (messages not arriving until app is opened), and limited media-sharing features compared to WhatsApp or Telegram. The app is available on Android, iOS, Windows, macOS, and Linux.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 85
 seoNotes: 'Strong: benefit-led description, honest trade-offs in Worth Knowing, clean active voice, specific features. Content word count (~180) is adequate but could expand slightly. Keywords target both brand and category terms. Meta title under 60 chars. Meta description at 158 chars. OG copy differentiates from meta for social sharing.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

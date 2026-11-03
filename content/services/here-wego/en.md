@@ -7,6 +7,7 @@ featured: true
 location: Netherlands
 url: https://wego.here.com/
 freeOption: true
+startingPrice: Free
 description: Navigate by car, bike, transit, or on foot, with offline maps you download by region, country or continent. Free, from a Dutch company.
 screenshot: /images/services/here-wego.webp
 features:
@@ -16,6 +17,11 @@ features:
 - Multi-modal trip planning
 - Traffic-aware routing
 - iOS, Android, and web
+specs:
+  price: Free, no in-app purchases
+  offlineMaps: Free, not in Japan, Korea or China
+  liveTraffic: Free, if you share your location
+  publicTransport: 1,900+ cities
 tags:
 - privacy
 - GDPR-compliant

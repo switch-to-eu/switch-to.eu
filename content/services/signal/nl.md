@@ -8,6 +8,11 @@ features:
 - Open-source code
 - Groepschats tot 1.000 personen
 - Desktop- en mobiele apps
+specs:
+  price: Gratis, mediaback-up tegen betaling
+  signUpWith: Telefoonnummer, gebruikersnaam kan ook
+  calls: Ja, groepen tot 75
+  serverLocation: VS en andere landen
 metaTitle: 'Signal: Gratis versleutelde berichten-app van een non-profit'
 metaDescription: Signal biedt gratis end-to-end versleutelde berichten, spraakoproepen en videogesprekken. Beheerd door een non-profit zonder advertenties of tracking. Open-source en beschikbaar op alle platforms.
 keywords:

@@ -16,6 +16,11 @@ features:
 - Open source apps
 - GDPR compliant
 - Overseen by a non-profit
+specs:
+  freePlan: 500 MB, 1 GB after setup steps
+  paidFrom: €3.99/month for 15 GB, billed yearly
+  e2eEncryption: Built in, except subject lines
+  customDomain: From €3.99/month, 1 domain
 pricingTiers:
 - name: Free
   price: Free
@@ -124,6 +129,9 @@ sourceUrls:
   checkedAt: '2026-11-03'
 - url: https://proton.me/support/password-protected-emails
   label: Proton password-protected emails
+  checkedAt: '2026-11-03'
+- url: https://proton.me/support/easy-switch
+  label: Proton Easy Switch import help
   checkedAt: '2026-11-03'
 - url: https://proton.me/blog/proton-100-million-accounts
   label: Proton 100 million accounts announcement (2023)

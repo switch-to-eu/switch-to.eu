@@ -1,5 +1,5 @@
 ---
-startingPrice: Gratis / $19,99/jr
+startingPrice: Gratis (Premium €14,99/jaar)
 description: Navigeer met volledige privacy. Magic Earth biedt je stapsgewijze routebeschrijving, offline kaarten en ov-routes zonder je locatie te volgen of advertenties te tonen.
 features:
 - Stapsgewijze navigatie
@@ -8,6 +8,11 @@ features:
 - Openbaar vervoer routering
 - Flitserwaarschuwingen
 - Dashcam- en HUD-modi
+specs:
+  price: Gratis, Premium €14,99/jaar
+  offlineMaps: Alleen met Premium
+  liveTraffic: Alleen met Premium
+  publicTransport: Honderden regio's, met dienstregeling
 pricingTiers:
 - name: Gratis
   price: Gratis
@@ -17,11 +22,12 @@ pricingTiers:
   - Routes met openbaar vervoer
   - Favorieten en opgeslagen plekken
 - name: Premium
-  price: $19,99/jaar
-  billingNote: 'Introductieaanbod: $8/jaar. 14 dagen gratis proberen.'
+  price: €14,99/jaar
+  billingNote: In de App Store. 14 dagen gratis proberen.
   features:
   - Navigatie met actuele verkeersinfo
   - Offline kaarten downloaden
+  - CarPlay en Android Auto
   - Activiteiten vastleggen
   - Kaartstijl met hoogteverschillen
 metaTitle: 'Magic Earth: Privacyvriendelijke navigatie-app uit de EU'
@@ -42,9 +48,9 @@ gdprNotes: Magic Earth is gemaakt door Magic Lane Ltd., een EU-bedrijf met hoofd
 
 Magic Earth is een navigatie-app gebouwd door Magic Lane, een EU-bedrijf met kantoren in Amsterdam en Brasov, Roemenie. De app draait op OpenStreetMap-gegevens en bestrijkt 233 landen en regio's. Je krijgt stapsgewijze spraaknavigatie, ov-routebeschrijvingen en flitserwaarschuwingen. Je locatiegegevens blijven op je apparaat.
 
-De app begon in 2015 als een volledig gratis product en bouwde een trouwe achterban op onder privacybewuste gebruikers. Eind 2025 schakelde Magic Earth over naar een freemium-model. Basisnavigatie en ov-routering blijven gratis. Premiumfuncties zoals verkeersbewuste routering, offline kaarten downloaden en activiteitenregistratie kosten $19,99 per jaar (momenteel afgeprijsd naar $8 per jaar voor nieuwe abonnees).
+De app begon in 2015 als een volledig gratis product en bouwde een trouwe achterban op onder privacybewuste gebruikers. Eind 2025 schakelde Magic Earth over naar een freemium-model. Basisnavigatie en ov-routering blijven gratis. Premiumfuncties zoals verkeersbewuste routering, offline kaarten downloaden en activiteitenregistratie kosten €14,99 per jaar in de App Store, na 14 dagen gratis proberen.
 
-Magic Earth heeft ook een ingebouwde dashcam-modus waarmee je je rit opneemt met de camera van je telefoon, en een head-up display dat 's nachts routeaanwijzingen op je voorruit projecteert. De app ondersteunt CarPlay en Android Auto, en is vooraf geinstalleerd op Huawei- en Honor-apparaten als standaard navigatie-app.
+Magic Earth heeft ook een ingebouwde dashcam-modus waarmee je je rit opneemt met de camera van je telefoon, en een head-up display dat 's nachts routeaanwijzingen op je voorruit projecteert. Met Premium ondersteunt de app CarPlay en Android Auto. De app is vooraf geinstalleerd op Huawei- en Honor-apparaten als standaard navigatie-app.
 
 ## Goed om te weten
 

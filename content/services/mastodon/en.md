@@ -14,6 +14,11 @@ features:
 - Open source and community-governed
 - Granular privacy controls
 - 500-character posts with rich media
+specs:
+  feed: Chronological, no algorithm
+  dataLocation: Depends on the server you pick
+  moveAccount: Followers move, posts stay behind
+  directMessages: Not encrypted
 tags:
 - privacy
 - GDPR-compliant
@@ -55,8 +60,21 @@ dataStorageLocations:
 openSource: true
 sourceCodeUrl: https://github.com/mastodon/mastodon
 sourceUrls:
+- url: https://joinmastodon.org/
+  label: Official website (chronological feed, no algorithms, no ads, free and open source)
+  checkedAt: '2026-11-03'
 - url: https://joinmastodon.org/about
-  label: Official about page
+  label: Official about page (Mastodon GmbH Impressum, move to a new foundation)
+  checkedAt: '2026-11-03'
+- url: https://joinmastodon.org/servers
+  label: Server picker (independent operators, region filter by legal base)
+  checkedAt: '2026-11-03'
+- url: https://docs.joinmastodon.org/user/moving/
+  label: Moving your account (followers move, posts stay, 30-day cooldown)
+  checkedAt: '2026-11-03'
+- url: https://docs.joinmastodon.org/user/posting/
+  label: Posting docs (500-character default, private mentions not encrypted)
+  checkedAt: '2026-11-03'
 - url: https://techcrunch.com/2025/11/18/mastodon-ceo-steps-down-as-the-social-network-restructures/
   label: 'TechCrunch: CEO steps down, restructuring'
 - url: https://blog.joinmastodon.org/2025/11/the-future-is-ours-to-build-together/
@@ -102,7 +120,7 @@ researchNotes: |-
   Generally positive among privacy-conscious users and tech communities. Common praise for ad-free experience and community control. Common complaints about onboarding friction, smaller audience reach, and occasional server shutdowns. The 2026 UX revamp has been well received. Doubling of user base in 2025-2026 suggests growing mainstream appeal.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Score: 82/100. Strengths: clear benefit-led description (under 200 chars), strong keyword targeting for ''decentralized social network'' and ''EU social media alternative'', specific numbers (10M accounts, 10,500 servers, 500 chars), mandatory ''Worth knowing'' section with honest trade-offs, no banned words or AI patterns. The meta title is 55 chars (good). Meta description is 155 chars (good). Areas to improve: could add more internal linking context for comparison pages, and the description could work harder for ''Twitter alternative'' searches. Content word count (~200 words) is within target range.'
 lastSeoReviewAt: '2026-04-09T00:00:00.000Z'

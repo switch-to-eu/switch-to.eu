@@ -15,6 +15,11 @@ features:
 - Container tabs
 - Firefox extension support
 - Cross-platform (Windows, macOS, Linux, Android)
+specs:
+  engine: Firefox
+  blocking: Built in, on by default on desktop
+  platforms: Windows, macOS, Linux, Android
+  revenue: Search deal with Qwant
 tags:
 - privacy
 - web browser
@@ -55,11 +60,22 @@ sourceUrls:
 - url: https://en.wikipedia.org/wiki/Waterfox
   label: Waterfox Wikipedia
 - url: https://github.com/BrowserWorks/Waterfox
-  label: Official GitHub Repository
+  label: Official GitHub Repository (based on Mozilla Firefox)
+  checkedAt: '2026-11-03'
 - url: https://alternativeto.net/news/2023/7/waterfox-regains-independence-abandoning-the-advertising-company-system1/
   label: Independence from System1 announcement
 - url: https://find-and-update.company-information.service.gov.uk/company/14843353
-  label: BrowserWorks Ltd - UK Companies House
+  label: BrowserWorks Ltd - UK Companies House (registered office in London)
+  checkedAt: '2026-11-03'
+- url: https://www.waterfox.com/
+  label: Official website (open source, no telemetry, blocker on by default on desktop)
+  checkedAt: '2026-11-03'
+- url: https://www.waterfox.com/download/
+  label: Download page (Windows, macOS, Linux, Android)
+  checkedAt: '2026-11-03'
+- url: https://www.waterfox.com/blog/waterfox-partners-qwant/
+  label: Waterfox partners with Qwant (search royalties, July 2026)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   Waterfox is a free, open-source Firefox fork created by Alex Kontos in 2011 (originally as a 64-bit alternative). Based in London, UK, now operated by BrowserWorks Ltd. Was acquired by System1 (US ad company) in December 2019, which raised significant privacy concerns. Regained full independence in July 2023 when Kontos reacquired it. Licensed under Mozilla Public License 2.0.
 
@@ -68,7 +84,7 @@ researchNotes: |-
   Concerns: very small team (2-5 people), security patches may lag behind Firefox releases. Past System1 ownership remains a trust issue for some users despite independence. No iOS version. Browser market share is tiny.
 # Workflow
 contentPipelineStatus: translated
-updatedAt: '2026-04-20'
+updatedAt: '2026-11-03'
 seoScore: 82
 seoNotes: 'Strong content with specific facts and honest trade-offs. Description leads with user benefit. Keywords cover primary terms well. Minor gaps: no pricing tiers to optimize for (free-only product), could benefit from more long-tail keywords around browser comparison queries. Worth knowing section adds trust signals. Content length (200 words) is within target range.'
 lastSeoReviewAt: '2026-04-08T00:00:00.000Z'

@@ -8,6 +8,11 @@ features:
 - Gedecentraliseerd netwerk
 - Open source
 - Meerdere platformen
+specs:
+  price: Gratis, betaalde Pro optioneel
+  signUpWith: Willekeurige ID, geen nummer of e-mail
+  calls: Bèta, aanzetten in instellingen
+  serverLocation: Ruim 1.500 nodes wereldwijd
 pricingTiers:
 - name: Gratis
   price: Gratis
@@ -37,10 +42,10 @@ De meeste versleutelde messengers hebben nog steeds je telefoonnummer nodig om t
 
 Je berichten reizen via drie willekeurige knooppunten op een gedecentraliseerd netwerk met onion-routing. Elk knooppunt kent alleen de vorige en volgende stap, nooit het volledige pad. Dat betekent dat geen enkel punt in het netwerk jou kan koppelen aan je gesprekspartner of kan lezen wat je zegt.
 
-Session draait op duizenden knooppunten die door de community worden beheerd, verspreid over de hele wereld, in plaats van op bedrijfsservers. Als een knooppunt uitvalt, blijft het netwerk gewoon werken. Er is geen centrale database van gebruikers of berichten die iemand kan benaderen of hacken.
+Session draait op ruim 1.500 knooppunten die door de community worden beheerd, verspreid over de hele wereld, in plaats van op bedrijfsservers. Als een knooppunt uitvalt, blijft het netwerk gewoon werken. Er is geen centrale database van gebruikers of berichten die iemand kan benaderen of hacken.
 
 De app dekt de basis goed: persoonlijke chats, groepsgesprekken, spraakberichten en bestandsbijlagen. Het werkt op Android, iOS, Windows, macOS en Linux. De volledige broncode is open source, dus iedereen kan precies zien hoe het werkt.
 
 ## Goed om te weten
 
-Session begon als een Australisch project in 2018 en is in 2025 overgestapt naar een Zwitserse stichting. De onion-routing zorgt voor een kleine vertraging vergeleken met messengers met een directe verbinding. Groepschats hebben een limiet op het aantal deelnemers en er zijn nog geen spraak- of videogesprekken. Het aantal gebruikers is kleiner dan bij reguliere messengers, dus je zult je contacten waarschijnlijk zelf moeten uitnodigen.
+Session begon als een Australisch project in 2018 en is in 2025 overgestapt naar een Zwitserse stichting. De onion-routing zorgt voor een kleine vertraging vergeleken met messengers met een directe verbinding. Groepen hebben plaats voor maximaal 100 mensen, en bellen en videobellen zijn een bètafunctie die je zelf aanzet in de instellingen. Het aantal gebruikers is kleiner dan bij reguliere messengers, dus je zult je contacten waarschijnlijk zelf moeten uitnodigen.

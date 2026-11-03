@@ -7,6 +7,11 @@ features:
 - 100% hernieuwbare energie
 - GDPR-conform
 - Europese zoekindex
+specs:
+  resultsFrom: Google, Bing, EUSP (alleen Frankrijk)
+  sharedWithPartners: Zoektermen en IP-adres
+  inSafari: Ja, op iPhone en Mac
+  businessModel: Zoekadvertenties, winst naar klimaat
 metaTitle: 'Ecosia: Europese zoekmachine die bomen plant | Switch to EU'
 metaDescription: Ecosia is een gratis zoekmachine uit Berlijn die 100% van de winst gebruikt om bomen te planten en klimaatactie te financieren. GDPR-conform en klimaatneutraal.
 keywords:

@@ -10,6 +10,11 @@ features:
 - Agenda en contacten
 - Eigen domein mogelijk
 - Gratis migratietools
+specs:
+  freePlan: 20 GB, met een @ik.me-adres
+  paidFrom: €19/jaar, onbeperkt mailopslag
+  e2eEncryption: Per e-mail, sleutels bij Infomaniak
+  customDomain: Gratis, je betaalt alleen het domein
 pricingTiers:
 - name: my kSuite
   price: Gratis

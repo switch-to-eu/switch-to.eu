@@ -8,6 +8,11 @@ features:
 - Wandel- en fietsroutes
 - Gebaseerd op OpenStreetMap
 - Gratis, geen in-app aankopen
+specs:
+  price: Gratis, betaald uit donaties
+  offlineMaps: Gratis, elke functie werkt offline
+  liveTraffic: Niet beschikbaar
+  publicTransport: Bus, tram, metro, geen actuele tijden
 metaTitle: 'Organic Maps: Gratis Offline Navigatie Zonder Tracking'
 metaDescription: Organic Maps is een gratis, open-source offline navigatie-app op basis van OpenStreetMap. Geen tracking, geen advertenties, geen gegevensverzameling. Voor iOS, Android en Linux.
 keywords:
@@ -31,4 +36,4 @@ De app is licht. Minder opslag en batterijverbruik dan Google Maps, en het draai
 
 ## Goed om te weten
 
-Organic Maps is eenvoudiger dan alternatieven zoals OsmAnd. Dat is een bewuste keuze, maar het betekent dat je geen openbaar vervoer-routeplanning, geen realtime verkeersinformatie en geen straatbeelden vindt. Zoekresultaten kunnen wisselend zijn, afhankelijk van hoe goed jouw gebied in OpenStreetMap is vastgelegd. Het project kreeg in 2025 een community-fork (CoMaps) vanwege zorgen over het bestuur, wat de moeite waard is om in de gaten te houden als de langetermijnrichting van het project belangrijk voor je is.
+Organic Maps is eenvoudiger dan alternatieven zoals OsmAnd. Dat is een bewuste keuze, maar het betekent dat je geen realtime verkeersinformatie en geen straatbeelden vindt. Routes met bus, tram, metro en lightrail kwamen er in juni 2026, voorlopig zonder actuele vertrektijden. Zoekresultaten kunnen wisselend zijn, afhankelijk van hoe goed jouw gebied in OpenStreetMap is vastgelegd. Het project kreeg in 2025 een community-fork (CoMaps) vanwege zorgen over het bestuur, wat de moeite waard is om in de gaten te houden als de langetermijnrichting van het project belangrijk voor je is.

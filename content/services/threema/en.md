@@ -5,7 +5,7 @@ region: eu-friendly
 category: messaging
 location: Switzerland
 url: https://threema.ch/
-startingPrice: $2.99 one-time
+startingPrice: €6 one-time
 description: Message privately without sharing your phone number. Swiss-built, open source, and designed to collect as little data as possible.
 screenshot: /images/services/threema.png
 features:
@@ -14,43 +14,47 @@ features:
 - Open source apps
 - Voice and video calls
 - Self-destructing messages
+specs:
+  price: €6 once, varies by app store
+  signUpWith: Random ID, no phone number
+  calls: Yes, groups up to 16
+  serverLocation: Switzerland
 pricingTiers:
-- name: Threema (Personal)
-  price: $2.99 one-time
+- name: Threema Private
+  price: €6 one-time
+  billingNote: depends on the app store and country
   features:
-  - End-to-end encrypted messaging
-  - Voice and video calls
-  - Group chats and polls
-  - File sharing
-  - No ads, no subscriptions
-- name: Threema Work Essential
-  price: $10.99/user/month
+  - End-to-end encrypted chats and calls
+  - Use without a phone number
+  - Group calls up to 16 people
+  - Apps for all platforms
+- name: Threema Work Core
+  price: €3/user/month
+  billingNote: billed yearly
   features:
-  - Central device management
-  - App configuration
-  - Company branding
-  - Priority support
-- name: Threema Work Advanced
-  price: $21.99/user/month
-  features:
-  - Everything in Essential
-  - Directory integration
-  - Message retention policies
-  - Advanced administration
+  - Central management of employees
+  - Made for small teams
 - name: Threema Work Professional
-  price: $32.99/user/month
+  price: €5/user/month
+  billingNote: billed yearly
   features:
-  - Everything in Advanced
-  - API access
-  - Broadcast messaging
-  - Dedicated support
+  - Everything in Core
+  - Threema Broadcast for one-to-many messages
+  - Automation and API access
+  - Premium support
+- name: Threema OnPrem
+  price: Custom pricing
+  features:
+  - Everything in Professional
+  - Runs on your own infrastructure
+  - White-label apps
 tags:
 - Swiss privacy
 - minimal-metadata
 - anonymous
 # SEO
 metaTitle: 'Threema: Private Messaging Without Your Phone Number'
-metaDescription: Threema is a Swiss secure messenger that lets you chat anonymously. End-to-end encrypted, open source, no phone number needed. One-time $2.99 purchase.
+metaDescription: Threema is a Swiss secure messenger that lets you chat anonymously. End-to-end encrypted, open source, no phone number needed. One-time €6 purchase.
 keywords:
 - Threema
 - secure messenger
@@ -60,14 +64,14 @@ keywords:
 - encrypted chat
 - WhatsApp alternative EU
 ogTitle: 'Threema: Private Messaging Without Your Phone Number'
-ogDescription: Swiss-built secure messenger with end-to-end encryption. No phone number required. Open source. One-time $2.99 purchase, no subscriptions.
+ogDescription: Swiss-built secure messenger with end-to-end encryption. No phone number required. Open source. One-time €6 purchase, no subscriptions.
 # Research (filled by /research)
 researchStatus: complete
 lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
 gdprNotes: Threema is fully GDPR-compliant and operates under Swiss data protection law, which is recognized as equivalent by the EU. All data is processed on servers in Switzerland. The app collects as little data as possible by design, and messages are deleted from servers after delivery.
 privacyPolicyUrl: https://threema.com/en/privacy-policy
-pricingDetails: 'Consumer app: $2.99 one-time purchase (no recurring costs, no paid extras). Threema Work (business): Essential $10.99/user/month, Advanced $21.99/user/month, Professional $32.99/user/month. 30-day free trial available for Threema Work (up to 30 users).'
+pricingDetails: 'Threema Private (consumer app): 6.00 CHF/EUR/USD one-time, depending on the app store and country (as of November 2026). Threema Work: Core €3/user/month and Professional €5/user/month, both paid yearly (as of November 2026). Threema OnPrem: custom pricing. 30-day free trial for Threema Work (up to 30 users).'
 pricingUrl: https://threema.com/en/pricing
 headquarters: Pfäffikon SZ, Switzerland
 parentCompany: Comitis Capital GmbH (since January 2026, previously Afinum Management)
@@ -83,11 +87,13 @@ openSource: true
 sourceCodeUrl: https://github.com/threema-ch
 sourceUrls:
 - url: https://threema.com/en/why-threema
-  label: Threema - About Us
+  label: Threema - About Us (all servers in Switzerland, ownership change)
+  checkedAt: '2026-11-03'
 - url: https://en.wikipedia.org/wiki/Threema
   label: Wikipedia - Threema
 - url: https://threema.com/en/pricing
-  label: Threema Pricing
+  label: Threema Pricing (CHF, EUR and USD at the same amounts)
+  checkedAt: '2026-11-03'
 - url: https://threema.com/en/privacy-policy
   label: Threema Privacy Policy
 - url: https://threema.com/en/faq/compliance
@@ -98,6 +104,18 @@ sourceUrls:
   label: Comitis Capital Acquisition Announcement
 - url: https://cyberinsider.com/secure-encrypted-messaging-apps/threema/
   label: CyberInsider Threema Review 2026
+- url: https://threema.com/en/features
+  label: Threema Features (no phone number needed, group calls)
+  checkedAt: '2026-11-03'
+- url: https://threema.com/en/faq/groupcalls
+  label: Threema FAQ, group calls (up to 16 participants in Threema Private)
+  checkedAt: '2026-11-03'
+- url: https://threema.com/en/faq/groupchat
+  label: Threema FAQ, group chats (up to 256 members)
+  checkedAt: '2026-11-03'
+- url: https://threema.com/en/contact
+  label: Threema contact page (Threema AG, Pfäffikon SZ)
+  checkedAt: '2026-11-03'
 researchNotes: |-
   ## Company Overview
 
@@ -109,7 +127,7 @@ researchNotes: |-
 
   ## Pricing
 
-  Consumer: $2.99 one-time purchase. No recurring costs, no paid extras. Threema Work (business): Essential $10.99/user/month, Advanced $21.99/user/month, Professional $32.99/user/month. 30-day free trial for Work (up to 30 users).
+  Threema Private (consumer): 6.00 CHF/EUR/USD one-time, depending on the app store and country (as of November 2026). Threema Work: Core €3/user/month and Professional €5/user/month, both paid yearly. Threema OnPrem: custom pricing. 30-day free trial for Work (up to 30 users).
 
   ## Public Sentiment
 
@@ -128,7 +146,7 @@ Every message, call, and file you send is encrypted before it leaves your device
 
 The app covers what you would expect: text, voice messages, video calls, group chats, polls, and file sharing. A web client lets you use it on your desktop too. You can verify contacts by scanning QR codes in person, so you know for sure you are talking to the right person.
 
-Threema costs a one-time fee of around $2.99. No subscriptions, no ads, no upsells. The company makes money from the app purchase and from Threema Work, its business product.
+Threema costs a one-time fee of €6. The exact price depends on the app store and your country. No subscriptions, no ads, no upsells. The company makes money from the app purchase and from Threema Work, its business product.
 
 ## Worth knowing
 

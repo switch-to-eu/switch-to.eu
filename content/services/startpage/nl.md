@@ -6,6 +6,11 @@ features:
 - Geen IP-logging
 - Geen zoekgeschiedenis opgeslagen
 - Gratis te gebruiken
+specs:
+  resultsFrom: Google, Bing en anderen
+  sharedWithPartners: Zoektermen, zonder je IP-adres
+  inSafari: Nee
+  businessModel: Zoekadvertenties
 metaTitle: 'Startpage: Privacyvriendelijke zoekmachine uit Nederland'
 metaDescription: Startpage levert Google-zoekresultaten zonder je te volgen. Gevestigd in Den Haag. Gratis, geen IP-logging, Anonymous View-proxy. Europees privacyrecht.
 keywords:

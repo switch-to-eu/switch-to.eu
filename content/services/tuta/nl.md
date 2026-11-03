@@ -1,5 +1,4 @@
 ---
-name: Tutanota
 startingPrice: €3/maand
 description: E-mail die niemand kan lezen behalve jij. Tuta versleutelt alles, van onderwerpregels tot contacten, opgeslagen in Duitsland.
 features:
@@ -8,6 +7,11 @@ features:
 - Geen IP-logging
 - Open source apps
 - Anonieme registratie
+specs:
+  freePlan: 1 GB
+  paidFrom: €3/maand voor 20 GB, jaarabonnement
+  e2eEncryption: Ingebouwd, ook onderwerpregels
+  customDomain: Vanaf €3/maand, tot 3 domeinen
 pricingTiers:
 - name: Gratis
   price: Gratis

@@ -9,6 +9,10 @@ features:
 - Produceert hernieuwbare energie (25Wh) elke dag dat je browst
 - Snelle paginabelading
 - Ingebouwde AI-chatbot met Groene Modus
+specs:
+  blocking: Ingebouwd
+  platforms: Windows, macOS, Linux, Android, iOS
+  revenue: Advertenties bij Ecosia-zoekresultaten
 metaTitle: 'Ecosia Browser: Gratis EU-browser die bomen plant'
 metaDescription: Ecosia Browser is een gratis, privacygerichte Chromium-browser uit Berlijn. Blokkeert standaard trackers en gebruikt advertentie-inkomsten om bomen te planten.
 keywords:

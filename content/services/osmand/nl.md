@@ -1,5 +1,5 @@
 ---
-startingPrice: €3,99/maand
+startingPrice: Gratis (5 tot 7 kaartdownloads)
 description: Navigeer offline met gedetailleerde OpenStreetMap-kaarten, GPS-tracking en nul dataverzameling vanuit deze Nederlandse open-source app.
 features:
 - Offline kaarten en navigatie
@@ -7,25 +7,29 @@ features:
 - Topografische kaarten en terrein
 - Open source
 - Android, iOS en web
+specs:
+  price: Gratis, Maps+ €14,99/jaar
+  offlineMaps: 7 gratis op Android, 5 op iPhone
+  publicTransport: In testfase, zonder routebegeleiding
 pricingTiers:
 - name: Gratis
   price: Gratis
   features:
-  - 5 kaartdownloads op Android
+  - 7 kaartdownloads op Android, 5 op iOS
   - Onbeperkt via F-Droid
   - Basisnavigatie en POI's
   - GPX-tracks opnemen
 - name: Maps+
-  price: €9,99/jaar
-  billingNote: Of eenmalig €39,99
+  price: €14,99/jaar
+  billingNote: Of eenmalig €69,99
   features:
   - Onbeperkt kaarten downloaden
   - Wikipedia en Wikivoyage offline
   - Plug-ins voor zee- en skikaarten
   - Hoogtelijnen en terrein
 - name: OsmAnd Pro
-  price: €14,99/jaar
-  billingNote: Of €2,99/maand
+  price: €39,99/jaar
+  billingNote: Of €5,99/maand
   features:
   - Alles uit Maps+
   - Back-up en synchronisatie via cloud
