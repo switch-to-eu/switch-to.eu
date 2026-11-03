@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { isNonProductionDeploy } from "./lib/indexing";
+
 const nextConfig: NextConfig = {
   transpilePackages: [
     "@switch-to-eu/ui",
@@ -142,6 +144,15 @@ const nextConfig: NextConfig = {
         source: "/_next/static/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
+      // dev.switch-to.eu and preview URLs: keep every response out of search.
+      ...(isNonProductionDeploy
+        ? [
+            {
+              source: "/:path*",
+              headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+            },
+          ]
+        : []),
     ];
   },
 };
