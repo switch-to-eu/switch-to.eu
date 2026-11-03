@@ -167,7 +167,7 @@ specs:                      # one short value (under 40 characters) per compare 
 ```
 
 - The table also shows head office (`headquarters`, else `location`) and `openSource` for every category.
-- A `specs` key with no sourced value is left out. The page shows "Not listed", never "No" (evidence rule 1). Every value traces to a `sourceUrls` entry with `checkedAt`. The page header shows the newest `checkedAt` across the category's listings.
+- A `specs` key with no sourced value is left out. The page shows "Not listed", never "No" (evidence rule 1). Every value traces to a `sourceUrls` entry with `checkedAt`. The `checkedAt` dates are for our records, not for a "checked on" line on the page.
 - The body has no `##` heading (the page adds "How to choose"). Use `###` per question.
 - An affiliate link never decides a pick.
 

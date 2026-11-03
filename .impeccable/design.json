@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T17:08:29.676Z",
+  "generatedAt": "2026-11-03T19:48:54.259Z",
   "title": "Design System: switch-to.eu",
   "extensions": {
     "colorMeta": {
@@ -439,6 +439,8 @@
       "Don't put shapes or blob illustrations on white surfaces or on cards. The owner called that \"childish and gimmicky\".",
       "Don't make a page all white with no colour panels. The owner called that \"ugly, barely any contrast\".",
       "Don't add self-description panels such as \"How we work\" or \"Why trust us\". The owner removed one as \"AI slop\".",
+      "Don't add reassurance lines about our own process, such as \"Prices and facts checked on …\". The owner calls these \"AI slop\" too.",
+      "Don't put shapes, stickers or labels over screenshots. A recommendation is a soft green pill in the content.",
       "Don't use uppercase Bonbance headings, or Anton outside the logo.",
       "Don't put a subtitle under a heading or an eyebrow label above it.",
       "Don't put two panels of the same colour next to each other.",

@@ -3,9 +3,7 @@ import { CategoryPicks } from "@/components/category/CategoryPicks";
 import { CategoryComparison } from "@/components/category/CategoryComparison";
 import { CategoryGuides } from "@/components/category/CategoryGuides";
 import {
-  formatCheckedDate,
   isBuyersGuide,
-  latestCheckedAt,
   resolvePicks,
   sortForComparison,
 } from "@/lib/buyers-guide";
@@ -121,7 +119,6 @@ export default async function ServicesCategoryPage({
     );
     const picks = resolvePicks(categoryData, euServices, guides);
     const compare = categoryData.compare ?? [];
-    const checkedAt = latestCheckedAt(euServices);
     const categoryName = categoryData.shortTitle;
 
     return (
@@ -135,13 +132,6 @@ export default async function ServicesCategoryPage({
               <p className="text-[#1a1a1a] text-base sm:text-lg">
                 {pageDescription}
               </p>
-              {checkedAt && (
-                <p className="mt-4 text-sm text-[#1a1a1a]">
-                  {tGuide("checkedOn", {
-                    date: formatCheckedDate(checkedAt, locale),
-                  })}
-                </p>
-              )}
             </div>
           </Banner>
         </Container>

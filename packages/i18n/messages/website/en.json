@@ -424,12 +424,11 @@
         "overview": "Overview",
         "pricing": "Pricing",
         "security": "Security",
-        "compare": "{service} vs {other}"
+        "compare": "{service} vs {other}",
+        "navLabel": "Sections of this page"
       },
       "freePlanPill": "Free plan",
       "fromPrice": "From {price}",
-      "recommended": "Recommended",
-      "recommendedBy": "by Switch-to.eu",
       "snippetFree": "Free",
       "snippetViewPlans": "View plans",
       "snippetViewDetails": "View details",
@@ -583,7 +582,6 @@
         "migrateFrom": "Migrate {source} To {target}",
         "learnMore": "Learn more",
         "badge": "Recommended by Switch-to.eu",
-        "featured": "Featured",
         "gdpr": {
           "compliant": "Fully compliant",
           "partial": "Partial compliance",
@@ -601,7 +599,6 @@
       }
     },
     "buyersGuide": {
-      "checkedOn": "Prices and facts checked on {date}, on each company's own pages.",
       "picksTitle": "Our picks",
       "worthKnowing": "Worth knowing:",
       "readGuide": "Read the switching guide",

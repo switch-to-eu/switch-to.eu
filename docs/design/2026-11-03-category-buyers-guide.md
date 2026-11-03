@@ -17,7 +17,7 @@ Shaped with the owner on 2026-11-03. Visual authority: `DESIGN.md` ("The Warm Br
 
 Inside the existing world, top to bottom:
 
-1. **Header panel** (white, as today): the h1 in sentence case, a one-line description, and "Prices and facts checked on <newest checkedAt>".
+1. **Header panel** (white, as today): the h1 in sentence case and a one-line description. No "checked on" line: the owner removed it as AI slop.
 2. **Our picks** (2 or 3 cards): a need label ("Best overall", "Best free plan", "Best to run yourself"), the service name, region badge and head office, a reason in one or two sentences, a "Worth knowing:" trade-off, the price from the listing, and one action: "Read the switching guide" when a guide to that service exists, else "See the full review".
 3. **Comparison table**, built from the listings: one row per service in the category (`eu` and `eu-friendly`). Base columns: head office with region, free plan, paid from, open source. Category columns come from each listing's `specs`. Uses the content-table style (sticky first column, sideways scroll on phones).
 4. **How to choose**: the category's markdown body, rewritten as a short buyer's guide, with 3 to 5 questions as h3 headings.

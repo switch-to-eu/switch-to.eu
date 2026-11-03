@@ -38,26 +38,6 @@ export function sortForComparison(services: Service[]): Service[] {
   return [...services].sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
 }
 
-/** The newest `checkedAt` across the services' sources, as YYYY-MM-DD. */
-export function latestCheckedAt(services: Service[]): string | null {
-  const dates = services
-    .flatMap((s) => s.sourceUrls ?? [])
-    .map((u) => u.checkedAt)
-    .filter((d): d is string => typeof d === "string" && /^\d{4}-\d{2}-\d{2}/.test(d))
-    .map((d) => d.slice(0, 10))
-    .sort();
-  return dates.at(-1) ?? null;
-}
-
-export function formatCheckedDate(date: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${date}T12:00:00Z`));
-}
-
 /** Where a service's own page lives. */
 export function serviceHref(service: Pick<Service, "region" | "slug">): string {
   return `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`;

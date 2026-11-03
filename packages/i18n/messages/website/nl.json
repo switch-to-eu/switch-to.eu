@@ -418,12 +418,11 @@
         "overview": "Overzicht",
         "pricing": "Prijzen",
         "security": "Beveiliging",
-        "compare": "{service} vs {other}"
+        "compare": "{service} vs {other}",
+        "navLabel": "Onderdelen van deze pagina"
       },
       "freePlanPill": "Gratis abonnement",
       "fromPrice": "Vanaf {price}",
-      "recommended": "Aanbevolen",
-      "recommendedBy": "door Switch-to.eu",
       "snippetFree": "Gratis",
       "snippetViewPlans": "Bekijk abonnementen",
       "snippetViewDetails": "Bekijk details",
@@ -577,7 +576,6 @@
         "migrateFrom": "Migreer van {source} naar {target}",
         "learnMore": "Meer info",
         "badge": "Aanbevolen door Switch-to.eu",
-        "featured": "Uitgelicht",
         "gdpr": {
           "compliant": "Volledig conform",
           "partial": "Gedeeltelijk conform",
@@ -595,7 +593,6 @@
       }
     },
     "buyersGuide": {
-      "checkedOn": "Prijzen en feiten gecontroleerd op {date}, op de eigen pagina's van elk bedrijf.",
       "picksTitle": "Onze keuzes",
       "worthKnowing": "Goed om te weten:",
       "readGuide": "Lees de overstapgids",

@@ -262,6 +262,8 @@ Calm, solid and round. Buttons do not change size or colour loudly.
 - **Quick-switch chips** (on the green intro panel): a white 40% outline with white text. On hover they fill with marigold and the text turns forest green.
 - **Article type pills:** "news" is marigold with ink text, "analysis" is navy with white text. Uppercase pill label.
 - **Region badges:** "EU" is forest green with white text. "EU-friendly" is marigold with forest-green text.
+- **Recommended pill:** forest green at 10% with forest-green text and a small check mark, in the content next to the facts. It never sits on a screenshot.
+- **Feature lists:** plain text with a small forest-green check mark per item, not chips. Chips look clickable, and a feature is not.
 
 ### Cards / Containers
 - **Corner Style:** 24px from medium widths, square on phones.
@@ -279,6 +281,7 @@ Calm, solid and round. Buttons do not change size or colour loudly.
 ### Navigation
 - **Header:** on the warm paper ground with a hairline rule under it. The logo is on the left, and the uppercase Hanken navigation and the language selector are on the right. Menu items get a white highlight on hover and focus.
 - **Mobile:** a sheet menu.
+- **Section tabs** (service pages): a sticky bar on warm paper with a hairline under it, like the header. The active tab is a forest-green pill. Inactive tabs are ink text in sentence case, with a faint tint on hover.
 - **Footer:** forest green with white text.
 
 ### Intro Panel
@@ -305,6 +308,8 @@ On a buyer's-guide category page, each editorial pick is a card: the colour stri
 - **Don't** put shapes or blob illustrations on white surfaces or on cards. The owner called that "childish and gimmicky".
 - **Don't** make a page all white with no colour panels. The owner called that "ugly, barely any contrast".
 - **Don't** add self-description panels such as "How we work" or "Why trust us". The owner removed one as "AI slop".
+- **Don't** add reassurance lines about our own process, such as "Prices and facts checked on …". The owner calls these "AI slop" too.
+- **Don't** put shapes, stickers or labels over screenshots. A recommendation is a soft green pill in the content.
 - **Don't** use uppercase Bonbance headings, or Anton outside the logo.
 - **Don't** put a subtitle under a heading or an eyebrow label above it.
 - **Don't** put two panels of the same colour next to each other.

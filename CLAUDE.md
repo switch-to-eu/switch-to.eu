@@ -318,6 +318,8 @@ Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-0
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
 - No subtitle filler under headings. If a heading needs a sentence to explain it, fix the heading.
 - No self-description panels ("How we work", "Why trust us", values grids). The owner cut one on 2026-11-03 as AI slop. Trust comes from the sources and trade-offs in the content itself.
+- No reassurance lines about our own process ("Prices and facts checked on …, on each company's own pages", "independently reviewed"). The owner calls these AI slop too.
+- No shapes or labels over screenshots. A recommendation is a small soft-green pill in the content (`components/ui/RecommendedPill.tsx`).
 - Cards: white with hairline border and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`); a visual area only when there is a real screenshot or photo. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
 
 ### Accessibility

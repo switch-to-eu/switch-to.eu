@@ -139,6 +139,7 @@ export default async function ServiceDetailPage({
 }) {
   const { service_name, locale } = await params;
   const t = await getTranslations("services.detail.nonEu");
+  const tTabs = await getTranslations("services.detail.tabs");
   const format = await getFormatter();
 
   const service = await getServiceBySlugAnyRegion(service_name, locale);
@@ -264,7 +265,7 @@ export default async function ServiceDetailPage({
         </Banner>
       </Container>
 
-      <ServiceSubNav tabs={tabs}>
+      <ServiceSubNav tabs={tabs} label={tTabs("navLabel")}>
         <Container className="pt-1 sm:pt-0 md:pt-0 pb-10 sm:pb-12 md:pb-16">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10">
             {/* Sidebar (source order first so mobile shows the answer right after the hero) */}
