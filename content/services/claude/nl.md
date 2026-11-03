@@ -1,8 +1,8 @@
 ---
-startingPrice: $20/maand
-description: AI-assistent van Anthropic (VS) voor analyse, coderen en schrijven. Gratis versie beschikbaar, Pro vanaf $20/maand. Gebruikt standaard gesprekken voor training.
+startingPrice: $17/maand
+description: AI-assistent van Anthropic (VS) voor analyse, coderen en schrijven. Gratis versie beschikbaar, Pro vanaf $17/maand. Traint op gesprekken van consumenten, tenzij je je afmeldt.
 features:
-- Groot contextvenster (200k tokens)
+- Groot contextvenster (tot 1M tokens, verschilt per model)
 - Code genereren en debuggen
 - Document- en beeldanalyse
 - Interactieve artefacten
@@ -11,60 +11,73 @@ pricingTiers:
 - name: Gratis
   price: Gratis
   features:
-  - Toegang tot Sonnet 4.5
-  - ~30-100 berichten per dag
-  - Basisfuncties
-  - Gesprekken standaard gebruikt voor training
+  - Sonnet- en Haiku-modellen
+  - Gebruikslimieten die elke 5 uur en elke week opnieuw beginnen
+  - Zoeken op het web, geheugen, bestanden maken en artefacten
+  - Gesprekken gebruikt voor training, tenzij je je afmeldt
 - name: Pro
-  price: $20/maand
-  billingNote: $17/maand, jaarlijks gefactureerd
+  price: $17/maand
+  billingNote: Jaarlijks gefactureerd ($200 vooraf), of $20 bij maandelijkse betaling
   features:
-  - Alle modellen (Opus 4.5, Sonnet 4.5, Haiku 4.5)
-  - Hogere gebruikslimieten
+  - Voegt Opus-modellen toe (waaronder Opus 5.5)
+  - Fable-model te gebruiken met gebruikstegoed
+  - Meer gebruik dan Gratis
   - Toegang tot Claude Code
-  - Koppeling met Google Workspace
-  - Gesprekken standaard gebruikt voor training
+  - Claude in Chrome en Microsoft 365
+  - Gesprekken gebruikt voor training, tenzij je je afmeldt
 - name: Max
-  price: Vanaf $100/maand
-  billingNote: $200/maand voor de 20x-variant
+  price: $100/maand
+  billingNote: Maandelijks gefactureerd
   features:
-  - 5-20x het gebruik van Pro
-  - Voorrang bij toegang
+  - 5x het gebruik van Pro, elke 5 uur en elke week
+  - Fable inbegrepen, tot de helft van je weeklimiet
+  - $100/maand aan API-tegoed
+  - Voorrang bij drukte
   - Alle Pro-functies inbegrepen
+- name: Ultra
+  price: $200/maand
+  billingNote: Maandelijks gefactureerd. Voorheen Max 20x.
+  features:
+  - 10x het weekgebruik van Pro
+  - Geen 5-uurslimiet voor geverifieerde accounts
+  - Fable inbegrepen, tot de helft van je weeklimiet
+  - $200/maand aan API-tegoed
+  - Alle Max-functies inbegrepen
 - name: Team Standard
-  price: $25/gebruiker/maand
-  billingNote: Minimaal 5 gebruikers
+  price: $20/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, of $25 bij maandelijkse betaling. Teams van 2 tot 150.
   features:
-  - 1,25x de Pro-limiet per gebruiker
-  - Beheertools en -instellingen
-  - Context van 200k tokens
-  - Geen training op gesprekken
+  - Meer gebruik dan Pro per gebruiker
+  - Claude Code en Claude Cowork
+  - Beheertools, centrale facturering en SSO
+  - Contextvenster tot 1M tokens (verschilt per model)
+  - Standaard geen training op je content
 - name: Team Premium
-  price: $125/gebruiker/maand
-  billingNote: Minimaal 5 gebruikers
+  price: $100/gebruiker/maand
+  billingNote: Jaarlijks gefactureerd, of $125 bij maandelijkse betaling. Teams van 2 tot 150.
   features:
-  - 6,25x de Pro-limiet per gebruiker
-  - Claude Code inbegrepen
-  - Alle beheerfuncties
-  - Geen training op gesprekken
+  - 5x het gebruik van Team Standard
+  - Fable inbegrepen, tot de helft van je weeklimiet
+  - Alle functies van Team Standard, inclusief beheertools
+  - Standaard geen training op je content
 - name: Enterprise
-  price: Prijs op aanvraag
-  billingNote: Vanaf ~$50.000/jaar
+  price: $20/gebruiker/maand plus gebruik
+  billingNote: Jaarlijks gefactureerd, minimaal 20 gebruikers. Gebruik tegen API-tarieven.
   features:
-  - Contextvenster van 500k tokens
+  - Contextvenster tot 1M tokens (verschilt per model)
   - SSO en SCIM-provisioning
   - HIPAA-geschikte configuratie
   - Eigen bewaartermijn voor data
-  - Geen training op gesprekken
+  - Standaard geen training op je content
 issues:
-- Gesprekken van consumenten worden standaard gebruikt voor AI-training sinds september 2025
-- Alle consumentengegevens worden opgeslagen en verwerkt in de VS
-- Geen EU-dataresidentie voor Free-, Pro- of Max-abonnementen
+- Gesprekken op Free, Pro, Max en Ultra worden gebruikt voor AI-training, tenzij je je afmeldt (update van de consumentenvoorwaarden, augustus 2025)
+- Volgens het privacybeleid van Anthropic gaan persoonsgegevens naar servers in de VS of andere landen buiten de EER
+- EU-dataresidentie alleen via AWS Bedrock en Google Cloud, niet op Free-, Pro-, Max- of Ultra-abonnementen
 - Onderworpen aan Amerikaanse surveillancewetten waaronder FISA en CLOUD Act
-- Opt-out interface bekritiseerd omdat de trainingsschakelaar makkelijk te missen is
+- De trainingsoptie stond standaard aan in de toestemmingspop-up van 2025, meldde PCMag
 - Gegevens tot 5 jaar bewaard wanneer training is ingeschakeld
 metaTitle: 'Claude AI van Anthropic: Privacy, Prijzen & EU-datazorgen'
-metaDescription: Claude is de AI-assistent van Anthropic uit de VS. Gratis versie en Pro vanaf $20/maand. Consumentendata in de VS opgeslagen, standaard gebruikt voor training.
+metaDescription: 'Claude-prijzen: Gratis, Pro $20/maand, Max $100, Ultra $200. Anthropic traint op je chats tenzij je je afmeldt, en data verlaat de EU. Bekijk EU-alternatieven.'
 keywords:
 - Claude AI
 - Anthropic
@@ -75,16 +88,18 @@ keywords:
 - Claude datatraining
 - Claude Pro abonnement
 ogTitle: 'Claude AI van Anthropic: Wat EU-gebruikers moeten weten'
-ogDescription: Claude is een krachtige AI-assistent, maar consumentendata wordt in de VS opgeslagen en standaard gebruikt voor modeltraining. Lees over privacyafwegingen en EU-alternatieven.
-gdprNotes: Anthropic biedt een gegevensverwerkingsovereenkomst (DPA) met standaardcontractbepalingen voor EU-gegevensoverdracht. Consumentenaccounts (Free, Pro, Max) slaan je gegevens echter alleen op in de VS. EU-dataresidentie is beschikbaar via AWS Bedrock en Google Vertex AI, maar niet via de directe Claude-interface. Sinds september 2025 worden gesprekken van consumenten standaard gebruikt voor modeltraining. Je kunt dit uitschakelen in je privacyinstellingen, waardoor de bewaartermijn daalt van 5 jaar naar 30 dagen. Team- en Enterprise-accounts zijn volledig uitgesloten van training.
+ogDescription: Claude is een krachtige AI-assistent, maar consumentendata gaat naar servers van Anthropic in de VS en traint de modellen, tenzij je je afmeldt. Lees over privacyafwegingen en EU-alternatieven.
+gdprNotes: Voor gebruikers in de EER is Anthropic Ireland, Limited de verwerkingsverantwoordelijke. Volgens het privacybeleid van Anthropic gaan persoonsgegevens naar servers in de VS of andere landen buiten de EER, beschermd door standaardcontractbepalingen of adequaatheidsbesluiten. Anthropic heeft een gegevensverwerkingsovereenkomst (Data Processing Addendum) voor zakelijke klanten. EU-dataresidentie is beschikbaar via AWS Bedrock en Vertex AI van Google Cloud, maar niet via de Claude-apps. Sinds een update van de consumentenvoorwaarden in augustus 2025 worden gesprekken op Free, Pro, Max en Ultra gebruikt voor modeltraining, tenzij je je afmeldt in je privacyinstellingen. Afmelden verkort ook de bewaartermijn van 5 jaar naar 30 dagen. Content van Team en Enterprise wordt standaard niet gebruikt voor training.
 ---
 
-Claude is de AI-assistent van Anthropic. Het bedrijf werd in 2021 opgericht door voormalige OpenAI-onderzoekers in San Francisco. Claude kan lange documenten verwerken (tot 200.000 tokens), code schrijven en debuggen, afbeeldingen lezen en tekst genereren. Gratis gebruikers krijgen Sonnet 4.5 met dagelijkse berichtlimieten. Het Pro-abonnement van $20/maand geeft toegang tot alle modellen, waaronder Opus 4.5.
+Claude is de AI-assistent van Anthropic. Anthropic is een public benefit corporation uit San Francisco. Claude verwerkt lange documenten (tot 1 miljoen tokens, afhankelijk van het model), schrijft en debugt code, leest afbeeldingen en genereert tekst. Gratis gebruikers krijgen de Sonnet- en Haiku-modellen, met gebruikslimieten die elke 5 uur en elke week opnieuw beginnen. Pro kost $20/maand, of $17/maand bij jaarlijkse betaling, en voegt de Opus-modellen (waaronder Opus 5.5) en Claude Code toe. Max kost $100/maand voor 5x het gebruik van Pro. Ultra, voorheen Max 20x, kost $200/maand.
 
-Anthropic praat veel over AI-veiligheid, en Claude is over het algemeen goed in het opvolgen van instructies zonder ontsporingen. Het bedrijf heeft SOC 2 Type II en ISO 27001 certificeringen. Je gegevens worden versleuteld tijdens verzending en opslag. Anthropic zegt dat het geen gebruikersgegevens verkoopt.
+Anthropic noemt zichzelf een AI-bedrijf dat veiligheid voorop zet. Voor zijn zakelijke producten noemt het SOC 2 Type II- en ISO 27001-certificeringen. Volgens Anthropic worden je gegevens versleuteld tijdens verzending en opslag, en verkoopt het geen gebruikersgegevens.
 
-Voor mensen in de EU wordt het ingewikkeld. Gegevens van consumentenaccounts staan op Amerikaanse servers. Er is geen EU-residentieoptie voor individuele gebruikers. In september 2025 veranderde Anthropic het beleid zodat gesprekken van Free-, Pro- en Max-gebruikers standaard worden gebruikt voor modeltraining. Je kunt dit uitschakelen in de instellingen, maar de opt-out schakelaar zat verstopt onder een grote Accepteer-knop. Privacyonderzoekers van Stanford noemden het ontwerp misleidend. Als je je afmeldt, daalt de bewaartermijn van 5 jaar naar 30 dagen.
+Voor mensen in de EU wordt het ingewikkeld. Volgens het privacybeleid van Anthropic gaan je persoonsgegevens naar servers in de VS of naar andere landen buiten de EER. De opties voor EU-dataresidentie lopen allemaal via AWS Bedrock en Google Cloud, niet via de Claude-apps. Sinds een update van de consumentenvoorwaarden in augustus 2025 gebruikt Anthropic gesprekken op Free, Pro, Max en Ultra om zijn modellen te trainen, tenzij je je afmeldt. Je zet dit op elk moment uit in je privacyinstellingen. Toen bestaande gebruikers de update voor het eerst zagen, stond de trainingsoptie in de pop-up standaard aan, meldde PCMag. Met training aan bewaart Anthropic je gesprekken tot 5 jaar. Meld je je af, dan bewaart het ze 30 dagen.
 
 ## Goed om te weten
 
-Team- en Enterprise-abonnementen zijn een ander verhaal. Die accounts worden nooit gebruikt voor training, hebben beheerderstools en kunnen worden ingericht voor HIPAA-compliance. EU-dataresidentie is mogelijk via AWS Bedrock en Google Vertex AI, maar dat werkt alleen voor API- en enterprise-opstellingen. Gebruik je Claude via de website of mobiele app, dan gaan je gegevens naar de VS, ongeacht wat je betaalt. Anthropic biedt wel een gegevensverwerkingsovereenkomst met standaardcontractbepalingen, maar dat is vooral relevant voor zakelijke klanten.
+Anthropic toont op zijn prijspagina prijzen in Amerikaanse dollars, zonder btw. Volgens het helpcentrum betaal je in je eigen valuta waar dat wordt ondersteund, en verschillen de prijzen per regio. Kijk op claude.ai/upgrade wat je in jouw valuta betaalt voordat je een abonnement neemt.
+
+Team- en Enterprise-abonnementen werken anders. Anthropic traint standaard niet op hun content, beide hebben beheertools, en Enterprise biedt een HIPAA-geschikte configuratie. Team kost $20 per gebruiker per maand bij jaarlijkse betaling ($25 bij maandelijkse betaling), voor teams van 2 tot 150 mensen. Enterprise kost $20 per gebruiker per maand plus gebruik tegen API-tarieven, met minimaal 20 gebruikers. Woon je in de EER, dan is Anthropic Ireland in Dublin onder de GDPR verantwoordelijk voor je gegevens. Anthropic heeft een gegevensverwerkingsovereenkomst voor zakelijke klanten en gebruikt standaardcontractbepalingen voor gegevens die het buiten de EER brengt.

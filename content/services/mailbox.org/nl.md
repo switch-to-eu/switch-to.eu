@@ -1,6 +1,6 @@
 ---
 startingPrice: €1/maand
-description: Duitse e-mail- en productiviteitssuite die je data op Duitse servers bewaart. Vanaf slechts 1 euro per maand met agenda, cloudopslag en een kantoorpakket inbegrepen.
+description: mailbox, voorheen mailbox.org, is een Duitse e-mailprovider uit Berlijn die je data op servers in Duitsland bewaart. E-mail vanaf €1 per maand, per jaar betaald.
 features:
 - Versleutelde e-mailopslag
 - Ingebouwd kantoorpakket
@@ -11,52 +11,59 @@ features:
 pricingTiers:
 - name: Light
   price: €1/maand
-  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  billingNote: Alleen jaarlijks gefactureerd (€12 per jaar)
   features:
   - 2 GB e-mailopslag
   - Agenda en contacten
   - 3 e-mailaliassen
+  - Support voor vragen over contract, tegoed en wachtwoord
   - 30 dagen gratis proberen
 - name: Standard
   price: €3/maand
-  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  billingNote: Jaarlijks gefactureerd (€36 per jaar), of €4/maand bij maandelijkse betaling
   features:
-  - 10 GB e-mailopslag
-  - 5 GB cloudopslag
+  - 20 GB e-mailopslag
+  - 10 GB cloudopslag
+  - Je eigen domeinnaam
   - Online kantoorsoftware
   - Videovergaderen
   - Webchat
   - GDPR-verwerkersovereenkomst
 - name: Premium
   price: €9/maand
-  billingNote: Betaal 10 maanden, krijg er 2 gratis
+  billingNote: Jaarlijks gefactureerd (€108 per jaar), of €12/maand bij maandelijkse betaling
   features:
-  - 25 GB e-mailopslag
-  - 50 GB cloudopslag
+  - 50 GB e-mailopslag
+  - 100 GB cloudopslag
   - Alle functies van Standard
-  - Voorrang bij support
+  - Voorrang bij support en terugbelservice
   - GDPR-verwerkersovereenkomst
-metaTitle: 'Mailbox.org: Privacyvriendelijke e-mail en kantoorpakket uit Duitsland'
-metaDescription: Mailbox.org biedt versleutelde e-mail, agenda, cloudopslag en een kantoorpakket vanaf 1 euro per maand. Alle data opgeslagen op Duitse servers. GDPR-conform.
+metaTitle: 'mailbox (voorheen mailbox.org): Duitse e-mail beoordeeld'
+metaDescription: mailbox, voorheen mailbox.org, is een Duits e-mail- en kantoorpakket met je data op Duitse servers. Prijzen voor 2026, opslag per abonnement en de nadelen.
 keywords:
 - mailbox.org
+- mailbox Duitsland
 - Duitse e-maildienst
 - privacyvriendelijke e-mail
 - GDPR-conforme e-mail
 - Google Workspace alternatief EU
 - versleutelde e-mail Duitsland
 - Europese e-mailprovider
-ogTitle: 'Mailbox.org: Privacyvriendelijke e-mail en kantoorpakket uit Duitsland'
-ogDescription: Versleutelde e-mail, agenda, cloudopslag en kantoortools vanaf 1 euro per maand. Data blijft in Duitsland onder strenge EU-privacywetgeving.
-gdprNotes: Je data blijft in Duitsland. Mailbox.org slaat alles op Duitse servers op en volgt de Duitse privacywetgeving, die verder gaat dan de Europese basis. Een gecertificeerde functionaris voor gegevensbescherming houdt toezicht op hun werkwijze. Als je een formele verwerkersovereenkomst nodig hebt voor je bedrijf, is die beschikbaar bij het Standard- en Premium-abonnement.
+ogTitle: 'mailbox (voorheen mailbox.org): Duitse e-mail beoordeeld'
+ogDescription: Duitse e-mail, agenda en contacten vanaf €1 per maand. Kantoortools en cloudopslag beginnen bij het Standard-abonnement. Je data blijft op servers in Duitsland.
+gdprNotes: Je data blijft in Duitsland. Volgens mailbox staan al zijn servers in datacenters in Berlijn, zodat de Duitse wet op gegevensbescherming en de GDPR gelden. Een TÜV-gecertificeerde functionaris voor gegevensbescherming controleert de naleving. Zakelijke klanten krijgen bij elk abonnement een verwerkersovereenkomst. Particuliere klanten krijgen er een bij Standard en Premium.
 ---
 
-Mailbox.org is een e-mail- en productiviteitsdienst uit Berlijn, beheerd door de Heinlein Group, een Duits IT-bedrijf met meer dan 30 jaar hostingervaring. Al je data blijft op servers in Duitsland, beschermd door strenge Duitse en Europese privacywetgeving.
+mailbox, tot de relaunch in 2025 mailbox.org, is een Duitse e-mailprovider uit Berlijn. De Heinlein Group, een Duitse specialist in Linux en e-mail met meer dan 30 jaar ervaring, beheert de dienst. Volgens mailbox staan al zijn servers in datacenters in Berlijn, dus je data valt onder de Duitse wet op gegevensbescherming en de GDPR.
 
-De meeste privacy-e-mailproviders stoppen bij e-mail. Mailbox.org niet. Zelfs het abonnement van 1 euro per maand bevat een agenda en adresboek. Het Standard-abonnement van 3 euro voegt een online kantoorpakket, cloudopslag, webchat en videobellen toe. Zie het als een vervanging voor Google Workspace, niet alleen voor Gmail.
+De dienst doet meer dan e-mail. Zelfs het Light-abonnement van €1 bevat een agenda en adresboek. Standard voegt een online kantoorpakket, 10 GB cloudopslag, webchat en de optie voor je eigen domein toe.
 
-De beveiliging gaat verder dan de basis. Een functie genaamd Secure Mail Storage versleutelt je inbox, zodat zelfs medewerkers van Mailbox.org het niet kunnen lezen. PGP-versleuteling werkt direct in de browser. Onafhankelijke testers geven de dienst topscore voor beveiliging, en er zijn geen datalekken bekend.
+Inboxversleuteling is optioneel. Zet je die aan, dan versleutelt mailbox nieuwe inkomende e-mails met je PGP-sleutel. Volgens de helppagina's kan dan alleen iemand met die sleutel en het bijbehorende wachtwoord ze openen. PGP-versleuteling werkt ook direct in de browser.
+
+mailbox heeft een ISO 27001-certificering en een C5-attest van het BSI, de Duitse federale dienst voor IT-beveiliging. In 2026 gaf de Duitse consumentenorganisatie Stiftung Warentest het Light-abonnement topscores voor privacy, volgens mailbox.
 
 ## Goed om te weten
 
-Er is geen gratis abonnement. Je krijgt een proefperiode van 30 dagen, daarna kost het minstens 1 euro per maand. Eigen domeinen werken via aliassen, wat sommige gebruikers in het begin verwarrend vinden. De webmail kreeg eind 2025 een grote update en heeft nog wat haperingen in Firefox en Safari. De reactietijd van de klantenservice is sinds de vernieuwing opgelopen tot twee weken.
+Er is geen gratis abonnement. Je krijgt een proefperiode van 30 dagen, daarna kost het minstens €1 per maand, per jaar vooruitbetaald. Maandelijks betalen is duurder: Standard kost dan €4 in plaats van €3, en Premium €12 in plaats van €9.
+
+De support hangt af van je abonnement. Light dekt alleen vragen over je contract, tegoed en wachtwoord. mailbox zegt dat Standard-gebruikers op werkdagen meestal binnen 48 uur antwoord krijgen, en Premium-gebruikers binnen 24 uur.
