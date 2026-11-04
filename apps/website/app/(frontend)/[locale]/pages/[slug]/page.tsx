@@ -1,23 +1,18 @@
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { findLandingPage, getAllLandingPages } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: { _status: { equals: "published" } },
-    depth: 0,
-    limit: 200,
-  });
+export function generateStaticParams() {
+  const docs = getAllLandingPages("en");
   const locales: Array<"en" | "nl"> = ["en", "nl"];
   return locales.flatMap((locale) =>
-    docs.map((p) => ({ locale, slug: p.slug as string }))
+    docs.map((p) => ({ locale, slug: p.slug }))
   );
 }
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
+import { inheritedOpenGraph } from "@/lib/seo";
 import { Locale } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { Container } from "@switch-to-eu/blocks/components/container";
@@ -26,37 +21,35 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import type { LandingPage as LandingPageType, Service } from "@/payload-types";
-import { getCategorySlug, getResolvedRelation } from "@/lib/services";
+import { getCategorySlug } from "@/lib/services";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ slug: string; locale: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { slug, locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: await publishedWhere({ slug: { equals: slug } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    depth: 1,
-    limit: 1,
-  });
-  const page = docs[0] as LandingPageType | undefined;
+  const page = findLandingPage(slug, locale);
 
   if (!page) {
     return { title: "Not Found" };
   }
 
+  const alternates = generateLanguageAlternates(`pages/${slug}`, locale as Locale);
+
   return {
-    title: `${page.ogTitle || page.title} | switch-to.eu`,
-    description: page.ogDescription || page.description,
-    keywords: page.keywords?.map((k) => k.keyword),
-    alternates: generateLanguageAlternates(`pages/${slug}`, locale as Locale),
+    title: page.metaTitle || `${page.ogTitle || page.title} | switch-to.eu`,
+    description:
+      page.metaDescription || page.ogDescription || page.description,
+    keywords: page.keywords,
+    alternates,
     openGraph: {
+      ...(await inheritedOpenGraph(parent, alternates.canonical)),
       title: page.ogTitle || page.title,
       description: page.ogDescription || page.description,
       type: "article",
@@ -70,35 +63,21 @@ export default async function LandingPage({
   params: Promise<{ slug: string; locale: Locale }>;
 }) {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("landingPages");
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "landing-pages",
-    where: await publishedWhere({ slug: { equals: slug } }),
-    draft: await isPreview(),
-    locale,
-    depth: 1,
-    limit: 1,
-  });
-  const page = docs[0];
+  const page = findLandingPage(slug, locale);
 
   if (!page) {
     notFound();
   }
 
-  // With depth: 1, relationships are resolved objects
   const categorySlug = getCategorySlug(page.category) || null;
 
-  const recommendedServices = (page.recommendedServices ?? [])
-    .map((s) => getResolvedRelation<Service>(s))
-    .filter((s): s is Service => s !== null);
+  const recommendedServices = page.recommendedServices;
+  const relatedService = page.relatedService ?? null;
 
-  // Resolve the related non-EU service
-  const relatedService = getResolvedRelation<Service>(page.relatedService);
-
-  // Extract issues from the related service (Payload stores as {issue: string}[])
-  const relatedServiceIssues = relatedService?.issues?.map((i) => i.issue) ?? [];
+  const relatedServiceIssues = relatedService?.issues ?? [];
 
   // Map related service name
   const relatedServiceName = relatedService?.name ?? "";
@@ -109,24 +88,19 @@ export default async function LandingPage({
       <section>
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
-            shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.1, duration: "8s", delay: "-2s" },
-              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
-            ]}
+            color="bg-white border-y md:border border-black/10"
           >
             <div className="max-w-3xl">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-brand-green mb-4">
                 {page.title}
               </h1>
-              <p className="text-brand-cream text-base sm:text-lg mb-6">
+              <p className="text-[#1a1a1a] text-base sm:text-lg mb-6">
                 {page.description}
               </p>
               {categorySlug && (
                 <Link
                   href={`/services/${categorySlug}`}
-                  className="inline-block py-2.5 px-6 bg-brand-yellow text-brand-navy rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
+                  className="inline-block py-2.5 px-6 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
                 >
                   {t("exploreAlternatives")}
                 </Link>
@@ -140,15 +114,15 @@ export default async function LandingPage({
       <section>
         <Container>
           <div
-            className="prose prose-lg max-w-3xl mx-auto
-              prose-headings:font-heading prose-headings:uppercase prose-headings:text-brand-navy
-              prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-6
-              prose-p:text-gray-700 prose-p:leading-relaxed
-              prose-li:text-gray-700
-              prose-strong:text-brand-navy
-              prose-a:text-brand-green prose-a:no-underline hover:prose-a:underline
-              prose-table:w-full prose-th:text-left prose-th:text-brand-navy prose-th:text-sm
-              prose-td:text-sm prose-td:py-2"
+            className="mdx-content prose prose-lg max-w-3xl mx-auto
+ prose-headings:font-heading prose-headings:text-brand-navy
+ prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-6
+ prose-p:text-gray-700 prose-p:leading-relaxed
+ prose-li:text-gray-700
+ prose-strong:text-brand-navy
+ prose-a:text-brand-green prose-a:no-underline hover:prose-a:underline
+ prose-table:w-full prose-th:text-left prose-th:text-brand-navy prose-th:text-sm
+ prose-td:text-sm prose-td:py-2"
           >
             {page.content && <RichText data={page.content} />}
           </div>
@@ -164,7 +138,7 @@ export default async function LandingPage({
               <ul className="space-y-3 max-w-3xl">
                 {relatedServiceIssues.map((issue: string, index: number) => (
                   <li key={index} className="flex items-start gap-3 text-gray-700">
-                    <span className="text-brand-red mt-1 flex-shrink-0">&#9679;</span>
+                    <span aria-hidden="true" className="text-brand-red mt-1 flex-shrink-0">&#9679;</span>
                     <span>{issue}</span>
                   </li>
                 ))}

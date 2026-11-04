@@ -2,7 +2,9 @@
 
 ## Brand Identity
 
-Switch-to.eu is a platform helping users switch from non-EU digital services to EU alternatives. The visual identity is bold, colorful, and optimistic — communicating approachability and empowerment through a vibrant palette, playful organic shapes, and strong typographic hierarchy.
+> **Website:** the website follows the calm system in `DESIGN.md` ("The Warm Broadsheet", 2026-11-03) and the "Calm surface system" section below. The sections on uppercase headings, the Anton hero, shapes in every section and saturated card grids describe the earlier look. They still apply to the tool apps, not to the website.
+
+Switch-to.eu is a platform helping users switch from non-EU digital services to EU alternatives. The visual identity was first bold, colorful, and optimistic, with a vibrant palette, playful organic shapes, and strong typographic hierarchy. The tool apps keep that energy. The website now carries it in the details only.
 
 ### Design Inspirations
 
@@ -133,12 +135,12 @@ The home hero uses Anton at a fluid size for maximum impact:
 
 ```css
 font-family: var(--font-anton);
-font-size: clamp(3.5rem, 12vw, 14rem);
+font-size: clamp(3rem, 7vw, 6rem); /* was clamp(3.5rem, 12vw, 14rem) before the 2026-11-03 calm pass */
 font-weight: 400;
 line-height: 0.9;
 letter-spacing: -0.02em;
 text-transform: uppercase;
-color: var(--brand-yellow);
+color: var(--brand-green); /* yellow before the calm pass */
 ```
 
 ### Logo
@@ -440,15 +442,40 @@ The generic rotation sequence:
 | #  | Background       | Text Color   | Button                    | Shape    |
 | -- | ---------------- | ------------ | ------------------------- | -------- |
 | 1  | `bg-brand-sky`   | Green        | `bg-brand-green text-white` | spark    |
-| 2  | `bg-brand-orange`| White        | `bg-white text-brand-orange`| cloud    |
+| 2  | `bg-brand-orange`| `#1a1a1a`    | `bg-[#1a1a1a] text-white`   | cloud    |
 | 3  | `bg-brand-yellow`| Green        | `bg-brand-green text-white` | tulip    |
 | 4  | `bg-brand-green` | White        | `bg-white text-brand-green` | speech   |
-| 5  | `bg-brand-pink`  | Green        | `bg-brand-green text-white` | heart    |
+| 5  | `bg-brand-pink`  | `#1a1a1a`    | `bg-brand-green text-white` | heart    |
 | 6  | `bg-brand-navy`  | White        | `bg-white text-brand-navy`  | sunburst |
 | 7  | `bg-brand-sage`  | Green        | `bg-brand-green text-white` | flower   |
 | 8  | `bg-brand-red`   | White        | `bg-white text-brand-red`   | starburst|
 
-Rule: light backgrounds (sky, yellow, pink, sage) pair with Green text; dark backgrounds (orange, green, navy, red) pair with White text.
+Rule: sky, yellow and sage pair with Green text. Green, navy and red pair with White text. Orange and pink pair with `#1a1a1a`, because neither white nor green reaches 4.5:1 on them (changed 2026-11-02, see `docs/design/2026-11-02-audit.md`). Text on cards is never faded with opacity: at 80% opacity most pairs drop below 4.5:1.
+
+Yellow buttons and pills take Green text, not Navy (navy on yellow is 4.29:1). Yellow-outline buttons on dark grounds take White text.
+
+### Readable rotation (cards with body copy, tool apps only)
+
+Measured contrast for body text (WCAG AA needs 4.5:1): white on orange is 3.79:1 and green on pink is 4.03:1, so both fail at body sizes. They are fine for shapes and for display headings at 24px and up. Cards whose main content is running text should use the AA-safe subset: sky, green, yellow, navy, sage, red. (The website no longer uses coloured cards; this applies to the tool apps.) The same applies to section blocks with body copy: use green, navy, red, yellow, sky or sage, never orange, as the ground for paragraphs.
+
+Measured ratios: green on sky 6.0, white on green 10.5, green on yellow 5.3, white on navy 8.5, green on sage 6.6, white on red 4.7, sky on green 6.0, sky on navy 4.9.
+
+## Calm surface system (website, 2026-11-03)
+
+The owner asked for a toned-down, more approachable website. This supersedes the "Section Blocks" and colour-pairing guidance below for the **website** (the tool apps keep their saturated tool colours):
+
+- **Page:** warm ground `--background: #f1eee8`, dark enough that white cards read as cards. Header on the same ground with a `border-black/10` bottom rule. The logo's `.eu` uses brand orange instead of yellow.
+- **Panels and cards:** `bg-white border border-black/10` with `md:rounded-3xl` (top and bottom borders only on mobile, where panels run edge to edge). Full brand-colour anchor panels, never two adjacent in the same colour: the homepage intro on green (yellow heading, white text), the guides panel on sky (green text), the featured tool on its own `TOOL_SCHEMES` surface colour (green heading, its primary as the shape), the newsletter on sage with heading left and form right. Cards get a `h-1.5` saturated strip on top from the rotation.
+- **Type:** headings in brand green, Bonbance in **sentence case** (no `uppercase`), one size step smaller than before (section headings `text-3xl sm:text-4xl`, page h1 `text-3xl sm:text-4xl md:text-5xl`). Body `#1a1a1a`. Anton is used only in the logo.
+- **Actions:** green pills (`bg-brand-green text-white`), green outline pills for secondary actions, links in green.
+- **Colour as accent:** bold, saturated brand colours only in small elements: card strips, article type pills (`news` yellow with `#1a1a1a`, `analysis` navy with white, `components/news/article-type.ts`), small dots, region badges, the logo's `.eu`. Big colour belongs only to the few anchor panels above.
+- **Shapes:** only tone-on-tone inside colour panels (sage on green, green on sky, 8-12% opacity). None on white surfaces, no blob illustrations on cards (2026-11-03: "too childish and gimmicky"). Cards get a visual area only for a real screenshot or photo.
+- **Photos:** news articles carry an openly licensed photo of the real place or institution, credited under the image (see `.claude/skills/_shared/content-files.md`, "Article photos").
+- **No subtitle filler** under headings.
+
+## Editorial components (homepage and news)
+
+The homepage is content first, with no big hero: `HomeMasthead` is a compact green panel (dateline, yellow Bonbance h1, search, quick-switch chips), then `FrontPage` (lead story with its photo, briefing column with thumbnails; the "last update" ignores `sample: true` articles), the guides band, picks, tools and newsletter. No self-description panel ("How we work" and similar): the owner removed it on 2026-11-03 as AI slop. Article pages open with the photo full width, the title panel overlapping its bottom edge (as on Tweakers) and the photo credit under it, then the calm reading column: `.article-body` at 68ch, 18px/1.75, links underlined in brand green. Articles without a photo fall back to a white text header. No eyebrow labels above headings.
 
 ---
 
@@ -464,16 +491,20 @@ Markdown/MDX content rendered in `.mdx-content` receives specific styles:
 - Italic: Hanken Grotesk SemiBold Italic
 - Blockquotes: left border, italic
 - Horizontal rules: gray border with generous vertical margin (`my-8`)
+- Tables: `renderMarkdown` wraps each table in `.mdx-table`, a white panel with a hairline border and a 1rem radius. Column headers in Bonbance, brand green, over a 2px green rule. Hairline rows. On narrow screens the table scrolls sideways and the first column stays in place
 
 ---
 
 ## Key Design Principles
 
-1. **Bold and vibrant** — use the full palette generously; every section should have visual energy
-2. **Uppercase headings** — section headings are always uppercase to convey strength and clarity
-3. **Organic shapes everywhere** — decorative shapes appear in every major section, softening the bold type and adding playfulness
-4. **Generous rounding** — cards use `rounded-3xl`, buttons use `rounded-full`; sharp corners are avoided
-5. **High contrast pairings** — Yellow on Navy, Green on light, White on dark; always ensure readability
-6. **Fluid typography** — hero type scales fluidly from 3.5rem to 14rem using `clamp()`
-7. **Staggered animation** — shapes float independently with offset delays to feel natural, not mechanical
-8. **Consistent card anatomy** — every card follows the same structure: shape area + content area + optional CTA pill
+Website (full detail in `DESIGN.md`):
+
+1. **Neutral first** — warm paper ground, white cards with a hairline border, ink text. A few full brand-colour anchor panels per page, never two adjacent in the same colour
+2. **Colour as accent** — saturated colour only in small elements: card strips, type pills, dots, region badges, the logo's `.eu`
+3. **Sentence-case headings** — Bonbance in sentence case at modest sizes, in brand green. Anton only in the logo
+4. **Shapes only tone-on-tone** — inside colour panels at 8-12% opacity, never on white surfaces or cards, motion off under reduced motion
+5. **Generous rounding** — panels and cards use `rounded-3xl`, buttons, chips and inputs use `rounded-full`
+6. **High contrast pairings** — follow the text-on-colour rule above; never fade text with opacity
+7. **Real things** — real photos and screenshots, no illustration for its own sake, no self-description panels
+
+Tool apps keep the earlier principles: bold full-palette sections, organic shapes with staggered float, and coloured cards from `getCardColor`.

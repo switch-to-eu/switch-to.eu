@@ -1,5 +1,5 @@
 import { getTranslations, getFormatter } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function RecentNews({ service }: { service: Service }) {
   const t = await getTranslations("services.detail.nonEu.redesign.recentNews");
@@ -10,7 +10,7 @@ export async function RecentNews({ service }: { service: Service }) {
 
   return (
     <section>
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title", { name: service.name })}
       </h2>
       <ul className="divide-y divide-brand-navy/10">

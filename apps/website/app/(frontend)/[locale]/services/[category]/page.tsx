@@ -1,16 +1,27 @@
-import { getPayload } from "@/lib/payload";
+import { getAllCategories, getAllGuides } from "@/lib/content/loader";
+import { CategoryHeader } from "@/components/category/CategoryHeader";
+import { CategoryPicks } from "@/components/category/CategoryPicks";
+import { CategoryComparison } from "@/components/category/CategoryComparison";
+import { CategoryGuides } from "@/components/category/CategoryGuides";
+import {
+  isBuyersGuide,
+  resolvePicks,
+  sortForComparison,
+} from "@/lib/buyers-guide";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, itemListJsonLd } from "@/lib/structured-data";
+import { CategoryLeaving } from "@/components/category/CategoryLeaving";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
@@ -18,14 +29,19 @@ import { RichText } from "@/components/rich-text";
 import {
   getCategoryBySlug,
   getEuServicesByCategory,
+  getNonEuServicesByCategory,
 } from "@/lib/services";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ category: string; locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ category: string; locale: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { category, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
@@ -42,8 +58,13 @@ export async function generateMetadata({
   const description = categoryData?.metaDescription || pageDescription;
 
   return {
-    title,
-    description,
+    ...(await pageMetadata({
+      parent,
+      path: `services/${category}`,
+      locale,
+      title,
+      description,
+    })),
     keywords: [
       capitalizedCategory,
       "EU alternatives",
@@ -51,17 +72,11 @@ export async function generateMetadata({
       "GDPR compliant",
       category,
     ],
-    alternates: generateLanguageAlternates(`services/${category}`, locale as AppLocale),
-    openGraph: {
-      title,
-      description,
-    },
   };
 }
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({ collection: "categories", limit: 100 });
+export function generateStaticParams() {
+  const docs = getAllCategories("en");
   const locales = ["en", "nl"];
   return locales.flatMap((locale) =>
     docs.map((cat) => ({ locale, category: cat.slug }))
@@ -74,6 +89,7 @@ export default async function ServicesCategoryPage({
   params: Promise<{ category: string; locale: Locale }>;
 }) {
   const { category, locale } = await params;
+  setRequestLocale(locale);
 
   const t = await getTranslations("services");
 
@@ -105,32 +121,123 @@ export default async function ServicesCategoryPage({
     categoryData?.description ||
     `EU-based alternatives for common ${category} services that prioritize privacy and data protection.`;
 
+  const tNav = await getTranslations("navigation");
+  const nonEuServices = getNonEuServicesByCategory(categoryData.slug, locale);
+
+  const structuredData = (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: pageTitle, path: `services/${category}` },
+        ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          locale,
+          pageTitle,
+          euServices.map((s) => ({
+            name: s.name,
+            path: `services/eu/${s.slug}`,
+          }))
+        )}
+      />
+    </>
+  );
+
+  if (isBuyersGuide(categoryData)) {
+    const tGuide = await getTranslations("services.buyersGuide");
+    const guides = getAllGuides(locale).filter(
+      (guide) => guide.category.slug === categoryData.slug
+    );
+    const picks = resolvePicks(categoryData, euServices, guides);
+    const compare = categoryData.compare ?? [];
+    const categoryName = categoryData.shortTitle;
+
+    return (
+      <PageLayout>
+        {structuredData}
+        <CategoryHeader
+          headline={categoryData.headline || pageTitle}
+          description={pageDescription}
+          topPick={picks[0] ?? null}
+          compare={compare}
+        />
+
+        {picks.length > 0 && <CategoryPicks picks={picks} compare={compare} />}
+
+        <CategoryComparison
+          services={sortForComparison(euServices)}
+          compare={compare}
+          categoryName={categoryName}
+        />
+
+        {categoryData.content && (
+          <section>
+            <Container noPaddingMobile>
+              <div className="bg-white border-y md:border border-black/10 md:rounded-3xl px-6 sm:px-10 md:px-14 py-10 sm:py-12">
+                <div className="max-w-3xl">
+                  <h2 className="font-heading text-3xl sm:text-4xl text-brand-green mb-2">
+                    {tGuide("howToChoose")}
+                  </h2>
+                  <RichText
+                    data={categoryData.content}
+                    className="mdx-content text-[#1a1a1a] [&_h3]:text-brand-green"
+                  />
+                </div>
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {guides.length > 0 && <CategoryGuides guides={guides} />}
+
+        {nonEuServices.length > 0 && <CategoryLeaving services={nonEuServices} />}
+
+        <Container noPaddingMobile>
+          <SectionHeading>
+            {tGuide("allServices", { category: categoryName })}
+          </SectionHeading>
+          <div className="grid gap-0 md:gap-5 auto-rows-fr grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {euServices.map((service, index) => (
+              <ServiceCard
+                key={service.name}
+                service={service}
+                showCategory={false}
+                colorIndex={index}
+              />
+            ))}
+            <SuggestServiceCard colorIndex={euServices.length} />
+          </div>
+        </Container>
+
+        <NewsletterCta />
+      </PageLayout>
+    );
+  }
+
   return (
     <PageLayout>
+      {structuredData}
       {/* Hero — large navy block with title, description, and stats */}
         <Container noPaddingMobile>
           <Banner
-            color="bg-brand-navy"
-            shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "sunburst", className: "bottom-6 right-16 hidden sm:block w-28 h-28 sm:w-36 sm:h-36", opacity: 0.1, duration: "8s", delay: "-2s" },
-              { shape: "heart", className: "top-1/2 -left-6 hidden md:block w-20 h-20", opacity: 0.1, duration: "7s", delay: "-4s" },
-            ]}
+            color="bg-white border-y md:border border-black/10"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
               {/* Left: Title + subtitle */}
               <div>
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-brand-yellow mb-4">
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-brand-green mb-4">
                   {pageTitle}
                 </h1>
-                <p className="text-brand-cream text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {pageDescription}
                 </p>
               </div>
 
               {/* Right: Description */}
               {categoryData.content && (
-                <div className="text-white/70 text-sm sm:text-base leading-relaxed [&>p+p]:mt-3">
+                <div className="text-[#1a1a1a] text-sm sm:text-base leading-relaxed [&>p+p]:mt-3">
                   <RichText data={categoryData.content} />
                 </div>
               )}
@@ -171,6 +278,8 @@ export default async function ServicesCategoryPage({
             <SuggestServiceCard colorIndex={regularServices.length} />
           </div>
         </Container>
+
+      {nonEuServices.length > 0 && <CategoryLeaving services={nonEuServices} />}
 
       {/* Newsletter Section */}
       <NewsletterCta />

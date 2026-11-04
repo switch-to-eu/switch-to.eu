@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Knowledge explorer</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/vendor/cytoscape.min.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-row">
+        <a class="logo" href="#/">switch-to<span>.eu</span> <b>knowledge</b></a>
+        <p class="meta" id="store-meta" aria-live="polite">Loading store…</p>
+      </div>
+      <ul class="stats" id="stats" aria-label="Nodes per type"></ul>
+      <p class="hint">
+        This is what the writing agents see. Run <code>pnpm knowledge:index</code> to refresh the store; the explorer picks up the new
+        file on the next click.
+      </p>
+    </header>
+
+    <div class="layout">
+      <aside class="side panel">
+        <form id="search-form" role="search" autocomplete="off">
+          <label class="field">
+            <span class="label">Search the store <kbd>/</kbd></span>
+            <input id="q" name="q" type="search" placeholder="encrypted email, proton.me, Google…" />
+          </label>
+          <div class="filters">
+            <label class="field">
+              <span class="label">Type</span>
+              <select id="type" name="type">
+                <option value="">All types</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">Language</span>
+              <select id="lang" name="lang">
+                <option value="">All</option>
+              </select>
+            </label>
+            <button type="submit" class="pill primary">Search</button>
+          </div>
+        </form>
+        <div id="side-list" class="side-list"></div>
+      </aside>
+
+      <main class="main panel" id="main">
+        <div class="tabs" role="tablist" aria-label="View">
+          <button type="button" role="tab" id="tab-node" data-tab="node" aria-controls="panel">Node</button>
+          <button type="button" role="tab" id="tab-graph" data-tab="graph" aria-controls="panel">Graph</button>
+          <button type="button" role="tab" id="tab-context" data-tab="context" aria-controls="panel">Context</button>
+        </div>
+        <section id="panel" class="tab-panel" role="tabpanel" tabindex="-1"></section>
+      </main>
+    </div>
+  </body>
+</html>

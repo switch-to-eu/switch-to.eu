@@ -1,25 +1,11 @@
-import { getTranslations } from "next-intl/server";
-import {
-  convertLexicalToHTML,
-  defaultHTMLConverters,
-} from "@payloadcms/richtext-lexical/html";
-import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
-import type { Service } from "@/payload-types";
-
-function lexicalToPlainText(data: SerializedEditorState): string {
-  const html = convertLexicalToHTML({
-    converters: defaultHTMLConverters,
-    data,
-    disableContainer: true,
-  });
-  return html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+import { getLocale, getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
+import type { Service } from "@/lib/content/types";
+import { markdownToPlainText, renderMarkdown } from "@/lib/markdown";
 
 export async function FaqAccordion({ service }: { service: Service }) {
   const t = await getTranslations("services.detail.nonEu.redesign.faq");
+  const locale = await getLocale();
   const faqs = (service.faqs ?? []).filter((f) => f.question && f.answer);
   if (faqs.length === 0) return null;
 
@@ -31,27 +17,20 @@ export async function FaqAccordion({ service }: { service: Service }) {
       name: f.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: lexicalToPlainText(f.answer as SerializedEditorState),
+        text: markdownToPlainText(f.answer),
       },
     })),
   };
 
   return (
     <section>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+      <JsonLd data={jsonLd} />
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title")}
       </h2>
       <div className="divide-y divide-brand-navy/10 border-y border-brand-navy/10">
         {faqs.map((f, i) => {
-          const html = convertLexicalToHTML({
-            converters: defaultHTMLConverters,
-            data: f.answer as SerializedEditorState,
-            disableContainer: true,
-          });
+          const html = renderMarkdown(f.answer, locale);
           return (
             <details key={i} className="group">
               <summary className="cursor-pointer list-none py-4 font-semibold text-foreground flex justify-between items-center gap-4">

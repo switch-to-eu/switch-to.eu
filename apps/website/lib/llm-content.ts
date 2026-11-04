@@ -1,10 +1,9 @@
 /**
- * Shared helpers for generating LLM-friendly markdown from Payload CMS content.
+ * Shared helpers for generating LLM-friendly markdown from the markdown content in /content.
  * Used by /llms.txt and individual .md route handlers.
  */
 
-import type { Service, Guide, Category } from "@/payload-types";
-import { lexicalToMarkdown } from "./lexical-to-markdown";
+import type { Service, Guide, Category } from "@/lib/content/types";
 import {
   getCategorySlug,
   getCategoryTitle,
@@ -64,7 +63,7 @@ export function serviceToMarkdown(service: Service): string {
     lines.push("## Features");
     lines.push("");
     for (const f of service.features) {
-      lines.push(`- ${f.feature}`);
+      lines.push(`- ${f}`);
     }
     lines.push("");
   }
@@ -82,7 +81,7 @@ export function serviceToMarkdown(service: Service): string {
       if (tier.features && tier.features.length > 0) {
         lines.push("- **Includes**:");
         for (const f of tier.features) {
-          lines.push(`  - ${f.feature}`);
+          lines.push(`  - ${f}`);
         }
       }
       lines.push("");
@@ -98,7 +97,7 @@ export function serviceToMarkdown(service: Service): string {
   }
 
   // Main content
-  const content = lexicalToMarkdown(service.content);
+  const content = (service.content ?? "");
   if (content) {
     lines.push("## About");
     lines.push("");
@@ -111,7 +110,7 @@ export function serviceToMarkdown(service: Service): string {
     lines.push("## Known Issues");
     lines.push("");
     for (const issue of service.issues) {
-      lines.push(`- ${issue.issue}`);
+      lines.push(`- ${issue}`);
     }
     lines.push("");
   }
@@ -121,7 +120,7 @@ export function serviceToMarkdown(service: Service): string {
     lines.push("## Data Storage");
     lines.push("");
     for (const loc of service.dataStorageLocations) {
-      lines.push(`- ${loc.location}`);
+      lines.push(`- ${loc}`);
     }
     lines.push("");
   }
@@ -131,7 +130,7 @@ export function serviceToMarkdown(service: Service): string {
     lines.push("## Certifications");
     lines.push("");
     for (const cert of service.certifications) {
-      lines.push(`- ${cert.certification}`);
+      lines.push(`- ${cert}`);
     }
     lines.push("");
   }
@@ -163,7 +162,7 @@ export function guideToMarkdown(guide: Guide): string {
   lines.push("");
 
   // Intro
-  const intro = lexicalToMarkdown(guide.intro);
+  const intro = (guide.intro ?? "");
   if (intro) {
     lines.push("## Why switch?");
     lines.push("");
@@ -172,7 +171,7 @@ export function guideToMarkdown(guide: Guide): string {
   }
 
   // Before you start
-  const before = lexicalToMarkdown(guide.beforeYouStart);
+  const before = (guide.beforeYouStart ?? "");
   if (before) {
     lines.push("## Before you start");
     lines.push("");
@@ -188,7 +187,7 @@ export function guideToMarkdown(guide: Guide): string {
       const step = guide.steps[i]!;
       lines.push(`### Step ${i + 1}: ${step.title}`);
       lines.push("");
-      const stepContent = lexicalToMarkdown(step.content);
+      const stepContent = (step.content ?? "");
       if (stepContent) {
         lines.push(stepContent);
         lines.push("");
@@ -201,13 +200,13 @@ export function guideToMarkdown(guide: Guide): string {
     lines.push("## Features you might miss");
     lines.push("");
     for (const mf of guide.missingFeatures) {
-      lines.push(`- ${mf.feature}`);
+      lines.push(`- ${mf}`);
     }
     lines.push("");
   }
 
   // Troubleshooting
-  const troubleshooting = lexicalToMarkdown(guide.troubleshooting);
+  const troubleshooting = (guide.troubleshooting ?? "");
   if (troubleshooting) {
     lines.push("## Troubleshooting");
     lines.push("");
@@ -216,7 +215,7 @@ export function guideToMarkdown(guide: Guide): string {
   }
 
   // Outro
-  const outro = lexicalToMarkdown(guide.outro);
+  const outro = (guide.outro ?? "");
   if (outro) {
     lines.push("## Next steps");
     lines.push("");
@@ -307,7 +306,7 @@ export function buildLlmsIndex(
         const target = getGuideTargetService(g)?.name ?? null;
         const catSlug = getCategorySlug(g.category) || "uncategorized";
         const meta = [`${g.difficulty}`, g.timeRequired].join(", ");
-        const label = source && target ? `${source} → ${target}` : g.title;
+        const label = source && target ? `${source} to ${target}` : g.title;
         lines.push(
           `- [${label}](${BASE_URL}/en/guides/${catSlug}/${g.slug}): ${g.description} (${meta})`
         );

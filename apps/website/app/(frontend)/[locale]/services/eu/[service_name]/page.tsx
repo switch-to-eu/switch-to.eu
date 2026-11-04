@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { Check } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
@@ -13,10 +14,11 @@ import { TabsContent } from "@switch-to-eu/ui/components/tabs";
 import { ServiceCta } from "@/components/ui/ServiceCta";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
+import { RecommendedPill } from "@/components/ui/RecommendedPill";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { RichText } from "@/components/rich-text";
 
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Locale } from "next-intl";
 
 import {
@@ -31,23 +33,30 @@ import {
   hasPricingData,
   hasSecurityData,
   getAllEuServiceSlugs,
+  getServicesReplacedBy,
 } from "@/lib/services";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { generateServiceMetadata } from "@/lib/service-metadata";
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide } from "@/lib/content/types";
 
 const OVERVIEW_KEY = "overview";
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return getAllEuServiceSlugs();
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; service_name: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; service_name: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { service_name, locale } = await params;
-  return generateServiceMetadata({ serviceName: service_name, locale });
+  setRequestLocale(locale as Locale);
+  return generateServiceMetadata({ serviceName: service_name, locale, parent });
 }
 
 interface TabSpec {
@@ -57,6 +66,14 @@ interface TabSpec {
 
 // eslint-disable-next-line no-unused-vars
 type Translator = (key: string, values?: Record<string, string>) => string;
+
+// Free tiers are written per locale: "Free" (en), "Gratis" (nl), or a zero price
+// such as "€0", "€0,00" or "$0/maand".
+const FREE_PRICE = /^(free|gratis|[€$]\s?0(?:[.,]00)?(?:\/\S+)?)$/i;
+
+function isFreePrice(price: string): boolean {
+  return FREE_PRICE.test(price.trim());
+}
 
 function buildTabs(
   service: Service,
@@ -138,6 +155,7 @@ export default async function ServiceDetailPage({
   params: Promise<{ locale: Locale; service_name: string }>;
 }) {
   const { service_name, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("services.detail");
 
   const service = await getServiceBySlug(service_name, locale);
@@ -147,8 +165,6 @@ export default async function ServiceDetailPage({
   }
 
   const categorySlug = getCategorySlug(service.category);
-  const categoryFormatted =
-    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
   const screenshotUrl = getScreenshotUrl(service.screenshot);
   const relatedGuides = await getRelatedGuides(service.id, locale);
@@ -175,14 +191,12 @@ export default async function ServiceDetailPage({
   // Pre-compute overview fields
   const hasPricing = hasPricingData(service);
   const hasSecurity = hasSecurityData(service);
-  const freeTier = service.pricingTiers?.find(
-    (tier) =>
-      tier.price === "Free" || tier.price === "free" || tier.price === "€0"
+  const freeTier = service.pricingTiers?.find((tier) =>
+    isFreePrice(tier.price)
   );
-  const cheapestPaid = service.pricingTiers?.filter(
-    (tier) =>
-      tier.price !== "Free" && tier.price !== "free" && tier.price !== "€0"
-  )?.[0];
+  const cheapestPaid = service.pricingTiers?.find(
+    (tier) => !isFreePrice(tier.price)
+  );
 
   const gdprLabel =
     service.gdprCompliance === "compliant"
@@ -198,7 +212,7 @@ export default async function ServiceDetailPage({
   // gives us a populated source service, but we need the missingFeatures off
   // the guide itself which is on the guide doc.
   const filteredFeatures = service.features?.filter(
-    (f) => !/free/i.test(f.feature)
+    (f) => !/free|gratis/i.test(f)
   );
 
   // `relatedGuides` is fetched with depth: 1, which already populates the
@@ -209,43 +223,32 @@ export default async function ServiceDetailPage({
     return source ? [{ guide, nonEuService: source }] : [];
   });
 
+  const replacedServices = getServicesReplacedBy(service.slug, locale);
+  const tNav = await getTranslations("navigation");
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: service.category.title, path: `services/${categorySlug}` },
+          { name: service.name, path: `services/eu/${service_name}` },
+        ])}
+      />
       {/* Hero */}
       <Container noPaddingMobile>
         <Link
           href={`/services/${categorySlug}`}
-          className="inline-flex items-center gap-1.5 text-brand-green/60 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
+          className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
-          <span>&larr;</span>
-          <span>{categoryFormatted}</span>
+          {t("nonEu.redesign.heroBack", { category: service.category.shortTitle })}
         </Link>
 
         <Banner
-          color="bg-brand-navy"
+          color="bg-white border-y md:border border-black/10"
           {...(!screenshotUrl && {
             className: "[&>div]:py-8 [&>div]:sm:py-10",
           })}
-          shapes={[
-            {
-              shape: "spark",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48",
-            },
-            {
-              shape: "blob",
-              className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.1,
-              duration: "9s",
-              delay: "-3s",
-            },
-            {
-              shape: "diamond-4",
-              className: "top-1/3 -left-4 hidden md:block w-16 h-16",
-              opacity: 0.1,
-              duration: "7s",
-              delay: "-5s",
-            },
-          ]}
         >
           <div
             className={`grid gap-8 items-center ${
@@ -256,7 +259,7 @@ export default async function ServiceDetailPage({
           >
             <div>
               <div className="flex items-start gap-3 mb-3">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow">
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green">
                   {service.name}
                 </h1>
                 <div className="flex-shrink-0 mt-2">
@@ -264,45 +267,65 @@ export default async function ServiceDetailPage({
                 </div>
               </div>
 
-              <p className="text-brand-cream text-base sm:text-lg mb-4 max-w-2xl leading-relaxed">
+              <p className="text-[#1a1a1a] text-base sm:text-lg mb-4 max-w-2xl leading-relaxed">
                 {service.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                {service.featured && (
+                  <RecommendedPill label={t("recommendedAlternative.badge")} />
+                )}
+                <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {service.location}
                 </span>
                 {service.freeOption && (
-                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                  <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                     {t("freePlanPill")}
                   </span>
                 )}
                 {service.startingPrice && (
-                  <span className="inline-flex items-center gap-1.5 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                  <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                     {t("fromPrice", { price: service.startingPrice })}
                   </span>
                 )}
               </div>
 
+              {replacedServices.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mb-4 text-sm">
+                  <span className="text-[#1a1a1a]">{t("alternativeTo")}</span>
+                  {replacedServices.map((replaced) => (
+                    <Link
+                      key={replaced.slug}
+                      href={`/services/non-eu/${replaced.slug}`}
+                      className="rounded-full border border-brand-green/40 px-3 py-1 font-semibold text-brand-green no-underline hover:bg-brand-green hover:text-white transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
+                    >
+                      {replaced.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+
               <div className="flex flex-row gap-2">
                 <a
                   href={getOutboundUrl(service)}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 sm:px-6 py-2 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+                  rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
+                  className="inline-block px-4 sm:px-6 py-2 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
                 >
-                  {t("tryService", { service: service.name })} &rarr;
+                  {t("tryService", { service: service.name })}
                 </a>
                 {firstGuide && firstGuideCategory && (
                   <Link
                     href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
-                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                    className="inline-block px-4 sm:px-6 py-2 border-2 border-brand-green text-brand-green font-semibold rounded-full hover:bg-brand-green hover:text-white transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
                   >
                     {t("switchFrom", { service: firstSourceName ?? "" })}
                   </Link>
                 )}
               </div>
-              <AffiliateDisclosure className="mt-2 text-brand-cream/30 hover:text-brand-cream/50 decoration-brand-cream/20" />
+              {service.affiliateUrl && (
+                <AffiliateDisclosure className="mt-2 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+              )}
             </div>
             {screenshotUrl && (
               <div className="flex justify-center md:justify-end">
@@ -316,25 +339,6 @@ export default async function ServiceDetailPage({
                     priority
                     className="w-full h-auto object-cover rounded-2xl"
                   />
-                  {service.featured && (
-                    <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 flex items-center justify-center">
-                      <svg
-                        viewBox="0 0 362.94 366"
-                        className="w-28 h-28 sm:w-32 sm:h-32 text-brand-green drop-shadow-lg"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M166.52,360.05c-19.36-8.03-41.21-5.87-62.05-8.18-20.83-2.31-43.84-11.92-49.96-31.97-5.04-16.53,3.15-34.97-2.06-51.44-7.81-24.66-41.25-33.37-50.23-57.63-5.76-15.55.46-33.1,9.58-46.95,9.12-13.85,21.14-25.78,28.87-40.45,9.68-18.35,11.97-39.62,18.8-59.21,6.84-19.59,20.83-39.25,41.35-42.33,16.4-2.46,32.59,6.32,49.17,5.87,18.39-.5,34.31-12.06,50.84-20.14,16.53-8.08,38.34-12.16,51.86.32,10.92,10.08,12.24,27.37,22.51,38.11,10.86,11.35,28.27,12.28,43.85,14.26,15.58,1.98,33.43,7.89,38.23,22.84,3.89,12.1-2.62,24.95-9.81,35.44-7.19,10.48-15.61,21.27-16.03,33.97-.48,14.6,9.66,27.06,18.34,38.81,8.68,11.75,16.7,26.67,11.52,40.33-4.55,12-17.57,18.24-29.7,22.43-12.13,4.19-25.41,8.09-33.15,18.33-7.32,9.68-7.87,22.65-10.36,34.53-2.49,11.88-9.05,24.89-20.98,27.1-9.14,1.69-18.26-3.67-27.54-3.14-9.6.55-17.69,7.25-24.25,14.28-6.56,7.04-12.63,14.95-21.2,19.33-8.56,4.38-17.86-2.34-27.61-4.49"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span className="absolute text-white text-[9px] sm:text-[11px] font-bold uppercase leading-tight text-center px-2">
-                        {t("recommended")}
-                        <br />
-                        {t("recommendedBy")}
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
             )}
@@ -342,27 +346,29 @@ export default async function ServiceDetailPage({
         </Banner>
       </Container>
 
-      <ServiceSubNav tabs={tabs}>
+      <ServiceSubNav tabs={tabs} label={t("tabs.navLabel")}>
         <PageLayout className="pt-1 sm:pt-0 md:pt-0 pb-10 sm:pb-12 md:pb-14 md:gap-8">
           <TabsContent value={OVERVIEW_KEY} className="space-y-5 sm:space-y-7">
             {filteredFeatures && filteredFeatures.length > 0 && (
               <Container>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm sm:text-base text-[#1a1a1a]">
                   {filteredFeatures.map((f) => (
-                    <span
-                      key={f.feature}
-                      className="inline-block bg-brand-sky/25 text-brand-green px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium"
-                    >
-                      {f.feature}
-                    </span>
+                    <li key={f} className="inline-flex items-center gap-2">
+                      <Check
+                        className="h-4 w-4 shrink-0 text-brand-green"
+                        strokeWidth={2.5}
+                        aria-hidden="true"
+                      />
+                      {f}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </Container>
             )}
 
             {service.content && (
               <Container>
-                <div className="max-w-3xl">
+                <div className="max-w-[38rem]">
                   <div className="mdx-content prose prose-sm sm:prose max-w-none">
                     <RichText data={service.content} />
                   </div>
@@ -379,17 +385,16 @@ export default async function ServiceDetailPage({
                       scroll={false}
                       className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
                     >
-                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/80 mb-1">
                         {t("tabs.pricing")}
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
                         {freeTier && cheapestPaid
-                          ? `${t("snippetFree")} – ${cheapestPaid.price.replace("/month", "").replace("/user", "").replace(".", ",")} p/m`
+                          ? `${t("snippetFree")} – ${cheapestPaid.price}`
                           : freeTier
                             ? t("snippetFree")
                             : service.startingPrice ||
-                              t("snippetViewPlans")}{" "}
-                        <span aria-hidden="true">&rarr;</span>
+                              t("snippetViewPlans")}
                       </span>
                     </Link>
                   )}
@@ -400,12 +405,11 @@ export default async function ServiceDetailPage({
                       scroll={false}
                       className="group no-underline rounded-xl border border-brand-navy/10 bg-white p-4 sm:p-5 shadow-sm transition-all hover:border-brand-navy/30 hover:shadow-md"
                     >
-                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/45 mb-1">
+                      <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-navy/80 mb-1">
                         {t("tabs.security")}
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
-                        {gdprLabel || t("snippetViewDetails")}{" "}
-                        <span aria-hidden="true">&rarr;</span>
+                        {gdprLabel || t("snippetViewDetails")}
                       </span>
                     </Link>
                   )}
@@ -418,7 +422,7 @@ export default async function ServiceDetailPage({
             <TabsContent value="pricing" className="space-y-5 sm:space-y-7">
               <Container>
                 <div className="max-w-3xl">
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                  <h2 className="font-heading text-3xl text-brand-green mb-3">
                     {service.name} {t("pricing.title")}
                   </h2>
                   <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -439,7 +443,7 @@ export default async function ServiceDetailPage({
                         key={tier.name || index}
                         className="rounded-2xl p-5 sm:p-6 border border-brand-navy/10 bg-white shadow-sm"
                       >
-                        <h3 className="font-heading text-lg uppercase mb-1 text-brand-green">
+                        <h3 className="font-heading text-lg mb-1 text-brand-green">
                           {tier.name}
                         </h3>
                         <div className="text-3xl font-bold text-brand-navy">
@@ -452,13 +456,13 @@ export default async function ServiceDetailPage({
                           <ul className="space-y-2.5">
                             {tier.features.map((f) => (
                               <li
-                                key={f.feature}
+                                key={f}
                                 className="flex items-start gap-2 text-sm leading-relaxed text-foreground/75"
                               >
                                 <span className="mt-0.5 flex-shrink-0 text-brand-green">
                                   &#10003;
                                 </span>
-                                {f.feature}
+                                {f}
                               </li>
                             ))}
                           </ul>
@@ -475,7 +479,7 @@ export default async function ServiceDetailPage({
             <TabsContent value="security" className="space-y-5 sm:space-y-7">
               <Container>
                 <div className="max-w-3xl">
-                  <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                  <h2 className="font-heading text-3xl text-brand-green mb-3">
                     {service.name} {t("security.title")}
                   </h2>
                   <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -497,7 +501,7 @@ export default async function ServiceDetailPage({
                             service.gdprCompliance === "compliant"
                               ? "bg-brand-green/10 text-brand-green border-brand-green/20"
                               : service.gdprCompliance === "partial"
-                                ? "bg-brand-yellow/10 text-brand-orange border-brand-yellow/20"
+                                ? "bg-brand-yellow/20 text-[#1a1a1a] border-brand-yellow/40"
                                 : "bg-gray-100 text-gray-600 border-gray-200"
                           }`}
                         >
@@ -552,7 +556,7 @@ export default async function ServiceDetailPage({
                           rel="noopener noreferrer"
                           className="block text-brand-navy text-xs font-medium hover:underline mt-1"
                         >
-                          {t("security.viewSource")} &rarr;
+                          {t("security.viewSource")}
                         </a>
                       )}
                     </div>
@@ -573,11 +577,11 @@ export default async function ServiceDetailPage({
                         <div className="flex flex-wrap gap-2">
                           {service.dataStorageLocations.map((loc) => (
                             <span
-                              key={loc.location}
+                              key={loc}
                               className="inline-flex items-center gap-1.5 bg-brand-sky/10 text-brand-green px-3 py-1.5 rounded-full text-sm"
                             >
                               <span className="text-brand-sky">&#9679;</span>
-                              {loc.location}
+                              {loc}
                             </span>
                           ))}
                         </div>
@@ -593,13 +597,13 @@ export default async function ServiceDetailPage({
                         <ul className="space-y-2">
                           {service.certifications.map((cert) => (
                             <li
-                              key={cert.certification}
+                              key={cert}
                               className="flex items-start gap-2 text-sm text-gray-600"
                             >
                               <span className="text-brand-green mt-0.5 flex-shrink-0">
                                 &#10003;
                               </span>
-                              {cert.certification}
+                              {cert}
                             </li>
                           ))}
                         </ul>
@@ -620,7 +624,7 @@ export default async function ServiceDetailPage({
               >
                 <Container>
                   <div className="max-w-4xl">
-                    <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mb-3">
+                    <h2 className="font-heading text-3xl text-brand-green mb-3">
                       {service.name} vs {nonEuService.name}
                     </h2>
                     <p className="text-foreground/70 text-base sm:text-lg leading-relaxed">
@@ -718,14 +722,10 @@ export default async function ServiceDetailPage({
                         <CompareRow
                           label={t("compare.dataStorage")}
                           euValue={
-                            service.dataStorageLocations
-                              ?.map((l) => l.location)
-                              .join(", ") || t("compare.notDisclosed")
+                            (service.dataStorageLocations ?? []).join(", ") || t("compare.notDisclosed")
                           }
                           nonEuValue={
-                            nonEuService.dataStorageLocations
-                              ?.map((l) => l.location)
-                              .join(", ") || t("compare.notDisclosed")
+                            (nonEuService.dataStorageLocations ?? []).join(", ") || t("compare.notDisclosed")
                           }
                           highlight="eu"
                         />
@@ -734,7 +734,7 @@ export default async function ServiceDetailPage({
 
                     {nonEuService.issues && nonEuService.issues.length > 0 && (
                       <div>
-                        <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                        <h3 className="font-heading text-lg text-brand-green mb-3">
                           {t("compare.knownConcerns", {
                             service: nonEuService.name,
                           })}
@@ -742,13 +742,13 @@ export default async function ServiceDetailPage({
                         <ul className="space-y-2">
                           {nonEuService.issues.map((issue) => (
                             <li
-                              key={issue.issue}
+                              key={issue}
                               className="flex items-start gap-2 text-sm text-foreground/70 leading-relaxed"
                             >
                               <span className="text-brand-orange mt-0.5 flex-shrink-0">
                                 &bull;
                               </span>
-                              {issue.issue}
+                              {issue}
                             </li>
                           ))}
                         </ul>
@@ -758,7 +758,7 @@ export default async function ServiceDetailPage({
                     {guide.missingFeatures &&
                       guide.missingFeatures.length > 0 && (
                         <div className="rounded-2xl bg-brand-yellow/5 p-5 sm:p-6 border border-brand-yellow/20">
-                          <h3 className="font-heading text-lg uppercase text-brand-green mb-3">
+                          <h3 className="font-heading text-lg text-brand-green mb-3">
                             {t("compare.worthKnowing")}
                           </h3>
                           <p className="text-sm text-foreground/70 mb-3">
@@ -770,13 +770,13 @@ export default async function ServiceDetailPage({
                           <ul className="space-y-1.5">
                             {guide.missingFeatures.map((f) => (
                               <li
-                                key={f.feature}
+                                key={f}
                                 className="flex items-start gap-2 text-sm text-foreground/70"
                               >
                                 <span className="text-brand-orange mt-0.5 flex-shrink-0">
                                   &bull;
                                 </span>
-                                {f.feature}
+                                {f}
                               </li>
                             ))}
                           </ul>
@@ -793,6 +793,7 @@ export default async function ServiceDetailPage({
       <ServiceCta
         serviceName={service.name}
         serviceUrl={getOutboundUrl(service)}
+        affiliate={!!service.affiliateUrl}
         guideHref={
           firstGuide && firstGuideCategory
             ? `/guides/${firstGuideCategory}/${firstGuide.slug}`

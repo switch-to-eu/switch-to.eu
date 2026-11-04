@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function GainLosePanel({
   service,
@@ -10,13 +10,13 @@ export async function GainLosePanel({
 }) {
   const t = await getTranslations("services.detail.nonEu.redesign.gainLose");
 
-  const gain = (service.whatYoudGain ?? []).map((g) => g.point);
-  const lose = (service.whatYoudLose ?? []).map((l) => l.point);
+  const gain = service.whatYoudGain ?? [];
+  const lose = service.whatYoudLose ?? [];
   if (gain.length === 0 && lose.length === 0) return null;
 
   return (
     <section>
-      <h2 className="font-heading text-2xl sm:text-3xl uppercase text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("headingTemplate", {
           source: service.name,
           target: recommendedName,
@@ -45,7 +45,7 @@ export async function GainLosePanel({
         )}
         {lose.length > 0 && (
           <div>
-            <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-orange mb-3">
+            <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-brand-red mb-3">
               {t("lose")}
             </h3>
             <ul className="space-y-2.5">

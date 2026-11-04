@@ -1,21 +1,21 @@
-import { getPayload } from "@/lib/payload";
+import { getAllGuides } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GuideProgressWithI18n as GuideProgress } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd, isoDuration } from "@/lib/structured-data";
 import { notFound } from "next/navigation";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { NewsletterCta } from "@/components/NewsletterCta";
-import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
-import type { Guide } from "@/payload-types";
+import type { Guide } from "@/lib/content/types";
 import {
   getCategorySlug,
   getGuideBySlug,
@@ -24,14 +24,8 @@ import {
 } from "@/lib/services";
 
 // Generate static params for all guide pages
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "guides",
-    where: { _status: { equals: "published" } },
-    depth: 1,
-    limit: 100,
-  });
+export function generateStaticParams() {
+  const docs = getAllGuides("en");
   const locales = ["en", "nl"];
   return locales.flatMap((locale) =>
     docs.map((g: Guide) => ({
@@ -43,12 +37,16 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; category: string; service: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; category: string; service: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { category, service, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations("guides.service.meta");
 
@@ -67,9 +65,16 @@ export async function generateMetadata({
   const title = guide.metaTitle || t("title", { title: guide.title });
   const description = guide.metaDescription || guide.description;
 
-  return {
+  const metadata = await pageMetadata({
+    parent,
+    path: `guides/${category}/${service}`,
+    locale,
     title,
     description,
+  });
+
+  return {
+    ...metadata,
     keywords: [
       sourceServiceName,
       targetServiceName,
@@ -78,11 +83,7 @@ export async function generateMetadata({
       category,
     ],
     authors: guide.author ? [{ name: guide.author }] : undefined,
-    alternates: generateLanguageAlternates(`guides/${category}/${service}`, locale as AppLocale),
-    openGraph: {
-      title,
-      description,
-    },
+    openGraph: { ...metadata.openGraph, type: "article" },
   };
 }
 
@@ -92,6 +93,7 @@ export default async function GuideServicePage({
   params: Promise<{ locale: Locale; category: string; service: string }>;
 }) {
   const { category, service, locale } = await params;
+  setRequestLocale(locale);
 
   const guidesT = await getTranslations("guides");
   const serviceT = await getTranslations("guides.service");
@@ -106,16 +108,10 @@ export default async function GuideServicePage({
   const guideId = `${category}-${service}`;
 
   // Extract missing features from the structured array
-  const missingFeatures = (guide.missingFeatures ?? []).map(
-    (mf) => mf.feature
-  );
+  const missingFeatures = guide.missingFeatures ?? [];
 
   // Build steps data for the sidebar and progress tracking.
-  // Filter out any rows Payload hasn't assigned a stable id to yet so
-  // downstream code can rely on a non-null anchor id.
-  const guideSteps = (guide.steps ?? []).filter(
-    (s): s is typeof s & { id: string } => typeof s.id === "string" && s.id.length > 0
-  );
+  const guideSteps = guide.steps;
 
   const sidebarSteps = guideSteps.map((step) => ({
     title: step.title,
@@ -123,10 +119,7 @@ export default async function GuideServicePage({
   }));
 
   const stepsForRender = guideSteps.map((step) => {
-    const videoUrl =
-      step.video && typeof step.video === "object"
-        ? (step.video.url ?? null)
-        : null;
+    const videoUrl = step.video ?? null;
 
     return {
       title: step.title,
@@ -134,21 +127,25 @@ export default async function GuideServicePage({
       complete: step.complete ?? false,
       video: videoUrl,
       videoOrientation: step.videoOrientation ?? null,
-      content: step.content as SerializedEditorState | null,
+      content: step.content,
     };
   });
 
   // Count steps that have the "complete" flag for progress tracking
   const completableStepCount = guideSteps.filter((s) => s.complete).length;
 
+  const navT = await getTranslations("navigation");
+  const guidePath = `guides/${category}/${service}`;
+
   // HowTo JSON-LD structured data
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
+  const totalTime = isoDuration(guide.timeRequired);
   const howToJsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: guide.title,
     description: guide.description,
-    totalTime: guide.timeRequired,
+    ...(totalTime ? { totalTime } : {}),
     ...(guide.difficulty === "beginner"
       ? { educationalLevel: "Beginner" }
       : guide.difficulty === "intermediate"
@@ -164,9 +161,23 @@ export default async function GuideServicePage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      <JsonLd data={howToJsonLd} />
+      <JsonLd
+        data={articleJsonLd({
+          locale,
+          path: guidePath,
+          headline: guide.title,
+          description: guide.description,
+          datePublished: guide.date,
+          dateModified: guide.updatedAt,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: navT("home"), path: "" },
+          { name: guide.category.title, path: `services/${category}` },
+          { name: guide.title, path: guidePath },
+        ])}
       />
       {/* Mobile sidebar drawer - Only visible on mobile */}
       <MobileGuideSidebar
@@ -184,7 +195,7 @@ export default async function GuideServicePage({
             <div className="lg:col-span-8">
               {/* Header - Full width */}
               <div className="mb-8">
-                <h1 className="font-heading text-4xl sm:text-5xl uppercase text-brand-green mb-4">
+                <h1 className="font-heading text-3xl sm:text-4xl text-brand-green mb-4">
                   {guide.title}
                 </h1>
                 <div className="flex mt-4 space-x-3">
@@ -221,18 +232,18 @@ export default async function GuideServicePage({
               {/* Guide content with styling applied */}
               <article className="mdx-content">
                 {guide.intro && (
-                  <section id="section-intro" className="mb-10">
+                  <section id="section-intro" className="mb-10 max-w-[38rem]">
                     <RichText
-                      data={guide.intro as SerializedEditorState}
+                      data={guide.intro}
                       disableContainer
                     />
                   </section>
                 )}
 
                 {guide.beforeYouStart && (
-                  <section id="section-before" className="mb-10">
+                  <section id="section-before" className="mb-10 max-w-[38rem]">
                     <RichText
-                      data={guide.beforeYouStart as SerializedEditorState}
+                      data={guide.beforeYouStart}
                       disableContainer
                     />
                   </section>
@@ -265,18 +276,18 @@ export default async function GuideServicePage({
                 )}
 
                 {guide.troubleshooting && (
-                  <section id="section-troubleshooting" className="mb-10">
+                  <section id="section-troubleshooting" className="mb-10 max-w-[38rem]">
                     <RichText
-                      data={guide.troubleshooting as SerializedEditorState}
+                      data={guide.troubleshooting}
                       disableContainer
                     />
                   </section>
                 )}
 
                 {guide.outro && (
-                  <section id="section-outro" className="mb-10">
+                  <section id="section-outro" className="mb-10 max-w-[38rem]">
                     <RichText
-                      data={guide.outro as SerializedEditorState}
+                      data={guide.outro}
                       disableContainer
                     />
                   </section>
@@ -297,8 +308,8 @@ export default async function GuideServicePage({
                 <NewsletterCta contained={false} />
               </div>
 
-              <div className="mt-12 p-6 sm:p-8 bg-brand-sage/30 rounded-3xl">
-                <h2 className="font-heading text-xl uppercase text-brand-green mb-4">
+              <div className="mt-12 p-6 sm:p-8 bg-white border border-black/10 rounded-3xl">
+                <h2 className="font-heading text-xl text-brand-green mb-4 text-balance">
                   {serviceT("editGuide.title")}
                 </h2>
                 <p className="mb-4 text-brand-green/80">

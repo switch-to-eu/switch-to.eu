@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@switch-to-eu/ui/components/button";
-
+import { CircleAlert, CircleCheck } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -14,169 +13,139 @@ import {
   FormLabel,
   FormMessage,
 } from "@switch-to-eu/ui/components/form";
-
-import { Input } from "@switch-to-eu/ui/components/input";
 import { useTranslations, useLocale } from "next-intl";
 import { Container } from "@switch-to-eu/blocks/components/container";
-import { Banner } from "@switch-to-eu/blocks/components/banner";
 
-const createFormSchema = (validation: { required: string; invalidEmail: string }) =>
+const createFormSchema = (invalidEmail: string) =>
   z.object({
-    firstname: z.string().min(1, { message: validation.required }),
-    email: z.string().email({ message: validation.invalidEmail }),
+    email: z.string().email({ message: invalidEmail }),
   });
 
 type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
 
-export const NewsletterCta = ({ contained = true }: { contained?: boolean }) => {
+type Status = "idle" | "submitting" | "success" | "already" | "error";
+
+/**
+ * Newsletter sign-up on a sage anchor panel: what readers get on the left,
+ * one email field with the button inside it on the right (the same pill as
+ * the site search). The API only needs the email address.
+ */
+export const NewsletterCta = ({
+  contained = true,
+}: {
+  contained?: boolean;
+}) => {
   const t = useTranslations("newsletter");
   const v = useTranslations("validation");
   const locale = useLocale();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const Wrapper = contained
-    ? (props: { children: React.ReactNode }) => <Container noPaddingMobile>{props.children}</Container>
-    : "div";
+  const [status, setStatus] = useState<Status>("idle");
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(createFormSchema({
-      required: v("required"),
-      invalidEmail: v("invalidEmail"),
-    })),
-    defaultValues: {
-      firstname: "",
-      email: "",
-    },
+    resolver: zodResolver(createFormSchema(v("invalidEmail"))),
+    defaultValues: { email: "" },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    setError(null);
-
+  const onSubmit = async ({ email }: FormValues) => {
+    setStatus("submitting");
     try {
       const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          first_name: data.firstname,
-          language: locale,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, language: locale }),
       });
-
-      if (!response.ok) {
-        const errorData = (await response.json()) as { message?: string };
-        throw new Error(
-          errorData.message ?? "Failed to subscribe to newsletter"
-        );
+      // 409: the address is already on the list. Not an error for the reader.
+      if (response.status === 409) {
+        setStatus("already");
+        return;
       }
-
-      setIsSuccess(true);
+      if (!response.ok) {
+        throw new Error(`subscribe-failed-${response.status}`);
+      }
+      setStatus("success");
       form.reset();
     } catch (error) {
       console.error("Error submitting newsletter form:", error);
-      setError(
-        error instanceof Error ? error.message : "An unexpected error occurred"
-      );
-    } finally {
-      setIsSubmitting(false);
+      setStatus("error");
     }
   };
 
-  return (
-    <section>
-      <Wrapper>
-        <Banner
-          color="bg-brand-navy"
-          shapes={[
-            { shape: "sunburst", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48", opacity: 0.2 },
-            { shape: "blob", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", delay: "-3s" },
-            { shape: "spark", className: "top-1/2 right-1/4 w-24 h-24 sm:w-36 sm:h-36 -translate-y-1/2", opacity: 0.1, delay: "-5s" },
-          ]}
-          contentClassName="max-w-2xl mx-auto text-center"
-        >
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-8 sm:mb-10">
+  const done = status === "success" || status === "already";
+
+  const panel = (
+    <div className="bg-brand-sage md:rounded-3xl px-6 sm:px-10 md:px-14 py-9 sm:py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-center">
+        <div className="lg:col-span-6">
+          <h2 className="font-heading text-3xl sm:text-4xl leading-[1.05] text-brand-green text-balance mb-3">
             {t("title")}
           </h2>
-          <p className="text-brand-cream text-base sm:text-lg mb-8 sm:mb-10">
+          <p className="text-[#1a1a1a] text-base sm:text-lg leading-relaxed max-w-xl">
             {t("description")}
           </p>
+        </div>
 
-          {!isSuccess ? (
+        <div className="lg:col-span-6" aria-live="polite">
+          {done ? (
+            <p className="flex items-start gap-3 rounded-3xl bg-white px-5 py-4 font-semibold text-[#1a1a1a]">
+              <CircleCheck
+                className="mt-0.5 h-5 w-5 shrink-0 text-brand-green"
+                aria-hidden="true"
+              />
+              {status === "success" ? t("successMessage") : t("alreadySubscribed")}
+            </p>
+          ) : (
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="firstname"
-                    render={({ field }) => (
-                      <FormItem className="text-left">
-                        <FormLabel className="text-brand-cream/80 text-sm">
-                          {t("firstNameLabel")}
-                        </FormLabel>
+              <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="gap-2">
+                      <FormLabel className="sr-only">{t("emailLabel")}</FormLabel>
+                      <div className="flex items-center gap-2 rounded-full border border-brand-green/20 bg-white py-1.5 pl-5 pr-1.5 transition-colors focus-within:border-brand-green focus-within:ring-4 focus-within:ring-brand-green/20 sm:pl-6">
                         <FormControl>
-                          <Input
-                            placeholder="John"
-                            {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="text-left">
-                        <FormLabel className="text-brand-cream/80 text-sm">
-                          {t("emailLabel")}
-                        </FormLabel>
-                        <FormControl>
-                          <Input
+                          <input
                             type="email"
-                            placeholder="john.doe@example.com"
+                            autoComplete="email"
+                            placeholder={t("emailPlaceholder")}
                             {...field}
-                            className="h-12 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/30 rounded-full focus:border-brand-yellow focus:ring-brand-yellow"
+                            className="min-w-0 flex-1 bg-transparent py-2 text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/65 focus:outline-none"
                           />
                         </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                {error && (
-                  <div className="bg-brand-red/20 text-brand-red p-3 rounded-full text-sm">
-                    {error}
-                  </div>
+                        <button
+                          type="submit"
+                          disabled={status === "submitting"}
+                          className="shrink-0 rounded-full bg-brand-green px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-70 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green sm:px-6 sm:text-base"
+                        >
+                          {status === "submitting" ? t("submitting") : t("submitLabel")}
+                        </button>
+                      </div>
+                      <FormMessage className="pl-5 font-semibold text-[#1a1a1a]" />
+                    </FormItem>
+                  )}
+                />
+                {status === "error" && (
+                  <p
+                    role="alert"
+                    className="mt-3 flex items-start gap-2 rounded-2xl bg-white px-4 py-3 text-sm text-[#1a1a1a]"
+                  >
+                    <CircleAlert
+                      className="mt-0.5 h-4 w-4 shrink-0 text-brand-red"
+                      aria-hidden="true"
+                    />
+                    {t("errorMessage")}
+                  </p>
                 )}
-                <Button
-                  variant="cta"
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="h-12 px-8 text-base bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full font-semibold"
-                >
-                  {isSubmitting ? "..." : t("submitLabel")}
-                </Button>
               </form>
             </Form>
-          ) : (
-            <div className="bg-brand-green/30 p-6 rounded-3xl">
-              <p className="text-white text-lg font-medium">
-                {t("successMessage")}
-              </p>
-            </div>
           )}
-        </Banner>
-      </Wrapper>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section>
+      {contained ? <Container noPaddingMobile>{panel}</Container> : panel}
     </section>
   );
 };

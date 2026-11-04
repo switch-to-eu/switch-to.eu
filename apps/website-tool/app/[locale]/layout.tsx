@@ -28,9 +28,20 @@ export async function generateMetadata({
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: "layout.metadata" });
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://scan.switch-to.eu";
+
   return {
+    metadataBase: new URL(baseUrl),
     title: t("title"),
     description: t("description"),
+    openGraph: {
+      type: "website",
+      siteName: "switch-to.eu",
+      title: t("title"),
+      description: t("description"),
+      locale,
+    },
+    twitter: { card: "summary" },
     icons: {
       icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },

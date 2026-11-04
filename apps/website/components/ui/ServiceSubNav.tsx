@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Suspense,
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { useRouter, usePathname } from "@switch-to-eu/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import {
@@ -15,22 +22,40 @@ interface Tab {
 
 const OVERVIEW_KEY = "overview";
 
+/**
+ * Reads ?tab= in its own Suspense boundary. A static page cannot read the query
+ * on the server. If the tabs read it directly, all the listing text would leave
+ * the static HTML.
+ */
+function TabParamSync({
+  onChange,
+}: {
+  onChange: Dispatch<SetStateAction<string | null>>;
+}) {
+  const tab = useSearchParams().get("tab");
+  useEffect(() => onChange(tab), [tab, onChange]);
+  return null;
+}
+
 export function ServiceSubNav({
   tabs,
+  label,
   children,
 }: {
   tabs: Tab[];
+  /** Accessible name of the tab list. */
+  label: string;
   children: React.ReactNode;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get("tab");
+  const [tabParam, setTabParam] = useState<string | null>(null);
   const value = tabs.some((t) => t.key === tabParam)
     ? tabParam!
     : OVERVIEW_KEY;
 
   function handleValueChange(newValue: string) {
+    setTabParam(newValue === OVERVIEW_KEY ? null : newValue);
     const url =
       newValue === OVERVIEW_KEY
         ? pathname
@@ -46,19 +71,24 @@ export function ServiceSubNav({
       onValueChange={handleValueChange}
       className="gap-0"
     >
+      <Suspense fallback={null}>
+        <TabParamSync onChange={setTabParam} />
+      </Suspense>
       {showNav && (
-        <div className="sticky top-0 z-30 bg-[#e5e7eb]/90 backdrop-blur supports-[backdrop-filter]:bg-[#e5e7eb]/75 py-3 sm:py-4">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="overflow-x-auto scrollbar-none">
+        // Same ground and hairline as the site header: the bar reads as part
+        // of the page, not as a separate grey band.
+        <div className="sticky top-0 z-30 border-b border-black/10 bg-background py-3">
+          <div className="mx-auto max-w-7xl px-3 md:px-6 lg:px-8">
+            <div className="overflow-x-auto scrollbar-none p-0.5">
               <TabsList
-                aria-label="Service sections"
-                className="inline-flex h-auto w-max items-stretch gap-0.5 rounded-xl border border-brand-navy/10 bg-white p-1 shadow-sm"
+                aria-label={label}
+                className="h-auto w-max gap-1 rounded-none bg-transparent p-0"
               >
                 {tabs.map((tab) => (
                   <TabsTrigger
                     key={tab.key}
                     value={tab.key}
-                    className="flex-none whitespace-nowrap rounded-lg px-3.5 sm:px-4 py-2 text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-brand-navy/55 shadow-none transition-colors hover:text-brand-navy data-[state=active]:bg-brand-navy data-[state=active]:text-brand-yellow data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="h-auto flex-none whitespace-nowrap rounded-full border-0 px-4 py-2 text-sm font-semibold text-[#1a1a1a] shadow-none transition-colors hover:bg-black/5 data-[state=active]:bg-brand-green data-[state=active]:text-white data-[state=active]:shadow-none focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-brand-green"
                   >
                     {tab.label}
                   </TabsTrigger>

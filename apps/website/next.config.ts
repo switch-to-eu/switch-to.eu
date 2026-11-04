@@ -1,19 +1,26 @@
 import type { NextConfig } from "next";
-import { withPayload } from "@payloadcms/next/withPayload";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { isNonProductionDeploy } from "./lib/indexing";
+
 const nextConfig: NextConfig = {
+  // Each locale has its own root layout, so paths outside a locale need this.
+  experimental: { globalNotFound: true },
   transpilePackages: [
     "@switch-to-eu/ui",
     "@switch-to-eu/i18n",
     "@switch-to-eu/blocks",
   ],
+  // Markdown content lives in /content at the repo root and is read with fs
+  // at runtime by the search, sitemap and llm routes, so ship it with every
+  // server bundle.
+  outputFileTracingIncludes: {
+    "/**": ["../../content/**/*.md"],
+  },
   // Configure pageExtensions to include md and mdx
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
-    // Payload media is served from Vercel Blob when BLOB_READ_WRITE_TOKEN
-    // is set (see payload.config.ts), otherwise from /api/media/file/* on
-    // the same origin.
+    // Guide videos live on Vercel Blob (too large for git).
     remotePatterns: [
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
@@ -108,6 +115,29 @@ const nextConfig: NextConfig = {
         destination: "/:locale/services/eu/tuta/:path*",
         permanent: true,
       },
+      // Renamed slug: protonmail → proton-mail
+      {
+        source: "/:locale/services/eu/protonmail",
+        destination: "/:locale/services/eu/proton-mail",
+        permanent: true,
+      },
+      // Renamed slug: x-(twitter) → x-twitter
+      {
+        source: "/:locale/services/non-eu/x-\\(twitter\\)",
+        destination: "/:locale/services/non-eu/x-twitter",
+        permanent: true,
+      },
+      {
+        source: "/:locale/services/non-eu/x-%28twitter%29",
+        destination: "/:locale/services/non-eu/x-twitter",
+        permanent: true,
+      },
+      // Removed service: koofr → its category
+      {
+        source: "/:locale/services/eu/koofr",
+        destination: "/:locale/services/storage",
+        permanent: true,
+      },
       // /llm.txt → /llms.txt (common alternative URL)
       {
         source: "/llm.txt",
@@ -139,9 +169,18 @@ const nextConfig: NextConfig = {
         source: "/_next/static/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
+      // dev.switch-to.eu and preview URLs: keep every response out of search.
+      ...(isNonProductionDeploy
+        ? [
+            {
+              source: "/:path*",
+              headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+            },
+          ]
+        : []),
     ];
   },
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withPayload(withNextIntl(nextConfig));
+export default withNextIntl(nextConfig);

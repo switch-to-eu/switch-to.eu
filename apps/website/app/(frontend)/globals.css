@@ -5,11 +5,79 @@
 @source '../../node_modules/@switch-to-eu/blocks/src';
 
 :root {
-  --background: #e5e7eb;
+  /* Warm off-white page. Cards sit on it in white with a hairline border. */
+  --background: #f1eee8;
   --tool-primary: #2d2d2d;
   --tool-primary-foreground: #ffffff;
   --tool-accent: var(--brand-sky);
   --tool-accent-foreground: #1a1a1a;
   --tool-surface: var(--brand-sky);
   --tool-surface-foreground: #1a1a1a;
+}
+
+/* Text selection in brand colours rather than the browser default. */
+::selection {
+  background-color: var(--brand-yellow);
+  color: var(--brand-green);
+}
+
+/*
+ * News article reading column. Builds on .mdx-content: calmer type, links
+ * that read as links in running text, more air above section heads.
+ */
+.article-body p,
+.article-body li {
+  font-size: inherit;
+  line-height: inherit;
+}
+.article-body p {
+  margin-bottom: 1.25em;
+}
+.article-body h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
+  line-height: 1.05;
+  color: var(--brand-green);
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+  text-wrap: balance;
+}
+.article-body a {
+  color: var(--brand-green);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--brand-green) 45%, transparent);
+  transition: text-decoration-color 150ms ease-out;
+}
+.article-body a:hover {
+  text-decoration-color: currentColor;
+}
+.article-body a:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.article-body blockquote {
+  border: 0;
+  background: var(--brand-cream);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  font-style: normal;
+  color: var(--brand-green);
+}
+.article-body > div > p:first-child {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: var(--brand-green);
+}
+
+/*
+ * Avoid single-word last lines ("stragglers") in running text, flagged by
+ * the impeccable detector. Headings already use text-balance.
+ */
+p,
+dd,
+li,
+blockquote {
+  text-wrap: pretty;
 }

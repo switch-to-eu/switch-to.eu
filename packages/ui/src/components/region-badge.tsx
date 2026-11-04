@@ -28,6 +28,7 @@ export function RegionBadge({ region, showTooltip = true, className }: RegionBad
     variant = 'success'
     label = 'EU'
     tooltipText = 'This service is based in the European Union and follows EU regulations'
+    badgeClass = 'badge-eu'
   } else if (region === 'eu-friendly') {
     variant = 'default' // Will be overridden by our custom class
     label = 'EU-Friendly'

@@ -1,5 +1,5 @@
 import { getTranslations, getFormatter } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function Sources({ service }: { service: Service }) {
   const t = await getTranslations("services.detail.nonEu.redesign.sources");
@@ -18,7 +18,7 @@ export async function Sources({ service }: { service: Service }) {
 
   return (
     <section id="sources">
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-3">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-3">
         {t("title")}
       </h2>
       {lastReviewed && (
@@ -29,9 +29,6 @@ export async function Sources({ service }: { service: Service }) {
       <ul className="space-y-1.5 text-sm">
         {urls.map((s, i) => (
           <li key={i} className="flex gap-2">
-            <span aria-hidden className="text-foreground/40 shrink-0">
-              &rarr;
-            </span>
             <a
               href={s.url}
               target="_blank"

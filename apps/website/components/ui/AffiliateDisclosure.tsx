@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { cn } from "@switch-to-eu/ui/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -16,13 +17,16 @@ export function AffiliateDisclosure({ className }: { className?: string }) {
   return (
     <Dialog>
       <DialogTrigger
-        className={`text-[11px] text-gray-400 hover:text-gray-500 transition-colors underline decoration-gray-300 underline-offset-2 ${className ?? ""}`}
+        className={cn(
+          "py-1 text-xs text-gray-600 hover:text-gray-800 transition-colors underline decoration-gray-400 underline-offset-2",
+          className
+        )}
       >
         {t("affiliateNote")}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-heading text-lg uppercase text-brand-green">
+          <DialogTitle className="font-heading text-lg text-brand-green">
             {t("affiliateTitle")}
           </DialogTitle>
           <DialogDescription className="text-sm text-gray-600 leading-relaxed">

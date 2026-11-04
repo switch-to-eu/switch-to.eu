@@ -1,71 +1,33 @@
 ---
 name: humanize
-description: Strip AI writing patterns from content stored in Payload CMS. Use when asked to "humanize", "de-AI", "make this sound human", "clean up the writing", or review content for AI patterns. Runs a two-pass rewrite on content fetched via MCP.
+description: Strip AI writing patterns from site content in content/ (markdown files). Use when asked to "humanize", "de-AI", "make this sound human", "clean up the writing", or review content for AI patterns. Runs a two-pass rewrite on the content file.
 argument-hint: "'service <name>' or 'guide <slug>'"
 ---
 
 # Humanize Skill
 
-Remove AI writing patterns from content in Payload CMS. Two-pass process: rewrite, then audit.
+Remove AI writing patterns from content in `content/` (see `.claude/skills/_shared/content-files.md`). Two-pass process: rewrite, then audit.
 
-## AI Pattern Detection List
+## Rules
 
-These patterns signal AI-generated text. Find and fix all of them.
-
-### Structural patterns
-1. **Rule of three**: "X, Y, and Z" lists appearing more than once per 200 words
-2. **Parallel sentence openings**: 3+ consecutive sentences starting the same way
-3. **Symmetric paragraphs**: Every paragraph roughly the same length
-4. **Formulaic transitions**: "Moreover," "Furthermore," "Additionally," at paragraph starts
-5. **Setup-punchline structure**: "While X may seem Y, the reality is Z"
-
-### Word-level patterns
-6. **Inflated vocabulary**: "utilize" (use), "facilitate" (help), "leverage" (use), "implement" (do/set up), "comprehensive" (specific list instead), "robust" (describe what it actually does)
-7. **Hedging clusters**: "It's important to note that," "It's worth mentioning," "It should be noted"
-8. **Vague intensifiers**: "very," "really," "incredibly," "extremely," "significantly"
-9. **AI-favorite words**: "delve," "landscape," "tapestry," "realm," "paradigm," "synergy," "ecosystem" (unless technically accurate), "holistic," "seamless," "cutting-edge," "game-changer"
-10. **Promotional adjectives**: "revolutionary," "groundbreaking," "innovative," "state-of-the-art," "best-in-class"
-
-### Tone patterns
-11. **Excessive enthusiasm**: Multiple exclamation marks, "exciting," "amazing," "incredible"
-12. **False certainty**: "undoubtedly," "without question," "clearly" (when the thing isn't clear)
-13. **Anthropomorphization**: "the tool understands," "the platform knows," "the service cares"
-14. **Reader flattery**: "as a savvy user," "for discerning professionals"
-15. **Empty empathy**: "we understand how frustrating," "we know how important"
-
-### Punctuation patterns
-16. **Em dash overuse**: More than 1 per 500 words (our rule: zero em dashes)
-17. **Semicolons**: Remove all. Split into two sentences.
-18. **Ellipses for drama**: "And then... everything changed."
+Read `.claude/skills/_shared/voice.md` and `.claude/skills/_shared/humanize-patterns.md` first. They hold the voice, the 18 patterns, the passes and the checklist.
 
 ## Process
 
 ### Step 1: Fetch the content
 
-For services: `mcp__payload__findServices` with name search, get `description`, `content`, `features`, `issues`.
-For guides: `mcp__payload__findGuides` with slug search, get `intro`, `beforeYouStart`, `steps`, `troubleshooting`, `outro`.
+For services: find the file with `grep -il '^name: .*NAME' content/services/*/en.md` and read it. Check `description`, `features`, `issues` (frontmatter) and the markdown body.
+For guides: read `content/guides/<slug>/en.md`. Check the `intro`, `beforeYouStart`, `steps` (each step's markdown and step-meta `title`), `troubleshooting` and `outro` sections of the body.
 
-### Step 2: First pass — Rewrite
+### Step 2: Run the passes
 
-Go through every text field. For each one:
-- Find every instance of the 18 patterns above
-- Rewrite to sound natural. Shorter sentences. Specific details instead of adjectives.
-- Vary sentence length: mix 6-word and 20-word sentences
-- Use contractions naturally ("it's", "don't", "won't")
-- Replace any "not just X, but also Y" with two plain statements
+Run the rewrite, audit and fact comparison passes from `_shared/humanize-patterns.md` on every text field.
 
-### Step 3: Second pass — Audit
+All passes follow the **Evidence guard** in `_shared/humanize-patterns.md`: change the style, never the facts. Keep "not listed" hedges, attributions, numbers and dates. An opinion from us rests on a fact already in the text or the research fields.
 
-Read the rewritten version and ask: "What still makes this obviously AI-generated?"
-Fix those remaining issues. Common second-pass catches:
-- Too-perfect paragraph structure (add one short 1-sentence paragraph)
-- No contractions (add 2-3 natural ones)
-- Every sentence follows subject-verb-object (vary with an occasional "The hard part:" or "In practice:")
-- No personality (add one slightly opinionated observation with "Worth knowing:" or "The catch:")
+### Step 4: Save back to the file
 
-### Step 4: Save back to Payload
-
-Use `mcp__payload__updateServices` or `mcp__payload__updateGuides` to save the rewritten content. Only update the text fields that changed.
+Edit the `en.md` with targeted Edit calls. Only update the text fields that changed. For guides, keep every section and step marker exactly as it was. Only change the text that needs it. Keep frontmatter group comments, key order and quoting rules from `_shared/content-files.md`. Bump `updatedAt` and run the validation snippet. Don't add or remove `draft`.
 
 ### Step 5: Report
 
@@ -76,12 +38,4 @@ Tell the user:
 
 ## Verification
 
-After humanizing, the content should pass these checks:
-- [ ] No em dashes anywhere
-- [ ] No semicolons
-- [ ] No words from the banned list
-- [ ] Sentence length varies (some 5-8 words, some 15-25)
-- [ ] At least one contraction per 100 words
-- [ ] No three consecutive sentences starting the same way
-- [ ] At least one acknowledged limitation or trade-off
-- [ ] Reading it aloud doesn't feel robotic
+Use the checklist in `_shared/humanize-patterns.md`.

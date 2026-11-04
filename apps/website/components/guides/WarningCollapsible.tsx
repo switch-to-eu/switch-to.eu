@@ -33,7 +33,7 @@ export function WarningCollapsible({
     warning: {
       container: "md:rounded-2xl border-y md:border border-brand-orange",
       button: "hover:bg-brand-orange/5",
-      badge: "bg-brand-orange/10 text-brand-orange",
+      badge: "bg-brand-orange/15 text-[#1a1a1a]",
       icon: "text-brand-orange",
       bullet: "text-brand-orange"
     },

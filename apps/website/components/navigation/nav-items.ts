@@ -1,40 +1,23 @@
-import { unstable_cache } from "next/cache";
-import { getPayload } from "@/lib/payload";
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
+import { getAllCategories } from "@/lib/content/loader";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
-import type { Category } from "@/payload-types";
 
 const i18nKeyMap: Record<string, string> = {
   "eu-scan": "euScan",
 };
 
-// Header/Footer render on every page in the app — this fetch was the residual
-// 3–4 DB transactions per "warm" request. Cache the trimmed nav payload and
-// invalidate via the `categories` tag in afterChange hooks.
-const getNavCategories = unstable_cache(
-  async (): Promise<Pick<Category, "title" | "slug" | "description" | "icon">[]> => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "categories",
-      locale: "en",
-      limit: 100,
-      sort: "title",
-      select: { title: true, slug: true, description: true, icon: true },
-    })) as { docs: Pick<Category, "title" | "slug" | "description" | "icon">[] };
-    return docs;
-  },
-  ["nav-categories"],
-  { tags: ["categories"] }
-);
+const getNavCategories = () =>
+  getAllCategories("en").sort((a, b) => a.title.localeCompare(b.title));
 
 export async function getNavItems(): Promise<MainNavItem[]> {
-  const categoryDocs = await getNavCategories();
+  const categoryDocs = getNavCategories();
   const categories = categoryDocs.map((category) => ({
     title: category.title,
     href: `/services/${category.slug}`,
     description: category.description,
-    icon: category.icon,
+    icon: category.icon ?? undefined,
   }));
 
   const t = await getTranslations("navigation");
@@ -60,6 +43,7 @@ export async function getNavItems(): Promise<MainNavItem[]> {
       dropdown: "mega",
       children: [...categories],
     },
+    ...(NEWS_INDEX_ENABLED ? [{ title: t("news"), href: `/news` }] : []),
     {
       title: t("tools"),
       href: `/tools`,

@@ -4,8 +4,8 @@
   },
   "layout": {
     "metadata": {
-      "title": "EU-Scan — Controleer of een Website EU-diensten Gebruikt | switch-to.eu",
-      "description": "Analyseer een website om te controleren of deze EU-diensten gebruikt en voldoet aan de GDPR."
+      "title": "EU-Scan: hoe EU-vriendelijk is een website? | switch-to.eu",
+      "description": "Vul een domein in en zie waar de hosting, e-mail, CDN, domeinregistrar en andere diensten zijn gevestigd. EU-Scan toont hoe EU-vriendelijk een website is."
     },
     "header": {
       "home": "Home"

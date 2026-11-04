@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { unstable_cache } from "next/cache";
-import { getPayload } from "@/lib/payload";
-import type { Service, Guide, Category } from "@/payload-types";
+import { getAllCategories, getAllGuides, getAllServices } from "@/lib/content/loader";
 import type { SearchResult } from "@/lib/types";
 import {
   getCategorySlug,
@@ -19,130 +17,78 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-async function fetchSearchResults(
+function fetchSearchResults(
   query: string,
   lang: Locale,
   limit: number,
   region: "eu" | "non-eu" | undefined,
   types: SearchType[]
-): Promise<SearchResult[]> {
-  const payload = await getPayload();
-  const queries: Promise<SearchResult[]>[] = [];
+): SearchResult[] {
+  const needle = query.toLowerCase();
+  const matches = (...fields: (string | null | undefined)[]) =>
+    fields.some((f) => f?.toLowerCase().includes(needle));
+  const results: SearchResult[] = [];
 
   if (types.includes("service")) {
-    queries.push(
-      payload
-        .find({
-          collection: "services",
-          locale: lang,
-          limit,
-          where: {
-            and: [
-              { _status: { equals: "published" } },
-              {
-                or: [
-                  { name: { contains: query } },
-                  { description: { contains: query } },
-                ],
-              },
-              ...(region ? [{ region: { equals: region } }] : []),
-            ],
-          },
-          depth: 1,
-        })
-        .then(({ docs }) =>
-          docs.map((service: Service): SearchResult => ({
-            id: String(service.id),
-            type: "service",
-            title: service.name,
-            description: service.description,
-            url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
-            region: service.region,
-            category: getCategorySlug(service.category),
-            location: service.location,
-            freeOption: service.freeOption ?? undefined,
-          }))
-        )
+    results.push(
+      ...getAllServices(lang)
+        .filter((s) => matches(s.name, s.description))
+        .filter((s) => !region || s.region === region)
+        .slice(0, limit)
+        .map((service): SearchResult => ({
+          id: service.id,
+          type: "service",
+          title: service.name,
+          description: service.description,
+          url: `/services/${service.region === "non-eu" ? "non-eu" : "eu"}/${service.slug}`,
+          region: service.region,
+          category: getCategorySlug(service.category),
+          location: service.location,
+          freeOption: service.freeOption ?? undefined,
+        }))
     );
   }
 
   if (types.includes("guide")) {
-    queries.push(
-      payload
-        .find({
-          collection: "guides",
-          locale: lang,
-          limit,
-          where: {
-            and: [
-              { _status: { equals: "published" } },
-              {
-                or: [
-                  { title: { contains: query } },
-                  { description: { contains: query } },
-                ],
-              },
-            ],
-          },
-          depth: 1,
+    results.push(
+      ...getAllGuides(lang)
+        .filter((g) => matches(g.title, g.description))
+        .slice(0, limit)
+        .map((guide): SearchResult => {
+          const categorySlug = getCategorySlug(guide.category);
+          return {
+            id: guide.id,
+            type: "guide",
+            title: guide.title,
+            description: guide.description,
+            url: `/guides/${categorySlug || "uncategorized"}/${guide.slug}`,
+            category: categorySlug,
+            sourceService: getGuideSourceService(guide)?.name,
+            targetService: getGuideTargetService(guide)?.name,
+          };
         })
-        .then(({ docs }) =>
-          docs.map((guide: Guide): SearchResult => {
-            const categorySlug = getCategorySlug(guide.category);
-            return {
-              id: String(guide.id),
-              type: "guide",
-              title: guide.title,
-              description: guide.description,
-              url: `/guides/${categorySlug || "uncategorized"}/${guide.slug}`,
-              category: categorySlug,
-              sourceService: getGuideSourceService(guide)?.name,
-              targetService: getGuideTargetService(guide)?.name,
-            };
-          })
-        )
     );
   }
 
   if (types.includes("category")) {
-    queries.push(
-      payload
-        .find({
-          collection: "categories",
-          locale: lang,
-          limit,
-          where: {
-            or: [
-              { title: { contains: query } },
-              { description: { contains: query } },
-            ],
-          },
-        })
-        .then(({ docs }) =>
-          docs.map((cat: Category): SearchResult => ({
-            id: String(cat.id),
-            type: "category",
-            title: cat.title,
-            description: cat.description,
-            url: `/services/${cat.slug}`,
-          }))
-        )
+    results.push(
+      ...getAllCategories(lang)
+        .filter((c) => matches(c.title, c.description))
+        .slice(0, limit)
+        .map((cat): SearchResult => ({
+          id: cat.id,
+          type: "category",
+          title: cat.title,
+          description: cat.description,
+          url: `/services/${cat.slug}`,
+        }))
     );
   }
 
-  const resultArrays = await Promise.all(queries);
-  return resultArrays.flat().slice(0, limit);
+  return results.slice(0, limit);
 }
 
-// Cache search results — content changes trigger revalidateTag in
-// afterChange hooks on each collection. 1h revalidate is a safety net.
-const getCachedSearchResults = unstable_cache(
-  fetchSearchResults,
-  ["search-results"],
-  { tags: ["services", "guides", "categories"], revalidate: 3600 }
-);
-
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const query = (searchParams.get("q") || "").trim();
@@ -170,7 +116,7 @@ export async function GET(request: NextRequest) {
     const langParam = searchParams.get("lang");
     const lang: Locale = (langParam as Locale) || "en";
 
-    const results = await getCachedSearchResults(
+    const results = fetchSearchResults(
       query,
       lang,
       limit,

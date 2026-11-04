@@ -11,9 +11,12 @@ export function ServiceCta({
   serviceUrl,
   guideHref,
   sourceServiceName,
+  affiliate = false,
 }: {
   serviceName: string;
   serviceUrl: string;
+  /** serviceUrl is an affiliate link: mark it sponsored and show the disclosure. */
+  affiliate?: boolean;
   guideHref?: string | null;
   sourceServiceName?: string | null;
 }) {
@@ -23,46 +26,36 @@ export function ServiceCta({
     <section>
       <Container noPaddingMobile>
         <Banner
-          color="bg-brand-navy"
-          shapes={[
-            {
-              shape: "sunburst",
-              className: "-top-8 -right-8 w-36 h-36",
-              opacity: 0.2,
-            },
-            {
-              shape: "blob",
-              className: "-bottom-10 -left-10 w-40 h-40",
-              delay: "-3s",
-            },
-          ]}
+          color="bg-white border-y md:border border-black/10"
           contentClassName="text-center max-w-2xl mx-auto"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl uppercase text-brand-yellow mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl text-brand-green mb-4">
             {t("cta.title", { service: serviceName })}
           </h2>
-          <p className="text-brand-cream text-base sm:text-lg mb-8">
+          <p className="text-[#1a1a1a] text-base sm:text-lg mb-8">
             {t("cta.description")}
           </p>
           <div className="flex flex-row gap-2 sm:gap-3 justify-center">
             <a
               href={serviceUrl}
               target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-yellow text-brand-navy font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
+              rel={affiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
+              className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
             >
-              {t("tryService", { service: serviceName })} &rarr;
+              {t("tryService", { service: serviceName })}
             </a>
             {guideHref && sourceServiceName && (
               <Link
                 href={guideHref}
-                className="inline-block px-4 sm:px-8 py-2 sm:py-3 border-2 border-brand-yellow text-brand-yellow font-semibold rounded-full hover:bg-brand-yellow hover:text-brand-navy transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
+                className="inline-block px-4 sm:px-8 py-2 sm:py-3 border-2 border-brand-green text-brand-green font-semibold rounded-full hover:bg-brand-green hover:text-white transition-colors text-xs sm:text-sm no-underline whitespace-nowrap"
               >
                 {t("switchFrom", { service: sourceServiceName })}
               </Link>
             )}
           </div>
-          <AffiliateDisclosure className="mt-4 text-brand-cream/40 hover:text-brand-cream/60 decoration-brand-cream/20" />
+          {affiliate && (
+            <AffiliateDisclosure className="mt-4 text-gray-700 hover:text-gray-900 decoration-gray-400" />
+          )}
         </Banner>
       </Container>
     </section>

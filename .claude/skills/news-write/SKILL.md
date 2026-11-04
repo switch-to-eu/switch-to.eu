@@ -1,0 +1,93 @@
+---
+name: news-write
+description: Write today's news article from the knowledge base. Builds context from the picked story, its entities, graph neighbours, the cited source notes and our previous coverage, then writes content/articles/<slug>/en.md as a draft with inline source links, internal links to services and guides, and a "What this means for you" section. Use when asked to "write the news article", "news write", "write an article about <story>", or after /news-pick.
+argument-hint: "optional: '<story-slug>' and an angle in quotes; default = today's pick from knowledge/log.md"
+---
+
+# News Write Skill
+
+Write one English article that advances one story. The owner approves it by removing `draft`.
+
+Read first:
+- `../_shared/content-files.md`, section **Articles**: the file format, slug rules, body rules and approval flow. Follow it exactly.
+- `../_shared/voice.md`: the voice, the writing steps and the rules. Follow it. `../informational-copy/SKILL.md` has the honesty patterns.
+- `knowledge/README.md` and `../_shared/knowledge.md`.
+
+## Inputs
+
+- `<story-slug> "angle"`: write that.
+- No argument: today's pick from `/news-pick` in this conversation, else the latest `pick` line for today in `knowledge/log.md`. No pick today → stop and suggest running `/news-pick`.
+
+## Step 1: Build context
+
+Start with the brief. Run `pnpm knowledge:index` first if `knowledge/` changed since the last index.
+
+```bash
+pnpm -s knowledge context <story-slug> --budget 6000 2>/dev/null
+```
+
+It gives the story's timeline with its claim refs, its best passages, and every entity, service, source and article one hop away, with summaries. Use it to plan and to see what to read. It is a map, not evidence: every fact in the article still rests on a claim in a source note you read in full (Step 2).
+
+Then gather, in this order, and stop reading when you have enough:
+
+1. **The story page** `knowledge/stories/<slug>.md`, in full.
+2. **Its entities (1 hop)**: every slug in the story's `entities:`. Read `## Current state` and the facts newer than `last_covered`.
+3. **Neighbours (2 hops), summaries only**: `pnpm -s knowledge related <entity-slug> --hops 1 2>/dev/null` for each of those entities. Read only their `summary:` line or story `title`. This is for framing, not facts.
+4. **Source notes**: every source the brief cites in the timeline since `last_covered`, plus any source whose claim you plan to state. Read each note in full: url, publisher, published date, reliability, claims. `pnpm -s knowledge node <source-slug> 2>/dev/null` gives its path.
+5. **Our previous coverage**: every `[[articles/<slug>]]` in `## Our coverage`. Read those articles' en.md. List what they already said, so you don't repeat it. A one-sentence recap with a link to the earlier article is fine.
+6. **Site content to link**: each slug in the story's `services:` and `categories:` (`content/services/<slug>/en.md`: `name`, `region`, `category`, `description`), plus guides for those services (`pnpm -s knowledge node services/<slug> 2>/dev/null` lists them under Links as `migrates-from` or `migrates-to`).
+
+## Step 2: Write
+
+**Slug:** English, kebab-case, 3 to 7 words, the news not the date (`dutch-finance-ministry-cloud-tender`). Check `ls content/articles/<slug>` is free.
+
+**Frontmatter** per the Articles spec: `title`, `description` (140-160 chars), `date: '<today>'`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources` (one entry per source note you used: title, publisher, url, date = published), `author: Simon Peters`, `# SEO` (`metaTitle` when the title is over 60 chars, `keywords` 3-8), `# Workflow` with `draft: true` and `updatedAt: '<today>'`. Every slug you list must exist.
+
+**Body:**
+- Lead with what changes for the reader: what happens, who, when, the key number. First paragraph stands on its own. Group by the reader's situation when readers differ ("If you built a GPT").
+- Then context: why it matters for the EU, what came before (link the earlier article if we have one), what's still open.
+- **Every factual sentence rests on a claim** in a source note you read. Link the source inline at the claim, with a normal markdown link to the source note's `url`: `the ministry [put €120M out to tender](https://nos.nl/...)`. One link per source per paragraph is enough.
+- Low-reliability sources: attribute ("users on r/BuyFromEU report…") or leave out. Contested claims: attribute ("Microsoft says…").
+- No speculation beyond the story's `## Open questions`, and phrase those as open ("The ministry hasn't said which providers bid.").
+- Internal links, root-relative, no locale: services `/services/eu/<slug>` (region `eu` or `eu-friendly`) or `/services/non-eu/<slug>`, categories `/services/<category-slug>`, guides `/guides/<category>/<guide-slug>`, our earlier articles `/news/<article-slug>` (only approved ones, never a draft).
+- End with what an EU reader can do. Use a heading that names the reader's situation, not a label. `## What this means for you` is a fallback. Give the action with links to the relevant services or guides, and the honest trade-off (price, missing features, effort). Skip the section only when nothing is actionable, and say so in the report.
+- Length: `news` 300-600 words, `analysis` up to 1,200. `##` subheads only past ~400 words. No H1.
+- Tone: calm, with the answer first (see `../_shared/voice.md`). Direct, warm, specific. Swagger nowhere. No "breaking", no "game-changer", no outrage.
+
+Keep a private claim map while writing (sentence → `[[source#cN]]`). Put it in your report so `/news-check` and the owner can verify quickly. It doesn't go in the file.
+
+**Header photo:** pick an openly licensed photo per "Article photos" in `../_shared/content-files.md`, save it to `apps/website/public/images/articles/<slug>.jpg` and fill `image`, `imageAlt`, `imageCredit` and `imageCreditUrl`. Mention the photo and its licence in your report so the owner can check it.
+
+Validate the frontmatter with the snippet in `../_shared/content-files.md`.
+
+## Step 3: File it in the story
+
+In `knowledge/stories/<story>.md`:
+- Add a line at the top of `## Our coverage`: `- <today> · [[articles/<slug>]], angle: <angle>.`
+- Set `last_covered: '<today>'` and `updated: '<today>'`.
+
+The README says `last_covered` is set on approval. We set it **on write** instead, so tomorrow's `/news-pick` doesn't pick the same story while this draft waits for review. If the owner rejects the article and deletes it, `/knowledge-lint` removes the coverage line and restores `last_covered` from the previous one.
+
+## Step 4: Close
+
+`pnpm knowledge:index` and `pnpm knowledge:index --check` (the new `articles/<slug>` link must resolve). Log:
+
+```
+2026-11-02 write   | content/articles/dutch-finance-ministry-cloud-tender/en.md | story dutch-government-cloud-exit, last_covered set on write (draft)
+```
+
+## Report
+
+```
+✓ news-write: dutch-finance-ministry-cloud-tender (news, 480 words, draft)
+  Story: dutch-government-cloud-exit · angle: first concrete budget behind the cloud exit
+  Sources: 3 (NOS high, Tweakers high, Rijksoverheid high)
+  Internal links: /services/eu/nextcloud, /guides/storage/onedrive-to-nextcloud
+  Claim map:
+    P1 S1 "The finance ministry put €120M…" → [[2026-11-02-dutch-cloud-tender#c2]]
+    …
+  Not repeated from earlier coverage: the parliament vote (linked instead)
+  → content/articles/dutch-finance-ministry-cloud-tender/en.md
+```
+
+Next: `/news-check <slug>`.

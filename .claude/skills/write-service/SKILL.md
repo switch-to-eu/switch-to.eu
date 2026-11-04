@@ -1,14 +1,14 @@
 ---
 name: write-service
-description: Write or rewrite content for a service listing on switch-to.eu using research data from Payload CMS. Use when asked to "write a service", "write service ProtonMail", "draft service content".
+description: Write or rewrite content for a service listing on switch-to.eu using research data from its content file (content/services/<slug>/en.md). Use when asked to "write a service", "write service ProtonMail", "draft service content".
 argument-hint: "'<service name>'"
 ---
 
 # Write Service Content
 
-Write a service listing for switch-to.eu using research data from Payload CMS.
+Write a service listing for switch-to.eu using the research data in `content/services/<slug>/en.md`.
 
-**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/lexical-json.md` for richText format.
+**Before writing, read:** `.claude/skills/_shared/voice.md` for tone and writing rules, `.claude/skills/_shared/content-files.md` for the file layout, frontmatter editing rules and draft handling, `.claude/skills/_shared/evidence.md` for what counts as proof.
 
 ## Page Structure Awareness
 
@@ -16,18 +16,26 @@ The service detail page has multiple tabs. Each tab has its own content source:
 
 | Tab | Content source | What this skill populates |
 |-----|---------------|--------------------------|
-| **Overview** | `features` (tags) + `content` (richText) + auto-generated pricing/security snippets | `features`, `content` |
+| **Overview** | `features` (tags) + markdown body + auto-generated pricing/security snippets | `features`, body |
 | **Pricing** | `pricingTiers` (structured array) | `pricingTiers` |
 | **Security** | Research fields + `gdprNotes` | `gdprNotes` |
 | **Comparison** | Auto-generated from both services + guide data | Nothing |
 
 ## Process
 
+### Step 0 (optional): Knowledge context
+
+```bash
+pnpm -s knowledge context services/<slug> --budget 3000 2>/dev/null
+```
+
+A short, cited brief: the guides for this service, its recommended alternative (or the services that point to it), the owner company and its other services, recent news and open flags. `pnpm -s knowledge resolve "SERVICE_NAME" 2>/dev/null` gives the slug. Use it to see the bigger picture and to pick internal links. It is not a source: every fact you write still comes from the research fields of the service file (Step 1, `_shared/evidence.md`). An open flag means the listing may be out of date: tell the user and suggest `/research SERVICE_NAME` first.
+
 ### Step 1: Pull research data
 
-Use `mcp__Payload__findServices` to get the service with all its research fields:
-```json
-{"where": "{\"name\": {\"contains\": \"SERVICE_NAME\"}}", "limit": 1, "depth": 1}
+Find the service file and read it in full (frontmatter with all research fields + body):
+```bash
+grep -il '^name: .*SERVICE_NAME' content/services/*/en.md
 ```
 
 If `researchStatus` is "not-started", tell the user to run `/research SERVICE_NAME` first.
@@ -47,12 +55,12 @@ The description answers: "Why would I use this instead of what I have now?" Star
 - Bad: "End-to-end encryption between Proton users. Zero-access encryption for all stored mail."
 - Good: "End-to-end encrypted", "Free tier available", "Open source", "GDPR compliant"
 
-**`content`** (richText, Lexical JSON): 150-250 words. Consumer-friendly overview:
+**Body** (markdown below the frontmatter): 150-250 words. Consumer-friendly overview:
 
 1. Opening paragraph: What it does, who made it, why you'd trust it. Reference the country.
 2. Second paragraph: What makes it different, in plain language. Focus on outcomes not mechanisms.
 3. Optional third paragraph: What else comes with it (calendar, storage, etc.) if applicable.
-4. "Worth knowing" (h2): 1-2 paragraphs of honest trade-offs written for everyday users.
+4. `## Worth knowing`: 1-2 paragraphs of honest trade-offs written for everyday users.
 
 Do NOT include:
 - "What stands out" section (features tags handle that)
@@ -62,27 +70,41 @@ Do NOT include:
 - Certificate names (ISO 27001, SOC 2) — say "passed independent security audits"
 
 **`pricingTiers`** array: Structured pricing data from research. Each tier:
-```json
-{
-  "name": "Mail Plus",
-  "price": "€3.99/month",
-  "billingNote": "billed annually",
-  "features": [{"feature": "15 GB storage"}, {"feature": "10 email addresses"}]
-}
+```yaml
+pricingTiers:
+- name: Mail Plus
+  price: €3.99/month
+  billingNote: billed annually
+  features:
+  - 15 GB storage
+  - 10 email addresses
 ```
 - Free tier name: "Free" with price "Free"
 - Keep feature descriptions under 6 words
 
 **`gdprNotes`** (localized text): Rewrite research `gdprNotes` into 2-4 consumer-friendly sentences.
 - Bad: "Fully GDPR compliant. Provides a Data Processing Agreement (DPA) for business customers."
-- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. The company doesn't log your IP address by default, so it holds very little data about you."
+- Good: "Tuta follows EU privacy rules and stores all your data on its own servers in Germany. Its privacy policy says it doesn't log your IP address by default, so it holds very little data about you."
 
 **For non-EU services also write:**
-- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data."
+- `issues` array: Privacy/data concerns, stated factually. "Scans email content for ad targeting" not "spies on your data." Each issue needs a source in `sourceUrls`, `recentNews` or a knowledge claim. No motives.
+
+**Every fact comes from research.** Don't add facts from memory. Write "no X" only when research confirms the absence, not when a pricing page leaves X out. See `_shared/evidence.md`.
 
 ### Step 3: Save
 
-Use `mcp__Payload__updateServices` (existing) or `mcp__Payload__createServices` (new). Set `_status: "draft"`.
+Edit `content/services/<slug>/en.md` following `_shared/content-files.md`:
+- `description`, `features`, `pricingTiers` in the `# Listing` group
+- `issues` in the `# Non-EU page (only used when region is non-eu)` group
+- `gdprNotes` in its existing place in `# Research`
+- the body below the closing `---`
+
+Keep group comments and key order, quote where needed, bump `updatedAt`, then run the validation snippet.
+
+- **Existing service:** edit in place. Don't add `draft: true` (that would unpublish a live page). The PR review is the gate.
+- **New service:** create the file with `draft: true` as the first key of `# Workflow`.
+
+Don't touch `nl.md`. `/translate` updates it.
 
 ## Self-check before saving
 
@@ -92,3 +114,4 @@ Use `mcp__Payload__updateServices` (existing) or `mcp__Payload__createServices` 
 4. Are features 2-4 word tags, not sentences?
 5. Did you populate `pricingTiers` with structured data?
 6. Does the content include pricing or security details that belong on their own tabs? Remove them.
+7. Did you run the self-check in `_shared/evidence.md`? Every "no X", price, issue and company practice traces to research.

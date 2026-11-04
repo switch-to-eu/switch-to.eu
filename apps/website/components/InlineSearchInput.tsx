@@ -57,7 +57,7 @@ export function InlineSearchInput({
       "dropbox",
     ].map((example) => t(`searchAnimationExamples.${example as "whatsapp"}`));
 
-    const defaultText = t("searchDefaultText");
+    const defaultText = placeholder || t("searchDefaultText");
     let currentIndex = 0;
     let showingDefault = true;
     const pauseDuration = 1500;
@@ -277,7 +277,7 @@ export function InlineSearchInput({
     <Popover open={popoverOpen} onOpenChange={setShowDropdown}>
       <PopoverAnchor asChild>
         <div ref={containerRef} className="relative w-full">
-          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green/50 transition-colors">
+          <div className="group flex items-center gap-2 rounded-full border border-brand-green/20 bg-white pl-5 sm:pl-6 pr-1.5 py-1.5 focus-within:border-brand-green focus-within:ring-4 focus-within:ring-brand-green/20 transition-colors">
             <Search
               className="h-5 w-5 text-brand-green/50 shrink-0 transition-all duration-300 group-focus-within:text-brand-green group-focus-within:scale-110"
               aria-hidden="true"
@@ -286,7 +286,7 @@ export function InlineSearchInput({
               ref={searchInputRef}
               type="text"
               placeholder={currentPlaceholder}
-              className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/40 bg-transparent focus:outline-none ${className}`}
+              className={`flex-grow py-2 sm:py-2.5 text-base sm:text-lg text-brand-green placeholder:text-brand-green/75 bg-transparent focus:outline-none ${className}`}
               value={query}
               onChange={handleSearchChange}
               onKeyDown={handleKeyDown}
@@ -298,7 +298,7 @@ export function InlineSearchInput({
             />
             <button
               type="button"
-              className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white transition-transform duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+              className="shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-brand-green text-white transition-transform duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-brand-green motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
               onClick={() => {
                 if (query.trim()) {
                   void fetchResults(query);
@@ -335,7 +335,7 @@ export function InlineSearchInput({
       >
           <div className="py-0">
             <div className="px-4 py-2 border-b border-brand-green/10">
-              <h3 className="text-xs font-heading uppercase tracking-wider text-brand-green/60">
+              <h3 className="text-xs font-heading tracking-wider text-brand-green/80">
                 {t("dropdownSearchResults")}
               </h3>
             </div>
@@ -363,7 +363,7 @@ export function InlineSearchInput({
                   <div className="flex justify-between items-center gap-3">
                     <div className="min-w-0">
                       <div className="font-semibold text-brand-green truncate">{result.title}</div>
-                      <div className="text-sm text-brand-green/60 truncate">
+                      <div className="text-sm text-brand-green/80 truncate">
                         {result.description}
                       </div>
                     </div>
@@ -377,10 +377,10 @@ export function InlineSearchInput({
               ))
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-brand-green/70 font-medium">
+                <p className="text-brand-green/80 font-medium">
                   {t("noResultsMessage", { query })}
                 </p>
-                <p className="text-sm text-brand-green/50 mt-1">
+                <p className="text-sm text-brand-green/80 mt-1">
                   {t("tryDifferentSearch")}
                 </p>
               </div>

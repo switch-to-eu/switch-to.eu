@@ -1,4 +1,4 @@
-import { getPayload } from "@/lib/payload";
+import { getAllServices } from "@/lib/content/loader";
 import { notFound, redirect } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { SidebarAlternative } from "@/components/non-eu/SidebarAlternative";
@@ -14,16 +14,17 @@ import { FaqAccordion } from "@/components/non-eu/FaqAccordion";
 import { Sources } from "@/components/non-eu/Sources";
 import { RichText } from "@/components/rich-text";
 
-import { getTranslations, getFormatter } from "next-intl/server";
-import { Metadata } from "next";
+import { getTranslations, getFormatter, setRequestLocale } from "next-intl/server";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Locale } from "next-intl";
-import type { Locale as AppLocale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import type { Service, Guide } from "@/payload-types";
+import type { Service, Guide } from "@/lib/content/types";
 import {
   getCategorySlug,
   getCategoryBySlug,
@@ -78,31 +79,24 @@ function buildTabs(service: Service, t: Translator): TabSpec[] {
   return tabs;
 }
 
-export async function generateStaticParams() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      and: [
-        { _status: { equals: "published" } },
-        { region: { equals: "non-eu" } },
-      ],
-    },
-    depth: 0,
-    limit: 200,
-  });
+export function generateStaticParams() {
+  const docs = getAllServices("en").filter((s) => s.region === "non-eu");
 
   return docs.map((service) => ({
     service_name: service.slug,
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; service_name: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: Promise<{ locale: string; service_name: string }>;
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { service_name, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const service = await getServiceBySlugAnyRegion(service_name, locale);
 
@@ -114,7 +108,7 @@ export async function generateMetadata({
 
   const categorySlug = getCategorySlug(service.category);
 
-  const tags = (service.tags ?? []).map((t) => t.tag);
+  const tags = service.tags ?? [];
 
   const title =
     service.metaTitle || `EU Alternatives to ${service.name} | switch-to.eu`;
@@ -122,8 +116,13 @@ export async function generateMetadata({
     service.metaDescription || service.oneLineProblem || service.description;
 
   return {
-    title,
-    description,
+    ...(await pageMetadata({
+      parent,
+      path: `services/non-eu/${service_name}`,
+      locale,
+      title,
+      description,
+    })),
     keywords: [
       service.name,
       categorySlug,
@@ -132,14 +131,6 @@ export async function generateMetadata({
       "EU alternatives",
       ...tags,
     ],
-    alternates: generateLanguageAlternates(
-      `services/non-eu/${service_name}`,
-      locale as AppLocale
-    ),
-    openGraph: {
-      title,
-      description,
-    },
   };
 }
 
@@ -149,7 +140,9 @@ export default async function ServiceDetailPage({
   params: Promise<{ locale: Locale; service_name: string }>;
 }) {
   const { service_name, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("services.detail.nonEu");
+  const tTabs = await getTranslations("services.detail.tabs");
   const format = await getFormatter();
 
   const service = await getServiceBySlugAnyRegion(service_name, locale);
@@ -162,7 +155,7 @@ export default async function ServiceDetailPage({
     redirect(`/${locale}/services/eu/${service_name}`);
   }
 
-  const issues = (service.issues ?? []).map((i) => i.issue);
+  const issues = service.issues ?? [];
 
   const resolvedAlternative = getResolvedRelation<Service>(
     service.recommendedAlternative
@@ -173,8 +166,6 @@ export default async function ServiceDetailPage({
     : [];
 
   const categorySlug = getCategorySlug(service.category);
-  const categoryFormatted =
-    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
   const categoryDoc = categorySlug
     ? await getCategoryBySlug(categorySlug, locale)
@@ -207,40 +198,35 @@ export default async function ServiceDetailPage({
       })
     : null;
 
+  const tNav = await getTranslations("navigation");
+
   return (
-    <>
+    <main className="flex flex-col">
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: tNav("home"), path: "" },
+          { name: service.category.title, path: `services/${categorySlug}` },
+          { name: service.name, path: `services/non-eu/${service_name}` },
+        ])}
+      />
       {/* Hero */}
       <Container noPaddingMobile>
         <Link
           href={`/services/${categorySlug}`}
-          className="inline-flex items-center gap-1.5 text-brand-orange/70 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-orange transition-colors"
+          className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
-          <span aria-hidden>&larr;</span>
           <span>
-            {t("redesign.heroBack", { category: categoryFormatted })}
+            {t("redesign.heroBack", { category: service.category.shortTitle })}
           </span>
         </Link>
 
         <Banner
-          color="bg-brand-orange"
+          color="bg-white border-y md:border border-black/10"
           className="[&>div]:py-8 [&>div]:sm:py-10"
-          shapes={[
-            {
-              shape: "starburst",
-              className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48",
-            },
-            {
-              shape: "blob",
-              className: "bottom-4 right-20 hidden sm:block w-28 h-28",
-              opacity: 0.1,
-              duration: "9s",
-              delay: "-3s",
-            },
-          ]}
         >
           <div className="max-w-3xl">
             <div className="flex items-start gap-3 mb-3">
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-white">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1a1a1a]">
                 {t("redesign.h1Template", { name: service.name })}
               </h1>
               <div className="flex-shrink-0 mt-2">
@@ -248,12 +234,12 @@ export default async function ServiceDetailPage({
               </div>
             </div>
 
-            <p className="text-white/90 text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
+            <p className="text-[#1a1a1a] text-base sm:text-lg mb-5 max-w-2xl leading-relaxed">
               {service.oneLineProblem || service.description}
             </p>
 
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+              <span className="inline-flex items-center gap-2 bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                 <span
                   aria-hidden
                   className={`w-2 h-2 rounded-full ${gdprDotClass}`}
@@ -261,12 +247,12 @@ export default async function ServiceDetailPage({
                 {t(`redesign.gdprBadge.${gdpr}`)}
               </span>
               {service.headquarters && (
-                <span className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {service.headquarters}
                 </span>
               )}
               {lastReviewedLabel && (
-                <span className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm">
+                <span className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm">
                   {t("redesign.trustStrip.lastReviewed", {
                     date: lastReviewedLabel,
                   })}
@@ -275,12 +261,11 @@ export default async function ServiceDetailPage({
               {(service.sourceUrls?.length ?? 0) > 0 && (
                 <a
                   href="?tab=sources"
-                  className="inline-flex items-center bg-white/10 text-white/90 rounded-full px-3 py-1 text-sm no-underline hover:bg-white/20 transition-colors"
+                  className="inline-flex items-center bg-black/5 text-[#1a1a1a] rounded-full px-3 py-1 text-sm no-underline hover:bg-black/10 transition-colors"
                 >
                   {t("redesign.trustStrip.sourcesCount", {
                     count: service.sourceUrls?.length ?? 0,
-                  })}{" "}
-                  &rarr;
+                  })}
                 </a>
               )}
             </div>
@@ -288,7 +273,7 @@ export default async function ServiceDetailPage({
         </Banner>
       </Container>
 
-      <ServiceSubNav tabs={tabs}>
+      <ServiceSubNav tabs={tabs} label={tTabs("navLabel")}>
         <Container className="pt-1 sm:pt-0 md:pt-0 pb-10 sm:pb-12 md:pb-16">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10">
             {/* Sidebar (source order first so mobile shows the answer right after the hero) */}
@@ -309,7 +294,7 @@ export default async function ServiceDetailPage({
               >
                 {(issues.length > 0 || service.content) && (
                   <section>
-                    <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+                    <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
                       {t("redesign.whyPeopleSwitch", { name: service.name })}
                     </h2>
                     {issues.length > 0 && (
@@ -331,7 +316,7 @@ export default async function ServiceDetailPage({
                       </ul>
                     )}
                     {service.content && (
-                      <div className="mdx-content prose prose-sm sm:prose max-w-none">
+                      <div className="mdx-content prose prose-sm sm:prose max-w-[38rem]">
                         <RichText data={service.content} />
                       </div>
                     )}
@@ -391,6 +376,6 @@ export default async function ServiceDetailPage({
           </div>
         </Container>
       )}
-    </>
+    </main>
   );
 }

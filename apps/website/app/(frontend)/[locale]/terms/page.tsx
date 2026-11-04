@@ -1,23 +1,29 @@
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import { findPage } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { Metadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/seo";
+import type { Metadata, ResolvingMetadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 
 import { notFound } from "next/navigation";
-import type { Page } from "@/payload-types";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: Locale }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("terms");
-  const locale = await getLocale();
 
-  return {
+  return pageMetadata({
+    parent,
+    path: "terms",
+    locale,
     title: t("title"),
     description: t("description"),
-    alternates: generateLanguageAlternates("terms", locale),
-  };
+  });
 }
 
 export default async function TermsPage({
@@ -26,16 +32,9 @@ export default async function TermsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "pages",
-    where: await publishedWhere({ slug: { equals: "terms" } }),
-    draft: await isPreview(),
-    locale: locale as 'en' | 'nl',
-    limit: 1,
-  });
-  const page = docs[0] as Page | undefined;
+  const page = findPage("terms", locale);
 
   if (!page) {
     notFound();

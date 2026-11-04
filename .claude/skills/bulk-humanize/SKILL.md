@@ -24,17 +24,19 @@ Humanize content for multiple services, guides, or categories in parallel by dis
 
 ### Step 1: Build the item list
 
-**For `service all`:**
-```json
-mcp__payload__findServices: {"limit": 100, "depth": 0}
-```
-Filter client-side for services where `content` is not null/empty.
+Use the content files (format: `../_shared/content-files.md`). The slug is the directory name. "Has content" means the markdown body below the frontmatter isn't empty:
 
-**For `guide all`:**
-```json
-mcp__payload__findGuides: {"limit": 100, "depth": 0}
+```bash
+body_words() { awk 'BEGIN{n=0} /^---$/{n++; next} n>=2' "$1" | wc -w; }
 ```
-Filter for guides where `intro` is not null/empty.
+
+**For `service all`:** every `content/services/*/en.md` with `body_words` > 20.
+
+**For `service category Email`:** `grep -l '^category: email$' content/services/*/en.md`, same body filter.
+
+**For `guide all`:** every `content/guides/*/en.md` whose `<!-- section:intro -->` section has text.
+
+**For `category all`:** every `content/categories/*/en.md` with a non-empty body.
 
 ### Step 2: Confirm with user
 
@@ -45,13 +47,14 @@ Show the list and count. Ask for confirmation.
 **Agent prompt template for services:**
 
 ```
-You are humanizing the content for service "{SERVICE_NAME}" on switch-to.eu.
+You are humanizing the content for service "{SERVICE_NAME}" (slug: {SLUG}) on switch-to.eu.
 
 Use the /humanize skill. Process:
 
-1. Fetch the service:
-   mcp__payload__findServices: {"where": "{\"name\": {\"contains\": \"{SERVICE_NAME}\"}}", "limit": 1}
-   Get: description, content, features, issues
+Read .claude/skills/humanize-service/SKILL.md and .claude/skills/_shared/humanize-patterns.md first.
+
+1. Read content/services/{SLUG}/en.md in full.
+   Work on: description, features, issues, gdprNotes (frontmatter) and the markdown body.
 
 2. Run the AI Pattern Detection on all text fields. Check for these 18 patterns:
 
@@ -60,11 +63,13 @@ Use the /humanize skill. Process:
    Tone: excessive enthusiasm, false certainty, anthropomorphization, reader flattery, empty empathy
    Punctuation: em dashes (zero allowed), semicolons (zero allowed), ellipses for drama
 
-3. First pass: Rewrite all flagged text. Shorter sentences. Specific details. Varied sentence length. Natural contractions.
+3. First pass: Read .claude/skills/_shared/voice.md. Fix its structure problems, then the clusters of flagged text. Use specific details and plain words.
 
-4. Second pass: Audit the rewrite. Fix remaining AI-sounding patterns. Add one short paragraph if all paragraphs are same length. Vary sentence structure.
+4. Second pass: Audit the rewrite for the places where a good editor stops reading. Then compare the old and new facts. No claim can become stronger or lose its attribution.
 
-5. Save changed fields via mcp__payload__updateServices.
+5. Save changed fields with targeted Edit calls. Only edit this one file (en.md). Keep frontmatter group comments, key order and quoting rules
+   (see .claude/skills/_shared/content-files.md). Bump updatedAt. Don't add or remove `draft`.
+   Run the validation snippet. Don't touch nl.md, other files, or git.
 
 Return: service name, patterns found count by category, fields updated.
 ```
@@ -76,12 +81,17 @@ You are humanizing the guide "{GUIDE_SLUG}" on switch-to.eu.
 
 Use the /humanize skill. Same 18-pattern detection and two-pass rewrite process.
 
-1. Fetch via mcp__payload__findGuides: {"where": "{\"slug\": {\"equals\": \"{GUIDE_SLUG}\"}}", "limit": 1}
-   Get: intro, beforeYouStart, steps (each step's content), troubleshooting, outro
+Read .claude/skills/humanize-guide/SKILL.md and .claude/skills/_shared/humanize-patterns.md first.
+
+1. Read content/guides/{GUIDE_SLUG}/en.md in full.
+   Work on the body sections: intro, beforeYouStart, steps (each step's markdown + step-meta title), troubleshooting, outro.
 
 2. Apply pattern detection and two-pass rewrite to every text field.
 
-3. Save changed fields via mcp__payload__updateGuides.
+3. Save changed text with targeted Edit calls. Keep every section/step marker and step-meta key exactly.
+   Only edit this one file (en.md). Keep frontmatter group comments, key order and quoting rules
+   (see .claude/skills/_shared/content-files.md). Bump updatedAt. Don't add or remove `draft`.
+   Run the validation snippet. Don't touch nl.md, other files, or git.
 
 Return: guide slug, patterns found count by category, fields updated.
 ```
@@ -108,4 +118,5 @@ Most common patterns across all items:
 
 - **Max parallel agents:** 10 at a time.
 - **Content required:** Skip items without content. Report them.
-- **Only update changed fields.** Don't save a field if it didn't change.
+- **Only update changed fields.** Don't edit a field if it didn't change. Each agent edits only its own file.
+- **Review gate:** Changes sit in the working tree for review in `git diff` / the PR. Don't commit unless the user asks.

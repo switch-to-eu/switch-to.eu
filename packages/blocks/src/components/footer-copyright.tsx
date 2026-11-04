@@ -11,7 +11,7 @@ export function FooterCopyright() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <p className="text-xs text-white/40">
+    <p className="text-xs text-white/75">
       &copy;{" "}
       {t.rich("copyright", {
         year: String(currentYear),
@@ -22,7 +22,7 @@ export function FooterCopyright() {
         ),
       })}{" "}
       <a
-        href="https://vinnie.studio/"
+        href="https://www.vinnie.studio/"
         target="_blank"
         rel="noopener noreferrer"
         className={linkClassName}

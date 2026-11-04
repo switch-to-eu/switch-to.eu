@@ -1,12 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export async function WhereYourDataGoes({ service }: { service: Service }) {
   const t = await getTranslations(
     "services.detail.nonEu.redesign.whereDataGoes"
   );
 
-  const locations = (service.dataStorageLocations ?? []).map((l) => l.location);
+  const locations = service.dataStorageLocations ?? [];
   const hasContent =
     !!service.parentCompany ||
     !!service.headquarters ||
@@ -16,7 +16,7 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
 
   return (
     <section>
-      <h2 className="font-heading uppercase text-2xl sm:text-3xl text-brand-green mb-5">
+      <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title")}
       </h2>
       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 rounded-2xl border border-brand-navy/10 bg-white p-5 sm:p-6">
@@ -71,7 +71,7 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
                         rel="noopener noreferrer"
                         className="text-brand-green underline"
                       >
-                        {t("viewCode")} &rarr;
+                        {t("viewCode")}
                       </a>
                     </>
                   )}

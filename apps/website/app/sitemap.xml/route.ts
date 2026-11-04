@@ -1,8 +1,12 @@
-import { getPayload } from "@/lib/payload";
-import type { Service, Guide, Category } from "@/payload-types";
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
+import {
+  getAllArticles,
+  getAllCategories,
+  getAllGuides,
+  getAllServices,
+} from "@/lib/content/loader";
 import { getCategorySlug } from "@/lib/services";
 import { routing, defaultLocale } from "@switch-to-eu/i18n/routing";
-import { unstable_cache } from "next/cache";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 const { locales } = routing;
@@ -50,7 +54,7 @@ ${urls}
 </urlset>`;
 }
 
-async function buildEntries(): Promise<SitemapEntry[]> {
+function buildEntries(): SitemapEntry[] {
   const now = new Date();
 
   const homeEntries: SitemapEntry[] = locales.map((locale) => ({
@@ -64,10 +68,12 @@ async function buildEntries(): Promise<SitemapEntry[]> {
   const staticRoutes = [
     "/about",
     "/contribute",
+    "/contribute/guide",
     "/tools",
     "/privacy",
     "/terms",
     "/feedback",
+    ...(NEWS_INDEX_ENABLED ? ["/news"] : []),
   ];
 
   const staticEntries: SitemapEntry[] = staticRoutes.flatMap((route) =>
@@ -80,83 +86,67 @@ async function buildEntries(): Promise<SitemapEntry[]> {
     }))
   );
 
-  let categoriesEntries: SitemapEntry[] = [];
-  let servicesEntries: SitemapEntry[] = [];
-  let guidesEntries: SitemapEntry[] = [];
+  const lastMod = (date: string) => {
+    const parsed = new Date(date);
+    return Number.isNaN(parsed.getTime()) ? now : parsed;
+  };
 
-  try {
-    const payload = await getPayload();
+  const categoriesEntries: SitemapEntry[] = getAllCategories(defaultLocale).flatMap((category) => {
+    const path = `/services/${category.slug}`;
+    return locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${path}`,
+      lastModified: lastMod(category.updatedAt),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: localeAlternates(path),
+    }));
+  });
 
-    const [categoriesResult, servicesResult, guidesResult] = await Promise.all([
-      payload.find({
-        collection: "categories",
-        locale: "all",
-        limit: 0,
-        pagination: false,
-      }),
-      payload.find({
-        collection: "services",
-        where: { _status: { equals: "published" } },
-        // Pricing/security/comparison subviews are now tabs (?tab=) on the
-        // service URL, so we no longer emit per-tab entries; using the
-        // default locale is still safer here than `locale: "all"` envelopes.
-        locale: defaultLocale,
-        limit: 0,
-        pagination: false,
-      }),
-      payload.find({
-        collection: "guides",
-        where: { _status: { equals: "published" } },
-        locale: "all",
-        limit: 0,
-        pagination: false,
-        depth: 1,
-      }),
-    ]);
+  const servicesEntries: SitemapEntry[] = getAllServices(defaultLocale).flatMap((service) => {
+    const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
+    const serviceUrl = `/services/${regionPath}/${service.slug}`;
+    return locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${serviceUrl}`,
+      lastModified: lastMod(service.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: localeAlternates(serviceUrl),
+    }));
+  });
 
-    categoriesEntries = categoriesResult.docs.flatMap((category: Category) => {
-      const path = `/services/${category.slug}`;
-      return locales.map((locale) => ({
+  const guidesEntries: SitemapEntry[] = getAllGuides(defaultLocale).flatMap((guide) => {
+    const categorySlug = getCategorySlug(guide.category) || "uncategorized";
+    const path = `/guides/${categorySlug}/${guide.slug}`;
+    return locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${path}`,
+      lastModified: lastMod(guide.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: localeAlternates(path),
+    }));
+  });
+
+  // Articles exist per locale, so only list (and cross-link) the locales
+  // each article is actually published in.
+  const articlesByLocale = new Map(locales.map((l) => [l, getAllArticles(l).filter((a) => !a.sample)]));
+  const articleEntries: SitemapEntry[] = locales.flatMap((locale) =>
+    (articlesByLocale.get(locale) ?? []).map((article) => {
+      const path = `/news/${article.slug}`;
+      const available = locales.filter((l) =>
+        (articlesByLocale.get(l) ?? []).some((a) => a.slug === article.slug)
+      );
+      return {
         url: `${baseUrl}/${locale}${path}`,
-        lastModified: new Date(category.updatedAt),
+        lastModified: lastMod(article.updatedAt || article.date),
         changeFrequency: "weekly",
         priority: 0.8,
-        alternates: localeAlternates(path),
-      }));
-    });
-
-    servicesEntries = servicesResult.docs.flatMap((service: Service) => {
-      const regionPath = service.region === "non-eu" ? "non-eu" : "eu";
-      const serviceUrl = `/services/${regionPath}/${service.slug}`;
-      const lastMod = new Date(service.updatedAt);
-
-      return locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${serviceUrl}`,
-        lastModified: lastMod,
-        changeFrequency: "monthly",
-        priority: 0.7,
-        alternates: localeAlternates(serviceUrl),
-      }));
-    });
-
-    guidesEntries = guidesResult.docs.flatMap((guide: Guide) => {
-      const categorySlug = getCategorySlug(guide.category) || "uncategorized";
-      const path = `/guides/${categorySlug}/${guide.slug}`;
-
-      return locales.map((locale) => ({
-        url: `${baseUrl}/${locale}${path}`,
-        lastModified: new Date(guide.updatedAt),
-        changeFrequency: "monthly",
-        priority: 0.9,
-        alternates: localeAlternates(path),
-      }));
-    });
-  } catch (error) {
-    // Rethrow so unstable_cache sees the failure and does NOT cache a
-    // partial sitemap missing every category / service / guide URL.
-    console.error("[sitemap] Failed to fetch content from Payload:", error);
-    throw error;
-  }
+        alternates: {
+          ...Object.fromEntries(available.map((l) => [l, `${baseUrl}/${l}${path}`])),
+          "x-default": `${baseUrl}/${available.includes(defaultLocale) ? defaultLocale : available[0]}${path}`,
+        },
+      };
+    })
+  );
 
   return [
     ...homeEntries,
@@ -164,17 +154,12 @@ async function buildEntries(): Promise<SitemapEntry[]> {
     ...categoriesEntries,
     ...servicesEntries,
     ...guidesEntries,
+    ...articleEntries,
   ];
 }
 
-const getCachedXml = unstable_cache(
-  async () => toXml(await buildEntries()),
-  ["sitemap-xml"],
-  { tags: ["services", "guides", "categories"], revalidate: 3600 }
-);
-
-export async function GET() {
-  const xml = await getCachedXml();
+export function GET() {
+  const xml = toXml(buildEntries());
 
   return new Response(xml, {
     headers: {

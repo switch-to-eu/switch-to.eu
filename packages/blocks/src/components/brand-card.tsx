@@ -4,8 +4,19 @@ import { getCardColor } from "@switch-to-eu/ui/lib/brand-palette";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { shapes } from "../shapes";
 
+export interface BrandCardColors {
+  bg: string;
+  text: string;
+  button: string;
+  shapeColor: string;
+  /** Optional tint for the shape/visual area (calm palettes). */
+  band?: string;
+}
+
 export interface BrandCardProps {
   colorIndex: number;
+  /** Override the default saturated brand rotation (e.g. a calmer palette). */
+  colors?: BrandCardColors;
   title: string;
   description: string;
   href?: string;
@@ -70,8 +81,9 @@ export function BrandCard({
   recommendationLabel,
   secondaryLink,
   primaryAriaLabel,
+  colors,
 }: BrandCardProps) {
-  const card = getCardColor(colorIndex);
+  const card: BrandCardColors = colors ?? getCardColor(colorIndex);
 
   const content = (
     <div
@@ -92,19 +104,19 @@ export function BrandCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           {shape && (
-            <div className="absolute top-3 right-3 w-14 h-14 sm:w-16 sm:h-16 opacity-30 pointer-events-none">
+            <div className="absolute top-3 right-3 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none">
               <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
             </div>
           )}
         </div>
       ) : shape && shapePosition === "top" ? (
-        <div className="relative h-40 sm:h-48 flex items-center justify-center p-4 sm:p-6">
+        <div className={cn("relative h-40 sm:h-48 flex items-center justify-center p-4 sm:p-6", card.band)}>
           <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       ) : null}
 
       {shape && shapePosition === "accent" && (
-        <div className="absolute top-3 right-3 w-20 h-20 sm:w-24 sm:h-24 opacity-20 pointer-events-none">
+        <div className="absolute top-4 right-4 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none">
           <ShapeSvg name={shape} color={card.shapeColor} colorIndex={colorIndex} />
         </div>
       )}
@@ -123,7 +135,7 @@ export function BrandCard({
         </h3>
         <p
           className={cn(
-            `${card.text} text-sm sm:text-base opacity-80 leading-relaxed`,
+            `${card.text} text-sm sm:text-base leading-relaxed`,
             (ctaText || recommendationLabel) && "line-clamp-3 mb-4"
           )}
         >
@@ -137,7 +149,6 @@ export function BrandCard({
             )}
           >
             <span>{recommendationLabel}</span>
-            <span aria-hidden="true" className="opacity-70">→</span>
           </p>
         )}
         {ctaText && (
@@ -152,11 +163,10 @@ export function BrandCard({
                 href={secondaryLink.href}
                 className={cn(
                   card.text,
-                  "pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold opacity-80 hover:opacity-100 hover:underline transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded"
+                  "pointer-events-auto inline-flex items-center gap-1 text-xs sm:text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green rounded"
                 )}
               >
                 {secondaryLink.text}
-                <span aria-hidden="true">→</span>
               </Link>
             )}
           </div>

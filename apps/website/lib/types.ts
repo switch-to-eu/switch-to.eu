@@ -1,4 +1,4 @@
-import type { Service } from "@/payload-types";
+import type { Service } from "@/lib/content/types";
 
 export type SearchResult = {
   id: string;

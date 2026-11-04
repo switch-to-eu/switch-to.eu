@@ -286,7 +286,109 @@
   @apply my-8 border-t border-border;
 }
 
+/*
+ * Tables. renderMarkdown wraps each markdown table in .mdx-table, and the
+ * category comparison uses the same wrapper: a white panel that scrolls
+ * sideways on narrow screens. The first column (the row label) stays in
+ * place while the other columns scroll. Row headers (tbody th) look like
+ * labels, not like column headers.
+ */
+.mdx-table {
+  padding-block: 0.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-radius: 1rem;
+}
+
+.mdx-content .mdx-table {
+  margin: 1.75rem 0 2.25rem;
+}
+
+.mdx-table:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+}
+
+.mdx-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-hanken-grotesk);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+
+.mdx-table th,
+.mdx-table td {
+  min-width: 9rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.mdx-table th:first-child,
+.mdx-table td:first-child {
+  min-width: 8rem;
+  padding-left: 1.25rem;
+}
+
+.mdx-table th:last-child,
+.mdx-table td:last-child {
+  padding-right: 1.25rem;
+}
+
+.mdx-table thead th {
+  padding-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--brand-green);
+  text-wrap: balance;
+  border-bottom: 2px solid var(--brand-green);
+}
+
+.mdx-table tbody th,
+.mdx-table td {
+  border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.mdx-table tbody tr:last-child th,
+.mdx-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.mdx-table tbody th,
+.mdx-table td:first-child {
+  font-weight: 600;
+}
+
+/* Keep the row label in view while the other columns scroll. */
+.mdx-table th:first-child,
+.mdx-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+@media (max-width: 40rem) {
+  .mdx-table th:first-child,
+  .mdx-table td:first-child {
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 0.1);
+  }
+}
+
 /* Custom badges for regions */
+.badge-eu {
+  /* Brand green with white: 10.5:1. The generic success variant was 3.2:1. */
+  background-color: var(--brand-green) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
 .badge-eu-friendly {
   background-color: var(--brand-yellow) !important;
   color: var(--brand-green) !important;

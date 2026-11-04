@@ -21,7 +21,7 @@ Score each item: PASS (10 pts), PARTIAL (5 pts), FAIL (0 pts).
 - PARTIAL: 1-2 keywords or some seem irrelevant
 - FAIL: Empty
 
-**4. Heading Structure** (analyze `content` or section fields)
+**4. Heading Structure** (analyze the markdown body, or the guide sections)
 - PASS: Single H1 (or title field), H2s for sections, no skipped levels, keyword in at least one H2
 - PARTIAL: Minor issues (skipped level, no keyword in headings)
 - FAIL: No headings or broken hierarchy
@@ -82,9 +82,22 @@ Suggested metaTitle: "[if missing or bad, suggest one]"
 Suggested metaDescription: "[if missing or bad, suggest one]"
 ```
 
+## Evidence check (services and guides, not scored)
+
+Run the self-check from `_shared/evidence.md` on the public text: `description`, body, `features`, `issues`, `whatYoudLose`, `faqs`, and guide `missingFeatures` and steps. Compare it with the research fields of the service file (for a guide, both service files). Flag:
+- "no X", "doesn't", "only", "never" with no confirming source in research
+- a price or limit in public text that differs from `pricingTiers` or `pricingDetails`
+- a motive, a trend ("for years", "keeps raising"), or a Reddit view stated as fact
+- a company-only practice (logging, staff access) stated without attribution
+- pricing evidence older than 6 months: the `checkedAt` of the pricing source, or `lastResearchedAt` when no source has `checkedAt` yet
+
+Add the flags to `seoNotes` under an `EVIDENCE:` heading, after `ISSUES:`. They don't change the score. Don't rewrite claims during an SEO check. With more than 3 flags, recommend `/claims-audit <slug>`.
+
 ## Fields to Save
 
-- `seoScore`: the number (0-100)
-- `seoNotes`: the summary text
-- `lastSeoReviewAt`: today's date in ISO format
-- If `metaTitle` or `metaDescription` are empty, also populate them with suggested values
+Write these into the item's `en.md` frontmatter (see `_shared/content-files.md` for groups, quoting and validation):
+
+- `seoScore`: the number (0-100), `# Workflow` group
+- `seoNotes`: the summary text, `# Workflow` group. It is multi-line, so write it as a `|-` block scalar
+- `lastSeoReviewAt`: today's date, quoted (`'YYYY-MM-DD'`), `# Workflow` group
+- If `metaTitle` or `metaDescription` are empty, also populate them with suggested values in the `# SEO` group

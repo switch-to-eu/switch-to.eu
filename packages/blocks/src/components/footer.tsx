@@ -112,7 +112,7 @@ export function Footer({
       <div className="flex flex-col gap-4">
         {branding}
         {copyright !== undefined ? (
-          copyright && <p className="text-xs text-white/40">{copyright}</p>
+          copyright && <p className="text-xs text-white/75">{copyright}</p>
         ) : (
           <FooterCopyright />
         )}

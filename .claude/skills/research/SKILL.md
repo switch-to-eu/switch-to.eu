@@ -1,32 +1,37 @@
 ---
 name: research
-description: Research a digital service and store structured findings in Payload CMS. Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the Research tab on a service. Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for".
-argument-hint: "service name (e.g. 'ProtonMail'); comma-separate for multiple; add --dry-run to gather without writing"
+description: Research a digital service and store structured findings in its content file (content/services/<slug>/en.md). Gathers company basics, pricing, privacy posture, Reddit sentiment, and recent news via Jina Reader/Search and the Reddit MCP. Use when asked to research a service, investigate a company, gather pricing/privacy/compliance data, or populate the research fields on a service. Also refreshes services flagged by news in knowledge/flags.md ("research flagged"). Trigger phrases include "research this service", "investigate", "gather data on", "fill in research for", "research flagged services".
+argument-hint: "service name (e.g. 'ProtonMail'); comma-separate for multiple; 'flagged' (or no argument) for services flagged by news in knowledge/flags.md; add --dry-run to gather without writing"
 ---
 
 # Service Research Skill
 
-Research a digital service and store structured findings in Payload via MCP. Populates both the pre-existing research fields (GDPR, pricing, headquarters, certifications) AND the newer structured fields (`userSentiment`, `redditMentions`, `recentNews`) that render on the public service page.
+Research a digital service and store structured findings in the `# Research` group of `content/services/<slug>/en.md`. Populates both the pre-existing research fields (GDPR, pricing, headquarters, certifications) AND the newer structured fields (`userSentiment`, `redditMentions`, `recentNews`) that render on the public service page.
 
 Read these helpers first:
 - `../_shared/jina.md` — Reader + Search
 - `../_shared/reddit.md` — sentiment gathering
-- `../_shared/payload-operational.md` — writing structured research fields + merge semantics
-- `../_shared/lexical-json.md` — richText JSON format for `researchNotes`
+- `../_shared/content-files.md` — file layout, field shapes, frontmatter editing rules, validation
+- `../_shared/evidence.md` — what counts as proof, where dates go, how to word absences and company claims
 - `../_shared/voice.md` — tone rules for any consumer-facing copy we generate
 
 ## Inputs
 
 - Argument: service name, or comma-separated list of service names.
-- Flags: `--dry-run` — gather and print the JSON payload, don't call Payload update.
+- `flagged`, or no argument: the services listed in `knowledge/flags.md`, oldest flag first (see **Flagged services** below). With no argument and no flags, ask which service to research.
+- Flags: `--dry-run` — gather and print the would-be frontmatter changes, don't edit the file.
 
 ## Per-service flow
 
 ### Step 1: Resolve the service
 
-`mcp__Payload__findServices` with `{ where: { name: { contains: "<name>" } }, limit: 5 }`. If none found, ask the user whether to create a new service row or correct the name.
+Find the file: `grep -il '^name: .*<name>' content/services/*/en.md`, or match the slug with `ls content/services | grep -i <stem>`. Read the whole `en.md`.
 
-If found, mark `researchStatus=in-progress` and `lastResearchedAt=<today>` via `mcp__Payload__updateServices` so parallel runs don't collide.
+If none found, ask the user whether to create a new service or correct the name. A new service gets a new `content/services/<slug>/en.md` (lowercase, hyphenated slug) with at least `name`, `region`, `category` in `# Listing`, the research fields, and `draft: true` in `# Workflow` (see `_shared/content-files.md`).
+
+If found, check what the knowledge base already knows: `pnpm -s knowledge node services/<slug> 2>/dev/null`. If it says there is no store, run `pnpm knowledge:index` once. A store a few hours old is fine here. It shows open flags and news under Events, the check date of every source, and the owner under Links (the line ending `provides → this`). `pnpm -s knowledge node <company-id> 2>/dev/null` gives the owner's dated fact lines, if it has a knowledge page. A fact or flag newer than the research is a lead: confirm it on the vendor's pages in Step 2 before it goes in a field.
+
+Then set `researchStatus: in-progress` and `lastResearchedAt: '<today>'` in the file so parallel runs don't collide.
 
 ### Step 2: Gather data in parallel
 
@@ -95,45 +100,82 @@ Same mapping as the previous version of this skill. Key fields:
 | Data storage locations | `dataStorageLocations[]` |
 | Certifications | `certifications[]` |
 | Open source | `openSource`, `sourceCodeUrl` |
-| All source URLs | `sourceUrls[]` |
+| All source URLs | `sourceUrls[]`, each page read in this run with `checkedAt: '<today>'` |
 
-Also update General tab fields if empty or clearly outdated: `location`, `url`, `freeOption`, `startingPrice`.
+Also update `# Listing` fields if empty or clearly outdated: `location`, `url`, `freeOption`, `startingPrice`.
 
-### Step 6: Generate `researchNotes` richText narrative
+Apply `_shared/evidence.md` to every value:
+- A feature that the pricing or feature page doesn't mention is "not listed", not missing. Record it as "not listed on the <page> (as of <Month YYYY>)" or leave it out.
+- Prices in `pricingDetails` end with "(as of <Month YYYY>)". Record the billing period with each price.
+- Practices only the company can see (logging, staff access, deletion) go in as the company's statement: "Privacy policy says ...".
+- Reddit and reviews feed `userSentiment`, `redditMentions` and incidents. Never use them as the source for a price, a limit or a feature.
 
-Build Lexical richText (see `_shared/lexical-json.md`) synthesizing all gathered data. Section order (H2 headings):
+### Step 6: Generate the `researchNotes` markdown narrative
+
+Write markdown synthesizing all gathered data, stored as a `|-` block scalar (see `_shared/content-files.md`). Section order (`##` headings):
 
 1. **Company** — founded, HQ, parent, size, open-source status.
-2. **Pricing** — free tier, paid tiers, enterprise.
+2. **Pricing** — free tier, paid tiers, enterprise. Each price "as of <Month YYYY>", with its billing period.
 3. **Privacy & GDPR** — compliance posture, data locations, notable concerns.
 4. **Security** — certifications, audits, known incidents with dates.
 5. **User sentiment** — derived from `userSentiment.summary` + one concrete quote from `redditMentions[]`.
 6. **Recent news** — up to 3 most recent items from `recentNews[]` as a bulleted list.
 7. **Sources** — cite each URL used.
 
+In each section, state what the sources say first. Put our reading after it, marked as ours ("In practice", "For most users"). Don't mix the two in one sentence.
+
 ### Step 7: Merge semantics — don't clobber good data
 
-Before calling `mcp__Payload__updateServices`:
+Before editing the file:
 
-- **Scalar fields** (`headquarters`, `foundedYear`, `gdprCompliance`, etc.): include in payload only if the new value is non-empty.
+- **Scalar fields** (`headquarters`, `foundedYear`, `gdprCompliance`, etc.): write only if the new value is non-empty.
 - **Pre-existing array fields** (`certifications`, `dataStorageLocations`): replace wholesale only if the new array is non-empty.
-- **New structured fields** (`userSentiment`, `redditMentions`, `recentNews`): always replace with fresh data, even if empty — they're time-sensitive.
+- **`sourceUrls`**: merge by URL. Set `checkedAt: '<today>'` on every URL read in this run, and add new URLs. Keep the other entries with their old `checkedAt`, unless the page is gone (then delete the entry).
+- **New structured fields** (`userSentiment`, `redditMentions`, `recentNews`): always replace with fresh data — they're time-sensitive. If the fresh `redditMentions` / `recentNews` list is empty, delete the key rather than keeping stale entries.
 - **`researchNotes`**: always regenerate.
 
-### Step 8: Write to Payload
+### Step 8: Write to the content file
 
-`mcp__Payload__updateServices` with the merged payload, including `researchStatus: "complete"` and `lastResearchedAt: <today>`. Skip if `--dry-run`; print the payload as a JSON block instead.
+Edit `content/services/<slug>/en.md` with the merged values, including `researchStatus: complete` and `lastResearchedAt: '<today>'`. Follow `_shared/content-files.md`: targeted Edit calls, keep the `# Research (filled by /research)` group comment and key order, quote where needed, `researchNotes` stays the last key of the group. Run the validation snippet afterwards.
+
+Don't touch `nl.md`. Most research fields aren't localized. The localized ones (`gdprNotes`, `userSentiment`, `recentNews`) are written in English here, and `/translate` adds the Dutch versions later.
+
+Skip if `--dry-run`; print the would-be frontmatter changes as a YAML block instead.
+
+## Flagged services
+
+`/news-ingest` appends a line to `knowledge/flags.md` when news changes something a listing states (format in `knowledge/README.md`):
+
+```
+- 2026-11-02 · services/proton-mail · price increase for Mail Plus · [[2026-11-02-proton-pricing#c1]]
+```
+
+In `flagged` mode:
+
+1. Collect the flagged slugs: `rg -o "· services/([a-z0-9-]+) ·" -r '$1' knowledge/flags.md | awk '!seen[$0]++'` (keeps file order, oldest first). Skip and report any slug without `content/services/<slug>/en.md`.
+2. For each service, read the cited claim(s) first: `pnpm -s knowledge node <source-slug> 2>/dev/null` lists the source's claims and its file path. That's what changed. Check that specific point on the vendor's own pages in Step 2, and make sure the fields it affects (`startingPrice`, `pricingTiers`, `pricingDetails`, `parentCompany`, `dataStorageLocations`, `headquarters`, `recentNews`, `researchNotes`) end up correct. Add the news item to `recentNews`.
+3. Run the normal per-service flow.
+4. When the service file is updated and validated, delete that service's lines from `knowledge/flags.md` (all of them, if the research covered every flagged issue; otherwise only the ones it covered, and say which remain). Leave the header untouched.
+5. If the research can't confirm the flagged change (the vendor page still says otherwise), keep the flag line and say why in the output.
+
+Knowledge files changed, so close per `../_shared/knowledge.md`: `pnpm knowledge:index`, then one line per service in `knowledge/log.md`:
+
+```
+2026-11-03 research | services/proton-mail | flag cleared: price increase for Mail Plus
+```
+
+Several flagged services can run in parallel through `/bulk-research` with the list of slugs. The flags.md edit and log lines stay with the main agent, after the subagents finish.
 
 ## Error handling
 
 | Failure | Behaviour |
 |---|---|
-| Vendor site unreachable | Note in `researchNotes`; preserve existing Payload data for that field. |
+| Vendor site unreachable | Note in `researchNotes`; preserve existing data for that field. |
 | Jina Reader empty | Fall through to Playwright local; if that also fails, note gap in `researchNotes`. |
 | All fetchers fail for a URL | Skip that URL; note gap in `researchNotes`. |
 | Reddit empty | `redditMentions: []`, `userSentiment.summary = "No recent Reddit discussion found"`, counts 0. |
 | Jina Search empty for news | `recentNews: []`, note in `researchNotes`. |
-| Payload update fails | Abort this service; continue batch. |
+| File edit or validation fails | Fix the YAML; if you can't, revert that file with `git checkout -- <file>`, abort this service, continue batch. |
 
 ## Output format
 
@@ -143,25 +185,25 @@ Per service:
   Reddit: <N> mentions (<P>/<N>/<M> positive/negative/mixed)
   News: <N> items in last 12 months
   Updated: <list of fields written>
-  → Updated services/<id>
+  → Updated content/services/<slug>/en.md
 ```
 
 Batch: `N researched • M errors`.
 
-`--dry-run`: print the JSON payload instead of the summary.
+`--dry-run`: print the would-be frontmatter changes instead of the summary.
 
 ## Cost per service
 
 - Reddit MCP: ~4 searches (free)
 - Jina Search: ~5 queries (with content) = ~50k tokens (~0.5% of monthly budget)
 - Jina Reader: ~4 pages (negligible)
-- Payload writes: 1
+- File writes: 1
 
 Per service: $0 out-of-pocket, 2–3 min. Backfilling 50 services at 5-parallel: ~1h wall-clock.
 
 ## Important notes
 
 - EN-only for `userSentiment.summary` and `recentNews[].summary` in this phase. The existing `translate` skill picks them up on a later run.
-- Cite sources: every non-obvious claim in `researchNotes` must reference a `sourceUrls[]` entry.
+- Cite sources: every non-obvious claim in `researchNotes` must reference a `sourceUrls[]` entry. Run the self-check in `_shared/evidence.md` before Step 8.
 - Respect Reddit's Responsible Builder Policy (see `_shared/reddit.md`): always credit source URL when rendering a Reddit quote on the public site.
 - Follow `_shared/voice.md` for any consumer-facing prose. Summaries should be direct, honest, specific — no marketing fluff, no em dashes, no banned words.

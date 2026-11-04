@@ -1,8 +1,8 @@
 {
     "layout": {
         "metadata": {
-            "title": "Quiz — Create Live Quizzes & Compete in Real-Time | switch-to.eu",
-            "description": "Host interactive quiz sessions with live scoring — no account needed."
+            "title": "Quiz: Create Live Quizzes with Scoring | switch-to.eu",
+            "description": "Host live quiz sessions for classrooms and teams, with live scoring. End-to-end encrypted, and players join without an account or registration."
         },
         "header": {
             "createQuiz": "Create Quiz",

@@ -102,6 +102,7 @@ packages/
   ui/             # Atomic UI components (shadcn/ui new-york style, Radix primitives)
   i18n/           # Shared i18n layer (next-intl v4)
   blocks/         # Page-level shared components (Header, Footer, LanguageSelector)
+  knowledge/      # Knowledge graph index script (pnpm knowledge:index)
   db/             # Shared database utilities (Redis client, crypto, admin tokens, expiration, mock-redis for tests, test-redis for Testcontainers)
   trpc/           # Shared tRPC v11 infrastructure (used by plotty, listy, privnote — NOT by website or keepfocus)
   eslint-config/  # Shared ESLint 9 flat configs
@@ -116,9 +117,13 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **Middleware file is `proxy.ts`**, not `middleware.ts`. The next-intl middleware entry point for both apps is named `proxy.ts`.
 
-**Content lives in Payload CMS** (Postgres), managed via the `/admin` panel. Collections: Categories, Services, Guides, Landing Pages, Pages, Media. Services have a `region` field: `"eu"`, `"non-eu"`, or `"eu-friendly"`. All content collections have `versions: { drafts: true }` and require explicit publish.
+**Content lives in markdown files in `content/`** at the repo root (no CMS, no database). Layout: `content/<collection>/<slug>/en.md` (all fields in YAML frontmatter, body = main content) plus an optional `nl.md` holding only the localized fields that differ and the translated body. Collections: `services`, `guides`, `categories`, `landing-pages`, `pages`. Relations are slugs (`category: email`, `recommendedAlternative: proton-mail`). Guide bodies use `<!-- section:name -->` / `<!-- step-start -->` markers. Services have a `region` field: `"eu"` (head office in an EU member state), `"eu-friendly"` (recommended, head office outside the EU: Switzerland, UK, EEA, or a non-European organisation we still recommend), or `"non-eu"` (a service people leave). `recommendedAlternative` picks an `eu` service where a good one exists. Full format reference: `.claude/skills/_shared/content-files.md`.
 
-**Next.js plugin chain** in `apps/website/next.config.ts`: `withMDX(withNextIntl(nextConfig))`. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
+**Content loader** is `apps/website/lib/content/loader.ts` (types in `lib/content/types.ts`). It parses everything once per process (re-reads on every request in `next dev`) and resolves relations to objects. `lib/services.ts` wraps it with the query helpers pages use. Markdown is rendered by `components/rich-text.tsx` via `marked` (`lib/markdown.ts`). Service screenshots live in `apps/website/public/images/services/`. Guide videos are too big for git and stay on Vercel Blob (absolute URLs in step meta).
+
+**Next.js plugin chain** in `apps/website/next.config.ts`: `withNextIntl(nextConfig)`. `outputFileTracingIncludes` ships `content/**/*.md` with the server bundle. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
+
+**Website pages are static.** Pages build once per deploy, and a page can't read the request. `apps/website/app/(frontend)/[locale]/layout.tsx` is the root layout, because `<html lang>` needs the locale from the URL. Each new page and each `generateMetadata` must call `setRequestLocale(locale)` before it uses next-intl, or next-intl reads `headers()` and the page turns dynamic. Check the build's route table: pages must show `●`, not `ƒ`. `dynamicParams = false` in that layout sends unknown paths to the bilingual `app/global-not-found.tsx`. Do not remove this setting: unknown paths then return a 500. `?tab=` is read in the browser, in a small `Suspense` boundary in `ServiceSubNav`, so the listing text stays in the static HTML. `SHOW_DRAFTS` applies at build time.
 
 **`global.ts` at repo root** is a next-intl type declaration that augments the `Messages` type — it is not a general utilities file.
 
@@ -135,18 +140,18 @@ Locales: `en` (default), `nl`. Managed by `@switch-to-eu/i18n` package using nex
 
 ## Content Workflow (AI-Assisted)
 
-The site uses custom Claude Code skills wired to Payload CMS via MCP for a research-to-publish pipeline. All content enters as draft and requires human review before publishing.
+The site uses custom Claude Code skills that read and write the markdown files in `content/` for a research-to-publish pipeline. New content enters with `draft: true` and requires human review (the git diff / PR) before publishing.
 
 ### Single-Item Pipeline
 
 ```
-/research "ServiceName"     → Fills Research tab on service via MCP
-/write service "ServiceName" → Writes listing from research data, saves as draft
+/research "ServiceName"     → Fills research fields in content/services/<slug>/en.md
+/write service "ServiceName" → Writes listing from research data
 /humanize service "ServiceName" → Strips AI writing patterns
-/seo-check service "ServiceName" → 10-point audit, stores score in SEO tab
-→ Editor reviews in /admin, publishes
-/translate service "ServiceName" nl → Translates to Dutch locale
-→ Editor reviews Dutch version, publishes
+/seo-check service "ServiceName" → 10-point audit, stores seoScore/seoNotes in frontmatter
+→ Editor reviews the diff, removes draft: true, merges
+/translate service "ServiceName" nl → Writes nl.md
+→ Editor reviews Dutch version, merges
 ```
 
 For guides:
@@ -174,19 +179,19 @@ Bulk skills accept: specific names (comma-separated), `all`, `unresearched`/`unw
 
 ### Content Pipeline Status
 
-Services and Guides have a `contentPipelineStatus` sidebar field tracking progress: `not-started` → `in-progress` → `written` → `humanized` → `seo-checked` → `translated` → `complete`. The `/pipeline` skill updates this automatically. Useful for filtering items that need the next step.
+Services and Guides have a `contentPipelineStatus` frontmatter field tracking progress: `not-started` → `in-progress` → `written` → `humanized` → `seo-checked` → `translated` → `complete`. The `/pipeline` skill updates this automatically. Useful for filtering items that need the next step.
 
 ### Skills (`.claude/skills/`)
 
 | Skill | Type | Purpose |
 |-------|------|---------|
-| `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
-| `research` | `/research` | Vendor site + Reddit sentiment + recent news → Payload Research tab via MCP |
+| `informational-copy` | Auto-invoked | Copy patterns per page type. The voice itself is in `.claude/skills/_shared/voice.md` |
+| `research` | `/research` | Vendor site + Reddit sentiment + recent news → research fields in the service's en.md |
 | `write` | `/write` | Content generation from research data |
 | `humanize` | `/humanize` | Strip AI writing patterns |
 | `seo-check` | `/seo-check` | Pre-publish 12-point QA checklist (scored 0-100) |
-| `seo-audit` | `/seo-audit` | Post-publish performance analysis — GSC + Jina SERP + live page → `pageAudits` collection |
-| `opportunity-finder` | `/opportunity-finder` | Mine GSC + Reddit + Jina SERP for content backlog → `contentOpportunities` collection |
+| `seo-audit` | `/seo-audit` | Post-publish performance analysis — GSC + Jina SERP + live page → `docs/seo/audits/` |
+| `opportunity-finder` | `/opportunity-finder` | Mine GSC + Reddit + Jina SERP for content backlog → `docs/seo/opportunities/` |
 | `translate` | `/translate` | Localization to other EU languages |
 | `bulk-research` | `/bulk-research` | Parallel research via subagents |
 | `bulk-write` | `/bulk-write` | Parallel content writing via subagents |
@@ -194,22 +199,50 @@ Services and Guides have a `contentPipelineStatus` sidebar field tracking progre
 | `bulk-seo-check` | `/bulk-seo-check` | Parallel SEO audits via subagents |
 | `bulk-translate` | `/bulk-translate` | Parallel translation via subagents |
 | `pipeline` | `/pipeline` | Combined write→humanize→seo-check (sequential per item, parallel across items) |
+| `content-link-edit` | `/content-link-edit` | Swap a URL across all content files (both locales) |
+| `claims-audit` | `/claims-audit` | Re-check each claim on published listings and guides against the vendors' current pages (current / changed / unverifiable / overclaimed) → `docs/claims-audits/`. `--fix` rewrites them |
 
-**`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in the `pageAudits` collection).
+**`seo-check` vs `seo-audit`** — they coexist and address different points in the content lifecycle. `seo-check` is the pre-publish QA gate (12-point checklist, no live data). `seo-audit` is the post-publish performance analysis (GSC, live page, real rankings → rewrite plan in `docs/seo/audits/<collection>-<slug>.md`).
 
-**`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Review entries in admin at `/admin/collections/content-opportunities`; flag false positives as `rejected` so dedup behaves on re-runs.
+**`opportunity-finder`** is upstream of the authoring pipeline — it generates the backlog of what to write next. Entries are files in `docs/seo/opportunities/`; set `status: rejected` on false positives so dedup behaves on re-runs.
 
-### Tone rules (from informational-copy)
+### News pipeline and knowledge base
 
-- Write like a knowledgeable friend, not a marketing team
+One AI-researched news article per weekday, EU focus, researched and written in English. Articles live in `content/articles/<slug>/{en,nl,fr}.md` and are served at `/[locale]/news/<slug>` (index at `/[locale]/news`, RSS at `/[locale]/news/feed.xml`). Unlike other collections, **each locale file is a full translation with its own `draft` flag**: English is approved by the owner, then `/translate article <slug> nl` (owner re-reads), then `fr` (AI only, stored but not served until `fr` becomes a site locale). Format: `.claude/skills/_shared/content-files.md` → "Articles".
+
+**Sample articles:** `sample: true` in an article's `en.md` marks layout placeholders. They render with a visible notice, are `noindex`, and are left out of the sitemap, RSS and the knowledge graph. The eight original samples were removed on 2026-11-03. The flag still works if a placeholder is ever needed.
+
+**Design:** the homepage is a news-led front page (`components/home/`, `components/news/FrontPage.tsx`). Articles carry an openly licensed header photo (`image`, `imageAlt`, `imageCredit`, `imageCreditUrl` in en.md, files in `apps/website/public/images/articles/`); the article page shows it full width with the title panel overlapping it and the credit underneath. The impeccable design skill (v4.8.0, Apache-2.0) is vendored in `.claude/skills/impeccable/`, including its launcher. `scripts/impeccable` downloads the pinned engine binary on first use, verifies it against `engine-checksums.txt` and caches it outside the repo. Run `.claude/skills/impeccable/scripts/impeccable detect --json <dirs>` after UI changes; it should report `[]`. The rendered checks in `apps/website/scripts/a11y-audit.cjs --sitemap --keyboard` complement it.
+
+Research memory is a markdown knowledge graph in `knowledge/` (schema and rules: `knowledge/README.md`, design: `docs/superpowers/specs/2026-11-02-news-knowledge-base-design.md`): immutable `sources/` notes with numbered claims, `entities/` with dated, cited fact lines, and `stories/` (ongoing storylines with summary, timeline and "Our coverage"). Relations are frontmatter slugs and `[[wikilinks]]`. **Code does the bookkeeping:** `pnpm knowledge:index` (package `packages/knowledge`) rebuilds the generated `knowledge/index.md` and `knowledge/graph.json`, computes story heat and reports broken links, orphans and stale pages. `--check` exits non-zero on errors. Never hand-edit the generated files.
+
+The same command builds a local search store, `knowledge/.cache/knowledge.db` (gitignored, safe to delete): full text of knowledge notes and site content in English and Dutch, dated research facts, URLs with `checkedAt`, claims, events, flags, and owner companies derived from `parentCompany`. Query it with `pnpm -s knowledge search|node|resolve|related|context 2>/dev/null` (the redirect hides an unrelated pnpm warning). Commands and the `rg`/`jq` fallbacks are in `.claude/skills/_shared/knowledge.md`. It is only as fresh as the last `pnpm knowledge:index`. `pnpm knowledge:explore` opens a local web explorer for people.
+
+```
+/news-daily       → scan → ingest → pick → write → check, ends with a briefing (weekdays)
+/news-scan        → watchlist (knowledge/watchlist.md) → knowledge/inbox/<date>.md
+/news-ingest      → source notes + entity/story updates + knowledge/flags.md
+/news-pick        → pick a story + 2 backups
+/news-write       → content/articles/<slug>/en.md (draft: true)
+/news-check       → fact check against source claims, humanize, SEO
+/knowledge-lint   → weekly health pass
+/knowledge-prune  → monthly compaction
+/research flagged → refresh service listings flagged by news
+```
+
+### Tone rules (full guide: `.claude/skills/_shared/voice.md`)
+
+- A friend who did the research tells you what changes for you, what to do, and what they would do
+- Put facts in the order that the reader asks. Fix structure before words
 - Back every claim with specifics (numbers, features, prices)
-- Always acknowledge trade-offs ("Worth knowing:" section is mandatory)
-- No em dashes, no semicolons, no banned words (see skill for full list)
-- Active voice, short sentences, varied paragraph length
+- Evidence rules (`.claude/skills/_shared/evidence.md`): "not listed" is not "doesn't have", date what changes (`sourceUrls[].checkedAt`), no guessed motives, attribute company-only practices and Reddit views
+- Always acknowledge trade-offs. Service listings keep the "Worth knowing" section. News says the trade-off in normal text
+- No em dashes, no semicolons. Normal words such as "can" and "it" are fine
+- After a rewrite, compare the old and new facts
 
 ### Draft/Publish workflow
 
-All content collections have `versions: { drafts: true }`. New content from AI skills enters as draft (`_status: "draft"`). Editors review in the Payload admin panel and click "Publish" to make content live. Nothing publishes automatically.
+`draft: true` in an item's `en.md` frontmatter hides it from production builds (it still shows in `pnpm dev`; `SHOW_DRAFTS=1` forces it on). New items from AI skills are written with `draft: true`. Edits to existing items go live when merged, so review happens in the PR. To publish a new item, delete the `draft` line.
 
 ## tRPC + Redis Apps (Plotty, Listy, Privnote)
 
@@ -236,17 +269,17 @@ This applies to frequent, lightweight interactions (checkboxes, add/remove items
 
 ## Code Style
 
-- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `docs/brand.md` first. It documents the full brand system including color palette, tool color schemes, typography, shape system, and layout patterns. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (also stored at `.impeccable.md`).
+- **Brand & Design**: For any design-related work (colors, typography, layout, components), read `DESIGN.md` first: the website's visual system ("The Warm Broadsheet"), with tokens in its frontmatter and a sidecar at `.impeccable/design.json`. `docs/brand.md` holds the code-level details: tool color schemes, the shape library, and the older look the tool apps still use. For the *why* behind design choices (audiences, tone, anti-references, accessibility bar), see the Design Context section below (full version in `PRODUCT.md`).
 - TypeScript strict mode, functional React components
 - Tailwind CSS for all styling
 - **No dark mode.** The platform is light-only. Do not add `dark:` classes in app or blocks code.
-- Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (hero display, `--font-anton`)
+- Custom fonts: Bonbance Bold Condensed (headings, `--font-bonbance`), HankenGrotesk (body, `--font-hanken-grotesk`), Anton (logo only, `--font-anton`)
 - ESLint 9 flat config; unused vars prefixed with `_` are allowed
 - shadcn/ui components live in `packages/ui/src/components/`
 
 ## Design Context
 
-`docs/brand.md` is the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context brand.md leaves implicit: who we design for, how it should feel, what to avoid. Full version in `.impeccable.md`.
+`DESIGN.md` (website) and `docs/brand.md` (code-level details, tool apps) are the mechanical source of truth (tokens, fonts, shapes, components). This section supplies the context they leave implicit: who we design for, how it should feel, what to avoid. Full version in `PRODUCT.md`.
 
 ### Users
 
@@ -266,11 +299,11 @@ Hierarchy and progressive disclosure let each group find their layer without con
 - **Warm** — a knowledgeable friend, not a regulator or an activist. Explain without patronising; disagree without sneering.
 - **Specific** — every claim backed by a number, feature, or concrete trade-off. Vague reassurance is worse than honest weakness.
 
-Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed. See `.claude/skills/informational-copy` for written tone rules.
+Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed. See `.claude/skills/_shared/voice.md` for written tone rules.
 
 ### Aesthetic Direction
 
-Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` references: Pride Project posters, Flavour United palette, Vy brand, freeform shape library, Google Labs card grid.
+Trustworthy and editorial, with character. Light mode only. Settled on 2026-11-03 after three rounds of owner feedback: all-saturated cards were "a bit much", shapes everywhere felt "childish and gimmicky", and an all-white page was "ugly, barely any contrast". The balance: a warm page ground (`#f1eee8`) so white cards stand out, **deliberate brand-colour panels** (homepage: green intro, sky guides panel, the featured tool in its own surface colour, sage newsletter), white cards with a thin saturated colour strip, real photos on news. Think a good news site with a recognisable palette.
 
 **Things switch-to.eu must NOT look like:**
 
@@ -280,12 +313,17 @@ Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` refere
 
 **Signature moves — use them, don't abandon them:**
 
-- Anton display type at fluid `clamp(3.5rem, 12vw, 14rem)` for the home hero.
-- Bonbance Bold Condensed, uppercase, weight 800 for every section heading.
-- Organic SVG shapes floating around content, staggered animation, `aria-hidden` + `pointer-events-none`.
-- Fully-saturated brand-colour blocks with `rounded-3xl` as section containers.
+- Content first: no big homepage hero. A compact green intro panel (dateline, yellow Bonbance h1, search, quick-switch chips) and the news straight after it.
+- Bonbance Bold Condensed in **sentence case** for headings, at modest sizes (section headings `text-3xl sm:text-4xl`). No uppercase headings, no Anton outside the logo.
+- Real, openly licensed photos for news (credited under the image). Decorative shapes only tone-on-tone inside colour panels (about 8-12% opacity). No blob illustrations on cards.
+- `rounded-3xl` panels: white with `border-black/10`, or a full brand colour for anchor sections (green, sky, sage, a tool's own surface colour), never two adjacent in the same colour.
+- Bold brand colour as accents: card strips, article type pills (news = yellow, analysis = navy), small dots, the logo's `.eu`. No grid of saturated cards.
 - `rounded-full` pill buttons only. No square or slightly-rounded buttons anywhere.
-- Category / pillar / feature cards rotate through the 8-colour sequence from `getCardColor(index)` — don't break the rotation to be clever.
+- No subtitle filler under headings. If a heading needs a sentence to explain it, fix the heading.
+- No self-description panels ("How we work", "Why trust us", values grids). The owner cut one on 2026-11-03 as AI slop. Trust comes from the sources and trade-offs in the content itself.
+- No reassurance lines about our own process ("Prices and facts checked on …, on each company's own pages", "independently reviewed"). The owner calls these AI slop too.
+- No shapes or labels over screenshots. A recommendation is a small soft-green pill in the content (`components/ui/RecommendedPill.tsx`).
+- Cards: white with hairline border and a thin saturated top strip (`apps/website/lib/quiet-palette.ts`); a visual area only when there is a real screenshot or photo. The tool apps keep the saturated `getCardColor` from `@switch-to-eu/ui/lib/brand-palette`.
 
 ### Accessibility
 
@@ -293,17 +331,17 @@ Bold, colourful, optimistic. Light mode only. Energy from `docs/brand.md` refere
 
 - Verify contrast for every text + background pairing. The bold palette is easy to get wrong.
 - `:focus-visible` on every interactive element. Pill buttons hide default focus rings — replace them, don't remove them.
-- Shape animations disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
+- Any animation disabled or reduced under `@media (prefers-reduced-motion: reduce)`.
 - Keyboard-complete navigation. No hover-only affordances.
-- Decorative shapes always `aria-hidden="true"` and `pointer-events-none`.
+- Photos have real alt text (`imageAlt`); purely decorative thumbnails use `alt=""`.
 - Respect the text-on-colour contrast rule from `docs/brand.md`: dark brand colours take `#ffffff`; light brand colours take `#1a1a1a`. Don't tint text off-palette to "make it work."
 
 ### Design Principles
 
 1. **Honesty over polish.** Trade-offs appear on the same surface as recommendations. No asterisks, no hide-behind-a-link.
-2. **Swagger in the visuals, restraint in the claims.** Loud visuals + loud copy reads as marketing. We are not marketing.
-3. **Bold colour is structural, not decorative.** Full-saturation blocks mark section boundaries. Don't sprinkle brand colours as accents on otherwise-neutral cards.
-4. **Organic shapes are mandatory, never arbitrary.** 2–3 per major section, staggered timing, sized to overflow. Scatter them — aligned shapes feel corporate.
+2. **Personality in the details, restraint in the claims.** Bonbance headings, a few brand-colour panels, real photos and bold accents carry character. Gimmicks (floating shapes on white, candy-coloured card grids) read as unserious.
+3. **Colour has a rhythm.** Neutral surfaces carry most of the page; a few full brand-colour panels anchor it; small accents (strips, pills, dots) tie the rest together. Too white is as wrong as too colourful.
+4. **Show the real thing.** A photo of the actual institution or place, a real screenshot, a source link. Never illustration for its own sake.
 5. **Three audiences, one page.** Hierarchy does the work, not separate sections addressed at each audience.
 
 <!-- skilld -->

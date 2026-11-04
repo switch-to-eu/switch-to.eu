@@ -1,286 +1,147 @@
-import { unstable_cache } from "next/cache";
-import type { Service, Guide, Category } from "@/payload-types";
-import { getPayload, isPreview, publishedWhere } from "@/lib/payload";
+import type { Service, Guide, Category } from "@/lib/content/types";
+import {
+  findCategory,
+  findGuide,
+  findService,
+  getAllGuides,
+  getAllServices,
+  LOCALES,
+} from "@/lib/content/loader";
+
+export { LOCALES };
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
 export const EU_REGIONS = ["eu", "eu-friendly"] as const;
-export const LOCALES = ["en", "nl"] as const;
+
+const isEuRegion = (s: Service) =>
+  (EU_REGIONS as readonly string[]).includes(s.region);
+
+const featuredFirst = (a: Service, b: Service) =>
+  Number(!!b.featured) - Number(!!a.featured);
 
 // ---------------------------------------------------------------------------
-// Cached queries
+// Queries
 //
-// All queries use `unstable_cache` with collection-level tags so results are
-// persisted across requests. The cache is invalidated when content is
-// published in Payload admin via `revalidateTag()` in afterChange hooks.
-// This means zero DB hits at runtime unless revalidation is triggered.
-// In draft preview mode the cache is skipped so edits show immediately.
+// Content is read from the markdown files in /content (see
+// lib/content/loader.ts). The functions return promises so callers don't care
+// where the data comes from.
 // ---------------------------------------------------------------------------
 
-/**
- * Fetch a single EU service by slug.
- */
-export const getServiceBySlug = async (
+/** Fetch a single EU service by slug. */
+export const getServiceBySlug = (
   slug: string,
-  locale: string
+  locale: string,
 ): Promise<Service | null> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({
-    slug: { equals: slug },
-    region: { in: EU_REGIONS },
-  });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = await payload.find({
-      collection: "services",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit: 1,
-    });
-    return (docs[0] as Service | undefined) ?? null;
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(fetcher, [`service-${slug}-${locale}`], {
-    tags: ["services"],
-  })();
+  const service = findService(slug, locale);
+  return Promise.resolve(service && isEuRegion(service) ? service : null);
 };
 
-/**
- * Fetch a single migration guide by slug.
- *
- * `depth: 2` matches the previous inline calls so source/target service
- * relationships and category come back populated for metadata + render.
- */
-export const getGuideBySlug = async (
+/** Fetch a single migration guide by slug. */
+export const getGuideBySlug = (
   slug: string,
-  locale: string
-): Promise<Guide | null> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({ slug: { equals: slug } });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = await payload.find({
-      collection: "guides",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 2,
-      limit: 1,
-    });
-    return (docs[0] as Guide | undefined) ?? null;
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(fetcher, [`guide-${slug}-${locale}`], {
-    tags: ["guides"],
-  })();
-};
+  locale: string,
+): Promise<Guide | null> =>
+  Promise.resolve(findGuide(slug, locale));
 
 /**
  * Fetch guides that target a given service (i.e. migration guides *to* that
  * service).
  */
-export const getRelatedGuides = async (
-  serviceId: number,
-  locale: string
-): Promise<Guide[]> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({
-    targetService: { equals: serviceId },
-  });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "guides",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit: 10,
-    })) as { docs: Guide[] };
-    return docs;
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(fetcher, [`guides-for-${serviceId}-${locale}`], {
-    tags: ["guides", "services"],
-  })();
-};
+export const getRelatedGuides = (
+  serviceSlug: string,
+  locale: string,
+): Promise<Guide[]> =>
+  Promise.resolve(
+    getAllGuides(locale).filter((g) => g.targetService?.slug === serviceSlug),
+  );
 
 /**
- * Fetch services in the same category, excluding the current service.
+ * Fetch EU services in the same category, excluding the current service.
  * Returns up to 4 results with featured services sorted first.
  */
-export const getSimilarServices = async (
-  categoryId: number,
-  excludeId: number,
-  locale: string
-): Promise<Service[]> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({
-    category: { equals: categoryId },
-    id: { not_equals: excludeId },
-    region: { in: EU_REGIONS },
-  });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "services",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      limit: 5,
-    })) as { docs: Service[] };
-
-    return docs
-      .sort((a, b) => {
-        if (a.featured && !b.featured) return -1;
-        if (!a.featured && b.featured) return 1;
-        return 0;
-      })
-      .slice(0, 4);
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(
-    fetcher,
-    [`similar-${categoryId}-${excludeId}-${locale}`],
-    { tags: ["services"] }
-  )();
-};
+export const getSimilarServices = (
+  categorySlug: string,
+  excludeSlug: string,
+  locale: string,
+): Promise<Service[]> =>
+  Promise.resolve(
+    getAllServices(locale)
+      .filter(
+        (s) =>
+          s.category.slug === categorySlug &&
+          s.slug !== excludeSlug &&
+          isEuRegion(s),
+      )
+      .sort(featuredFirst)
+      .slice(0, 4),
+  );
 
 /**
  * Fetch a service by slug regardless of region. Used by the non-EU detail
- * page (which then enforces a redirect when region has flipped). depth: 2
- * is enough to populate `recommendedAlternative` for the gain/lose panel.
+ * page (which then enforces a redirect when region has flipped).
  */
-export const getServiceBySlugAnyRegion = async (
+export const getServiceBySlugAnyRegion = (
   slug: string,
-  locale: string
-): Promise<Service | null> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({ slug: { equals: slug } });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = await payload.find({
-      collection: "services",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 2,
-      limit: 1,
-    });
-    return (docs[0] as Service | undefined) ?? null;
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(fetcher, [`service-any-${slug}-${locale}`], {
-    tags: ["services"],
-  })();
-};
-
-/**
- * Fetch a single category by slug. depth: 0 — categories don't have
- * relationships that pages render.
- */
-export const getCategoryBySlug = async (
-  slug: string,
-  locale: string
-): Promise<Category | null> => {
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = await payload.find({
-      collection: "categories",
-      where: { slug: { equals: slug } },
-      locale: locale as "en" | "nl",
-      limit: 1,
-    });
-    return (docs[0] as Category | undefined) ?? null;
-  };
-  return unstable_cache(fetcher, [`category-${slug}-${locale}`], {
-    tags: ["categories"],
-  })();
-};
-
-/**
- * Fetch migration guides for a specific (source, target) service pair.
- */
-export const getMigrationGuidesForPair = async (
-  sourceId: number,
-  targetId: number,
-  locale: string
-): Promise<Guide[]> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({
-    sourceService: { equals: sourceId },
-    targetService: { equals: targetId },
-  });
-
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "guides",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit: 10,
-    })) as { docs: Guide[] };
-    return docs;
-  };
-
-  if (preview) return fetcher();
-  return unstable_cache(
-    fetcher,
-    [`migration-${sourceId}-${targetId}-${locale}`],
-    { tags: ["guides"] }
-  )();
-};
-
-/**
- * Fetch all EU (region in eu | eu-friendly) services in a category.
- */
-export const getEuServicesByCategory = async (
-  categoryId: number,
   locale: string,
-  limit = 100
-): Promise<Service[]> => {
-  const preview = await isPreview();
-  const where = await publishedWhere({
-    category: { equals: categoryId },
-    region: { in: EU_REGIONS },
-  });
+): Promise<Service | null> =>
+  Promise.resolve(findService(slug, locale));
 
-  const fetcher = async () => {
-    const payload = await getPayload();
-    const { docs } = (await payload.find({
-      collection: "services",
-      where,
-      draft: preview,
-      locale: locale as "en" | "nl",
-      depth: 1,
-      limit,
-    })) as { docs: Service[] };
-    return docs;
-  };
+/** Fetch a single category by slug. */
+export const getCategoryBySlug = (
+  slug: string,
+  locale: string,
+): Promise<Category | null> =>
+  Promise.resolve(findCategory(slug, locale));
 
-  if (preview) return fetcher();
-  return unstable_cache(
-    fetcher,
-    [`eu-services-by-cat-${categoryId}-${locale}-${limit}`],
-    { tags: ["services"] }
-  )();
-};
+/** Fetch migration guides for a specific (source, target) service pair. */
+export const getMigrationGuidesForPair = (
+  sourceSlug: string,
+  targetSlug: string,
+  locale: string,
+): Promise<Guide[]> =>
+  Promise.resolve(
+    getAllGuides(locale).filter(
+      (g) =>
+        g.sourceService?.slug === sourceSlug &&
+        g.targetService?.slug === targetSlug,
+    ),
+  );
+
+/** Fetch all EU (region in eu | eu-friendly) services in a category. */
+export const getEuServicesByCategory = (
+  categorySlug: string,
+  locale: string,
+  limit = 100,
+): Promise<Service[]> =>
+  Promise.resolve(
+    getAllServices(locale)
+      .filter((s) => s.category.slug === categorySlug && isEuRegion(s))
+      .slice(0, limit),
+  );
+
+/** Non-EU services in a category. People who leave one read its page first. */
+export const getNonEuServicesByCategory = (
+  categorySlug: string,
+  locale: string,
+): Service[] =>
+  getAllServices(locale)
+    .filter((s) => s.category.slug === categorySlug && s.region === "non-eu")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+/** Non-EU services that recommend this service as their alternative. */
+export const getServicesReplacedBy = (
+  serviceSlug: string,
+  locale: string,
+): Service[] =>
+  getAllServices(locale)
+    .filter(
+      (s) =>
+        s.region === "non-eu" && s.recommendedAlternative?.slug === serviceSlug,
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 // ---------------------------------------------------------------------------
 // Static params helper
@@ -288,23 +149,14 @@ export const getEuServicesByCategory = async (
 
 /**
  * Returns all locale + slug combinations for EU services, used in
- * `generateStaticParams` across service detail pages. Only includes
- * published services — drafts are rendered on demand when draft mode is on.
+ * `generateStaticParams` across service detail pages.
  */
-export async function getAllEuServiceSlugs() {
-  const payload = await getPayload();
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      and: [
-        { _status: { equals: "published" } },
-        { region: { in: EU_REGIONS } },
-      ],
-    },
-    limit: 100,
-  });
+export function getAllEuServiceSlugs() {
+  const slugs = getAllServices("en")
+    .filter(isEuRegion)
+    .map((s) => s.slug);
   return LOCALES.flatMap((locale) =>
-    docs.map((s) => ({ locale, service_name: s.slug }))
+    slugs.map((slug) => ({ locale, service_name: slug })),
   );
 }
 
@@ -313,59 +165,50 @@ export async function getAllEuServiceSlugs() {
 // ---------------------------------------------------------------------------
 
 /**
- * Resolve a Payload relationship field to its populated object, or `null`
- * when the relationship is a bare id / missing / not populated via `depth`.
+ * Identity helper kept from the Payload era, when relations could be bare
+ * ids. Relations from the markdown loader are always resolved objects.
  */
-export function getResolvedRelation<T extends { id: number }>(
-  relation: number | T | null | undefined
+export function getResolvedRelation<T>(
+  relation: T | null | undefined,
 ): T | null {
-  return typeof relation === "object" && relation !== null ? relation : null;
+  return relation ?? null;
 }
 
-type CategoryRelation = Service["category"] | null | undefined;
+type CategoryRelation = Category | null | undefined;
 
-/**
- * Resolve the slug from a populated category. Returns `""` when the
- * relationship hasn't been populated (bare id / null / undefined) — callers
- * should treat that as "unresolved" and handle it explicitly.
- */
+/** Slug of a category relation, or `""` when there is none. */
 export function getCategorySlug(category: CategoryRelation): string {
-  return typeof category === "object" && category !== null ? category.slug : "";
+  return category?.slug ?? "";
 }
 
-/** Resolve the numeric id from a Service/Guide category field. */
-export function getCategoryId(category: Service["category"]): number {
-  return typeof category === "object" ? category.id : category;
+/** Identifier of a Service/Guide category (its slug). */
+export function getCategoryId(category: Category): string {
+  return category.slug;
 }
 
-/** Resolve the localized title from a category field, populated or not. */
+/** Localized title of a category relation. */
 export function getCategoryTitle(
   category: CategoryRelation,
-  fallback = "Other"
+  fallback = "Other",
 ): string {
-  return typeof category === "object" && category !== null
-    ? category.title
-    : fallback;
+  return category?.title ?? fallback;
 }
 
-/** Resolve the populated source service from a guide, or `null`. */
+/** The source service of a guide, or `null`. */
 export function getGuideSourceService(guide: Guide): Service | null {
-  return getResolvedRelation<Service>(guide.sourceService);
+  return guide.sourceService ?? null;
 }
 
-/** Resolve the populated target service from a guide, or `null`. */
+/** The target service of a guide, or `null`. */
 export function getGuideTargetService(guide: Guide): Service | null {
-  return getResolvedRelation<Service>(guide.targetService);
+  return guide.targetService ?? null;
 }
 
-/** Resolve the screenshot URL from a Service's screenshot field. */
+/** Screenshot URL of a service. */
 export function getScreenshotUrl(
-  screenshot: Service["screenshot"]
+  screenshot: Service["screenshot"],
 ): string | undefined {
-  if (typeof screenshot === "object" && screenshot !== null) {
-    return screenshot.url ?? undefined;
-  }
-  return undefined;
+  return screenshot ?? undefined;
 }
 
 /**
@@ -374,11 +217,11 @@ export function getScreenshotUrl(
  * `"unknown"`.
  */
 export function getGdprLabel(
-  compliance: Service["gdprCompliance"]
+  compliance: Service["gdprCompliance"],
 ): string | null {
   switch (compliance) {
     case "compliant":
-      return "GDPR Compliant";
+      return "Says it follows GDPR";
     case "partial":
       return "Partially Compliant";
     case "non-compliant":
@@ -413,7 +256,7 @@ export function hasSecurityData(service: Service): boolean {
  * Returns the affiliate URL if set, otherwise the direct service URL.
  */
 export function getOutboundUrl(
-  service: Pick<Service, "url" | "affiliateUrl">
+  service: Pick<Service, "url" | "affiliateUrl">,
 ): string {
   return service.affiliateUrl || service.url;
 }

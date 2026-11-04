@@ -2,25 +2,37 @@ import React from "react";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Button } from "@switch-to-eu/ui/components/button";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 import { Link } from "@switch-to-eu/i18n/navigation";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import type { Metadata, ResolvingMetadata } from "next";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
-import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: Locale }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("contribute");
-  const locale = await getLocale();
 
-  return {
-    title: t("title"),
-    description: t("description"),
-    alternates: generateLanguageAlternates("contribute/guide", locale),
-  };
+  return pageMetadata({
+    parent,
+    path: "contribute/guide",
+    locale,
+    title: t("guide.meta.title"),
+    description: t("guide.meta.description"),
+  });
 }
 
-export default async function ContributeGuidePage() {
+export default async function ContributeGuidePage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("contribute");
 
   const getKnownPoints = (path: string): React.ReactNode => {
@@ -141,35 +153,16 @@ export default async function ContributeGuidePage() {
       <section>
         <Container>
           <Banner
-            color="bg-brand-green"
-            shapes={[
-              { shape: "cloud", className: "-top-8 -right-8 w-36 h-36 sm:w-48 sm:h-48" },
-              { shape: "star", className: "-bottom-10 -left-10 w-40 h-40 sm:w-52 sm:h-52", opacity: 0.1, delay: "-3s" },
-            ]}
+            color="bg-white border-y md:border border-black/10"
           >
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="flex-1">
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase text-brand-yellow mb-6">
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl text-brand-green mb-6">
                   {t("guide.hero.title")}
                 </h1>
-                <p className="text-white/90 text-base sm:text-lg">
+                <p className="text-[#1a1a1a] text-base sm:text-lg">
                   {t("guide.hero.description")}
                 </p>
-              </div>
-              <div className="w-40 h-40 sm:w-56 sm:h-56 relative flex-shrink-0">
-                <DecorativeShape
-                  shape="cross"
-                  className="inset-0"
-                  opacity={0.3}
-                  duration="7s"
-                />
-                <DecorativeShape
-                  shape="diamond-4"
-                  className="inset-8"
-                  opacity={0.5}
-                  duration="6s"
-                  delay="-2s"
-                />
               </div>
             </div>
           </Banner>
@@ -180,26 +173,26 @@ export default async function ContributeGuidePage() {
       <section>
         <Container>
           <div className="prose prose-slate max-w-3xl mx-auto lg:prose-lg">
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green mt-0">
+            <h2 className="font-heading text-3xl text-brand-green mt-0">
               {t("guide.repositoryOverview.title")}
             </h2>
             <p>{t("guide.repositoryOverview.description")}</p>
 
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+            <h2 className="font-heading text-3xl text-brand-green">
               {t("guide.whatYouCanContribute.title")}
             </h2>
             {getKnownPoints("guide.whatYouCanContribute.points")}
 
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+            <h2 className="font-heading text-3xl text-brand-green">
               {t("guide.contributionProcess.title")}
             </h2>
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contributionProcess.step1.title")}
             </h3>
             {getKnownPoints("guide.contributionProcess.step1.points")}
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contributionProcess.step2.title")}
             </h3>
             <p>{t("guide.contributionProcess.step2.description")}</p>
@@ -212,7 +205,7 @@ export default async function ContributeGuidePage() {
               </pre>
             </div>
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contributionProcess.step3.title")}
             </h3>
             <p>
@@ -225,32 +218,32 @@ export default async function ContributeGuidePage() {
             </p>
             {getKnownPoints("guide.contributionProcess.step3.optionBPoints")}
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contributionProcess.step4.title")}
             </h3>
             <p>{t("guide.contributionProcess.step4.description")}</p>
             {getKnownPoints("guide.contributionProcess.step4.points")}
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contributionProcess.step5.title")}
             </h3>
             {getKnownPoints("guide.contributionProcess.step5.points")}
 
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+            <h2 className="font-heading text-3xl text-brand-green">
               {t("guide.contentGuidelines.title")}
             </h2>
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contentGuidelines.formatting.title")}
             </h3>
             {getKnownPoints("guide.contentGuidelines.formatting.points")}
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contentGuidelines.writingStyle.title")}
             </h3>
             {getKnownPoints("guide.contentGuidelines.writingStyle.points")}
 
-            <h3 className="font-heading text-2xl uppercase text-brand-green">
+            <h3 className="font-heading text-2xl text-brand-green">
               {t("guide.contentGuidelines.migrationGuidesStructure.title")}
             </h3>
             <p>
@@ -262,13 +255,13 @@ export default async function ContributeGuidePage() {
               "guide.contentGuidelines.migrationGuidesStructure.points"
             )}
 
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+            <h2 className="font-heading text-3xl text-brand-green">
               {t("guide.reviewProcess.title")}
             </h2>
             <p>{t("guide.reviewProcess.description")}</p>
             {getKnownPoints("guide.reviewProcess.points")}
 
-            <h2 className="font-heading text-3xl sm:text-4xl uppercase text-brand-green">
+            <h2 className="font-heading text-3xl text-brand-green">
               {t("guide.questionsAndSupport.title")}
             </h2>
             {getKnownPoints("guide.questionsAndSupport.points")}
@@ -280,22 +273,19 @@ export default async function ContributeGuidePage() {
       <section>
         <Container>
           <Banner
-            color="bg-brand-navy"
-            shapes={[
-              { shape: "starburst", className: "-top-6 -right-6 w-32 h-32 sm:w-44 sm:h-44" },
-            ]}
+            color="bg-white border-y md:border border-black/10"
             contentClassName="text-center max-w-2xl mx-auto"
           >
-            <h2 className="font-heading text-4xl sm:text-5xl uppercase text-brand-yellow mb-4 sm:mb-6">
+            <h2 className="font-heading text-3xl sm:text-4xl text-brand-green mb-4 sm:mb-6">
               {t("guide.callToAction.title")}
             </h2>
-            <p className="text-brand-cream text-base sm:text-lg mb-8">
+            <p className="text-[#1a1a1a] text-base sm:text-lg mb-8">
               {t("guide.callToAction.description")}
             </p>
             <Button
               variant="red"
               asChild
-              className="bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90 rounded-full px-8 py-3 font-semibold"
+              className="bg-brand-green text-white hover:bg-brand-green/90 rounded-full px-8 py-3 font-semibold"
             >
               <Link
                 href="https://github.com/switch-to-eu/content"

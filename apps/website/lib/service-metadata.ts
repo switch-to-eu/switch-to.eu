@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
-import type { Locale } from "@switch-to-eu/i18n/routing";
+import type { Metadata, ResolvingMetadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { getServiceBySlug, getCategorySlug } from "@/lib/services";
-
-const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
 export async function generateServiceMetadata({
   serviceName,
   locale,
+  parent,
 }: {
   serviceName: string;
   locale: string;
+  parent: ResolvingMetadata;
 }): Promise<Metadata> {
   const service = await getServiceBySlug(serviceName, locale);
 
@@ -28,27 +27,17 @@ export async function generateServiceMetadata({
     "EU service",
     "privacy-focused",
     "GDPR compliant",
-    ...(service.tags?.map((t) => t.tag) ?? []),
+    ...(service.tags ?? []),
   ];
 
-  const basePath = `/services/eu/${serviceName}`;
-
-  let ogImageUrl: string | undefined;
-  if (typeof service.ogImage === "object" && service.ogImage?.url) {
-    ogImageUrl = service.ogImage.url.startsWith("http")
-      ? service.ogImage.url
-      : `${siteUrl}${service.ogImage.url}`;
-  }
-
   return {
-    title,
-    description,
-    keywords,
-    alternates: generateLanguageAlternates(basePath.slice(1), locale as Locale),
-    openGraph: {
+    ...(await pageMetadata({
+      parent,
+      path: `services/eu/${serviceName}`,
+      locale,
       title,
       description,
-      ...(ogImageUrl ? { images: [{ url: ogImageUrl }] } : {}),
-    },
+    })),
+    keywords,
   };
 }

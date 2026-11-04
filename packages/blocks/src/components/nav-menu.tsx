@@ -3,7 +3,7 @@
 import { type ReactNode, useRef, useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { ChevronDown } from "lucide-react";
-import { Link } from "@switch-to-eu/i18n/navigation";
+import { Link, usePathname } from "@switch-to-eu/i18n/navigation";
 import { cn } from "@switch-to-eu/ui/lib/utils";
 import { useNavDropdown } from "../hooks/use-nav-dropdown";
 import type { MainNavItem, SubNavItem } from "./nav-types";
@@ -19,6 +19,7 @@ interface NavMenuProps {
 
 export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
   const triggerRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const pathname = usePathname();
   const [openId, setOpenId] = useState<string | null>(null);
   const { headerPos, mounted, open: baseOpen, scheduleClose: baseScheduleClose, cancelClose } = useNavDropdown();
 
@@ -78,7 +79,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                 href={item.href}
                 onMouseEnter={() => open(id)}
                 onMouseLeave={scheduleClose}
-                className="group flex items-center gap-1 px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="group flex items-center gap-1 px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline rounded-md focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-tool-primary [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
               >
                 {item.title}
                 <ChevronDown
@@ -101,7 +102,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                 onMouseEnter={() => open(id)}
                 onMouseLeave={scheduleClose}
                 onClick={() => openId === id ? setOpenId(null) : open(id)}
-                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline focus:outline-none [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                className="group flex cursor-pointer items-center gap-1 bg-transparent px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline outline-none rounded-md focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-tool-primary [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
               >
                 {item.title}
                 <ChevronDown
@@ -115,11 +116,15 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
           }
 
           if (item.href) {
+            const isCurrent =
+              !item.isExternal &&
+              (pathname === item.href || pathname.startsWith(`${item.href}/`));
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="inline-flex h-9 items-center px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
+                aria-current={isCurrent ? "page" : undefined}
+                className="inline-flex h-9 aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[6px] items-center px-4 py-2 text-sm text-tool-primary uppercase tracking-wide hover:underline rounded-md focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-tool-primary [font-family:var(--font-hanken-grotesk-bold)] [font-weight:700]"
                 {...(item.isExternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -179,7 +184,7 @@ export function NavMenu({ navItems, className, renderMegaItem }: NavMenuProps) {
                     key={child.href}
                     href={child.href}
                     onClick={onClose}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none"
+                    className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-tool-primary hover:bg-white focus:bg-white outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-tool-primary"
                     {...(child.isExternal
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}

@@ -18,12 +18,16 @@
                 "reddit-mcp-server"
             ]
         },
-        "Payload": {
+        "reddit-mcp-buddy": {
             "command": "sh",
             "args": [
                 "-c",
-                ". ./.env && exec npx -y mcp-remote http://localhost:5010/api/mcp --header \"Authorization: Bearer $PAYLOAD_MCP_API_KEY\""
+                "if [ -f ./.env ]; then . ./.env; fi; export REDDIT_CLIENT_ID REDDIT_CLIENT_SECRET REDDIT_USERNAME REDDIT_PASSWORD; exec npx -y reddit-mcp-buddy@1.1.14"
             ]
+        },
+        "exa": {
+            "type": "http",
+            "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa"
         }
     }
 }

@@ -1,19 +1,19 @@
 ---
 name: seo-check-service
-description: Run an SEO audit on a service in Payload CMS and store the score. Use when asked to "SEO check service", "audit service SEO", "score service ProtonMail".
+description: Run an SEO audit on a service in content/ and store the score in its frontmatter. Use when asked to "SEO check service", "audit service SEO", "score service ProtonMail".
 argument-hint: "'<service name>'"
 ---
 
 # SEO Check Service
 
-Audit a service listing against a 10-point SEO checklist. Store score and notes via MCP.
+Audit a service listing against a 10-point SEO checklist. Store score and notes in `content/services/<slug>/en.md`.
 
-**Before starting, read:** `.claude/skills/_shared/seo-checklist.md` for the scoring system and note format.
+**Before starting, read:** `.claude/skills/_shared/seo-checklist.md` for the scoring system and note format, and `.claude/skills/_shared/content-files.md` for the file format.
 
 ## Content-type-specific thresholds
 
 **Item 5 — Content Length:**
-- PASS: `description` 50-200 chars AND `content` body 300+ words
+- PASS: `description` 50-200 chars AND body 300+ words
 - PARTIAL: Close to thresholds
 - FAIL: Significantly short
 
@@ -23,19 +23,18 @@ Audit a service listing against a 10-point SEO checklist. Store score and notes 
 - FAIL: Category missing
 
 **Item 8 — Image:**
-- PASS: `screenshot` or `logo` present
-- FAIL: Neither present
+- PASS: `screenshot` present (and the file exists in `apps/website/public/images/services/`)
+- FAIL: Missing
 
 ## Process
 
 ### Step 1: Fetch the service
 
-Use `mcp__Payload__findServices`:
-```json
-{"where": "{\"name\": {\"contains\": \"SERVICE_NAME\"}}", "limit": 1}
+```bash
+grep -il '^name: .*SERVICE_NAME' content/services/*/en.md
 ```
 
-Get all fields including SEO tab fields (metaTitle, metaDescription, keywords, ogTitle, ogDescription).
+Read the whole file, including the `# SEO` group (metaTitle, metaDescription, keywords, ogTitle, ogDescription) and the body.
 
 ### Step 2: Run the 10-point checklist
 
@@ -54,18 +53,24 @@ Apply the checklist from `_shared/seo-checklist.md` with the thresholds defined 
 - Check `dataStorageLocations` has entries
 
 **Comparison subpages** (from guides):
-- Check guides linking to this service have populated `sourceService` and `targetService`
+- Check guides linking to this service have populated `sourceService` and `targetService` (`grep -l 'Service: <slug>$' content/guides/*/en.md`)
 
 Include subpage issues in `seoNotes` under a "Subpages" section. These don't affect the main score.
 
-### Step 4: Save
+### Step 4: Evidence check (not scored)
 
-Use `mcp__Payload__updateServices`:
-- `seoScore`: the number (0-100)
-- `seoNotes`: formatted summary (see `_shared/seo-checklist.md`)
-- `lastSeoReviewAt`: today's date in ISO format
-- If `metaTitle` or `metaDescription` are empty, populate with suggestions
+Run the evidence check from `_shared/seo-checklist.md`. Its flags go in `seoNotes` under `EVIDENCE:` and don't change the score.
 
-### Step 5: Report
+### Step 5: Save
 
-Show the user: score and rating, table of all 10 checks, subpage audit results, top 3 priority fixes.
+Edit the item's `en.md` (see `_shared/content-files.md` for groups, quoting and validation):
+- `seoScore`: the number (0-100), `# Workflow` group
+- `seoNotes`: formatted summary (see `_shared/seo-checklist.md`) as a `|-` block scalar, `# Workflow` group
+- `lastSeoReviewAt`: today's date, quoted (`'YYYY-MM-DD'`), `# Workflow` group
+- If `metaTitle` or `metaDescription` are empty, populate with suggestions in the `# SEO` group
+
+Don't add or remove `draft`. Run the validation snippet.
+
+### Step 6: Report
+
+Show the user: score and rating, table of all 10 checks, subpage audit results, evidence flags, top 3 priority fixes.

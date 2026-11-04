@@ -38,6 +38,14 @@ export async function generateMetadata({
     metadataBase: new URL(baseUrl),
     title: t("title"),
     description: t("description"),
+    openGraph: {
+      type: "website",
+      siteName: "switch-to.eu",
+      title: t("title"),
+      description: t("description"),
+      locale,
+    },
+    twitter: { card: "summary" },
     icons: {
       icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },

@@ -12,10 +12,10 @@ export function Header() {
 
   return (
     <BlocksHeader
-      className="bg-border text-foreground [--tool-primary:var(--foreground)] border-b-0"
+      className="bg-background text-foreground [--tool-primary:var(--foreground)] border-b border-black/10"
       logo={
         <Link href="/" aria-label="Switch-to.eu — home" className="flex items-center">
-          <Logo />
+          <Logo className="[&>span:last-child]:text-brand-orange" />
         </Link>
       }
       navigation={

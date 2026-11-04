@@ -52,7 +52,7 @@ function randomDelay(): Promise<void> {
 }
 
 function pickNickname(index: number): string {
-  if (index < NICKNAMES.length) return NICKNAMES[index];
+  if (index < NICKNAMES.length) return NICKNAMES[index]!;
   return `Player${index + 1}`;
 }
 
@@ -235,8 +235,8 @@ test.describe("Load players", () => {
     console.log(`\n${"─".repeat(60)}`);
     console.log("Results:");
     for (let i = 0; i < results.length; i++) {
-      const r = results[i];
-      const name = players[i].nickname;
+      const r = results[i]!;
+      const name = players[i]!.nickname;
       if (r.status === "fulfilled") {
         console.log(`  ✅ ${name}: completed`);
       } else {
