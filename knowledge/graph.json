@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03",
+ "generated": "2026-11-04",
  "nodes": {
   "services/bing-search": {
    "type": "service",
@@ -49,6 +49,12 @@
    "path": "content/services/ecosia/en.md",
    "updated": "2026-11-03"
   },
+  "services/ecosia-ai-chat": {
+   "type": "service",
+   "title": "Ecosia AI Chat",
+   "path": "content/services/ecosia-ai-chat/en.md",
+   "updated": "2026-11-04"
+  },
   "services/ecosia-browser": {
    "type": "service",
    "title": "Ecosia Browser",
@@ -60,6 +66,12 @@
    "title": "Element",
    "path": "content/services/element/en.md",
    "updated": "2026-11-03"
+  },
+  "services/euria": {
+   "type": "service",
+   "title": "Euria",
+   "path": "content/services/euria/en.md",
+   "updated": "2026-11-04"
   },
   "services/facebook": {
    "type": "service",
@@ -141,7 +153,7 @@
   },
   "services/mistral-le-chat": {
    "type": "service",
-   "title": "Mistral Le Chat",
+   "title": "Mistral Vibe (formerly Le Chat)",
    "path": "content/services/mistral-le-chat/en.md",
    "updated": "2026-11-03"
   },
@@ -179,7 +191,7 @@
    "type": "service",
    "title": "Proton Lumo",
    "path": "content/services/proton-lumo/en.md",
-   "updated": "2026-04-20"
+   "updated": "2026-11-03"
   },
   "services/proton-mail": {
    "type": "service",
@@ -275,7 +287,7 @@
    "type": "category",
    "title": "Artificial Intelligence",
    "path": "content/categories/artificial-intelligence/en.md",
-   "updated": "2026-03-30"
+   "updated": "2026-11-03"
   },
   "categories/browsers": {
    "type": "category",
@@ -797,10 +809,26 @@
    "published": "2026-04-28",
    "updated": "2026-11-03"
   },
+  "2026-11-03-ecosia-ai-chat-faq": {
+   "type": "source",
+   "title": "AI Chat privacy, models and FAQ (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-ai-chat-faq.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-ecosia-ai-help": {
    "type": "source",
    "title": "Generative AI on Ecosia Search (Ecosia Help Center)",
    "path": "knowledge/sources/2026/11/2026-11-03-ecosia-ai-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-ai-subscription-help": {
+   "type": "source",
+   "title": "Getting started with Ecosia AI subscription (Ecosia Help Center)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-ai-subscription-help.md",
    "reliability": "high",
    "published": "2026-11-03",
    "updated": "2026-11-03"
@@ -843,6 +871,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-ecosia-imprint.md",
    "reliability": "high",
    "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-ecosia-privacy-ai-chat": {
+   "type": "source",
+   "title": "AI Chat and model providers (Ecosia privacy policy)",
+   "path": "knowledge/sources/2026/11/2026-11-03-ecosia-privacy-ai-chat.md",
+   "reliability": "high",
+   "published": "2026-05-21",
    "updated": "2026-11-03"
   },
   "2026-11-03-ecosia-privacy-policy": {
@@ -1109,6 +1145,22 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-infomaniak-euria-conversations-guide": {
+   "type": "source",
+   "title": "Manage Euria conversations (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-conversations-guide.md",
+   "reliability": "high",
+   "published": "2026-10-13",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-euria-download-faq": {
+   "type": "source",
+   "title": "Download Euria, FAQ answers on modes and data (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-download-faq.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-infomaniak-euria-download-page": {
    "type": "source",
    "title": "Download Euria: a sovereign, ethical and GDPR-compliant AI Assistant (Infomaniak)",
@@ -1125,10 +1177,50 @@
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
+  "2026-11-03-infomaniak-euria-guide-models": {
+   "type": "source",
+   "title": "Euria getting-started guide, model and limits sections (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-guide-models.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-euria-page": {
+   "type": "source",
+   "title": "Euria, the ethical AI assistant (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-euria-page.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-legal-notice": {
+   "type": "source",
+   "title": "Legal notice (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-legal-notice.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-infomaniak-my-ksuite-page": {
    "type": "source",
    "title": "my kSuite, the ethical solution to protect your personal data (Infomaniak)",
    "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-my-ksuite-page.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-my-ksuite-prices": {
+   "type": "source",
+   "title": "my kSuite prices and comparative overview (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-my-ksuite-prices.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-infomaniak-open-source-models-page": {
+   "type": "source",
+   "title": "Open source AI models on demand, AI Services (Infomaniak)",
+   "path": "knowledge/sources/2026/11/2026-11-03-infomaniak-open-source-models-page.md",
    "reliability": "medium",
    "published": "2026-11-03",
    "updated": "2026-11-03"
@@ -1403,6 +1495,14 @@
    "path": "knowledge/sources/2026/11/2026-11-03-mistral-memories-launch-2025.md",
    "reliability": "medium",
    "published": "2025-09-02",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-mistral-pricing-eur-browser": {
+   "type": "source",
+   "title": "Pricing with EUR selected, per country (Mistral)",
+   "path": "knowledge/sources/2026/11/2026-11-03-mistral-pricing-eur-browser.md",
+   "reliability": "high",
+   "published": "2026-11-03",
    "updated": "2026-11-03"
   },
   "2026-11-03-mistral-pricing-page": {
@@ -1901,6 +2001,22 @@
    "published": "2026-06-30",
    "updated": "2026-11-03"
   },
+  "2026-11-03-proton-lumo-dictation-help": {
+   "type": "source",
+   "title": "Dictation in Lumo (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-dictation-help.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-pricing-eur-browser": {
+   "type": "source",
+   "title": "Lumo pricing in euros (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-pricing-eur-browser.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
   "2026-11-03-proton-lumo-pricing-page": {
    "type": "source",
    "title": "Lumo pricing and plans (Proton)",
@@ -1914,6 +2030,30 @@
    "title": "Lumo privacy (Proton Support)",
    "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-privacy-help.md",
    "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-privacy-web-search": {
+   "type": "source",
+   "title": "Lumo privacy, web search and chat history sections (Proton Support)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-privacy-web-search.md",
+   "reliability": "high",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-product-page": {
+   "type": "source",
+   "title": "Lumo, the confidential AI chat assistant (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-product-page.md",
+   "reliability": "medium",
+   "published": "2026-11-03",
+   "updated": "2026-11-03"
+  },
+  "2026-11-03-proton-lumo-security-page": {
+   "type": "source",
+   "title": "Lumo security (Proton)",
+   "path": "knowledge/sources/2026/11/2026-11-03-proton-lumo-security-page.md",
+   "reliability": "medium",
    "published": "2026-11-03",
    "updated": "2026-11-03"
   },
@@ -2620,7 +2760,7 @@
    "status": "active",
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
-   "heat": 3
+   "heat": 2.9
   },
   "eu-digital-fairness-act-social-switching": {
    "type": "story",
@@ -2630,7 +2770,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
    "last_covered": "2026-11-03",
-   "heat": 5
+   "heat": 4.8
   },
   "eu-digital-omnibus-gdpr-changes": {
    "type": "story",
@@ -2640,7 +2780,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-10-23",
    "last_covered": "2026-11-03",
-   "heat": 6.5
+   "heat": 6.2
   },
   "eu-kids-act-social-media-age-limits": {
    "type": "story",
@@ -2649,7 +2789,7 @@
    "status": "active",
    "updated": "2026-11-03",
    "last_event": "2026-10-29",
-   "heat": 2.5
+   "heat": 2.4
   },
   "european-public-sector-leaves-us-software": {
    "type": "story",
@@ -2659,7 +2799,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
    "last_covered": "2026-11-03",
-   "heat": 5.3
+   "heat": 5
   },
   "german-government-google-cloud": {
    "type": "story",
@@ -2668,7 +2808,7 @@
    "status": "active",
    "updated": "2026-11-03",
    "last_event": "2026-11-02",
-   "heat": 2.9
+   "heat": 2.8
   },
   "openai-custom-gpt-retirement": {
    "type": "story",
@@ -2678,7 +2818,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-10-26",
    "last_covered": "2026-11-03",
-   "heat": 6
+   "heat": 5.8
   },
   "proton-ai-push-security-concerns": {
    "type": "story",
@@ -2688,7 +2828,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-11-01",
    "last_covered": "2026-11-03",
-   "heat": 3.6
+   "heat": 3.5
   }
  },
  "edges": [
@@ -2733,6 +2873,11 @@
    "rel": "in-category"
   },
   {
+   "from": "services/ecosia-ai-chat",
+   "to": "categories/artificial-intelligence",
+   "rel": "in-category"
+  },
+  {
    "from": "services/ecosia-browser",
    "to": "categories/browsers",
    "rel": "in-category"
@@ -2740,6 +2885,11 @@
   {
    "from": "services/element",
    "to": "categories/messaging",
+   "rel": "in-category"
+  },
+  {
+   "from": "services/euria",
+   "to": "categories/artificial-intelligence",
    "rel": "in-category"
   },
   {
@@ -3403,7 +3553,17 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-ecosia-ai-chat-faq",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-ecosia-ai-help",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-ai-subscription-help",
    "to": "ecosia",
    "rel": "mentions"
   },
@@ -3439,6 +3599,11 @@
   },
   {
    "from": "2026-11-03-ecosia-imprint",
+   "to": "ecosia",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-ecosia-privacy-ai-chat",
    "to": "ecosia",
    "rel": "mentions"
   },
@@ -3769,6 +3934,11 @@
   },
   {
    "from": "2026-11-03-mistral-memories-launch-2025",
+   "to": "mistral-ai",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-mistral-pricing-eur-browser",
    "to": "mistral-ai",
    "rel": "mentions"
   },
@@ -4113,12 +4283,37 @@
    "rel": "mentions"
   },
   {
+   "from": "2026-11-03-proton-lumo-dictation-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-pricing-eur-browser",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
    "from": "2026-11-03-proton-lumo-pricing-page",
    "to": "proton",
    "rel": "mentions"
   },
   {
    "from": "2026-11-03-proton-lumo-privacy-help",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-privacy-web-search",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-product-page",
+   "to": "proton",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-security-page",
    "to": "proton",
    "rel": "mentions"
   },
@@ -5138,8 +5333,23 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-ecosia-ai-chat-faq",
+   "to": "services/ecosia-ai-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-ai-chat-faq",
+   "to": "2026-11-03-ecosia-ai-help",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-ecosia-ai-help",
    "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-ai-subscription-help",
+   "to": "services/ecosia-ai-chat",
    "rel": "links"
   },
   {
@@ -5170,6 +5380,16 @@
   {
    "from": "2026-11-03-ecosia-how-it-makes-money",
    "to": "services/ecosia",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-privacy-ai-chat",
+   "to": "services/ecosia-ai-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-ecosia-privacy-ai-chat",
+   "to": "2026-11-03-ecosia-privacy-policy",
    "rel": "links"
   },
   {
@@ -5298,6 +5518,61 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-infomaniak-euria-conversations-guide",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-download-faq",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-download-faq",
+   "to": "2026-11-03-infomaniak-euria-download-page",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-guide-models",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-guide-models",
+   "to": "2026-11-03-infomaniak-euria-getting-started",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-guide-models",
+   "to": "2026-11-03-infomaniak-my-ksuite-prices",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-page",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-euria-page",
+   "to": "2026-11-03-infomaniak-euria-conversations-guide",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-legal-notice",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-my-ksuite-prices",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-infomaniak-open-source-models-page",
+   "to": "services/euria",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-lwn-comaps-organic-maps-fork",
    "to": "services/organic-maps",
    "rel": "links"
@@ -5390,6 +5665,16 @@
   {
    "from": "2026-11-03-mistral-memories-launch-2025",
    "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-pricing-eur-browser",
+   "to": "services/mistral-le-chat",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-mistral-pricing-eur-browser",
+   "to": "2026-11-03-mistral-pricing-page",
    "rel": "links"
   },
   {
@@ -5713,12 +5998,47 @@
    "rel": "links"
   },
   {
+   "from": "2026-11-03-proton-lumo-dictation-help",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-pricing-eur-browser",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-pricing-eur-browser",
+   "to": "2026-11-03-proton-lumo-pricing-page",
+   "rel": "links"
+  },
+  {
    "from": "2026-11-03-proton-lumo-pricing-page",
    "to": "services/proton-lumo",
    "rel": "links"
   },
   {
    "from": "2026-11-03-proton-lumo-privacy-help",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-privacy-web-search",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-privacy-web-search",
+   "to": "2026-11-03-proton-lumo-privacy-help",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-product-page",
+   "to": "services/proton-lumo",
+   "rel": "links"
+  },
+  {
+   "from": "2026-11-03-proton-lumo-security-page",
    "to": "services/proton-lumo",
    "rel": "links"
   },
@@ -6822,6 +7142,8 @@
    "openai-custom-gpt-retirement",
    "services/chatgpt",
    "services/claude",
+   "services/ecosia-ai-chat",
+   "services/euria",
    "services/google-gemini",
    "services/mistral-le-chat",
    "services/proton-lumo"
@@ -6974,6 +7296,7 @@
    "2026-11-03-mistral-help-training-opt-out",
    "2026-11-03-mistral-help-zero-data-retention",
    "2026-11-03-mistral-memories-launch-2025",
+   "2026-11-03-mistral-pricing-eur-browser",
    "2026-11-03-mistral-pricing-page",
    "2026-11-03-mistral-privacy-policy",
    "2026-11-03-mistral-release-notes-vibe",
@@ -7029,6 +7352,7 @@
    "2026-11-03-mistral-help-training-opt-out",
    "2026-11-03-mistral-help-zero-data-retention",
    "2026-11-03-mistral-memories-launch-2025",
+   "2026-11-03-mistral-pricing-eur-browser",
    "2026-11-03-mistral-pricing-page",
    "2026-11-03-mistral-privacy-policy",
    "2026-11-03-mistral-release-notes-vibe",
@@ -7195,8 +7519,13 @@
    "2026-11-03-proton-easy-switch-help",
    "2026-11-03-proton-google-photos-import-help",
    "2026-11-03-proton-lumo-2-announcement",
+   "2026-11-03-proton-lumo-dictation-help",
+   "2026-11-03-proton-lumo-pricing-eur-browser",
    "2026-11-03-proton-lumo-pricing-page",
    "2026-11-03-proton-lumo-privacy-help",
+   "2026-11-03-proton-lumo-privacy-web-search",
+   "2026-11-03-proton-lumo-product-page",
+   "2026-11-03-proton-lumo-security-page",
    "2026-11-03-proton-plans-help",
    "2026-11-03-proton-sheets-import-export-help",
    "2026-11-03-rclone-proton-drive-backend-docs",
@@ -7210,8 +7539,13 @@
   "services/proton-lumo": [
    "2026-11-03-proton-delete-chatgpt-account-guide",
    "2026-11-03-proton-lumo-2-announcement",
+   "2026-11-03-proton-lumo-dictation-help",
+   "2026-11-03-proton-lumo-pricing-eur-browser",
    "2026-11-03-proton-lumo-pricing-page",
    "2026-11-03-proton-lumo-privacy-help",
+   "2026-11-03-proton-lumo-privacy-web-search",
+   "2026-11-03-proton-lumo-product-page",
+   "2026-11-03-proton-lumo-security-page",
    "articles/openai-retires-custom-gpts",
    "articles/proton-ceo-ai-push-security-checks",
    "openai-custom-gpt-retirement",
@@ -7338,12 +7672,15 @@
    "vivaldi-technologies"
   ],
   "ecosia": [
+   "2026-11-03-ecosia-ai-chat-faq",
    "2026-11-03-ecosia-ai-help",
+   "2026-11-03-ecosia-ai-subscription-help",
    "2026-11-03-ecosia-blog-eusp-index",
    "2026-11-03-ecosia-default-desktop-help",
    "2026-11-03-ecosia-default-mobile-help",
    "2026-11-03-ecosia-how-it-makes-money",
    "2026-11-03-ecosia-imprint",
+   "2026-11-03-ecosia-privacy-ai-chat",
    "2026-11-03-ecosia-privacy-policy",
    "2026-11-03-ecosia-search-results-providers",
    "2026-11-03-qwant-ecosia-eusp-announcement",
@@ -7634,14 +7971,58 @@
    "eu-digital-omnibus-gdpr-changes",
    "european-commission"
   ],
+  "services/ecosia-ai-chat": [
+   "2026-11-03-ecosia-ai-chat-faq",
+   "2026-11-03-ecosia-ai-subscription-help",
+   "2026-11-03-ecosia-privacy-ai-chat"
+  ],
+  "2026-11-03-ecosia-ai-help": [
+   "2026-11-03-ecosia-ai-chat-faq"
+  ],
+  "2026-11-03-ecosia-privacy-policy": [
+   "2026-11-03-ecosia-privacy-ai-chat",
+   "ecosia"
+  ],
+  "services/euria": [
+   "2026-11-03-infomaniak-euria-conversations-guide",
+   "2026-11-03-infomaniak-euria-download-faq",
+   "2026-11-03-infomaniak-euria-guide-models",
+   "2026-11-03-infomaniak-euria-page",
+   "2026-11-03-infomaniak-legal-notice",
+   "2026-11-03-infomaniak-my-ksuite-prices",
+   "2026-11-03-infomaniak-open-source-models-page"
+  ],
+  "2026-11-03-infomaniak-euria-download-page": [
+   "2026-11-03-infomaniak-euria-download-faq"
+  ],
+  "2026-11-03-infomaniak-euria-getting-started": [
+   "2026-11-03-infomaniak-euria-guide-models"
+  ],
+  "2026-11-03-infomaniak-my-ksuite-prices": [
+   "2026-11-03-infomaniak-euria-guide-models"
+  ],
+  "2026-11-03-infomaniak-euria-conversations-guide": [
+   "2026-11-03-infomaniak-euria-page"
+  ],
   "2026-11-03-meta-ai-eu-training-announcement": [
    "2026-11-03-meta-privacy-center-genai"
+  ],
+  "2026-11-03-mistral-pricing-page": [
+   "2026-11-03-mistral-pricing-eur-browser",
+   "eu-digital-omnibus-gdpr-changes",
+   "mistral-ai"
   ],
   "2026-11-03-openai-custom-gpt-retirement-faq": [
    "2026-11-03-openai-custom-gpt-faq-full-text",
    "2026-11-03-virtualizationreview-custom-gpt-retirement",
    "openai",
    "openai-custom-gpt-retirement"
+  ],
+  "2026-11-03-proton-lumo-pricing-page": [
+   "2026-11-03-proton-lumo-pricing-eur-browser"
+  ],
+  "2026-11-03-proton-lumo-privacy-help": [
+   "2026-11-03-proton-lumo-privacy-web-search"
   ],
   "2026-11-03-kamerbrief-belastingdienst-m365-on-premises": [
    "2026-11-03-register-dutch-tax-office-drops-m365",
@@ -7705,9 +8086,6 @@
    "european-search-perspective",
    "qwant"
   ],
-  "2026-11-03-ecosia-privacy-policy": [
-   "ecosia"
-  ],
   "2026-11-03-ecosia-how-it-makes-money": [
    "ecosia"
   ],
@@ -7749,10 +8127,6 @@
    "mistral-ai"
   ],
   "2026-11-03-lmi-mistral-large-4-open-weights": [
-   "mistral-ai"
-  ],
-  "2026-11-03-mistral-pricing-page": [
-   "eu-digital-omnibus-gdpr-changes",
    "mistral-ai"
   ],
   "2026-11-03-mistral-release-notes-vibe": [
