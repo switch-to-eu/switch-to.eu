@@ -10,7 +10,7 @@ features:
 - Spraakinvoer
 - Apps voor iOS en Android
 specs:
-  freePlan: Ja, beperkt aantal berichten
+  freePlan: Ja, met een limiet op berichten
   trainsOnChats: Ja standaard, je kunt het uitzetten
   paidFrom: €14,99/maand excl. btw
   dataStored: Standaard in de EU, volgens Mistral

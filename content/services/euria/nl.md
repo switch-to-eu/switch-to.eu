@@ -9,8 +9,8 @@ features:
 - Audio transcriberen
 - Documenten samenvatten
 specs:
-  freePlan: Ja, daglimiet niet gepubliceerd
-  trainsOnChats: Nee, volgens Infomaniak
+  freePlan: Ja, met een daglimiet op berichten
+  trainsOnChats: Volgens Infomaniak niet
   paidFrom: €1,58/maand, jaarlijks, excl. btw
   dataStored: Zwitserland, volgens Infomaniak
 pricingTiers:

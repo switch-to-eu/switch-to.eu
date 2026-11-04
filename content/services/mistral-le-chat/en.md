@@ -18,7 +18,7 @@ features:
 - Voice input
 - iOS and Android apps
 specs:
-  freePlan: Yes, limited messages and searches
+  freePlan: Yes, with limits on messages and searches
   trainsOnChats: Yes by default, opt out in settings
   paidFrom: €14.99/month excl. VAT
   dataStored: EU by default, Mistral says

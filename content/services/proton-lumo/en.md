@@ -18,8 +18,8 @@ features:
 - Proton Drive file linking
 - Projects and Custom Lumos
 specs:
-  freePlan: Yes, limited, no account needed
-  trainsOnChats: No, Proton says
+  freePlan: Yes, with limits, no account needed
+  trainsOnChats: Proton says no
   paidFrom: €9.99/month, billed yearly
   dataStored: Device, synced to Proton in Europe
 pricingTiers:

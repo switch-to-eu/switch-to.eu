@@ -16,8 +16,8 @@ features:
 - Audio transcription
 - Document summaries
 specs:
-  freePlan: Yes, daily limit not published
-  trainsOnChats: No, Infomaniak says
+  freePlan: Yes, with a daily message limit
+  trainsOnChats: Infomaniak says no
   paidFrom: €1.58/month, billed yearly, excl. VAT
   dataStored: Switzerland, Infomaniak says
 pricingTiers:

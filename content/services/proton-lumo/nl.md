@@ -10,8 +10,8 @@ features:
 - Bestanden koppelen uit Proton Drive
 - Projecten en Custom Lumos
 specs:
-  freePlan: Ja, beperkt, geen account nodig
-  trainsOnChats: Nee, volgens Proton
+  freePlan: Ja, met limieten, geen account nodig
+  trainsOnChats: Volgens Proton niet
   paidFrom: €9,99/maand, jaarabonnement
   dataStored: Apparaat, sync naar Proton in Europa
 pricingTiers:
