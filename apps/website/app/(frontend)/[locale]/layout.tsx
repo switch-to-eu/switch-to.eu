@@ -3,9 +3,11 @@ import PlausibleProvider from "next-plausible";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { JsonLd } from "@/components/JsonLd";
 import { routing } from "@switch-to-eu/i18n/routing";
+import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 
@@ -66,7 +68,10 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  await params;
+  // The proxy matcher skips paths with a dot, so this segment can hold any value.
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+
   const skipLabel = (await getTranslations("common"))("skipToContent");
 
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
@@ -90,18 +95,8 @@ export default async function LocaleLayout({
   return (
     <PlausibleProvider src="https://plausible.io/js/pa-DeH7r_C_YnnJNew1CLX5I.js">
       <NextIntlClientProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd),
-          }}
-        />
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-brand-green focus:px-5 focus:py-2.5 focus:text-white focus:font-semibold focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-brand-yellow"
