@@ -97,12 +97,23 @@ function hash(text: string): string {
   return crypto.createHash("sha1").update(text).digest("hex");
 }
 
+/** Removes HTML comments again until none remain, because a removal can join parts of a new comment. */
+function stripHtmlComments(text: string): string {
+  let previous: string;
+  let result = text;
+  do {
+    previous = result;
+    result = result.replace(/<!--[\s\S]*?-->/g, "");
+  } while (result !== previous);
+  return result;
+}
+
 /**
  * Splits markdown at headings. Long sections are split again at paragraphs, so
  * a search hit points at a passage, not a whole page.
  */
 export function chunkMarkdown(markdown: string, maxChars = 1400): { heading: string; text: string }[] {
-  const clean = markdown.replace(/<!--[\s\S]*?-->/g, "").replace(/\r/g, "");
+  const clean = stripHtmlComments(markdown).replace(/\r/g, "");
   const sections: { heading: string; lines: string[] }[] = [{ heading: "", lines: [] }];
   for (const line of clean.split("\n")) {
     const h = /^#{1,4}\s+(.+)$/.exec(line);

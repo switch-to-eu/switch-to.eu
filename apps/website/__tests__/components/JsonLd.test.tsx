@@ -11,7 +11,7 @@ describe("JsonLd", () => {
     expect(html.match(/<script/g)).toHaveLength(1);
     expect(html.match(/<\/script>/g)).toHaveLength(1);
 
-    const body = html.replace(/^<script[^>]*>/, "").replace(/<\/script>$/, "");
+    const body = html.slice(html.indexOf(">") + 1, html.lastIndexOf("<"));
     expect(JSON.parse(body)).toEqual({ name: value });
   });
 });

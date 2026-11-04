@@ -81,11 +81,21 @@ export function renderMarkdown(markdown: string | null | undefined, locale: stri
   return wrapTables(getMarked(locale).parse(markdown) as string, locale);
 }
 
+/** Removes HTML comments again until none remain, because a removal can join parts of a new comment. */
+function stripHtmlComments(text: string): string {
+  let previous: string;
+  let result = text;
+  do {
+    previous = result;
+    result = result.replace(/<!--[\s\S]*?-->/g, "");
+  } while (result !== previous);
+  return result;
+}
+
 /** Strip markdown syntax for plain-text contexts (JSON-LD, meta tags). */
 export function markdownToPlainText(markdown: string | null | undefined): string {
   if (!markdown) return "";
-  return markdown
-    .replace(/<!--[\s\S]*?-->/g, "")
+  return stripHtmlComments(markdown)
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/^#{1,6}\s+/gm, "")
