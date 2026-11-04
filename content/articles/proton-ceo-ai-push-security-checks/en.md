@@ -14,7 +14,7 @@ sources:
   - {title: 'A message to the community', publisher: Andy Yen (r/ProtonMail), url: 'https://www.reddit.com/r/ProtonMail/comments/1xjo8d4/a_message_to_the_community/', date: '2026-10-30'}
   - {title: 'Proton''s AI manifesto for software engineering', publisher: Proton, url: 'https://proton.me/blog/ai-manifesto', date: '2026-11-01'}
   - {title: 'Nachrichten-Leak: Wachstum scheint bei Proton aktuell wichtiger als Sicherheit', publisher: heise online, url: 'https://www.heise.de/news/Nachrichten-Leak-Wachstum-scheint-bei-Proton-aktuell-wichtiger-als-Sicherheit-11508413.html', date: '2026-11-03'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/proton-ceo-ai-push-security-checks.jpg
 imageAlt: 'Geneva''s waterfront seen across the lake, with the Jet d''Eau fountain on the left and a moored passenger steamer on the right'
 imageCredit: 'Photo: Karlheinz Klingbeil, CC BY 4.0, via Wikimedia Commons'
@@ -23,6 +23,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=188841892'
 metaTitle: "Proton's AI push and security: what users should know"
 keywords: [Proton, Andy Yen, Proton AI, Proton security, Proton Mail, Proton Drive, AI-written code, 404 Media]
 # Workflow
+draft: true
 updatedAt: '2026-11-03'
 ---
 

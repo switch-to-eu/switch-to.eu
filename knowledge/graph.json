@@ -336,7 +336,8 @@
    "title": "Switching from ChatGPT to Mistral Vibe (formerly Le Chat)",
    "path": "content/guides/chatgpt-to-mistral/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-03"
+   "published": "2026-11-03",
+   "draft": true
   },
   "guides/gmail-to-protonmail": {
    "type": "guide",
@@ -370,36 +371,40 @@
    "type": "article",
    "title": "App builders ask the EU to let you take your followers when you leave a platform",
    "path": "content/articles/app-builders-ask-eu-for-portable-followers/en.md",
-   "updated": "2026-11-03",
-   "published": "2026-11-03"
+   "updated": "2026-11-04",
+   "published": "2026-11-04"
   },
   "articles/eu-governments-back-ai-training-on-your-data": {
    "type": "article",
    "title": "EU governments back AI training on your data without consent. It isn't law yet. How to object today",
    "path": "content/articles/eu-governments-back-ai-training-on-your-data/en.md",
    "updated": "2026-11-04",
-   "published": "2026-11-04"
+   "published": "2026-11-04",
+   "draft": true
   },
   "articles/german-schools-dutch-tax-office-sovereign-cloud": {
    "type": "article",
    "title": "What German schools, the Dutch tax office and a reported Google plan mean for your own cloud",
    "path": "content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-03"
+   "published": "2026-11-03",
+   "draft": true
   },
   "articles/openai-retires-custom-gpts": {
    "type": "article",
    "title": "OpenAI plans to shut down custom GPTs on 11 December. What to do with yours",
    "path": "content/articles/openai-retires-custom-gpts/en.md",
    "updated": "2026-11-04",
-   "published": "2026-11-04"
+   "published": "2026-11-04",
+   "draft": true
   },
   "articles/proton-ceo-ai-push-security-checks": {
    "type": "article",
    "title": "Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security",
    "path": "content/articles/proton-ceo-ai-push-security-checks/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-03"
+   "published": "2026-11-03",
+   "draft": true
   },
   "landing-pages/quit-chatgpt": {
    "type": "landing-page",

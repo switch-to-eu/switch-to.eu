@@ -1,5 +1,11 @@
 import type { ArticleLocale } from "@/lib/content/types";
 
+/**
+ * The news index, its menu item and its links. Off while the site publishes
+ * its first articles. Article pages and the feed stay on.
+ */
+export const NEWS_INDEX_ENABLED = false;
+
 const DATE_LOCALES: Record<string, string> = { en: "en-GB", nl: "nl-NL", fr: "fr-FR" };
 
 export const ARTICLE_LOCALE_NAMES: Record<ArticleLocale, string> = {

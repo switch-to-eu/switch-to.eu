@@ -291,7 +291,7 @@ categories: [storage]                       # content/categories slugs
 guides: []                                  # content/guides slugs worth linking
 sources:
   - {title: 'Finance ministry tenders sovereign cloud', publisher: NOS, url: 'https://…', date: '2026-10-30'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/<slug>.jpg          # header photo, see "Article photos" below
 imageAlt: 'The Danish parliament building, Christiansborg, seen from above'
 imageCredit: 'Photo: Kristoffer Trolle, CC BY 2.0, via Wikimedia Commons'

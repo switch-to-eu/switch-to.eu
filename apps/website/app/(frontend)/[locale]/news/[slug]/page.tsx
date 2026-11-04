@@ -21,11 +21,13 @@ import type { Article } from "@/lib/content/types";
 import { markdownToPlainText } from "@/lib/markdown";
 import {
   ARTICLE_LOCALE_NAMES,
+  NEWS_INDEX_ENABLED,
   formatArticleDate,
   sourceHost,
 } from "@/lib/news";
 import { ArticleMeta } from "@/components/news/FrontPage";
 import { getCategorySlug } from "@/lib/services";
+import { getAuthor } from "@/lib/authors";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
@@ -106,6 +108,8 @@ export default async function NewsArticlePage({
       ? article.updatedAt
       : null;
 
+  const author = getAuthor(article.author);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -114,7 +118,9 @@ export default async function NewsArticlePage({
     datePublished: article.date,
     dateModified: article.updatedAt || article.date,
     inLanguage: locale,
-    author: { "@type": "Organization", name: article.author, url: siteUrl },
+    author: author
+      ? { "@type": "Person", name: article.author }
+      : { "@type": "Organization", name: article.author, url: siteUrl },
     publisher: { "@type": "Organization", name: "switch-to.eu", url: siteUrl },
     mainEntityOfPage: `${siteUrl}/${locale}/news/${slug}`,
     articleBody: markdownToPlainText(article.content),
@@ -128,18 +134,20 @@ export default async function NewsArticlePage({
   const tNav = await getTranslations({ locale, namespace: "navigation" });
   const breadcrumbs = breadcrumbJsonLd(locale, [
     { name: tNav("home"), path: "" },
-    { name: tNav("news"), path: "news" },
+    ...(NEWS_INDEX_ENABLED ? [{ name: tNav("news"), path: "news" }] : []),
     { name: article.title, path: `news/${slug}` },
   ]);
 
   const header = (
     <div className="max-w-3xl">
+      {NEWS_INDEX_ENABLED && (
       <Link
         href="/news"
         className="inline-block py-1 mb-5 text-sm font-semibold text-brand-green hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
       >
         {t("backToNews")}
       </Link>
+      )}
       <div className="text-[#1a1a1a] mb-5">
         <ArticleMeta article={article} locale={locale} t={t} />
         {updated && (
@@ -154,6 +162,20 @@ export default async function NewsArticlePage({
       <p className="text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[60ch]">
         {article.description}
       </p>
+      {author && (
+        <p className="mt-5 flex items-center gap-3 text-[#1a1a1a]">
+          <Image
+            src={author.photo}
+            alt=""
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+          <span className="font-semibold">
+            {t("byline", { name: article.author })}
+          </span>
+        </p>
+      )}
     </div>
   );
 

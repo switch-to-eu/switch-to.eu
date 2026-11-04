@@ -20,7 +20,7 @@ sources:
   - {title: 'Lumo privacy', publisher: Proton, url: 'https://proton.me/support/lumo-privacy', date: '2026-11-03'}
   - {title: 'Introducing Lumo 2.0', publisher: Proton, url: 'https://proton.me/blog/lumo-2', date: '2026-06-30'}
   - {title: 'Lumo pricing and plans', publisher: Proton, url: 'https://proton.me/lumo/pricing', date: '2026-11-03'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/openai-retires-custom-gpts.jpg
 imageAlt: 'The glass office building at 1515 Third Street in San Francisco, home to the headquarters of OpenAI when photographed in June 2025'
 imageCredit: 'Photo: Coolcaesar, CC BY 4.0, via Wikimedia Commons'
@@ -29,6 +29,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:1515_Third_Street.jpg'
 metaTitle: 'OpenAI plans custom GPT shutdown 11 December: your options'
 keywords: [custom GPT retirement, custom GPTs 11 December, migrate GPT to plugin, ChatGPT plugins, leave ChatGPT, Mistral Vibe Skills, Proton Lumo, European ChatGPT alternative]
 # Workflow
+draft: true
 updatedAt: '2026-11-04'
 ---
 

@@ -812,6 +812,7 @@
     "cta": "Naar de startpagina"
   },
   "news": {
+    "byline": "Door {name}",
     "meta": {
       "title": "EU-technieuws over soevereiniteit en privacy | switch-to.eu",
       "description": "Nieuws op werkdagen over digitale soevereiniteit, privacy en Europese alternatieven voor Amerikaanse tech. Kort, met bronnen en wat het voor jou betekent."

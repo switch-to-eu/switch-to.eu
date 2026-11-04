@@ -19,7 +19,7 @@ sources:
   - {title: 'Pricing (Vibe plans)', publisher: Mistral AI, url: 'https://mistral.ai/pricing', date: '2026-11-03'}
   - {title: 'Vibe overview', publisher: Mistral AI, url: 'https://docs.mistral.ai/vibe/overview', date: '2026-11-03'}
   - {title: 'How Meta uses information for generative AI models and features', publisher: Meta, url: 'https://www.facebook.com/privacy/genai', date: '2026-11-03'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/eu-governments-back-ai-training-on-your-data.jpg
 imageAlt: 'The Europa building in Brussels, seat of the Council of the EU, with a patchwork of wooden window frames behind its glass outer wall, photographed in 2015 before completion'
 imageCredit: 'Photo: Fred Romero, CC BY 2.0, via Wikimedia Commons'
@@ -28,6 +28,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:Bruxelles_-_Europa_buil
 metaTitle: EU governments back AI training on your data without consent
 keywords: [Digital Omnibus, GDPR changes, AI training personal data, legitimate interest, right to object, ChatGPT opt out training, Mistral opt out training, Meta AI objection]
 # Workflow
+draft: true
 updatedAt: '2026-11-04'
 ---
 

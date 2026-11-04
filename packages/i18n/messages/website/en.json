@@ -818,6 +818,7 @@
     "cta": "Go home"
   },
   "news": {
+    "byline": "By {name}",
     "meta": {
       "title": "EU Tech News: Digital Sovereignty and Privacy | switch-to.eu",
       "description": "Weekday news on digital sovereignty, privacy and European alternatives to US tech. Sourced, short, and focused on what it means for you."

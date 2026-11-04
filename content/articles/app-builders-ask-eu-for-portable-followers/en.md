@@ -1,7 +1,7 @@
 ---
 title: App builders ask the EU to let you take your followers when you leave a platform
 description: You can't take your followers when you leave a big platform. More than 35 app builders want the EU's Digital Fairness Act, expected 11 November, to change that.
-date: '2026-11-03'
+date: '2026-11-04'
 type: news
 story: eu-digital-fairness-act-social-switching
 entities: [digital-fairness-act, european-commission, digital-markets-act]
@@ -12,7 +12,7 @@ sources:
   - {title: 'EU urged to ease social media switching', publisher: Rapporteur, url: 'https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/', date: '2026-11-03'}
   - {title: 'Freedom of movement in digital Europe (joint position paper)', publisher: Modal Foundation, url: 'https://digitalfreedomofmovement.eu/', date: '2026-11-03'}
   - {title: 'Digital Fairness Act targeted for 11 November 2026', publisher: Digital Fairness Act newsletter, url: 'https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for', date: '2026-09-29'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/app-builders-ask-eu-for-portable-followers.jpg
 imageAlt: 'The Berlaymont building in Brussels, headquarters of the European Commission, with EU flags in front'
 imageCredit: 'Photo: Euro Pictures, CC BY 2.0, via Wikimedia Commons'
@@ -21,7 +21,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=124902101'
 metaTitle: EU urged to let you take your social network to new apps
 keywords: [Digital Fairness Act, social media portability, take your followers with you, personal data server, leave Instagram, leave X, Mastodon, Bluesky]
 # Workflow
-updatedAt: '2026-11-03'
+updatedAt: '2026-11-04'
 ---
 
 You can't take your followers with you when you leave a big platform. For now, you rebuild your network by hand.

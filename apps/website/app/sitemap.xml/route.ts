@@ -1,3 +1,4 @@
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
 import {
   getAllArticles,
   getAllCategories,
@@ -72,7 +73,7 @@ function buildEntries(): SitemapEntry[] {
     "/privacy",
     "/terms",
     "/feedback",
-    "/news",
+    ...(NEWS_INDEX_ENABLED ? ["/news"] : []),
   ];
 
   const staticEntries: SitemapEntry[] = staticRoutes.flatMap((route) =>

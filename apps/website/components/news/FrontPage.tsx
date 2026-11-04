@@ -54,7 +54,7 @@ export async function FrontPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-5">
           {/* Lead story */}
-          <article className="relative overflow-hidden lg:col-span-8 bg-white border-y md:border border-black/10 text-brand-green md:rounded-3xl flex flex-col">
+          <article className={`relative overflow-hidden ${briefing.length > 0 ? "lg:col-span-8" : "lg:col-span-12"} bg-white border-y md:border border-black/10 text-brand-green md:rounded-3xl flex flex-col`}>
             {lead.image && (
               <div className="relative aspect-[16/9] lg:aspect-[2/1] bg-[#f3efe8]">
                 <Image
@@ -101,17 +101,17 @@ export async function FrontPage({
           </article>
 
           {/* Briefing column */}
-          <aside
-            aria-labelledby="briefing-title"
-            className="lg:col-span-4 bg-white md:rounded-3xl border-y md:border border-black/10 px-6 sm:px-8 py-8"
-          >
-            <Heading
-              id="briefing-title"
-              className="font-heading text-brand-green text-2xl sm:text-3xl mb-4"
+          {briefing.length > 0 && (
+            <aside
+              aria-labelledby="briefing-title"
+              className="lg:col-span-4 bg-white md:rounded-3xl border-y md:border border-black/10 px-6 sm:px-8 py-8"
             >
-              {t("briefing")}
-            </Heading>
-            {briefing.length > 0 ? (
+              <Heading
+                id="briefing-title"
+                className="font-heading text-brand-green text-2xl sm:text-3xl mb-4"
+              >
+                {t("briefing")}
+              </Heading>
               <ol className="divide-y divide-brand-green/15">
                 {briefing.map((article) => (
                   <li key={article.slug} className="py-4 first:pt-0 flex gap-4">
@@ -149,26 +149,24 @@ export async function FrontPage({
                   </li>
                 ))}
               </ol>
-            ) : (
-              <p className="text-brand-green/80">{t("empty")}</p>
-            )}
-            {showFooterLinks && (
-              <div className="mt-6 pt-5 border-t border-brand-green/15 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold">
-                <Link
-                  href="/news"
-                  className="inline-block py-1 text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
-                >
-                  {t("viewAll")}
-                </Link>
-                <a
-                  href={`/${locale}/news/feed.xml`}
-                  className="inline-block py-1 text-brand-green/80 hover:text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
-                >
-                  {t("rss")}
-                </a>
-              </div>
-            )}
-          </aside>
+              {showFooterLinks && (
+                <div className="mt-6 pt-5 border-t border-brand-green/15 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold">
+                  <Link
+                    href="/news"
+                    className="inline-block py-1 text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+                  >
+                    {t("viewAll")}
+                  </Link>
+                  <a
+                    href={`/${locale}/news/feed.xml`}
+                    className="inline-block py-1 text-brand-green/80 hover:text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+                  >
+                    {t("rss")}
+                  </a>
+                </div>
+              )}
+            </aside>
+          )}
         </div>
       </Container>
     </section>

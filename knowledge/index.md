@@ -50,11 +50,11 @@
 
 ## Articles (5)
 
-- 2026-11-04 · [EU governments back AI training on your data without consent. It isn't law yet. How to object today](../content/articles/eu-governments-back-ai-training-on-your-data/en.md)
-- 2026-11-04 · [OpenAI plans to shut down custom GPTs on 11 December. What to do with yours](../content/articles/openai-retires-custom-gpts/en.md)
-- 2026-11-03 · [App builders ask the EU to let you take your followers when you leave a platform](../content/articles/app-builders-ask-eu-for-portable-followers/en.md)
-- 2026-11-03 · [What German schools, the Dutch tax office and a reported Google plan mean for your own cloud](../content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md)
-- 2026-11-03 · [Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security](../content/articles/proton-ceo-ai-push-security-checks/en.md)
+- 2026-11-04 · [App builders ask the EU to let you take your followers when you leave a platform](../content/articles/app-builders-ask-eu-for-portable-followers/en.md)
+- 2026-11-04 · [EU governments back AI training on your data without consent. It isn't law yet. How to object today](../content/articles/eu-governments-back-ai-training-on-your-data/en.md) · draft
+- 2026-11-04 · [OpenAI plans to shut down custom GPTs on 11 December. What to do with yours](../content/articles/openai-retires-custom-gpts/en.md) · draft
+- 2026-11-03 · [What German schools, the Dutch tax office and a reported Google plan mean for your own cloud](../content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md) · draft
+- 2026-11-03 · [Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security](../content/articles/proton-ceo-ai-push-security-checks/en.md) · draft
 
 ## Sources (269)
 

@@ -8,6 +8,8 @@ import { ArticleCard } from "@/components/news/ArticleCard";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { FrontPage } from "@/components/news/FrontPage";
 import { getAllArticles } from "@/lib/content/loader";
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
+import { notFound } from "next/navigation";
 
 const BRIEFING_COUNT = 4;
 
@@ -19,6 +21,7 @@ export async function generateMetadata(
   },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  if (!NEWS_INDEX_ENABLED) notFound();
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "news" });
@@ -43,6 +46,7 @@ export default async function NewsIndexPage({
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
+  if (!NEWS_INDEX_ENABLED) notFound();
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "news" });

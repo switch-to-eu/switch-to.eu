@@ -14,7 +14,7 @@ sources:
   - {title: 'Merz says Google Cloud is sovereign enough for German intelligence services', publisher: heise online, url: 'https://www.heise.de/news/Merz-Google-Cloud-ausreichend-souveraen-fuer-Nachrichtendienste-11508517.html', date: '2026-11-02'}
   - {title: 'Letter to parliament on the future of the Dutch Tax Administration (Kamerstuk 31066-1579)', publisher: Tweede Kamer, url: 'https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2026Z21114&did=2026D48732', date: '2026-10-05'}
   - {title: 'Dutch tax office drops Microsoft 365 rollout for its own servers and open source', publisher: The Register, url: 'https://www.theregister.com/a/5301603', date: '2026-10-07'}
-author: Switch-to.eu
+author: Simon Peters
 image: /images/articles/german-schools-dutch-tax-office-sovereign-cloud.jpg
 imageAlt: 'The Federal Chancellery in Berlin seen from the Spreebogenpark, with a family and other visitors walking along a path in the foreground'
 imageCredit: 'Photo: Perituss, public domain (CC0), via Wikimedia Commons'
@@ -23,6 +23,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:Bundeskanzleramt_Berlin
 metaTitle: 'Sovereign cloud: German schools, Dutch tax office, Google'
 keywords: [digital sovereignty, sovereign cloud, Nextcloud for schools, IONOS Nextcloud Workspace, Dutch tax office Microsoft 365, Merz Google cloud, Google Drive alternative]
 # Workflow
+draft: true
 updatedAt: '2026-11-03'
 ---
 

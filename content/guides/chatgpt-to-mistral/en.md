@@ -27,6 +27,7 @@ keywords:
 ogTitle: Switching from ChatGPT to Mistral Vibe (formerly Le Chat)
 ogDescription: Export your ChatGPT data, copy your memories and GPTs, switch off training and close your OpenAI account. A step-by-step move to Mistral's assistant.
 # Workflow
+draft: true
 contentPipelineStatus: seo-checked
 updatedAt: '2026-11-03'
 seoScore: 95

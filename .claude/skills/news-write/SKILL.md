@@ -41,7 +41,7 @@ Then gather, in this order, and stop reading when you have enough:
 
 **Slug:** English, kebab-case, 3 to 7 words, the news not the date (`dutch-finance-ministry-cloud-tender`). Check `ls content/articles/<slug>` is free.
 
-**Frontmatter** per the Articles spec: `title`, `description` (140-160 chars), `date: '<today>'`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources` (one entry per source note you used: title, publisher, url, date = published), `author: Switch-to.eu`, `# SEO` (`metaTitle` when the title is over 60 chars, `keywords` 3-8), `# Workflow` with `draft: true` and `updatedAt: '<today>'`. Every slug you list must exist.
+**Frontmatter** per the Articles spec: `title`, `description` (140-160 chars), `date: '<today>'`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources` (one entry per source note you used: title, publisher, url, date = published), `author: Simon Peters`, `# SEO` (`metaTitle` when the title is over 60 chars, `keywords` 3-8), `# Workflow` with `draft: true` and `updatedAt: '<today>'`. Every slug you list must exist.
 
 **Body:**
 - Lead with what changes for the reader: what happens, who, when, the key number. First paragraph stands on its own. Group by the reader's situation when readers differ ("If you built a GPT").

@@ -10,6 +10,7 @@ import { FeaturedPicksSection } from "@/components/FeaturedPicksSection";
 import { HighlightedToolSection } from "@/components/HighlightedToolSection";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { FrontPage } from "@/components/news/FrontPage";
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
 import { HomeMasthead } from "@/components/home/HomeMasthead";
 import {
   getAllArticles,
@@ -116,7 +117,12 @@ export default async function Home({
         latestDate={articles.find((a) => !a.sample)?.date ?? null}
       />
 
-      <FrontPage articles={articles} locale={locale} title={t("latestNews")} />
+      <FrontPage
+        articles={articles}
+        locale={locale}
+        title={t("latestNews")}
+        showFooterLinks={NEWS_INDEX_ENABLED}
+      />
 
       <FeaturedGuideHero featured={featured} others={others} />
 

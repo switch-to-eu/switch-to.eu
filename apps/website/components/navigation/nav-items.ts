@@ -1,3 +1,4 @@
+import { NEWS_INDEX_ENABLED } from "@/lib/news";
 import { getAllCategories } from "@/lib/content/loader";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -42,10 +43,7 @@ export async function getNavItems(): Promise<MainNavItem[]> {
       dropdown: "mega",
       children: [...categories],
     },
-    {
-      title: t("news"),
-      href: `/news`,
-    },
+    ...(NEWS_INDEX_ENABLED ? [{ title: t("news"), href: `/news` }] : []),
     {
       title: t("tools"),
       href: `/tools`,
