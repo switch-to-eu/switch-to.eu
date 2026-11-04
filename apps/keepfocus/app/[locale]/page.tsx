@@ -1,6 +1,8 @@
-"use client";
-
-import { useTranslations } from 'next-intl';
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import { routing } from "@switch-to-eu/i18n/routing";
+import { createPageMetadata } from "@switch-to-eu/i18n/seo";
+import { hasLocale, useTranslations } from "next-intl";
 import { Timer, Coffee, Repeat } from 'lucide-react';
 import { PomodoroTimer } from '../../components/pomodoro-timer';
 import { TodoList } from '../../components/todo-list';
@@ -9,6 +11,15 @@ import { TasksProvider } from '../../hooks/use-tasks';
 import { Banner } from '@switch-to-eu/blocks/components/banner';
 import { PageLayout } from '@switch-to-eu/blocks/components/page-layout';
 import { Container } from '@switch-to-eu/blocks/components/container';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return createPageMetadata(parent, "", locale);
+}
 
 export default function HomePage() {
   const t = useTranslations();

@@ -1,3 +1,7 @@
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import { routing } from "@switch-to-eu/i18n/routing";
+import { createPageMetadata } from "@switch-to-eu/i18n/seo";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import Image from "next/image";
 
@@ -11,7 +15,16 @@ import {
 } from "@switch-to-eu/ui/components/card";
 
 import { Button } from "@switch-to-eu/ui/components/button";
-import { useTranslations } from "next-intl";
+import { hasLocale, useTranslations } from "next-intl";
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return createPageMetadata(parent, "", locale);
+}
 
 export default function Home() {
   const t = useTranslations('HomePage');

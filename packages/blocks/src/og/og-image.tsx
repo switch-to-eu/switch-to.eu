@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { BRAND_COLORS, TOOL_SCHEMES } from "@switch-to-eu/ui/lib/tool-colors";
 import { getOgFonts, ogFontConfig } from "./fonts";
 
 export const ogSize = { width: 1200, height: 630 };
@@ -12,13 +13,75 @@ const starPath =
 const blobPath =
   "M166.52,360.05c-19.36-8.03-41.21-5.87-62.05-8.18-20.83-2.31-43.84-11.92-49.96-31.97-5.04-16.53,3.15-34.97-2.06-51.44-7.81-24.66-41.25-33.37-50.23-57.63-5.76-15.55.46-33.1,9.58-46.95,9.12-13.85,21.14-25.78,28.87-40.45,9.68-18.35,11.97-39.62,18.8-59.21,6.84-19.59,20.83-39.25,41.35-42.33,16.4-2.46,32.59,6.32,49.17,5.87,18.39-.5,34.31-12.06,50.84-20.14,16.53-8.08,38.34-12.16,51.86.32,10.92,10.08,12.24,27.37,22.51,38.11,10.86,11.35,28.27,12.28,43.85,14.26,15.58,1.98,33.43,7.89,38.23,22.84,3.89,12.1-2.62,24.95-9.81,35.44-7.19,10.48-15.61,21.27-16.03,33.97-.48,14.6,9.66,27.06,18.34,38.81,8.68,11.75,16.7,26.67,11.52,40.33-4.55,12-17.57,18.24-29.7,22.43-12.13,4.19-25.41,8.09-33.15,18.33-7.32,9.68-7.87,22.65-10.36,34.53-2.49,11.88-9.05,24.89-20.98,27.1-9.14,1.69-18.26-3.67-27.54-3.14-9.6.55-17.69,7.25-24.25,14.28-6.56,7.04-12.63,14.95-21.2,19.33-8.56,4.38-17.86-2.34-27.61-4.49";
 
+interface OgImageColors {
+  background: string;
+  wordmark: string;
+  title: string;
+  subtitle: string;
+  /** Badge fill and the bar at the bottom. */
+  accent: string;
+}
+
 interface OgImageOptions {
   title: string;
   subtitle?: string;
   badge?: string;
+  colors?: OgImageColors;
 }
 
-export async function generateOgImage({ title, subtitle, badge }: OgImageOptions) {
+const websiteColors: OgImageColors = {
+  background: "#1E42B0",
+  wordmark: "white",
+  title: "#FBA616",
+  subtitle: "#9BCDD0",
+  accent: "#FBA616",
+};
+
+/** Colours from the tool's `TOOL_SCHEMES` entry. Ratios are in docs/brand.md. */
+function toolOgColors(toolId: string): OgImageColors {
+  const { primary, accent } = TOOL_SCHEMES[toolId]!;
+  // White on orange is 3.79:1, which fails AA at the size of a social preview.
+  const text =
+    primary === "orange" ? "#1a1a1a" : BRAND_COLORS[primary].foreground;
+  // Yellow on orange and orange on red are below 3:1, so these tools use the text colour.
+  const highlight =
+    primary === "orange" || primary === "red"
+      ? text
+      : BRAND_COLORS[accent].value;
+
+  return {
+    background: BRAND_COLORS[primary].value,
+    wordmark: text,
+    title: highlight,
+    subtitle: text,
+    accent: highlight,
+  };
+}
+
+/** Open Graph image of a tool app, from its translated metadata. */
+export function generateToolOgImage({
+  toolId,
+  title,
+  description,
+}: {
+  toolId: string;
+  title: string;
+  description: string;
+}) {
+  return generateOgImage({
+    // The wordmark in the image already gives the site name.
+    title: title.replace(/ \| switch-to\.eu$/, ""),
+    subtitle: description,
+    colors: toolOgColors(toolId),
+  });
+}
+
+export async function generateOgImage({
+  title,
+  subtitle,
+  badge,
+  colors = websiteColors,
+}: OgImageOptions) {
   const fonts = await getOgFonts();
 
   return new ImageResponse(
@@ -29,7 +92,7 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#1E42B0",
+          backgroundColor: colors.background,
           position: "relative",
           overflow: "hidden",
           fontFamily: "Hanken Grotesk, sans-serif",
@@ -88,7 +151,7 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
             <div
               style={{
                 fontSize: 28,
-                color: "white",
+                color: colors.wordmark,
                 fontFamily: "Bonbance, serif",
                 fontWeight: 800,
                 letterSpacing: "0.02em",
@@ -116,8 +179,8 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
               >
                 <div
                   style={{
-                    backgroundColor: "#FBA616",
-                    color: "#1E42B0",
+                    backgroundColor: colors.accent,
+                    color: colors.background,
                     fontSize: 16,
                     fontWeight: 700,
                     padding: "6px 20px",
@@ -134,7 +197,7 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
             <div
               style={{
                 fontSize: title.length > 40 ? 48 : title.length > 25 ? 56 : 64,
-                color: "#FBA616",
+                color: colors.title,
                 fontFamily: "Bonbance, serif",
                 fontWeight: 800,
                 lineHeight: 1.1,
@@ -149,7 +212,7 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
               <div
                 style={{
                   fontSize: 24,
-                  color: "#9BCDD0",
+                  color: colors.subtitle,
                   lineHeight: 1.4,
                   maxWidth: "80%",
                 }}
@@ -165,7 +228,7 @@ export async function generateOgImage({ title, subtitle, badge }: OgImageOptions
               display: "flex",
               width: 80,
               height: 4,
-              backgroundColor: "#FBA616",
+              backgroundColor: colors.accent,
               borderRadius: 2,
             }}
           />

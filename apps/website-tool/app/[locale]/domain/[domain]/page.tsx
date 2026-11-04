@@ -17,7 +17,7 @@ export async function generateMetadata({
 
   const domainFromUrl = decodeURIComponent(domain);
   const formattedDomain = formatDomain(domainFromUrl);
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:5015";
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://scan.switch-to.eu";
 
   return {
     title: `${formattedDomain} | switch-to.eu`,
@@ -31,6 +31,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      url: `${baseUrl}/${locale}/domain/${domain}`,
       title: `${formattedDomain} - switch-to.eu`,
       description: `Check if ${formattedDomain} uses EU-based services and is EU GDPR compliant.`,
       siteName: "switch-to.eu",

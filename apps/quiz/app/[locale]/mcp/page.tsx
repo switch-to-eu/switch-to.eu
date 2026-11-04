@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { headers } from "next/headers";
@@ -6,19 +6,16 @@ import { notFound } from "next/navigation";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { Bot, Terminal, AlertTriangle } from "lucide-react";
 import { Button } from "@switch-to-eu/ui/components/button";
-import { routing, type Locale } from "@switch-to-eu/i18n/routing";
-import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
+import { routing } from "@switch-to-eu/i18n/routing";
+import { createPageMetadata } from "@switch-to-eu/i18n/seo";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  return {
-    alternates: generateLanguageAlternates("mcp", locale as Locale),
-  };
+  return createPageMetadata(parent, "mcp", locale);
 }
 
 function CodeBlock({ children }: { children: string }) {
