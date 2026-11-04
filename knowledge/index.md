@@ -6,10 +6,10 @@
 
 | Story | Slug | Heat | Last event | Last covered | Sources |
 |---|---|---|---|---|---|
+| [EU Digital Fairness Act and the right to take your social network with you](stories/eu-digital-fairness-act-social-switching.md) | `eu-digital-fairness-act-social-switching` | 6.8 | 2026-11-03 | 2026-11-03 | 4 |
 | [The Digital Omnibus and changes to the GDPR, including AI training on personal data](stories/eu-digital-omnibus-gdpr-changes.md) | `eu-digital-omnibus-gdpr-changes` | 6.2 | 2026-10-23 | 2026-11-03 | 4 |
 | [OpenAI retires custom GPTs in ChatGPT and moves creators to plugins](stories/openai-custom-gpt-retirement.md) | `openai-custom-gpt-retirement` | 5.8 | 2026-10-26 | 2026-11-03 | 2 |
 | [European public sector moves off US office and cloud software](stories/european-public-sector-leaves-us-software.md) | `european-public-sector-leaves-us-software` | 5 | 2026-11-03 | 2026-11-03 | 4 |
-| [EU Digital Fairness Act and the right to take your social network with you](stories/eu-digital-fairness-act-social-switching.md) | `eu-digital-fairness-act-social-switching` | 4.8 | 2026-11-03 | 2026-11-03 | 3 |
 | [Proton's AI push and questions about security](stories/proton-ai-push-security-concerns.md) | `proton-ai-push-security-concerns` | 3.5 | 2026-11-01 | 2026-11-03 | 2 |
 | [Court of Justice case on AI chatbots and press publishers' rights](stories/cjeu-ai-press-publisher-case.md) | `cjeu-ai-press-publisher-case` | 2.9 | 2026-11-03 | never | 1 |
 | [German government turns to Google Cloud for sensitive workloads](stories/german-government-google-cloud.md) | `german-government-google-cloud` | 2.8 | 2026-11-02 | never | 1 |
@@ -38,27 +38,27 @@
 
 ### regulation
 
-- [Digital Fairness Act](entities/regulation/digital-fairness-act.md) `digital-fairness-act` · 5 refs · Planned EU law revamping online consumer protection. The Commission is due to propose it in November 2026.
-- [Digital Markets Act](entities/regulation/digital-markets-act.md) `digital-markets-act` · 5 refs · EU competition law for large "gatekeeper" platforms, enforced by the European Commission. Covers defaults, choice screens, data portability and messaging interoperability.
+- [Digital Fairness Act](entities/regulation/digital-fairness-act.md) `digital-fairness-act` · 6 refs · Planned EU law revamping online consumer protection. The Commission is due to propose it in November 2026.
+- [Digital Markets Act](entities/regulation/digital-markets-act.md) `digital-markets-act` · 6 refs · EU competition law for large "gatekeeper" platforms, enforced by the European Commission. Covers defaults, choice screens, data portability and messaging interoperability.
 - [Kids Act](entities/regulation/kids-act.md) `kids-act` · 2 refs · EU proposal from September 2026 to set common limits on social media access for minors, under negotiation.
 
 ### institution
 
 - [Court of Justice of the European Union](entities/institution/court-of-justice-of-the-eu.md) `court-of-justice-of-the-eu` · 2 refs · The EU's highest court. Its advocates general issue non-binding opinions that the court usually follows.
-- [European Commission](entities/institution/european-commission.md) `european-commission` · 19 refs · The EU's executive. Proposes EU laws such as the Digital Fairness Act and the Kids Act, and enforces the Digital Markets Act.
+- [European Commission](entities/institution/european-commission.md) `european-commission` · 20 refs · The EU's executive. Proposes EU laws such as the Digital Fairness Act and the Kids Act, and enforces the Digital Markets Act.
 - [German federal government](entities/institution/german-federal-government.md) `german-federal-government` · 3 refs · Germany's federal government under Chancellor Friedrich Merz. heise reports its intelligence services plan an offline cloud with Google as project partner.
 
 ## Articles (5)
 
-- 2026-11-04 · [App builders ask the EU to let you take your followers when you leave a platform](../content/articles/app-builders-ask-eu-for-portable-followers/en.md)
+- 2026-11-04 · [You keep your phone number when you switch. Why not your followers?](../content/articles/app-builders-ask-eu-for-portable-followers/en.md)
 - 2026-11-04 · [EU governments back AI training on your data without consent. It isn't law yet. How to object today](../content/articles/eu-governments-back-ai-training-on-your-data/en.md) · draft
 - 2026-11-04 · [OpenAI plans to shut down custom GPTs on 11 December. What to do with yours](../content/articles/openai-retires-custom-gpts/en.md) · draft
 - 2026-11-03 · [What German schools, the Dutch tax office and a reported Google plan mean for your own cloud](../content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md) · draft
 - 2026-11-03 · [Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security](../content/articles/proton-ceo-ai-push-security-checks/en.md) · draft
 
-## Sources (269)
+## Sources (270)
 
-- 2026-11: 269
+- 2026-11: 270
 
 ## Health
 
@@ -247,3 +247,4 @@
 - **warning** `uncited-source` 2026-11-03-vivaldi-third-party-search-engines: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-vivaldi-tracker-ad-blocking-help: no entity, story or article cites this source
 - **warning** `uncited-source` 2026-11-03-xai-grok-privacy-policy: no entity, story or article cites this source
+- **warning** `uncited-source` 2026-11-04-dfom-position-paper-full-text: no entity, story or article cites this source

@@ -369,7 +369,7 @@
   },
   "articles/app-builders-ask-eu-for-portable-followers": {
    "type": "article",
-   "title": "App builders ask the EU to let you take your followers when you leave a platform",
+   "title": "You keep your phone number when you switch. Why not your followers?",
    "path": "content/articles/app-builders-ask-eu-for-portable-followers/en.md",
    "updated": "2026-11-04",
    "published": "2026-11-04"
@@ -2576,6 +2576,14 @@
    "published": "2026-10-27",
    "updated": "2026-11-03"
   },
+  "2026-11-04-dfom-position-paper-full-text": {
+   "type": "source",
+   "title": "Freedom of movement in digital Europe: full position paper",
+   "path": "knowledge/sources/2026/11/2026-11-04-dfom-position-paper-full-text.md",
+   "reliability": "medium",
+   "published": "2026-11-04",
+   "updated": "2026-11-04"
+  },
   "alphabet": {
    "type": "entity",
    "kind": "company",
@@ -2769,7 +2777,7 @@
    "updated": "2026-11-03",
    "last_event": "2026-11-03",
    "last_covered": "2026-11-03",
-   "heat": 4.8
+   "heat": 6.8
   },
   "eu-digital-omnibus-gdpr-changes": {
    "type": "story",
@@ -4660,6 +4668,26 @@
    "from": "2026-11-03-windows-dma-updates-2025",
    "to": "microsoft",
    "rel": "mentions"
+  },
+  {
+   "from": "2026-11-04-dfom-position-paper-full-text",
+   "to": "digital-fairness-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-04-dfom-position-paper-full-text",
+   "to": "digital-markets-act",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-04-dfom-position-paper-full-text",
+   "to": "european-commission",
+   "rel": "mentions"
+  },
+  {
+   "from": "2026-11-04-dfom-position-paper-full-text",
+   "to": "eu-digital-fairness-act-social-switching",
+   "rel": "part-of"
   },
   {
    "from": "alphabet",
@@ -7186,12 +7214,14 @@
    "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
+   "2026-11-04-dfom-position-paper-full-text",
    "articles/app-builders-ask-eu-for-portable-followers"
   ],
   "digital-fairness-act": [
    "2026-11-03-dfa-newsletter-commission-agenda-11-november",
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
+   "2026-11-04-dfom-position-paper-full-text",
    "articles/app-builders-ask-eu-for-portable-followers",
    "eu-digital-fairness-act-social-switching"
   ],
@@ -7205,6 +7235,7 @@
    "2026-11-03-netzpolitik-council-data-omnibus",
    "2026-11-03-noyb-council-omnibus-ai-training",
    "2026-11-03-politico-kids-act-national-bans-paused",
+   "2026-11-04-dfom-position-paper-full-text",
    "articles/app-builders-ask-eu-for-portable-followers",
    "articles/eu-governments-back-ai-training-on-your-data",
    "articles/german-schools-dutch-tax-office-sovereign-cloud",
@@ -7219,6 +7250,7 @@
   "digital-markets-act": [
    "2026-11-03-dfom-joint-position-paper",
    "2026-11-03-euractiv-dfa-social-media-switching",
+   "2026-11-04-dfom-position-paper-full-text",
    "articles/app-builders-ask-eu-for-portable-followers",
    "eu-digital-fairness-act-social-switching",
    "european-commission"
