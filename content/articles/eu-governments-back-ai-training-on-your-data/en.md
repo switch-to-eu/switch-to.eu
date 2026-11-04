@@ -1,6 +1,6 @@
 ---
-title: EU governments back AI training on your data without consent. What changes, and what to switch off today
-description: Member states want to allow AI training on personal data without consent. It isn't law yet, and your right to object stays. How to use it today.
+title: EU governments back AI training on your data without consent. It isn't law yet. How to object today
+description: EU member states want to allow AI training on your data without consent. It isn't law yet, and your right to object stays. How to use it today.
 date: '2026-11-09'
 type: analysis
 story: eu-digital-omnibus-gdpr-changes
@@ -29,56 +29,70 @@ metaTitle: EU governments back AI training on your data without consent
 keywords: [Digital Omnibus, GDPR changes, AI training personal data, legitimate interest, right to object, ChatGPT opt out training, Mistral opt out training, Meta AI objection]
 # Workflow
 draft: true
-updatedAt: '2026-11-03'
+updatedAt: '2026-11-04'
 ---
 
-EU member states agreed on 21 October to allow AI training on personal data under "legitimate interest", a legal basis that doesn't need your consent. [The Council's text](https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf) is a negotiating position, not law. The European Parliament still has to adopt its own, [expected in February 2027](https://netzpolitik.org/2026/eu-laender-einig-beim-daten-omnibus-mehr-ki-training-weniger-datenschutz/), before talks on the final wording start.
+EU member states want to allow AI training on your personal data without your consent, but that isn't law: [the Council's text](https://data.consilium.europa.eu/doc/document/ST-14756-2026-INIT/en/pdf), agreed on 21 October, is a negotiating position. Your right to object stays in it, and you don't have to wait to say no: by their own accounts, ChatGPT, Mistral and Meta already train on user data by default, and all three offer a way to say no.
 
-Your right to object stays in the text. By their own accounts, ChatGPT, Mistral and Meta already train on user data by default, and all three offer a way to say no.
+The legal basis in the text is "legitimate interest", which doesn't need your consent. The European Parliament still has to adopt its own position, [expected in February 2027](https://netzpolitik.org/2026/eu-laender-einig-beim-daten-omnibus-mehr-ki-training-weniger-datenschutz/), before talks on the final wording start.
 
-## What the text says
+## If you use ChatGPT, Mistral Vibe, Facebook or Instagram
+
+The right to object is in today's GDPR, the Commission's draft and the Council's text. We'd opt out now: these defaults apply today, whatever Parliament decides.
+
+### ChatGPT
+
+[OpenAI says](https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt) training is on by default for personal Free, Plus and Pro accounts of [ChatGPT](/services/non-eu/chatgpt). Turn it off under Settings, Data controls, "Improve the model for everyone". Voice mode and Codex have their own controls. A thumbs up or down means the whole conversation might be used for training anyway, OpenAI says.
+
+### Mistral Vibe, formerly Le Chat
+
+The EU option works the same way: [Mistral says](https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training) you're opted in by default in [Mistral Vibe](/services/eu/mistral-le-chat).
+
+- **On the web:** go to admin.mistral.ai, pick Vibe under Manage, and turn off "Allow your interactions to be used to train our models" under Privacy.
+- **In the app:** Settings, Data & Account Controls, "Enable data sharing".
+
+The help page offers this to all users, but [the pricing page](https://mistral.ai/pricing) shows "Opt-out" only on paid plans. If the setting is missing, Mistral says [Temporary Chat](https://docs.mistral.ai/vibe/overview) isn't used for training.
+
+### Facebook and Instagram
+
+[Meta's Privacy Center](https://www.facebook.com/privacy/genai) has a "Your right to object" section linking to the forms for [Facebook](/services/non-eu/facebook) and [Instagram](/services/non-eu/instagram), and you might need to log in. Meta says an objection covers your public information and your interactions with its AI features, but a training run that has already started might still use your data.
+
+## If you'd rather leave
+
+The [AI category](/services/artificial-intelligence) lists the alternatives, and our [ChatGPT to Mistral guide](/guides/artificial-intelligence/chatgpt-to-mistral) covers the move. [Mastodon](/services/eu/mastodon) is the EU-based option in our [social media list](/services/social-media). You'd give up reach: about 800,000 to 1 million monthly active users, against about 2 billion on Instagram.
+
+## What the member states agreed
 
 The change is part of the Digital Omnibus, which the Commission [proposed on 19 November 2025](https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/) to simplify EU digital rules. The Council's Article 88 bis says processing personal data to build and run AI "may be carried out for a legitimate interest" of the company or a third party.
 
 Legitimate interest isn't new. [The GDPR](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679) already allows it, unless your interests or fundamental rights override the company's, "in particular where the data subject is a child". Meta [says](https://www.facebook.com/privacy/genai) it relies on this basis for AI training in Europe. The Omnibus would name AI in the GDPR itself.
 
-Two of the Council's edits pull in opposite directions. A recital, the explanatory part of a law, now says building AI "does not in itself constitute a legitimate interest" and that relying on it is "to be assessed on a case-by-case basis". But the Commission's draft also listed "an unconditional right to object", and the Council deleted those words.
+Two of the Council's edits pull in opposite directions. A recital, the explanatory part of a law, now says building AI "does not in itself constitute a legitimate interest" and that relying on it is "to be assessed on a case-by-case basis". But the Council also deleted the words "an unconditional right to object" from the Commission's draft.
 
 Its text refers to "the right to object under Article 21", the right you have now. You object on grounds relating to your own situation, and a company keeps going if it "demonstrates compelling legitimate grounds" that override yours.
 
-## Two readings of the same text
+The same text keeps cookie consent, adds exceptions such as audience measurement, and makes sites wait at least four months before asking again after you refuse.
 
-noyb, a privacy advocacy group, [reads this far more harshly](https://noyb.eu/en/ai-eu-member-states-approve-digital-expropriation-europeans-ai-companies). It says companies would automatically be assumed to have an overriding legitimate interest when they train or use any AI product, including on data "entered decades ago" and from people who were never customers. It says the Article 21 reference adds no real safeguard, since that right applies anyway. Max Schrems of noyb calls the result a "digital expropriation of Europeans".
+Germany, Austria and Estonia voted against, [netzpolitik.org reports](https://netzpolitik.org/2026/eu-laender-einig-beim-daten-omnibus-mehr-ki-training-weniger-datenschutz/). Germany's stated reasons weren't about more privacy: its digital ministry named trade secrets and simpler GDPR rules for small businesses as red lines. netzpolitik.org gives no reasons for Austria and Estonia.
+
+## How noyb and the Council read it
+
+noyb, a privacy advocacy group, [reads this far more harshly](https://noyb.eu/en/ai-eu-member-states-approve-digital-expropriation-europeans-ai-companies). It says companies would automatically be assumed to have an overriding legitimate interest when they train or use any AI product, including on data "entered decades ago" and from people who were never customers. In its view, the Article 21 reference adds no real safeguard, since that right applies anyway. Max Schrems of noyb calls the result a "digital expropriation of Europeans".
 
 The Council [describes](https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/) "clarifications on the lawful ground for processing personal data", in a package "maintaining strong levels of protection".
 
 The wording gives each side something. Article 88 bis sets no limit on how old the data is or whose it is. But a case-by-case test isn't an automatic assumption, though that wording sits in a recital, not the article.
 
-Germany, Austria and Estonia voted against, [netzpolitik.org reports](https://netzpolitik.org/2026/eu-laender-einig-beim-daten-omnibus-mehr-ki-training-weniger-datenschutz/). Germany's stated reasons weren't about more privacy: its digital ministry named trade secrets and simpler GDPR rules for small businesses as red lines. netzpolitik.org gives no reasons for Austria and Estonia.
+## If your data carries a code instead of your name
 
-## Pseudonymised data: what the text settles
+Pseudonymised data has names swapped for codes, so it points back to you only with extra information. Under the Council's text it doesn't leave the GDPR across the board, but it can for some companies.
 
-Pseudonymised data has names swapped for codes, so it points back to you only with extra information. noyb says member states want to "drastically narrow" the definition of personal data, with pseudonyms that "should regularly not be covered by the GDPR anymore". netzpolitik.org says the definition doesn't change on the surface, with new pseudonymisation rules added.
-
-The Council's text gives both a point. The Commission's rewrite of the definition is struck out, and the Council says it "maintains the current definition". But a new Article 25a says pseudonymised data "shall not be considered personal data" for a third party that is "unable to identify" the person.
+noyb says member states want to "drastically narrow" the definition of personal data, with pseudonyms that "should regularly not be covered by the GDPR anymore". netzpolitik.org says the definition doesn't change on the surface, with new pseudonymisation rules added. The text gives both a point: the Commission's rewrite of the definition is struck out, and the Council says it "maintains the current definition". But a new Article 25a says pseudonymised data "shall not be considered personal data" for a third party that is "unable to identify" the person.
 
 That exception has limits. The company doing the pseudonymising stays under the GDPR, and so do firms processing the data for it. If the data reaches someone able to identify you, it's personal data again.
 
-So pseudonymised data doesn't leave the GDPR across the board. How often the exception applies is open: noyb says most IT systems work with pseudonyms such as user IDs and IP addresses.
+How often the exception applies is open: noyb says most IT systems work with pseudonyms such as user IDs and IP addresses.
 
-## What's settled and what isn't
+## What happens next
 
-- **Settled:** the member states' position, agreed on 21 October 2026 and published a day later.
-- **Unchanged:** the GDPR in force today.
-- **Open:** Parliament's position and the final text. The three institutions [aim to finish](https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/) all simplification packages by the end of 2027.
-- **Also in the text:** the Council keeps cookie consent, adds exceptions such as audience measurement, and makes sites wait at least four months before asking again after you refuse.
-
-## What this means for you
-
-The right to object is in today's GDPR, the Commission's draft and the Council's text. Parliament hasn't written its version yet, but you don't have to wait.
-
-- **[ChatGPT](/services/non-eu/chatgpt).** [OpenAI says](https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt) training is on by default for personal Free, Plus and Pro accounts. Turn it off under Settings, Data controls, "Improve the model for everyone". Voice mode and Codex have their own controls, and OpenAI says a thumbs up or down means the whole conversation might be used for training anyway.
-- **[Mistral Vibe](/services/eu/mistral-le-chat), formerly Le Chat.** The EU option works the same way: [Mistral says](https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training) you're opted in by default. On the web, go to admin.mistral.ai, pick Vibe under Manage, and turn off "Allow your interactions to be used to train our models" under Privacy. In the app: Settings, Data & Account Controls, "Enable data sharing". Worth knowing: the help page offers this to all users, but [the pricing page](https://mistral.ai/pricing) shows "Opt-out" only on paid plans. If the setting is missing, Mistral says [Temporary Chat](https://docs.mistral.ai/vibe/overview) isn't used for training. Our [ChatGPT to Mistral guide](/guides/artificial-intelligence/chatgpt-to-mistral) covers the move.
-- **[Facebook](/services/non-eu/facebook) and [Instagram](/services/non-eu/instagram).** [Meta's Privacy Center](https://www.facebook.com/privacy/genai) has a "Your right to object" section linking to the forms, and you might need to log in. Meta says an objection covers your public information and your interactions with its AI features, but a training run that has already started might still use your data.
-
-Prefer to leave? The [AI category](/services/artificial-intelligence) lists the alternatives. [Mastodon](/services/eu/mastodon) is the EU-based option in our [social media list](/services/social-media), with a trade-off in reach: about 800,000 to 1 million monthly active users, against about 2 billion on Instagram.
+The member states' position was agreed on 21 October 2026 and published a day later. The GDPR in force today is unchanged. Parliament's position and the final text are still open, and the three institutions [aim to finish](https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/) all simplification packages by the end of 2027.
