@@ -69,7 +69,7 @@ ogDescription: Swiss-built secure messenger with end-to-end encryption. No phone
 researchStatus: complete
 lastResearchedAt: '2026-04-08T00:00:00.000Z'
 gdprCompliance: compliant
-gdprNotes: Threema is fully GDPR-compliant and operates under Swiss data protection law, which is recognized as equivalent by the EU. All data is processed on servers in Switzerland. The app collects as little data as possible by design, and messages are deleted from servers after delivery.
+gdprNotes: Threema says it meets the requirements of the GDPR, and it operates under Swiss data protection law, which is recognized as equivalent by the EU. All data is processed on servers in Switzerland. The app collects as little data as possible by design, and messages are deleted from servers after delivery.
 privacyPolicyUrl: https://threema.com/en/privacy-policy
 pricingDetails: 'Threema Private (consumer app): 6.00 CHF/EUR/USD one-time, depending on the app store and country (as of November 2026). Threema Work: Core €3/user/month and Professional €5/user/month, both paid yearly (as of November 2026). Threema OnPrem: custom pricing. 30-day free trial for Threema Work (up to 30 users).'
 pricingUrl: https://threema.com/en/pricing

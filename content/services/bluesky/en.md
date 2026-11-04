@@ -24,7 +24,6 @@ specs:
 tags:
 - social network
 - microblogging
-- GDPR-compliant
 - open protocol
 # SEO
 metaTitle: 'Bluesky: Open, Decentralized Social Network | Switch to EU'

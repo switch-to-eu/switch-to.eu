@@ -62,7 +62,6 @@ pricingTiers:
   - Everything in Unlimited
 tags:
 - privacy
-- GDPR-compliant
 - encryption
 - zero-knowledge
 - open-source

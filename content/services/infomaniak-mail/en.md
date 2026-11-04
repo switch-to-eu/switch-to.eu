@@ -69,7 +69,6 @@ pricingTiers:
   - Up to 300 users
 tags:
 - privacy
-- GDPR-compliant
 - nFADP-compliant
 - swiss-made
 - business-focused

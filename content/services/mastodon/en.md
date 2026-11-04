@@ -21,7 +21,6 @@ specs:
   directMessages: Not encrypted
 tags:
 - privacy
-- GDPR-compliant
 - open-source
 - decentralized
 - non-profit

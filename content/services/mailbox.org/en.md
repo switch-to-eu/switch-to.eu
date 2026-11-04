@@ -54,7 +54,6 @@ pricingTiers:
 tags:
 - business-friendly
 - office-suite
-- GDPR-compliant
 # SEO
 metaTitle: 'mailbox (formerly mailbox.org): German Email Reviewed'
 metaDescription: mailbox, formerly mailbox.org, is a German email and office suite with data on German servers. 2026 prices, storage per plan, and the trade-offs to know.

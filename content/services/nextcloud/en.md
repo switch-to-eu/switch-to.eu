@@ -56,7 +56,6 @@ pricingTiers:
   - Support for custom solutions
 tags:
 - open-source
-- GDPR-compliant
 - self-hosted
 # SEO
 metaTitle: 'Nextcloud: Open-Source File Sync from Germany'

@@ -22,7 +22,6 @@ specs:
   revenue: Search and bookmark partner deals
 tags:
 - privacy
-- GDPR-compliant
 - customizable
 - ad-blocker
 - employee-owned
@@ -30,7 +29,7 @@ tags:
 - productivity
 # SEO
 metaTitle: 'Vivaldi Browser: Privacy-First Browser from Norway'
-metaDescription: Vivaldi is a free, customizable browser from Norway with built-in email, calendar, ad blocker, and Proton VPN. End-to-end encrypted sync. GDPR compliant.
+metaDescription: Vivaldi is a free, customizable browser from Norway with built-in email, calendar, ad blocker, and Proton VPN. End-to-end encrypted sync.
 keywords:
 - Vivaldi browser
 - EU browser alternative

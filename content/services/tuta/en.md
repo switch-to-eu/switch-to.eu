@@ -48,7 +48,6 @@ pricingTiers:
 tags:
 - encryption
 - open-source
-- GDPR-compliant
 # SEO
 metaTitle: Tuta - Encrypted Email from Germany | switch-to.eu
 metaDescription: Tuta encrypts your emails, contacts, and calendar. Nobody can read them, not even Tuta. Free plan available. Based in Hanover, Germany.
@@ -79,7 +78,6 @@ dataStorageLocations:
 - Germany
 certifications:
 - ISO 27001 (data center certification)
-- GDPR compliant
 - 100% renewable energy data center
 openSource: true
 sourceCodeUrl: https://github.com/tutao/tutanota

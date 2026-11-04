@@ -53,7 +53,7 @@ keywords:
 - WhatsApp alternatief EU
 ogTitle: 'Threema: Privéberichten zonder je telefoonnummer'
 ogDescription: Zwitserse beveiligde messenger met end-to-end versleuteling. Geen telefoonnummer nodig. Open source. Eenmalig €6, geen abonnementen.
-gdprNotes: Threema voldoet volledig aan de GDPR en valt onder de Zwitserse Federale Wet op de Gegevensbescherming, die door de EU als gelijkwaardig wordt erkend. Alle data wordt verwerkt op servers in Zwitserland. De app verzamelt zo min mogelijk gegevens en berichten worden na aflevering van de servers verwijderd.
+gdprNotes: Volgens Threema voldoet het aan de eisen van de GDPR, en het valt onder de Zwitserse Federale Wet op de Gegevensbescherming, die door de EU als gelijkwaardig wordt erkend. Alle data wordt verwerkt op servers in Zwitserland. De app verzamelt zo min mogelijk gegevens en berichten worden na aflevering van de servers verwijderd.
 ---
 
 Threema pakt berichten anders aan. In plaats van je account aan een telefoonnummer te koppelen, genereert het een willekeurig ID. Je kunt beginnen met chatten zonder persoonlijke gegevens te delen.

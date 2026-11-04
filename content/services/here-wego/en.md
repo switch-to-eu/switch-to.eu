@@ -24,7 +24,6 @@ specs:
   publicTransport: 1,900+ cities
 tags:
 - privacy
-- GDPR-compliant
 - navigation
 - offline
 - public-transit
