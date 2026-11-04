@@ -1,6 +1,6 @@
 ---
 title: You keep your phone number when you switch. Why not your followers?
-description: Change mobile provider and you keep your number. Leave Instagram and you lose your followers. 45 app builders now want the EU to change that.
+description: 45 app builders want the EU to give you a right to take your followers with you when you leave. What they ask for, and the catches.
 date: '2026-11-04'
 type: news
 story: eu-digital-fairness-act-social-switching
@@ -14,10 +14,10 @@ sources:
   - {title: 'Freedom of movement in digital Europe (full paper)', publisher: Modal Foundation, url: 'https://digitalfreedomofmovement.eu/paper.html', date: '2026-11-04'}
   - {title: 'Digital Fairness Act targeted for 11 November 2026', publisher: Digital Fairness Act newsletter, url: 'https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for', date: '2026-09-29'}
 author: Simon Peters
-image: /images/articles/app-builders-ask-eu-for-portable-followers.jpg
-imageAlt: 'The Berlaymont building in Brussels, headquarters of the European Commission, with EU flags in front'
-imageCredit: 'Photo: Euro Pictures, CC BY 2.0, via Wikimedia Commons'
-imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=124902101'
+image: /images/articles/app-builders-ask-eu-for-portable-followers-phone.jpg
+imageAlt: 'A white smartphone on a wooden surface, with icons of social apps such as Facebook, Instagram, Twitter and LinkedIn on its screen'
+imageCredit: 'Image via www.vpnsrus.com (mikemacmarketing), CC BY 2.0'
+imageCreditUrl: 'https://www.vpnsrus.com'
 # SEO
 metaTitle: 'Take your followers with you: app builders ask the EU'
 keywords: [Digital Fairness Act, social media portability, take your followers with you, personal data server, leave Instagram, leave X, Mastodon, Bluesky]
@@ -29,7 +29,7 @@ Change mobile provider and you keep your number. Leave Instagram and you lose ev
 
 A group of 45 app builders wants the EU to fix that. In [a paper](https://digitalfreedomofmovement.eu/paper.html) dated this month, they ask the European Commission for a right to take your network with you when you leave a social platform. They want it in the Digital Fairness Act, the EU's planned update of online consumer law, which is on the Commission's [provisional agenda for 11 November](https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for).
 
-We hope they get it. Today, an app like Flashes, which the paper calls a European Instagram alternative, doesn't only have to beat Instagram's app. It has to beat the fact that everyone you know is on Instagram.
+We hope they get it. Today, an app like [Flashes](https://www.flashes.blue), which the paper calls a European Instagram alternative, doesn't only have to beat Instagram's app. It has to beat the fact that everyone you know is on Instagram.
 
 ## Try leaving today
 
@@ -57,7 +57,7 @@ On 3 November, the paper's site listed 70 signatories from 15 countries, 45 of t
 
 ## Start now
 
-If you were going to leave anyway, don't wait for this. You rebuild your network by hand for now, so we'd start early: open an account elsewhere and tell your followers where to find you. If you depend on your reach on a big platform, keep that account for now.
+Don't wait for Brussels if you already want to leave. Moving is manual for now: open an account on another network and tell your followers where to find you. If your work depends on your reach on a big platform, keep that account and build the new one next to it.
 
 [Mastodon](/services/eu/mastodon) is the EU-based option in our [social media list](/services/social-media). A German nonprofit builds the software, and thousands of independent servers connect through the ActivityPub protocol. The trade-off is a smaller audience: about 800,000 to 1 million monthly active users.
 

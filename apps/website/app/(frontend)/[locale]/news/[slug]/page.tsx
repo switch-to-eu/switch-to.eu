@@ -28,6 +28,7 @@ import {
 import { ArticleMeta } from "@/components/news/FrontPage";
 import { getCategorySlug } from "@/lib/services";
 import { getAuthor } from "@/lib/authors";
+import { Byline } from "@/components/news/Byline";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://www.switch-to.eu";
 
@@ -162,20 +163,11 @@ export default async function NewsArticlePage({
       <p className="text-[#1a1a1a] text-lg sm:text-xl leading-relaxed max-w-[60ch]">
         {article.description}
       </p>
-      {author && (
-        <p className="mt-5 flex items-center gap-3 text-[#1a1a1a]">
-          <Image
-            src={author.photo}
-            alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-          />
-          <span className="font-semibold">
-            {t("byline", { name: article.author })}
-          </span>
-        </p>
-      )}
+      <Byline
+        name={article.author}
+        label={t("byline", { name: article.author })}
+        className="mt-5 text-[#1a1a1a]"
+      />
     </div>
   );
 

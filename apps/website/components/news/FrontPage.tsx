@@ -6,6 +6,7 @@ import type { Article } from "@/lib/content/types";
 import { markdownToPlainText } from "@/lib/markdown";
 import { formatArticleDate, readingMinutes } from "@/lib/news";
 import { ARTICLE_TYPE_PILL } from "@/components/news/article-type";
+import { Byline } from "@/components/news/Byline";
 import Image from "next/image";
 
 interface FrontPageProps {
@@ -82,12 +83,17 @@ export async function FrontPage({
               </p>
               {excerpt && (
                 <p
-                  className={`hidden sm:block text-base leading-relaxed max-w-[62ch] mb-8 ${lead.image ? "line-clamp-2" : "line-clamp-4"}`}
+                  className={`hidden sm:block text-base leading-relaxed max-w-[62ch] mb-5 ${lead.image ? "line-clamp-2" : "line-clamp-4"}`}
                 >
                   {excerpt}
                 </p>
               )}
-              <div className="mt-auto">
+              <Byline
+                name={lead.author}
+                label={t("byline", { name: lead.author })}
+                className="mb-3"
+              />
+              <div className="mt-auto pt-3">
                 <Link
                   href={`/news/${lead.slug}`}
                   tabIndex={-1}
