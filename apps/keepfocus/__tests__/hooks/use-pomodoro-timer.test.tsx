@@ -2,6 +2,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { DEFAULT_SETTINGS } from "../../lib/types";
 
+// The hook reads its notification text from next-intl. These tests render the
+// hook without a NextIntlClientProvider, so the mock returns the message key.
+vi.mock("next-intl", () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
 // Mock Worker constructor
 let mockWorkerPostMessage: ReturnType<typeof vi.fn>;
 let mockWorkerTerminate: ReturnType<typeof vi.fn>;

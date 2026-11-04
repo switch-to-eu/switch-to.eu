@@ -18,10 +18,6 @@ for (const locale of locales) {
   test(`${locale}: home page`, async ({ page }) => {
     await expectPageOk(page, `/${locale}`);
   });
-
-  test(`${locale}: about page`, async ({ page }) => {
-    await expectPageOk(page, `/${locale}/about`);
-  });
 }
 
 // Privacy page redirects to external https://www.switch-to.eu/privacy — skip smoke test

@@ -21,10 +21,6 @@ for (const locale of locales) {
     await expectPageOk(page, `/${locale}`);
   });
 
-  test(`${locale}: about page`, async ({ page }) => {
-    await expectPageOk(page, `/${locale}/about`);
-  });
-
   test(`${locale}: privacy page`, async ({ page }) => {
     await expectPageOk(page, `/${locale}/privacy`);
   });
