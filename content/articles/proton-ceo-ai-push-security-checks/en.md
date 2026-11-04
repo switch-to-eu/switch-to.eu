@@ -1,7 +1,7 @@
 ---
 title: Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security
 description: Andy Yen apologised after 404 Media reported he dismissed a request for security testing. The reporting we read describes no breach of user data.
-date: '2026-11-05'
+date: '2026-11-03'
 type: news
 story: proton-ai-push-security-concerns
 entities: [proton]
@@ -23,8 +23,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=188841892'
 metaTitle: "Proton's AI push and security: what users should know"
 keywords: [Proton, Andy Yen, Proton AI, Proton security, Proton Mail, Proton Drive, AI-written code, 404 Media]
 # Workflow
-draft: true
-updatedAt: '2026-11-04'
+updatedAt: '2026-11-03'
 ---
 
 If you use Proton, the reporting we read points to nothing you need to change in your account today. It describes how Proton builds software, not an incident. It reports no breach of user data, and none of it says Proton's encryption is weaker.

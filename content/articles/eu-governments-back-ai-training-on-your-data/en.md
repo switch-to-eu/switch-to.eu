@@ -1,7 +1,7 @@
 ---
 title: EU governments back AI training on your data without consent. It isn't law yet. How to object today
 description: EU member states want to allow AI training on your data without consent. It isn't law yet, and your right to object stays. How to use it today.
-date: '2026-11-09'
+date: '2026-11-04'
 type: analysis
 story: eu-digital-omnibus-gdpr-changes
 entities: [european-commission, openai, mistral-ai]
@@ -28,7 +28,6 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:Bruxelles_-_Europa_buil
 metaTitle: EU governments back AI training on your data without consent
 keywords: [Digital Omnibus, GDPR changes, AI training personal data, legitimate interest, right to object, ChatGPT opt out training, Mistral opt out training, Meta AI objection]
 # Workflow
-draft: true
 updatedAt: '2026-11-04'
 ---
 

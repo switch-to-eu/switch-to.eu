@@ -336,8 +336,7 @@
    "title": "Switching from ChatGPT to Mistral Vibe (formerly Le Chat)",
    "path": "content/guides/chatgpt-to-mistral/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-03",
-   "draft": true
+   "published": "2026-11-03"
   },
   "guides/gmail-to-protonmail": {
    "type": "guide",
@@ -369,43 +368,38 @@
   },
   "articles/app-builders-ask-eu-for-portable-followers": {
    "type": "article",
-   "title": "Social app builders ask the EU for a right to take your network with you",
+   "title": "App builders ask the EU to let you take your followers when you leave a platform",
    "path": "content/articles/app-builders-ask-eu-for-portable-followers/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-03",
-   "draft": true
+   "published": "2026-11-03"
   },
   "articles/eu-governments-back-ai-training-on-your-data": {
    "type": "article",
-   "title": "EU governments back AI training on your data without consent. What changes, and what to switch off today",
+   "title": "EU governments back AI training on your data without consent. It isn't law yet. How to object today",
    "path": "content/articles/eu-governments-back-ai-training-on-your-data/en.md",
-   "updated": "2026-11-03",
-   "published": "2026-11-09",
-   "draft": true
+   "updated": "2026-11-04",
+   "published": "2026-11-04"
   },
   "articles/german-schools-dutch-tax-office-sovereign-cloud": {
    "type": "article",
-   "title": "Six German states and the Dutch tax office pick alternatives to US office clouds, while Merz defends Google for spies",
+   "title": "What German schools, the Dutch tax office and a reported Google plan mean for your own cloud",
    "path": "content/articles/german-schools-dutch-tax-office-sovereign-cloud/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-06",
-   "draft": true
+   "published": "2026-11-03"
   },
   "articles/openai-retires-custom-gpts": {
    "type": "article",
-   "title": "Custom GPTs are scheduled to retire on 11 December. Your options, including leaving",
+   "title": "OpenAI plans to shut down custom GPTs on 11 December. What to do with yours",
    "path": "content/articles/openai-retires-custom-gpts/en.md",
-   "updated": "2026-11-03",
-   "published": "2026-11-10",
-   "draft": true
+   "updated": "2026-11-04",
+   "published": "2026-11-04"
   },
   "articles/proton-ceo-ai-push-security-checks": {
    "type": "article",
-   "title": "Proton's CEO apologises after leaked messages on AI and security testing. What it means if you use Proton",
+   "title": "Proton's CEO apologises for remarks to staff after 404 Media's report on AI and security",
    "path": "content/articles/proton-ceo-ai-push-security-checks/en.md",
    "updated": "2026-11-03",
-   "published": "2026-11-05",
-   "draft": true
+   "published": "2026-11-03"
   },
   "landing-pages/quit-chatgpt": {
    "type": "landing-page",

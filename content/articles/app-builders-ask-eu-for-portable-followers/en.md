@@ -21,8 +21,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/w/index.php?curid=124902101'
 metaTitle: EU urged to let you take your social network to new apps
 keywords: [Digital Fairness Act, social media portability, take your followers with you, personal data server, leave Instagram, leave X, Mastodon, Bluesky]
 # Workflow
-draft: true
-updatedAt: '2026-11-04'
+updatedAt: '2026-11-03'
 ---
 
 You can't take your followers with you when you leave a big platform. For now, you rebuild your network by hand.

@@ -1,7 +1,7 @@
 ---
 title: OpenAI plans to shut down custom GPTs on 11 December. What to do with yours
 description: OpenAI plans to shut down custom GPTs on 11 December and move creators to plugins. What moves, what doesn't, and how to rebuild a GPT somewhere else.
-date: '2026-11-10'
+date: '2026-11-04'
 type: news
 story: openai-custom-gpt-retirement
 entities: [openai, mistral-ai, proton]
@@ -29,7 +29,6 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:1515_Third_Street.jpg'
 metaTitle: 'OpenAI plans custom GPT shutdown 11 December: your options'
 keywords: [custom GPT retirement, custom GPTs 11 December, migrate GPT to plugin, ChatGPT plugins, leave ChatGPT, Mistral Vibe Skills, Proton Lumo, European ChatGPT alternative]
 # Workflow
-draft: true
 updatedAt: '2026-11-04'
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: What German schools, the Dutch tax office and a reported Google plan mean for your own cloud
 description: Six German states offer schools a Nextcloud platform, the Dutch tax office leaves Microsoft 365's cloud and Merz defends Google. What you can copy.
-date: '2026-11-06'
+date: '2026-11-03'
 type: analysis
 story: european-public-sector-leaves-us-software
 entities: [nextcloud, ionos, microsoft, alphabet, german-federal-government, european-commission]
@@ -23,8 +23,7 @@ imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:Bundeskanzleramt_Berlin
 metaTitle: 'Sovereign cloud: German schools, Dutch tax office, Google'
 keywords: [digital sovereignty, sovereign cloud, Nextcloud for schools, IONOS Nextcloud Workspace, Dutch tax office Microsoft 365, Merz Google cloud, Google Drive alternative]
 # Workflow
-draft: true
-updatedAt: '2026-11-04'
+updatedAt: '2026-11-03'
 ---
 
 These are decisions and plans by public bodies, so your own apps stay as they are. What you can take from them is one question for your own files: who stays in control? If your children go to school in Berlin, Bremen, Hamburg, Hesse, North Rhine-Westphalia or Rhineland-Palatinate, you also have a question for the school.
