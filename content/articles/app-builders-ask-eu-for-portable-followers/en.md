@@ -1,6 +1,6 @@
 ---
-title: App builders ask the EU to let you take your followers when you leave a platform
-description: You can't take your followers when you leave a big platform. More than 35 app builders want the EU's Digital Fairness Act, expected 11 November, to change that.
+title: App builders want the EU to let you take your followers when you leave Instagram or X
+description: 45 app builders want the EU to let you take your followers when you leave a big platform. We think it could give European networks a real chance.
 date: '2026-11-04'
 type: news
 story: eu-digital-fairness-act-social-switching
@@ -24,25 +24,23 @@ keywords: [Digital Fairness Act, social media portability, take your followers w
 updatedAt: '2026-11-04'
 ---
 
-You can't take your followers with you when you leave a big platform. For now, you rebuild your network by hand.
+The people building alternatives to Big Tech want new EU rules that make it easier to leave Instagram, X and other large platforms.
 
-More than 35 builders of alternative social apps have asked the European Commission for a right to take your social network with you. They signed a joint statement ahead of the Digital Fairness Act, the EU's planned update of online consumer law, [Rapporteur reports](https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/). The Commission hasn't presented that proposal yet. It's expected on 11 November, [according to the Commission's provisional agenda](https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for), and we won't know until then whether it says anything about followers or connections.
+On 3 November, 45 builders of social apps had signed [a joint statement](https://digitalfreedomofmovement.eu/). They ask the European Commission for a right to take your social network with you when you switch. They want it in the Digital Fairness Act, the EU's planned update of online consumer law, which the Commission's [provisional agenda puts on 11 November](https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for).
 
-## What the builders want
+## An empty network is hard to beat
 
-Every social platform would keep each account in a "personal data server" built to one common standard. Any app you authorise would read and write to the same account, and you'd be able to move the server to another host without losing your network, according to [the coalition's position paper](https://digitalfreedomofmovement.eu/). The standard would start from the personal data server of the AT Protocol.
+We think this could matter more for European social media than any new app. Join a European network today and the people you follow aren't there, so you go back to Instagram. If your followers and the people you follow could come with you, that reason to go back would weaken. A new network could then compete more on what it offers, and less on who is already on it.
 
-The group also wants the EU to ban practices that stop people finding each other elsewhere, such as removing or suppressing links to your profiles on other services. The signatories say the Digital Markets Act's interoperability rules don't cover every large social network, so X's ban on "account matching" tools, which help you find people you follow on other platforms, falls outside EU enforcement.
+That is our reading, and it isn't a promise. A right to move doesn't build a good app, and it would help every challenger, including American ones.
 
-## If you want to leave now
+## What the builders are asking for
 
-If you were going to leave anyway, we wouldn't wait for this proposal, because we don't know yet whether it covers followers. If you depend on your reach on a big platform, we'd keep that account for now, because you'd be rebuilding your network by hand.
+Every social platform would keep each account in a "personal data server" built to one common standard. Any app you authorise could read and write to the same account, and you could move the server to another host without losing your network, according to [the coalition's position paper](https://digitalfreedomofmovement.eu/). The standard would start from the personal data server of the AT Protocol.
 
-[Mastodon](/services/eu/mastodon) is the EU-based option in our [social media list](/services/social-media). A German nonprofit builds the software, and thousands of independent servers connect through the ActivityPub protocol. The trade-off is a smaller audience: about 800,000 to 1 million monthly active users.
+The group also wants the EU to ban practices that stop people finding each other elsewhere, such as removing or suppressing links to your profiles on other services. Tools for "account matching" help you find people you follow on other platforms, and X bans them. The signatories say EU enforcement can't reach that ban, because the Digital Markets Act's interoperability rules don't cover every large social network.
 
-[Bluesky](/services/eu/bluesky) runs on the AT Protocol. The company is based in Seattle and stores your data in the United States. Moving from X? Our [X to Bluesky guide](/guides/social-media/x-to-bluesky) shows how to find the people you already follow with a browser extension.
-
-## Why your followers stay behind
+## Why your followers stay behind today
 
 Platforms already let you download your data. According to the coalition, a download isn't enough: the GDPR and the Digital Markets Act require platforms to hand over data, but not your connections in a form another service understands.
 
@@ -50,6 +48,16 @@ Platforms already let you download your data. According to the coalition, a down
 
 ## Who is asking
 
-The Modal Foundation coordinates the paper. On 3 November its site listed 70 signatories, 45 of them builders, from 15 countries. Rapporteur named Sherif Elsayed-Ali of the alternative social network Eurosky and Robin Berjon of the IPFS Project among them.
+The Modal Foundation coordinates the paper. On 3 November its site listed 70 signatories, 45 of them builders, from 15 countries. [They include](https://www.rapporteur.com/news/eu-urged-to-ease-social-media-switching/) Sherif Elsayed-Ali of the alternative social network Eurosky and Robin Berjon of the IPFS Project.
 
 A builder from the US company Bluesky PBC also signed, and Bluesky runs on the protocol the paper picks as its starting point. The coalition says apps on the AT Protocol already reach more than 45 million users.
+
+## Start moving now
+
+If you were going to leave anyway, don't wait for this proposal. The Commission hasn't presented it yet, we don't know whether it covers followers, and a proposal isn't a law. For now, you rebuild your network by hand, so we'd start early: open an account elsewhere and tell your followers where to find you.
+
+If you depend on your reach on a big platform, keep that account for now.
+
+[Mastodon](/services/eu/mastodon) is the EU-based option in our [social media list](/services/social-media). A German nonprofit builds the software, and thousands of independent servers connect through the ActivityPub protocol. The trade-off is a smaller audience: about 800,000 to 1 million monthly active users.
+
+[Bluesky](/services/eu/bluesky) runs on the AT Protocol. The company is based in Seattle and stores your data in the United States. Moving from X? Our [X to Bluesky guide](/guides/social-media/x-to-bluesky) shows how to find the people you already follow with a browser extension.
