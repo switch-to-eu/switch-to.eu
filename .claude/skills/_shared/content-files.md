@@ -179,7 +179,7 @@ Enum values:
   Both `eu` and `eu-friendly` show as alternatives and use `/services/eu/` URLs, so changing between them moves no page. An owner abroad doesn't change the label, but the page says so (for example Startpage, owned through System1).
 - `recommendedAlternative` (decided 2026-11-03): pick an `eu` service where a good one exists, and fall back to `eu-friendly` only when no `eu` service fits the reader as well. Say why in the page when the pick is `eu-friendly`.
 - `researchStatus`: `not-started | in-progress | needs-update | complete`
-- `gdprCompliance`: `compliant | partial | non-compliant | unknown`
+- `gdprCompliance`: `compliant | partial | non-compliant | unknown`. `compliant` shows as "Says it follows GDPR": the company states it and nothing we read contradicts it. It is not an audit result.
 - `contentPipelineStatus`: `not-started | in-progress | written | humanized | seo-checked | translated | complete`
 
 ## Editing frontmatter safely

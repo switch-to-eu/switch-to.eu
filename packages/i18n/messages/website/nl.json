@@ -425,7 +425,7 @@
       "snippetFree": "Gratis",
       "snippetViewPlans": "Bekijk abonnementen",
       "snippetViewDetails": "Bekijk details",
-      "gdprCompliant": "AVG-conform",
+      "gdprCompliant": "Zegt de AVG te volgen",
       "gdprPartial": "Gedeeltelijk conform",
       "gdprNonCompliant": "Niet conform",
       "pricing": {
@@ -557,7 +557,7 @@
             "lastReviewed": "Laatst beoordeeld: {date}"
           },
           "gdprBadge": {
-            "compliant": "AVG-conform",
+            "compliant": "Zegt de AVG te volgen",
             "partial": "Gedeeltelijk AVG-conform",
             "non-compliant": "Niet AVG-conform",
             "unknown": "AVG-status onbekend"
@@ -576,7 +576,7 @@
         "learnMore": "Meer info",
         "badge": "Aanbevolen door Switch-to.eu",
         "gdpr": {
-          "compliant": "Volledig conform",
+          "compliant": "Zegt de AVG te volgen",
           "partial": "Gedeeltelijk conform",
           "non-compliant": "Niet conform",
           "unknown": "Status onbekend"

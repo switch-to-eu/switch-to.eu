@@ -431,7 +431,7 @@
       "snippetFree": "Free",
       "snippetViewPlans": "View plans",
       "snippetViewDetails": "View details",
-      "gdprCompliant": "GDPR Compliant",
+      "gdprCompliant": "Says it follows GDPR",
       "gdprPartial": "Partially Compliant",
       "gdprNonCompliant": "Non-Compliant",
       "pricing": {
@@ -563,7 +563,7 @@
             "lastReviewed": "Last reviewed: {date}"
           },
           "gdprBadge": {
-            "compliant": "GDPR compliant",
+            "compliant": "Says it follows GDPR",
             "partial": "Partial GDPR compliance",
             "non-compliant": "Not GDPR compliant",
             "unknown": "GDPR status unknown"
@@ -582,7 +582,7 @@
         "learnMore": "Learn more",
         "badge": "Recommended by Switch-to.eu",
         "gdpr": {
-          "compliant": "Fully compliant",
+          "compliant": "Says it follows GDPR",
           "partial": "Partial compliance",
           "non-compliant": "Not compliant",
           "unknown": "Status unknown"

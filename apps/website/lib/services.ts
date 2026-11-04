@@ -221,7 +221,7 @@ export function getGdprLabel(
 ): string | null {
   switch (compliance) {
     case "compliant":
-      return "GDPR Compliant";
+      return "Says it follows GDPR";
     case "partial":
       return "Partially Compliant";
     case "non-compliant":

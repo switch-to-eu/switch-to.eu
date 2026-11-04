@@ -92,7 +92,7 @@ export async function SidebarAlternative({
             {service.gdprCompliance === "compliant" && (
               <span className="inline-flex items-center gap-1.5 bg-black/5 text-[#1a1a1a] rounded-full px-2.5 py-0.5 text-xs">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-                GDPR
+                {tDetail("gdprCompliant")}
               </span>
             )}
             {service.freeOption && (
