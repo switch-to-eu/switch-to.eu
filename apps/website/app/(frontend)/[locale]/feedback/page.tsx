@@ -3,15 +3,17 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import type { Metadata, ResolvingMetadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(
-  _props: unknown,
+  { params }: { params: Promise<{ locale: Locale }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("feedback");
-  const locale = await getLocale();
 
   return pageMetadata({
     parent,
@@ -22,7 +24,13 @@ export async function generateMetadata(
   });
 }
 
-export default async function FeedbackPage() {
+export default async function FeedbackPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("feedback");
 
   return (

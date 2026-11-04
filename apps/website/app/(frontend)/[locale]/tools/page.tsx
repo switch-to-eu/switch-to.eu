@@ -1,7 +1,8 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 import { pageMetadata } from "@/lib/seo";
 import { getAllToolsSorted, getToolUrl } from "@switch-to-eu/blocks/data/tools";
 import { getCardColor } from "@/lib/quiet-palette";
@@ -19,11 +20,12 @@ import {
 } from "lucide-react";
 
 export async function generateMetadata(
-  _props: unknown,
+  { params }: { params: Promise<{ locale: Locale }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("tools");
-  const locale = await getLocale();
 
   return pageMetadata({
     parent,
@@ -58,9 +60,14 @@ const TOOL_SHAPES = [
   "coral",
 ];
 
-export default async function ToolsPage() {
+export default async function ToolsPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("tools");
-  const locale = await getLocale();
   const tools = getAllToolsSorted();
 
   return (

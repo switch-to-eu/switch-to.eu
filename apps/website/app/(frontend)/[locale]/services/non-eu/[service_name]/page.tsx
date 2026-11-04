@@ -14,7 +14,7 @@ import { FaqAccordion } from "@/components/non-eu/FaqAccordion";
 import { Sources } from "@/components/non-eu/Sources";
 import { RichText } from "@/components/rich-text";
 
-import { getTranslations, getFormatter } from "next-intl/server";
+import { getTranslations, getFormatter, setRequestLocale } from "next-intl/server";
 import type { Metadata, ResolvingMetadata } from "next";
 import { Locale } from "next-intl";
 import { pageMetadata } from "@/lib/seo";
@@ -96,6 +96,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { service_name, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const service = await getServiceBySlugAnyRegion(service_name, locale);
 
@@ -139,6 +140,7 @@ export default async function ServiceDetailPage({
   params: Promise<{ locale: Locale; service_name: string }>;
 }) {
   const { service_name, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("services.detail.nonEu");
   const tTabs = await getTranslations("services.detail.tabs");
   const format = await getFormatter();

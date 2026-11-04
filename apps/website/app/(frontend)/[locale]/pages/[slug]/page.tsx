@@ -12,7 +12,7 @@ export function generateStaticParams() {
 import type { Metadata, ResolvingMetadata } from "next";
 import { inheritedOpenGraph } from "@/lib/seo";
 import { Locale } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { Container } from "@switch-to-eu/blocks/components/container";
@@ -32,6 +32,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { slug, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const page = findLandingPage(slug, locale);
 
@@ -62,6 +63,7 @@ export default async function LandingPage({
   params: Promise<{ slug: string; locale: Locale }>;
 }) {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("landingPages");
 
   const page = findLandingPage(slug, locale);

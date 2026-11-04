@@ -18,7 +18,7 @@ import { RecommendedPill } from "@/components/ui/RecommendedPill";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { RichText } from "@/components/rich-text";
 
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Locale } from "next-intl";
 
 import {
@@ -55,6 +55,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { service_name, locale } = await params;
+  setRequestLocale(locale as Locale);
   return generateServiceMetadata({ serviceName: service_name, locale, parent });
 }
 
@@ -154,6 +155,7 @@ export default async function ServiceDetailPage({
   params: Promise<{ locale: Locale; service_name: string }>;
 }) {
   const { service_name, locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("services.detail");
 
   const service = await getServiceBySlug(service_name, locale);

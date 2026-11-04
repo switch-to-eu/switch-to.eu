@@ -16,7 +16,7 @@ import { RecommendedAlternative } from "@/components/ui/RecommendedAlternative";
 import { SuggestServiceCard } from "@/components/ui/SuggestServiceCard";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Locale } from "next-intl";
 import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
@@ -41,6 +41,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { category, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const capitalizedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
@@ -88,6 +89,7 @@ export default async function ServicesCategoryPage({
   params: Promise<{ category: string; locale: Locale }>;
 }) {
   const { category, locale } = await params;
+  setRequestLocale(locale);
 
   const t = await getTranslations("services");
 

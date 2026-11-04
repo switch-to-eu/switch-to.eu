@@ -123,6 +123,8 @@ All internal packages use the `@switch-to-eu/` scope. Shared dependency versions
 
 **Next.js plugin chain** in `apps/website/next.config.ts`: `withNextIntl(nextConfig)`. `outputFileTracingIncludes` ships `content/**/*.md` with the server bundle. Output mode is `standalone`. Workspace packages are in `transpilePackages`.
 
+**Website pages are static.** Pages build once per deploy, and a page can't read the request. `apps/website/app/(frontend)/[locale]/layout.tsx` is the root layout, because `<html lang>` needs the locale from the URL. Each new page and each `generateMetadata` must call `setRequestLocale(locale)` before it uses next-intl, or next-intl reads `headers()` and the page turns dynamic. Check the build's route table: pages must show `●`, not `ƒ`. `dynamicParams = false` in that layout sends unknown paths to the bilingual `app/global-not-found.tsx`. Do not remove this setting: unknown paths then return a 500. `?tab=` is read in the browser, in a small `Suspense` boundary in `ServiceSubNav`, so the listing text stays in the static HTML. `SHOW_DRAFTS` applies at build time.
+
 **`global.ts` at repo root** is a next-intl type declaration that augments the `Messages` type — it is not a general utilities file.
 
 **CSS imports chain:** Apps import global styles from `@switch-to-eu/ui/styles/globals.css`. The website's `postcss.config.mjs` re-exports from the UI package.

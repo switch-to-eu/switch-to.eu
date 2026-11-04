@@ -1,5 +1,5 @@
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata, ResolvingMetadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 
@@ -23,11 +23,12 @@ type Locale = "en" | "nl";
 
 
 export async function generateMetadata(
-  _props: unknown,
+  { params }: { params: Promise<{ locale: Locale }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("common");
-  const locale = await getLocale();
 
   return pageMetadata({
     parent,
@@ -93,9 +94,14 @@ function fetchHomepagePicks(locale: Locale): HomepagePick[] {
   return picks;
 }
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("home");
-  const locale = (await getLocale()) as Locale;
 
   const { featured, others } = fetchHomepageGuides(locale);
   const picks = fetchHomepagePicks(locale);

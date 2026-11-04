@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "next-intl";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { Container } from "@switch-to-eu/blocks/components/container";
@@ -42,10 +42,6 @@ export function generateStaticParams() {
   );
 }
 
-// Every article is known at build time. Any other slug (a draft, a removed
-// article) is a real 404, not an on-demand render that fails with a 500.
-export const dynamicParams = false;
-
 export async function generateMetadata(
   {
     params,
@@ -55,6 +51,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const article = findArticle(slug, locale);
   if (!article) return { title: "Not Found" };
 
@@ -92,6 +89,7 @@ export default async function NewsArticlePage({
   params: Promise<{ locale: Locale; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const article = findArticle(slug, locale);
   if (!article) notFound();
 

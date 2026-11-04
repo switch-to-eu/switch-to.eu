@@ -4,16 +4,18 @@ import { findPage } from "@/lib/content/loader";
 import { RichText } from "@/components/rich-text";
 import { pageMetadata } from "@/lib/seo";
 import type { Metadata, ResolvingMetadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 
 import { notFound } from "next/navigation";
 
 export async function generateMetadata(
-  _props: unknown,
+  { params }: { params: Promise<{ locale: Locale }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("terms");
-  const locale = await getLocale();
 
   return pageMetadata({
     parent,
@@ -30,6 +32,7 @@ export default async function TermsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const page = findPage("terms", locale);
 

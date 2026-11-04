@@ -1,7 +1,8 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "next-intl";
 import { Link } from "@switch-to-eu/i18n/navigation";
 import { pageMetadata } from "@/lib/seo";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
@@ -24,11 +25,12 @@ const WHY_CHOOSE_CARDS = [
 ] as const;
 
 export async function generateMetadata(
-  _props: unknown,
+  { params }: { params: Promise<{ locale: Locale }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("about");
-  const locale = await getLocale();
 
   return pageMetadata({
     parent,
@@ -39,7 +41,13 @@ export async function generateMetadata(
   });
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("about");
 
   return (

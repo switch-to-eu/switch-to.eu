@@ -4,6 +4,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 import { isNonProductionDeploy } from "./lib/indexing";
 
 const nextConfig: NextConfig = {
+  // Each locale has its own root layout, so paths outside a locale need this.
+  experimental: { globalNotFound: true },
   transpilePackages: [
     "@switch-to-eu/ui",
     "@switch-to-eu/i18n",

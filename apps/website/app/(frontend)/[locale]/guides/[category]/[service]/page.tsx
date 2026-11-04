@@ -4,7 +4,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { GuideSidebar } from "@/components/guides/GuideSidebar";
 import { MobileGuideSidebar } from "@/components/guides/MobileGuideSidebar";
 import { WarningCollapsible } from "@/components/guides/WarningCollapsible";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GuideProgressWithI18n as GuideProgress } from "@/components/guides/guide-progress";
 import { GuideStep } from "@/components/guides/GuideStep";
 import { Locale } from "next-intl";
@@ -46,6 +46,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { category, service, locale } = await params;
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations("guides.service.meta");
 
@@ -92,6 +93,7 @@ export default async function GuideServicePage({
   params: Promise<{ locale: Locale; category: string; service: string }>;
 }) {
   const { category, service, locale } = await params;
+  setRequestLocale(locale);
 
   const guidesT = await getTranslations("guides");
   const serviceT = await getTranslations("guides.service");

@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Suspense,
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { useRouter, usePathname } from "@switch-to-eu/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import {
@@ -15,6 +22,21 @@ interface Tab {
 
 const OVERVIEW_KEY = "overview";
 
+/**
+ * Reads ?tab= in its own Suspense boundary. A static page cannot read the query
+ * on the server. If the tabs read it directly, all the listing text would leave
+ * the static HTML.
+ */
+function TabParamSync({
+  onChange,
+}: {
+  onChange: Dispatch<SetStateAction<string | null>>;
+}) {
+  const tab = useSearchParams().get("tab");
+  useEffect(() => onChange(tab), [tab, onChange]);
+  return null;
+}
+
 export function ServiceSubNav({
   tabs,
   label,
@@ -27,13 +49,13 @@ export function ServiceSubNav({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get("tab");
+  const [tabParam, setTabParam] = useState<string | null>(null);
   const value = tabs.some((t) => t.key === tabParam)
     ? tabParam!
     : OVERVIEW_KEY;
 
   function handleValueChange(newValue: string) {
+    setTabParam(newValue === OVERVIEW_KEY ? null : newValue);
     const url =
       newValue === OVERVIEW_KEY
         ? pathname
@@ -49,6 +71,9 @@ export function ServiceSubNav({
       onValueChange={handleValueChange}
       className="gap-0"
     >
+      <Suspense fallback={null}>
+        <TabParamSync onChange={setTabParam} />
+      </Suspense>
       {showNav && (
         // Same ground and hairline as the site header: the bar reads as part
         // of the page, not as a separate grey band.

@@ -1,4 +1,8 @@
+import "../globals.css";
+
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { fontVariables } from "@switch-to-eu/ui/fonts";
 import PlausibleProvider from "next-plausible";
 
 import { Header } from "@/components/layout/header";
@@ -6,13 +10,18 @@ import { Footer } from "@/components/layout/footer";
 import { JsonLd } from "@/components/JsonLd";
 import { routing } from "@switch-to-eu/i18n/routing";
 import { notFound } from "next/navigation";
-import { getLocale, getTranslations } from "next-intl/server";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { hasLocale, NextIntlClientProvider, type Locale } from "next-intl";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("common");
 
   const title = t("title");
@@ -56,6 +65,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// Every page is built at deploy time. Any other path gets the global 404.
+export const dynamicParams = false;
+
 // Generate the static params for all supported locales
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -71,6 +83,7 @@ export default async function LocaleLayout({
   // The proxy matcher skips paths with a dot, so this segment can hold any value.
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
+  setRequestLocale(locale);
 
   const skipLabel = (await getTranslations("common"))("skipToContent");
 
@@ -93,23 +106,28 @@ export default async function LocaleLayout({
   };
 
   return (
-    <PlausibleProvider src="https://plausible.io/js/pa-DeH7r_C_YnnJNew1CLX5I.js">
-      <NextIntlClientProvider>
-        <JsonLd data={organizationJsonLd} />
-        <JsonLd data={websiteJsonLd} />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-brand-green focus:px-5 focus:py-2.5 focus:text-white focus:font-semibold focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-brand-yellow"
-        >
-          {skipLabel}
-        </a>
-        <Header />
-        {/* Pages render their own <main> (PageLayout). This wrapper is the skip-link target. */}
-        <div id="main-content" tabIndex={-1} className="flex-1 flex flex-col outline-none">
-          {children}
-        </div>
-        <Footer />
-      </NextIntlClientProvider>
-    </PlausibleProvider>
+    <html lang={locale} className={fontVariables}>
+      <body className="antialiased min-h-screen flex flex-col">
+        <PlausibleProvider src="https://plausible.io/js/pa-DeH7r_C_YnnJNew1CLX5I.js">
+          <NextIntlClientProvider>
+            <JsonLd data={organizationJsonLd} />
+            <JsonLd data={websiteJsonLd} />
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-brand-green focus:px-5 focus:py-2.5 focus:text-white focus:font-semibold focus:outline-solid focus:outline-2 focus:outline-offset-2 focus:outline-brand-yellow"
+            >
+              {skipLabel}
+            </a>
+            <Header />
+            {/* Pages render their own <main> (PageLayout). This wrapper is the skip-link target. */}
+            <div id="main-content" tabIndex={-1} className="flex-1 flex flex-col outline-none">
+              {children}
+            </div>
+            <Footer />
+          </NextIntlClientProvider>
+        </PlausibleProvider>
+        <Analytics />
+      </body>
+    </html>
   );
 }
