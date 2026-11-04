@@ -21,7 +21,7 @@ export const createListSchema = (v: ValidationMessages) =>
 export const createListFormSchema = (v: ValidationMessages) =>
   createListSchema(v).extend({
     acceptTerms: z.literal(true, {
-      errorMap: () => ({ message: v.required }),
+      error: () => v.required,
     }),
   });
 

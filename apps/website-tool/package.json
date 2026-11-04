@@ -40,7 +40,7 @@
         "server-only": "catalog:",
         "superjson": "catalog:",
         "tailwind-merge": "catalog:",
-        "whoiser": "^2.0.0-beta.5",
+        "whoiser": "2.0.0-beta.10",
         "zod": "catalog:"
     },
     "devDependencies": {
@@ -58,6 +58,7 @@
         "tailwindcss": "catalog:",
         "tw-animate-css": "catalog:",
         "typescript": "catalog:",
+        "vite": "catalog:",
         "vitest": "catalog:"
     }
 }

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 
+import { parsePublicHostname } from "@/lib/domain";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { AnalysisStep } from "@/lib/types";
 import {
@@ -17,7 +18,19 @@ const CACHE_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
 const DETECTOR_TIMEOUT_MS = 15_000; // 15 seconds per detector
 
 const domainInput = z.object({
-  domain: z.string().min(1),
+  // The value goes to DNS and to a server fetch, so accept public hostnames only.
+  domain: z
+    .string()
+    .min(1)
+    .max(2048)
+    .transform((value, ctx) => {
+      const hostname = parsePublicHostname(value);
+      if (!hostname) {
+        ctx.addIssue({ code: "custom", message: "Invalid domain" });
+        return z.NEVER;
+      }
+      return hostname;
+    }),
 });
 
 /** Wrap a promise with a timeout — rejects after `ms` milliseconds. */

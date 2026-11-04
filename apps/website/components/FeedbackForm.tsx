@@ -56,7 +56,7 @@ const formSchema = (validationMessages: ValidationMessages) =>
         message: validationMessages.descriptionNoHtml,
       }),
     category: z.enum(["bug", "feature", "feedback", "new-service", "other"], {
-      required_error: validationMessages.categoryRequired,
+      error: validationMessages.categoryRequired,
     }),
     contactInfo: z
       .string()

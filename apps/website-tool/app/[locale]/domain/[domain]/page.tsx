@@ -1,6 +1,8 @@
 import { AnalysisClient } from "@/components/domain-analyzer/AnalysisClient";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Locale } from "next-intl";
+import { parsePublicHostname } from "@/lib/domain";
 import { api } from "@/server/api/trpc-server";
 import { PageLayout } from "@switch-to-eu/blocks/components/page-layout";
 
@@ -52,15 +54,16 @@ export default async function DomainAnalyzerPage({
 }) {
   const { domain } = await params;
 
-  const domainFromUrl = decodeURIComponent(domain);
-  const formattedDomain = formatDomain(domainFromUrl);
+  const hostname = parsePublicHostname(decodeURIComponent(domain));
+  if (!hostname) notFound();
+  const formattedDomain = formatDomain(hostname);
 
-  const initialResults = await api.domain.getCached({ domain: domainFromUrl });
+  const initialResults = await api.domain.getCached({ domain: hostname });
 
   return (
     <PageLayout>
         <AnalysisClient
-          domain={domainFromUrl}
+          domain={hostname}
           formattedDomain={formattedDomain}
           initialResults={initialResults}
         />

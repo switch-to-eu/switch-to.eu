@@ -46,12 +46,12 @@
         "@switch-to-eu/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "catalog:",
         "@testing-library/jest-dom": "^6.9.1",
-        "@testing-library/react": "^16.3.2",
+        "@testing-library/react": "^16.3.3",
         "@types/jsdom": "^27.0.0",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
-        "@vitejs/plugin-react": "^5.1.4",
+        "@vitejs/plugin-react": "^5.2.0",
         "eslint": "catalog:",
         "eslint-config-next": "catalog:",
         "jsdom": "^28.1.0",
@@ -63,6 +63,7 @@
         "typescript": "catalog:",
         "typescript-eslint": "catalog:",
         "vite-tsconfig-paths": "^6.1.1",
+        "vite": "catalog:",
         "vitest": "catalog:"
     },
     "ct3aMetadata": {
