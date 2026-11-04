@@ -15,6 +15,10 @@
       "types": "./src/hooks/*.ts",
       "default": "./src/hooks/*.ts"
     },
+    "./og/*": {
+      "types": "./src/og/*.tsx",
+      "default": "./src/og/*.tsx"
+    },
     "./shapes": {
       "types": "./src/shapes/index.ts",
       "default": "./src/shapes/index.ts"

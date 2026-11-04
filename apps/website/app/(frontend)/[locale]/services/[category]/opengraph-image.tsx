@@ -1,4 +1,4 @@
-import { generateOgImage, ogSize, ogContentType } from "@/lib/og/og-image";
+import { generateOgImage, ogSize, ogContentType } from "@switch-to-eu/blocks/og/og-image";
 import { findCategory } from "@/lib/content/loader";
 
 export const alt = "EU alternatives";

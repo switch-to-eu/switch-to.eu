@@ -1,4 +1,4 @@
-import { generateOgImage, ogSize, ogContentType } from "@/lib/og/og-image";
+import { generateOgImage, ogSize, ogContentType } from "@switch-to-eu/blocks/og/og-image";
 import { findGuide } from "@/lib/content/loader";
 
 export const alt = "Migration Guide";

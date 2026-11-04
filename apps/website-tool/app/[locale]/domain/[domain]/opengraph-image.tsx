@@ -144,9 +144,9 @@ function getStatusColor(isEU: boolean | null, euFriendly: boolean | null) {
 export default async function Image({
   params,
 }: {
-  params: { domain: string };
+  params: Promise<{ domain: string }>;
 }) {
-  const domain = decodeURIComponent(params.domain);
+  const domain = decodeURIComponent((await params).domain);
   const formattedDomain = formatDomain(domain);
 
   const results = (await api.domain.getCached({ domain })) ?? [];

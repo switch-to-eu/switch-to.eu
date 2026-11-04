@@ -41,7 +41,7 @@ export async function generateMetadata({
       description: t("description"),
       locale,
     },
-    twitter: { card: "summary" },
+    twitter: { card: "summary_large_image" },
     icons: {
       icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },

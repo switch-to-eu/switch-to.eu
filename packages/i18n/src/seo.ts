@@ -1,5 +1,35 @@
-import type { MetadataRoute } from "next";
-import { defaultLocale, routing } from "./routing";
+import type { Metadata, MetadataRoute, ResolvingMetadata } from "next";
+import { defaultLocale, routing, type Locale } from "./routing";
+import { generateLanguageAlternates } from "./utils";
+
+/**
+ * Canonical, hreflang and `og:url` for one page of a tool app. `og:url` stays
+ * out of the layout because child pages inherit it. Next.js replaces the whole
+ * `openGraph` object when a page sets one, so this copies the layout's values.
+ *
+ * `path` has no leading slash and is empty for the home page.
+ */
+export async function createPageMetadata(
+  parent: ResolvingMetadata,
+  path: string,
+  locale: Locale,
+): Promise<Metadata> {
+  const alternates = generateLanguageAlternates(path, locale);
+  const og = (await parent).openGraph;
+
+  return {
+    alternates,
+    openGraph: {
+      type: "website",
+      url: alternates.canonical,
+      siteName: og?.siteName ?? undefined,
+      title: og?.title,
+      description: og?.description ?? undefined,
+      locale: og?.locale,
+      images: og?.images,
+    },
+  };
+}
 
 /**
  * robots.txt for a tool app. Preview and development deployments stay out of
