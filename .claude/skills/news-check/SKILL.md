@@ -45,11 +45,11 @@ After fixes, every link and `sources` entry must still be used. Remove `sources`
 
 ## Step 4: Humanize
 
-Apply the 18 patterns and the two-pass process from `../_shared/humanize-patterns.md`, plus the banned words and phrases in `../_shared/voice.md`. Article-specific:
+Apply the patterns and all passes from `../_shared/humanize-patterns.md`, plus the steps in `../_shared/voice.md`. The fact comparison is required. Article-specific:
 
-- News lede: the first sentence states the event. No scene-setting, no rhetorical question.
+- News lede: the first sentence states the event and what changes for the reader. No scene-setting, no rhetorical question.
 - Attribution verbs: "said", "says", "wrote". Not "claimed", "admitted", "slammed", unless the source uses that framing and we attribute it.
-- No "Worth knowing" heading here. The trade-off lives in "What this means for you".
+- No "Worth knowing" heading here. The trade-off lives in the part that says what the reader can do.
 - Don't humanize away precision. A number stays a number.
 
 ## Step 5: SEO (adapted for articles)
@@ -61,7 +61,7 @@ Score with the 10-point method from `../_shared/seo-checklist.md`, with these ar
 | 1 | Meta title | `metaTitle`, else `title`: 40-60 chars, contains the main keyword |
 | 2 | Meta description | `description`: 140-160 chars, says what happened, not keyword-stuffed |
 | 3 | Keywords | 3-8, what someone would search for this news |
-| 4 | Headings | No H1. `##` only past ~400 words. `What this means for you` present (or justified absence) |
+| 4 | Headings | No H1. `##` only past ~400 words. A section that says what the reader can do is present (or justified absence) |
 | 5 | Length | `news` 300-600 words, `analysis` up to 1,200 |
 | 6 | Internal context | `story` set, at least one internal link to a service, category or guide, `services`/`categories` match what the body links |
 | 7 | Sources | At least two sources, or one primary `high` source. All linked inline. (Replaces Open Graph: articles have no OG fields.) |
@@ -85,7 +85,7 @@ Edit with targeted Edit calls. Bump `updatedAt`. Validate frontmatter (`../_shar
 ✓ news-check: dutch-finance-ministry-cloud-tender
   Fact check: 21 factual sentences · 18 supported · 2 overstated (fixed) · 1 unsupported (cut: "the largest IT tender in Dutch history")
   Links: 3 sources ok · 4 internal ok · 0 broken
-  Humanize: 7 patterns fixed (2 rule of three, 1 em dash, 4 banned words)
+  Humanize: 7 patterns fixed (2 rule of three, 1 em dash, 4 clusters of AI words). Facts compared: 0 changed
   SEO: 85/100 (Good) · issues: description 171 chars → shortened
   For the owner: <anything that needs a human judgement: tone calls, a claim we kept but you should eyeball, a missing source>
 ```

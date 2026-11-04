@@ -10,7 +10,7 @@ Write one English article that advances one story. The owner approves it by remo
 
 Read first:
 - `../_shared/content-files.md`, section **Articles**: the file format, slug rules, body rules and approval flow. Follow it exactly.
-- `../informational-copy/SKILL.md` and `../_shared/voice.md`: site tone. No em dashes, no semicolons, no banned words, knowledgeable friend.
+- `../_shared/voice.md`: the voice, the writing steps and the rules. Follow it. `../informational-copy/SKILL.md` has the honesty patterns.
 - `knowledge/README.md` and `../_shared/knowledge.md`.
 
 ## Inputs
@@ -44,15 +44,15 @@ Then gather, in this order, and stop reading when you have enough:
 **Frontmatter** per the Articles spec: `title`, `description` (140-160 chars), `date: '<today>'`, `type`, `story`, `entities`, `services`, `categories`, `guides`, `sources` (one entry per source note you used: title, publisher, url, date = published), `author: Switch-to.eu`, `# SEO` (`metaTitle` when the title is over 60 chars, `keywords` 3-8), `# Workflow` with `draft: true` and `updatedAt: '<today>'`. Every slug you list must exist.
 
 **Body:**
-- Lead with the news: what happened, who, when, the key number. First paragraph stands on its own.
+- Lead with what changes for the reader: what happens, who, when, the key number. First paragraph stands on its own. Group by the reader's situation when readers differ ("If you built a GPT").
 - Then context: why it matters for the EU, what came before (link the earlier article if we have one), what's still open.
 - **Every factual sentence rests on a claim** in a source note you read. Link the source inline at the claim, with a normal markdown link to the source note's `url`: `the ministry [put €120M out to tender](https://nos.nl/...)`. One link per source per paragraph is enough.
 - Low-reliability sources: attribute ("users on r/BuyFromEU report…") or leave out. Contested claims: attribute ("Microsoft says…").
 - No speculation beyond the story's `## Open questions`, and phrase those as open ("The ministry hasn't said which providers bid.").
 - Internal links, root-relative, no locale: services `/services/eu/<slug>` (region `eu` or `eu-friendly`) or `/services/non-eu/<slug>`, categories `/services/<category-slug>`, guides `/guides/<category>/<guide-slug>`, our earlier articles `/news/<article-slug>` (only approved ones, never a draft).
-- End with `## What this means for you`: what an EU reader can do, with links to the relevant services or guides, and the honest trade-off (price, missing features, effort). Skip the section only when nothing is actionable, and say so in the report.
+- End with what an EU reader can do. Use a heading that names the reader's situation, not a label. `## What this means for you` is a fallback. Give the action with links to the relevant services or guides, and the honest trade-off (price, missing features, effort). Skip the section only when nothing is actionable, and say so in the report.
 - Length: `news` 300-600 words, `analysis` up to 1,200. `##` subheads only past ~400 words. No H1.
-- Tone: informational-copy. Direct, warm, specific. Swagger nowhere. No "breaking", no "game-changer", no outrage.
+- Tone: calm, with the answer first (see `../_shared/voice.md`). Direct, warm, specific. Swagger nowhere. No "breaking", no "game-changer", no outrage.
 
 Keep a private claim map while writing (sentence → `[[source#cN]]`). Put it in your report so `/news-check` and the owner can verify quickly. It doesn't go in the file.
 

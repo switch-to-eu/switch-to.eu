@@ -183,7 +183,7 @@ Services and Guides have a `contentPipelineStatus` frontmatter field tracking pr
 
 | Skill | Type | Purpose |
 |-------|------|---------|
-| `informational-copy` | Auto-invoked | Tone of voice: direct, honest, specific, no marketing fluff |
+| `informational-copy` | Auto-invoked | Copy patterns per page type. The voice itself is in `.claude/skills/_shared/voice.md` |
 | `research` | `/research` | Vendor site + Reddit sentiment + recent news → research fields in the service's en.md |
 | `write` | `/write` | Content generation from research data |
 | `humanize` | `/humanize` | Strip AI writing patterns |
@@ -228,14 +228,15 @@ The same command builds a local search store, `knowledge/.cache/knowledge.db` (g
 /research flagged → refresh service listings flagged by news
 ```
 
-### Tone rules (from informational-copy)
+### Tone rules (full guide: `.claude/skills/_shared/voice.md`)
 
-- Write like a knowledgeable friend, not a marketing team
+- A friend who did the research tells you what changes for you, what to do, and what they would do
+- Put facts in the order that the reader asks. Fix structure before words
 - Back every claim with specifics (numbers, features, prices)
 - Evidence rules (`.claude/skills/_shared/evidence.md`): "not listed" is not "doesn't have", date what changes (`sourceUrls[].checkedAt`), no guessed motives, attribute company-only practices and Reddit views
-- Always acknowledge trade-offs ("Worth knowing:" section is mandatory)
-- No em dashes, no semicolons, no banned words (see skill for full list)
-- Active voice, short sentences, varied paragraph length
+- Always acknowledge trade-offs. Service listings keep the "Worth knowing" section. News says the trade-off in normal text
+- No em dashes, no semicolons. Normal words such as "can" and "it" are fine
+- After a rewrite, compare the old and new facts
 
 ### Draft/Publish workflow
 
@@ -296,7 +297,7 @@ Hierarchy and progressive disclosure let each group find their layer without con
 - **Warm** — a knowledgeable friend, not a regulator or an activist. Explain without patronising; disagree without sneering.
 - **Specific** — every claim backed by a number, feature, or concrete trade-off. Vague reassurance is worse than honest weakness.
 
-Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed. See `.claude/skills/informational-copy` for written tone rules.
+Emotional arc: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed. See `.claude/skills/_shared/voice.md` for written tone rules.
 
 ### Aesthetic Direction
 

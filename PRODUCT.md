@@ -68,7 +68,7 @@ Three words: **direct, warm, specific.**
 
 Emotional goals on arrival → departure: *uncertain → informed → quietly capable.* Never: hyped, shamed, or overwhelmed.
 
-Written tone rules are in `.claude/skills/informational-copy`: no em dashes, no semicolons, active voice, a mandatory "Worth knowing:" trade-off section. Copy stays restrained even where the design has character.
+Written tone rules are in `.claude/skills/_shared/voice.md`: start with what changes for the reader, no em dashes, no semicolons, and a trade-off on every recommendation. Service listings keep the "Worth knowing" section. Copy stays restrained even where the design has character.
 
 **Anti-references the owner made binding.** The site must not look like:
 
@@ -113,4 +113,4 @@ Non-negotiable rules for every design decision:
 ## When in Doubt
 
 - `DESIGN.md` and `docs/brand.md` are the mechanical source of truth. Do not invent tokens, new shape treatments, new button shapes, or new heading weights. Reach for what is there.
-- `.claude/skills/informational-copy` is the copy source of truth. Do not write copy that contradicts it, even if the visual design seems to want punchier language.
+- `.claude/skills/_shared/voice.md` is the copy source of truth. Do not write copy that contradicts it, even if the visual design seems to want punchier language.

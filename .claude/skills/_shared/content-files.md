@@ -312,7 +312,7 @@ Body in markdown. 300-600 words for `news`, up to 1,200 for `analysis`.
 - **Translations** (`nl.md`, `fr.md`) hold `title`, `description`, SEO keys, `draft` and the body, all translated. A missing locale file means the article doesn't exist in that language.
 - **Body:** no H1 (the page renders `title`). Use `##` subheads only when the piece is longer than ~400 words. Link sources inline at the claim with a normal markdown link to the original URL. Link our own pages with root-relative paths without a locale (`/services/eu/nextcloud`, `/guides/storage/google-drive-to-pcloud`); the site adds the locale.
 - **Every factual sentence** must be traceable to a claim in a `knowledge/sources` note whose `url` matches a link or a `sources` entry. `/news-check` enforces this.
-- End `news` pieces with a short `## What this means for you` section: what an EU reader can actually do, linking the relevant services or guides. Skip it only when nothing actionable exists.
+- End `news` pieces with what an EU reader can do, linking the relevant services or guides. Use a heading that names the reader's situation. `## What this means for you` is a fallback. Skip it only when nothing actionable exists.
 
 ### Approval flow (per locale)
 

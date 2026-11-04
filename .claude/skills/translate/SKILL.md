@@ -42,7 +42,7 @@ Translate all localized fields. Follow these rules:
 - Keep the same tone as the English: direct, practical, slightly opinionated.
 - Do NOT translate: brand names, service names, technical terms (API, GDPR, URL, etc.). Keep GDPR as GDPR, not AVG.
 - Keep the same structure and paragraph breaks.
-- Match the informational-copy tone rules in Dutch too: no marketing fluff, no vague claims.
+- Follow `.claude/skills/_shared/voice.md` in Dutch too, including its section on Dutch terms: no marketing fluff, no vague claims.
 
 **Dutch-specific:**
 - Use "je/jij" (informal you), not "u" (formal). Switch-to.eu is informal.

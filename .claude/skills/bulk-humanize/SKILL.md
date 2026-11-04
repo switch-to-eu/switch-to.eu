@@ -63,9 +63,9 @@ Read .claude/skills/humanize-service/SKILL.md and .claude/skills/_shared/humaniz
    Tone: excessive enthusiasm, false certainty, anthropomorphization, reader flattery, empty empathy
    Punctuation: em dashes (zero allowed), semicolons (zero allowed), ellipses for drama
 
-3. First pass: Rewrite all flagged text. Shorter sentences. Specific details. Varied sentence length. Natural contractions.
+3. First pass: Read .claude/skills/_shared/voice.md. Fix its structure problems, then the clusters of flagged text. Use specific details and plain words.
 
-4. Second pass: Audit the rewrite. Fix remaining AI-sounding patterns. Add one short paragraph if all paragraphs are same length. Vary sentence structure.
+4. Second pass: Audit the rewrite for the places where a good editor stops reading. Then compare the old and new facts. No claim can become stronger or lose its attribution.
 
 5. Save changed fields with targeted Edit calls. Only edit this one file (en.md). Keep frontmatter group comments, key order and quoting rules
    (see .claude/skills/_shared/content-files.md). Bump updatedAt. Don't add or remove `draft`.

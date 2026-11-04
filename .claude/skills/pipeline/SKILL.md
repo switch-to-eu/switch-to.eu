@@ -117,9 +117,9 @@ Run these three steps IN ORDER. Each step must complete before the next starts.
    Tone: excessive enthusiasm, false certainty, anthropomorphization, reader flattery, empty empathy
    Punctuation: em dashes (zero), semicolons (zero), ellipses
 
-3. First pass: rewrite flagged text. Shorter sentences, specific details, varied length, natural contractions.
+3. First pass: fix the structure problems in voice.md, then the clusters of flagged text. Use specific details and plain words.
 
-4. Second pass: audit for remaining AI feel. Fix.
+4. Second pass: audit for the places where a good editor stops reading, then compare the old and new facts. No claim can become stronger or lose its attribution.
 
 5. Save changed fields to the file. Set contentPipelineStatus: humanized.
 

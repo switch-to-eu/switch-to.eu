@@ -4,7 +4,7 @@ Reference doc for all humanize skills. Not an invocable skill.
 
 ## AI Pattern Detection List
 
-These patterns signal AI-generated text. Find and fix all of them.
+These patterns can signal AI-generated text. They do not prove it. Look for clusters.
 
 ### Structural patterns
 1. **Rule of three**: "X, Y, and Z" lists appearing more than once per 200 words
@@ -34,40 +34,38 @@ These patterns signal AI-generated text. Find and fix all of them.
 
 ## Two-Pass Process
 
+Read `_shared/voice.md` first. These patterns are signals, not errors. One weak signal alone is not a reason to edit. Rank what you find, and fix the structure before the words.
+
 ### Pass 1: Rewrite
 
-Go through every text field. For each one:
-- Find every instance of the 18 patterns above
-- Rewrite to sound natural. Shorter sentences. Specific details instead of adjectives.
-- Vary sentence length: mix 6-word and 20-word sentences
-- Use contractions naturally ("it's", "don't", "won't")
-- Replace any "not just X, but also Y" with two plain statements
+- Fix the structure problems in `_shared/voice.md` first.
+- Put the facts in the order that the reader asks.
+- Find the patterns above where they cluster. Rewrite those parts in plain words, with specific details.
+- Let the meaning set the sentence length. Do not add tricks to vary it.
+- Replace any "not just X, but also Y" with two plain statements.
 
 ### Pass 2: Audit
 
-Read the rewritten version and ask: "What still makes this obviously AI-generated?"
-Fix those remaining issues. Common second-pass catches:
-- Too-perfect paragraph structure (add one short 1-sentence paragraph)
-- No contractions (add 2-3 natural ones)
-- Every sentence follows subject-verb-object (vary with an occasional "The hard part:" or "In practice:")
-- No personality (add one slightly opinionated observation with "Worth knowing:" or "The catch:")
+Read the rewritten version and ask: "Where would a good editor stop reading?" Fix those parts. Do not add a contraction, a label such as "The catch:", or a short paragraph only to look human. Contractions are fine where a person uses them.
+
+### Pass 3: Compare the facts
+
+Compare the old and new text, claim by claim. List each dropped fact, and each claim that became stronger, lost its attribution or moved to a different subject. Fix these before you save. When you can, use a reader who did not make the rewrite.
 
 ## Evidence guard
 
 Humanizing changes the style, never the facts. Rules from `_shared/evidence.md`:
 - Keep hedges that carry evidence. "Not listed on their pricing page" must not become "doesn't have". "Some Reddit users report" must not become "users say" or a plain fact.
-- Keep attributions: "Tuta's privacy policy says", "Proton says".
+- Keep attributions on claims that only the company can confirm. One attribution per passage is enough.
 - Keep every number, price, date and "as of".
-- The opinionated observation from Pass 2 must rest on a fact that is already in the text or in the research fields. Don't add a new fact, a motive or a trend.
+- An opinion from us must rest on a fact that is already in the text or in the research fields. Don't add a new fact, a motive or a trend.
 
 ## Verification Checklist
 
 After humanizing, the content should pass these checks:
-- [ ] No em dashes anywhere
-- [ ] No semicolons
-- [ ] No words from the banned list (see `_shared/voice.md`)
-- [ ] Sentence length varies (some 5-8 words, some 15-25)
-- [ ] At least one contraction per 100 words
-- [ ] No three consecutive sentences starting the same way
-- [ ] At least one acknowledged limitation or trade-off
-- [ ] Reading it aloud doesn't feel robotic
+- [ ] No em dashes and no semicolons
+- [ ] The opening answers the reader's question
+- [ ] No structure problem from `_shared/voice.md` remains
+- [ ] Every fact from the old text is present, or removed on purpose and reported
+- [ ] No claim became stronger or lost its attribution
+- [ ] The trade-off is still on the page

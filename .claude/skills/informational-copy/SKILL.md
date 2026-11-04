@@ -8,6 +8,10 @@ Write website copy that reads well, feels neutral, and builds trust through hone
 
 ---
 
+**Read `.claude/skills/_shared/voice.md` first.** It holds the voice, the writing steps and the word and punctuation rules. This file holds the patterns per page type.
+
+---
+
 ## The core principle
 
 Write like you're a knowledgeable friend explaining something to someone who's curious but skeptical. Back up every claim with specifics. Acknowledge trade-offs honestly. Let the reader draw their own conclusions.
@@ -40,101 +44,6 @@ Credibility comes from specificity + honesty about limitations.
 "This service is the most secure and private option available" is not. It's a claim without evidence, and the reader knows it.
 
 Every time you acknowledge a limitation honestly, every positive claim you make becomes more believable.
-
----
-
-## Writing rules
-
-These rules apply to all copy output. Follow them strictly.
-
-### Always do
-
-- Use clear, simple language. Short sentences. Active voice.
-- Address the reader directly with "you" and "your."
-- Support claims with data, numbers, or concrete examples.
-- Focus on practical, actionable information.
-- Use standard punctuation: periods, commas, colons. Nothing fancy.
-- Put the action or key fact first in every sentence.
-- Strip unnecessary adjectives and adverbs. If a word doesn't add specific meaning, cut it.
-
-### Never do
-
-- Never use em dashes. Not once. Use periods, commas, or colons to connect ideas. Rewrite the sentence if needed.
-- Never use semicolons.
-- Never use the construction "not just X, but also Y." Rewrite as two separate statements or pick one.
-- Never use metaphors or cliches.
-- Never generalize. Be specific or don't make the claim.
-- Never use setup language: "in conclusion," "in closing," "to summarize," "in summary," "it's worth noting," "it's important to note."
-- Never use exclamation marks. One per page absolute maximum, and only if the context genuinely calls for it.
-- Never use ellipses for dramatic effect.
-- Never use ALL CAPS for emphasis.
-- Never use hashtags.
-- Never use emoji unless it's an explicit part of the brand voice.
-
----
-
-## Words and phrases to never use
-
-These signal "AI wrote this" or "marketing department approved this." They erode trust instantly.
-
-### Banned words
-
-can, may, just, that (when unnecessary), very, really, literally, actually, certainly, probably, basically, could, maybe, delve, embark, enlightening, esteemed, craft, crafting, imagine, realm, game-changer, unlock, discover, skyrocket, abyss, revolutionize, disruptive, utilize, utilizing, tapestry, illuminate, unveil, pivotal, intricate, elucidate, hence, furthermore, harness, exciting, groundbreaking, cutting-edge, remarkable, remains to be seen, glimpse into, navigating, landscape, stark, testament, moreover, boost, skyrocketing, opened up, powerful, inquiries, ever-evolving, comprehensive, robust, state-of-the-art, seamless, seamlessly, leverage, dive into, dig into, dive deep, crucial, vital, essential, unleash, supercharge, turbocharge, revolutionary, streamline, elevate, empower, transform (unless literal), holistic, synergy, ecosystem (unless technically accurate), curated (unless you're a curator), shed light, not alone, in a world where, it
-
-### Banned phrases
-
-- "In today's fast-paced world..."
-- "It's important to note that..."
-- "When it comes to..."
-- "In order to..." (write "to")
-- "Whether you're a... or a..."
-- "Are you ready to take your X to the next level?"
-- "Let's dive in" / "Without further ado"
-- "At the end of the day..."
-- "It goes without saying..."
-- "Look no further"
-- "One-stop shop"
-- "Best-in-class"
-- "In conclusion" / "In closing" / "To summarize"
-- "Not just X, but also Y"
-
-### What to use instead
-
-Replace vague praise with specific facts:
-
-| Don't write | Write instead |
-|-------------|---------------|
-| "comprehensive solution" | "covers email, calendar, contacts, and file storage" |
-| "seamless migration" | "migration takes about 20 minutes and imports your existing data automatically" |
-| "robust privacy features" | "blocks trackers by default and doesn't collect browsing history" |
-| "cutting-edge encryption" | "uses end-to-end encryption. Even the service provider can't read your data." |
-| "trusted by thousands" | "used by 1.2 million accounts across Europe" |
-| "can help you save time" | "saves about 4 hours per week" |
-| "may improve your workflow" | "replaces three separate tools with one" |
-
----
-
-## Sentence rhythm
-
-Vary your paragraph length. This is the single most important thing that separates readable copy from walls of text.
-
-Short statement. Clear and direct.
-
-Then a longer sentence that adds context, develops the idea, and gives the reader something concrete to work with. A number, a comparison, a specific example.
-
-Then short again.
-
-This creates a rhythm. The eye doesn't fatigue. People read further than they planned to.
-
-What kills rhythm:
-
-- Every paragraph being the same length
-- Every sentence starting the same way
-- Long blocks of text without any short punchy lines
-- All short fragments with no breathing room
-- Passive voice ("the data is stored" vs. "they store your data in Switzerland")
-
-Read your copy out loud. If you stumble, the reader will too. If it sounds like a textbook, rewrite it.
 
 ---
 
@@ -307,29 +216,6 @@ The goal is to let facts do the persuading. If the facts are compelling, you don
 
 ## Flow techniques
 
-Borrowed from direct response, adapted for informational writing.
-
-### Bucket brigades
-
-Short transition phrases that smooth the gap between paragraphs:
-
-- "Here's the thing."
-- "That said..."
-- "The real question is..."
-- "In practice..."
-- "There's a catch, though."
-- "What this means for you:"
-
-Use 2-3 per page. More than that feels manipulative in an informational context.
-
-### Curiosity gaps (use sparingly)
-
-In sales copy, curiosity gaps are used aggressively. In informational copy, use them gently. Keep people reading without overpromising.
-
-Appropriate: "The technical switch is easy. The social part is where it gets interesting."
-
-Too aggressive: "What I'm about to tell you will change how you think about email forever."
-
 ### The "before you start" pattern
 
 For guides and tutorials, front-load the thing people most need to know:
@@ -347,10 +233,6 @@ This builds trust immediately. You're saving them time and frustration, not hidi
 - Keep paragraphs to 1-3 sentences for web copy.
 - Use bullet points only when listing genuinely parallel items (features, steps, options). Don't bullet-point prose.
 - One idea per paragraph.
-- No emoji unless part of the brand voice.
-- No em dashes. Anywhere. Use periods or commas.
-- No semicolons.
-- No hashtags.
 - No markdown formatting in final copy output (no asterisks for bold/italic). Use plain text or the CMS formatting tools.
 
 ---
@@ -365,10 +247,7 @@ Before publishing any copy, read it out loud and check:
 4. Did you acknowledge at least one trade-off or limitation?
 5. Could a skeptical reader finish this and feel respected, not manipulated?
 6. Is it about their decision, or about your opinion?
-7. Are there any em dashes? Remove them.
-8. Is every sentence in active voice?
-9. Did you cut every adjective and adverb that doesn't carry specific meaning?
-10. Did you avoid every banned word and phrase?
+7. Does the text pass the steps and the structure list in `_shared/voice.md`?
 
 If any answer is wrong, rewrite that part.
 
