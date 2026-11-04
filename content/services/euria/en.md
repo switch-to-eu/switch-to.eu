@@ -8,6 +8,7 @@ url: https://euria.infomaniak.com/
 freeOption: true
 startingPrice: Free
 description: A free AI assistant that Infomaniak says never trains on your chats and keeps your data in Switzerland. Works in the browser and on iPhone and Android, with a daily message limit.
+screenshot: /images/services/euria.webp
 features:
 - Free to use
 - Swiss hosting

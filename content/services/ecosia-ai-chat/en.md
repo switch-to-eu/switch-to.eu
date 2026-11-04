@@ -8,6 +8,7 @@ url: https://www.ecosia.org/ai-chat/
 freeOption: true
 startingPrice: Free
 description: A free AI chat inside Ecosia search, from a Berlin company that says all its profits go to climate action. A beta for some users only, and your chats go mainly to Mistral.
+screenshot: /images/services/ecosia-ai-chat.webp
 features:
 - Free beta
 - Runs mainly on Mistral
