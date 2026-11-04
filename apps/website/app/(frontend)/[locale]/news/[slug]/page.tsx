@@ -42,6 +42,10 @@ export function generateStaticParams() {
   );
 }
 
+// Every article is known at build time. Any other slug (a draft, a removed
+// article) is a real 404, not an on-demand render that fails with a 500.
+export const dynamicParams = false;
+
 export async function generateMetadata(
   {
     params,
