@@ -18,13 +18,13 @@ specs:
   freePlan: Yes, beta for some users only
   trainsOnChats: 'Ecosia says no. Mistral: not stated'
   paidFrom: US test only, not sold in the EU
-  dataStored: Your browser, servers if you opt in
+  dataStored: Your browser, plus uploads and samples. History if you opt in
 pricingTiers:
 - name: Free
   price: Free
   billingNote: beta, for some users only
   features:
-  - Daily limits on uploads, Think Longer
+  - Daily limits on uploads, thinking mode (US test page)
   - 5 files per conversation, 5 MB each
   - Chat history with Ecosia account
   - Image generation with Ecosia account
@@ -49,9 +49,9 @@ ogDescription: A free AI chat from Berlin, shown to some users only. Your chats 
 researchStatus: complete
 lastResearchedAt: '2026-11-03'
 gdprCompliance: compliant
-gdprNotes: Ecosia is a German company and says it follows the GDPR and the EU AI Act. Your chats stay in your browser, and on Ecosia's servers only if you turn on chat history. Ecosia's privacy policy says Mistral doesn't store your chats, under a zero data retention option. OpenAI is the backup when Mistral is unavailable, and OpenAI keeps input and output for 30 days. Ecosia keeps a sample of conversations for up to 30 days for quality checks, and you opt out by email.
+gdprNotes: Ecosia is a German company and says it follows the GDPR and the EU AI Act. Your chat list stays in your browser, and on Ecosia's servers if you turn on chat history. Ecosia's privacy policy says Mistral doesn't store your chats, under a zero data retention option. OpenAI is the backup when Mistral is unavailable, and OpenAI keeps input and output for 30 days. Ecosia keeps uploaded files for 7 days. It also keeps a sample of conversations, anonymised according to Ecosia, for up to 30 days for quality checks, and you opt out by email.
 privacyPolicyUrl: https://www.ecosia.org/privacy
-pricingDetails: 'As of November 2026. AI Chat is free. Daily limits apply to file upload and thinking mode on the Free tier, numbers not listed. Uploads: up to 5 files per conversation, 5 MB each. A paid subscription with Starter and Pro tiers is in a US test and not available elsewhere, so no EUR price exists. Its prices were not read.'
+pricingDetails: 'As of November 2026. AI Chat is free. Ecosia's help page for the US subscription test lists daily limits on file upload and thinking mode on the Free tier, with no numbers. Uploads: up to 5 files per conversation, 5 MB each. A paid subscription with Starter and Pro tiers is in a US test and not available elsewhere, so no EUR price exists. Its prices were not read.'
 pricingUrl: https://support.ecosia.org/article/1218-ecosia-ai-subscription-ts
 headquarters: Berlin, Germany
 parentCompany: Ecosia GmbH
@@ -116,7 +116,7 @@ lastSeoReviewAt: '2026-11-03'
 
 Ecosia AI Chat is a free chat assistant inside the [Ecosia](/services/eu/ecosia) search engine, from Ecosia GmbH in Berlin. You ask a question and get a written answer instead of a list of links. You open the chat from ecosia.org or from your search results. Ecosia also sends some longer questions to the chat by itself, and you switch that off the first time it happens.
 
-Ecosia doesn't train a model of its own, so the chat is a front end. Your requests go mainly to Mistral, and Ecosia says it also uses open-weight models without naming them. If you want everything Mistral offers, [Mistral Vibe](/services/eu/mistral-le-chat) is the direct route. You'd pick Ecosia for other reasons: basic use without an account, chats kept in your browser unless you turn on history, and a company that says all its profits go to climate action.
+Ecosia doesn't train a model of its own, so the chat is a front end. Your requests go mainly to Mistral, and Ecosia says it also uses open-weight models without naming them. If you want everything Mistral offers, [Mistral Vibe](/services/eu/mistral-le-chat) is the direct route. You'd pick Ecosia for other reasons: basic use without an account, a chat list kept in your browser unless you turn on history, and a company that says all its profits go to climate action.
 
 You get three modes. Web Source pulls from the live web, Guided Learning walks you through a topic step by step, and Think Longer spends more time on hard questions. You upload up to 5 files per conversation, 5 MB each. With an Ecosia account you also get chat history and image generation through Black Forest Labs.
 
@@ -124,10 +124,10 @@ You get three modes. Web Source pulls from the live web, Guided Learning walks y
 
 Ecosia's help page says chats aren't used for training, "since we do not train models ourselves". Its privacy policy says Mistral doesn't store your input or output, because Ecosia uses Mistral's zero data retention option. Neither page says whether Mistral trains on those chats, so we don't call this a no-training service.
 
-OpenAI, a US company, is Ecosia's backup when Mistral is unavailable. OpenAI keeps your input and output for 30 days. Ecosia also keeps a sample of conversations for up to 30 days to check quality, and builds anonymised data sets from parts of them. You opt out of that by email.
+OpenAI, a US company, is Ecosia's backup when Mistral is unavailable. OpenAI keeps your input and output for 30 days. Ecosia keeps uploaded files for 7 days. It also keeps a sample of conversations, anonymised according to Ecosia, for up to 30 days to check quality, and builds anonymised data sets from parts of them. You opt out of that by email.
 
 ## Worth knowing
 
 AI Chat is a beta, and Ecosia shows it to some users only, in 35 listed countries. You might not see the chat at all. Ad blockers and strict privacy extensions also get in the way, Ecosia says.
 
-The paid subscription is a US test and isn't on sale elsewhere. Free use has daily limits on file uploads and Think Longer. The chat doesn't generate videos, share conversations or run deep research. Ecosia's switch for turning off all AI works on desktop only for now, with mobile promised for a later update.
+The paid subscription is a US test and isn't on sale elsewhere. Ecosia's help page for that test lists daily limits on file uploads and thinking mode on the Free tier, with no numbers. The chat doesn't generate videos, share conversations or run deep research. Ecosia's switch for turning off all AI works on desktop only for now, with mobile promised for a later update.

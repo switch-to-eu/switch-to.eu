@@ -45,13 +45,13 @@ ogDescription: Volgens Infomaniak traint Euria nooit op je chats en blijft je da
 gdprNotes: Volgens Infomaniak volgt Euria de GDPR en de Zwitserse privacywet. Het bedrijf zegt dat je data, bestanden en chats in Zwitserland staan, in datacenters die het zelf beheert, nooit worden gebruikt om modellen te trainen en niet worden gedeeld met derden. Dit zijn verklaringen van Infomaniak zelf. Het hoofdkantoor staat in Genève, buiten de EU.
 ---
 
-Euria is een gratis AI-assistent van Infomaniak, een Zwitsers bedrijf met zijn hoofdkantoor in Genève. Je stelt vragen, laat tekst herschrijven of vertalen, vat pdf's en afbeeldingen samen en zet opnames om in tekst. Heeft een antwoord actuele informatie nodig, dan zoekt Euria op het web. Je gebruikt Euria in de browser, in de apps voor iPhone en Android, of in Mail, kDrive en kChat van Infomaniak.
+Euria is een gratis AI-assistent van Infomaniak, een Zwitsers bedrijf met zijn hoofdkantoor in Genève. Je stelt vragen, laat tekst herschrijven of vertalen, vat pdf's en afbeeldingen samen en zet opnames om in tekst. Heeft een antwoord actuele informatie nodig, dan zoekt Euria op het web. Je gebruikt Euria in de browser en in de apps voor iPhone en Android. Infomaniak bouwt het ook in Mail, kDrive en kChat in. Bij my kSuite heb je voor Euria in Mail het betaalde my kSuite+ nodig.
 
 Heb je al een [adres bij Infomaniak](/services/eu/infomaniak-mail), dan is dit de korte route weg van ChatGPT of Gemini. Het gratis my kSuite-abonnement bundelt Euria met één e-mailadres, 20 GB voor mail en 15 GB cloudopslag.
 
 ## Zo gaat Euria om met je chats
 
-Volgens Infomaniak trainen je data, bestanden en gesprekken nooit de modellen van het bedrijf. Infomaniak zegt ook dat je data in Zwitserland blijft, in eigen datacenters in Genève, zonder buitenlandse publieke cloud. De tijdelijke modus laat na afloop van de sessie geen spoor van een chat achter, aldus Infomaniak. Gewone chats blijven in je geschiedenis tot je ze verwijdert.
+Volgens Infomaniak trainen je data, bestanden en gesprekken nooit de modellen van het bedrijf. Infomaniak zegt ook dat je data in Zwitserland blijft, in eigen datacenters in Genève, zonder buitenlandse publieke cloud. De tijdelijke modus laat na afloop van de sessie geen spoor van een chat achter, aldus Infomaniak. Gewone chats blijven in je geschiedenis, en je kunt ze verwijderen. We vonden geen bewaartermijn op de pagina's van Infomaniak die we lazen.
 
 Die beloftes komen van Infomaniak zelf, en de pagina's die we lazen verwijzen niet naar een externe audit. In de praktijk vertrouw je op het woord van het bedrijf.
 

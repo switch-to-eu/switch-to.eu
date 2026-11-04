@@ -41,7 +41,7 @@ Ecosia zegt zelf helemaal geen modellen te trainen, en dat Mistral niets bewaart
 
 Twee bedrijven hier hebben een hoofdkantoor in de EU: Mistral in Parijs en Ecosia in Berlijn. Infomaniak en Proton zijn Zwitsers, allebei uit Genève.
 
-Volgens Mistral wordt data standaard in de EU gehost, maar de eigen leverancierslijst plaatst zoeken op het web (Brave) en beeldgeneratie (Black Forest Labs) in de VS. Infomaniak zegt dat alle data van Euria in Zwitserland blijft, op eigen servers. Proton zegt dat Lumo draait op servers die het bedrijf beheert in Europa, en noemt de landen niet. Ecosia bewaart chats in je browser, en alleen op de eigen servers als je chatgeschiedenis aanzet.
+Volgens Mistral wordt data standaard in de EU gehost, maar de eigen leverancierslijst plaatst zoeken op het web (Brave) en beeldgeneratie (Black Forest Labs) in de VS. Infomaniak zegt dat alle data van Euria in Zwitserland blijft, op eigen servers. Proton zegt dat Lumo draait op servers die het bedrijf beheert in Europa, en noemt de landen niet. Ecosia bewaart je chatlijst in je browser, en op de eigen servers als je chatgeschiedenis aanzet. Ook bewaart Ecosia geüploade bestanden 7 dagen en een steekproef van gesprekken, volgens Ecosia geanonimiseerd, tot 30 dagen.
 
 ### Welke modellen geven antwoord?
 
@@ -53,6 +53,6 @@ Mistral, Proton en Infomaniak beperken allemaal gratis berichten, en geen van dr
 
 ### Wat heb je nog meer nodig?
 
-Mistral en Lumo maken en bewerken allebei afbeeldingen, en Ecosia maakt ze als je een account hebt. Mistral noemt meer dan 100 connectoren naar andere tools, waaronder e-mail, agenda en Slack. Euria transcribeert audio zonder limiet en zit in Mail en kDrive van Infomaniak. Lumo koppelt aan je bestanden in Proton Drive.
+Mistral en Lumo maken en bewerken allebei afbeeldingen, en Ecosia maakt ze als je een account hebt. Mistral noemt meer dan 100 connectoren naar andere tools, waaronder e-mail, agenda en Slack. Euria transcribeert audio zonder limiet en zit in Mail en kDrive van Infomaniak. Bij my kSuite heb je voor Euria in Mail het betaalde my kSuite+ nodig. Lumo koppelt aan je bestanden in Proton Drive.
 
 Ecosia AI Chat heeft vooraf één nadeel. De chat is een bèta voor een deel van de gebruikers, dus misschien krijg je hem helemaal niet te zien.

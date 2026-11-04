@@ -152,13 +152,13 @@ seoNotes: |-
 lastSeoReviewAt: '2026-11-03'
 ---
 
-Euria is a free AI assistant from Infomaniak, a Swiss company with its head office in Geneva. You ask questions, get text rewritten or translated, summarise PDFs and images, and turn recordings into text. When an answer needs fresh information, Euria searches the web. You use Euria in the browser, in the iPhone and Android apps, or inside Infomaniak's Mail, kDrive and kChat.
+Euria is a free AI assistant from Infomaniak, a Swiss company with its head office in Geneva. You ask questions, get text rewritten or translated, summarise PDFs and images, and turn recordings into text. When an answer needs fresh information, Euria searches the web. You use Euria in the browser and in the iPhone and Android apps. Infomaniak also builds it into Mail, kDrive and kChat. On my kSuite, Euria in Mail needs the paid my kSuite+ plan.
 
 If you already have an [Infomaniak address](/services/eu/infomaniak-mail), this is the short route away from ChatGPT or Gemini. The free my kSuite plan bundles Euria with one email address, 20 GB for mail and 15 GB of cloud storage.
 
 ## How Euria handles your chats
 
-Infomaniak says your data, files and conversations will never train its models. The company also says your data stays in Switzerland, in data centres it runs itself in Geneva, with no foreign public cloud involved. Ephemeral mode leaves no trace of a chat once the session ends, according to Infomaniak. Regular chats stay in your history until you delete them.
+Infomaniak says your data, files and conversations will never train its models. The company also says your data stays in Switzerland, in data centres it runs itself in Geneva, with no foreign public cloud involved. Ephemeral mode leaves no trace of a chat once the session ends, according to Infomaniak. Regular chats stay in your history, and you can delete them. We found no retention period on the Infomaniak pages we read.
 
 Those promises come from Infomaniak, and the pages we read don't point to an outside audit of them. In practice, you're taking the company's word.
 

@@ -45,7 +45,7 @@ Ecosia says it doesn't train models at all, and that Mistral keeps nothing from 
 
 Two companies here have a head office in the EU: Mistral in Paris and Ecosia in Berlin. Infomaniak and Proton are Swiss, both from Geneva.
 
-Mistral says data is hosted in the EU by default, but its provider list puts web search (Brave) and image generation (Black Forest Labs) in the US. Infomaniak says all Euria data stays in Switzerland, on its own servers. Proton says Lumo runs on servers it controls in Europe, and doesn't name the countries. Ecosia keeps chats in your browser, and on its servers only if you turn on chat history.
+Mistral says data is hosted in the EU by default, but its provider list puts web search (Brave) and image generation (Black Forest Labs) in the US. Infomaniak says all Euria data stays in Switzerland, on its own servers. Proton says Lumo runs on servers it controls in Europe, and doesn't name the countries. Ecosia keeps your chat list in your browser, and on its servers if you turn on chat history. It also keeps uploaded files for 7 days and a sample of conversations, anonymised according to Ecosia, for up to 30.
 
 ### Which models answer you?
 
@@ -57,6 +57,6 @@ Mistral, Proton and Infomaniak all limit free messages, and none of them publish
 
 ### What else do you need?
 
-For images, Mistral and Lumo both make and edit them, and Ecosia makes them if you have an account. Mistral lists more than 100 connectors to other tools, including email, calendar and Slack. Euria has unlimited transcription of audio and sits inside Infomaniak's Mail and kDrive. Lumo links to your files in Proton Drive.
+For images, Mistral and Lumo both make and edit them, and Ecosia makes them if you have an account. Mistral lists more than 100 connectors to other tools, including email, calendar and Slack. Euria has unlimited transcription of audio and sits inside Infomaniak's Mail and kDrive. On my kSuite, Euria in Mail needs the paid my kSuite+ plan. Lumo links to your files in Proton Drive.
 
 Ecosia AI Chat has one catch before all of this. It's a beta for some users only, so you might not get the chat at all.
