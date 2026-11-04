@@ -3,6 +3,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { CategoryFacts } from "@/components/category/CategoryFacts";
 import { getCardColor } from "@/lib/quiet-palette";
 import { serviceHref, type ResolvedPick } from "@/lib/buyers-guide";
 import { getCategorySlug } from "@/lib/services";
@@ -64,16 +65,7 @@ export async function CategoryPicks({
 
                   <p className="leading-relaxed mb-4">{pick.reason}</p>
 
-                  {facts.length > 0 && (
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm mb-4">
-                      {facts.map((fact) => (
-                        <div key={fact.label}>
-                          <dt>{fact.label}</dt>
-                          <dd className="font-semibold">{fact.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  )}
+                  <CategoryFacts facts={facts} className="mb-4" />
 
                   <p className="text-sm leading-relaxed border-t border-black/10 pt-4 mb-6">
                     <strong className="font-semibold">{t("worthKnowing")}</strong>{" "}

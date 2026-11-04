@@ -1,40 +1,47 @@
 ---
-startingPrice: $12,99/maand
-description: Gebruik AI zonder dat je gesprekken worden opgeslagen, gelogd of gebruikt voor training. Proton Lumo versleutelt elke chat met zero-access encryptie.
+startingPrice: €9,99/maand
+description: Gebruik AI met opgeslagen chats die alleen jij kunt lezen. Volgens Proton zijn er geen logs en traint Lumo nooit op je chats, en je probeert Lumo gratis zonder account.
 features:
-- Zero-access versleutelde gesprekken
-- Ghost-modus voor tijdelijke chats
+- Zero-access versleutelde geschiedenis
+- Ghost-modus voor chats die verdwijnen
 - Open-source taalmodellen
-- Bestanden uploaden via Proton Drive
-- Projecten voor georganiseerde werkruimtes
+- Ingebouwd zoeken op het web
+- Afbeeldingen maken en bewerken
+- Bestanden koppelen uit Proton Drive
+- Projecten en Custom Lumos
+specs:
+  freePlan: Ja, met limieten, geen account nodig
+  trainsOnChats: Volgens Proton niet
+  paidFrom: €9,99/maand, jaarabonnement
+  dataStored: Apparaat, sync naar Proton in Europa
 pricingTiers:
 - name: Lumo Free
   price: Gratis
   features:
-  - Beperkt aantal prompts per week
-  - Eenvoudige AI-chat
-  - Zero-access-versleuteling
-  - Ghost mode
+  - Beperkt aantal berichten en chatgeschiedenis
+  - Beperkt gebruik van het Max-model
+  - Beperkt aantal afbeeldingen
+  - 1 Project
+  - Zoeken op het web
+  - Kleine bestanden uploaden
 - name: Lumo Plus
-  price: $12,99/maand
-  billingNote: $119,88/jaar ($9,99/maand, jaarlijks gefactureerd)
+  price: €9,99/maand
+  billingNote: €119,88 per jaar, of €12,99 per maand
   features:
-  - Onbeperkt vragen
-  - Bestanden uploaden uit Proton Drive
-  - Projecten (versleutelde werkruimtes)
-  - Voorrang bij antwoorden
-  - Zero-access-versleuteling
-  - Ghost mode
+  - Meer berichten en chatgeschiedenis
+  - Meer gebruik van het Max-model
+  - Meer afbeeldingen
+  - Onbeperkt Projecten
+  - Onbeperkt Custom Lumos
+  - Meerdere grote bestanden uploaden
 - name: Lumo for Business
-  price: Op aanvraag
+  price: €11,99/gebruiker/maand
+  billingNote: Lumo Professional, €143,88 per gebruiker per jaar
   features:
-  - Teambeheer en beheeropties
-  - Onbeperkt vragen per gebruiker
-  - Versleutelde werkruimtes
-  - Zero-access-versleuteling
-  - Ghost mode
+  - Ook in Workspace Premium, €19,99/gebruiker/maand
+  - Versleutelde chats voor teams
 metaTitle: 'Proton Lumo: Prive AI-assistent met versleutelde chats'
-metaDescription: Proton Lumo is een privacy-first AI-assistent die elk gesprek versleutelt. Op open-source modellen, gehost in Europa, zonder dataregistratie of training.
+metaDescription: Proton Lumo is een privacy-first AI-assistent met versleutelde chatgeschiedenis. Open-source modellen in Europa. Volgens Proton geen logs en geen training.
 keywords:
 - Proton Lumo
 - prive AI-assistent
@@ -44,19 +51,21 @@ keywords:
 - ChatGPT alternatief Europa
 - zero-access encryptie AI
 - GDPR AI-assistent
-ogTitle: 'Proton Lumo: AI die elk gesprek versleutelt'
-ogDescription: Een AI-assistent van Proton AG die je chats privé houdt met zero-access encryptie. Geen logs, geen training op je data, volledig gehost in Europa.
-gdprNotes: Proton Lumo is standaard GDPR-compliant. Alle gesprekken zijn beschermd met zero-access encryptie, waardoor Proton ze zelf niet kan lezen. Er worden geen gesprekslogboeken op de server bewaard na verwerking. Je gegevens worden nooit gebruikt om AI-modellen te trainen. Alles draait op servers in Europa die door Proton worden beheerd, zonder dat er data naar externe partijen gaat. Je kunt je gegevens op elk moment verwijderen. Proton opereert onder de Zwitserse privacywetgeving en publiceert een Gegevensverwerkingsovereenkomst.
+ogTitle: 'Proton Lumo: AI die je opgeslagen chats versleutelt'
+ogDescription: Een AI-assistent van Proton AG met zero-access encryptie op opgeslagen chats. Volgens Proton geen logs, geen training op je chats en eigen servers in Europa.
+gdprNotes: Volgens Proton voldoet Lumo aan de GDPR en hebben opgeslagen chats zero-access encryptie, zodat Proton ze niet kan lezen. Proton zegt geen logs te bewaren en je vraag te wissen zodra Lumo antwoordt. Volgens Proton trainen chats de modellen niet, behalve feedback die je zelf stuurt op een antwoord van Apertus 1.5. Die gaat geanonimiseerd naar Proton en de onderzoeksteams achter Apertus. Proton zegt dat de modellen draaien op servers die het bedrijf beheert in Europa, zonder de landen te noemen. Het hoofdkantoor staat in Genève, buiten de EU.
 ---
 
-De meeste AI-chatbots slaan alles op wat je typt en analyseren het. Proton Lumo pakt dat anders aan. Het draait op open-source taalmodellen die volledig op Proton's eigen servers in Europa staan. Je prompts verlaten nooit Proton's infrastructuur en geen enkel extern AI-bedrijf krijgt ze te zien.
+Proton Lumo is de AI-assistent van Proton AG, het Zwitserse bedrijf achter Proton Mail. Volgens Proton draait Lumo op open-source modellen op servers die het bedrijf zelf beheert in Europa, zodat geen extern AI-bedrijf je prompts ziet. Proton noemt de modellen: Qwen 3.5, GLM 5.3 en Apertus 1.5 voor tekst, en Image-Turbo en FireRed-Image-Edit-1.1 voor afbeeldingen.
 
-Opgeslagen gesprekken krijgen zero-access encryptie. Proton kan ze niet lezen. Niemand kan dat, behalve jij. Voor gesprekken die je helemaal niet wilt bewaren, wist Ghost-modus alles zodra je het chatvenster sluit.
+Opgeslagen chats krijgen zero-access encryptie, en volgens Proton kan het bedrijf ze daardoor niet lezen. Proton zegt ook geen logs te bewaren en je vraag te wissen zodra Lumo antwoordt. Wil je een chat helemaal niet bewaren, dan laat Ghost-modus die verdwijnen zodra je het venster sluit. Je hebt geen Proton-account nodig om te beginnen. Chats als gast worden aan het einde van de sessie gewist.
 
-Naast chatten verwerkt Lumo documentsamenvattingen, code, vertalingen en bestandsuploads via Proton Drive. Met de Projecten-functie groepeer je gerelateerde chats en bestanden in versleutelde werkruimtes die gesynchroniseerd blijven op al je apparaten. Beschikbaar op web, iOS en Android.
+Lumo beantwoordt vragen, vat documenten samen, werkt aan code en maakt en bewerkt afbeeldingen. Zoeken op het web is er als je recente informatie wilt, en staat uit tot je het aanzet. Projecten houden chats, bestanden en instructies bij elkaar, en Custom Lumos bewaren je instructies voor een terugkerende taak. Je koppelt bestanden uit Proton Drive en dicteert op het web en in de apps voor iOS en Android.
 
-Het gratis abonnement heeft een wekelijkse promptlimiet. Lumo Plus ($12,99/maand) haalt die limiet weg en ontgrendelt premiumfuncties. Heb je al Proton Visionary of Lifetime? Dan zit Lumo Plus er gratis bij.
+Het gratis abonnement beperkt berichten, chatgeschiedenis, afbeeldingen en het gebruik van het Max-model, met 1 Project. Lumo Plus kost €9,99 per maand bij een jaarabonnement (€119,88), of €12,99 per maand los. Je krijgt van alles meer, plus onbeperkt Projecten en Custom Lumos.
 
 ## Goed om te weten
 
-Lumo draait op open-source modellen (Mistral, OLMO) die minder krachtig zijn dan de nieuwste proprietary modellen van OpenAI of Anthropic. Reactietijden kunnen merkbaar trager zijn dan bij ChatGPT. Beeld- en video-invoer worden nog niet ondersteund. De promptlimiet van het gratis abonnement is streng genoeg dat de meeste gebruikers die binnen een paar dagen bereiken. De client-apps van Proton zijn open source, maar de server-side AI-verwerkingscode is niet volledig controleerbaar.
+De beloftes over geen logs en geen training zijn verklaringen van Proton zelf. De ene uitzondering die Proton noemt: feedback die je zelf stuurt op een antwoord van Apertus 1.5 gaat geanonimiseerd naar Proton en de onderzoeksteams achter Apertus. Zero-access encryptie geldt voor je opgeslagen geschiedenis. Terwijl Lumo aan een prompt werkt, lezen de servers van Proton de tekst, en de beveiligingsblog van Proton zegt dat dit geen end-to-end encryptie is.
+
+Proton publiceert de limieten van het gratis abonnement niet, en noemt de zoekmachines voor het web en de landen van de Lumo-servers niet. Volgens Proton is de code van Lumo open source, maar de pagina's die we lazen zeggen niet of dat ook voor de servercode geldt. Het hoofdkantoor van Proton staat in Zwitserland, buiten de EU.

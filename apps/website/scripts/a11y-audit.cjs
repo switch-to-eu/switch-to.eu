@@ -17,7 +17,7 @@
  */
 const { chromium } = require('playwright');
 const BASE = process.argv[2] || 'http://localhost:5010';
-const pages = ['/en', '/nl', '/en/news', '/en/news/microsoft-france-cannot-guarantee-eu-data', '/en/services/email',
+const pages = ['/en', '/nl', '/en/news', '/en/news/app-builders-ask-eu-for-portable-followers', '/en/services/email',
   '/en/services/eu/proton-mail', '/en/services/non-eu/gmail', '/en/guides/messaging/whatsapp-to-signal', '/en/feedback', '/en/about', '/en/pages/quit-chatgpt'];
 const audit = () => {
   const cv = document.createElement('canvas'); cv.width = cv.height = 1; const cx = cv.getContext('2d', { willReadFrequently: true });
@@ -88,7 +88,7 @@ const withKeyboard = process.argv.includes('--keyboard');
     const xml = await (await fetch(BASE + '/sitemap.xml')).text();
     pages.length = 0;
     for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) pages.push(new URL(m[1]).pathname);
-    pages.push('/en/news/eu-data-act-cloud-switching-rules', '/en/contribute/guide');
+    pages.push('/en/news/german-schools-dutch-tax-office-sovereign-cloud', '/en/contribute/guide');
   }
 
   const b = await chromium.launch();

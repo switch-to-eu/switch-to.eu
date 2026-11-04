@@ -3,6 +3,7 @@ import { Container } from "@switch-to-eu/blocks/components/container";
 import { DecorativeShape } from "@switch-to-eu/blocks/components/decorative-shape";
 import { RegionBadge } from "@switch-to-eu/ui/components/region-badge";
 import { Link } from "@switch-to-eu/i18n/navigation";
+import { CategoryFacts } from "@/components/category/CategoryFacts";
 import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
 import { serviceHref, type ResolvedPick } from "@/lib/buyers-guide";
 import { getOutboundUrl } from "@/lib/services";
@@ -73,16 +74,7 @@ export async function CategoryHeader({
                 </p>
                 <p className="text-sm mb-4">{service.headquarters || service.location}</p>
 
-                {facts.length > 0 && (
-                  <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm mb-5">
-                    {facts.map((fact) => (
-                      <div key={fact.label}>
-                        <dt>{fact.label}</dt>
-                        <dd className="font-semibold">{fact.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
+                <CategoryFacts facts={facts} className="mb-5" />
 
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                   <a
