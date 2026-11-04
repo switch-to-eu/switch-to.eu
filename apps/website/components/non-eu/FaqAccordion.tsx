@@ -1,4 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
 import type { Service } from "@/lib/content/types";
 import { markdownToPlainText, renderMarkdown } from "@/lib/markdown";
 
@@ -23,10 +24,7 @@ export async function FaqAccordion({ service }: { service: Service }) {
 
   return (
     <section>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <h2 className="font-heading text-2xl sm:text-3xl text-brand-green mb-5">
         {t("title")}
       </h2>

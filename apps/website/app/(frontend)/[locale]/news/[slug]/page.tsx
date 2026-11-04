@@ -162,10 +162,7 @@ export default async function NewsArticlePage({
   return (
     <PageLayout>
       <JsonLd data={breadcrumbs} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <section>
         <Container noPaddingMobile>
