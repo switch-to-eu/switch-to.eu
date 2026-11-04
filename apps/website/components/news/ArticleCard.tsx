@@ -54,7 +54,7 @@ export function ArticleCard({ article, locale, typeLabel, readMoreLabel, sampleL
         </h3>
         <p className="text-base leading-relaxed mb-5 flex-1">{article.description}</p>
         <span aria-hidden="true" className="self-start text-sm font-semibold text-brand-green underline underline-offset-2">
-          {readMoreLabel} →
+          {readMoreLabel}
         </span>
       </div>
     </article>

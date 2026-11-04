@@ -164,8 +164,6 @@ export default async function ServiceDetailPage({
     : [];
 
   const categorySlug = getCategorySlug(service.category);
-  const categoryFormatted =
-    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
   const categoryDoc = categorySlug
     ? await getCategoryBySlug(categorySlug, locale)
@@ -215,9 +213,8 @@ export default async function ServiceDetailPage({
           href={`/services/${categorySlug}`}
           className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
-          <span aria-hidden>&larr;</span>
           <span>
-            {t("redesign.heroBack", { category: categoryFormatted })}
+            {t("redesign.heroBack", { category: service.category.shortTitle })}
           </span>
         </Link>
 
@@ -266,8 +263,7 @@ export default async function ServiceDetailPage({
                 >
                   {t("redesign.trustStrip.sourcesCount", {
                     count: service.sourceUrls?.length ?? 0,
-                  })}{" "}
-                  &rarr;
+                  })}
                 </a>
               )}
             </div>

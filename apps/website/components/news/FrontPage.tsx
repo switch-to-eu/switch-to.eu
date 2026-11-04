@@ -94,7 +94,7 @@ export async function FrontPage({
                   aria-hidden="true"
                   className="inline-block rounded-full bg-brand-green text-white px-6 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
                 >
-                  {t("readMore")} →
+                  {t("readMore")}
                 </Link>
               </div>
             </div>
@@ -158,7 +158,7 @@ export async function FrontPage({
                   href="/news"
                   className="inline-block py-1 text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
                 >
-                  {t("viewAll")} →
+                  {t("viewAll")}
                 </Link>
                 <a
                   href={`/${locale}/news/feed.xml`}

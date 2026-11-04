@@ -100,7 +100,7 @@ export async function RecommendedAlternative({
                 rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
                 className="inline-block py-2.5 px-6 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
               >
-                {t("detail.tryService", { service: service.name })} &rarr;
+                {t("detail.tryService", { service: service.name })}
               </a>
             )}
 

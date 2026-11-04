@@ -306,7 +306,7 @@ export function buildLlmsIndex(
         const target = getGuideTargetService(g)?.name ?? null;
         const catSlug = getCategorySlug(g.category) || "uncategorized";
         const meta = [`${g.difficulty}`, g.timeRequired].join(", ");
-        const label = source && target ? `${source} → ${target}` : g.title;
+        const label = source && target ? `${source} to ${target}` : g.title;
         lines.push(
           `- [${label}](${BASE_URL}/en/guides/${catSlug}/${g.slug}): ${g.description} (${meta})`
         );

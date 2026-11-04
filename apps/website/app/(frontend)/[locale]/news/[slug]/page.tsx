@@ -140,7 +140,7 @@ export default async function NewsArticlePage({
         href="/news"
         className="inline-block py-1 mb-5 text-sm font-semibold text-brand-green hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
       >
-        ← {t("backToNews")}
+        {t("backToNews")}
       </Link>
       <div className="text-[#1a1a1a] mb-5">
         <ArticleMeta article={article} locale={locale} t={t} />

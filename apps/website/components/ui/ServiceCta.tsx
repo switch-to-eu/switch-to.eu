@@ -42,7 +42,7 @@ export function ServiceCta({
               rel={affiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
               className="inline-block px-4 sm:px-8 py-2 sm:py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
             >
-              {t("tryService", { service: serviceName })} &rarr;
+              {t("tryService", { service: serviceName })}
             </a>
             {guideHref && sourceServiceName && (
               <Link

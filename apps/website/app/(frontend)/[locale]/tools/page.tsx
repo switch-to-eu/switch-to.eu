@@ -9,7 +9,6 @@ import { TOOL_SCHEMES, BRAND_COLORS } from "@switch-to-eu/ui/lib/tool-colors";
 import { SectionHeading } from "@switch-to-eu/blocks/components/section-heading";
 import { shapes } from "@switch-to-eu/blocks/shapes";
 import {
-  ArrowUpRightIcon,
   GlobeIcon,
   CalendarIcon,
   ListChecksIcon,
@@ -162,12 +161,6 @@ export default async function ToolsPage() {
                           )}
                         </p>
                       </div>
-                      {isActive && (
-                        <ArrowUpRightIcon
-                          className="w-5 h-5 flex-shrink-0 mt-1 opacity-50 group-hover:opacity-100 transition-opacity"
-                          style={{ color: primaryHex }}
-                        />
-                      )}
                     </div>
                   </div>
                 </Wrapper>

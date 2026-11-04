@@ -21,8 +21,7 @@ interface Props {
 type ResolvedGuide = {
   slug: string;
   href: string;
-  sourceName: string;
-  targetName: string;
+  title: string;
   difficulty: Guide["difficulty"];
   timeRequired: string;
   categoryTitle: string;
@@ -30,7 +29,10 @@ type ResolvedGuide = {
 
 type DifficultyLabels = Record<Guide["difficulty"], string>;
 
-function resolveGuide(guide: Guide | null): ResolvedGuide | null {
+function resolveGuide(
+  guide: Guide | null,
+  toWord: string,
+): ResolvedGuide | null {
   if (!guide) return null;
   const source = populated<Service>(guide.sourceService);
   const target = populated<Service>(guide.targetService);
@@ -39,8 +41,7 @@ function resolveGuide(guide: Guide | null): ResolvedGuide | null {
   return {
     slug: guide.slug,
     href: `/guides/${category.slug}/${guide.slug}`,
-    sourceName: source.name,
-    targetName: target.name,
+    title: `${source.name} ${toWord} ${target.name}`,
     difficulty: guide.difficulty,
     timeRequired: guide.timeRequired,
     categoryTitle: category.title,
@@ -50,9 +51,10 @@ function resolveGuide(guide: Guide | null): ResolvedGuide | null {
 export async function FeaturedGuideHero({ featured, others }: Props) {
   const t = await getTranslations("home");
 
-  const resolvedFeatured = resolveGuide(featured);
+  const toWord = t("guideRouteTo");
+  const resolvedFeatured = resolveGuide(featured, toWord);
   const resolvedOthers = others
-    .map(resolveGuide)
+    .map((guide) => resolveGuide(guide, toWord))
     .filter((g): g is ResolvedGuide => g !== null);
 
   const difficultyLabels: DifficultyLabels = {
@@ -72,7 +74,7 @@ export async function FeaturedGuideHero({ featured, others }: Props) {
             href="#picks"
             className="inline-block py-1 text-sm font-semibold text-brand-green underline underline-offset-2 hover:no-underline rounded-sm focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
           >
-            {t("masthead.picksLink")} →
+            {t("masthead.picksLink")}
           </a>
         </div>
         <div className="relative bg-brand-sky md:rounded-3xl overflow-hidden">
@@ -165,19 +167,7 @@ function FeaturedPoster({
   return (
     <div>
       <h3 className="font-heading text-brand-green text-3xl sm:text-4xl leading-[1.05] break-words text-balance">
-        {guide.sourceName}
-        <span
-          className="text-brand-green/70 mx-2 sm:mx-3 inline-block"
-          aria-hidden="true"
-          style={{
-            fontSize: "0.75em",
-            letterSpacing: "-0.03em",
-            verticalAlign: "0.05em",
-          }}
-        >
-          →
-        </span>
-        {guide.targetName}
+        {guide.title}
       </h3>
 
       <div className="flex flex-wrap gap-2 mt-5 sm:mt-6">
@@ -192,7 +182,6 @@ function FeaturedPoster({
           className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-sky"
         >
           {primaryCta}
-          <span aria-hidden="true">→</span>
         </Link>
       </div>
     </div>
@@ -212,21 +201,11 @@ function GuideRow({ guide, difficultyLabels }: GuideRowProps) {
     >
       <span className="flex-1 min-w-0">
         <span className="block font-heading text-brand-green font-bold text-base sm:text-lg leading-tight">
-          {guide.sourceName}{" "}
-          <span className="text-brand-green/50" aria-hidden="true">
-            →
-          </span>{" "}
-          {guide.targetName}
+          {guide.title}
         </span>
         <span className="block text-brand-green text-xs sm:text-sm mt-1">
           {difficultyLabels[guide.difficulty]} · {guide.timeRequired}
         </span>
-      </span>
-      <span
-        className="text-brand-green/80 group-hover:translate-x-1 transition-transform text-lg shrink-0"
-        aria-hidden="true"
-      >
-        →
       </span>
     </Link>
   );

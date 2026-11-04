@@ -1,5 +1,4 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowUpRightIcon } from "lucide-react";
 import { Banner } from "@switch-to-eu/blocks/components/banner";
 import { Container } from "@switch-to-eu/blocks/components/container";
 import { getToolIcon } from "@switch-to-eu/blocks/data/tool-icons";
@@ -98,10 +97,6 @@ export async function HighlightedToolSection({ tool, tagline }: Props) {
                     className={`inline-flex items-center gap-3 rounded-full px-7 py-3 text-base font-semibold transition-transform duration-200 ease-out group-hover:scale-105 group-active:scale-95 motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100 sm:px-8 sm:py-3.5 ${card.button}`}
                   >
                     {ctaLabel}
-                    <ArrowUpRightIcon
-                      className="h-5 w-5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 sm:h-6 sm:w-6"
-                      aria-hidden="true"
-                    />
                   </span>
                   {hostHint && (
                     <span

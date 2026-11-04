@@ -83,7 +83,7 @@ export async function CategoryHeader({
                     rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
                     className={`inline-block rounded-full bg-brand-green px-5 py-2.5 text-sm font-semibold text-white no-underline hover:opacity-90 transition-opacity ${FOCUS}`}
                   >
-                    {tDetail("tryService", { service: service.name })} &rarr;
+                    {tDetail("tryService", { service: service.name })}
                   </a>
                   <Link
                     href={serviceHref(service)}

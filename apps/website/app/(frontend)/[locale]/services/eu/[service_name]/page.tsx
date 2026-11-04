@@ -163,8 +163,6 @@ export default async function ServiceDetailPage({
   }
 
   const categorySlug = getCategorySlug(service.category);
-  const categoryFormatted =
-    categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1);
 
   const screenshotUrl = getScreenshotUrl(service.screenshot);
   const relatedGuides = await getRelatedGuides(service.id, locale);
@@ -241,8 +239,7 @@ export default async function ServiceDetailPage({
           href={`/services/${categorySlug}`}
           className="inline-flex items-center gap-1.5 text-brand-green/80 text-sm mb-3 px-4 sm:px-0 pt-2 no-underline hover:text-brand-green transition-colors"
         >
-          <span>&larr;</span>
-          <span>{categoryFormatted}</span>
+          {t("nonEu.redesign.heroBack", { category: service.category.shortTitle })}
         </Link>
 
         <Banner
@@ -313,7 +310,7 @@ export default async function ServiceDetailPage({
                   rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
                   className="inline-block px-4 sm:px-6 py-2 bg-brand-green text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-xs sm:text-sm no-underline whitespace-nowrap"
                 >
-                  {t("tryService", { service: service.name })} &rarr;
+                  {t("tryService", { service: service.name })}
                 </a>
                 {firstGuide && firstGuideCategory && (
                   <Link
@@ -395,8 +392,7 @@ export default async function ServiceDetailPage({
                           : freeTier
                             ? t("snippetFree")
                             : service.startingPrice ||
-                              t("snippetViewPlans")}{" "}
-                        <span aria-hidden="true">&rarr;</span>
+                              t("snippetViewPlans")}
                       </span>
                     </Link>
                   )}
@@ -411,8 +407,7 @@ export default async function ServiceDetailPage({
                         {t("tabs.security")}
                       </span>
                       <span className="block text-base sm:text-lg font-semibold text-brand-navy group-hover:text-brand-green transition-colors">
-                        {gdprLabel || t("snippetViewDetails")}{" "}
-                        <span aria-hidden="true">&rarr;</span>
+                        {gdprLabel || t("snippetViewDetails")}
                       </span>
                     </Link>
                   )}
@@ -559,7 +554,7 @@ export default async function ServiceDetailPage({
                           rel="noopener noreferrer"
                           className="block text-brand-navy text-xs font-medium hover:underline mt-1"
                         >
-                          {t("security.viewSource")} &rarr;
+                          {t("security.viewSource")}
                         </a>
                       )}
                     </div>

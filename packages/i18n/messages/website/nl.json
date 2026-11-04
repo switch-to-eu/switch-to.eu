@@ -80,6 +80,7 @@
     "whySwitchDescription1": "Gebruik EU-gebaseerde digitale alternatieven die voldoen aan de AVG, zodat uw gegevens transparant en veilig worden verwerkt.",
     "whySwitchDescription2": "Ondersteun het lokale tech-ecosysteem en draag bij aan een eerlijkere digitale economie.",
     "knowMoreButton": "Meer weten?",
+    "guideRouteTo": "naar",
     "masthead": {
       "dateline": "EU-technieuws, alternatieven en overstapgidsen",
       "searchLabel": "Welke dienst wil je verlaten?",
@@ -513,7 +514,7 @@
             "faq": "FAQ",
             "sources": "Bronnen"
           },
-          "heroBack": "Alle {category}",
+          "heroBack": "Terug naar {category}",
           "sidebar": {
             "featured": "Aanbevolen alternatief",
             "tryService": "Probeer {name}",
@@ -702,10 +703,10 @@
       },
       "from": "Van:",
       "to": "Naar:",
-      "viewGuide": "Bekijk Migratiegids →",
+      "viewGuide": "Bekijk Migratiegids",
       "lookingForAlternatives": "Op zoek naar {categor}}-alternatieven?",
       "checkAlternatives": "Bekijk onze uitgebreide lijst van EU-gebaseerde {category}-alternatieven met functievergelijkingen.",
-      "viewAlternatives": "Bekijk {category}-alternatieven →"
+      "viewAlternatives": "Bekijk {category}-alternatieven"
     },
     "cta": {
       "title": "Niet Gevonden Wat Je Zoekt?",
@@ -722,7 +723,7 @@
       "editGuide": {
         "title": "Heb je een probleem gevonden of wil je deze gids verbeteren?",
         "description": "Deze gids wordt onderhouden door de gemeenschap. Als je een fout hebt gevonden of suggesties voor verbetering hebt, overweeg dan om bij te dragen.",
-        "link": "Bewerk deze gids op GitHub →"
+        "link": "Bewerk deze gids op GitHub"
       }
     }
   },

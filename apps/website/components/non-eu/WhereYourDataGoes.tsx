@@ -71,7 +71,7 @@ export async function WhereYourDataGoes({ service }: { service: Service }) {
                         rel="noopener noreferrer"
                         className="text-brand-green underline"
                       >
-                        {t("viewCode")} &rarr;
+                        {t("viewCode")}
                       </a>
                     </>
                   )}

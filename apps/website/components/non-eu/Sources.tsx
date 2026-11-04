@@ -29,9 +29,6 @@ export async function Sources({ service }: { service: Service }) {
       <ul className="space-y-1.5 text-sm">
         {urls.map((s, i) => (
           <li key={i} className="flex gap-2">
-            <span aria-hidden className="text-foreground/40 shrink-0">
-              &rarr;
-            </span>
             <a
               href={s.url}
               target="_blank"

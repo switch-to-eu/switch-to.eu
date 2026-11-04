@@ -149,7 +149,6 @@ export function BrandCard({
             )}
           >
             <span>{recommendationLabel}</span>
-            <span aria-hidden="true" className="opacity-70">→</span>
           </p>
         )}
         {ctaText && (
@@ -168,7 +167,6 @@ export function BrandCard({
                 )}
               >
                 {secondaryLink.text}
-                <span aria-hidden="true">→</span>
               </Link>
             )}
           </div>

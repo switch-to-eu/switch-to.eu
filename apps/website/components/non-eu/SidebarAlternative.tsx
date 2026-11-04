@@ -115,8 +115,7 @@ export async function SidebarAlternative({
                 rel={service.affiliateUrl ? "sponsored noopener noreferrer" : "noopener noreferrer"}
                 className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-green text-white rounded-full font-semibold text-sm hover:opacity-90 transition-opacity no-underline"
               >
-                {t("tryService", { name: service.name })}{" "}
-                <span aria-hidden className="ml-1.5">&rarr;</span>
+                {t("tryService", { name: service.name })}
               </a>
             )}
 
@@ -125,8 +124,7 @@ export async function SidebarAlternative({
                 href={`/guides/${firstGuideCategory}/${firstGuide.slug}`}
                 className="inline-flex items-center justify-center px-4 py-2.5 border-2 border-brand-green text-brand-green rounded-full font-semibold text-sm hover:bg-brand-green hover:text-white transition-colors no-underline"
               >
-                {t("switchGuide", { source: sourceService })}{" "}
-                <span aria-hidden className="ml-1.5">&rarr;</span>
+                {t("switchGuide", { source: sourceService })}
               </Link>
             )}
 
@@ -134,8 +132,7 @@ export async function SidebarAlternative({
               href={`/services/eu/${service.slug}`}
               className="inline-flex items-center justify-center text-[#1a1a1a] hover:text-brand-green text-xs sm:text-sm py-1.5 transition-colors underline underline-offset-2 decoration-brand-cream/50 hover:decoration-current"
             >
-              {t("learnMore", { name: service.name })}{" "}
-              <span aria-hidden className="ml-1">&rarr;</span>
+              {t("learnMore", { name: service.name })}
             </Link>
           </div>
 
@@ -171,8 +168,7 @@ export async function SidebarAlternative({
                 href={`/services/${categorySlug}`}
                 className="inline-flex items-center text-brand-green/80 hover:text-brand-green text-xs font-semibold uppercase tracking-wide mt-3 no-underline"
               >
-                {t("seeAll", { category: categoryTitle })}{" "}
-                <span aria-hidden className="ml-1">&rarr;</span>
+                {t("seeAll", { category: categoryTitle })}
               </Link>
             )}
           </div>

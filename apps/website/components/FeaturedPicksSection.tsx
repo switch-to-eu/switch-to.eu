@@ -115,19 +115,13 @@ function PickCard({
             className={`${card.button} mt-auto self-start inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold`}
           >
             {learnMoreLabel}
-            <span
-              aria-hidden="true"
-              className="group-hover:translate-x-0.5 transition-transform"
-            >
-              →
-            </span>
           </span>
           {pick && (
             <Link
               href={categoryHref}
               className={`${card.text} pointer-events-auto relative self-start text-sm font-semibold hover:underline underline-offset-2 mt-3 py-1 rounded focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current`}
             >
-              {moreInCategoryLabel} <span aria-hidden="true">→</span>
+              {moreInCategoryLabel}
             </Link>
           )}
         </div>

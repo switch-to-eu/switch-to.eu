@@ -83,6 +83,7 @@
     "whySwitchDescription1": "Use EU-based digital alternatives that comply with GDPR, ensuring your data is processed with transparency and security.",
     "whySwitchDescription2": "Support the local tech ecosystem and contribute to a fairer digital economy.",
     "knowMoreButton": "Want to know more?",
+    "guideRouteTo": "to",
     "masthead": {
       "dateline": "EU tech news, alternatives and migration guides",
       "searchLabel": "Which service do you want to leave?",
@@ -519,7 +520,7 @@
             "faq": "FAQ",
             "sources": "Sources"
           },
-          "heroBack": "All {category}",
+          "heroBack": "Back to {category}",
           "sidebar": {
             "featured": "Featured alternative",
             "tryService": "Try {name}",
@@ -654,10 +655,10 @@
       },
       "from": "From:",
       "to": "To:",
-      "viewGuide": "View Migration Guide →",
+      "viewGuide": "View Migration Guide",
       "lookingForAlternatives": "Looking for {category} Alternatives?",
       "checkAlternatives": "Check out our comprehensive list of EU-based {category} alternatives with feature comparisons.",
-      "viewAlternatives": "View {category} Alternatives →"
+      "viewAlternatives": "View {category} Alternatives"
     },
     "cta": {
       "title": "Can't Find What You Need?",
@@ -674,7 +675,7 @@
       "editGuide": {
         "title": "Found an issue or want to improve this guide?",
         "description": "This guide is maintained by the community. If you found an error or have suggestions for improvement, please consider contributing.",
-        "link": "Edit this guide on GitHub →"
+        "link": "Edit this guide on GitHub"
       }
     }
   },
