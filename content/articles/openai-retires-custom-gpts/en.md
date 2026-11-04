@@ -1,6 +1,6 @@
 ---
-title: Custom GPTs are scheduled to retire on 11 December. Your options, including leaving
-description: OpenAI plans to retire custom GPTs on 11 December and move creators to plugins. What carries over, what doesn't, and how to rebuild a GPT elsewhere.
+title: OpenAI plans to shut down custom GPTs on 11 December. What to do with yours
+description: OpenAI plans to shut down custom GPTs on 11 December and move creators to plugins. What moves, what doesn't, and how to rebuild a GPT somewhere else.
 date: '2026-11-10'
 type: news
 story: openai-custom-gpt-retirement
@@ -26,39 +26,53 @@ imageAlt: 'The glass office building at 1515 Third Street in San Francisco, home
 imageCredit: 'Photo: Coolcaesar, CC BY 4.0, via Wikimedia Commons'
 imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:1515_Third_Street.jpg'
 # SEO
-metaTitle: 'Custom GPTs scheduled to retire 11 December: your options'
+metaTitle: 'OpenAI plans custom GPT shutdown 11 December: your options'
 keywords: [custom GPT retirement, custom GPTs 11 December, migrate GPT to plugin, ChatGPT plugins, leave ChatGPT, Mistral Vibe Skills, Proton Lumo, European ChatGPT alternative]
 # Workflow
 draft: true
-updatedAt: '2026-11-03'
+updatedAt: '2026-11-04'
 ---
 
-OpenAI has scheduled custom GPTs in [ChatGPT](/services/non-eu/chatgpt) to retire on 11 December 2026. From that date, GPTs and their pages become inaccessible, [OpenAI's FAQ says](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq). The company [announced the change on 11 September](https://virtualizationreview.com/articles/2026/09/28/openai-to-retire-custom-gpts-replace-them-with-plugins.aspx) and says timing might differ by account and workspace, so check the notice in your own account. Some workspaces, including Enterprise ones with an approved deferral, have until 11 February 2027.
+OpenAI plans to shut down custom GPTs in [ChatGPT](/services/non-eu/chatgpt) on 11 December 2026. From that date, [you can't open GPTs or their pages](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq). Some workspaces get until 11 February 2027, including Enterprise workspaces with an approved deferral. OpenAI says the [timing might differ](https://virtualizationreview.com/articles/2026/09/28/openai-to-retire-custom-gpts-replace-them-with-plugins.aspx) by account and workspace, so check the notice in your own account.
 
-## What moves to a plugin
+Your old GPT conversations stay. [OpenAI says](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq) you can still open them after that date, and you don't have to do anything to keep them. OpenAI [announced the retirement on 11 September](https://virtualizationreview.com/articles/2026/09/28/openai-to-retire-custom-gpts-replace-them-with-plugins.aspx).
 
-Plugins are OpenAI's replacement. If you built a GPT, go to **My GPTs** and select **Migrate to plugin** once the option appears for your account. The GPT's instructions become a skill, its knowledge files are copied in as reference files and its connected apps come along. [OpenAI says](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq) your existing GPT conversations stay accessible after retirement, and you don't have to do anything to keep them.
+## If you built a GPT
 
-## What stays behind
+To move your GPT to a plugin, OpenAI's replacement, go to **My GPTs** and select **Migrate to plugin** once the option appears for your account.
 
-Migration uses the GPT's latest published version, so drafts and unpublished edits don't transfer. The selected model doesn't carry over. Custom actions, which connect a GPT to another service, don't transfer either, and [OpenAI says](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq) rebuilding one might take a custom server and technical setup.
+The instructions become a skill, the knowledge files are copied in as reference files and the connected apps come along. [Some things don't move](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq):
 
-[Plugins start private](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq). People who used your GPT don't get access automatically, and making a personal plugin public takes a separate submission process. After migration the original GPT turns read-only, so finish your edits first. OpenAI warns a plugin might respond differently and advises testing with familiar prompts.
+- **Drafts and unpublished edits.** Migration uses the latest published version.
+- **The selected model.**
+- **Custom actions,** which connect a GPT to another service. OpenAI says rebuilding one might take a custom server and technical setup.
 
-You have less control over someone else's GPT. Permission to use a GPT doesn't let you migrate the GPT, and [access to the original doesn't give you access to a replacement](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq). Look for a notice on the GPT and guidance from its creator. Installing a plugin also [depends on your plan, workspace, role and region](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt).
+Finish your edits first, because the original GPT turns read-only after the move. The plugin starts private, so people who used your GPT don't get access automatically. Making a personal plugin public takes a separate submission. OpenAI warns that a plugin might respond differently, and advises you to test it with familiar prompts.
 
-## What this means for you
+If you like ChatGPT and your GPT has no custom actions, we'd migrate. It's the least work: OpenAI does the copying and you test the result. If it has custom actions, we'd first find out who can rebuild them.
 
-Staying is a fair choice. If you like ChatGPT and your GPT has no custom actions, migrating is the least work: OpenAI does the copying, and you test the result.
+## If you use someone else's GPT
 
-Leaving is the other route. Our [ChatGPT to Mistral guide](/guides/artificial-intelligence/chatgpt-to-mistral) shows how to save a GPT's instructions and rebuild them as a Skill in [Mistral Vibe](/services/eu/mistral-le-chat), formerly Le Chat, from Paris-based Mistral AI. Save before retirement: about 5 to 10 minutes per GPT, by our estimate. Find your original knowledge files too, because OpenAI's help pages don't describe a download for them.
+You have less control here. Permission to use a GPT doesn't let you migrate it, and [access to the original doesn't give you access to a replacement](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq). Look for a notice on the GPT and for guidance from its creator. Whether you can install a plugin [depends on your plan, workspace, role and region](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt).
 
-A Skill isn't a one-to-one copy, and Mistral's documentation describes no import from ChatGPT, so you paste everything by hand. [A GPT combines](https://help.openai.com/en/articles/8554407-gpts-in-chatgpt) instructions, conversation starters, knowledge files, capabilities and apps or actions. [A Skill](https://docs.mistral.ai/vibe/work/skills) is a folder with instructions and optional files, with a file-count limit Mistral's page doesn't quantify. That page describes private and workspace sharing, not a public directory.
+## If you want to leave ChatGPT
 
-Mistral [trains on your Vibe chats by default](https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training), with an opt-out in your settings, so switch training off before you paste anything personal. ChatGPT's consumer plans [might also use GPT conversations for training unless you opt out](https://help.openai.com/en/articles/8554407-gpts-in-chatgpt). Mistral [says data is hosted in the EU by default](https://help.mistral.ai/en/articles/347629-where-do-you-store-my-data-or-my-organization-s-data), though [its subprocessor list](https://trust.mistral.ai/subprocessors) names US companies for web search and image generation.
+Save your GPT's instructions before the shutdown. That takes about 5 to 10 minutes per GPT, by our estimate. Find your original knowledge files too, because OpenAI's help pages don't describe a download for them.
 
-[Proton Lumo](/services/eu/proton-lumo) is another option. Proton, based in Geneva and so outside the EU, [says Lumo doesn't train on your chats](https://proton.me/support/lumo-privacy), apart from anonymised feedback you choose to send on one model.
+### Mistral Vibe
 
-[Custom Lumos](https://proton.me/blog/lumo-2) are assistants with instructions you set once, and Projects keep chats, files and instructions together. Free accounts get [a limited number of both](https://proton.me/lumo/pricing). Proton's announcement doesn't mention files for Custom Lumos, so check before you rebuild a GPT built around knowledge files.
+Our [ChatGPT to Mistral guide](/guides/artificial-intelligence/chatgpt-to-mistral) shows how to save a GPT's instructions and rebuild them as a Skill in [Mistral Vibe](/services/eu/mistral-le-chat), formerly Le Chat, from Paris-based Mistral AI. You paste everything by hand, because Mistral's documentation describes no import from ChatGPT.
+
+A Skill isn't a one-to-one copy. [A GPT combines](https://help.openai.com/en/articles/8554407-gpts-in-chatgpt) instructions, conversation starters, knowledge files, capabilities and apps or actions. [A Skill](https://docs.mistral.ai/vibe/work/skills) is a folder with instructions and optional files, and Mistral's page mentions a file limit but doesn't say how many. That page describes private and workspace sharing, not a public directory.
+
+Switch training off before you paste anything personal. Mistral [trains on your Vibe chats by default](https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training), and the opt-out is in your settings. ChatGPT's consumer plans [might also use GPT conversations for training unless you opt out](https://help.openai.com/en/articles/8554407-gpts-in-chatgpt).
+
+Mistral [says data is hosted in the EU by default](https://help.mistral.ai/en/articles/347629-where-do-you-store-my-data-or-my-organization-s-data), but [its subprocessor list](https://trust.mistral.ai/subprocessors) names US companies for web search and image generation.
+
+### Proton Lumo
+
+[Proton Lumo](/services/eu/proton-lumo) comes from Proton in Geneva, which is outside the EU. Proton [says Lumo doesn't train on your chats](https://proton.me/support/lumo-privacy), apart from anonymised feedback that you choose to send on one model.
+
+[Custom Lumos](https://proton.me/blog/lumo-2) are assistants with instructions that you set once, and Projects keep chats, files and instructions together. Free accounts get [a limited number of both](https://proton.me/lumo/pricing). Proton's announcement doesn't mention files for Custom Lumos, so check this before you rebuild a GPT that depends on knowledge files.
 
 Compare your options on our [Quit ChatGPT page](/pages/quit-chatgpt) and in the [AI category](/services/artificial-intelligence).
