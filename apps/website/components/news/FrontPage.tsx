@@ -34,6 +34,8 @@ export async function FrontPage({
   const [lead, ...rest] = articles;
   if (!lead) return null;
   const briefing = rest.slice(0, briefingCount);
+  // With no briefing column, the lead has the full width: text beside the photo.
+  const solo = briefing.length === 0;
   // Opening paragraph of the lead, as plain text, to give the lead some body.
   const excerpt = markdownToPlainText(lead.content.split(/\n\s*\n/)[0] ?? "");
   const t = await getTranslations({ locale, namespace: "news" });
@@ -55,20 +57,20 @@ export async function FrontPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-5">
           {/* Lead story */}
-          <article className={`relative overflow-hidden ${briefing.length > 0 ? "lg:col-span-8" : "lg:col-span-12"} bg-white border-y md:border border-black/10 text-brand-green md:rounded-3xl flex flex-col`}>
+          <article className={`relative overflow-hidden ${solo ? "lg:col-span-12 lg:grid lg:grid-cols-12" : "lg:col-span-8 flex flex-col"} bg-white border-y md:border border-black/10 text-brand-green md:rounded-3xl`}>
             {lead.image && (
-              <div className="relative aspect-[16/9] lg:aspect-[2/1] bg-[#f3efe8]">
+              <div className={`relative aspect-[16/9] bg-[#f3efe8] ${solo ? "lg:aspect-auto lg:col-span-5 lg:order-last" : "lg:aspect-[5/2]"}`}>
                 <Image
                   src={lead.image}
                   alt={lead.imageAlt ?? ""}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  sizes={solo ? "(max-width: 1024px) 100vw, 42vw" : "(max-width: 1024px) 100vw, 66vw"}
                   className="object-cover"
                 />
               </div>
             )}
-            <div className="flex flex-col flex-1 px-6 sm:px-10 md:px-12 py-8 sm:py-10">
+            <div className={`flex flex-col flex-1 px-6 sm:px-10 md:px-12 py-8 sm:py-10 ${solo ? (lead.image ? "lg:col-span-7" : "lg:col-span-12") : ""}`}>
               <ArticleMeta article={lead} locale={locale} t={t} />
               <Heading className="font-heading leading-[1.02] text-3xl sm:text-4xl md:text-5xl mt-5 mb-4 text-balance">
                 <Link
@@ -83,17 +85,12 @@ export async function FrontPage({
               </p>
               {excerpt && (
                 <p
-                  className={`hidden sm:block text-base leading-relaxed max-w-[62ch] mb-5 ${lead.image ? "line-clamp-2" : "line-clamp-4"}`}
+                  className={`hidden sm:block text-base leading-relaxed max-w-[62ch] mb-8 ${lead.image && !solo ? "line-clamp-2" : "line-clamp-4"}`}
                 >
                   {excerpt}
                 </p>
               )}
-              <Byline
-                name={lead.author}
-                label={t("byline", { name: lead.author })}
-                className="mb-3"
-              />
-              <div className="mt-auto pt-3">
+              <div className="mt-auto flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
                 <Link
                   href={`/news/${lead.slug}`}
                   tabIndex={-1}
@@ -102,6 +99,10 @@ export async function FrontPage({
                 >
                   {t("readMore")}
                 </Link>
+                <Byline
+                  name={lead.author}
+                  label={t("byline", { name: lead.author })}
+                />
               </div>
             </div>
           </article>

@@ -14,10 +14,10 @@ sources:
   - {title: 'Freedom of movement in digital Europe (full paper)', publisher: Modal Foundation, url: 'https://digitalfreedomofmovement.eu/paper.html', date: '2026-11-04'}
   - {title: 'Digital Fairness Act targeted for 11 November 2026', publisher: Digital Fairness Act newsletter, url: 'https://newsletter.digitalfairnessact.com/p/digital-fairness-act-targeted-for', date: '2026-09-29'}
 author: Simon Peters
-image: /images/articles/app-builders-ask-eu-for-portable-followers-phone.jpg
-imageAlt: 'A white smartphone on a wooden surface, with icons of social apps such as Facebook, Instagram, Twitter and LinkedIn on its screen'
-imageCredit: 'Image via www.vpnsrus.com (mikemacmarketing), CC BY 2.0'
-imageCreditUrl: 'https://www.vpnsrus.com'
+image: /images/articles/app-builders-ask-eu-for-portable-followers-fediverse.jpg
+imageAlt: 'A hand holds a phone with a folder of Fediverse apps on its screen: Friendica, Lemmy, Loops, Mastodon, PeerTube and Pixelfed'
+imageCredit: 'Photo: Elena Rossini, CC BY-SA 4.0, via Wikimedia Commons'
+imageCreditUrl: 'https://commons.wikimedia.org/wiki/File:Fediverse_smartphone_apps_(photo_by_Elena_Rossini).jpg'
 # SEO
 metaTitle: 'Take your followers with you: app builders ask the EU'
 keywords: [Digital Fairness Act, social media portability, take your followers with you, personal data server, leave Instagram, leave X, Mastodon, Bluesky]
