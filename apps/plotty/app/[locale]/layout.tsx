@@ -16,6 +16,7 @@ import { NavMenu } from "@switch-to-eu/blocks/components/nav-menu";
 import { MobileNav } from "@switch-to-eu/blocks/components/mobile-nav";
 import type { MainNavItem } from "@switch-to-eu/blocks/components/nav-types";
 import { HeaderFeedback } from "@switch-to-eu/blocks/components/header-feedback";
+import { mainSiteUrl } from "@switch-to-eu/blocks/data/main-site";
 import { generateLanguageAlternates } from "@switch-to-eu/i18n/utils";
 
 export async function generateMetadata({
@@ -67,7 +68,7 @@ export default async function LocaleLayout({
 
 
   const navItems: MainNavItem[] = [
-    { title: navT('about'), href: '/about' },
+    { title: navT('about'), href: mainSiteUrl(locale, '/about') },
   ];
 
   return (
@@ -121,7 +122,7 @@ export default async function LocaleLayout({
             links={[
               {
                 label: footerT('about'),
-                href: '/about',
+                href: mainSiteUrl(locale, '/about'),
               },
               {
                 label: footerT('privacy'),
