@@ -1,6 +1,8 @@
 import { AnalysisStep, Service } from "@/lib/types";
 import { getAllDnsRecords } from "@layered/dns-records";
 import { whoisDomain, whoisIp } from "whoiser";
+import { isHostOrSubdomain } from "@/lib/domain";
+import { fetchPublicUrl } from "@/server/lib/public-fetch";
 import {
   isEUCountry,
   getDomainEUStatus,
@@ -304,9 +306,7 @@ export async function detectThirdPartyServices(domain: string): Promise<{
   euFriendly: boolean | null;
 }> {
   try {
-    const url = domain.startsWith("http") ? domain : `https://${domain}`;
-
-    const response = await fetch(url, {
+    const response = await fetchPublicUrl(`https://${domain}`, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; ServiceDetector/1.0)",
       },
@@ -324,171 +324,171 @@ export async function detectThirdPartyServices(domain: string): Promise<{
 
     const servicePatterns: Service[] = [
       {
-        pattern: "google-analytics.com|gtag",
+        pattern: "google-analytics\\.com|gtag",
         name: "Google Analytics",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "googletagmanager.com|gtm.js|GTM-",
+        pattern: "googletagmanager\\.com|gtm\\.js|GTM-",
         name: "Google Tag Manager",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "facebook.net|fbevents.js|fbq\\(",
+        pattern: "facebook\\.net|fbevents\\.js|fbq\\(",
         name: "Facebook Pixel",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "ads.linkedin.com|linkedin.com/insight",
+        pattern: "ads\\.linkedin\\.com|linkedin\\.com/insight",
         name: "LinkedIn Insight",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "connect.facebook.net",
+        pattern: "connect\\.facebook\\.net",
         name: "Facebook SDK",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "static.hotjar.com|hotjar.com",
+        pattern: "static\\.hotjar\\.com|hotjar\\.com",
         name: "Hotjar",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "js.hs-scripts.com|hs-analytics|hubspot",
+        pattern: "js\\.hs-scripts\\.com|hs-analytics|hubspot",
         name: "HubSpot",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "script.crazyegg.com",
+        pattern: "script\\.crazyegg\\.com",
         name: "Crazy Egg",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "googleadservices.com|google_conversion",
+        pattern: "googleadservices\\.com|google_conversion",
         name: "Google Ads",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "snap.licdn.com",
+        pattern: "snap\\.licdn\\.com",
         name: "LinkedIn Ads",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "sc-static.net|snapchat|snap pixel",
+        pattern: "sc-static\\.net|snapchat|snap pixel",
         name: "Snapchat Pixel",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "analytics.tiktok.com|tiktok pixel",
+        pattern: "analytics\\.tiktok\\.com|tiktok pixel",
         name: "TikTok Pixel",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cdn.amplitude.com",
+        pattern: "cdn\\.amplitude\\.com",
         name: "Amplitude",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "js.intercomcdn.com",
+        pattern: "js\\.intercomcdn\\.com",
         name: "Intercom",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cdn.heapanalytics.com",
+        pattern: "cdn\\.heapanalytics\\.com",
         name: "Heap Analytics",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "static.klaviyo.com",
+        pattern: "static\\.klaviyo\\.com",
         name: "Klaviyo",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cdn.mouseflow.com",
+        pattern: "cdn\\.mouseflow\\.com",
         name: "Mouseflow",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cdn.adroll.com",
+        pattern: "cdn\\.adroll\\.com",
         name: "AdRoll",
         isEU: false,
         euFriendly: false,
       },
       // EU-based services
       {
-        pattern: "plausible.io",
+        pattern: "plausible\\.io",
         name: "Plausible Analytics",
         isEU: true,
         euFriendly: false,
       },
       {
-        pattern: "simpleanalytics.io|simpleanalytics.com",
+        pattern: "simpleanalytics\\.io|simpleanalytics\\.com",
         name: "Simple Analytics",
         isEU: true,
         euFriendly: false,
       },
       {
-        pattern: "matomo.cloud|matomo.js|matomo.php",
+        pattern: "matomo\\.cloud|matomo\\.js|matomo\\.php",
         name: "Matomo",
         isEU: false,
         euFriendly: true,
       },
       {
-        pattern: "pirsch.io",
+        pattern: "pirsch\\.io",
         name: "Pirsch Analytics",
         isEU: true,
         euFriendly: false,
       },
       {
-        pattern: "counter.dev",
+        pattern: "counter\\.dev",
         name: "Counter",
         isEU: true,
         euFriendly: false,
       },
       {
-        pattern: "getrewardful.com",
+        pattern: "getrewardful\\.com",
         name: "Rewardful",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cdn.statically.io",
+        pattern: "cdn\\.statically\\.io",
         name: "Statically",
         isEU: false,
         euFriendly: false,
       },
       {
-        pattern: "cookiebot.com",
+        pattern: "cookiebot\\.com",
         name: "Cookiebot",
         isEU: true,
         euFriendly: false,
       },
       {
-        pattern: "usercentrics.eu",
+        pattern: "usercentrics\\.eu",
         name: "Usercentrics",
         isEU: true,
         euFriendly: false,
       },
     ];
 
-    const scriptTags = html.match(/<script[^>]*>[\s\S]*?<\/script>/gi) || [];
+    const scriptTags = html.match(/<script\b[^>]*>[\s\S]*?<\/script[^>]*>/gi) || [];
     const scriptContent = scriptTags.join(" ");
 
     const linkTags = html.match(/<link[^>]*>/gi) || [];
@@ -578,28 +578,28 @@ export async function detectCdn(domain: string) {
     for (const record of cnameRecords) {
       const cname = record.data.toLowerCase();
 
-      if (cname.includes("cloudfront.net")) {
+      if (isHostOrSubdomain(cname, "cloudfront.net")) {
         return {
           provider: "Amazon CloudFront",
           isEU: false,
           euFriendly: false,
         };
       } else if (
-        cname.includes("cloudflare.com") ||
-        cname.includes("cdn.cloudflare.net")
+        isHostOrSubdomain(cname, "cloudflare.com") ||
+        isHostOrSubdomain(cname, "cdn.cloudflare.net")
       ) {
         return { provider: "Cloudflare", isEU: false, euFriendly: false };
-      } else if (cname.includes("akamai") || cname.includes("akamaiedge.net")) {
+      } else if (cname.includes("akamai") || isHostOrSubdomain(cname, "akamaiedge.net")) {
         return { provider: "Akamai", isEU: false, euFriendly: false };
-      } else if (cname.includes("fastly.net")) {
+      } else if (isHostOrSubdomain(cname, "fastly.net")) {
         return { provider: "Fastly", isEU: false, euFriendly: false };
       } else if (cname.includes("edgecast") || cname.includes("edgesuite")) {
         return { provider: "Edgecast/Verizon", isEU: false, euFriendly: false };
-      } else if (cname.includes("bunnycdn.com")) {
+      } else if (isHostOrSubdomain(cname, "bunnycdn.com")) {
         return { provider: "BunnyCDN", isEU: true, euFriendly: false };
-      } else if (cname.includes("keycdn.com")) {
+      } else if (isHostOrSubdomain(cname, "keycdn.com")) {
         return { provider: "KeyCDN", isEU: true, euFriendly: false };
-      } else if (cname.includes("workers.dev")) {
+      } else if (isHostOrSubdomain(cname, "workers.dev")) {
         return {
           provider: "Cloudflare Workers",
           isEU: false,
@@ -609,8 +609,7 @@ export async function detectCdn(domain: string) {
     }
 
     try {
-      const url = domain.startsWith("http") ? domain : `https://${domain}`;
-      const response = await fetch(url, {
+      const response = await fetchPublicUrl(`https://${domain}`, {
         method: "GET",
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; CDNDetector/1.0)",

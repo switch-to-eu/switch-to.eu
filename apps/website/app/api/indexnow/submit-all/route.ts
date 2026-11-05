@@ -1,3 +1,4 @@
+import { createHash, timingSafeEqual } from "node:crypto";
 import { NextRequest } from "next/server";
 import { collectAllSiteUrls } from "@/lib/site-urls";
 import { submitToIndexNow } from "@/lib/indexnow";
@@ -9,10 +10,15 @@ const BATCH_SIZE = 1000;
  * token: `Authorization: Bearer $INDEXNOW_SUBMIT_SECRET`. Without the env var
  * set, every request is rejected.
  */
+function sameValue(a: string, b: string) {
+  const digest = (value: string) => createHash("sha256").update(value).digest();
+  return timingSafeEqual(digest(a), digest(b));
+}
+
 function requireSecret(request: NextRequest) {
   const secret = process.env.INDEXNOW_SUBMIT_SECRET;
   const header = request.headers.get("authorization");
-  if (!secret || header !== `Bearer ${secret}`) {
+  if (!secret || !header || !sameValue(header, `Bearer ${secret}`)) {
     return new Response("Unauthorized", { status: 401 });
   }
   return null;

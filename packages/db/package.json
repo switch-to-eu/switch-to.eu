@@ -28,6 +28,7 @@
         "superjson": "catalog:",
         "testcontainers": "catalog:",
         "typescript": "catalog:",
+        "vite": "catalog:",
         "vitest": "catalog:"
     },
     "exports": {
