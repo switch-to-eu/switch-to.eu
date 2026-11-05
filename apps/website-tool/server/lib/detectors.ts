@@ -64,7 +64,7 @@ export async function detectEmailProvider(domain: string): Promise<{
       return { provider: "Zoho Mail", isEU: false, euFriendly: false };
     } else if (mxDomains.some((mx) => mx.includes("infomaniak"))) {
       return { provider: "Infomaniak", isEU: false, euFriendly: true };
-    } else if (mxDomains.some((mx) => mx.includes("mailbox.org"))) {
+    } else if (mxDomains.some((mx) => isHostOrSubdomain(mx, "mailbox.org"))) {
       return { provider: "Mailbox.org", isEU: true, euFriendly: false };
     } else if (
       mxDomains.some((mx) => mx.includes("proton") || mx.includes("protonmail"))
